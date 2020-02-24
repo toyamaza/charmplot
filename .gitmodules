@@ -1,0 +1,3 @@
+[submodule "atlasrootstyle"]
+	path = atlasrootstyle
+	url = ssh://git@gitlab.cern.ch:7999/lbnl/CharmPhysics/atlasrootstyle.git

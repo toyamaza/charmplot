@@ -1,0 +1,80 @@
+met_met:
+  label: MET
+  unit: GeV
+  rebin: 2
+  x_range: [0, 200]
+
+met_mt:
+  label: m_{T}
+  unit: GeV
+  rebin: 2
+  x_range: [0, 200]
+
+lep_pt:
+  label: p_{T}
+  unit: GeV
+  rebin: 2
+  x_range: [0, 200]
+
+lep_eta:
+  label: '|#eta|'
+
+lep_phi:
+  label: '|#phi|'
+
+lep_EOverP:
+  label: 'E/|p|'
+  rebin: 2
+  x_range: [0, 7]
+
+met_dphi:
+  label: '#Delta#phi(MET, l)'
+
+njets:
+  label: N_{jet}
+
+lep_d0:
+  label: d_{0}
+  unit: '#mum'
+  rebin: 2
+
+lep_d0_fixed:
+  label: fixed d_{0}
+  unit: '#mum'
+  rebin: 2
+
+lep_d0sig:
+  label: 'd_{0}/#sigma_{d_{0}}'
+
+lep_d0sig_fixed:
+  label: 'fixed d_{0}/#sigma_{d_{0}}'
+
+lep_z0sinTheta:
+  label: 'z_{0}sin(#theta)'
+
+lep_topoetcone20_over_pt:
+  label: topoetcone20 / p_{T}
+
+lep_ptvarcone20_TightTTVA_pt1000_over_pt:
+  label: ptvarcone20 / p_{T}
+
+lep_ptvarcone30_TightTTVA_pt1000_over_pt:
+  label: ptvarcone30 / p_{T}
+
+lep_topoetcone20:
+  label: topoetcone20
+  unit: GeV
+
+lep_ptvarcone20_TightTTVA_pt1000:
+  label: ptvarcone20
+  unit: GeV
+
+lep_ptvarcone30_TightTTVA_pt1000:
+  label: ptvarcone30
+  unit: GeV
+
+run_number:
+  label: 'run number'
+
+pileup:
+  label: '<#mu>'

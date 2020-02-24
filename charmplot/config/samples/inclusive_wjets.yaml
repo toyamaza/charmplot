@@ -1,0 +1,61 @@
+Data:
+  add: data
+  subtract:
+
+Sherpa_Wjets:
+  add:
+    - Sh_Wjets_light
+    - Sh_Wjets_tau
+  subtract:
+  fillColor: ROOT.kRed
+  legendLabel: W+jets
+
+Sherpa_Wjets_light:
+  add: Sh_Wjets_light
+  subtract:
+  fillColor: "10000"
+  legendLabel: W#rightarrowl#nu
+
+Sherpa_Wjets_tau:
+  add: Sh_Wjets_tau
+  subtract:
+  fillColor: "10001"
+  legendLabel: W#rightarrow#tau#nu
+
+Sherpa_Zjets:
+  add:
+    - Sh_Zjets_light
+    - Sh_Zjets_tau
+  subtract:
+  fillColor: ROOT.kBlue-10
+  legendLabel: Z+jets
+
+Sherpa_Zjets_light:
+  add: Sh_Zjets_light
+  subtract:
+  fillColor: "10002"
+  legendLabel: Z#rightarrowll
+
+Sherpa_Zjets_tau:
+  add: Sh_Zjets_tau
+  subtract:
+  fillColor: "10003"
+  legendLabel: Z#rightarrow#tau#tau
+
+Top:
+  add: Top
+  subtract:
+  fillColor: "10004"
+
+Diboson:
+  add: Diboson
+  subtract:
+  fillColor: "10005"
+
+Multijet:
+  add: Data
+  subtract:
+    - Sh_Wjets
+    - Sh_Zjets
+    - Top
+    - Diboson
