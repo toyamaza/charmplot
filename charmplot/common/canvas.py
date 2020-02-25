@@ -1,11 +1,14 @@
 from charmplot.common import utils
 from charmplot.control import channel
 from charmplot.control import variable
+from charmplot.control import sample
+from typing import Dict
 import logging
 import math
 import ROOT
 import sys
 
+MC_Map = Dict[sample.Sample, ROOT.TH1]
 
 # logging
 logger = logging.getLogger(__name__)
@@ -126,7 +129,7 @@ class Canvas2(CanvasBase):
 
         # ATLAS label
         self.atlas_label("internal")
-        self.text("#sqrt{s} = 13 TeV, %.1f fb^{-1}" % (utils.get_lumi(c.lumi)/1000.))
+        self.text("#sqrt{s} = 13 TeV, %.1f fb^{-1}" % (utils.get_lumi(c.lumi) / 1000.))
         self.text(f"{c.label}")
 
         # lower pad
@@ -164,10 +167,20 @@ class Canvas2(CanvasBase):
             else:
                 self.print(f"{output}/{channel}.pdf")
 
-    def set_maximum(self, histograms: list, variable: variable.Variable, mc_min: ROOT.TH1=None):
-        if not self.legend:
-            logger.critical("Make legend before setting histogram max. Need to calculate depending on the size of the legend.")
-            sys.exit(1)
+    def configure_histograms(self, mc_map: MC_Map, data: ROOT.TH1, v: variable.Variable):
+        if data:
+            data.SetMarkerSize(0.8)
+            utils.rebin_histogram(data, v)
+        for s, h in mc_map.items():
+            logger.debug(f"configuring {s} {h}")
+            utils.rebin_histogram(h, v)
+            if s.fillColor:
+                h.SetFillColor(s.fillColor)
+            else:
+                h.SetFillStyle(0)
+            h.SetLineWidth(0)
+
+    def set_maximum(self, histograms: list, variable: variable.Variable, mc_min: ROOT.TH1 = None):
 
         if not histograms:
             logger.critical("No input histograms given.")
@@ -200,11 +213,16 @@ class Canvas2(CanvasBase):
                 if y > 0 and y < self.min_val:
                     self.min_val = y
 
+        # max y on right side
+        max_right_y = None
+        if self.legend:
+            max_right_y = self.leg_y1
+
         # Determine whether maximum is on the left or the right side of the plot
-        if max_right <= 0 or (max_left > 0 and max_left / max_right > 2.0):
+        if not max_right_y or max_right <= 0 or (max_left > 0 and max_left / max_right > 2.0):
             self.maximum_scale_factor = 1.4
         else:
-            self.maximum_scale_factor = 1 / self.leg_y1 + 0.1
+            self.maximum_scale_factor = 1 / max_right_y + 0.1
         self.proxy_up.SetMaximum(self.maximum_scale_factor * self.max_val)
         self.proxy_up.SetMinimum(1e-4)
 
@@ -215,11 +233,12 @@ class Canvas2(CanvasBase):
 
         self.pad1.cd()
         self.pad1.SetLogy()
-        self.proxy_up.SetMinimum(0.5 * self.min_val)
+        if hasattr(self, "min_val"):
+            self.proxy_up.SetMinimum(0.5 * self.min_val)
         self.proxy_up.SetMaximum(math.pow(10, math.log10(self.max_val) * self.maximum_scale_factor +
                                           (1 - self.maximum_scale_factor) * math.log10(self.proxy_up.GetMinimum())))
 
-    def make_legend(self, data, mc_tot, mc_map, samples):
+    def make_legend(self, data, mc_tot, mc_map, samples, print_yields=False):
         # temp entry for sys unc
         temp_err = ROOT.TGraphErrors()
         temp_err.SetLineColor(ROOT.kBlack)
@@ -242,14 +261,23 @@ class Canvas2(CanvasBase):
         leg.SetTextSize(28)
         leg.SetTextFont(43)
         if data:
-            leg.AddEntry(data, "Data #scale[0.50]{#splitline{%.2e}{/ MC = %1.3f}}" % (data.GetSum(), data.GetSum() / mc_tot.GetSum()), "pe")
+            if print_yields:
+                leg.AddEntry(data, "Data #scale[0.50]{#splitline{%.2e}{/ MC = %1.3f}}" % (data.GetSum(), data.GetSum() / mc_tot.GetSum()), "pe")
+            else:
+                leg.AddEntry(data, "Data", "pe")
         if mc_tot:
-            leg.AddEntry(temp_err, "SM tot. #scale[0.50]{%.2e}" % mc_tot.GetSum(), "lf")
+            if print_yields:
+                leg.AddEntry(temp_err, "SM tot. #scale[0.50]{%.2e}" % mc_tot.GetSum(), "lf")
+            else:
+                leg.AddEntry(temp_err, "SM tot.", "lf")
         for s in samples:
             name = s.name
             if hasattr(s, "legendLabel"):
                 name = s.legendLabel
-            leg.AddEntry(mc_map[s], "%s #scale[0.50]{%.2e}" % (name, mc_map[s].GetSum()), "f")
+            if print_yields:
+                leg.AddEntry(mc_map[s], "%s #scale[0.50]{%.2e}" % (name, mc_map[s].GetSum()), "f")
+            else:
+                leg.AddEntry(mc_map[s], "%s" % name, "f")
         self.pad1.cd()
         self.legend = leg
         self.legend.Draw()
@@ -272,10 +300,10 @@ class Canvas2(CanvasBase):
         line.SetTextSize(32)
         line.DrawLatex(0.18, self.text_pos_y - self.text_n_lines * self.text_height, text)
 
-    def set_ratio_range(self, h, dn, up, ndivisions=506):
-        h.SetMinimum(dn)
-        h.SetMaximum(up)
-        h.GetYaxis().SetNdivisions(ndivisions)
+    def set_ratio_range(self, dn, up, ndivisions=506):
+        self.proxy_dn.SetMinimum(dn)
+        self.proxy_dn.SetMaximum(up)
+        self.proxy_dn.GetYaxis().SetNdivisions(ndivisions)
 
     def construct(self, h):
         # proxy histogram to control the upper axis
@@ -291,5 +319,40 @@ class Canvas2(CanvasBase):
             self.proxy_dn = self.make_proxy_histogram(h, "dn")
             self.set_axis_title(self.proxy_dn, "Data / MC" if self.y_split else "")
             self.set_axis_text_size(self.proxy_dn, self.y_split + self.offset)
-            self.set_ratio_range(self.proxy_dn, 0.75, 1.24)
+            self.set_ratio_range(0.75, 1.24)
             self.set_x_range(self.proxy_dn)
+
+
+class CanvasMCRatio(Canvas2):
+
+    def __init__(self, c: channel.Channel, v: variable.Variable, r: float, y_split: float = 0.35):
+        super(CanvasMCRatio, self).__init__(c, v, r)
+
+    def make_legend(self, mc_map, samples):
+        n_entries = len(samples)
+        self.leg_y2 = 1 - 1.8 * self.text_height_small / (1 - self.y_split)
+        self.leg_y1 = self.leg_y2 - n_entries * self.text_height_small / (1 - self.y_split)
+        leg = ROOT.TLegend(0.65, self.leg_y1, 0.9, self.leg_y2)
+        leg.SetBorderSize(0)
+        leg.SetFillColor(0)
+        leg.SetFillStyle(0)
+        leg.SetTextSize(28)
+        leg.SetTextFont(43)
+        for s in samples:
+            name = s.name
+            if hasattr(s, "legendLabel"):
+                name = s.legendLabel
+            leg.AddEntry(mc_map[s], "%s" % name, "l")
+        self.pad1.cd()
+        self.legend = leg
+        self.legend.Draw()
+
+    def configure_histograms(self, mc_map: MC_Map, v: variable.Variable):
+        for s, h in mc_map.items():
+            logger.debug(f"configuring {s} {h}")
+            utils.rebin_histogram(h, v)
+            h.SetFillStyle(0)
+            if s.lineColor:
+                h.SetLineColor(s.lineColor)
+                h.SetLineWidth(2)
+            h.Scale(1. / h.GetSum())

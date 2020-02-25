@@ -49,6 +49,16 @@ class GlobalConfig(object):
             self.variables[v] = variable.Variable(v)
         return self.variables[v]
 
+    def get_sample(self, name):
+        for s in self.samples:
+            if s.name == name:
+                return s
+
+    def get_channel(self, name):
+        for c in self.channels:
+            if c.name == name:
+                return c
+
     def parse_confing(self, conf):
         for arg in self.required_arguments:
             if arg not in conf:

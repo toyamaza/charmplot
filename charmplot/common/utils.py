@@ -24,6 +24,7 @@ def get_lumi(lumi_string):
         lumi += 58450.1
     return lumi
 
+
 def get_variables(options, conf, reader, channel):
     variables_conf = conf.get_variable_names()
     variables = []
@@ -94,24 +95,6 @@ def rebin_histogram(h: ROOT.TH1, v: variable.Variable):
     set_under_over_flow(h, v.x_range)
 
 
-def configure_histograms(mc_map: MC_Map, data: ROOT.TH1, v: variable.Variable):
-    if data:
-        data.SetMarkerSize(0.8)
-        rebin_histogram(data, v)
-    for s, h in mc_map.items():
-        logger.debug(f"configuring {s} {h}")
-        rebin_histogram(h, v)
-        if s.lineColor:
-            h.SetLineColor(s.lineColor)
-            h.SetLineWidth(1)
-        else:
-            h.SetLineWidth(0)
-        if s.fillColor:
-            h.SetFillColor(s.fillColor)
-        else:
-            h.SetFillStyle(0)
-
-
 def make_stat_err(h: ROOT.TH1) -> List[Union[ROOT.TGraphErrors, ROOT.TGraphErrors]]:
     gr = ROOT.TGraphErrors()
     gr_err_only = ROOT.TGraphErrors()
@@ -167,5 +150,12 @@ def make_mc_tot(hs: ROOT.THStack, name: str) -> ROOT.TH1:
 
 def make_canvas(h: ROOT.TH1, v: variable.Variable, c: channel.Channel, r: float = 800 / 800., y_split: float = 0.30) -> List[Union[ROOT.TCanvas, ROOT.TH1]]:
     canv = canvas.Canvas2(c, v, r, y_split)
+    canv.construct(h)
+    return canv
+
+
+def make_canvas_mc_ratio(h: ROOT.TH1, v: variable.Variable, c: channel.Channel,
+                         r: float = 800 / 800., y_split: float = 0.30) -> List[Union[ROOT.TCanvas, ROOT.TH1]]:
+    canv = canvas.CanvasMCRatio(c, v, r, y_split)
     canv.construct(h)
     return canv

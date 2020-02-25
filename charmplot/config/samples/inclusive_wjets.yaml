@@ -14,12 +14,14 @@ Sherpa_Wjets_light:
   add: Sh_Wjets_light
   subtract:
   fillColor: "10000"
+  lineColor: "10001"
   legendLabel: W#rightarrowl#nu
 
 Sherpa_Wjets_tau:
   add: Sh_Wjets_tau
   subtract:
   fillColor: "10001"
+  lineColor: "10000"
   legendLabel: W#rightarrow#tau#nu
 
 Sherpa_Zjets:
@@ -34,12 +36,14 @@ Sherpa_Zjets_light:
   add: Sh_Zjets_light
   subtract:
   fillColor: "10002"
+  lineColor: "10003"
   legendLabel: Z#rightarrowll
 
 Sherpa_Zjets_tau:
   add: Sh_Zjets_tau
   subtract:
   fillColor: "10003"
+  lineColor: "10002"
   legendLabel: Z#rightarrow#tau#tau
 
 Top:

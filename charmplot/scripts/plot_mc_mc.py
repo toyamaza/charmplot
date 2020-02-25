@@ -43,45 +43,43 @@ def main(options, conf, reader):
             # check if last plot
             last_plot = v == variables[-1]
 
-            # data histogram
-            h_data = reader.get_histogram(conf.get_data(), c, v)
+            # mc samples
+            samples = [conf.get_sample(s) for s in options.samples.split(",")]
+            if not samples or len(samples) % 2 != 0:
+                logging.critical(f"incorect input for samples: {samples}")
+                sys.exit(1)
 
             # mc map
-            mc_map = {s: reader.get_histogram(s, c, v) for s in conf.get_mc()}
+            mc_map = {s: reader.get_histogram(s, c, v) for s in samples}
 
             # canvas
-            canv = utils.make_canvas(h_data, conf.get_var(v), c)
+            canv = utils.make_canvas_mc_ratio(mc_map[samples[0]], conf.get_var(v), c)
 
             # configure histograms
-            canv.configure_histograms(mc_map, h_data, conf.get_var(v))
-
-            # stack and total mc
-            hs = utils.make_stack(conf, mc_map)
-            h_mc_tot = utils.make_mc_tot(hs, f"{c}_{v}_mc_tot")
-
-            # ratio
-            h_ratio = utils.make_ratio(h_data, h_mc_tot)
-
-            # mc error
-            gr_mc_stat_err, gr_mc_stat_err_only = utils.make_stat_err(h_mc_tot)
+            canv.configure_histograms(mc_map, conf.get_var(v))
 
             # top pad
             canv.pad1.cd()
-            hs.Draw("same hist")
-            h_mc_tot.Draw("same hist")
-            gr_mc_stat_err.Draw("e2")
-            h_data.Draw("same pe")
+            for s in samples:
+                mc_map[s].Draw("hist same")
 
             # make legend
-            canv.make_legend(h_data, h_mc_tot, mc_map, conf.get_mc(), print_yields=True)
+            canv.make_legend(mc_map, samples)
 
             # set maximum after creating legend
-            canv.set_maximum((h_data, h_mc_tot), conf.get_var(v), mc_min=mc_map[conf.get_bottom_mc()])
+            canv.set_maximum([mc_map[s] for s in samples], conf.get_var(v))
 
             # bottom pad
             canv.pad2.cd()
-            gr_mc_stat_err_only.Draw("le2")
-            h_ratio.Draw("same pe")
+            canv.set_ratio_range(0, 1.99)
+
+            # ratio histograms
+            ratios = []
+            for i in range(0, len(samples), 2):
+                h = mc_map[samples[i]].Clone(f"{mc_map[samples[i]].GetName()}_ratio")
+                h.Divide(mc_map[samples[i + 1]])
+                ratios += [h]
+                h.Draw("hist same")
 
             # Print out
             canv.print_all(options.output, c.name, v, multipage_pdf=True, first_plot=first_plot, last_plot=last_plot)
@@ -104,9 +102,15 @@ if __name__ == "__main__":
     parser.add_option('-o', '--output-file',
                       action="store", dest="output",
                       help="save histograms to an output file")
+    parser.add_option('-s', '--samples',
+                      action="store", dest="samples",
+                      help="comma separated list of samples to compare")
 
     # parse input arguments
     options, args = parser.parse_args()
+
+    # mandatory
+    assert options.samples
 
     # output file
     if not options.output:

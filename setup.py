@@ -7,5 +7,6 @@ setup(name='charmplot',
       packages=find_packages(),
       scripts=[
           'charmplot/scripts/plot_data_mc.py',
+          'charmplot/scripts/plot_mc_mc.py',
       ],
       )
