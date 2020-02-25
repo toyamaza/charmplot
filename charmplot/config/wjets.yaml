@@ -15,27 +15,13 @@ samples:
   - Diboson
 
 channels:
-  2017_el:
-    regions:
-      - 2017_el_plus_SR
-      - 2017_el_minus_SR
-    label: '2017 el SR'
-    lumi: '2017'
   2018_el:
     regions:
-      - 2018_el_plus_SR
-      - 2018_el_minus_SR
+      - 2018_el
     label: '2018 el SR'
     lumi: '2018'
-  2017_mu:
-    regions:
-      - 2017_mu_plus_SR
-      - 2017_mu_minus_SR
-    label: '2017 mu SR'
-    lumi: '2017'
   2018_mu:
     regions:
-      - 2018_mu_plus_SR
-      - 2018_mu_minus_SR
+      - 2018_mu
     label: '2018 mu SR'
     lumi: '2018'

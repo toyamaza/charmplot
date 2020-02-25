@@ -14,7 +14,6 @@ logger = logging.getLogger(__name__)
 class GlobalConfig(object):
 
     required_arguments = [
-        'data',
         'samples',
         'channels',
     ]
@@ -36,7 +35,10 @@ class GlobalConfig(object):
         return self.data
 
     def get_data_and_mc(self):
-        return [self.data] + self.samples
+        if self.data:
+            return [self.data] + self.samples
+        else:
+            return self.samples
 
     def get_variables(self):
         return self.variables
@@ -71,8 +73,9 @@ class GlobalConfig(object):
         print(style)
 
         # read data
-        samp = self.samples_config[conf['data']]
-        self.data = sample.Sample(conf['data'], **samp)
+        if hasattr(conf, 'data'):
+            samp = self.samples_config[conf['data']]
+            self.data = sample.Sample(conf['data'], **samp)
 
         # read variables
         variables = {}
@@ -89,6 +92,7 @@ class GlobalConfig(object):
             s = sample.Sample(name, **samp)
             s.set_color_scheme(style)
             samples += [s]
+            logger.debug(f"adding sample {s}")
         self.samples = samples
 
         # read channels
@@ -107,12 +111,15 @@ class GlobalConfig(object):
                         minus += [c[1:]]
                     else:
                         plus += [c]
-                channels += [channel.Channel(name, label, lumi, plus, minus)]
+                chan = channel.Channel(name, label, lumi, plus, minus)
             elif type(regions) == str:
-                channels += [channel.Channel(name, label, lumi, regions)]
+                chan = channel.Channel(name, label, lumi, regions)
             else:
                 logger.critical("unrecognized channel type for " % name)
                 raise Exception("Invalid config")
+            if 'samples' in val:
+                chan.set_samples(val['samples'])
+            channels += [chan]
         self.channels = channels
 
     def __init__(self, config_name):

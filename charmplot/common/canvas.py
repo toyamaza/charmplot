@@ -127,10 +127,8 @@ class Canvas2(CanvasBase):
         pad1.Draw()
         self.pad1 = pad1
 
-        # ATLAS label
-        self.atlas_label("internal")
-        self.text("#sqrt{s} = 13 TeV, %.1f fb^{-1}" % (utils.get_lumi(c.lumi) / 1000.))
-        self.text(f"{c.label}")
+        # set ATLAS label
+        self.set_atlas_label()
 
         # lower pad
         if self.y_split:
@@ -143,6 +141,12 @@ class Canvas2(CanvasBase):
             pad2.SetRightMargin(self.canv.GetRightMargin())
             pad2.Draw()
             self.pad2 = pad2
+
+    def set_atlas_label(self):
+        # ATLAS label
+        self.atlas_label("internal")
+        self.text("#sqrt{s} = 13 TeV, %.1f fb^{-1}" % (utils.get_lumi(self.channel.lumi) / 1000.))
+        self.text(f"{self.channel.label}")
 
     def print_all(self, output, channel, var, multipage_pdf=False, first_plot=False, last_plot=False, as_png=False):
         self.pad1.cd()
@@ -356,3 +360,9 @@ class CanvasMCRatio(Canvas2):
                 h.SetLineColor(s.lineColor)
                 h.SetLineWidth(2)
             h.Scale(1. / h.GetSum())
+
+    def set_atlas_label(self):
+        # ATLAS label
+        self.atlas_label("internal")
+        self.text("#sqrt{s} = 13 TeV")
+        self.text(f"{self.channel.label}")

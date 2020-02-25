@@ -1,0 +1,39 @@
+Powheg_Wjets_e:
+  add:
+    - Ph_Wjets_e_plus
+    - Ph_Wjets_e_minus
+  subtract:
+  lineColor: "10001"
+  legendLabel: "W #rightarrow e#nu"
+
+Powheg_Wjets_mu:
+  add:
+    - Ph_Wjets_mu_plus
+    - Ph_Wjets_mu_minus
+  subtract:
+  lineColor: "10003"
+  legendLabel: "W #rightarrow #mu#nu"
+
+Powheg_Wjets_e_plus:
+  add: Ph_Wjets_e_plus
+  subtract:
+  lineColor: "10001"
+  legendLabel: "W+ #rightarrow e+#nu"
+
+Powheg_Wjets_e_minus:
+  add: Ph_Wjets_e_minus
+  subtract:
+  lineColor: "10000"
+  legendLabel: "W- #rightarrow e-#nu"
+
+Powheg_Wjets_mu_plus:
+  add: Ph_Wjets_mu_plus
+  subtract:
+  lineColor: "10003"
+  legendLabel: "W+ #rightarrow #mu+#nu"
+
+Powheg_Wjets_mu_minus:
+  add: Ph_Wjets_mu_minus
+  subtract:
+  lineColor: "10002"
+  legendLabel: "W- #rightarrow #mu-#nu"

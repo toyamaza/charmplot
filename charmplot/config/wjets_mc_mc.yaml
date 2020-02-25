@@ -1,0 +1,40 @@
+colorScheme: berkeley_wjets
+
+variablesConf: inclusive_wjets
+
+samplesConf: wjets_mc_mc
+
+samples:
+  - Powheg_Wjets_e
+  - Powheg_Wjets_mu
+  - Powheg_Wjets_e_plus
+  - Powheg_Wjets_e_minus
+  - Powheg_Wjets_mu_plus
+  - Powheg_Wjets_mu_minus
+
+channels:
+  2018_el:
+    regions:
+      - 2018_el
+    label: '2018 el SR'
+    lumi: '2018'
+    samples:
+      - Powheg_Wjets_e_plus
+      - Powheg_Wjets_e_minus
+  2018_mu:
+    regions:
+      - 2018_mu
+    label: '2018 mu SR'
+    lumi: '2018'
+    samples:
+      - Powheg_Wjets_mu_plus
+      - Powheg_Wjets_mu_minus
+  2018_wjets:
+    regions:
+      - 2018_el
+      - 2018_mu
+    label: '2018 W+jets SR'
+    lumi: '2018'
+    samples:
+      - Powheg_Wjets_e
+      - Powheg_Wjets_mu

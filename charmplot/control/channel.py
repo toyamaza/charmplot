@@ -7,8 +7,9 @@ class Channel(object):
     lumi = ""
     add = []
     subtract = []
+    samples = []
 
-    def __init__(self, name, label, lumi, add, subtract=[]):
+    def __init__(self, name, label, lumi, add, subtract=[], samples=[]):
         self.name = name
         self.label = label
         self.lumi = lumi
@@ -22,6 +23,14 @@ class Channel(object):
             self.subtract = subtract
         elif type(subtract) == str:
             self.subtract = [subtract]
+        # samples
+        if type(samples) == list:
+            self.samples = samples
+        elif type(samples) == str:
+            self.samples = [samples]
+
+    def set_samples(self, samples):
+        self.samples = samples
 
     def get_all(self):
         return self.add + self.subtract

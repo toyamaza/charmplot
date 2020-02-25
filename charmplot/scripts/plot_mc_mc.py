@@ -32,8 +32,15 @@ def main(options, conf, reader):
         # keep track of first/last plot of each channel
         first_plot = True
 
+        # samples
+        if not c.samples:
+            logging.critical(f"no samples given for channel {c}")
+            sys.exit(1)
+        samples = [conf.get_sample(s) for s in c.samples]
+        logging.info(f"making plots for channel {c} with samples {samples}")
+
         # list of variables
-        variables = utils.get_variables(options, conf, reader, c)
+        variables = utils.get_variables(options, conf, reader, c, samples[0])
 
         # make channel folder if not exist
         if not os.path.isdir(os.path.join(options.output, c.name)):
@@ -42,12 +49,6 @@ def main(options, conf, reader):
 
             # check if last plot
             last_plot = v == variables[-1]
-
-            # mc samples
-            samples = [conf.get_sample(s) for s in options.samples.split(",")]
-            if not samples or len(samples) % 2 != 0:
-                logging.critical(f"incorect input for samples: {samples}")
-                sys.exit(1)
 
             # mc map
             mc_map = {s: reader.get_histogram(s, c, v) for s in samples}
@@ -71,7 +72,7 @@ def main(options, conf, reader):
 
             # bottom pad
             canv.pad2.cd()
-            canv.set_ratio_range(0, 1.99)
+            canv.set_ratio_range(0.5, 1.49)
 
             # ratio histograms
             ratios = []
@@ -102,15 +103,9 @@ if __name__ == "__main__":
     parser.add_option('-o', '--output-file',
                       action="store", dest="output",
                       help="save histograms to an output file")
-    parser.add_option('-s', '--samples',
-                      action="store", dest="samples",
-                      help="comma separated list of samples to compare")
 
     # parse input arguments
     options, args = parser.parse_args()
-
-    # mandatory
-    assert options.samples
 
     # output file
     if not options.output:

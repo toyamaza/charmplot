@@ -25,13 +25,17 @@ def get_lumi(lumi_string):
     return lumi
 
 
-def get_variables(options, conf, reader, channel):
+def get_variables(options, conf, reader, channel, sample=None):
     variables_conf = conf.get_variable_names()
     variables = []
     picked_variables = []
     if options.vars:
         picked_variables = options.vars.split(",")
-    for v in reader.find_variables(conf.data, channel):
+    if sample:
+        test_sample = sample
+    else:
+        test_sample = conf.data
+    for v in reader.find_variables(test_sample, channel):
         if picked_variables and v not in picked_variables:
             continue
         variables += [v]
