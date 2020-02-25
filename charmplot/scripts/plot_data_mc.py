@@ -50,7 +50,7 @@ def main(options, conf, reader):
             mc_map = {s: reader.get_histogram(s, c, v) for s in conf.get_mc()}
 
             # canvas
-            canv = utils.make_canvas(h_data, conf.get_var(v), c)
+            canv = utils.make_canvas(h_data, conf.get_var(v), c, x=800, y=800)
 
             # configure histograms
             canv.configure_histograms(mc_map, h_data, conf.get_var(v))

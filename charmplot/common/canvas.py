@@ -19,12 +19,12 @@ BASE_HEIGHT = 600.
 
 class CanvasBase(object):
 
-    def __init__(self, c: channel.Channel, v: variable.Variable, r: float):
+    def __init__(self, c: channel.Channel, v: variable.Variable, x: float, y: float):
         self.name = c.name
         self.channel = c
         self.variable = v
-        self.x = BASE_WIDTH
-        self.y = BASE_WIDTH / r
+        self.x = x
+        self.y = y
         self.canv = ROOT.TCanvas(self.name, "", int(self.x), int(self.y))
         self.set_canvas_margins()
         logger.debug(f"created canvas with size {self.x} {self.y}")
@@ -101,8 +101,8 @@ class Canvas2(CanvasBase):
     offset = 0
     text_n_lines = 0
 
-    def __init__(self, c: channel.Channel, v: variable.Variable, r: float, y_split: float = 0.35):
-        super(Canvas2, self).__init__(c, v, r)
+    def __init__(self, c: channel.Channel, v: variable.Variable, x: float, y: float, y_split: float = 0.35):
+        super(Canvas2, self).__init__(c, v, x, y)
 
         # upper/lower canvas split
         self.y_split = y_split
@@ -325,8 +325,8 @@ class Canvas2(CanvasBase):
 
 class CanvasMCRatio(Canvas2):
 
-    def __init__(self, c: channel.Channel, v: variable.Variable, r: float, y_split: float = 0.35):
-        super(CanvasMCRatio, self).__init__(c, v, r)
+    def __init__(self, c: channel.Channel, v: variable.Variable, x: float, y: float, y_split: float = 0.35):
+        super(CanvasMCRatio, self).__init__(c, v, x, y)
 
     def make_legend(self, mc_map, samples):
         n_entries = len(samples)

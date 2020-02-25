@@ -53,7 +53,7 @@ def main(options, conf, reader):
             mc_map = {s: reader.get_histogram(s, c, v) for s in samples}
 
             # canvas
-            canv = utils.make_canvas_mc_ratio(mc_map[samples[0]], conf.get_var(v), c)
+            canv = utils.make_canvas_mc_ratio(mc_map[samples[0]], conf.get_var(v), c, x=800, y=800)
 
             # configure histograms
             canv.configure_histograms(mc_map, conf.get_var(v))

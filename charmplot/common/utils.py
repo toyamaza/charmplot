@@ -148,14 +148,15 @@ def make_mc_tot(hs: ROOT.THStack, name: str) -> ROOT.TH1:
     return h
 
 
-def make_canvas(h: ROOT.TH1, v: variable.Variable, c: channel.Channel, r: float = 800 / 800., y_split: float = 0.30) -> List[Union[ROOT.TCanvas, ROOT.TH1]]:
-    canv = canvas.Canvas2(c, v, r, y_split)
+def make_canvas(h: ROOT.TH1, v: variable.Variable, c: channel.Channel,
+                x: float = 800., y: float = 600., y_split: float = 0.30) -> List[Union[ROOT.TCanvas, ROOT.TH1]]:
+    canv = canvas.Canvas2(c, v, x, y, y_split)
     canv.construct(h)
     return canv
 
 
 def make_canvas_mc_ratio(h: ROOT.TH1, v: variable.Variable, c: channel.Channel,
-                         r: float = 800 / 800., y_split: float = 0.30) -> List[Union[ROOT.TCanvas, ROOT.TH1]]:
-    canv = canvas.CanvasMCRatio(c, v, r, y_split)
+                         x: float = 800., y: float = 600., y_split: float = 0.30) -> List[Union[ROOT.TCanvas, ROOT.TH1]]:
+    canv = canvas.CanvasMCRatio(c, v, x, y, y_split)
     canv.construct(h)
     return canv
