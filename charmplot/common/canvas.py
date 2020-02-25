@@ -164,28 +164,43 @@ class Canvas2(CanvasBase):
             else:
                 self.print(f"{output}/{channel}.pdf")
 
-    def set_maximum(self, data, mc, variable):
+    def set_maximum(self, histograms: list, variable: variable.Variable, mc_min: ROOT.TH1=None):
         if not self.legend:
             logger.critical("Make legend before setting histogram max. Need to calculate depending on the size of the legend.")
             sys.exit(1)
 
+        if not histograms:
+            logger.critical("No input histograms given.")
+            sys.exit(1)
+
         # x range
-        x_min = data.GetBinCenter(1)
-        x_max = data.GetBinCenter(data.GetNbinsX())
+        x_min = histograms[0].GetBinCenter(1)
+        x_max = histograms[0].GetBinCenter(histograms[0].GetNbinsX())
         if variable.x_range:
             x_min = variable.x_range[0]
             x_max = variable.x_range[1]
 
         # Get maximum on both sides of the plot
-        max_left = max(utils.get_maximum(data, x_min, x_min + 0.6 * (x_max - x_min)), utils.get_maximum(mc, x_min, x_min + 0.6 * (x_max - x_min)))
-        max_right = max(utils.get_maximum(data, x_min + 0.6 * (x_max - x_min), x_max), utils.get_maximum(mc, x_min + 0.6 * (x_max - x_min), x_max))
+        max_left_ = 0
+        max_right_ = 0
+        for h in histograms:
+            max_left = utils.get_maximum(h, x_min, x_min + 0.6 * (x_max - x_min))
+            max_right = utils.get_maximum(h, x_min + 0.6 * (x_max - x_min), x_max)
+            if max_left > max_left_:
+                max_left_ = max_left
+            if max_right > max_right_:
+                max_right_ = max_right
 
-        self.max_val = max(max_left, max_right)
-        self.min_val = self.max_val
-        for i in range(1, mc.GetNbinsX() + 1):
-            y = mc.GetBinContent(i)
-            if y > 0 and y < self.min_val:
-                self.min_val = y
+        # Specific minimum value based on some mc histogram
+        self.max_val = max(max_left_, max_right_)
+        if mc_min:
+            self.min_val = self.max_val
+            for i in range(1, mc_min.GetNbinsX() + 1):
+                y = mc_min.GetBinContent(i)
+                if y > 0 and y < self.min_val:
+                    self.min_val = y
+
+        # Determine whether maximum is on the left or the right side of the plot
         if max_right <= 0 or (max_left > 0 and max_left / max_right > 2.0):
             self.maximum_scale_factor = 1.4
         else:
@@ -213,7 +228,11 @@ class Canvas2(CanvasBase):
         self.temp_err = temp_err
 
         # legend
-        n_entries = 2 + len(samples)
+        n_entries = len(samples)
+        if data:
+            n_entries += 1
+        if mc_tot:
+            n_entries += 1
         self.leg_y2 = 1 - 1.8 * self.text_height_small / (1 - self.y_split)
         self.leg_y1 = self.leg_y2 - n_entries * self.text_height_small / (1 - self.y_split)
         leg = ROOT.TLegend(0.65, self.leg_y1, 0.9, self.leg_y2)
@@ -222,8 +241,10 @@ class Canvas2(CanvasBase):
         leg.SetFillStyle(0)
         leg.SetTextSize(28)
         leg.SetTextFont(43)
-        leg.AddEntry(data, "Data #scale[0.50]{#splitline{%.2e}{/ MC = %1.3f}}" % (data.GetSum(), data.GetSum() / mc_tot.GetSum()), "pe")
-        leg.AddEntry(temp_err, "SM tot. #scale[0.50]{%.2e}" % mc_tot.GetSum(), "lf")
+        if data:
+            leg.AddEntry(data, "Data #scale[0.50]{#splitline{%.2e}{/ MC = %1.3f}}" % (data.GetSum(), data.GetSum() / mc_tot.GetSum()), "pe")
+        if mc_tot:
+            leg.AddEntry(temp_err, "SM tot. #scale[0.50]{%.2e}" % mc_tot.GetSum(), "lf")
         for s in samples:
             name = s.name
             if hasattr(s, "legendLabel"):

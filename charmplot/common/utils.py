@@ -95,8 +95,9 @@ def rebin_histogram(h: ROOT.TH1, v: variable.Variable):
 
 
 def configure_histograms(mc_map: MC_Map, data: ROOT.TH1, v: variable.Variable):
-    data.SetMarkerSize(0.8)
-    rebin_histogram(data, v)
+    if data:
+        data.SetMarkerSize(0.8)
+        rebin_histogram(data, v)
     for s, h in mc_map.items():
         logger.debug(f"configuring {s} {h}")
         rebin_histogram(h, v)

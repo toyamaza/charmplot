@@ -76,7 +76,7 @@ def main(options, conf, reader):
             canv.make_legend(h_data, h_mc_tot, mc_map, conf.get_mc())
 
             # set maximum after creating legend
-            canv.set_maximum(h_data, mc_map[conf.get_bottom_mc()], conf.get_var(v))
+            canv.set_maximum((h_data, h_mc_tot), conf.get_var(v), mc_min=mc_map[conf.get_bottom_mc()])
 
             # bottom pad
             canv.pad2.cd()
@@ -84,7 +84,7 @@ def main(options, conf, reader):
             h_ratio.Draw("same pe")
 
             # Print out
-            canv.print_all(options.output, c.name, v, multipage_pdf=True, first_plot=first_plot, last_plot=last_plot, as_png=True)
+            canv.print_all(options.output, c.name, v, multipage_pdf=True, first_plot=first_plot, last_plot=last_plot)
             first_plot = False
 
 
