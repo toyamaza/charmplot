@@ -23,17 +23,17 @@ Powheg_Wjets_e_plus:
 Powheg_Wjets_e_minus:
   add: Ph_Wjets_e_minus
   subtract:
-  lineColor: "10000"
+  lineColor: "10003"
   legendLabel: "W- #rightarrow e-#nu"
 
 Powheg_Wjets_mu_plus:
   add: Ph_Wjets_mu_plus
   subtract:
-  lineColor: "10003"
+  lineColor: "10001"
   legendLabel: "W+ #rightarrow #mu+#nu"
 
 Powheg_Wjets_mu_minus:
   add: Ph_Wjets_mu_minus
   subtract:
-  lineColor: "10002"
+  lineColor: "10003"
   legendLabel: "W- #rightarrow #mu-#nu"
