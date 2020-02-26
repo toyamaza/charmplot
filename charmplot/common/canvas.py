@@ -47,7 +47,7 @@ class CanvasBase(object):
         self.canv.SetLeftMargin(120 / self.canv.GetWindowWidth())
         self.canv.SetRightMargin(30 / self.canv.GetWindowWidth())
 
-    def set_axis_title(self, proxy, title=""):
+    def set_axis_title(self, proxy, title="", events="Events"):
         self.bin_width = proxy.GetBinWidth(1)
         proxy.GetXaxis().SetTitle(f"{self.variable.label} [{self.variable.unit}]")
         precision = 1
@@ -59,12 +59,12 @@ class CanvasBase(object):
         if self.variable.label:
             proxy.GetXaxis().SetTitle(f"{self.variable.label}")
             if self.variable.unit:
-                proxy.GetYaxis().SetTitle(f"Events / ({self.bin_width:.{precision}f} {self.variable.unit})")
+                proxy.GetYaxis().SetTitle(f"{events} / ({self.bin_width:.{precision}f} {self.variable.unit})")
             else:
-                proxy.GetYaxis().SetTitle(f"Events / {self.bin_width:.{precision}f}")
+                proxy.GetYaxis().SetTitle(f"{events} / {self.bin_width:.{precision}f}")
         else:
             proxy.GetXaxis().SetTitle(f"{self.variable.name}")
-            proxy.GetYaxis().SetTitle(f"Events / {self.bin_width:.{precision}f}")
+            proxy.GetYaxis().SetTitle(f"{events} / {self.bin_width:.{precision}f}")
 
         if title:
             proxy.GetYaxis().SetTitle(title)
@@ -366,3 +366,20 @@ class CanvasMCRatio(Canvas2):
         self.atlas_label("internal")
         self.text("#sqrt{s} = 13 TeV")
         self.text(f"{self.channel.label}")
+
+    def construct(self, h):
+        # proxy histogram to control the upper axis
+        self.pad1.cd()
+        self.proxy_up = self.make_proxy_histogram(h, "up")
+        self.set_axis_title(self.proxy_up, events="Normalized Entries")
+        self.set_axis_text_size(self.proxy_up, no_x_axis=(self.y_split > 0))
+        self.set_x_range(self.proxy_up)
+
+        # proxy histogram to control the lower axis
+        if self.pad2:
+            self.pad2.cd()
+            self.proxy_dn = self.make_proxy_histogram(h, "dn")
+            self.set_axis_title(self.proxy_dn, "Data / MC" if self.y_split else "")
+            self.set_axis_text_size(self.proxy_dn, self.y_split + self.offset)
+            self.set_ratio_range(0.50, 1.49)
+            self.set_x_range(self.proxy_dn)

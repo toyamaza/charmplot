@@ -72,7 +72,6 @@ def main(options, conf, reader):
 
             # bottom pad
             canv.pad2.cd()
-            canv.set_ratio_range(0.5, 1.49)
 
             # ratio histograms
             ratios = []
