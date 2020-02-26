@@ -70,10 +70,9 @@ class GlobalConfig(object):
         # color scheme
         color_scheme = getattr(colorScheme, conf['colorScheme'])
         style = color_scheme()
-        print(style)
 
         # read data
-        if hasattr(conf, 'data'):
+        if 'data' in conf:
             samp = self.samples_config[conf['data']]
             self.data = sample.Sample(conf['data'], **samp)
 
