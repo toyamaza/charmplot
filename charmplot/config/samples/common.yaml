@@ -4,10 +4,9 @@ Data:
 
 Sherpa_Wjets:
   add:
-    - Sh_Wjets_light
-    - Sh_Wjets_tau
+    - Sh_Wjets
   subtract:
-  fillColor: ROOT.kRed
+  fillColor: "10000"
   legendLabel: W+jets
 
 Sherpa_Wjets_light:

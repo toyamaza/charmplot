@@ -1,0 +1,235 @@
+Z_m:
+  label: m(ll)
+  unit: GeV
+
+Z_pt:
+  label: p_{T}(ll)
+  unit: GeV
+  rebin: 2
+  x_range: [0, 200]
+
+Z_eta:
+  label: '#eta(ll)'
+
+Z_phi:
+  label: '#phi(ll)'
+  ratio_range: [0.9, 1.09]
+
+met_met:
+  label: MET
+  unit: GeV
+  rebin: 2
+  x_range: [0, 200]
+
+met_mt:
+  label: m_{T}
+  unit: GeV
+  rebin: 2
+  x_range: [0, 200]
+
+lep1_pt:
+  label: p_{T}^{1}
+  unit: GeV
+  rebin: 2
+  x_range: [0, 200]
+
+lep1_eta:
+  label: '#eta^{1}'
+
+lep1_phi:
+  label: '#phi^{1}'
+
+lep1_EOverP:
+  label: 'E/|p|^{1}'
+  rebin: 2
+  x_range: [0, 7]
+
+lep2_pt:
+  label: p_{T}^{2}
+  unit: GeV
+  rebin: 2
+  x_range: [0, 200]
+
+lep2_eta:
+  label: '#eta^{2}'
+
+lep2_phi:
+  label: '#phi^{2}'
+
+lep2_EOverP:
+  label: 'E/|p|^{2}'
+  rebin: 2
+  x_range: [0, 7]
+
+lep_dphi:
+  label: '#Delta#phi(l^{1}, l^{2})'
+
+lep_dR:
+  label: '#DeltaR(l^{1}, l^{2})'
+
+met_dphi:
+  label: '#Delta#phi(MET, l)'
+
+njets:
+  label: N_{jet}
+
+lep1_d0:
+  label: d_{0}^{1}
+  unit: '#mum'
+  rebin: 2
+  ratio_range: [0.0, 1.99]
+
+lep1_d0_fixed:
+  label: fixed d_{0}^{1}
+  unit: '#mum'
+  rebin: 2
+  ratio_range: [0.0, 1.99]
+
+lep1_d0sig:
+  label: 'd_{0}/#sigma_{d_{0}}^{1}'
+  ratio_range: [0.0, 1.99]
+
+lep1_d0sig_fixed:
+  label: 'fixed d_{0}/#sigma_{d_{0}}^{1}'
+  ratio_range: [0.0, 1.99]
+
+lep1_z0sinTheta:
+  label: 'z_{0}sin(#theta)^{1}'
+  ratio_range: [0.0, 1.99]
+  unit: mm
+
+lep1_topoetcone20_over_pt:
+  label: topoetcone20 / p_{T}^{1}
+
+lep1_ptvarcone20_TightTTVA_pt1000_over_pt:
+  label: ptvarcone20 / p_{T}^{1}
+  ratio_range: [0.0, 1.99]
+
+lep1_ptvarcone30_TightTTVA_pt1000_over_pt:
+  label: ptvarcone30 / p_{T}^{1}
+  ratio_range: [0.0, 1.99]
+
+lep1_topoetcone20:
+  label: topoetcone20^{1}
+  unit: GeV
+
+lep1_ptvarcone20_TightTTVA_pt1000:
+  label: ptvarcone20^{1}
+  unit: GeV
+  ratio_range: [0.0, 1.99]
+
+lep1_ptvarcone30_TightTTVA_pt1000:
+  label: ptvarcone30^{1}
+  unit: GeV
+  ratio_range: [0.0, 1.99]
+
+lep2_d0:
+  label: d_{0}^{2}
+  unit: '#mum'
+  rebin: 2
+  ratio_range: [0.0, 1.99]
+
+lep2_d0_fixed:
+  label: fixed d_{0}^{2}
+  unit: '#mum'
+  rebin: 2
+  ratio_range: [0.0, 1.99]
+
+lep2_d0sig:
+  label: 'd_{0}/#sigma_{d_{0}}^{2}'
+  ratio_range: [0.0, 1.99]
+
+lep2_d0sig_fixed:
+  label: 'fixed d_{0}/#sigma_{d_{0}}^{2}'
+  ratio_range: [0.0, 1.99]
+
+lep2_z0sinTheta:
+  label: 'z_{0}sin(#theta)^{2}'
+  ratio_range: [0.0, 1.99]
+  unit: mm
+
+lep2_topoetcone20_over_pt:
+  label: topoetcone20 / p_{T}^{2}
+
+lep2_ptvarcone20_TightTTVA_pt1000_over_pt:
+  label: ptvarcone20 / p_{T}^{2}
+  ratio_range: [0.0, 1.99]
+
+lep2_ptvarcone30_TightTTVA_pt1000_over_pt:
+  label: ptvarcone30 / p_{T}^{2}
+  ratio_range: [0.0, 1.99]
+
+lep2_topoetcone20:
+  label: topoetcone20^{2}
+  unit: GeV
+
+lep2_ptvarcone20_TightTTVA_pt1000:
+  label: ptvarcone20^{2}
+  unit: GeV
+  ratio_range: [0.0, 1.99]
+
+lep2_ptvarcone30_TightTTVA_pt1000:
+  label: ptvarcone30^{2}
+  unit: GeV
+  ratio_range: [0.0, 1.99]
+
+electron_d0:
+  label: d_{0}^{-}
+  unit: '#mum'
+  rebin: 2
+  ratio_range: [0.0, 1.99]
+
+electron_d0_fixed:
+  label: fixed d_{0}^{1-}
+  unit: '#mum'
+  rebin: 2
+  ratio_range: [0.0, 1.99]
+
+electron_d0sig:
+  label: 'd_{0}/#sigma_{d_{0}}^{-}'
+  ratio_range: [0.0, 1.99]
+
+electron_d0sig_fixed:
+  label: 'fixed d_{0}/#sigma_{d_{0}}^{-}'
+  ratio_range: [0.0, 1.99]
+
+positron_d0:
+  label: d_{0}^{+}
+  unit: '#mum'
+  rebin: 2
+  ratio_range: [0.0, 1.99]
+
+positron_d0_fixed:
+  label: fixed d_{0}^{+}
+  unit: '#mum'
+  rebin: 2
+  ratio_range: [0.0, 1.99]
+
+positron_d0sig:
+  label: 'd_{0}/#sigma_{d_{0}}^{+}'
+  ratio_range: [0.0, 1.99]
+
+positron_d0sig_fixed:
+  label: 'fixed d_{0}/#sigma_{d_{0}}^{+}'
+  ratio_range: [0.0, 1.99]
+
+run_number:
+  label: 'run number'
+
+pileup:
+  label: '<#mu>'
+
+CharmEventInfo_PV_Z:
+  label: 'PV_{z}'
+  unit: mm
+  ratio_range: [0.0, 1.99]
+
+beamPosX_minus_PVX:
+  label: 'BS_{x} - PV_{x}'
+  unit: '#mum'
+  ratio_range: [0.0, 1.99]
+
+beamPosY_minus_PVY:
+  label: 'BS_{y} - PV_{y}'
+  unit: '#mum'
+  ratio_range: [0.0, 1.99]

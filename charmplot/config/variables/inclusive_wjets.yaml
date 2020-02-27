@@ -17,10 +17,10 @@ lep_pt:
   x_range: [0, 200]
 
 lep_eta:
-  label: '|#eta|'
+  label: '#eta'
 
 lep_phi:
-  label: '|#phi|'
+  label: '#phi'
 
 lep_EOverP:
   label: 'E/|p|'
@@ -37,44 +37,71 @@ lep_d0:
   label: d_{0}
   unit: '#mum'
   rebin: 2
+  ratio_range: [0.0, 1.99]
 
 lep_d0_fixed:
   label: fixed d_{0}
   unit: '#mum'
   rebin: 2
+  ratio_range: [0.0, 1.99]
 
 lep_d0sig:
   label: 'd_{0}/#sigma_{d_{0}}'
+  ratio_range: [0.0, 1.99]
 
 lep_d0sig_fixed:
   label: 'fixed d_{0}/#sigma_{d_{0}}'
+  ratio_range: [0.0, 1.99]
 
 lep_z0sinTheta:
   label: 'z_{0}sin(#theta)'
+  unit: 'mm'
+  ratio_range: [0.0, 1.99]
 
 lep_topoetcone20_over_pt:
   label: topoetcone20 / p_{T}
+  ratio_range: [0.0, 1.99]
 
 lep_ptvarcone20_TightTTVA_pt1000_over_pt:
   label: ptvarcone20 / p_{T}
+  ratio_range: [0.0, 1.99]
 
 lep_ptvarcone30_TightTTVA_pt1000_over_pt:
   label: ptvarcone30 / p_{T}
+  ratio_range: [0.0, 1.99]
 
 lep_topoetcone20:
   label: topoetcone20
   unit: GeV
+  ratio_range: [0.0, 1.99]
 
 lep_ptvarcone20_TightTTVA_pt1000:
   label: ptvarcone20
   unit: GeV
+  ratio_range: [0.0, 1.99]
 
 lep_ptvarcone30_TightTTVA_pt1000:
   label: ptvarcone30
   unit: GeV
+  ratio_range: [0.0, 1.99]
 
 run_number:
   label: 'run number'
 
 pileup:
   label: '<#mu>'
+
+CharmEventInfo_PV_Z:
+  label: 'PV_{z}'
+  unit: mm
+  ratio_range: [0.0, 1.99]
+
+beamPosX_minus_PVX:
+  label: 'BS_{x} - PV_{x}'
+  unit: '#mum'
+  ratio_range: [0.0, 1.99]
+
+beamPosY_minus_PVY:
+  label: 'BS_{y} - PV_{y}'
+  unit: '#mum'
+  ratio_range: [0.0, 1.99]

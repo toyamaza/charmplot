@@ -27,6 +27,11 @@ class CanvasBase(object):
         self.y = y
         self.canv = ROOT.TCanvas(self.name, "", int(self.x), int(self.y))
         self.set_canvas_margins()
+
+        # ATLAS label and text
+        self.text_height = 32. / self.y
+        self.text_height_small = 28. / self.y
+        self.text_pos_y = 1 - 2.5 * self.text_height
         logger.debug(f"created canvas with size {self.x} {self.y}")
 
     def set_x_range(self, h):
@@ -49,7 +54,6 @@ class CanvasBase(object):
 
     def set_axis_title(self, proxy, title="", events="Events"):
         self.bin_width = proxy.GetBinWidth(1)
-        proxy.GetXaxis().SetTitle(f"{self.variable.label} [{self.variable.unit}]")
         precision = 1
         bin_width = self.bin_width
         while (bin_width % 1 and precision < 4):
@@ -57,10 +61,11 @@ class CanvasBase(object):
             bin_width *= 10
 
         if self.variable.label:
-            proxy.GetXaxis().SetTitle(f"{self.variable.label}")
             if self.variable.unit:
+                proxy.GetXaxis().SetTitle(f"{self.variable.label} [{self.variable.unit}]")
                 proxy.GetYaxis().SetTitle(f"{events} / ({self.bin_width:.{precision}f} {self.variable.unit})")
             else:
+                proxy.GetXaxis().SetTitle(f"{self.variable.label}")
                 proxy.GetYaxis().SetTitle(f"{events} / {self.bin_width:.{precision}f}")
         else:
             proxy.GetXaxis().SetTitle(f"{self.variable.name}")
@@ -68,6 +73,13 @@ class CanvasBase(object):
 
         if title:
             proxy.GetYaxis().SetTitle(title)
+
+    def text(self, text):
+        line = ROOT.TLatex()
+        line.SetTextFont(43)
+        line.SetTextSize(32)
+        line.DrawLatex(0.18, self.text_pos_y, text)
+        self.text_pos_y -= self.text_height
 
     def set_axis_text_size(self, proxy, y=1.0, no_x_axis=False):
         # y-axis
@@ -99,7 +111,6 @@ class Canvas2(CanvasBase):
     pad2 = None
     legend = None
     offset = 0
-    text_n_lines = 0
 
     def __init__(self, c: channel.Channel, v: variable.Variable, x: float, y: float, y_split: float = 0.35):
         super(Canvas2, self).__init__(c, v, x, y)
@@ -108,11 +119,6 @@ class Canvas2(CanvasBase):
         self.y_split = y_split
         if self.y_split:
             self.offset = 0.05
-
-        # ATLAS label and text
-        self.text_height = 32. / self.y
-        self.text_height_small = 28. / self.y
-        self.text_pos_y = 1 - 2.5 * self.text_height
 
         # upper pad
         pad1 = ROOT.TPad(self.name + "_upper_pad", "", 0., self.y_split, 1., 1.)
@@ -146,7 +152,8 @@ class Canvas2(CanvasBase):
         # ATLAS label
         self.atlas_label("internal")
         self.text("#sqrt{s} = 13 TeV, %.1f fb^{-1}" % (utils.get_lumi(self.channel.lumi) / 1000.))
-        self.text(f"{self.channel.label}")
+        for label in self.channel.label:
+            self.text(f"{label}")
 
     def print_all(self, output, channel, var, multipage_pdf=False, first_plot=False, last_plot=False, as_png=False):
         self.pad1.cd()
@@ -224,7 +231,7 @@ class Canvas2(CanvasBase):
 
         # Determine whether maximum is on the left or the right side of the plot
         if not max_right_y or max_right <= 0 or (max_left > 0 and max_left / max_right > 2.0):
-            self.maximum_scale_factor = 1.4
+            self.maximum_scale_factor = 1 / ((self.text_pos_y - self.y_split) / (1 - self.y_split - self.pad1.GetTopMargin()))
         else:
             self.maximum_scale_factor = 1 / max_right_y + 0.1
         self.proxy_up.SetMaximum(self.maximum_scale_factor * self.max_val)
@@ -296,17 +303,15 @@ class Canvas2(CanvasBase):
             l2.SetTextFont(43)
             l2.SetTextSize(32)
             l2.DrawLatex(0.18 + 0.14, self.text_pos_y, text)
-
-    def text(self, text):
-        self.text_n_lines += 1
-        line = ROOT.TLatex()
-        line.SetTextFont(43)
-        line.SetTextSize(32)
-        line.DrawLatex(0.18, self.text_pos_y - self.text_n_lines * self.text_height, text)
+        self.text_pos_y -= self.text_height
 
     def set_ratio_range(self, dn, up, ndivisions=506):
-        self.proxy_dn.SetMinimum(dn)
-        self.proxy_dn.SetMaximum(up)
+        if self.variable.ratio_range:
+            self.proxy_dn.SetMinimum(self.variable.ratio_range[0])
+            self.proxy_dn.SetMaximum(self.variable.ratio_range[1])
+        else:
+            self.proxy_dn.SetMinimum(dn)
+            self.proxy_dn.SetMaximum(up)
         self.proxy_dn.GetYaxis().SetNdivisions(ndivisions)
 
     def construct(self, h):
@@ -365,7 +370,8 @@ class CanvasMCRatio(Canvas2):
         # ATLAS label
         self.atlas_label("internal")
         self.text("#sqrt{s} = 13 TeV")
-        self.text(f"{self.channel.label}")
+        for label in self.channel.label:
+            self.text(f"{label}")
 
     def construct(self, h):
         # proxy histogram to control the upper axis

@@ -1,18 +1,16 @@
 colorScheme: cheer_up_emo_kid
 
-variablesConf: inclusive_wjets
+variablesConf: inclusive_zjets
 
 samplesConf: common
 
 data: Data
 
 samples:
-  - Sherpa_Wjets_light
-  - Sherpa_Wjets_tau
   - Sherpa_Zjets_light
   - Sherpa_Zjets_tau
-  - Top
   - Diboson
+  - Top
 
 channels:
   2018_el:
@@ -24,4 +22,18 @@ channels:
     regions:
       - 2018_mu
     label: '2018 mu SR'
+    lumi: '2018'
+  2018_el_rw:
+    regions:
+      - 2018_el_rw
+    label:
+      - '2018 el SR'
+      - 'p_{T}(V) reweighted'
+    lumi: '2018'
+  2018_mu_rw:
+    regions:
+      - 2018_mu_rw
+    label:
+      - '2018 mu SR'
+      - 'p_{T}(V) reweighted'
     lumi: '2018'

@@ -9,6 +9,7 @@ class Variable(object):
     label = None
     unit = None
     x_range = None
+    ratio_range = None
     rebin = 1
 
     def __init__(self, name, **kwargs):

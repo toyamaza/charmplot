@@ -3,7 +3,7 @@
 class Channel(object):
 
     name = ""
-    label = ""
+    label = []
     lumi = ""
     add = []
     subtract = []
@@ -11,8 +11,12 @@ class Channel(object):
 
     def __init__(self, name, label, lumi, add, subtract=[], samples=[]):
         self.name = name
-        self.label = label
         self.lumi = lumi
+        # label
+        if type(label) == list:
+            self.label = label
+        elif type(label) == str:
+            self.label = [label]
         # addition
         if type(add) == list:
             self.add = add
