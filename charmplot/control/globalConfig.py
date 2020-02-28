@@ -64,8 +64,11 @@ class GlobalConfig(object):
                 return c
 
     def construct_sample(self, name):
-        samp = self.samples_config[name]
+        split_name = [x.strip() for x in name.split("|")]
+        samp = self.samples_config[split_name[0]]
         s = sample.Sample(name, **samp)
+        if len(split_name) == 2:
+            s.set_channel(split_name[1])
         s.set_color_scheme(self.style)
         logger.debug(f"adding sample {s.name}: {s}")
         return s

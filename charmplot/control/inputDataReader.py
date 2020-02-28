@@ -17,6 +17,9 @@ class InputDataReader(object):
 
     def get_histogram(self, sample, channel, variable):
         h_total = None
+        if sample.channel:
+            logging.info(f"Using channel {sample.channel} for sample {sample.name}")
+            channel = self.config.get_channel(sample.channel)
         for input_file in sample.get_all():
             if input_file in sample.add:
                 weight = 1.

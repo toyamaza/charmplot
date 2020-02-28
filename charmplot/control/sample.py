@@ -9,6 +9,7 @@ logger = logging.getLogger(__name__)
 class Sample(object):
 
     name = ""
+    channel = ""
     add = []
     subtract = []
     color_scheme = None
@@ -54,6 +55,9 @@ class Sample(object):
 
     def set_color_scheme(self, scheme):
         self.color_scheme = scheme
+
+    def set_channel(self, channel):
+        self.channel = channel
 
     def get_all(self):
         return self.add + self.subtract

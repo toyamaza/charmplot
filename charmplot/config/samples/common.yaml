@@ -78,6 +78,16 @@ Diboson:
   subtract:
   fillColor: "10005"
 
+EWK:
+  add:
+    - Sh_Wjets
+    - Sh_Zjets
+    - Top
+    - Diboson
+  subtract:
+  fillColor: "10000"
+  legendLabel: EWK
+
 Multijet:
   add: data
   subtract:
