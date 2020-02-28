@@ -135,9 +135,9 @@ def make_ratio(data: ROOT.TH1, mc_tot: ROOT.TH1) -> ROOT.TH1:
     return h_ratio
 
 
-def make_stack(conf: globalConfig.GlobalConfig, mc_map: MC_Map):
+def make_stack(samples: List, mc_map: MC_Map):
     hs = ROOT.THStack()
-    for s in reversed(conf.get_mc()):
+    for s in reversed(samples):
         h = mc_map[s]
         logger.debug(f"adding {h}")
         hs.Add(h)
@@ -150,6 +150,16 @@ def make_mc_tot(hs: ROOT.THStack, name: str) -> ROOT.TH1:
     h.SetFillStyle(0)
     h.SetLineColor(ROOT.kWhite)
     return h
+
+
+def get_fraction_histogram(h1, h2):
+    h = h1.Clone(f"{h1.GetName()}_fraction")
+    h.Divide(h2)
+    h.SetFillStyle(0)
+    h.SetLineWidth(2)
+    h.SetLineColor(ROOT.kBlack)
+    gr_err, _ = make_stat_err(h)
+    return h, gr_err
 
 
 def make_canvas(h: ROOT.TH1, v: variable.Variable, c: channel.Channel,

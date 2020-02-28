@@ -31,6 +31,9 @@ class GlobalConfig(object):
     def get_mc(self):
         return self.samples
 
+    def get_sample_names(self):
+        return [s.name for s in self.samples]
+
     def get_data(self):
         return self.data
 
@@ -61,6 +64,13 @@ class GlobalConfig(object):
             if c.name == name:
                 return c
 
+    def construct_sample(self, name):
+        samp = self.samples_config[name]
+        s = sample.Sample(name, **samp)
+        s.set_color_scheme(self.style)
+        logger.debug(f"adding sample {s.name}: {s}")
+        return s
+
     def parse_confing(self, conf):
         for arg in self.required_arguments:
             if arg not in conf:
@@ -69,7 +79,7 @@ class GlobalConfig(object):
 
         # color scheme
         color_scheme = getattr(colorScheme, conf['colorScheme'])
-        style = color_scheme()
+        self.style = color_scheme()
 
         # read data
         if 'data' in conf:
@@ -87,11 +97,8 @@ class GlobalConfig(object):
         # read samples
         samples = []
         for name in conf['samples']:
-            samp = self.samples_config[name]
-            s = sample.Sample(name, **samp)
-            s.set_color_scheme(style)
+            s = self.construct_sample(name)
             samples += [s]
-            logger.debug(f"adding sample {s}")
         self.samples = samples
 
         # read channels
@@ -118,6 +125,12 @@ class GlobalConfig(object):
                 raise Exception("Invalid config")
             if 'samples' in val:
                 chan.set_samples(val['samples'])
+                for name in chan.samples:
+                    if not name in self.get_sample_names():
+                        s = self.construct_sample(name)
+                        self.samples += [s]
+            if 'qcd_template' in val:
+                chan.set_qcd_template(val['qcd_template'])
             channels += [chan]
         self.channels = channels
 

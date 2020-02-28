@@ -15,13 +15,47 @@ samples:
   - Diboson
 
 channels:
+
   2018_el:
     regions:
       - 2018_el_SR
     label: '2018 el SR'
     lumi: '2018'
+
   2018_mu:
     regions:
       - 2018_mu_SR
     label: '2018 mu SR'
     lumi: '2018'
+
+  2018_el_QCD_PT_Template:
+    regions:
+      - 2018_el_QCD
+    samples:
+      - Multijet
+      - Sherpa_Wjets_light
+      - Sherpa_Wjets_tau
+      - Sherpa_Zjets
+      - Top
+      - Diboson
+    label:
+      - '2018 el QCD PT Template'
+      - 'MET < 30 GeV, no m_{T} cut'
+    lumi: '2018'
+    qcd_template: Multijet
+
+  2018_mu_QCD_PT_Template:
+    regions:
+      - 2018_mu_QCD
+    samples:
+      - Multijet
+      - Sherpa_Wjets_light
+      - Sherpa_Wjets_tau
+      - Sherpa_Zjets
+      - Top
+      - Diboson
+    label:
+      - '2018 mu QCD PT Template'
+      - 'MET < 30 GeV, no m_{T} cut'
+    lumi: '2018'
+    qcd_template: Multijet

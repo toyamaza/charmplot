@@ -314,6 +314,14 @@ class Canvas2(CanvasBase):
             self.proxy_dn.SetMaximum(up)
         self.proxy_dn.GetYaxis().SetNdivisions(ndivisions)
 
+    def draw_qcd_frac(self, h, gr_err):
+        self.pad2.cd()
+        h.Draw("same hist")
+        gr_err.Draw("same e2")
+        self.proxy_dn.SetMinimum(0)
+        self.proxy_dn.SetMaximum(0.99)
+        self.proxy_dn.GetYaxis().SetTitle("QCD fraction")
+
     def construct(self, h):
         # proxy histogram to control the upper axis
         self.pad1.cd()

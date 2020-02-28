@@ -47,8 +47,14 @@ def main(options, conf, reader):
             # data histogram
             h_data = reader.get_histogram(conf.get_data(), c, v)
 
+            # samples (default or channel specific)
+            if c.samples:
+                samples = [conf.get_sample(s) for s in c.samples]
+            else:
+                samples = conf.get_mc()
+
             # mc map
-            mc_map = {s: reader.get_histogram(s, c, v) for s in conf.get_mc()}
+            mc_map = {s: reader.get_histogram(s, c, v) for s in samples}
 
             # canvas
             canv = utils.make_canvas(h_data, conf.get_var(v), c, x=800, y=800)
@@ -57,7 +63,7 @@ def main(options, conf, reader):
             canv.configure_histograms(mc_map, h_data, conf.get_var(v))
 
             # stack and total mc
-            hs = utils.make_stack(conf, mc_map)
+            hs = utils.make_stack(samples, mc_map)
             h_mc_tot = utils.make_mc_tot(hs, f"{c}_{v}_mc_tot")
 
             # ratio
@@ -74,15 +80,19 @@ def main(options, conf, reader):
             h_data.Draw("same pe")
 
             # make legend
-            canv.make_legend(h_data, h_mc_tot, mc_map, conf.get_mc(), print_yields=True)
+            canv.make_legend(h_data, h_mc_tot, mc_map, samples, print_yields=True)
 
             # set maximum after creating legend
             canv.set_maximum((h_data, h_mc_tot), conf.get_var(v), mc_min=mc_map[conf.get_bottom_mc()])
 
             # bottom pad
             canv.pad2.cd()
-            gr_mc_stat_err_only.Draw("le2")
-            h_ratio.Draw("same pe")
+            if not c.qcd_template:
+                gr_mc_stat_err_only.Draw("le2")
+                h_ratio.Draw("same pe")
+            else:
+                h_qcd_frac, h_qcd_frac_err = utils.get_fraction_histogram(mc_map[conf.get_sample(c.qcd_template)], h_data)
+                canv.draw_qcd_frac(h_qcd_frac, h_qcd_frac_err)
 
             # Print out
             canv.print_all(options.output, c.name, v, multipage_pdf=True, first_plot=first_plot, last_plot=last_plot, as_png=options.stage_out)

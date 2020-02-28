@@ -2,9 +2,10 @@
 
 class Channel(object):
 
+    qcd_template = None
     name = ""
-    label = []
     lumi = ""
+    label = []
     add = []
     subtract = []
     samples = []
@@ -32,6 +33,9 @@ class Channel(object):
             self.samples = samples
         elif type(samples) == str:
             self.samples = [samples]
+
+    def set_qcd_template(self, qcd_template):
+        self.qcd_template = qcd_template
 
     def set_samples(self, samples):
         self.samples = samples

@@ -50,7 +50,8 @@ Sherpa_Zjets:
     - Sh_Zjets_light
     - Sh_Zjets_tau
   subtract:
-  fillColor: ROOT.kBlue-10
+  fillColor: "10002"
+  lineColor: "10003"
   legendLabel: Z+jets
 
 Sherpa_Zjets_light:
@@ -78,9 +79,11 @@ Diboson:
   fillColor: "10005"
 
 Multijet:
-  add: Data
+  add: data
   subtract:
     - Sh_Wjets
     - Sh_Zjets
     - Top
     - Diboson
+  fillColor: "10006"
+  legendLabel: Multijet
