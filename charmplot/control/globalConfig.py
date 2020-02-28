@@ -14,7 +14,6 @@ logger = logging.getLogger(__name__)
 class GlobalConfig(object):
 
     required_arguments = [
-        'samples',
         'channels',
     ]
 
@@ -96,10 +95,11 @@ class GlobalConfig(object):
 
         # read samples
         samples = []
-        for name in conf['samples']:
-            s = self.construct_sample(name)
-            samples += [s]
-        self.samples = samples
+        if 'samples' in conf:
+            for name in conf['samples']:
+                s = self.construct_sample(name)
+                samples += [s]
+            self.samples = samples
 
         # read channels
         channels = []
