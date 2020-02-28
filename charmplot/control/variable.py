@@ -10,6 +10,7 @@ class Variable(object):
     unit = None
     x_range = None
     ratio_range = None
+    stage_out = True
     rebin = 1
 
     def __init__(self, name, **kwargs):

@@ -41,10 +41,10 @@ class GlobalConfig(object):
             return self.samples
 
     def get_variables(self):
-        return self.variables
+        return [self.get_var(v) for v in self.variables]
 
     def get_variable_names(self):
-        return [v for v in self.variables]
+        return self.variables
 
     def get_var(self, v):
         if v not in self.variables:

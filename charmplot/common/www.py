@@ -20,9 +20,11 @@ def write_img_line(index_html, file, x, y):
 def place_images(index_html, channel_folder, vars, x, y):
     n_files = 0
     for var in vars:
+        if not var.stage_out:
+            continue
         print_line = False
         for file in os.listdir(channel_folder):
-            if var in file:
+            if var.name in file:
                 print_line = True
                 break
         if not print_line:
@@ -31,7 +33,7 @@ def place_images(index_html, channel_folder, vars, x, y):
             index_html.write("</TR>\n")
             if var != vars[-1]:
                 index_html.write("<TR>\n")
-        write_img_line(index_html, f"{os.path.basename(channel_folder)}_{var}", x, y)
+        write_img_line(index_html, f"{os.path.basename(channel_folder)}_{var.name}", x, y)
         n_files += 1
 
 

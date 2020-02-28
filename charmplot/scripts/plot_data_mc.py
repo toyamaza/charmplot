@@ -130,4 +130,4 @@ if __name__ == "__main__":
 
     # stage-out to the www folder
     if options.stage_out:
-        www.stage_out_plots(options.output, conf.get_variable_names(), x=300, y=300)
+        www.stage_out_plots(options.output, conf.get_variables(), x=300, y=300)
