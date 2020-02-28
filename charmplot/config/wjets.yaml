@@ -17,11 +17,11 @@ samples:
 channels:
   2018_el:
     regions:
-      - 2018_el
+      - 2018_el_SR
     label: '2018 el SR'
     lumi: '2018'
   2018_mu:
     regions:
-      - 2018_mu
+      - 2018_mu_SR
     label: '2018 mu SR'
     lumi: '2018'

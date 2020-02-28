@@ -30,9 +30,6 @@ lep_EOverP:
 met_dphi:
   label: '#Delta#phi(MET, l)'
 
-njets:
-  label: N_{jet}
-
 lep_d0:
   label: d_{0}
   unit: '#mum'
