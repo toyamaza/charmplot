@@ -30,6 +30,12 @@ def main(options, conf, reader):
     # loop through all channels and variables
     for c in conf.channels:
 
+        # filter channels
+        if options.channels:
+            if c.name not in options.channels.split(","):
+                logging.debug(f"skipping channel {c.name}")
+                continue
+
         # keep track of first/last plot of each channel
         first_plot = True
 
@@ -106,9 +112,12 @@ if __name__ == "__main__":
     # ----------------------------------------------------
     # arguments
     # ----------------------------------------------------
-    parser.add_option('-c', '--analysis-config',
+    parser.add_option('-a', '--analysis-config',
                       action="store", dest="analysis_config",
                       help="analysis config file")
+    parser.add_option('-c', '--channels',
+                      action="store", dest="channels",
+                      help="run over a subset of channels (comma separated)")
     parser.add_option('-v', '--vars',
                       action="store", dest="vars",
                       help="run over a subset of variables (comma separated)")
