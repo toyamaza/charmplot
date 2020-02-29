@@ -3,6 +3,7 @@
 class Channel(object):
 
     qcd_template = None
+    likelihood_fit = None
     name = ""
     lumi = ""
     label = []
@@ -39,6 +40,9 @@ class Channel(object):
 
     def set_samples(self, samples):
         self.samples = samples
+
+    def set_likelihood_fit(self, fit):
+        self.likelihood_fit = fit
 
     def get_all(self):
         return self.add + self.subtract

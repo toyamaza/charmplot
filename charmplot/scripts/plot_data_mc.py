@@ -36,6 +36,12 @@ def main(options, conf, reader):
                 logging.debug(f"skipping channel {c.name}")
                 continue
 
+        # used MC samples in channel (default or channel specific)
+        samples = utils.get_samples(conf, c)
+
+        # perform likelihood fit
+        fit = utils.likelihood_fit(conf, reader, c, samples)
+
         # keep track of first/last plot of each channel
         first_plot = True
 
@@ -53,17 +59,16 @@ def main(options, conf, reader):
             # data histogram
             h_data = reader.get_histogram(conf.get_data(), c, v)
 
-            # samples (default or channel specific)
-            if c.samples:
-                samples = [conf.get_sample(s) for s in c.samples]
-            else:
-                samples = conf.get_mc()
-
             # mc map
-            mc_map = {s: reader.get_histogram(s, c, v) for s in samples}
+            mc_map = {}
+            for s in samples:
+                h = reader.get_histogram(s, c, v)
+                if fit:
+                    h.Scale(fit.result[s][0])
+                mc_map[s] = h
 
             # canvas
-            canv = utils.make_canvas(h_data, conf.get_var(v), c, x=800, y=800)
+            canv = utils.make_canvas(h_data, conf.get_var(v), c, x=800, y=800, fit=fit)
 
             # configure histograms
             canv.configure_histograms(mc_map, h_data, conf.get_var(v))
@@ -89,7 +94,7 @@ def main(options, conf, reader):
             canv.make_legend(h_data, h_mc_tot, mc_map, samples, print_yields=True)
 
             # set maximum after creating legend
-            canv.set_maximum((h_data, h_mc_tot), conf.get_var(v), mc_min=mc_map[conf.get_bottom_mc()])
+            canv.set_maximum((h_data, h_mc_tot), conf.get_var(v), mc_min=mc_map[samples[-1]])
 
             # bottom pad
             canv.pad2.cd()

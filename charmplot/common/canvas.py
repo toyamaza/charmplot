@@ -1,4 +1,5 @@
 from charmplot.common import utils
+from charmplot.common import likelihoodFit
 from charmplot.control import channel
 from charmplot.control import variable
 from charmplot.control import sample
@@ -107,18 +108,22 @@ class CanvasBase(object):
 
 class Canvas2(CanvasBase):
 
+    fit = None
     pad1 = None
     pad2 = None
     legend = None
     offset = 0
 
-    def __init__(self, c: channel.Channel, v: variable.Variable, x: float, y: float, y_split: float = 0.35):
+    def __init__(self, c: channel.Channel, v: variable.Variable, x: float, y: float, y_split: float = 0.35, fit: likelihoodFit.LikelihoodFit = None):
         super(Canvas2, self).__init__(c, v, x, y)
 
         # upper/lower canvas split
         self.y_split = y_split
         if self.y_split:
             self.offset = 0.05
+
+        # fit results
+        self.fit = fit
 
         # upper pad
         pad1 = ROOT.TPad(self.name + "_upper_pad", "", 0., self.y_split, 1., 1.)
@@ -135,6 +140,9 @@ class Canvas2(CanvasBase):
 
         # set ATLAS label
         self.set_atlas_label()
+
+        # print fit results
+        self.fit_results()
 
         # lower pad
         if self.y_split:
@@ -154,6 +162,13 @@ class Canvas2(CanvasBase):
         self.text("#sqrt{s} = 13 TeV, %.1f fb^{-1}" % (utils.get_lumi(self.channel.lumi) / 1000.))
         for label in self.channel.label:
             self.text(f"{label}")
+
+    def fit_results(self):
+        if self.fit:
+            for s, r in self.fit.result.items():
+                if 'Multijet' in s.name:
+                    continue
+                self.text(f"#mu({s.name}) = {r[0]:.3f}")
 
     def print_all(self, output, channel, var, multipage_pdf=False, first_plot=False, last_plot=False, as_png=False):
         self.pad1.cd()
@@ -343,7 +358,7 @@ class Canvas2(CanvasBase):
 class CanvasMCRatio(Canvas2):
 
     def __init__(self, c: channel.Channel, v: variable.Variable, x: float, y: float, y_split: float = 0.35):
-        super(CanvasMCRatio, self).__init__(c, v, x, y)
+        super(CanvasMCRatio, self).__init__(c, v, x, y, y_split)
 
     def make_legend(self, mc_map, samples):
         n_entries = len(samples)

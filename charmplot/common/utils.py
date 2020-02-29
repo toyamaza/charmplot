@@ -1,6 +1,8 @@
 from charmplot.common import canvas
+from charmplot.common import likelihoodFit
 from charmplot.control import channel
 from charmplot.control import globalConfig
+from charmplot.control import inputDataReader
 from charmplot.control import sample
 from charmplot.control import variable
 from typing import Dict, List, Union
@@ -162,15 +164,39 @@ def get_fraction_histogram(h1, h2):
     return h, gr_err
 
 
+def get_samples(conf: globalConfig.GlobalConfig, channel: channel.Channel) -> List:
+    if channel.samples:
+        samples = [conf.get_sample(s) for s in channel.samples]
+    else:
+        samples = conf.get_mc()
+    return samples
+
+
+def likelihood_fit(conf: globalConfig.GlobalConfig, reader: inputDataReader.InputDataReader,
+                   channel: channel.Channel, samples: List) -> likelihoodFit.LikelihoodFit:
+    if channel.likelihood_fit:
+        logger.debug(f"performing likelihood fit with configuration {channel.likelihood_fit}")
+        fit_var = channel.likelihood_fit['variable']
+        fit_range = channel.likelihood_fit['range']
+        h_data = reader.get_histogram(conf.get_data(), channel, fit_var)
+        mc_map = {s: reader.get_histogram(s, channel, fit_var) for s in samples}
+        fit = likelihoodFit.LikelihoodFit(h_data, mc_map, fit_range)
+        fit.fit()
+        return fit
+    else:
+        return None
+
+
 def make_canvas(h: ROOT.TH1, v: variable.Variable, c: channel.Channel,
-                x: float = 800., y: float = 600., y_split: float = 0.30) -> List[Union[ROOT.TCanvas, ROOT.TH1]]:
-    canv = canvas.Canvas2(c, v, x, y, y_split)
+                x: float = 800., y: float = 600., y_split: float = 0.30,
+                fit: likelihoodFit.LikelihoodFit = None) -> ROOT.TCanvas:
+    canv = canvas.Canvas2(c, v, x, y, y_split, fit)
     canv.construct(h)
     return canv
 
 
 def make_canvas_mc_ratio(h: ROOT.TH1, v: variable.Variable, c: channel.Channel,
-                         x: float = 800., y: float = 600., y_split: float = 0.30) -> List[Union[ROOT.TCanvas, ROOT.TH1]]:
+                         x: float = 800., y: float = 600., y_split: float = 0.30) -> ROOT.TCanvas:
     canv = canvas.CanvasMCRatio(c, v, x, y, y_split)
     canv.construct(h)
     return canv
