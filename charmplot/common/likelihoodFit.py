@@ -1,6 +1,8 @@
 from charmplot.control import sample
 from typing import Dict, List
+import json
 import logging
+import os
 import ROOT
 
 
@@ -33,9 +35,11 @@ class LikelihoodFit(object):
     result = {}
     mc_integral = {}
 
-    def __init__(self, data: ROOT.TH1, mc_map: MC_Map, x_range: List = []):
+    def __init__(self, name: str, data: ROOT.TH1, mc_map: MC_Map, x_range: List = [], output: str = ""):
 
+        self.name = name
         self.samples = [s for s in mc_map]
+        self.output = output
 
         mc = ROOT.TObjArray(len(self.samples))
         for s in self.samples:
@@ -52,6 +56,17 @@ class LikelihoodFit(object):
 
         self.fitter = ROOT.TFractionFitter(data, mc)
 
+    def save_results(self):
+        if not os.path.isdir(self.output):
+            os.makedirs(self.output)
+        out_dict = {}
+        for s in self.result:
+            out_dict[s.name] = self.result[s]
+        json_dump = json.dumps(out_dict)
+        f = open(f"{os.path.join(self.output, self.name)}.json", "w")
+        f.write(json_dump)
+        f.close()
+
     def fit(self):
         status = self.fitter.Fit()
         status.Print()
@@ -63,3 +78,5 @@ class LikelihoodFit(object):
             scale = frac * self.data_integral / self.mc_integral[s]
             scale_err = scale * frac_err / frac
             self.result[s] = (scale, scale_err)
+
+        self.save_results()

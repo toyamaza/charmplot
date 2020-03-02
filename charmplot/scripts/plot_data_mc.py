@@ -30,6 +30,10 @@ def main(options, conf, reader):
     # loop through all channels and variables
     for c in conf.channels:
 
+        # skip channels
+        if not c.make_plots:
+            continue
+
         # filter channels
         if options.channels:
             if c.name not in options.channels.split(","):

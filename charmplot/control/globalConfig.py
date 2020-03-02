@@ -140,6 +140,8 @@ class GlobalConfig(object):
                     if name not in self.get_sample_names():
                         s = self.construct_sample(name)
                         self.samples += [s]
+            if 'make_plots' in val:
+                chan.set_make_plots(val['make_plots'])
             if 'qcd_template' in val:
                 chan.set_qcd_template(val['qcd_template'])
             if 'likelihood_fit' in val:
@@ -147,6 +149,8 @@ class GlobalConfig(object):
         self.channels = channels
 
     def __init__(self, config_name):
+        self.config_name = config_name
+
         # analysis specific config
         conf = tools.parse_yaml(config_name)
 

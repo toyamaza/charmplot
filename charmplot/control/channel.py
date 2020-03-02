@@ -4,6 +4,7 @@ class Channel(object):
 
     qcd_template = None
     likelihood_fit = None
+    make_plots = True
     name = ""
     lumi = ""
     label = []
@@ -34,6 +35,9 @@ class Channel(object):
             self.samples = samples
         elif type(samples) == str:
             self.samples = [samples]
+
+    def set_make_plots(self, make_plots):
+        self.make_plots = make_plots
 
     def set_qcd_template(self, qcd_template):
         self.qcd_template = qcd_template

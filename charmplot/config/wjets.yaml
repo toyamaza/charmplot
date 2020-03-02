@@ -19,6 +19,13 @@ channels:
   2018_el:
     regions:
       - 2018_el_SR
+    samples:
+      - Sherpa_Wjets_light
+      - Sherpa_Wjets_tau
+      - Sherpa_Zjets_light
+      - Sherpa_Zjets_tau
+      - Top
+      - Diboson
     label: '2018 el SR'
     lumi: '2018'
 
@@ -85,3 +92,22 @@ channels:
     label:
       - '2018 mu QCD PT Fit'
     lumi: '2018'
+
+  2018_el_QCD_PT_Extrapolated:
+    regions:
+      - 2018_el_SR
+    samples:
+      - Sherpa_Wjets_light
+      - Sherpa_Wjets_tau
+      - Sherpa_Zjets_light
+      - Sherpa_Zjets_tau
+      - Top
+      - Diboson
+      - Multijet | 2018_el_QCD_PTCut_Template
+    label: '2018 el SR'
+    lumi: '2018'
+
+  2018_el_QCD_PTCut_Template:
+    regions:
+      - 2018_el_QCD_PTCut
+    make_plots: False

@@ -180,7 +180,7 @@ def likelihood_fit(conf: globalConfig.GlobalConfig, reader: inputDataReader.Inpu
         fit_range = channel.likelihood_fit['range']
         h_data = reader.get_histogram(conf.get_data(), channel, fit_var)
         mc_map = {s: reader.get_histogram(s, channel, fit_var) for s in samples}
-        fit = likelihoodFit.LikelihoodFit(h_data, mc_map, fit_range)
+        fit = likelihoodFit.LikelihoodFit(channel.name, h_data, mc_map, fit_range, conf.config_name)
         fit.fit()
         return fit
     else:
