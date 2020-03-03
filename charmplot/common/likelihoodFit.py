@@ -61,7 +61,10 @@ class LikelihoodFit(object):
             os.makedirs(self.output)
         out_dict = {}
         for s in self.result:
-            out_dict[s.name] = self.result[s]
+            out_name = s.name
+            if 'Multijet' in out_name:
+                out_name = 'Multijet'
+            out_dict[out_name] = self.result[s]
         json_dump = json.dumps(out_dict)
         f = open(f"{os.path.join(self.output, self.name)}.json", "w")
         f.write(json_dump)
@@ -78,5 +81,3 @@ class LikelihoodFit(object):
             scale = frac * self.data_integral / self.mc_integral[s]
             scale_err = scale * frac_err / frac
             self.result[s] = (scale, scale_err)
-
-        self.save_results()

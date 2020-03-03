@@ -4,6 +4,7 @@ class Channel(object):
 
     qcd_template = None
     likelihood_fit = None
+    scale_factors = None
     make_plots = True
     name = ""
     lumi = ""
@@ -47,6 +48,9 @@ class Channel(object):
 
     def set_likelihood_fit(self, fit):
         self.likelihood_fit = fit
+
+    def set_scale_factors(self, scale_factors):
+        self.scale_factors = scale_factors
 
     def get_all(self):
         return self.add + self.subtract

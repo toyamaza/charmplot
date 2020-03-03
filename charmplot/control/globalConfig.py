@@ -146,6 +146,8 @@ class GlobalConfig(object):
                 chan.set_qcd_template(val['qcd_template'])
             if 'likelihood_fit' in val:
                 chan.set_likelihood_fit(val['likelihood_fit'])
+            if 'scale_factors' in val:
+                chan.set_scale_factors(val['scale_factors'])
         self.channels = channels
 
     def __init__(self, config_name):

@@ -46,6 +46,9 @@ def main(options, conf, reader):
         # perform likelihood fit
         fit = utils.likelihood_fit(conf, reader, c, samples)
 
+        # scale factors for this channel
+        scale_factors = utils.read_scale_factors(options.output, c.scale_factors)
+
         # keep track of first/last plot of each channel
         first_plot = True
 
@@ -63,13 +66,25 @@ def main(options, conf, reader):
             # data histogram
             h_data = reader.get_histogram(conf.get_data(), c, v)
 
-            # mc map
+            # read input MC histograms (and scale them)
             mc_map = {}
             for s in samples:
+                # read MC histogram
                 h = reader.get_histogram(s, c, v)
+                mc_map[s] = h
+
+                # scale histogram if performed likelihodo fit
                 if fit:
                     h.Scale(fit.result[s][0])
-                mc_map[s] = h
+
+                # scale histogram if given input scale factors
+                # TODO: improve the sample name propagation
+                if scale_factors:
+                    if 'Multijet' not in s.name:
+                        sf = scale_factors['EWK']
+                    else:
+                        sf = scale_factors['Multijet']
+                    h.Scale(sf[0])
 
             # canvas
             canv = utils.make_canvas(h_data, conf.get_var(v), c, x=800, y=800, fit=fit)

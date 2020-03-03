@@ -22,6 +22,6 @@ def cheer_up_emo_kid():
         "#C44D58",
         "#C7F464",
         "#C9C9C9",
-        "#FFA429",
+        "#AE00FF",
     ])]
     return scheme

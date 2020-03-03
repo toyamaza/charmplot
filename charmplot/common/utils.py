@@ -6,8 +6,12 @@ from charmplot.control import inputDataReader
 from charmplot.control import sample
 from charmplot.control import variable
 from typing import Dict, List, Union
+import copy
+import json
 import logging
+import os
 import ROOT
+import sys
 
 MC_Map = Dict[sample.Sample, ROOT.TH1]
 
@@ -175,6 +179,7 @@ def get_samples(conf: globalConfig.GlobalConfig, channel: channel.Channel) -> Li
 def likelihood_fit(conf: globalConfig.GlobalConfig, reader: inputDataReader.InputDataReader,
                    channel: channel.Channel, samples: List) -> likelihoodFit.LikelihoodFit:
     if channel.likelihood_fit:
+        # perform the fit
         logger.debug(f"performing likelihood fit with configuration {channel.likelihood_fit}")
         fit_var = channel.likelihood_fit['variable']
         fit_range = channel.likelihood_fit['range']
@@ -182,9 +187,65 @@ def likelihood_fit(conf: globalConfig.GlobalConfig, reader: inputDataReader.Inpu
         mc_map = {s: reader.get_histogram(s, channel, fit_var) for s in samples}
         fit = likelihoodFit.LikelihoodFit(channel.name, h_data, mc_map, fit_range, conf.config_name)
         fit.fit()
+
+        # extrapolate to SR
+        if 'extrapolated_region' in channel.likelihood_fit:
+            logger.debug(f"extrapolating fit to signal region {channel.likelihood_fit['extrapolated_region']}")
+            channel_SR = conf.get_channel(channel.likelihood_fit['extrapolated_region'])
+            samples_SR = []
+            for s in samples:
+                if 'Multijet' in s.name:
+                    s_extrapolated = copy.deepcopy(s)
+                    s_extrapolated.name = f"Multijet | {channel.likelihood_fit['extrapolated_multijet']}"
+                    s_extrapolated.channel = channel.likelihood_fit['extrapolated_multijet']
+                    samples_SR += [s_extrapolated]
+                else:
+                    samples_SR += [s]
+            h_data_SR = reader.get_histogram(conf.get_data(), channel_SR, fit_var)
+            mc_map_SR = {s: reader.get_histogram(s, channel_SR, fit_var) for s in samples_SR}
+            for s in mc_map_SR:
+                if 'Multijet' in s.name:
+                    continue
+                h = mc_map_SR[s]
+                h.Scale(fit.result[s][0])
+            sf_qcd_SR = scale_multijet_histogram(h_data_SR, mc_map_SR, fit_range)
+            for s in fit.result:
+                if 'Multijet' in s.name:
+                    fit.result[s] = [sf_qcd_SR, 0]
+
+        # return fit
+        fit.save_results()
         return fit
     else:
         return None
+
+
+def read_scale_factors(folder: str, scale_factor_confing: dict):
+    if not scale_factor_confing or 'input_file' not in scale_factor_confing:
+        return None
+    full_path = os.path.join(folder, scale_factor_confing['input_file'])
+    if not os.path.isfile(full_path):
+        logger.warning(f"scale factor file not found: {full_path}")
+        sys.exit(1)
+    with open(full_path, 'r') as json_file:
+        logger.debug(f"scale factor file successfully opened: {full_path}")
+        data = json.load(json_file)
+        return data
+
+
+def scale_multijet_histogram(data: ROOT.TH1, mc_map: MC_Map, fit_range: list):
+    bin1 = data.FindBin(fit_range[0])
+    bin2 = data.FindBin(fit_range[1])
+    integral_data = data.Integral(bin1, bin2)
+    integral_ewk = 0
+    integral_qcd = 0
+    for s in mc_map:
+        h = mc_map[s]
+        if 'Multijet' not in s.name:
+            integral_ewk += h.Integral(bin1, bin2)
+        else:
+            integral_qcd = h.Integral(bin1, bin2)
+    return (integral_data - integral_ewk) / integral_qcd
 
 
 def make_canvas(h: ROOT.TH1, v: variable.Variable, c: channel.Channel,
