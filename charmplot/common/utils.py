@@ -184,7 +184,13 @@ def likelihood_fit(conf: globalConfig.GlobalConfig, reader: inputDataReader.Inpu
         fit_var = channel.likelihood_fit['variable']
         fit_range = channel.likelihood_fit['range']
         h_data = reader.get_histogram(conf.get_data(), channel, fit_var)
-        mc_map = {s: reader.get_histogram(s, channel, fit_var) for s in samples}
+        rebin = conf.get_var(fit_var).rebin
+        h_data.Rebin(rebin)
+        mc_map = {}
+        for s in samples:
+            h = reader.get_histogram(s, channel, fit_var)
+            h.Rebin(rebin)
+            mc_map[s] = h
         fit = likelihoodFit.LikelihoodFit(channel.name, h_data, mc_map, fit_range, conf.config_name)
         fit.fit()
 
@@ -195,23 +201,30 @@ def likelihood_fit(conf: globalConfig.GlobalConfig, reader: inputDataReader.Inpu
             samples_SR = []
             for s in samples:
                 if 'Multijet' in s.name:
+                    bare_name = s.name.split("|")[0].strip()
                     s_extrapolated = copy.deepcopy(s)
-                    s_extrapolated.name = f"Multijet | {channel.likelihood_fit['extrapolated_multijet']}"
+                    s_extrapolated.name = f"{bare_name} | {channel.likelihood_fit['extrapolated_multijet']}"
                     s_extrapolated.channel = channel.likelihood_fit['extrapolated_multijet']
                     samples_SR += [s_extrapolated]
                 else:
                     samples_SR += [s]
             h_data_SR = reader.get_histogram(conf.get_data(), channel_SR, fit_var)
-            mc_map_SR = {s: reader.get_histogram(s, channel_SR, fit_var) for s in samples_SR}
+            h_data_SR.Rebin(rebin)
+            mc_map_SR = {}
+            for s in samples_SR:
+                h = reader.get_histogram(s, channel_SR, fit_var)
+                h.Rebin(rebin)
+                mc_map_SR[s] = h
             for s in mc_map_SR:
                 if 'Multijet' in s.name:
                     continue
                 h = mc_map_SR[s]
-                h.Scale(fit.result[s][0])
+                h.Scale(fit.result[s.name][0])
             sf_qcd_SR = scale_multijet_histogram(h_data_SR, mc_map_SR, fit_range)
             for s in fit.result:
-                if 'Multijet' in s.name:
-                    fit.result[s] = [sf_qcd_SR, 0]
+                if 'Multijet' in s:
+                    fit.result[s_extrapolated.name] = [sf_qcd_SR, 0]
+                    break
 
         # return fit
         fit.save_results()

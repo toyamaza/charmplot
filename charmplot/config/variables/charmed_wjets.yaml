@@ -58,12 +58,12 @@ met_mt:
 lep_pt:
   label: lepton p_{T}
   unit: GeV
-  rebin: 4
+  rebin: 2
   x_range: [0, 200]
   ratio_range: [0.5, 1.49]
 
 lep_eta:
-  label: lepton '#eta'
+  label: 'lepton #eta'
   rebin: 4
   ratio_range: [0.5, 1.49]
 
@@ -79,24 +79,24 @@ DR_Dplus_lep:
   ratio_range: [0.5, 1.49]
 
 lep_EOverP:
-  label: lepton 'E/|p|'
+  label: 'lepton E/|p|'
   rebin: 2
   x_range: [0, 7]
   ratio_range: [0.5, 1.49]
 
 met_dphi:
-  label: lepton '#Delta#phi(MET, l)'
+  label: 'lepton #Delta#phi(MET, l)'
   rebin: 2
   ratio_range: [0.5, 1.49]
 
 lep_phi:
-  label: lepton '#phi'
+  label: 'lepton #phi'
   rebin: 2
   ratio_range: [0.5, 1.49]
 
 lep_d0:
   label: d_{0}
-  unit: lepton '#mum'
+  unit: '#mum'
   rebin: 2
   ratio_range: [0.0, 1.99]
 

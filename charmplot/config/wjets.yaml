@@ -103,6 +103,7 @@ channels:
       - Diboson
     scale_factors:
       input_file: 2018_el_QCD_PT_Fit.json
+      ewk: EWK
     label: '2018 el SR'
     lumi: '2018'
 
@@ -119,6 +120,7 @@ channels:
       - Diboson
     scale_factors:
       input_file: 2018_mu_QCD_PT_Fit.json
+      ewk: EWK
     label: '2018 mu SR'
     lumi: '2018'
 

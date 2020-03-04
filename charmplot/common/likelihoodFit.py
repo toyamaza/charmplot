@@ -15,6 +15,8 @@ logger = logging.getLogger(__name__)
 def get_ranged_histogram(h, xmin, xmax):
     first_bin = h.FindBin(xmin)
     last_bin = h.FindBin(xmax)
+    if xmax % h.GetBinWidth(last_bin) == 0:
+        last_bin -= 1
     nbins = last_bin - first_bin + 1
     if nbins < 1:
         return None
@@ -55,17 +57,21 @@ class LikelihoodFit(object):
         self.data_integral = data.GetSum()
 
         self.fitter = ROOT.TFractionFitter(data, mc)
+        for i, s in enumerate(self.samples):
+            if 'Multijet' not in s.name:
+                ratio = self.mc_integral[s]/self.data_integral
+                self.fitter.Constrain(i, 0., 1.)
 
     def save_results(self):
         if not os.path.isdir(self.output):
             os.makedirs(self.output)
-        out_dict = {}
-        for s in self.result:
-            out_name = s.name
-            if 'Multijet' in out_name:
-                out_name = 'Multijet'
-            out_dict[out_name] = self.result[s]
-        json_dump = json.dumps(out_dict)
+        # out_dict = {}
+        # for s in self.result:
+        #     out_name = s
+        #     if 'Multijet' in out_name:
+        #         out_name = 'Multijet'
+        #     out_dict[out_name] = self.result[s]
+        json_dump = json.dumps(self.result)
         f = open(f"{os.path.join(self.output, self.name)}.json", "w")
         f.write(json_dump)
         f.close()
@@ -73,11 +79,10 @@ class LikelihoodFit(object):
     def fit(self):
         status = self.fitter.Fit()
         status.Print()
-
         for i, s in enumerate(self.samples):
             frac = ROOT.Double()
             frac_err = ROOT.Double()
             self.fitter.GetResult(i, frac, frac_err)
             scale = frac * self.data_integral / self.mc_integral[s]
             scale_err = scale * frac_err / frac
-            self.result[s] = (scale, scale_err)
+            self.result[s.name] = (scale, scale_err)

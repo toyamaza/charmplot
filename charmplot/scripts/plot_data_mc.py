@@ -75,15 +75,15 @@ def main(options, conf, reader):
 
                 # scale histogram if performed likelihood fit
                 if fit:
-                    h.Scale(fit.result[s][0])
+                    h.Scale(fit.result[s.name][0])
 
                 # scale histogram if given input scale factors
                 # TODO: improve the sample name propagation
                 if scale_factors:
                     if 'Multijet' not in s.name:
-                        sf = scale_factors['EWK']
+                        sf = scale_factors[c.scale_factors['ewk']]
                     else:
-                        sf = scale_factors['Multijet']
+                        sf = scale_factors[s.name]
                     h.Scale(sf[0])
 
             # canvas

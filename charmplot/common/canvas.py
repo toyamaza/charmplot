@@ -167,9 +167,9 @@ class Canvas2(CanvasBase):
     def fit_results(self):
         if self.fit:
             for s, r in self.fit.result.items():
-                if 'Multijet' in s.name:
+                if 'Multijet' in s:
                     continue
-                self.text(f"#mu({s.name}) = {r[0]:.3f}")
+                self.text(f"#mu({s}) = {r[0]:.3f}")
 
     def print_all(self, output, channel, var, multipage_pdf=False, first_plot=False, last_plot=False, as_png=False):
         self.pad1.cd()
@@ -247,9 +247,9 @@ class Canvas2(CanvasBase):
 
         # Determine whether maximum is on the left or the right side of the plot
         if not max_right_y or max_right <= 0 or (max_left > 0 and max_left / max_right > 2.0):
-            self.maximum_scale_factor = 1 / ((self.text_pos_y - self.y_split) / (1 - self.y_split - self.pad1.GetTopMargin()))
+            self.maximum_scale_factor = 1.05 / ((self.text_pos_y - self.y_split) / (1 - self.y_split - self.pad1.GetTopMargin()))
         else:
-            self.maximum_scale_factor = 1 / max_right_y + 0.1
+            self.maximum_scale_factor = 1.05 / max_right_y + 0.1
         self.proxy_up.SetMaximum(self.maximum_scale_factor * self.max_val)
         self.proxy_up.SetMinimum(1e-4)
 

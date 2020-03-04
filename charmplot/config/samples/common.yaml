@@ -73,11 +73,13 @@ Top:
   add: Top
   subtract:
   fillColor: "10004"
+  legendLabel: Top
 
 Diboson:
   add: Diboson
   subtract:
   fillColor: "10005"
+  legendLabel: Diboson
 
 EWK:
   add:
@@ -89,10 +91,39 @@ EWK:
   fillColor: "10000"
   legendLabel: EWK
 
+EWK_Powheg:
+  add:
+    - Ph_Wjets
+    - Sh_Zjets
+    - Top
+    - Diboson
+  subtract:
+  fillColor: "10000"
+  legendLabel: EWK
+
+EWK_Powheg_Top:
+  add:
+    - Ph_Wjets
+    - Sh_Zjets
+    - Diboson
+  subtract:
+  fillColor: "10000"
+  legendLabel: EWK
+
 Multijet:
   add: data
   subtract:
     - Sh_Wjets
+    - Sh_Zjets
+    - Top
+    - Diboson
+  fillColor: "10006"
+  legendLabel: Multijet
+
+Multijet_Powheg:
+  add: data
+  subtract:
+    - Ph_Wjets
     - Sh_Zjets
     - Top
     - Diboson
