@@ -73,7 +73,7 @@ def main(options, conf, reader):
                 h = reader.get_histogram(s, c, v)
                 mc_map[s] = h
 
-                # scale histogram if performed likelihodo fit
+                # scale histogram if performed likelihood fit
                 if fit:
                     h.Scale(fit.result[s][0])
 

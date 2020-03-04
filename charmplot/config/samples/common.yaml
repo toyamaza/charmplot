@@ -28,7 +28,8 @@ Powheg_Wjets:
     - Ph_Wjets_light
     - Ph_Wjets_tau
   subtract:
-  fillColor: ROOT.kRed
+  fillColor: "10000"
+  lineColor: "10001"
   legendLabel: W+jets
 
 Powheg_Wjets_light:

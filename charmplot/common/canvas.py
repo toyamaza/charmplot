@@ -55,6 +55,7 @@ class CanvasBase(object):
 
     def set_axis_title(self, proxy, title="", events="Events"):
         self.bin_width = proxy.GetBinWidth(1)
+        self.bin_width *= self.variable.rebin
         precision = 1
         bin_width = self.bin_width
         while (bin_width % 1 and precision < 4):
