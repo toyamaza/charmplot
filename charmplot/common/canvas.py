@@ -225,7 +225,7 @@ class Canvas2(CanvasBase):
         max_right_ = 0
         for h in histograms:
             max_left = utils.get_maximum(h, x_min, x_min + 0.6 * (x_max - x_min))
-            max_right = utils.get_maximum(h, x_min + 0.6 * (x_max - x_min), x_max)
+            max_right = utils.get_maximum(h, x_min + 0.6 * (x_max - x_min), x_max - h.GetBinWidth(h.GetNbinsX()))
             if max_left > max_left_:
                 max_left_ = max_left
             if max_right > max_right_:

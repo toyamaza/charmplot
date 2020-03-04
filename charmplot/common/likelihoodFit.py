@@ -59,7 +59,6 @@ class LikelihoodFit(object):
         self.fitter = ROOT.TFractionFitter(data, mc)
         for i, s in enumerate(self.samples):
             if 'Multijet' not in s.name:
-                ratio = self.mc_integral[s]/self.data_integral
                 self.fitter.Constrain(i, 0., 1.)
 
     def save_results(self):

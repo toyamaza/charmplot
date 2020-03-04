@@ -15,24 +15,24 @@ samples:
 
 channels:
 
-  # 2018_mu_wplusd_OS:
-  #   regions:
-  #     - OS_2018_mu_SR
-  #   label: 'W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, OS'
-  #   lumi: '2018'
+  2018_mu_wplusd_OS:
+    regions:
+      - OS_2018_mu_SR
+    label: 'W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, OS'
+    lumi: '2018'
 
-  # 2018_mu_wplusd_SS:
-  #   regions:
-  #     - SS_2018_mu_SR
-  #   label: 'W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, SS'
-  #   lumi: '2018'
+  2018_mu_wplusd_SS:
+    regions:
+      - SS_2018_mu_SR
+    label: 'W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, SS'
+    lumi: '2018'
 
-  # 2018_mu_wplusd_OS-SS:
-  #   regions:
-  #     - OS_2018_mu_SR
-  #     - -SS_2018_mu_SR
-  #   label: 'W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, OS-SS'
-  #   lumi: '2018'
+  2018_mu_wplusd_OS-SS:
+    regions:
+      - OS_2018_mu_SR
+      - -SS_2018_mu_SR
+    label: 'W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, OS-SS'
+    lumi: '2018'
 
   2018_mu_wplusd_PT_Template_OS:
     regions:
@@ -66,33 +66,33 @@ channels:
     lumi: '2018'
     qcd_template: Multijet_Powheg
 
-  # 2018_mu_wplusd_PT_Loose_OS:
-  #   regions:
-  #     - OS_2018_mu
-  #   samples:
-  #     - Powheg_Wjets_light
-  #     - Powheg_Wjets_tau
-  #     - Sherpa_Zjets
-  #     - Top
-  #     - Diboson
-  #   label:
-  #     - 'W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, OS'
-  #     - 'Loose SR for PT fit'
-  #   lumi: '2018'
+  2018_mu_wplusd_PT_Loose_OS:
+    regions:
+      - OS_2018_mu
+    samples:
+      - Powheg_Wjets_light
+      - Powheg_Wjets_tau
+      - Sherpa_Zjets
+      - Top
+      - Diboson
+    label:
+      - 'W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, OS'
+      - 'Loose SR for PT fit'
+    lumi: '2018'
 
-  # 2018_mu_wplusd_PT_Loose_SS:
-  #   regions:
-  #     - SS_2018_mu
-  #   samples:
-  #     - Powheg_Wjets_light
-  #     - Powheg_Wjets_tau
-  #     - Sherpa_Zjets
-  #     - Top
-  #     - Diboson
-  #   label:
-  #     - 'W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, SS'
-  #     - 'Loose SR for PT fit'
-  #   lumi: '2018'
+  2018_mu_wplusd_PT_Loose_SS:
+    regions:
+      - SS_2018_mu
+    samples:
+      - Powheg_Wjets_light
+      - Powheg_Wjets_tau
+      - Sherpa_Zjets
+      - Top
+      - Diboson
+    label:
+      - 'W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, SS'
+      - 'Loose SR for PT fit'
+    lumi: '2018'
 
   2018_mu_wplusd_PT_Fit_OS:
     regions:
