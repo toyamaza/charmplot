@@ -64,12 +64,6 @@ class LikelihoodFit(object):
     def save_results(self):
         if not os.path.isdir(self.output):
             os.makedirs(self.output)
-        # out_dict = {}
-        # for s in self.result:
-        #     out_name = s
-        #     if 'Multijet' in out_name:
-        #         out_name = 'Multijet'
-        #     out_dict[out_name] = self.result[s]
         json_dump = json.dumps(self.result)
         f = open(f"{os.path.join(self.output, self.name)}.json", "w")
         f.write(json_dump)
