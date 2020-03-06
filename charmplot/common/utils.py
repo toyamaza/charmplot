@@ -68,7 +68,7 @@ def get_maximum(h, x1, x2):
 def set_under_over_flow(h: ROOT.TH1, x_range: list):
     N = h.GetNbinsX()
     if not x_range:
-        x_range = [h.GetBinCenter(1) - h.GetBinWidth(1) / 0.5, h.GetBinCenter(N) + h.GetBinWidth(N) / 0.5]
+        x_range = [h.GetBinCenter(1) - h.GetBinWidth(1) * 0.5, h.GetBinCenter(N) + h.GetBinWidth(N) * 0.5]
     x_range_bins = [h.FindBin(x_range[0]), h.FindBin(x_range[1] - h.GetBinWidth(N) * 0.1)]
 
     val0 = ROOT.Double()
