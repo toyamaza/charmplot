@@ -1,3 +1,4 @@
+from charmplot.control import channel
 from charmplot.control import sample
 from typing import Dict, List
 import json
@@ -37,9 +38,10 @@ class LikelihoodFit(object):
     result = {}
     mc_integral = {}
 
-    def __init__(self, name: str, data: ROOT.TH1, mc_map: MC_Map, x_range: List = [], output: str = ""):
+    def __init__(self, chanenl: channel.Channel, data: ROOT.TH1, mc_map: MC_Map, x_range: List = [], output: str = ""):
 
-        self.name = name
+        self.chanenl = chanenl
+        self.name = chanenl.name
         self.samples = [s for s in mc_map]
         self.output = output
 
@@ -58,8 +60,12 @@ class LikelihoodFit(object):
 
         self.fitter = ROOT.TFractionFitter(data, mc)
         for i, s in enumerate(self.samples):
-            if 'Multijet' not in s.name:
-                self.fitter.Constrain(i, 0., 1.)
+            self.fitter.Constrain(i, 0., 1.)
+            if "fixed" in self.chanenl.likelihood_fit.keys():
+                if s.name in self.chanenl.likelihood_fit["fixed"]:
+                    logger.info(f"Setting {s.name} to constant in the fit")
+                    ratio = self.mc_integral[s] / self.data_integral
+                    self.fitter.Constrain(i, ratio * 0.9999, ratio * 1.0001)
 
     def save_results(self):
         if not os.path.isdir(self.output):

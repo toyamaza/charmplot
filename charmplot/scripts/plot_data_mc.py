@@ -80,10 +80,10 @@ def main(options, conf, reader):
                 # scale histogram if given input scale factors
                 # TODO: improve the sample name propagation
                 if scale_factors:
-                    if 'Multijet' not in s.name:
-                        sf = scale_factors[c.scale_factors['ewk']]
-                    else:
+                    if s.name in scale_factors:
                         sf = scale_factors[s.name]
+                    else:
+                        sf = scale_factors[c.scale_factors['scale_factors'][s.name]]
                     h.Scale(sf[0])
 
             # canvas

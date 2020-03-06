@@ -101,14 +101,29 @@ EWK_Powheg:
   fillColor: "10000"
   legendLabel: EWK
 
-EWK_Powheg_Top:
+Sherpa_VJets:
+  add:
+    - Sh_Wjets
+    - Sh_Zjets
+  subtract:
+  fillColor: "10000"
+  legendLabel: V+jets
+
+VJets:
   add:
     - Ph_Wjets
     - Sh_Zjets
-    - Diboson
   subtract:
   fillColor: "10000"
-  legendLabel: EWK
+  legendLabel: V+jets
+
+WJetsTop:
+  add:
+    - Ph_Wjets
+    - Top
+  subtract:
+  fillColor: "10000"
+  legendLabel: W+jets + Top
 
 Multijet:
   add: data

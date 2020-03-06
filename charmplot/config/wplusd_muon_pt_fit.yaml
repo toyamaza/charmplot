@@ -98,13 +98,19 @@ channels:
     regions:
       - OS_2018_mu
     samples:
-      - EWK_Powheg
+      - Powheg_Wjets
+      - Top
+      - Sherpa_Zjets
       - Multijet_Powheg | 2018_mu_wplusd_PT_Template_OS
+      - Diboson
     likelihood_fit:
       variable: lep_pt
-      range: [28, 100]
+      range: [28, 120]
       extrapolated_region: 2018_mu_wplusd_PT_Extrapolated_OS
       extrapolated_multijet: 2018_mu_wplusd_PTCut_Template_OS
+      fixed:
+        - Diboson
+        - Sherpa_Zjets
     label:
       - 'W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, OS'
       - 'Likelihood PT fit'
@@ -114,13 +120,19 @@ channels:
     regions:
       - SS_2018_mu
     samples:
-      - EWK_Powheg
+      - Powheg_Wjets
+      - Top
+      - Sherpa_Zjets
       - Multijet_Powheg | 2018_mu_wplusd_PT_Template_SS
+      - Diboson
     likelihood_fit:
       variable: lep_pt
       range: [28, 100]
       extrapolated_region: 2018_mu_wplusd_PT_Extrapolated_SS
       extrapolated_multijet: 2018_mu_wplusd_PTCut_Template_SS
+      fixed:
+        - Diboson
+        - Sherpa_Zjets
     label:
       - 'W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, SS'
       - 'Likelihood PT fit'
@@ -138,7 +150,12 @@ channels:
       - Diboson
     scale_factors:
       input_file: 2018_mu_wplusd_PT_Fit_OS.json
-      ewk: EWK_Powheg
+      scale_factors:
+        Powheg_Wjets_light: Powheg_Wjets
+        Powheg_Wjets_tau: Powheg_Wjets
+        Sherpa_Zjets: Sherpa_Zjets
+        Top: Top
+        Diboson: Diboson
     label: 'W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, OS'
     lumi: '2018'
 
@@ -154,7 +171,12 @@ channels:
       - Diboson
     scale_factors:
       input_file: 2018_mu_wplusd_PT_Fit_SS.json
-      ewk: EWK_Powheg
+      scale_factors:
+        Powheg_Wjets_light: Powheg_Wjets
+        Powheg_Wjets_tau: Powheg_Wjets
+        Sherpa_Zjets: Sherpa_Zjets
+        Top: Top
+        Diboson: Diboson
     label: 'W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, SS'
     lumi: '2018'
 

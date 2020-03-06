@@ -191,7 +191,7 @@ def likelihood_fit(conf: globalConfig.GlobalConfig, reader: inputDataReader.Inpu
             h = reader.get_histogram(s, channel, fit_var)
             h.Rebin(rebin)
             mc_map[s] = h
-        fit = likelihoodFit.LikelihoodFit(channel.name, h_data, mc_map, fit_range, conf.config_name)
+        fit = likelihoodFit.LikelihoodFit(channel, h_data, mc_map, fit_range, conf.config_name)
         fit.fit()
 
         # extrapolate to SR
