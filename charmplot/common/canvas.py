@@ -240,16 +240,19 @@ class Canvas2(CanvasBase):
                 if y > 0 and y < self.min_val:
                     self.min_val = y
 
+        # max y on left side
+        max_left_y = ((self.text_pos_y - self.y_split) / (1 - self.y_split - self.pad1.GetTopMargin()))
+
         # max y on right side
         max_right_y = None
         if self.legend:
             max_right_y = self.leg_y1
 
         # Determine whether maximum is on the left or the right side of the plot
-        if not max_right_y or max_right <= 0 or (max_left > 0 and max_left / max_right > 2.0):
-            self.maximum_scale_factor = 1.05 / ((self.text_pos_y - self.y_split) / (1 - self.y_split - self.pad1.GetTopMargin()))
+        if not max_right_y or max_right_ <= 0 or (max_left_ > 0 and max_left_ / max_right_ > 2.0):
+            self.maximum_scale_factor = 1.05 / max_left_y
         else:
-            self.maximum_scale_factor = 1.05 / max_right_y + 0.1
+            self.maximum_scale_factor = 1.05 / min(max_right_y, max_left_y)
         self.proxy_up.SetMaximum(self.maximum_scale_factor * self.max_val)
         self.proxy_up.SetMinimum(1e-4)
 
