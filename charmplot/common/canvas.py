@@ -58,7 +58,7 @@ class CanvasBase(object):
         self.bin_width *= self.variable.rebin
         precision = 1
         bin_width = self.bin_width
-        while (bin_width % 1 and precision < 4):
+        while (bin_width % 1 > 1e-4 and precision < 4):
             precision += 1
             bin_width *= 10
 
