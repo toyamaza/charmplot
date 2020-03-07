@@ -14,7 +14,6 @@ samples:
   - Diboson
 
 channels:
-
   2018_el_wplusd_OS:
     regions:
       - OS_2018_el_SR

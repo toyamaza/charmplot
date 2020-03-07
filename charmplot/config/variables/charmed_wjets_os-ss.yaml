@@ -1,0 +1,249 @@
+Dplus_m:
+  label: 'D^{#pm} m'
+  unit: 'GeV'
+  rebin: 10
+  ratio_range: [0.5, 1.49]
+
+Dplus_pt:
+  label: 'D^{#pm} p_{T}'
+  unit: 'GeV'
+  rebin: 2
+  ratio_range: [0.5, 1.49]
+
+Dplus_eta:
+  label: 'D^{#pm} #eta'
+  rebin: 2
+  ratio_range: [0.5, 1.49]
+
+Dplus_phi:
+  label: 'D^{#pm} #phi'
+  rebin: 2
+  ratio_range: [0.5, 1.49]
+
+Dplus_Lxy:
+  label: 'D^{#pm} L_{xy}'
+  unit: 'mm'
+  rebin: 2
+  ratio_range: [0.5, 1.49]
+
+Dplus_cTau:
+  label: 'D^{#pm} c#tau'
+  rebin: 2
+  ratio_range: [0.5, 1.49]
+
+Dplus_chi2:
+  label: 'D^{#pm} #chi^{2}'
+  rebin: 2
+  ratio_range: [0.5, 1.49]
+
+Dplus_cosThetaStar:
+  label: 'D^{#pm} cos#theta*'
+  rebin: 2
+  ratio_range: [0.5, 1.49]
+
+met_met:
+  label: MET
+  unit: GeV
+  rebin: 10
+  x_range: [0, 100]
+  ratio_range: [0.5, 1.49]
+
+met_mt:
+  label: m_{T}
+  unit: GeV
+  rebin: 4
+  x_range: [0, 200]
+  ratio_range: [0.5, 1.49]
+
+lep_pt:
+  label: lepton p_{T}
+  unit: GeV
+  rebin: 14
+  x_range: [0, 200]
+  ratio_range: [0.5, 1.49]
+
+lep_eta:
+  label: 'lepton #eta'
+  rebin: 4
+  ratio_range: [0.5, 1.49]
+
+Dplus_d0:
+  label: 'D^{#pm} d_{0}'
+  unit: '#mum'
+  rebin: 2
+  ratio_range: [0.5, 1.49]
+
+DR_Dplus_lep:
+  label: '#DeltaR(D^{#pm}, lep)'
+  rebin: 2
+  ratio_range: [0.5, 1.49]
+
+lep_EOverP:
+  label: 'lepton E/|p|'
+  rebin: 2
+  x_range: [0, 7]
+  ratio_range: [0.5, 1.49]
+
+met_dphi:
+  label: 'lepton #Delta#phi(MET, l)'
+  rebin: 2
+  ratio_range: [0.5, 1.49]
+
+lep_phi:
+  label: 'lepton #phi'
+  rebin: 2
+  ratio_range: [0.5, 1.49]
+
+lep_d0:
+  label: d_{0}
+  unit: '#mum'
+  rebin: 2
+  ratio_range: [0.0, 1.99]
+
+lep_d0_fixed:
+  label: lepton fixed d_{0}
+  unit: '#mum'
+  rebin: 2
+  ratio_range: [0.0, 1.99]
+
+lep_d0sig:
+  label: 'lepton d_{0}/#sigma_{d_{0}}'
+  ratio_range: [0.0, 1.99]
+
+lep_d0sig_fixed:
+  label: 'lepton fixed d_{0}/#sigma_{d_{0}}'
+  ratio_range: [0.0, 1.99]
+
+lep_z0sinTheta:
+  label: 'lepton z_{0}sin(#theta)'
+  unit: 'mm'
+  ratio_range: [0.0, 1.99]
+
+lep_topoetcone20_over_pt:
+  label: lepton topoetcone20 / p_{T}
+  ratio_range: [0.0, 1.99]
+  rebin: 2
+
+lep_ptvarcone20_TightTTVA_pt1000_over_pt:
+  label: lepton ptvarcone20 / p_{T}
+  ratio_range: [0.0, 1.99]
+  rebin: 2
+
+lep_ptvarcone30_TightTTVA_pt1000_over_pt:
+  label: lepton ptvarcone30 / p_{T}
+  ratio_range: [0.0, 1.99]
+  rebin: 2
+
+lep_topoetcone20:
+  label: lepton topoetcone20
+  unit: GeV
+  ratio_range: [0.0, 1.99]
+  rebin: 2
+
+lep_ptvarcone20_TightTTVA_pt1000:
+  label: lepton ptvarcone20
+  unit: GeV
+  ratio_range: [0.0, 1.99]
+  rebin: 2
+
+lep_ptvarcone30_TightTTVA_pt1000:
+  label: lepton ptvarcone30
+  unit: GeV
+  ratio_range: [0.0, 1.99]
+  rebin: 2
+
+DPhi_Dplus_lep:
+  label: '#Delta#phi(D^{#pm}, lep)'
+  rebin: 2
+  ratio_range: [0.5, 1.49]
+
+DEta_Dplus_lep:
+  label: '#Delta#eta(D^{#pm}, lep)'
+  rebin: 2
+  ratio_range: [0.5, 1.49]
+
+Dplus_SVr:
+  label: 'D^{#pm} SVr'
+  unit: 'mm'
+  rebin: 10
+  ratio_range: [0.5, 1.49]
+
+Dplus_ptcone40_pt:
+  label: 'D^{#pm} ptcone40/p_{T}'
+  rebin: 2
+  ratio_range: [0.5, 1.49]
+
+Dplus_Ds1:
+  label: 'D^{#pm} Ds_{1} veto'
+  unit: 'MeV'
+  rebin: 10
+  ratio_range: [0.5, 1.49]
+
+Dplus_Ds2:
+  label: 'D^{#pm} Ds_{2} veto'
+  unit: 'MeV'
+  rebin: 10
+  ratio_range: [0.5, 1.49]
+
+Dplus_Dstar1:
+  label: 'D^{#pm} D*_{1} veto'
+  unit: 'MeV'
+  rebin: 2
+  ratio_range: [0.5, 1.49]
+
+Dplus_Dstar2:
+  label: 'D^{#pm} D*_{2} veto'
+  unit: 'MeV'
+  rebin: 2
+  ratio_range: [0.5, 1.49]
+
+Dplus_max_trackZ0PV:
+  label: 'D^{#pm} max z_{0}sin#theta_{PV}'
+  unit: 'mm'
+  rebin: 2
+  ratio_range: [0.5, 1.49]
+
+Dplus_max_trackZ0:
+  label: 'D^{#pm} max z_{0}sin#theta'
+  unit: 'mm'
+  rebin: 2
+  ratio_range: [0.5, 1.49]
+
+Dplus_min_trackPt:
+  label: 'D^{#pm} min p_{T}(tracks)'
+  unit: 'MeV'
+  rebin: 2
+  ratio_range: [0.5, 1.49]
+
+Dplus_max_trackdR:
+  label: 'D^{#pm} max #DeltaR(tracks)'
+  rebin: 2
+  ratio_range: [0.5, 1.49]
+
+run_number:
+  label: 'run number'
+  ratio_range: [0.5, 1.49]
+
+pileup:
+  label: '<#mu>'
+  ratio_range: [0.5, 1.49]
+
+CharmEventInfo_PV_Z:
+  label: 'PV_{z}'
+  unit: mm
+  ratio_range: [0.0, 1.99]
+
+beamPosX_minus_PVX:
+  label: 'BS_{x} - PV_{x}'
+  unit: '#mum'
+  ratio_range: [0.0, 1.99]
+
+beamPosY_minus_PVY:
+  label: 'BS_{y} - PV_{y}'
+  unit: '#mum'
+  ratio_range: [0.0, 1.99]
+
+njets:
+  label: N_{jet}
+  stage_out: False
+  ratio_range: [0.5, 1.49]

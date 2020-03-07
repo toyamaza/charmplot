@@ -167,7 +167,7 @@ class Canvas2(CanvasBase):
     def fit_results(self):
         if self.fit:
             for s, r in self.fit.result.items():
-                if 'Multijet' in s:
+                if 'Multijet' in s or s in self.fit.fixed:
                     continue
                 self.text(f"#mu({s}) = {r[0]:.3f}")
 

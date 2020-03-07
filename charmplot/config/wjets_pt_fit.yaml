@@ -15,7 +15,6 @@ samples:
   - Diboson
 
 channels:
-
   2018_el:
     regions:
       - 2018_el_SR

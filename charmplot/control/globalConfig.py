@@ -88,22 +88,7 @@ class GlobalConfig(object):
         logger.debug(f"adding sample {s.name}: {s}")
         return s
 
-    def parse_confing(self, conf):
-        for arg in self.required_arguments:
-            if arg not in conf:
-                logger.critical("argument %s not found in config!" % arg)
-                raise Exception("Invalid config")
-
-        # color scheme
-        color_scheme = getattr(colorScheme, conf['colorScheme'])
-        self.style = color_scheme()
-
-        # read data
-        if 'data' in conf:
-            samp = self.samples_config[conf['data']]
-            self.data = sample.Sample(conf['data'], **samp)
-
-        # read variables
+    def read_variables(self, conf):
         variables = {}
         for name in self.variables_config:
             var = self.variables_config[name]
@@ -111,7 +96,14 @@ class GlobalConfig(object):
             variables[name] = v
         self.variables = variables
 
-        # read samples
+        # channel specific variables
+        if 'channelsVariables' in conf:
+            for name in conf['channelsVariables']:
+                var = conf['channelsVariables'][name]
+                v = variable.Variable(name, **var)
+                self.variables[name] = v
+
+    def read_samples(self, conf):
         samples = []
         if 'samples' in conf:
             for name in conf['samples']:
@@ -120,7 +112,7 @@ class GlobalConfig(object):
             self.samples = samples
             self.default_samples = copy.deepcopy(samples)
 
-        # read channels
+    def read_channel(self, conf):
         channels = []
         for name, val in conf['channels'].items():
 
@@ -149,6 +141,30 @@ class GlobalConfig(object):
             if 'scale_factors' in val:
                 chan.set_scale_factors(val['scale_factors'])
         self.channels = channels
+
+    def parse_confing(self, conf):
+        for arg in self.required_arguments:
+            if arg not in conf:
+                logger.critical("argument %s not found in config!" % arg)
+                raise Exception("Invalid config")
+
+        # color scheme
+        color_scheme = getattr(colorScheme, conf['colorScheme'])
+        self.style = color_scheme()
+
+        # read data
+        if 'data' in conf:
+            samp = self.samples_config[conf['data']]
+            self.data = sample.Sample(conf['data'], **samp)
+
+        # read variables
+        self.read_variables(conf)
+
+        # read samples
+        self.read_samples(conf)
+
+        # read channels
+        self.read_channel(conf)
 
     def __init__(self, config_name):
         self.config_name = config_name

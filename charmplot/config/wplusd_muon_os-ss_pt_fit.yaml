@@ -1,0 +1,106 @@
+colorScheme: cheer_up_emo_kid
+
+variablesConf: charmed_wjets_os-ss
+
+samplesConf: common
+
+data: Data
+
+samples:
+  - Powheg_Wjets_light
+  - Powheg_Wjets_tau
+  - Sherpa_Zjets
+  - Top
+  - Diboson
+
+channels:
+  2018_mu_wplusd_OS-SS:
+    regions:
+      - OS_2018_mu_SR
+      - -SS_2018_mu_SR
+    label: 'W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, OS-SS'
+    lumi: '2018'
+
+  2018_mu_wplusd_PT_Template_OS-SS:
+    regions:
+      - OS_2018_mu_QCD
+      - -SS_2018_mu_QCD
+    samples:
+      - Multijet_Powheg
+      - Powheg_Wjets_light
+      - Powheg_Wjets_tau
+      - Sherpa_Zjets
+      - Top
+      - Diboson
+    label:
+      - 'W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, OS-SS'
+      - 'MET < 30 GeV, no m_{T} cut'
+    lumi: '2018'
+    qcd_template: Multijet_Powheg
+
+  2018_mu_wplusd_PT_Loose_OS-SS:
+    regions:
+      - OS_2018_mu
+      - -SS_2018_mu
+    samples:
+      - Powheg_Wjets_light
+      - Powheg_Wjets_tau
+      - Sherpa_Zjets
+      - Top
+      - Diboson
+    label:
+      - 'W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, OS-SS'
+      - 'Loose SR for PT fit'
+    lumi: '2018'
+
+  2018_mu_wplusd_PT_Fit_OS-SS:
+    regions:
+      - OS_2018_mu
+      - -SS_2018_mu
+    samples:
+      - Powheg_Wjets
+      - Top
+      - Sherpa_Zjets
+      - Multijet_Powheg | 2018_mu_wplusd_PT_Template_OS-SS
+      - Diboson
+    likelihood_fit:
+      variable: lep_pt
+      range: [30, 100]
+      extrapolated_region: 2018_mu_wplusd_PT_Extrapolated_OS-SS
+      extrapolated_multijet: 2018_mu_wplusd_PTCut_Template_OS-SS
+      fixed:
+        - Top
+        - Diboson
+        - Sherpa_Zjets
+    label:
+      - 'W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, OS-SS'
+      - 'Likelihood PT fit'
+    lumi: '2018'
+
+  2018_mu_wplusd_PT_Extrapolated_OS-SS:
+    regions:
+      - OS_2018_mu_SR
+      - -SS_2018_mu_SR
+    samples:
+      - Powheg_Wjets_light
+      - Powheg_Wjets_tau
+      - Sherpa_Zjets
+      - Top
+      - Multijet_Powheg | 2018_mu_wplusd_PTCut_Template_OS-SS
+      - Diboson
+    scale_factors:
+      input_file: 2018_mu_wplusd_PT_Fit_OS-SS.json
+      scale_factors:
+        Powheg_Wjets_light: Powheg_Wjets
+        Powheg_Wjets_tau: Powheg_Wjets
+        Sherpa_Zjets: Sherpa_Zjets
+        Top: Top
+        Diboson: Diboson
+    label: 'W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, OS-SS'
+    lumi: '2018'
+
+  2018_mu_wplusd_PTCut_Template_OS-SS:
+    regions:
+      - OS_2018_mu_QCD_PTCut
+      - -SS_2018_mu_QCD_PTCut
+    make_plots: False

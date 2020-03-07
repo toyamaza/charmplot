@@ -65,6 +65,12 @@ def get_maximum(h, x1, x2):
     return out
 
 
+def set_to_positive(h):
+    for i in range(0, h.GetNbinsX() + 2):
+        if h.GetBinContent(i) < 0:
+            h.SetBinContent(i, 0)
+
+
 def set_under_over_flow(h: ROOT.TH1, x_range: list):
     N = h.GetNbinsX()
     if not x_range:
@@ -103,6 +109,7 @@ def rebin_histogram(h: ROOT.TH1, v: variable.Variable):
     if rebin:
         h.Rebin(rebin)
     set_under_over_flow(h, v.x_range)
+    set_to_positive(h)
 
 
 def make_stat_err(h: ROOT.TH1) -> List[Union[ROOT.TGraphErrors, ROOT.TGraphErrors]]:
@@ -221,6 +228,8 @@ def likelihood_fit(conf: globalConfig.GlobalConfig, reader: inputDataReader.Inpu
                 h = mc_map_SR[s]
                 h.Scale(fit.result[s.name][0])
             sf_qcd_SR = scale_multijet_histogram(h_data_SR, mc_map_SR, fit_range)
+            if sf_qcd_SR < 0:
+                sf_qcd_SR = 0
             for s in fit.result:
                 if 'Multijet' in s:
                     fit.result[s_extrapolated.name] = [sf_qcd_SR, 0]
