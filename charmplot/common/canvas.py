@@ -224,8 +224,8 @@ class Canvas2(CanvasBase):
         max_left_ = 0
         max_right_ = 0
         for h in histograms:
-            max_left = utils.get_maximum(h, x_min, x_min + 0.6 * (x_max - x_min))
-            max_right = utils.get_maximum(h, x_min + 0.6 * (x_max - x_min), x_max - h.GetBinWidth(h.GetNbinsX()))
+            max_left = utils.get_maximum(h, x_min, x_min + 0.75 * (x_max - x_min))
+            max_right = utils.get_maximum(h, x_min + 0.75 * (x_max - x_min), x_max - h.GetBinWidth(h.GetNbinsX()))
             if max_left > max_left_:
                 max_left_ = max_left
             if max_right > max_right_:
@@ -249,7 +249,7 @@ class Canvas2(CanvasBase):
             max_right_y = self.leg_y1
 
         # Determine whether maximum is on the left or the right side of the plot
-        if not max_right_y or max_right_ <= 0 or (max_left_ > 0 and max_left_ / max_right_ > 2.0):
+        if not max_right_y or max_right_ <= 0 or (max_left_ > 0 and max_left_ / max_right_ > 1.5):
             self.maximum_scale_factor = 1.05 / max_left_y
         else:
             self.maximum_scale_factor = 1.05 / min(max_right_y, max_left_y)
