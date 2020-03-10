@@ -55,7 +55,6 @@ class CanvasBase(object):
 
     def set_axis_title(self, proxy, title="", events="Events"):
         self.bin_width = proxy.GetBinWidth(1)
-        self.bin_width *= self.variable.rebin
         precision = 1
         bin_width = self.bin_width
         while (bin_width % 1 > 1e-4 and precision < 4):
@@ -197,10 +196,8 @@ class Canvas2(CanvasBase):
     def configure_histograms(self, mc_map: MC_Map, data: ROOT.TH1, v: variable.Variable):
         if data:
             data.SetMarkerSize(0.8)
-            utils.rebin_histogram(data, v)
         for s, h in mc_map.items():
             logger.debug(f"configuring {s} {h}")
-            utils.rebin_histogram(h, v)
             if s.fillColor:
                 h.SetFillColor(s.fillColor)
             else:
@@ -234,11 +231,11 @@ class Canvas2(CanvasBase):
         # Specific minimum value based on some mc histogram
         self.max_val = max(max_left_, max_right_)
         if mc_min:
-            self.min_val = self.max_val
+            self.min_positive_val = self.max_val
             for i in range(1, mc_min.GetNbinsX() + 1):
                 y = mc_min.GetBinContent(i)
-                if y > 0 and y < self.min_val:
-                    self.min_val = y
+                if y > 0 and y < self.min_positive_val:
+                    self.min_positive_val = y
 
         # max y on left side
         max_left_y = ((self.text_pos_y - self.y_split) / (1 - self.y_split - self.pad1.GetTopMargin()))
@@ -254,17 +251,16 @@ class Canvas2(CanvasBase):
         else:
             self.maximum_scale_factor = 1.05 / min(max_right_y, max_left_y)
         self.proxy_up.SetMaximum(self.maximum_scale_factor * self.max_val)
-        self.proxy_up.SetMinimum(1e-4)
 
     def set_logy(self):
         if not hasattr(self, "max_val"):
             logger.critical("please call 'set_maximum' before setting logy")
             sys.exit(1)
 
+        if hasattr(self, "min_positive_val"):
+            self.proxy_up.SetMinimum(0.5 * self.min_positive_val)
         self.pad1.cd()
         self.pad1.SetLogy()
-        if hasattr(self, "min_val"):
-            self.proxy_up.SetMinimum(0.5 * self.min_val)
         self.proxy_up.SetMaximum(math.pow(10, math.log10(self.max_val) * self.maximum_scale_factor +
                                           (1 - self.maximum_scale_factor) * math.log10(self.proxy_up.GetMinimum())))
 
@@ -386,7 +382,6 @@ class CanvasMCRatio(Canvas2):
     def configure_histograms(self, mc_map: MC_Map, v: variable.Variable):
         for s, h in mc_map.items():
             logger.debug(f"configuring {s} {h}")
-            utils.rebin_histogram(h, v)
             h.SetFillStyle(0)
             if s.lineColor:
                 h.SetLineColor(s.lineColor)

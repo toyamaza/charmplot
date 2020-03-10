@@ -64,13 +64,13 @@ def main(options, conf, reader):
             last_plot = v == variables[-1]
 
             # data histogram
-            h_data = reader.get_histogram(conf.get_data(), c, v)
+            h_data = reader.get_histogram(conf.get_data(), c, conf.get_var(v))
 
             # read input MC histograms (and scale them)
             mc_map = {}
             for s in samples:
                 # read MC histogram
-                h = reader.get_histogram(s, c, v)
+                h = reader.get_histogram(s, c, conf.get_var(v))
                 mc_map[s] = h
 
                 # scale histogram if performed likelihood fit

@@ -109,7 +109,6 @@ def rebin_histogram(h: ROOT.TH1, v: variable.Variable):
     if rebin:
         h.Rebin(rebin)
     set_under_over_flow(h, v.x_range)
-    set_to_positive(h)
 
 
 def make_stat_err(h: ROOT.TH1) -> List[Union[ROOT.TGraphErrors, ROOT.TGraphErrors]]:
@@ -188,15 +187,12 @@ def likelihood_fit(conf: globalConfig.GlobalConfig, reader: inputDataReader.Inpu
     if channel.likelihood_fit:
         # perform the fit
         logger.debug(f"performing likelihood fit with configuration {channel.likelihood_fit}")
-        fit_var = channel.likelihood_fit['variable']
+        fit_var = conf.get_var(channel.likelihood_fit['variable'])
         fit_range = channel.likelihood_fit['range']
         h_data = reader.get_histogram(conf.get_data(), channel, fit_var)
-        rebin = conf.get_var(fit_var).rebin
-        h_data.Rebin(rebin)
         mc_map = {}
         for s in samples:
             h = reader.get_histogram(s, channel, fit_var)
-            h.Rebin(rebin)
             mc_map[s] = h
         fit = likelihoodFit.LikelihoodFit(channel, h_data, mc_map, fit_range, conf.config_name)
         fit.fit()
@@ -216,11 +212,9 @@ def likelihood_fit(conf: globalConfig.GlobalConfig, reader: inputDataReader.Inpu
                 else:
                     samples_SR += [s]
             h_data_SR = reader.get_histogram(conf.get_data(), channel_SR, fit_var)
-            h_data_SR.Rebin(rebin)
             mc_map_SR = {}
             for s in samples_SR:
                 h = reader.get_histogram(s, channel_SR, fit_var)
-                h.Rebin(rebin)
                 mc_map_SR[s] = h
             for s in mc_map_SR:
                 if 'Multijet' in s.name:

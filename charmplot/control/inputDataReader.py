@@ -3,6 +3,9 @@ import os
 import ROOT
 
 
+from charmplot.common import utils
+
+
 logger = logging.getLogger(__name__)
 
 
@@ -30,21 +33,27 @@ class InputDataReader(object):
                 raise IOError("No input file found for sample %s", sample.name)
             f = self.input_files[input_file]
             for c in channel.add:
-                h = f.Get(os.path.join(c, "__".join([c, variable])))
+                h = f.Get(os.path.join(c, "__".join([c, variable.name])))
                 if not h:
                     logger.critical("Histogram for variable %s not found in channel %s for sample %s" % (
-                        variable, c, sample.name))
+                        variable.name, c, sample.name))
                     raise IOError("Histogram not found in input file")
+                h = h.Clone(h.GetName() + "_temp")
+                utils.rebin_histogram(h, variable)
+                utils.set_to_positive(h)
                 if not h_total:
-                    h_total = h.Clone("%s_%s_%s" % (sample.name, channel.name, variable))
+                    h_total = h.Clone("%s_%s_%s" % (sample.name, channel.name, variable.name))
                 else:
                     h_total.Add(h, weight)
             for c in channel.subtract:
-                h = f.Get(os.path.join(c, "__".join([c, variable])))
+                h = f.Get(os.path.join(c, "__".join([c, variable.name])))
                 if not h:
                     logger.critical("Histogram for variable %s not found in channel %s for sample %s" % (
-                        variable, c, sample.name))
+                        variable.name, c, sample.name))
                     raise IOError("Histogram not found in input file")
+                h = h.Clone(h.GetName() + "_temp")
+                utils.rebin_histogram(h, variable)
+                utils.set_to_positive(h)
                 h_total.Add(h, -1 * weight)
         return h_total
 

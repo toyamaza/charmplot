@@ -2,6 +2,14 @@ colorScheme: cheer_up_emo_kid
 
 variablesConf: charmed_wjets
 
+channelsVariables:
+  met_met:
+    label: MET
+    unit: GeV
+    rebin: 20
+    x_range: [0, 100]
+    ratio_range: [0.5, 1.49]
+
 samplesConf: common
 
 data: Data

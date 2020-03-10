@@ -57,7 +57,7 @@ def main(options, conf, reader):
             last_plot = v == variables[-1]
 
             # mc map
-            mc_map = {s: reader.get_histogram(s, c, v) for s in samples}
+            mc_map = {s: reader.get_histogram(s, c, conf.get_var(v)) for s in samples}
 
             # canvas
             canv = utils.make_canvas_mc_ratio(mc_map[samples[0]], conf.get_var(v), c, x=800, y=800)
