@@ -103,6 +103,9 @@ beamPosY_minus_PVY:
   unit: '#mum'
   ratio_range: [0.0, 1.99]
 
+N_Dplus:
+  label: N_{D^{+}}
+
 njets:
   label: N_{jet}
   stage_out: False
