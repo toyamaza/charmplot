@@ -55,7 +55,10 @@ class GlobalConfig(object):
         return self.default_samples
 
     def get_sample_names(self):
-        return [s.name for s in self.default_samples]
+        if hasattr(self, 'default_samples'):
+            return [s.name for s in self.default_samples]
+        else:
+            return []
 
     def get_variables(self):
         return [self.get_var(v) for v in self.variables]

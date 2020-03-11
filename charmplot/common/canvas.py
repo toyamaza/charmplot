@@ -210,6 +210,9 @@ class Canvas2(CanvasBase):
             logger.critical("No input histograms given.")
             sys.exit(1)
 
+        # min value
+        self.proxy_up.SetMinimum(1e-4)
+
         # x range
         x_min = histograms[0].GetBinCenter(1)
         x_max = histograms[0].GetBinCenter(histograms[0].GetNbinsX())
@@ -259,6 +262,7 @@ class Canvas2(CanvasBase):
 
         if hasattr(self, "min_positive_val"):
             self.proxy_up.SetMinimum(0.5 * self.min_positive_val)
+
         self.pad1.cd()
         self.pad1.SetLogy()
         self.proxy_up.SetMaximum(math.pow(10, math.log10(self.max_val) * self.maximum_scale_factor +
@@ -320,8 +324,8 @@ class Canvas2(CanvasBase):
             l2.DrawLatex(0.18 + 0.14, self.text_pos_y, text)
         self.text_pos_y -= self.text_height
 
-    def set_ratio_range(self, dn, up, ndivisions=506):
-        if self.variable.ratio_range:
+    def set_ratio_range(self, dn, up, ndivisions=506, override=False):
+        if self.variable.ratio_range and not override:
             self.proxy_dn.SetMinimum(self.variable.ratio_range[0])
             self.proxy_dn.SetMaximum(self.variable.ratio_range[1])
         else:
@@ -379,14 +383,15 @@ class CanvasMCRatio(Canvas2):
         self.legend = leg
         self.legend.Draw()
 
-    def configure_histograms(self, mc_map: MC_Map, v: variable.Variable):
+    def configure_histograms(self, mc_map: MC_Map, v: variable.Variable, normalize: bool):
         for s, h in mc_map.items():
             logger.debug(f"configuring {s} {h}")
             h.SetFillStyle(0)
             if s.lineColor:
                 h.SetLineColor(s.lineColor)
                 h.SetLineWidth(2)
-            h.Scale(1. / h.GetSum())
+            if not normalize:
+                h.Scale(1. / h.GetSum())
 
     def set_atlas_label(self):
         # ATLAS label
@@ -409,5 +414,5 @@ class CanvasMCRatio(Canvas2):
             self.proxy_dn = self.make_proxy_histogram(h, "dn")
             self.set_axis_title(self.proxy_dn, "Data / MC" if self.y_split else "")
             self.set_axis_text_size(self.proxy_dn, self.y_split + self.offset)
-            self.set_ratio_range(0.50, 1.49)
+            self.set_ratio_range(0.0, 1.99, override=True)
             self.set_x_range(self.proxy_dn)

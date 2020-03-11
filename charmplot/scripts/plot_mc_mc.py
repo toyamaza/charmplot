@@ -63,7 +63,7 @@ def main(options, conf, reader):
             canv = utils.make_canvas_mc_ratio(mc_map[samples[0]], conf.get_var(v), c, x=800, y=800)
 
             # configure histograms
-            canv.configure_histograms(mc_map, conf.get_var(v))
+            canv.configure_histograms(mc_map, conf.get_var(v), options.normalize)
 
             # top pad
             canv.pad1.cd()
@@ -74,7 +74,7 @@ def main(options, conf, reader):
             canv.make_legend(mc_map, samples)
 
             # set maximum after creating legend
-            canv.set_maximum([mc_map[s] for s in samples], conf.get_var(v))
+            canv.set_maximum([mc_map[s] for s in samples], conf.get_var(v), mc_map[samples[0]])
 
             # bottom pad
             canv.pad2.cd()
@@ -108,6 +108,9 @@ if __name__ == "__main__":
     parser.add_option('-v', '--vars',
                       action="store", dest="vars",
                       help="run over a subset of variables (comma separated)")
+    parser.add_option('-n', '--normalize',
+                      action="store_true", dest="normalize",
+                      help="normalize to luminosity")
     parser.add_option('-o', '--output-file',
                       action="store", dest="output",
                       help="save histograms to an output file")

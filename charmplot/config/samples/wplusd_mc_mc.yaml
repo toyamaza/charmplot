@@ -1,0 +1,15 @@
+Powheg_Wjets_v2:
+  add:
+    - Ph_Wjets_v2
+  subtract:
+  fillColor: "10000"
+  lineColor: "10001"
+  legendLabel: W+jets v2
+
+Powheg_Wjets_v3:
+  add:
+    - Ph_Wjets
+  subtract:
+  fillColor: "10002"
+  lineColor: "10003"
+  legendLabel: W+jets v3
