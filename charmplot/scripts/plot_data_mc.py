@@ -55,6 +55,11 @@ def main(options, conf, reader):
         # list of variables
         variables = utils.get_variables(options, conf, reader, c)
 
+        # mass fit
+        if c.mass_fit:
+            h_data = reader.get_histogram(conf.get_data(), c, conf.get_var(c.mass_fit["var"]))
+            mass_fit = utils.mass_fit(conf, h_data, c)
+
         # make channel folder if not exist
         if not os.path.isdir(os.path.join(options.output, c.name)):
             os.makedirs(os.path.join(options.output, c.name))
@@ -65,10 +70,6 @@ def main(options, conf, reader):
 
             # data histogram
             h_data = reader.get_histogram(conf.get_data(), c, conf.get_var(v))
-
-            # mass fit
-            if c.mass_fit:
-                utils.mass_fit(conf, c, h_data)
 
             # read input MC histograms (and scale them)
             mc_map = {}

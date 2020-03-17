@@ -183,9 +183,10 @@ def get_samples(conf: globalConfig.GlobalConfig, channel: channel.Channel) -> Li
     return samples
 
 
-def mass_fit(conf: globalConfig.GlobalConfig, channel: channel.Channel, h_data: ROOT.TH1) -> massFit.MassFit:
+def mass_fit(conf: globalConfig.GlobalConfig, h_data: ROOT.TH1, channel: channel.Channel) -> massFit.MassFit:
     if channel.mass_fit:
-        fit = massFit.MassFit(channel, conf.get_var(channel.mass_fit["var"]), h_data, os.path.join(conf.config_name, f"{channel.name}_mass_fit"))
+        variable = conf.get_var(channel.mass_fit["var"])
+        fit = massFit.MassFit(channel, variable, h_data, os.path.join(conf.config_name, f"{channel.name}_mass_fit"))
         fit.fit()
 
 

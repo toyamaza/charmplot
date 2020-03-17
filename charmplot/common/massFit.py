@@ -124,4 +124,4 @@ class MassFit(object):
     def save_results(self, c):
         if not os.path.isdir(self.output):
             os.makedirs(self.output)
-        c.canv.Print(os.path.join(self.output, "fit.pdf"))
+        c.canv.Print(os.path.join(self.output, f"{self.channel}_{self.variable.name}.pdf"))
