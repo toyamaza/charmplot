@@ -2,6 +2,14 @@ Data:
   add: data
   subtract:
 
+DataMinusBackground:
+  add: data
+  subtract:
+    - Ph_Wjets_tau
+    - Sh_Zjets
+    - Top
+    - Diboson
+
 Sherpa_Wjets:
   add:
     - Sh_Wjets

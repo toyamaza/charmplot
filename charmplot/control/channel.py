@@ -4,6 +4,7 @@ class Channel(object):
 
     qcd_template = None
     likelihood_fit = None
+    mass_fit = None
     scale_factors = None
     make_plots = True
     extra_rebin = 1
@@ -55,6 +56,9 @@ class Channel(object):
 
     def set_extra_rebin(self, extra_rebin):
         self.extra_rebin = extra_rebin
+
+    def set_mass_fit(self, mass_fit):
+        self.mass_fit = mass_fit
 
     def get_all(self):
         return self.add + self.subtract

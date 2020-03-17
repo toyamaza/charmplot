@@ -145,6 +145,8 @@ class GlobalConfig(object):
                 chan.set_scale_factors(val['scale_factors'])
             if 'extra_rebin' in val:
                 chan.set_extra_rebin(val['extra_rebin'])
+            if 'mass_fit' in val:
+                chan.set_mass_fit(val['mass_fit'])
         self.channels = channels
 
     def parse_confing(self, conf):

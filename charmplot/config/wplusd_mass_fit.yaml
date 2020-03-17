@@ -1,0 +1,52 @@
+colorScheme: cheer_up_emo_kid
+
+variablesConf: charmed_wjets
+
+channelsVariables:
+  Dplus_m:
+    label: 'D^{#pm} m'
+    unit: 'GeV'
+    rebin: 10
+    ratio_range: [0.5, 1.49]
+
+samplesConf: common
+
+data: DataMinusBackground
+
+samples:
+  - Powheg_Wjets_light
+  - Powheg_Wjets_tau
+  - Sherpa_Zjets
+  - Top
+  - Diboson
+
+channels:
+  2018_el_wplusd_OS-SS:
+    regions:
+      - OS_2018_el_SR
+      - -SS_2018_el_SR
+    samples:
+      - Powheg_Wjets_light
+    mass_fit:
+      var: Dplus_m
+      range: [1.7, 2.2]
+      mean: [1.87, 1.8, 2.0]
+      sigma: [0.02, 0.0, 5.0]
+      poly_order: 2
+    label: 'W#rightarrowe#nu+D, D#rightarrowK#pi#pi, OS-SS'
+    lumi: '2018'
+
+  2018_mu_wplusd_OS-SS:
+    regions:
+      - OS_2018_mu_SR
+      - -SS_2018_mu_SR
+    samples:
+      - Powheg_Wjets_light
+    mass_fit:
+      var: Dplus_m
+      range: [1.7, 2.2]
+      mean: [1.87, 1.8, 2.0]
+      sigma: [0.02, 0.0, 5.0]
+      poly_order: 2
+    label: 'W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, OS-SS'
+    lumi: '2018'

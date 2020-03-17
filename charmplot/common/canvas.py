@@ -20,14 +20,15 @@ BASE_HEIGHT = 600.
 
 class CanvasBase(object):
 
-    def __init__(self, c: channel.Channel, v: variable.Variable, x: float, y: float):
-        self.name = c.name
+    def __init__(self, c: channel.Channel, v: variable.Variable, x: float, y: float, suffix: str = ""):
+        self.name = c.name + suffix
         self.channel = c
         self.variable = v
         self.x = x
         self.y = y
         self.canv = ROOT.TCanvas(self.name, "", int(self.x), int(self.y))
         self.set_canvas_margins()
+        logger.info(f"created canvas with name {self.name}")
 
         # ATLAS label and text
         self.text_height = 32. / self.y
@@ -40,7 +41,7 @@ class CanvasBase(object):
             h.GetXaxis().SetRangeUser(self.variable.x_range[0], self.variable.x_range[1])
 
     def make_proxy_histogram(self, h, name="proxy"):
-        proxy = h.Clone(f"{self.name}_{name}")
+        proxy = h.Clone(f"{self.name}_{h.GetName()}_{name}")
         for i in range(0, proxy.GetNbinsX() + 2):
             proxy.SetBinContent(i, 0)
             proxy.SetBinError(i, 0)
@@ -75,13 +76,6 @@ class CanvasBase(object):
         if title:
             proxy.GetYaxis().SetTitle(title)
 
-    def text(self, text):
-        line = ROOT.TLatex()
-        line.SetTextFont(43)
-        line.SetTextSize(32)
-        line.DrawLatex(0.18, self.text_pos_y, text)
-        self.text_pos_y -= self.text_height
-
     def set_axis_text_size(self, proxy, y=1.0, no_x_axis=False):
         # y-axis
         proxy.GetYaxis().SetTitleFont(43)
@@ -114,8 +108,9 @@ class Canvas2(CanvasBase):
     legend = None
     offset = 0
 
-    def __init__(self, c: channel.Channel, v: variable.Variable, x: float, y: float, y_split: float = 0.35, fit: likelihoodFit.LikelihoodFit = None):
-        super(Canvas2, self).__init__(c, v, x, y)
+    def __init__(self, c: channel.Channel, v: variable.Variable, x: float, y: float,
+                 y_split: float = 0.35, fit: likelihoodFit.LikelihoodFit = None, suffix: str = ""):
+        super(Canvas2, self).__init__(c, v, x, y, suffix)
 
         # upper/lower canvas split
         self.y_split = y_split
@@ -126,17 +121,27 @@ class Canvas2(CanvasBase):
         self.fit = fit
 
         # upper pad
-        pad1 = ROOT.TPad(self.name + "_upper_pad", "", 0., self.y_split, 1., 1.)
-        pad1.SetFillStyle(4000)
-        pad1.SetTopMargin(self.canv.GetTopMargin() / (1 - self.y_split))
-        pad1.SetLeftMargin(self.canv.GetLeftMargin())
-        pad1.SetRightMargin(self.canv.GetRightMargin())
+        self.pad1 = ROOT.TPad(self.name + "_upper_pad", "", 0., self.y_split, 1., 1.)
+        self.pad1.SetFillStyle(4000)
+        self.pad1.SetTopMargin(self.canv.GetTopMargin() / (1 - self.y_split))
+        self.pad1.SetLeftMargin(self.canv.GetLeftMargin())
+        self.pad1.SetRightMargin(self.canv.GetRightMargin())
         if self.y_split:
-            pad1.SetBottomMargin(self.offset)
+            self.pad1.SetBottomMargin(self.offset)
         else:
-            pad1.SetBottomMargin(self.canv.GetBottomMargin())
-        pad1.Draw()
-        self.pad1 = pad1
+            self.pad1.SetBottomMargin(self.canv.GetBottomMargin())
+        self.pad1.Draw()
+
+        # lower pad
+        if self.y_split:
+            self.pad2 = ROOT.TPad(self.name + "_lower_pad", "", 0., 0, 1., 1 - (1 - self.y_split) * (1 - self.offset))
+            self.pad2.SetGridy()
+            self.pad2.SetFillStyle(4000)
+            self.pad2.SetTopMargin(0)
+            self.pad2.SetBottomMargin(self.canv.GetBottomMargin() / (self.y_split + self.offset))
+            self.pad2.SetLeftMargin(self.canv.GetLeftMargin())
+            self.pad2.SetRightMargin(self.canv.GetRightMargin())
+            self.pad2.Draw()
 
         # set ATLAS label
         self.set_atlas_label()
@@ -144,17 +149,13 @@ class Canvas2(CanvasBase):
         # print fit results
         self.fit_results()
 
-        # lower pad
-        if self.y_split:
-            pad2 = ROOT.TPad(self.name + "_upper_pad", "", 0., 0, 1., 1 - (1 - self.y_split) * (1 - self.offset))
-            pad2.SetGridy()
-            pad2.SetFillStyle(4000)
-            pad2.SetTopMargin(0)
-            pad2.SetBottomMargin(self.canv.GetBottomMargin() / (self.y_split + self.offset))
-            pad2.SetLeftMargin(self.canv.GetLeftMargin())
-            pad2.SetRightMargin(self.canv.GetRightMargin())
-            pad2.Draw()
-            self.pad2 = pad2
+    def text(self, text):
+        self.canv.cd()
+        line = ROOT.TLatex()
+        line.SetTextFont(43)
+        line.SetTextSize(32)
+        line.DrawLatex(0.18, self.text_pos_y, text)
+        self.text_pos_y -= self.text_height
 
     def set_atlas_label(self):
         # ATLAS label
@@ -268,7 +269,7 @@ class Canvas2(CanvasBase):
         self.proxy_up.SetMaximum(math.pow(10, math.log10(self.max_val) * self.maximum_scale_factor +
                                           (1 - self.maximum_scale_factor) * math.log10(self.proxy_up.GetMinimum())))
 
-    def make_legend(self, data, mc_tot, mc_map, samples, print_yields=False):
+    def make_legend(self, data, mc_tot=None, mc_map=[], samples=[], print_yields=False):
         # temp entry for sys unc
         temp_err = ROOT.TGraphErrors()
         temp_err.SetLineColor(ROOT.kBlack)
@@ -277,13 +278,13 @@ class Canvas2(CanvasBase):
         self.temp_err = temp_err
 
         # legend
-        n_entries = len(samples)
+        self.n_entries = len(samples)
         if data:
-            n_entries += 1
+            self.n_entries += 1
         if mc_tot:
-            n_entries += 1
+            self.n_entries += 1
         self.leg_y2 = 1 - 1.8 * self.text_height_small / (1 - self.y_split)
-        self.leg_y1 = self.leg_y2 - n_entries * self.text_height_small / (1 - self.y_split)
+        self.leg_y1 = self.leg_y2 - self.n_entries * self.text_height_small / (1 - self.y_split)
         leg = ROOT.TLegend(0.65, self.leg_y1, 0.9, self.leg_y2)
         leg.SetBorderSize(0)
         leg.SetFillColor(0)
@@ -362,12 +363,12 @@ class Canvas2(CanvasBase):
 class CanvasMCRatio(Canvas2):
 
     def __init__(self, c: channel.Channel, v: variable.Variable, x: float, y: float, y_split: float = 0.35):
-        super(CanvasMCRatio, self).__init__(c, v, x, y, y_split)
+        super(CanvasMCRatio, self).__init__(c, v, x, y, y_split, suffix="_mc_ratio")
 
     def make_legend(self, mc_map, samples):
-        n_entries = len(samples)
+        self.n_entries = len(samples)
         self.leg_y2 = 1 - 1.8 * self.text_height_small / (1 - self.y_split)
-        self.leg_y1 = self.leg_y2 - n_entries * self.text_height_small / (1 - self.y_split)
+        self.leg_y1 = self.leg_y2 - self.n_entries * self.text_height_small / (1 - self.y_split)
         leg = ROOT.TLegend(0.65, self.leg_y1, 0.9, self.leg_y2)
         leg.SetBorderSize(0)
         leg.SetFillColor(0)
@@ -416,3 +417,52 @@ class CanvasMCRatio(Canvas2):
             self.set_axis_text_size(self.proxy_dn, self.y_split + self.offset)
             self.set_ratio_range(0.0, 1.99, override=True)
             self.set_x_range(self.proxy_dn)
+
+
+class CanvasMassFit(Canvas2):
+
+    def __init__(self, c: channel.Channel, v: variable.Variable, x: float, y: float, y_split: float = 0.35):
+        super(CanvasMassFit, self).__init__(c, v, x, y, y_split, suffix="_mass_fit")
+
+    def make_legend(self, data, mc_histograms=[], mc_names=[]):
+        # temp entry for sys unc
+        temp_err = ROOT.TGraphErrors()
+        temp_err.SetLineColor(ROOT.kBlack)
+        temp_err.SetFillColor(ROOT.kGray + 2)
+        temp_err.SetFillStyle(3354)
+        self.temp_err = temp_err
+
+        # legend
+        self.n_entries = len(mc_histograms)
+        if data:
+            self.n_entries += 1
+
+        self.leg_y2 = 1 - 1.8 * self.text_height_small / (1 - self.y_split)
+        self.leg_y1 = self.leg_y2 - self.n_entries * self.text_height_small / (1 - self.y_split)
+        leg = ROOT.TLegend(0.65, self.leg_y1, 0.9, self.leg_y2)
+        leg.SetBorderSize(0)
+        leg.SetFillColor(0)
+        leg.SetFillStyle(0)
+        leg.SetTextSize(28)
+        leg.SetTextFont(43)
+        if data:
+            leg.AddEntry(data, "Data", "pe")
+        for i in range(len(mc_histograms)):
+            h = mc_histograms[i]
+            name = mc_names[i]
+            leg.AddEntry(h, "%s" % name, "l")
+        self.pad1.cd()
+        self.legend = leg
+        self.legend.Draw()
+
+    def text_right(self, text):
+        self.canv.cd()
+        if not self.leg_y1:
+            logger.critical("create legend first!")
+            sys.exit(1)
+        line = ROOT.TLatex()
+        line.SetTextFont(43)
+        line.SetTextSize(28)
+        line.DrawLatex(0.65, 1 - 2.5 * self.text_height - self.n_entries * self.text_height_small, text)
+        self.n_entries += 1
+        self.leg_y1 -= self.text_height_small

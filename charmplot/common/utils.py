@@ -1,5 +1,6 @@
 from charmplot.common import canvas
 from charmplot.common import likelihoodFit
+from charmplot.common import massFit
 from charmplot.control import channel
 from charmplot.control import globalConfig
 from charmplot.control import inputDataReader
@@ -180,6 +181,12 @@ def get_samples(conf: globalConfig.GlobalConfig, channel: channel.Channel) -> Li
     else:
         samples = conf.get_mc()
     return samples
+
+
+def mass_fit(conf: globalConfig.GlobalConfig, channel: channel.Channel, h_data: ROOT.TH1) -> massFit.MassFit:
+    if channel.mass_fit:
+        fit = massFit.MassFit(channel, conf.get_var(channel.mass_fit["var"]), h_data, os.path.join(conf.config_name, f"{channel.name}_mass_fit"))
+        fit.fit()
 
 
 def likelihood_fit(conf: globalConfig.GlobalConfig, reader: inputDataReader.InputDataReader,

@@ -66,6 +66,10 @@ def main(options, conf, reader):
             # data histogram
             h_data = reader.get_histogram(conf.get_data(), c, conf.get_var(v))
 
+            # mass fit
+            if c.mass_fit:
+                utils.mass_fit(conf, c, h_data)
+
             # read input MC histograms (and scale them)
             mc_map = {}
             for s in samples:
