@@ -104,10 +104,10 @@ def set_under_over_flow(h: ROOT.TH1, x_range: list):
     h.SetBinError(x_range_bins[1], (errN**2 + errN1**2)**(0.5))
 
 
-def rebin_histogram(h: ROOT.TH1, v: variable.Variable):
+def rebin_histogram(h: ROOT.TH1, v: variable.Variable, extra_rebin: int = 1):
     rebin = v.rebin
     if rebin:
-        h.Rebin(rebin)
+        h.Rebin(rebin * extra_rebin)
     set_under_over_flow(h, v.x_range)
 
 

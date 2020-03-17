@@ -6,6 +6,7 @@ class Channel(object):
     likelihood_fit = None
     scale_factors = None
     make_plots = True
+    extra_rebin = 1
     name = ""
     lumi = ""
     label = []
@@ -51,6 +52,9 @@ class Channel(object):
 
     def set_scale_factors(self, scale_factors):
         self.scale_factors = scale_factors
+
+    def set_extra_rebin(self, extra_rebin):
+        self.extra_rebin = extra_rebin
 
     def get_all(self):
         return self.add + self.subtract

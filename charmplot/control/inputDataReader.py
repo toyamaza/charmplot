@@ -39,7 +39,7 @@ class InputDataReader(object):
                         variable.name, c, sample.name))
                     raise IOError("Histogram not found in input file")
                 h = h.Clone(h.GetName() + "_temp")
-                utils.rebin_histogram(h, variable)
+                utils.rebin_histogram(h, variable, channel.extra_rebin)
                 utils.set_to_positive(h)
                 if not h_total:
                     h_total = h.Clone("%s_%s_%s" % (sample.name, channel.name, variable.name))
@@ -52,7 +52,7 @@ class InputDataReader(object):
                         variable.name, c, sample.name))
                     raise IOError("Histogram not found in input file")
                 h = h.Clone(h.GetName() + "_temp")
-                utils.rebin_histogram(h, variable)
+                utils.rebin_histogram(h, variable, channel.extra_rebin)
                 utils.set_to_positive(h)
                 h_total.Add(h, -1 * weight)
         return h_total

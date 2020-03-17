@@ -245,5 +245,8 @@ beamPosY_minus_PVY:
 
 njets:
   label: N_{jet}
-  stage_out: False
+  ratio_range: [0.5, 1.49]
+
+nbjets:
+  label: N_{#it{b}-jet}
   ratio_range: [0.5, 1.49]

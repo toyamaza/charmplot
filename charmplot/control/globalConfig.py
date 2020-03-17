@@ -143,6 +143,8 @@ class GlobalConfig(object):
                 chan.set_likelihood_fit(val['likelihood_fit'])
             if 'scale_factors' in val:
                 chan.set_scale_factors(val['scale_factors'])
+            if 'extra_rebin' in val:
+                chan.set_extra_rebin(val['extra_rebin'])
         self.channels = channels
 
     def parse_confing(self, conf):
