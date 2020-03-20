@@ -16,15 +16,15 @@ samples:
 channels:
   2018_mu_wplusd_OS-SS:
     regions:
-      - OS_2018_mu_SR
-      - -SS_2018_mu_SR
+      - OS_2018_mu_SR_Dplus
+      - -SS_2018_mu_SR_Dplus
     label: 'W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, OS-SS'
     lumi: '2018'
 
   2018_mu_wplusd_PT_Template_OS-SS:
     regions:
-      - OS_2018_mu_QCD
-      - -SS_2018_mu_QCD
+      - OS_2018_mu_QCD_Dplus
+      - -SS_2018_mu_QCD_Dplus
     samples:
       - Multijet_Powheg
       - Powheg_Wjets_light
@@ -40,8 +40,8 @@ channels:
 
   2018_mu_wplusd_PT_Loose_OS-SS:
     regions:
-      - OS_2018_mu
-      - -SS_2018_mu
+      - OS_2018_mu_Dplus
+      - -SS_2018_mu_Dplus
     samples:
       - Powheg_Wjets_light
       - Powheg_Wjets_tau
@@ -55,8 +55,8 @@ channels:
 
   2018_mu_wplusd_PT_Fit_OS-SS:
     regions:
-      - OS_2018_mu
-      - -SS_2018_mu
+      - OS_2018_mu_Dplus
+      - -SS_2018_mu_Dplus
     samples:
       - Powheg_Wjets
       - Top
@@ -79,8 +79,8 @@ channels:
 
   2018_mu_wplusd_PT_Extrapolated_OS-SS:
     regions:
-      - OS_2018_mu_SR
-      - -SS_2018_mu_SR
+      - OS_2018_mu_SR_Dplus
+      - -SS_2018_mu_SR_Dplus
     samples:
       - Powheg_Wjets_light
       - Powheg_Wjets_tau
@@ -101,6 +101,6 @@ channels:
 
   2018_mu_wplusd_PTCut_Template_OS-SS:
     regions:
-      - OS_2018_mu_QCD_PTCut
-      - -SS_2018_mu_QCD_PTCut
+      - OS_2018_mu_QCD_PTCut_Dplus
+      - -SS_2018_mu_QCD_PTCut_Dplus
     make_plots: False

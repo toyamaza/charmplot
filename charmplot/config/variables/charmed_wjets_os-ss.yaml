@@ -1,42 +1,42 @@
-Dplus_m:
+Dmeson_m:
   label: 'D^{#pm} m'
   unit: 'GeV'
   rebin: 10
   ratio_range: [0.5, 1.49]
 
-Dplus_pt:
+Dmeson_pt:
   label: 'D^{#pm} p_{T}'
   unit: 'GeV'
   rebin: 2
   ratio_range: [0.5, 1.49]
 
-Dplus_eta:
+Dmeson_eta:
   label: 'D^{#pm} #eta'
   rebin: 2
   ratio_range: [0.5, 1.49]
 
-Dplus_phi:
+Dmeson_phi:
   label: 'D^{#pm} #phi'
   rebin: 2
   ratio_range: [0.5, 1.49]
 
-Dplus_Lxy:
+Dmeson_Lxy:
   label: 'D^{#pm} L_{xy}'
   unit: 'mm'
   rebin: 2
   ratio_range: [0.5, 1.49]
 
-Dplus_cTau:
+Dmeson_cTau:
   label: 'D^{#pm} c#tau'
   rebin: 2
   ratio_range: [0.5, 1.49]
 
-Dplus_chi2:
+Dmeson_chi2:
   label: 'D^{#pm} #chi^{2}'
   rebin: 2
   ratio_range: [0.5, 1.49]
 
-Dplus_cosThetaStar:
+Dmeson_cosThetaStar:
   label: 'D^{#pm} cos#theta*'
   rebin: 2
   ratio_range: [0.5, 1.49]
@@ -67,13 +67,13 @@ lep_eta:
   rebin: 4
   ratio_range: [0.5, 1.49]
 
-Dplus_d0:
+Dmeson_d0:
   label: 'D^{#pm} d_{0}'
   unit: '#mum'
   rebin: 2
   ratio_range: [0.5, 1.49]
 
-DR_Dplus_lep:
+DR_Dmeson_lep:
   label: '#DeltaR(D^{#pm}, lep)'
   rebin: 2
   ratio_range: [0.5, 1.49]
@@ -152,70 +152,70 @@ lep_ptvarcone30_TightTTVA_pt1000:
   ratio_range: [0.0, 1.99]
   rebin: 2
 
-DPhi_Dplus_lep:
+DPhi_Dmeson_lep:
   label: '#Delta#phi(D^{#pm}, lep)'
   rebin: 2
   ratio_range: [0.5, 1.49]
 
-DEta_Dplus_lep:
+DEta_Dmeson_lep:
   label: '#Delta#eta(D^{#pm}, lep)'
   rebin: 2
   ratio_range: [0.5, 1.49]
 
-Dplus_SVr:
+Dmeson_SVr:
   label: 'D^{#pm} SVr'
   unit: 'mm'
   rebin: 10
   ratio_range: [0.5, 1.49]
 
-Dplus_ptcone40_pt:
+Dmeson_ptcone40_pt:
   label: 'D^{#pm} ptcone40/p_{T}'
   rebin: 2
   ratio_range: [0.5, 1.49]
 
-Dplus_Ds1:
+Dmeson_Ds1:
   label: 'D^{#pm} Ds_{1} veto'
   unit: 'MeV'
   rebin: 10
   ratio_range: [0.5, 1.49]
 
-Dplus_Ds2:
+Dmeson_Ds2:
   label: 'D^{#pm} Ds_{2} veto'
   unit: 'MeV'
   rebin: 10
   ratio_range: [0.5, 1.49]
 
-Dplus_Dstar1:
+Dmeson_Dstar1:
   label: 'D^{#pm} D*_{1} veto'
   unit: 'MeV'
   rebin: 2
   ratio_range: [0.5, 1.49]
 
-Dplus_Dstar2:
+Dmeson_Dstar2:
   label: 'D^{#pm} D*_{2} veto'
   unit: 'MeV'
   rebin: 2
   ratio_range: [0.5, 1.49]
 
-Dplus_max_trackZ0PV:
+Dmeson_max_trackZ0PV:
   label: 'D^{#pm} max z_{0}sin#theta_{PV}'
   unit: 'mm'
   rebin: 2
   ratio_range: [0.5, 1.49]
 
-Dplus_max_trackZ0:
+Dmeson_max_trackZ0:
   label: 'D^{#pm} max z_{0}sin#theta'
   unit: 'mm'
   rebin: 2
   ratio_range: [0.5, 1.49]
 
-Dplus_min_trackPt:
+Dmeson_min_trackPt:
   label: 'D^{#pm} min p_{T}(tracks)'
   unit: 'MeV'
   rebin: 2
   ratio_range: [0.5, 1.49]
 
-Dplus_max_trackdR:
+Dmeson_max_trackdR:
   label: 'D^{#pm} max #DeltaR(tracks)'
   rebin: 2
   ratio_range: [0.5, 1.49]
@@ -247,3 +247,7 @@ njets:
   label: N_{jet}
   stage_out: False
   ratio_range: [0.5, 1.49]
+
+N_Dplus:
+  label: N_{D^{+}}
+  ratio_range: [0.9, 1.99]

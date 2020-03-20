@@ -24,26 +24,26 @@ samples:
 channels:
   2018_mu_wplusd_OS:
     regions:
-      - OS_2018_mu_SR
+      - OS_2018_mu_SR_Dplus
     label: 'W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, OS'
     lumi: '2018'
 
   2018_mu_wplusd_SS:
     regions:
-      - SS_2018_mu_SR
+      - SS_2018_mu_SR_Dplus
     label: 'W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, SS'
     lumi: '2018'
 
   2018_mu_wplusd_OS-SS:
     regions:
-      - OS_2018_mu_SR
-      - -SS_2018_mu_SR
+      - OS_2018_mu_SR_Dplus
+      - -SS_2018_mu_SR_Dplus
     label: 'W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, OS-SS'
     lumi: '2018'
 
   2018_mu_wplusd_MET_Template_OS:
     regions:
-      - OS_2018_mu_QCD
+      - OS_2018_mu_QCD_Dplus
     samples:
       - Multijet_Powheg
       - Powheg_Wjets_light
@@ -59,7 +59,7 @@ channels:
 
   2018_mu_wplusd_MET_Template_SS:
     regions:
-      - SS_2018_mu_QCD
+      - SS_2018_mu_QCD_Dplus
     samples:
       - Multijet_Powheg
       - Powheg_Wjets_light
@@ -75,7 +75,7 @@ channels:
 
   2018_mu_wplusd_MET_Loose_OS:
     regions:
-      - OS_2018_mu
+      - OS_2018_mu_Dplus
     samples:
       - Powheg_Wjets_light
       - Powheg_Wjets_tau
@@ -89,7 +89,7 @@ channels:
 
   2018_mu_wplusd_MET_Loose_SS:
     regions:
-      - SS_2018_mu
+      - SS_2018_mu_Dplus
     samples:
       - Powheg_Wjets_light
       - Powheg_Wjets_tau
@@ -103,7 +103,7 @@ channels:
 
   2018_mu_wplusd_MET_Fit_OS:
     regions:
-      - OS_2018_mu
+      - OS_2018_mu_Dplus
     samples:
       - Powheg_Wjets
       - Top
@@ -125,7 +125,7 @@ channels:
 
   2018_mu_wplusd_MET_Fit_SS:
     regions:
-      - SS_2018_mu
+      - SS_2018_mu_Dplus
     samples:
       - Powheg_Wjets
       - Top
@@ -147,7 +147,7 @@ channels:
 
   2018_mu_wplusd_MET_Extrapolated_OS:
     regions:
-      - OS_2018_mu_SR
+      - OS_2018_mu_SR_Dplus
     samples:
       - Powheg_Wjets_light
       - Powheg_Wjets_tau
@@ -168,7 +168,7 @@ channels:
 
   2018_mu_wplusd_MET_Extrapolated_SS:
     regions:
-      - SS_2018_mu_SR
+      - SS_2018_mu_SR_Dplus
     samples:
       - Powheg_Wjets_light
       - Powheg_Wjets_tau
@@ -189,10 +189,10 @@ channels:
 
   2018_mu_wplusd_METCut_Template_OS:
     regions:
-      - OS_2018_mu_QCD_METCut
+      - OS_2018_mu_QCD_METCut_Dplus
     make_plots: False
 
   2018_mu_wplusd_METCut_Template_SS:
     regions:
-      - SS_2018_mu_QCD_METCut
+      - SS_2018_mu_QCD_METCut_Dplus
     make_plots: False

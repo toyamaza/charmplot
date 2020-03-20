@@ -1,0 +1,203 @@
+colorScheme: cheer_up_emo_kid
+
+variablesConf: charmed_wjets
+
+samplesConf: common
+
+data: Data
+
+samples:
+  - Powheg_Wjets_light
+  - Powheg_Wjets_tau
+  - Sherpa_Zjets
+  - Top
+  - Diboson
+
+channels:
+  2018_el_0tag_wplusd_OS:
+    regions:
+      - OS_2018_el_0tag_SR_Dplus_Dplus
+    label:
+      - 'W#rightarrowe#nu+D, D#rightarrowK#pi#pi, OS'
+      - '0-btag'
+    lumi: '2018'
+
+  2018_el_1tag_wplusd_OS:
+    regions:
+      - OS_2018_el_1tag_SR_Dplus_Dplus
+    label:
+      - 'W#rightarrowe#nu+D, D#rightarrowK#pi#pi, OS'
+      - '1-btag'
+    lumi: '2018'
+
+  2018_el_2tag_wplusd_OS:
+    regions:
+      - OS_2018_el_2tag_SR_Dplus_Dplus
+    samples:
+      - Top
+      - Powheg_Wjets_light
+      - Powheg_Wjets_tau
+      - Sherpa_Zjets
+      - Diboson
+    label:
+      - 'W#rightarrowe#nu+D, D#rightarrowK#pi#pi, OS'
+      - '2-btag'
+    lumi: '2018'
+
+  2018_el_0tag_wplusd_SS:
+    regions:
+      - SS_2018_el_0tag_SR_Dplus_Dplus
+    label:
+      - 'W#rightarrowe#nu+D, D#rightarrowK#pi#pi, SS'
+      - '0-btag'
+    lumi: '2018'
+
+  2018_el_1tag_wplusd_SS:
+    regions:
+      - SS_2018_el_1tag_SR_Dplus_Dplus
+    label:
+      - 'W#rightarrowe#nu+D, D#rightarrowK#pi#pi, SS'
+      - '1-btag'
+    lumi: '2018'
+
+  2018_el_2tag_wplusd_SS:
+    regions:
+      - SS_2018_el_2tag_SR_Dplus_Dplus
+    samples:
+      - Top
+      - Powheg_Wjets_light
+      - Powheg_Wjets_tau
+      - Sherpa_Zjets
+      - Diboson
+    label:
+      - 'W#rightarrowe#nu+D, D#rightarrowK#pi#pi, SS'
+      - '2-btag'
+    lumi: '2018'
+
+  2018_el_0tag_wplusd_OS-SS:
+    regions:
+      - OS_2018_el_0tag_SR_Dplus_Dplus
+      - -SS_2018_el_0tag_SR_Dplus_Dplus
+    label:
+      - 'W#rightarrowe#nu+D, D#rightarrowK#pi#pi, OS-SS'
+      - '0-btag'
+    lumi: '2018'
+
+  2018_el_1tag_wplusd_OS-SS:
+    regions:
+      - OS_2018_el_1tag_SR_Dplus_Dplus
+      - -SS_2018_el_1tag_SR_Dplus_Dplus
+    label:
+      - 'W#rightarrowe#nu+D, D#rightarrowK#pi#pi, OS-SS'
+      - '1-btag'
+    lumi: '2018'
+
+  2018_el_2tag_wplusd_OS-SS:
+    regions:
+      - OS_2018_el_2tag_SR_Dplus_Dplus
+      - -SS_2018_el_2tag_SR_Dplus_Dplus
+    samples:
+      - Top
+      - Powheg_Wjets_light
+      - Powheg_Wjets_tau
+      - Sherpa_Zjets
+      - Diboson
+    label:
+      - 'W#rightarrowe#nu+D, D#rightarrowK#pi#pi, OS-SS'
+      - '2-btag'
+    lumi: '2018'
+    extra_rebin: 4
+
+  2018_mu_0tag_wplusd_OS:
+    regions:
+      - OS_2018_mu_0tag_SR_Dplus_Dplus
+    label:
+      - 'W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, OS'
+      - '0-btag'
+    lumi: '2018'
+
+  2018_mu_1tag_wplusd_OS:
+    regions:
+      - OS_2018_mu_1tag_SR_Dplus_Dplus
+    label:
+      - 'W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, OS'
+      - '1-btag'
+    lumi: '2018'
+
+  2018_mu_2tag_wplusd_OS:
+    regions:
+      - OS_2018_mu_2tag_SR_Dplus_Dplus
+    samples:
+      - Top
+      - Powheg_Wjets_light
+      - Powheg_Wjets_tau
+      - Sherpa_Zjets
+      - Diboson
+    label:
+      - 'W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, OS'
+      - '2-btag'
+    lumi: '2018'
+
+  2018_mu_0tag_wplusd_SS:
+    regions:
+      - SS_2018_mu_0tag_SR_Dplus_Dplus
+    label:
+      - 'W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, SS'
+      - '0-btag'
+    lumi: '2018'
+
+  2018_mu_1tag_wplusd_SS:
+    regions:
+      - SS_2018_mu_1tag_SR_Dplus_Dplus
+    label:
+      - 'W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, SS'
+      - '1-btag'
+    lumi: '2018'
+
+  2018_mu_2tag_wplusd_SS:
+    regions:
+      - SS_2018_mu_2tag_SR_Dplus_Dplus
+    samples:
+      - Top
+      - Powheg_Wjets_light
+      - Powheg_Wjets_tau
+      - Sherpa_Zjets
+      - Diboson
+    label:
+      - 'W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, SS'
+      - '2-btag'
+    lumi: '2018'
+
+  2018_mu_0tag_wplusd_OS-SS:
+    regions:
+      - OS_2018_mu_0tag_SR_Dplus_Dplus
+      - -SS_2018_mu_0tag_SR_Dplus_Dplus
+    label:
+      - 'W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, OS-SS'
+      - '0-btag'
+    lumi: '2018'
+
+  2018_mu_1tag_wplusd_OS-SS:
+    regions:
+      - OS_2018_mu_1tag_SR_Dplus_Dplus
+      - -SS_2018_mu_1tag_SR_Dplus_Dplus
+    label:
+      - 'W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, OS-SS'
+      - '1-btag'
+    lumi: '2018'
+
+  2018_mu_2tag_wplusd_OS-SS:
+    regions:
+      - OS_2018_mu_2tag_SR_Dplus_Dplus
+      - -SS_2018_mu_2tag_SR_Dplus_Dplus
+    samples:
+      - Top
+      - Powheg_Wjets_light
+      - Powheg_Wjets_tau
+      - Sherpa_Zjets
+      - Diboson
+    label:
+      - 'W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, OS-SS'
+      - '2-btag'
+    lumi: '2018'
+    extra_rebin: 4

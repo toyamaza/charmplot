@@ -20,15 +20,20 @@ BASE_HEIGHT = 600.
 
 class CanvasBase(object):
 
+    def __del__(self):
+        self.canv.Delete()
+
     def __init__(self, c: channel.Channel, v: variable.Variable, x: float, y: float, suffix: str = ""):
-        self.name = c.name + suffix
+        self.name = f"{c.name}_{v.name}"
+        if suffix:
+            self.name += f"_{suffix}"
         self.channel = c
         self.variable = v
         self.x = x
         self.y = y
         self.canv = ROOT.TCanvas(self.name, "", int(self.x), int(self.y))
         self.set_canvas_margins()
-        logger.info(f"created canvas with name {self.name}")
+        logger.debug(f"created canvas with name {self.name}")
 
         # ATLAS label and text
         self.text_height = 32. / self.y
@@ -108,6 +113,10 @@ class Canvas2(CanvasBase):
     legend = None
     offset = 0
 
+    def __del__(self):
+        self.pad2.Delete()
+        self.pad1.Delete()
+
     def __init__(self, c: channel.Channel, v: variable.Variable, x: float, y: float,
                  y_split: float = 0.35, fit: likelihoodFit.LikelihoodFit = None, suffix: str = ""):
         super(Canvas2, self).__init__(c, v, x, y, suffix)
@@ -121,7 +130,7 @@ class Canvas2(CanvasBase):
         self.fit = fit
 
         # upper pad
-        self.pad1 = ROOT.TPad(self.name + "_upper_pad", "", 0., self.y_split, 1., 1.)
+        self.pad1 = ROOT.TPad(self.name + "_1", "", 0., self.y_split, 1., 1.)
         self.pad1.SetFillStyle(4000)
         self.pad1.SetTopMargin(self.canv.GetTopMargin() / (1 - self.y_split))
         self.pad1.SetLeftMargin(self.canv.GetLeftMargin())
@@ -131,10 +140,11 @@ class Canvas2(CanvasBase):
         else:
             self.pad1.SetBottomMargin(self.canv.GetBottomMargin())
         self.pad1.Draw()
+        logger.debug(f"created pad with name {self.name}_1")
 
         # lower pad
         if self.y_split:
-            self.pad2 = ROOT.TPad(self.name + "_lower_pad", "", 0., 0, 1., 1 - (1 - self.y_split) * (1 - self.offset))
+            self.pad2 = ROOT.TPad(self.name + "_2", "", 0., 0, 1., 1 - (1 - self.y_split) * (1 - self.offset))
             self.pad2.SetGridy()
             self.pad2.SetFillStyle(4000)
             self.pad2.SetTopMargin(0)
@@ -142,6 +152,7 @@ class Canvas2(CanvasBase):
             self.pad2.SetLeftMargin(self.canv.GetLeftMargin())
             self.pad2.SetRightMargin(self.canv.GetRightMargin())
             self.pad2.Draw()
+            logger.debug(f"created pad with name {self.name}_2")
 
         # set ATLAS label
         self.set_atlas_label()

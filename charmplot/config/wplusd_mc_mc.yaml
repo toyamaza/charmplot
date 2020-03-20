@@ -7,8 +7,8 @@ samplesConf: wplusd_mc_mc
 channels:
   2018_el_wplusd_OS-SS:
     regions:
-      - OS_2018_el_SR
-      - -SS_2018_el_SR
+      - OS_2018_el_SR_Dplus
+      - -SS_2018_el_SR_Dplus
     samples:
       - Powheg_Wjets_v3
       - Powheg_Wjets_v2
@@ -17,8 +17,8 @@ channels:
 
   2018_mu_wplusd_OS-SS:
     regions:
-      - OS_2018_mu_SR
-      - -SS_2018_mu_SR
+      - OS_2018_mu_SR_Dplus
+      - -SS_2018_mu_SR_Dplus
     samples:
       - Powheg_Wjets_v3
       - Powheg_Wjets_v2
@@ -27,7 +27,7 @@ channels:
 
   2018_el_wplusd_OS:
     regions:
-      - OS_2018_el_SR
+      - OS_2018_el_SR_Dplus
     samples:
       - Powheg_Wjets_v3
       - Powheg_Wjets_v2
@@ -36,7 +36,7 @@ channels:
 
   2018_mu_wplusd_OS:
     regions:
-      - OS_2018_mu_SR
+      - OS_2018_mu_SR_Dplus
     samples:
       - Powheg_Wjets_v3
       - Powheg_Wjets_v2
@@ -45,7 +45,7 @@ channels:
 
   2018_el_wplusd_SS:
     regions:
-      - SS_2018_el_SR
+      - SS_2018_el_SR_Dplus
     samples:
       - Powheg_Wjets_v3
       - Powheg_Wjets_v2
@@ -54,7 +54,7 @@ channels:
 
   2018_mu_wplusd_SS:
     regions:
-      - SS_2018_mu_SR
+      - SS_2018_mu_SR_Dplus
     samples:
       - Powheg_Wjets_v3
       - Powheg_Wjets_v2

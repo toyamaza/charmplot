@@ -16,26 +16,26 @@ samples:
 channels:
   2018_el_wplusd_OS:
     regions:
-      - OS_2018_el_SR
+      - OS_2018_el_SR_Dplus
     label: 'W#rightarrowe#nu+D, D#rightarrowK#pi#pi, OS'
     lumi: '2018'
 
   2018_el_wplusd_SS:
     regions:
-      - SS_2018_el_SR
+      - SS_2018_el_SR_Dplus
     label: 'W#rightarrowe#nu+D, D#rightarrowK#pi#pi, SS'
     lumi: '2018'
 
   2018_el_wplusd_OS-SS:
     regions:
-      - OS_2018_el_SR
-      - -SS_2018_el_SR
+      - OS_2018_el_SR_Dplus
+      - -SS_2018_el_SR_Dplus
     label: 'W#rightarrowe#nu+D, D#rightarrowK#pi#pi, OS-SS'
     lumi: '2018'
 
   2018_el_wplusd_PT_Template_OS:
     regions:
-      - OS_2018_el_QCD
+      - OS_2018_el_QCD_Dplus
     samples:
       - Multijet_Powheg
       - Powheg_Wjets_light
@@ -51,7 +51,7 @@ channels:
 
   2018_el_wplusd_PT_Template_SS:
     regions:
-      - SS_2018_el_QCD
+      - SS_2018_el_QCD_Dplus
     samples:
       - Multijet_Powheg
       - Powheg_Wjets_light
@@ -67,7 +67,7 @@ channels:
 
   2018_el_wplusd_PT_Loose_OS:
     regions:
-      - OS_2018_el
+      - OS_2018_el_Dplus
     samples:
       - Powheg_Wjets_light
       - Powheg_Wjets_tau
@@ -81,7 +81,7 @@ channels:
 
   2018_el_wplusd_PT_Loose_SS:
     regions:
-      - SS_2018_el
+      - SS_2018_el_Dplus
     samples:
       - Powheg_Wjets_light
       - Powheg_Wjets_tau
@@ -95,7 +95,7 @@ channels:
 
   2018_el_wplusd_PT_Fit_OS:
     regions:
-      - OS_2018_el
+      - OS_2018_el_Dplus
     samples:
       - EWK_Powheg
       - Multijet_Powheg | 2018_el_wplusd_PT_Template_OS
@@ -111,7 +111,7 @@ channels:
 
   2018_el_wplusd_PT_Fit_SS:
     regions:
-      - SS_2018_el
+      - SS_2018_el_Dplus
     samples:
       - EWK_Powheg
       - Multijet_Powheg | 2018_el_wplusd_PT_Template_SS
@@ -127,7 +127,7 @@ channels:
 
   2018_el_wplusd_PT_Extrapolated_OS:
     regions:
-      - OS_2018_el_SR
+      - OS_2018_el_SR_Dplus
     samples:
       - Powheg_Wjets_light
       - Powheg_Wjets_tau
@@ -143,7 +143,7 @@ channels:
 
   2018_el_wplusd_PT_Extrapolated_SS:
     regions:
-      - SS_2018_el_SR
+      - SS_2018_el_SR_Dplus
     samples:
       - Powheg_Wjets_light
       - Powheg_Wjets_tau
@@ -159,10 +159,10 @@ channels:
 
   2018_el_wplusd_PTCut_Template_OS:
     regions:
-      - OS_2018_el_QCD_PTCut
+      - OS_2018_el_QCD_PTCut_Dplus
     make_plots: False
 
   2018_el_wplusd_PTCut_Template_SS:
     regions:
-      - SS_2018_el_QCD_PTCut
+      - SS_2018_el_QCD_PTCut_Dplus
     make_plots: False
