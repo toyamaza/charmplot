@@ -38,9 +38,21 @@ class MassFit(object):
         self.name = channel.name
         self.fit_config = channel.mass_fit
         self.variable = variable
-        self.range = self.fit_config["range"]
         self.h = data.Clone(f"{data.GetName()}_mass_fit")
         self.output = output
+
+        self.range = None
+        self.bkg_function = None
+        self.SumW2Error = None
+        if "range" in self.fit_config.keys():
+            self.range = self.fit_config["range"]
+        if "bkg_function" in self.fit_config.keys():
+            self.bkg_function = self.fit_config["bkg_function"]
+        if "SumW2Error" in self.fit_config.keys():
+            self.SumW2Error = self.fit_config["SumW2Error"]
+        else:
+            self.SumW2Error = True
+
         utils.set_to_positive(self.h)
 
     def fit(self):
@@ -58,12 +70,43 @@ class MassFit(object):
         # Gaussian signal
         sig = ROOT.RooGaussian("signal", "signal", x, mean, sigma)
 
-        # Polynomial for background
-        a = []
-        for i in range(self.fit_config["poly_order"]):
-            ai = ROOT.RooRealVar(f"a{i}", f"a{i}", 1, -10, 10)
-            a.append(ai)
-        bkg = ROOT.RooPolynomial("bkg", "bkg", x, ROOT.RooArgList(*a), 0)
+        if not self.bkg_function or self.bkg_function == "poly":
+            # Polynomial for background
+            a = []
+            for i in range(self.fit_config["poly_order"]):
+                ai = ROOT.RooRealVar(f"a{i}", f"a{i}", 1, -10, 10)
+                a.append(ai)
+            bkg = ROOT.RooPolynomial("bkg", "bkg", x, ROOT.RooArgList(*a), 0)
+        elif self.bkg_function == "expo":
+            # Exponential for background
+            lambd = ROOT.RooRealVar("lambda", "slope", -0.1, -5., 0.)
+            bkg = ROOT.RooExponential("bkg", "bkg", x, lambd)
+        elif self.bkg_function == "epoly":
+            args = [x]
+            expr = []
+            for i in range(self.fit_config["poly_order"]):
+                ai = ROOT.RooRealVar(f"a{i+1}", f"a{i+1}", 1, -100, 100)
+                args.append(ai)
+                expr_i = f"a{i+1}"
+                for j in range(i+1):
+                    expr_i += " * x"
+                expr += [expr_i]
+            expr = " + ".join(expr)
+            print (f"exp({expr})")
+            bkg = ROOT.RooClassFactory.makePdfInstance(f"bkg_{self.channel}", f"exp({expr})", ROOT.RooArgList(*args))
+        elif self.bkg_function == "power":
+            args = [x]
+            expr = []
+            for i in range(self.fit_config["poly_order"]):
+                ai = ROOT.RooRealVar(f"a{i}", f"a{i}", 1, -100, 100)
+                args.append(ai)
+                expr_i = f"a{i}"
+                for j in range(i):
+                    expr_i += " * x"
+                expr += [expr_i]
+            expr = " + ".join(expr)
+            print (f"pow(x, {expr})")
+            bkg = ROOT.RooClassFactory.makePdfInstance(f"bkg_{self.channel}", f"pow(x, {expr})", ROOT.RooArgList(*args))
 
         # Sum of two PDFs
         nsig = ROOT.RooRealVar("nsig", "nsig", 50000, 0, 1e6)
@@ -72,7 +115,7 @@ class MassFit(object):
 
         # Do the fit
         _ = total_pdf.fitTo(dh, ROOT.RooFit.Minimizer("Minuit2", "Migrad"),
-                            ROOT.RooFit.SumW2Error(ROOT.kTRUE),
+                            ROOT.RooFit.SumW2Error(self.SumW2Error),
                             ROOT.RooFit.Save(),
                             ROOT.RooFit.PrintLevel(9))
 

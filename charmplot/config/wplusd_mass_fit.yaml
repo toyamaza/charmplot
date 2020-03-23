@@ -3,7 +3,7 @@ colorScheme: cheer_up_emo_kid
 variablesConf: charmed_wjets
 
 channelsVariables:
-  Dplus_m:
+  Dmeson_m:
     label: 'D^{#pm} m'
     unit: 'GeV'
     rebin: 10
@@ -28,12 +28,42 @@ channels:
     samples:
       - Powheg_Wjets_light
     mass_fit:
-      var: Dplus_m
+      var: Dmeson_m
       range: [1.7, 2.2]
       mean: [1.87, 1.8, 2.0]
-      sigma: [0.02, 0.0, 5.0]
+      sigma: [0.02, 0.01, 5.0]
       poly_order: 2
     label: 'W#rightarrowe#nu+D, D#rightarrowK#pi#pi, OS-SS'
+    lumi: '2018'
+
+  2018_el_wplusd_OS:
+    regions:
+      - OS_2018_el_SR_Dplus
+    samples:
+      - Powheg_Wjets_light
+    mass_fit:
+      var: Dmeson_m
+      range: [1.75, 2.2]
+      mean: [1.87, 1.86, 1.88]
+      sigma: [0.02, 0.01, 0.1]
+      bkg_function: epoly
+      poly_order: 2
+    label: 'W#rightarrowe#nu+D, D#rightarrowK#pi#pi, OS'
+    lumi: '2018'
+
+  2018_el_wplusd_SS:
+    regions:
+      - SS_2018_el_SR_Dplus
+    samples:
+      - Powheg_Wjets_light
+    mass_fit:
+      var: Dmeson_m
+      range: [1.75, 2.2]
+      mean: [1.87, 1.86, 1.88]
+      sigma: [0.02, 0.01, 0.1]
+      bkg_function: epoly
+      poly_order: 2
+    label: 'W#rightarrowe#nu+D, D#rightarrowK#pi#pi, SS'
     lumi: '2018'
 
   2018_mu_wplusd_OS-SS:
@@ -43,10 +73,40 @@ channels:
     samples:
       - Powheg_Wjets_light
     mass_fit:
-      var: Dplus_m
+      var: Dmeson_m
       range: [1.7, 2.2]
       mean: [1.87, 1.8, 2.0]
-      sigma: [0.02, 0.0, 5.0]
+      sigma: [0.02, 0.01, 5.0]
       poly_order: 2
     label: 'W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, OS-SS'
+    lumi: '2018'
+
+  2018_mu_wplusd_OS:
+    regions:
+      - OS_2018_mu_SR_Dplus
+    samples:
+      - Powheg_Wjets_light
+    mass_fit:
+      var: Dmeson_m
+      range: [1.75, 2.2]
+      mean: [1.87, 1.86, 1.88]
+      sigma: [0.02, 0.01, 0.1]
+      bkg_function: epoly
+      poly_order: 2
+    label: 'W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, OS'
+    lumi: '2018'
+
+  2018_mu_wplusd_SS:
+    regions:
+      - SS_2018_mu_SR_Dplus
+    samples:
+      - Powheg_Wjets_light
+    mass_fit:
+      var: Dmeson_m
+      range: [1.75, 2.2]
+      mean: [1.87, 1.86, 1.88]
+      sigma: [0.02, 0.01, 0.1]
+      bkg_function: epoly
+      poly_order: 2
+    label: 'W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, SS'
     lumi: '2018'
