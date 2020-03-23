@@ -114,7 +114,8 @@ class Canvas2(CanvasBase):
     offset = 0
 
     def __del__(self):
-        self.pad2.Delete()
+        if self.pad2:
+            self.pad2.Delete()
         self.pad1.Delete()
 
     def __init__(self, c: channel.Channel, v: variable.Variable, x: float, y: float,
