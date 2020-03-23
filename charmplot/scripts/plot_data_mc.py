@@ -57,8 +57,17 @@ def main(options, conf, reader):
 
         # mass fit
         if c.mass_fit:
-            h_data = reader.get_histogram(conf.get_data(), c, conf.get_var(c.mass_fit["var"]))
-            mass_fit = utils.mass_fit(conf, h_data, c)
+            fit_var = conf.get_var(c.mass_fit["var"])
+            h_data = reader.get_histogram(conf.get_data(), c, fit_var)
+            mc_map = {}
+            for s in samples:
+                mc_map[s] = reader.get_histogram(s, c, fit_var)
+            hs = utils.make_stack(samples, mc_map)
+            h_mc_tot = utils.make_mc_tot(hs, f"{c}_{fit_var.name}_mc_tot")
+            # fit data
+            utils.mass_fit(conf, h_data, c, "Data")
+            # fit MC
+            utils.mass_fit(conf, h_mc_tot, c, "MC")
 
         # make channel folder if not exist
         if not os.path.isdir(os.path.join(options.output, c.name)):

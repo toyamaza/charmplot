@@ -458,7 +458,7 @@ class CanvasMassFit(Canvas2):
         leg.SetTextSize(28)
         leg.SetTextFont(43)
         if data:
-            leg.AddEntry(data, "Data", "pe")
+            leg.AddEntry(data, "Template", "pe")
         for i in range(len(mc_histograms)):
             h = mc_histograms[i]
             name = mc_names[i]

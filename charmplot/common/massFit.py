@@ -32,13 +32,14 @@ mc_names = [
 
 class MassFit(object):
 
-    def __init__(self, channel: channel.Channel, variable: variable.Variable, data: ROOT.TH1, output: str = ""):
+    def __init__(self, channel: channel.Channel, variable: variable.Variable, histogram: ROOT.TH1, label: str, output: str = ""):
 
         self.channel = channel
         self.name = channel.name
         self.fit_config = channel.mass_fit
         self.variable = variable
-        self.h = data.Clone(f"{data.GetName()}_mass_fit")
+        self.h = histogram.Clone(f"{histogram.GetName()}_mass_fit")
+        self.label = label
         self.output = output
 
         self.range = None
@@ -93,7 +94,7 @@ class MassFit(object):
                 expr += [expr_i]
             expr = " + ".join(expr)
             print (f"exp({expr})")
-            bkg = ROOT.RooClassFactory.makePdfInstance(f"bkg_{self.channel}", f"exp({expr})", ROOT.RooArgList(*args))
+            bkg = ROOT.RooClassFactory.makePdfInstance(f"bkg_{self.channel}_{self.label}", f"exp({expr})", ROOT.RooArgList(*args))
         elif self.bkg_function == "power":
             args = [x]
             expr = []
@@ -106,7 +107,7 @@ class MassFit(object):
                 expr += [expr_i]
             expr = " + ".join(expr)
             print (f"pow(x, {expr})")
-            bkg = ROOT.RooClassFactory.makePdfInstance(f"bkg_{self.channel}", f"pow(x, {expr})", ROOT.RooArgList(*args))
+            bkg = ROOT.RooClassFactory.makePdfInstance(f"bkg_{self.channel}_{self.label}", f"pow(x, {expr})", ROOT.RooArgList(*args))
 
         # Sum of two PDFs
         nsig = ROOT.RooRealVar("nsig", "nsig", 50000, 0, 1e6)
@@ -154,6 +155,7 @@ class MassFit(object):
         frame.Draw("same")
 
         # Legend and additional text
+        canv.text(f"{self.label} fit")
         canv.make_legend(self.h, mc_histograms=mc_histograms, mc_names=mc_names)
         canv.text_right("#chi^{2} = %.2f (%.1f%s)" % (chi2, prob * 100, "%"))
         canv.text_right("N_{S} = %.0f #pm %.0f" % (nsig.getVal(), nsig.getError()))
@@ -167,4 +169,4 @@ class MassFit(object):
     def save_results(self, c):
         if not os.path.isdir(self.output):
             os.makedirs(self.output)
-        c.canv.Print(os.path.join(self.output, f"{self.channel}_{self.variable.name}.pdf"))
+        c.canv.Print(os.path.join(self.output, f"{self.channel}_{self.variable.name}_{self.label}.pdf"))
