@@ -116,7 +116,8 @@ class Canvas2(CanvasBase):
     def __del__(self):
         if self.pad2:
             self.pad2.Delete()
-        self.pad1.Delete()
+        if self.pad1:
+            self.pad1.Delete()
 
     def __init__(self, c: channel.Channel, v: variable.Variable, x: float, y: float,
                  y_split: float = 0.35, fit: likelihoodFit.LikelihoodFit = None, suffix: str = ""):
