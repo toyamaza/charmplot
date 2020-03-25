@@ -6,6 +6,9 @@ import logging
 import os
 import ROOT
 
+# C++ implementations
+cpp_name = os.path.join(os.path.dirname(__file__), "massFit.cxx")
+ROOT.gROOT.LoadMacro(cpp_name)
 
 # logging
 logger = logging.getLogger(__name__)
@@ -89,11 +92,11 @@ class MassFit(object):
                 ai = ROOT.RooRealVar(f"a{i+1}", f"a{i+1}", 1, -100, 100)
                 args.append(ai)
                 expr_i = f"a{i+1}"
-                for j in range(i+1):
+                for j in range(i + 1):
                     expr_i += " * x"
                 expr += [expr_i]
             expr = " + ".join(expr)
-            print (f"exp({expr})")
+            print(f"exp({expr})")
             bkg = ROOT.RooClassFactory.makePdfInstance(f"bkg_{self.channel}_{self.label}", f"exp({expr})", ROOT.RooArgList(*args))
         elif self.bkg_function == "power":
             args = [x]
@@ -106,7 +109,7 @@ class MassFit(object):
                     expr_i += " * x"
                 expr += [expr_i]
             expr = " + ".join(expr)
-            print (f"pow(x, {expr})")
+            print(f"pow(x, {expr})")
             bkg = ROOT.RooClassFactory.makePdfInstance(f"bkg_{self.channel}_{self.label}", f"pow(x, {expr})", ROOT.RooArgList(*args))
 
         # Sum of two PDFs
@@ -115,10 +118,8 @@ class MassFit(object):
         total_pdf = ROOT.RooAddPdf("tot", "Total PDF", ROOT.RooArgList(sig, bkg), ROOT.RooArgList(nsig, nbkg))
 
         # Do the fit
-        _ = total_pdf.fitTo(dh, ROOT.RooFit.Minimizer("Minuit2", "Migrad"),
-                            ROOT.RooFit.SumW2Error(self.SumW2Error),
-                            ROOT.RooFit.Save(),
-                            ROOT.RooFit.PrintLevel(9))
+        ROOT.Charm.chi2Fit(total_pdf, dh, self.SumW2Error)
+        # ROOT.Charm.likelihoodFit(total_pdf, dh, self.SumW2Error)
 
         # Plot result
         s_component = ROOT.RooArgSet(sig)
