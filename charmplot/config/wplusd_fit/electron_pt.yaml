@@ -110,6 +110,7 @@ channels:
       fixed:
         - Diboson
         - Sherpa_Zjets
+        - Top
     label:
       - 'W#rightarrowe#nu+D, D#rightarrowK#pi#pi, OS'
       - 'Likelihood PT fit'
@@ -132,6 +133,7 @@ channels:
       fixed:
         - Diboson
         - Sherpa_Zjets
+        - Top
     label:
       - 'W#rightarrowe#nu+D, D#rightarrowK#pi#pi, SS'
       - 'Likelihood PT fit'

@@ -151,3 +151,13 @@ Multijet_Powheg:
     - Diboson
   fillColor: "10006"
   legendLabel: Multijet
+
+Multijet_Sherpa:
+  add: data
+  subtract:
+    - Sh_Wjets
+    - Sh_Zjets
+    - Top
+    - Diboson
+  fillColor: "10006"
+  legendLabel: Multijet
