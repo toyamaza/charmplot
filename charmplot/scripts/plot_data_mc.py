@@ -11,8 +11,6 @@ import sys
 dirname = os.path.join(os.path.dirname(__file__), "../../atlasrootstyle")
 ROOT.gROOT.SetBatch(True)
 ROOT.gROOT.LoadMacro(os.path.join(dirname, "AtlasStyle.C"))
-ROOT.gROOT.LoadMacro(os.path.join(dirname, "AtlasLabels.C"))
-ROOT.gROOT.LoadMacro(os.path.join(dirname, "AtlasUtils.C"))
 ROOT.SetAtlasStyle()
 
 # logging
