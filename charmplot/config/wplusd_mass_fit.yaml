@@ -29,10 +29,11 @@ channels:
       - Powheg_Wjets_light
     mass_fit:
       var: Dmeson_m
-      range: [1.7, 2.2]
+      range: [1.75, 2.1]
       mean: [1.87, 1.8, 2.0]
       sigma: [0.02, 0.01, 5.0]
       poly_order: 2
+      chi2Fit: True
     label: 'W#rightarrowe#nu+D, D#rightarrowK#pi#pi, OS-SS'
     lumi: '2018'
 
@@ -74,10 +75,11 @@ channels:
       - Powheg_Wjets_light
     mass_fit:
       var: Dmeson_m
-      range: [1.7, 2.2]
+      range: [1.75, 2.1]
       mean: [1.87, 1.8, 2.0]
       sigma: [0.02, 0.01, 5.0]
       poly_order: 2
+      chi2Fit: True
     label: 'W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, OS-SS'
     lumi: '2018'
 

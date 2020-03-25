@@ -48,10 +48,13 @@ class MassFit(object):
         self.range = None
         self.bkg_function = None
         self.SumW2Error = None
+        self.chi2Fit = None
         if "range" in self.fit_config.keys():
             self.range = self.fit_config["range"]
         if "bkg_function" in self.fit_config.keys():
             self.bkg_function = self.fit_config["bkg_function"]
+        if "chi2Fit" in self.fit_config.keys():
+            self.chi2Fit = self.fit_config["chi2Fit"]
         if "SumW2Error" in self.fit_config.keys():
             self.SumW2Error = self.fit_config["SumW2Error"]
         else:
@@ -118,8 +121,10 @@ class MassFit(object):
         total_pdf = ROOT.RooAddPdf("tot", "Total PDF", ROOT.RooArgList(sig, bkg), ROOT.RooArgList(nsig, nbkg))
 
         # Do the fit
-        ROOT.Charm.chi2Fit(total_pdf, dh, self.SumW2Error)
-        # ROOT.Charm.likelihoodFit(total_pdf, dh, self.SumW2Error)
+        if self.chi2Fit:
+            ROOT.Charm.chi2Fit(total_pdf, dh, self.SumW2Error)
+        else:
+            ROOT.Charm.likelihoodFit(total_pdf, dh, self.SumW2Error)
 
         # Plot result
         s_component = ROOT.RooArgSet(sig)
