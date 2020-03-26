@@ -27,6 +27,7 @@ def cheer_up_emo_kid():
     ])]
     return scheme
 
+
 def cheer_up_emo_kid_extended():
     logger.info("Setting color scheme to 'cheer_up_emo_kid'")
     scheme = [ROOT.TColor(10000 + i, *RGB(c)) for i, c in enumerate([
