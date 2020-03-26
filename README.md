@@ -1,4 +1,17 @@
-# charmplot
+- [charmplot](#charmplot)
+- [Installation on Cori](#installation-on-cori)
+  - [Install conda](#install-conda)
+  - [Create new pyton3 conda environemnt](#create-new-pyton3-conda-environemnt)
+  - [Install ROOT](#install-root)
+  - [Install charmplot](#install-charmplot)
+- [Base analysis script](#base-analysis-script)
+- [Examples](#examples)
+  - [Basic OS/SS and OS-SS plots](#basic-osss-and-os-ss-plots)
+  - [Mass fit](#mass-fit)
+  - [QCD Template fit](#qcd-template-fit)
+- [Stage-out plots to a webpage](#stage-out-plots-to-a-webpage)
+
+## charmplot
 
 Framework for various data analysis and histogram plotting using
 [charmpp](https://gitlab.cern.ch/lbnl/CharmPhysics/charmpp) ntuples.
@@ -41,6 +54,17 @@ This one may take a while.
 ```
 conda install -c conda-forge root cmake
 ```
+
+### Install charmplot
+
+Use pip with option `-e` to install the charmplot package.
+
+```
+pip install -e <path-to-charmplot>
+```
+
+Options `-e` triggers the 'develop' mode where changing the files will have an
+immediate effect without re-installing the package.
 
 ## Base analysis script
 
@@ -97,3 +121,11 @@ To run over example ntuples run the following commands:
 cd /global/cfs/cdirs/atlas/wcharm/example/v2/QCDTemplateFit_PT/
 charm_plot.py -a wplusd_fit/electron_pt -v "Dmeson_m,lep_pt,met_met"
 ```
+
+## Stage-out plots to a webpage
+
+charm_plot.py contains an option to automatically stage-out plots to a webpage.
+Run charm_plot.py with the `--stage-out` command line argument to trigger this.
+
+https://portal.nersc.gov/project/atlas/wcharm/
+
