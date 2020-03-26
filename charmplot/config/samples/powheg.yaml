@@ -1,0 +1,81 @@
+colorScheme: cheer_up_emo_kid
+
+Data:
+  add: data
+  subtract:
+
+DataMinusBackground:
+  add: data
+  subtract:
+    - Ph_Wjets_tau
+    - Sh_Zjets
+    - Top
+    - Diboson
+
+Wjets:
+  add:
+    - Ph_Wjets
+  subtract:
+  fillColor: "10000"
+  lineColor: "10001"
+  legendLabel: W+jets
+
+Wjets_light:
+  add: Ph_Wjets_light
+  subtract:
+  fillColor: "10000"
+  lineColor: "10001"
+  legendLabel: W#rightarrowl#nu
+
+Wjets_tau:
+  add: Ph_Wjets_tau
+  subtract:
+  fillColor: "10001"
+  lineColor: "10000"
+  legendLabel: W#rightarrow#tau#nu
+
+Zjets:
+  add:
+    - Sh_Zjets_light
+    - Sh_Zjets_tau
+  subtract:
+  fillColor: "10002"
+  lineColor: "10003"
+  legendLabel: Z+jets
+
+Zjets_light:
+  add: Sh_Zjets_light
+  subtract:
+  fillColor: "10002"
+  lineColor: "10003"
+  legendLabel: Z#rightarrowll
+
+Zjets_tau:
+  add: Sh_Zjets_tau
+  subtract:
+  fillColor: "10003"
+  lineColor: "10002"
+  legendLabel: Z#rightarrow#tau#tau
+
+Top:
+  add: Top
+  subtract:
+  fillColor: "10004"
+  legendLabel: Top
+
+Diboson:
+  add: Diboson
+  subtract:
+  fillColor: "10005"
+  legendLabel: Diboson
+
+Multijet:
+  add: data
+  subtract:
+    - Ph_Wjets_light
+    - Ph_Wjets_tau
+    - Sh_Zjets
+    - Top
+    - Diboson
+  fillColor: "10006"
+  legendLabel: Multijet

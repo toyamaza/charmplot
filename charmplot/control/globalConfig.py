@@ -155,10 +155,6 @@ class GlobalConfig(object):
                 logger.critical("argument %s not found in config!" % arg)
                 raise Exception("Invalid config")
 
-        # color scheme
-        color_scheme = getattr(colorScheme, conf['colorScheme'])
-        self.style = color_scheme()
-
         # read data
         if 'data' in conf:
             samp = self.samples_config[conf['data']]
@@ -182,6 +178,10 @@ class GlobalConfig(object):
         # global samples config
         assert 'samplesConf' in conf
         self.samples_config = tools.parse_yaml(os.path.join('samples', conf['samplesConf']))
+
+        # color scheme
+        color_scheme = getattr(colorScheme, self.samples_config['colorScheme'])
+        self.style = color_scheme()
 
         # global variables config
         assert 'variablesConf' in conf
