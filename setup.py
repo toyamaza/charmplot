@@ -6,7 +6,7 @@ setup(name='charmplot',
       author_email='miha.muskinja@cern.ch',
       packages=find_packages(),
       scripts=[
-          'charmplot/scripts/plot_data_mc.py',
+          'charmplot/scripts/charm_plot.py',
           'charmplot/scripts/plot_mc_mc.py',
       ],
       )
