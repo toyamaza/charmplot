@@ -2,14 +2,14 @@ colorScheme: cheer_up_emo_kid
 
 variablesConf: charmed_wjets
 
-samplesConf: common
+samplesConf: powheg
 
 data: Data
 
 samples:
-  - Powheg_Wjets_light
-  - Powheg_Wjets_tau
-  - Sherpa_Zjets
+  - Wjets_light
+  - Wjets_tau
+  - Zjets
   - Top
   - Diboson
 
@@ -37,41 +37,41 @@ channels:
     regions:
       - OS_2018_el_QCD_Dplus
     samples:
-      - Multijet_Powheg
-      - Powheg_Wjets_light
-      - Powheg_Wjets_tau
-      - Sherpa_Zjets
+      - Multijet
+      - Wjets_light
+      - Wjets_tau
+      - Zjets
       - Top
       - Diboson
     label:
       - 'W#rightarrowe#nu+D, D#rightarrowK#pi#pi, OS'
       - 'MET < 30 GeV, no m_{T} cut'
     lumi: '2018'
-    qcd_template: Multijet_Powheg
+    qcd_template: Multijet
 
   2018_el_wplusd_PT_Template_SS:
     regions:
       - SS_2018_el_QCD_Dplus
     samples:
-      - Multijet_Powheg
-      - Powheg_Wjets_light
-      - Powheg_Wjets_tau
-      - Sherpa_Zjets
+      - Multijet
+      - Wjets_light
+      - Wjets_tau
+      - Zjets
       - Top
       - Diboson
     label:
       - 'W#rightarrowe#nu+D, D#rightarrowK#pi#pi, SS'
       - 'MET < 30 GeV, no m_{T} cut'
     lumi: '2018'
-    qcd_template: Multijet_Powheg
+    qcd_template: Multijet
 
   2018_el_wplusd_PT_Loose_OS:
     regions:
       - OS_2018_el_Dplus
     samples:
-      - Powheg_Wjets_light
-      - Powheg_Wjets_tau
-      - Sherpa_Zjets
+      - Wjets_light
+      - Wjets_tau
+      - Zjets
       - Top
       - Diboson
     label:
@@ -83,9 +83,9 @@ channels:
     regions:
       - SS_2018_el_Dplus
     samples:
-      - Powheg_Wjets_light
-      - Powheg_Wjets_tau
-      - Sherpa_Zjets
+      - Wjets_light
+      - Wjets_tau
+      - Zjets
       - Top
       - Diboson
     label:
@@ -97,10 +97,10 @@ channels:
     regions:
       - OS_2018_el_Dplus
     samples:
-      - Powheg_Wjets
+      - Wjets
       - Top
-      - Sherpa_Zjets
-      - Multijet_Powheg | 2018_el_wplusd_PT_Template_OS
+      - Zjets
+      - Multijet | 2018_el_wplusd_PT_Template_OS
       - Diboson
     likelihood_fit:
       variable: lep_pt
@@ -109,7 +109,7 @@ channels:
       extrapolated_multijet: 2018_el_wplusd_PTCut_Template_OS
       fixed:
         - Diboson
-        - Sherpa_Zjets
+        - Zjets
         - Top
     label:
       - 'W#rightarrowe#nu+D, D#rightarrowK#pi#pi, OS'
@@ -120,10 +120,10 @@ channels:
     regions:
       - SS_2018_el_Dplus
     samples:
-      - Powheg_Wjets
+      - Wjets
       - Top
-      - Sherpa_Zjets
-      - Multijet_Powheg | 2018_el_wplusd_PT_Template_SS
+      - Zjets
+      - Multijet | 2018_el_wplusd_PT_Template_SS
       - Diboson
     likelihood_fit:
       variable: lep_pt
@@ -132,7 +132,7 @@ channels:
       extrapolated_multijet: 2018_el_wplusd_PTCut_Template_SS
       fixed:
         - Diboson
-        - Sherpa_Zjets
+        - Zjets
         - Top
     label:
       - 'W#rightarrowe#nu+D, D#rightarrowK#pi#pi, SS'
@@ -143,18 +143,18 @@ channels:
     regions:
       - OS_2018_el_SR_Dplus
     samples:
-      - Powheg_Wjets_light
-      - Powheg_Wjets_tau
-      - Sherpa_Zjets
+      - Wjets_light
+      - Wjets_tau
+      - Zjets
       - Top
-      - Multijet_Powheg | 2018_el_wplusd_PTCut_Template_OS
+      - Multijet | 2018_el_wplusd_PTCut_Template_OS
       - Diboson
     scale_factors:
       input_file: 2018_el_wplusd_PT_Fit_OS.json
       scale_factors:
-        Powheg_Wjets_light: Powheg_Wjets
-        Powheg_Wjets_tau: Powheg_Wjets
-        Sherpa_Zjets: Sherpa_Zjets
+        Wjets_light: Wjets
+        Wjets_tau: Wjets
+        Zjets: Zjets
         Top: Top
         Diboson: Diboson
     label: 'W#rightarrowe#nu+D, D#rightarrowK#pi#pi, OS'
@@ -164,18 +164,18 @@ channels:
     regions:
       - SS_2018_el_SR_Dplus
     samples:
-      - Powheg_Wjets_light
-      - Powheg_Wjets_tau
-      - Sherpa_Zjets
+      - Wjets_light
+      - Wjets_tau
+      - Zjets
       - Top
-      - Multijet_Powheg | 2018_el_wplusd_PTCut_Template_SS
+      - Multijet | 2018_el_wplusd_PTCut_Template_SS
       - Diboson
     scale_factors:
       input_file: 2018_el_wplusd_PT_Fit_SS.json
       scale_factors:
-        Powheg_Wjets_light: Powheg_Wjets
-        Powheg_Wjets_tau: Powheg_Wjets
-        Sherpa_Zjets: Sherpa_Zjets
+        Wjets_light: Wjets
+        Wjets_tau: Wjets
+        Zjets: Zjets
         Top: Top
         Diboson: Diboson
     label: 'W#rightarrowe#nu+D, D#rightarrowK#pi#pi, SS'
