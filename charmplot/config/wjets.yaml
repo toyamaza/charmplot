@@ -7,10 +7,10 @@ samplesConf: common
 data: Data
 
 samples:
-  - Sherpa_Wjets_light
-  - Sherpa_Wjets_tau
-  - Sherpa_Zjets_light
-  - Sherpa_Zjets_tau
+  - Powheg_Wjets_light
+  - Powheg_Wjets_tau
+  - Powheg_Zjets_light
+  - Powheg_Zjets_tau
   - Top
   - Diboson
 

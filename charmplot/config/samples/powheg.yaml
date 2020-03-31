@@ -36,22 +36,22 @@ Wjets_tau:
 
 Zjets:
   add:
-    - Sh_Zjets_light
-    - Sh_Zjets_tau
+    - Ph_Zjets_light
+    - Ph_Zjets_tau
   subtract:
   fillColor: "10002"
   lineColor: "10003"
   legendLabel: Z+jets
 
 Zjets_light:
-  add: Sh_Zjets_light
+  add: Ph_Zjets_light
   subtract:
   fillColor: "10002"
   lineColor: "10003"
   legendLabel: Z#rightarrowll
 
 Zjets_tau:
-  add: Sh_Zjets_tau
+  add: Ph_Zjets_tau
   subtract:
   fillColor: "10003"
   lineColor: "10002"

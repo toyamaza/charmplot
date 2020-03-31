@@ -55,6 +55,28 @@ Powheg_Wjets_tau:
   lineColor: "10000"
   legendLabel: W#rightarrow#tau#nu
 
+Powheg_Zjets:
+  add:
+    - Ph_Zjets
+  subtract:
+  fillColor: "10002"
+  lineColor: "10003"
+  legendLabel: Z+jets
+
+Powheg_Zjets_light:
+  add: Ph_Zjets_light
+  subtract:
+  fillColor: "10002"
+  lineColor: "10003"
+  legendLabel: Z#rightarrowll
+
+Powheg_Zjets_tau:
+  add: Ph_Zjets_tau
+  subtract:
+  fillColor: "10003"
+  lineColor: "10002"
+  legendLabel: Z#rightarrow#tau#tau
+
 Sherpa_Zjets:
   add:
     - Sh_Zjets_light
