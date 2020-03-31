@@ -35,9 +35,9 @@ class InputDataReader(object):
             for c in channel.add:
                 h = f.Get(os.path.join(c, "__".join([c, variable.name])))
                 if not h:
-                    logger.critical("Histogram for variable %s not found in channel %s for sample %s" % (
+                    logger.warning("Histogram for variable %s not found in channel %s for sample %s" % (
                         variable.name, c, sample.name))
-                    raise IOError("Histogram not found in input file")
+                    return None
                 h = h.Clone(h.GetName() + "_temp")
                 utils.rebin_histogram(h, variable, channel.extra_rebin)
                 utils.set_to_positive(h)
@@ -48,9 +48,9 @@ class InputDataReader(object):
             for c in channel.subtract:
                 h = f.Get(os.path.join(c, "__".join([c, variable.name])))
                 if not h:
-                    logger.critical("Histogram for variable %s not found in channel %s for sample %s" % (
+                    logger.warning("Histogram for variable %s not found in channel %s for sample %s" % (
                         variable.name, c, sample.name))
-                    raise IOError("Histogram not found in input file")
+                    return None
                 h = h.Clone(h.GetName() + "_temp")
                 utils.rebin_histogram(h, variable, channel.extra_rebin)
                 utils.set_to_positive(h)

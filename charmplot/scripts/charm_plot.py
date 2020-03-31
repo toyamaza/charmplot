@@ -77,12 +77,19 @@ def main(options, conf, reader):
 
             # data histogram
             h_data = reader.get_histogram(conf.get_data(), c, conf.get_var(v))
+            if not h_data:
+                continue
+
+            # true if all samples have this histogram
+            pass_var = True
 
             # read input MC histograms (and scale them)
             mc_map = {}
             for s in samples:
                 # read MC histogram
                 h = reader.get_histogram(s, c, conf.get_var(v))
+                if not h:
+                    pass_var = False
                 mc_map[s] = h
 
                 # scale histogram if performed likelihood fit
@@ -97,6 +104,9 @@ def main(options, conf, reader):
                     else:
                         sf = scale_factors[c.scale_factors['scale_factors'][s.name]]
                     h.Scale(sf[0])
+
+            if not pass_var:
+                continue
 
             # canvas
             canv = utils.make_canvas(h_data, conf.get_var(v), c, x=800, y=800, fit=fit)
