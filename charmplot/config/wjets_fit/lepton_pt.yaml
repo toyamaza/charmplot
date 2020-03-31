@@ -2,15 +2,15 @@ colorScheme: cheer_up_emo_kid
 
 variablesConf: inclusive_wjets
 
-samplesConf: common
+samplesConf: powheg
 
 data: Data
 
 samples:
-  - Sherpa_Wjets_light
-  - Sherpa_Wjets_tau
-  - Sherpa_Zjets_light
-  - Sherpa_Zjets_tau
+  - Wjets_light
+  - Wjets_tau
+  - Zjets_light
+  - Zjets_tau
   - Top
   - Diboson
 
@@ -32,9 +32,9 @@ channels:
       - 2018_el_QCD
     samples:
       - Multijet
-      - Sherpa_Wjets_light
-      - Sherpa_Wjets_tau
-      - Sherpa_Zjets
+      - Wjets_light
+      - Wjets_tau
+      - Zjets
       - Top
       - Diboson
     label:
@@ -48,9 +48,9 @@ channels:
       - 2018_mu_QCD
     samples:
       - Multijet
-      - Sherpa_Wjets_light
-      - Sherpa_Wjets_tau
-      - Sherpa_Zjets
+      - Wjets_light
+      - Wjets_tau
+      - Zjets
       - Top
       - Diboson
     label:
@@ -63,7 +63,8 @@ channels:
     regions:
       - 2018_el
     samples:
-      - Sherpa_VJets
+      - Wjets
+      - Zjets
       - Top
       - Diboson
       - Multijet | 2018_el_QCD_PT_Template
@@ -73,6 +74,7 @@ channels:
       extrapolated_region: 2018_el_QCD_PT_Extrapolated
       extrapolated_multijet: 2018_el_QCD_PTCut_Template
       fixed:
+        - Zjets
         - Top
         - Diboson
     label:
@@ -83,16 +85,18 @@ channels:
     regions:
       - 2018_mu
     samples:
-      - Sherpa_VJets
+      - Wjets
+      - Zjets
       - Top
       - Diboson
       - Multijet | 2018_mu_QCD_PT_Template
     likelihood_fit:
       variable: lep_pt
-      range: [28, 36]
+      range: [28, 38]
       extrapolated_region: 2018_mu_QCD_PT_Extrapolated
       extrapolated_multijet: 2018_mu_QCD_PTCut_Template
       fixed:
+        - Zjets
         - Top
         - Diboson
     label:
@@ -103,20 +107,20 @@ channels:
     regions:
       - 2018_el_SR
     samples:
-      - Sherpa_Wjets_light
-      - Sherpa_Wjets_tau
-      - Sherpa_Zjets_light
-      - Sherpa_Zjets_tau
+      - Wjets_light
+      - Wjets_tau
+      - Zjets_light
+      - Zjets_tau
       - Top
       - Multijet | 2018_el_QCD_PTCut_Template
       - Diboson
     scale_factors:
       input_file: 2018_el_QCD_PT_Fit.json
       scale_factors:
-        Sherpa_Wjets_light: Sherpa_VJets
-        Sherpa_Wjets_tau: Sherpa_VJets
-        Sherpa_Zjets_light: Sherpa_VJets
-        Sherpa_Zjets_tau: Sherpa_VJets
+        Wjets_light: Wjets
+        Wjets_tau: Wjets
+        Zjets_light: Zjets
+        Zjets_tau: Zjets
         Top: Top
         Diboson: Diboson
     label: '2018 el SR'
@@ -126,20 +130,20 @@ channels:
     regions:
       - 2018_mu_SR
     samples:
-      - Sherpa_Wjets_light
-      - Sherpa_Wjets_tau
-      - Sherpa_Zjets_light
-      - Sherpa_Zjets_tau
+      - Wjets_light
+      - Wjets_tau
+      - Zjets_light
+      - Zjets_tau
       - Top
       - Multijet | 2018_mu_QCD_PTCut_Template
       - Diboson
     scale_factors:
       input_file: 2018_mu_QCD_PT_Fit.json
       scale_factors:
-        Sherpa_Wjets_light: Sherpa_VJets
-        Sherpa_Wjets_tau: Sherpa_VJets
-        Sherpa_Zjets_light: Sherpa_VJets
-        Sherpa_Zjets_tau: Sherpa_VJets
+        Wjets_light: Wjets
+        Wjets_tau: Wjets
+        Zjets_light: Zjets
+        Zjets_tau: Zjets
         Top: Top
         Diboson: Diboson
     label: '2018 mu SR'

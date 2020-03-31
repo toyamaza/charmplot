@@ -8,7 +8,8 @@ DataMinusBackground:
   add: data
   subtract:
     - Ph_Wjets_tau
-    - Sh_Zjets
+    - Ph_Zjets_light
+    - Ph_Zjets_tau
     - Top
     - Diboson
 
@@ -74,7 +75,8 @@ Multijet:
   subtract:
     - Ph_Wjets_light
     - Ph_Wjets_tau
-    - Sh_Zjets
+    - Ph_Zjets_light
+    - Ph_Zjets_tau
     - Top
     - Diboson
   fillColor: "10006"
