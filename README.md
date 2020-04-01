@@ -73,7 +73,7 @@ script. The analysis to run is defined with the `-a` command line argument. Inpu
 
 ## Examples
 
-First copy the example ntuples to a folder in your home directory:
+First copy the example histograms (made with charmpp) to a folder in your home directory:
 
 ```
 mkdir example
