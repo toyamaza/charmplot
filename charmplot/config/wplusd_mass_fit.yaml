@@ -9,14 +9,14 @@ channelsVariables:
     rebin: 10
     ratio_range: [0.5, 1.49]
 
-samplesConf: common
+samplesConf: powheg
 
 data: DataMinusBackground
 
 samples:
-  - Powheg_Wjets_light
-  - Powheg_Wjets_tau
-  - Sherpa_Zjets
+  - Wjets_light
+  - Wjets_tau
+  - Zjets
   - Top
   - Diboson
 
@@ -26,7 +26,7 @@ channels:
       - OS_2018_el_SR_Dplus
       - -SS_2018_el_SR_Dplus
     samples:
-      - Powheg_Wjets_light
+      - Wjets_light
     mass_fit:
       var: Dmeson_m
       range: [1.75, 2.1]
@@ -41,7 +41,7 @@ channels:
     regions:
       - OS_2018_el_SR_Dplus
     samples:
-      - Powheg_Wjets_light
+      - Wjets_light
     mass_fit:
       var: Dmeson_m
       range: [1.75, 2.2]
@@ -56,7 +56,7 @@ channels:
     regions:
       - SS_2018_el_SR_Dplus
     samples:
-      - Powheg_Wjets_light
+      - Wjets_light
     mass_fit:
       var: Dmeson_m
       range: [1.75, 2.2]
@@ -72,7 +72,7 @@ channels:
       - OS_2018_mu_SR_Dplus
       - -SS_2018_mu_SR_Dplus
     samples:
-      - Powheg_Wjets_light
+      - Wjets_light
     mass_fit:
       var: Dmeson_m
       range: [1.75, 2.1]
@@ -87,7 +87,7 @@ channels:
     regions:
       - OS_2018_mu_SR_Dplus
     samples:
-      - Powheg_Wjets_light
+      - Wjets_light
     mass_fit:
       var: Dmeson_m
       range: [1.75, 2.2]
@@ -102,7 +102,7 @@ channels:
     regions:
       - SS_2018_mu_SR_Dplus
     samples:
-      - Powheg_Wjets_light
+      - Wjets_light
     mass_fit:
       var: Dmeson_m
       range: [1.75, 2.2]

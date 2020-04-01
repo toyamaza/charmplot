@@ -8,7 +8,6 @@
 - [Examples](#examples)
   - [Basic OS/SS and OS-SS plots](#basic-osss-and-os-ss-plots)
   - [Mass fit](#mass-fit)
-  - [QCD Template fit](#qcd-template-fit)
 - [Stage-out plots to a webpage](#stage-out-plots-to-a-webpage)
 
 ## charmplot
@@ -74,6 +73,14 @@ script. The analysis to run is defined with the `-a` command line argument. Inpu
 
 ## Examples
 
+First copy the example ntuples to a folder in your home directory:
+
+```
+mkdir example
+cd example
+cp /global/cfs/cdirs/atlas/wcharm/example/v4/* .
+```
+
 ### Basic OS/SS and OS-SS plots
 
 The basic configuration file to run OS/SS and OS-SS plots is [wplusd_powheg.yaml](https://gitlab.cern.ch/lbnl/CharmPhysics/charmplot/-/blob/master/charmplot/config/wplusd_powheg.yaml).
@@ -84,7 +91,6 @@ Command line argument `-v` instructs the framework to plot only a subset of vari
 To run over example ntuples run the following commands:
 
 ```
-cd /global/cfs/cdirs/atlas/wcharm/example/v2/QCDTemplateFit_PT/
 charm_plot.py -a wplusd_powheg
 ```
 
@@ -99,11 +105,10 @@ be configured through the configuration file.
 To run over example ntuples run the following commands:
 
 ```
-cd /global/cfs/cdirs/atlas/wcharm/example/v2/QCDTemplateFit_PT/
 charm_plot.py -a wplusd_mass_fit -v Dmeson_m
 ```
 
-### QCD Template fit
+<!-- ### QCD Template fit
 
 An example configuration file for the QCD Template fit is [wplusd_fit/electron_pt.yaml](https://gitlab.cern.ch/lbnl/CharmPhysics/charmplot/-/blob/master/charmplot/config/wplusd_fit/electron_pt.yaml).
 In this case the 'PT Template' fit is performed for the electron channel. Multiple channels are defined in the configuration file:
@@ -118,9 +123,8 @@ In this case the 'PT Template' fit is performed for the electron channel. Multip
 To run over example ntuples run the following commands:
 
 ```
-cd /global/cfs/cdirs/atlas/wcharm/example/v2/QCDTemplateFit_PT/
 charm_plot.py -a wplusd_fit/electron_pt -v "Dmeson_m,lep_pt,met_met"
-```
+``` -->
 
 ## Stage-out plots to a webpage
 
