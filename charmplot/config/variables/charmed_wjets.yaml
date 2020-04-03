@@ -220,6 +220,10 @@ Dmeson_max_trackdR:
   rebin: 2
   ratio_range: [0.5, 1.49]
 
+N_Dplus:
+  label: N_{D^{+}}
+  ratio_range: [0.0, 1.99]
+
 run_number:
   label: 'run number'
   ratio_range: [0.5, 1.49]
@@ -250,7 +254,3 @@ njets:
 nbjets:
   label: N_{#it{b}-jet}
   ratio_range: [0.5, 1.49]
-
-N_Dplus:
-  label: N_{D^{+}}
-  ratio_range: [0.0, 1.99]
