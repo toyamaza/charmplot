@@ -46,7 +46,6 @@ Wjets_bjets_emu:
   legendLabel: 'W#rightarrowl#nu + b'
 
 Wjets_tau:
-  add: MG_Wjets_highpt_emu
   add: MG_Wjets_tau
   subtract:
   fillColor: "10003"

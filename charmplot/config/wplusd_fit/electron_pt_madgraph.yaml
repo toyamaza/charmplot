@@ -1,0 +1,191 @@
+colorScheme: cheer_up_emo_kid
+
+variablesConf: charmed_wjets
+
+samplesConf: madgraph
+
+data: Data
+
+samples:
+  - Top
+  - Wjets_cjets_emu
+  - Wjets_bjets_emu
+  - Wjets_light_emu
+  - Wjets_tau
+  - Zjets
+  - Diboson
+
+channels:
+  2018_el_wplusd_OS:
+    regions:
+      - OS_2018_el_SR_Dplus
+    label: 'W#rightarrowe#nu+D, D#rightarrowK#pi#pi, OS'
+    lumi: '2018'
+
+  2018_el_wplusd_SS:
+    regions:
+      - SS_2018_el_SR_Dplus
+    label: 'W#rightarrowe#nu+D, D#rightarrowK#pi#pi, SS'
+    lumi: '2018'
+
+  2018_el_wplusd_PT_Template_OS:
+    regions:
+      - OS_2018_el_QCD_Dplus
+    samples:
+      - Multijet
+      - Top
+      - Wjets_cjets_emu
+      - Wjets_bjets_emu
+      - Wjets_light_emu
+      - Wjets_tau
+      - Zjets
+      - Diboson
+    label:
+      - 'W#rightarrowe#nu+D, D#rightarrowK#pi#pi, OS'
+      - 'MET < 30 GeV, no m_{T} cut'
+    lumi: '2018'
+    qcd_template: Multijet
+
+  2018_el_wplusd_PT_Template_SS:
+    regions:
+      - SS_2018_el_QCD_Dplus
+    samples:
+      - Multijet
+      - Top
+      - Wjets_cjets_emu
+      - Wjets_bjets_emu
+      - Wjets_light_emu
+      - Wjets_tau
+      - Zjets
+      - Diboson
+    label:
+      - 'W#rightarrowe#nu+D, D#rightarrowK#pi#pi, SS'
+      - 'MET < 30 GeV, no m_{T} cut'
+    lumi: '2018'
+    qcd_template: Multijet
+
+  2018_el_wplusd_PT_Loose_OS:
+    regions:
+      - OS_2018_el_Dplus
+    label:
+      - 'W#rightarrowe#nu+D, D#rightarrowK#pi#pi, OS'
+      - 'Loose SR for PT fit'
+    lumi: '2018'
+
+  2018_el_wplusd_PT_Loose_SS:
+    regions:
+      - SS_2018_el_Dplus
+    label:
+      - 'W#rightarrowe#nu+D, D#rightarrowK#pi#pi, SS'
+      - 'Loose SR for PT fit'
+    lumi: '2018'
+
+  2018_el_wplusd_PT_Fit_OS:
+    regions:
+      - OS_2018_el_Dplus
+    samples:
+      - Top
+      - Wjets_emu
+      - Wjets_tau
+      - Zjets
+      - Multijet | 2018_el_wplusd_PT_Template_OS
+      - Diboson
+    likelihood_fit:
+      variable: lep_pt
+      range: [28, 100]
+      extrapolated_region: 2018_el_wplusd_PT_Extrapolated_OS
+      extrapolated_multijet: 2018_el_wplusd_PTCut_Template_OS
+      fixed:
+        - Diboson
+        - Zjets
+        - Top
+        - Wjets_tau
+    label:
+      - 'W#rightarrowe#nu+D, D#rightarrowK#pi#pi, OS'
+      - 'Likelihood PT fit'
+    lumi: '2018'
+
+  2018_el_wplusd_PT_Fit_SS:
+    regions:
+      - SS_2018_el_Dplus
+    samples:
+      - Top
+      - Wjets_emu
+      - Wjets_tau
+      - Zjets
+      - Multijet | 2018_el_wplusd_PT_Template_SS
+      - Diboson
+    likelihood_fit:
+      variable: lep_pt
+      range: [28, 100]
+      extrapolated_region: 2018_el_wplusd_PT_Extrapolated_SS
+      extrapolated_multijet: 2018_el_wplusd_PTCut_Template_SS
+      fixed:
+        - Diboson
+        - Zjets
+        - Top
+        - Wjets_tau
+    label:
+      - 'W#rightarrowe#nu+D, D#rightarrowK#pi#pi, SS'
+      - 'Likelihood PT fit'
+    lumi: '2018'
+
+  2018_el_wplusd_PT_Extrapolated_OS:
+    regions:
+      - OS_2018_el_SR_Dplus
+    samples:
+      - Top
+      - Wjets_cjets_emu
+      - Wjets_bjets_emu
+      - Wjets_light_emu
+      - Wjets_tau
+      - Zjets
+      - Multijet | 2018_el_wplusd_PTCut_Template_OS
+      - Diboson
+    scale_factors:
+      input_file: 2018_el_wplusd_PT_Fit_OS.json
+      scale_factors:
+        Wjets_cjets_emu: Wjets_emu
+        Wjets_bjets_emu: Wjets_emu
+        Wjets_light_emu: Wjets_emu
+        Wjets_tau: Wjets_tau
+        Zjets: Zjets
+        Top: Top
+        Diboson: Diboson
+    label: 'W#rightarrowe#nu+D, D#rightarrowK#pi#pi, OS'
+    lumi: '2018'
+
+  2018_el_wplusd_PT_Extrapolated_SS:
+    regions:
+      - SS_2018_el_SR_Dplus
+    samples:
+      - Top
+      - Wjets_cjets_emu
+      - Wjets_bjets_emu
+      - Wjets_light_emu
+      - Wjets_tau
+      - Zjets
+      - Multijet | 2018_el_wplusd_PTCut_Template_SS
+      - Diboson
+    scale_factors:
+      input_file: 2018_el_wplusd_PT_Fit_SS.json
+      scale_factors:
+        Wjets_cjets_emu: Wjets_emu
+        Wjets_bjets_emu: Wjets_emu
+        Wjets_light_emu: Wjets_emu
+        Wjets_tau: Wjets_tau
+        Zjets: Zjets
+        Top: Top
+        Diboson: Diboson
+    label: 'W#rightarrowe#nu+D, D#rightarrowK#pi#pi, SS'
+    lumi: '2018'
+
+  2018_el_wplusd_PTCut_Template_OS:
+    regions:
+      - OS_2018_el_QCD_PTCut_Dplus
+    make_plots: False
+
+  2018_el_wplusd_PTCut_Template_SS:
+    regions:
+      - SS_2018_el_QCD_PTCut_Dplus
+    make_plots: False
