@@ -67,8 +67,8 @@ class LikelihoodFit(object):
         for i, s in enumerate(self.samples):
             self.fitter.Constrain(i, 0., 1.)
             if "fixed" in self.chanenl.likelihood_fit.keys():
-                if s.name in self.chanenl.likelihood_fit["fixed"]:
-                    self.fixed += [s.name]
+                if s.fitName in self.chanenl.likelihood_fit["fixed"]:
+                    self.fixed += [s.fitName]
                     logger.info(f"Setting {s.name} to constant in the fit")
                     ratio = self.mc_integral[s] / self.data_integral
                     if ratio > 0:
@@ -93,4 +93,4 @@ class LikelihoodFit(object):
             self.fitter.GetResult(i, frac, frac_err)
             scale = frac * self.data_integral / self.mc_integral[s]
             scale_err = scale * frac_err / frac
-            self.result[s.name] = (scale, scale_err)
+            self.result[s.fitName] = (scale, scale_err)

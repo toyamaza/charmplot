@@ -9,6 +9,7 @@ Wjets_light_Matched:
   subtract:
   fillColor: "10002"
   legendLabel: 'W+#it{D}'
+  fitName: Wjets_light_Matched
 
 Wjets_light_MisMatched:
   add: MG_Wjets_light
@@ -21,6 +22,7 @@ Wjets_light_Rest:
   subtract:
   fillColor: "10000"
   legendLabel: W+jets
+  fitName: Wjets_light_Rest
 
 Wjets_tau:
   add: MG_Wjets_tau

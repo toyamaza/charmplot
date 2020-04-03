@@ -209,16 +209,7 @@ def likelihood_fit(conf: globalConfig.GlobalConfig, reader: inputDataReader.Inpu
         if 'extrapolated_region' in channel.likelihood_fit:
             logger.debug(f"extrapolating fit to signal region {channel.likelihood_fit['extrapolated_region']}")
             channel_SR = conf.get_channel(channel.likelihood_fit['extrapolated_region'])
-            samples_SR = []
-            for s in samples:
-                if 'Multijet' in s.name:
-                    bare_name = s.name.split("|")[0].strip()
-                    s_extrapolated = copy.deepcopy(s)
-                    s_extrapolated.name = f"{bare_name} | {channel.likelihood_fit['extrapolated_multijet']}"
-                    s_extrapolated.channel = channel.likelihood_fit['extrapolated_multijet']
-                    samples_SR += [s_extrapolated]
-                else:
-                    samples_SR += [s]
+            samples_SR = [conf.get_sample(s) for s in channel_SR.samples]
             h_data_SR = reader.get_histogram(conf.get_data(), channel_SR, fit_var)
             mc_map_SR = {}
             for s in samples_SR:
@@ -228,13 +219,14 @@ def likelihood_fit(conf: globalConfig.GlobalConfig, reader: inputDataReader.Inpu
                 if 'Multijet' in s.name:
                     continue
                 h = mc_map_SR[s]
-                h.Scale(fit.result[s.name][0])
+                h.Scale(fit.result[s.fitName][0])
+                print(s.name," ",s.fitName," ",fit.result[s.fitName][0])
             sf_qcd_SR = scale_multijet_histogram(h_data_SR, mc_map_SR, fit_range)
-            if sf_qcd_SR < 0:
-                sf_qcd_SR = 0
-            for s in fit.result:
-                if 'Multijet' in s:
-                    fit.result[s_extrapolated.name] = [sf_qcd_SR, 0]
+            # if sf_qcd_SR < 0:
+            #     sf_qcd_SR = 0
+            for s in mc_map_SR:
+                if 'Multijet' in s.name:
+                    fit.result[s.name] = [sf_qcd_SR, 0]
                     break
 
         # return fit
