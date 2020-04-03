@@ -89,8 +89,9 @@ Multijet:
   subtract:
     - MG_Wjets_light
     - MG_Wjets_tau
-    - MG_Zjets
+    - MG_Zjets_light
+    - MG_Zjets_tau
     - Top
     - Diboson
-  fillColor: "10006"
+  fillColor: "10008"
   legendLabel: Multijet
