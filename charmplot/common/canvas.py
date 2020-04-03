@@ -166,7 +166,7 @@ class Canvas2(CanvasBase):
         self.canv.cd()
         line = ROOT.TLatex()
         line.SetTextFont(43)
-        line.SetTextSize(32)
+        line.SetTextSize(28)
         line.DrawLatex(0.18, self.text_pos_y, text)
         self.text_pos_y -= self.text_height
 
@@ -329,12 +329,12 @@ class Canvas2(CanvasBase):
     def atlas_label(self, text):
         l1 = ROOT.TLatex()
         l1.SetTextFont(73)
-        l1.SetTextSize(32)
+        l1.SetTextSize(28)
         l1.DrawLatex(0.18, self.text_pos_y, "ATLAS")
         if text:
             l2 = ROOT.TLatex()
             l2.SetTextFont(43)
-            l2.SetTextSize(32)
+            l2.SetTextSize(28)
             l2.DrawLatex(0.18 + 0.14, self.text_pos_y, text)
         self.text_pos_y -= self.text_height
 
