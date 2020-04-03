@@ -1,0 +1,65 @@
+colorScheme: cheer_up_emo_kid
+
+variablesConf: charmed_wjets_dstar
+
+samplesConf: powheg
+
+data: Data
+
+samples:
+  - Wjets_light
+  - Top
+  - Wjets_tau
+  - Zjets
+  - Diboson
+
+channels:
+  2018_el_wplusd_OS:
+    regions:
+      - OS_2018_el_SR_DstarKPi
+    label: 
+      - 'W#rightarrowe#nu+D*, D#rightarrow(K#pi)#pi, OS'
+      - 'PhPy8'
+    lumi: '2018'
+
+  2018_el_wplusd_SS:
+    regions:
+      - SS_2018_el_SR_DstarKPi
+    label:  
+      - 'W#rightarrowe#nu+D*, D#rightarrow(K#pi)#pi, SS'
+      - 'PhPy8'
+    lumi: '2018'
+
+  2018_el_wplusd_OS-SS:
+    regions:
+      - OS_2018_el_SR_DstarKPi
+      - -SS_2018_el_SR_DstarKPi
+    label:   
+      - 'W#rightarrowe#nu+D*, D#rightarrow(K#pi)#pi, OS-SS'
+      - 'PhPy8'
+    lumi: '2018'
+
+  2018_mu_wplusd_OS:
+    regions:
+      - OS_2018_mu_SR_DstarKPi
+    label:   
+      - 'W#rightarrowe#nu+D*, D#rightarrow(K#pi)#pi, OS'
+      - 'PhPy8'
+    lumi: '2018'
+
+  2018_mu_wplusd_SS:
+    regions:
+      - SS_2018_mu_SR_DstarKPi
+    label:   
+      - 'W#rightarrowe#nu+D*, D#rightarrow(K#pi)#pi, SS'
+      - 'PhPy8'
+    lumi: '2018'
+
+  2018_mu_wplusd_OS-SS:
+    regions:
+      - OS_2018_mu_SR_DstarKPi
+      - -SS_2018_mu_SR_DstarKPi
+    label: 
+      - 'W#rightarrowe#nu+D*, D#rightarrow(K#pi)#pi, OS-SS'
+      - 'PhPy8'
+    lumi: '2018'
