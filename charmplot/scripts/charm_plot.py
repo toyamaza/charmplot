@@ -90,6 +90,7 @@ def main(options, conf, reader):
                 h = reader.get_histogram(s, c, conf.get_var(v))
                 if not h:
                     pass_var = False
+                    break
                 mc_map[s] = h
 
                 # scale histogram if performed likelihood fit
