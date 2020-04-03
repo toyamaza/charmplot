@@ -1,0 +1,34 @@
+colorScheme: cheer_up_emo_kid
+
+variablesConf: inclusive_wjets
+
+samplesConf: madgraph
+
+data: Data
+
+samples:
+  - Wjets_light_emu
+  - Wjets_bjets_emu
+  - Wjets_cjets_emu
+  - Wjets_tau
+  - Zjets_emu
+  - Zjets_tau
+  - Top
+  - Diboson
+
+channels:
+  2018_el:
+    regions:
+      - 2018_el_SR
+    label:
+      - '2018 el SR'
+      - 'MGPy8EG'
+    lumi: '2018'
+
+  2018_mu:
+    regions:
+      - 2018_mu_SR
+    label:
+      - '2018 mu SR'
+      - 'MGPy8EG'
+    lumi: '2018'

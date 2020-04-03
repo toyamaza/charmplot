@@ -1,0 +1,96 @@
+colorScheme: cheer_up_emo_kid_extended
+
+Data:
+  add: data
+  subtract:
+
+DataMinusBackground:
+  add: data
+  subtract:
+    - MG_Wjets_tau
+    - MG_Zjets
+    - Top
+    - Diboson
+
+Wjets:
+  add:
+    - MG_Wjets_light
+    - MG_Wjets_tau
+  subtract:
+  fillColor: "10000"
+  legendLabel: W+jets
+
+Wjets_emu:
+  add: MG_Wjets_light
+  subtract:
+  fillColor: "10000"
+  lineColor: "10001"
+  legendLabel: W#rightarrowl#nu
+
+Wjets_light_emu:
+  add: MG_Wjets_light_emu
+  subtract:
+  fillColor: "10000"
+  legendLabel: 'W#rightarrowl#nu + u'
+
+Wjets_cjets_emu:
+  add: MG_Wjets_cjets_emu
+  subtract:
+  fillColor: "10002"
+  legendLabel: 'W#rightarrowl#nu + c'
+
+Wjets_bjets_emu:
+  add: MG_Wjets_bjets_emu
+  subtract:
+  fillColor: "10001"
+  legendLabel: 'W#rightarrowl#nu + b'
+
+Wjets_tau:
+  add: MG_Wjets_highpt_emu
+  add: MG_Wjets_tau
+  subtract:
+  fillColor: "10003"
+  legendLabel: 'W#rightarrow#tau#nu'
+
+Zjets:
+  add:
+    - MG_Zjets_light
+    - MG_Zjets_tau
+  subtract:
+  fillColor: "10004"
+  legendLabel: Z+jets
+
+Zjets_emu:
+  add: MG_Zjets_light
+  subtract:
+  fillColor: "10004"
+  legendLabel: Z#rightarrowll
+
+Zjets_tau:
+  add: MG_Zjets_tau
+  subtract:
+  fillColor: "10005"
+  legendLabel: Z#rightarrow#tau#tau
+
+Top:
+  add: Top
+  subtract:
+  fillColor: "10006"
+  legendLabel: Top
+
+Diboson:
+  add: Diboson
+  subtract:
+  fillColor: "10007"
+  legendLabel: Diboson
+
+Multijet:
+  add: data
+  subtract:
+    - MG_Wjets_light
+    - MG_Wjets_tau
+    - MG_Zjets
+    - Top
+    - Diboson
+  fillColor: "10006"
+  legendLabel: Multijet
