@@ -23,6 +23,20 @@ handler.setFormatter(formatter)
 root.addHandler(handler)
 
 
+def mass_fit(conf, reader, c, samples):
+    fit_var = conf.get_var(c.mass_fit["var"])
+    h_data = reader.get_histogram(conf.get_data(), c, fit_var)
+    mc_map = {}
+    for s in samples:
+        mc_map[s] = reader.get_histogram(s, c, fit_var)
+    hs = utils.make_stack(samples, mc_map)
+    h_mc_tot = utils.make_mc_tot(hs, f"{c}_{fit_var.name}_mc_tot")
+    # fit data
+    utils.mass_fit(conf, h_data, c, "Data")
+    # fit MC
+    utils.mass_fit(conf, h_mc_tot, c, "MC")
+
+
 def main(options, conf, reader):
 
     # loop through all channels and variables
@@ -55,17 +69,7 @@ def main(options, conf, reader):
 
         # mass fit
         if c.mass_fit:
-            fit_var = conf.get_var(c.mass_fit["var"])
-            h_data = reader.get_histogram(conf.get_data(), c, fit_var)
-            mc_map = {}
-            for s in samples:
-                mc_map[s] = reader.get_histogram(s, c, fit_var)
-            hs = utils.make_stack(samples, mc_map)
-            h_mc_tot = utils.make_mc_tot(hs, f"{c}_{fit_var.name}_mc_tot")
-            # fit data
-            utils.mass_fit(conf, h_data, c, "Data")
-            # fit MC
-            utils.mass_fit(conf, h_mc_tot, c, "MC")
+            mass_fit(conf, reader, c, samples)
 
         # make channel folder if not exist
         if not os.path.isdir(os.path.join(options.output, c.name)):
@@ -80,33 +84,9 @@ def main(options, conf, reader):
             if not h_data:
                 continue
 
-            # true if all samples have this histogram
-            pass_var = True
-
             # read input MC histograms (and scale them)
-            mc_map = {}
-            for s in samples:
-                # read MC histogram
-                h = reader.get_histogram(s, c, conf.get_var(v))
-                if not h:
-                    pass_var = False
-                    break
-                mc_map[s] = h
-
-                # scale histogram if performed likelihood fit
-                if fit:
-                    h.Scale(fit.result[s.fitName][0])
-
-                # scale histogram if given input scale factors
-                # TODO: improve the sample name propagation
-                if scale_factors:
-                    if s.fitName in scale_factors:
-                        sf = scale_factors[s.fitName]
-                    else:
-                        sf = scale_factors[c.scale_factors['scale_factors'][s.fitName]]
-                    h.Scale(sf[0])
-
-            if not pass_var:
+            mc_map = utils.read_samples(conf, reader, c, conf.get_var(v), fit, samples, scale_factors)
+            if not mc_map:
                 continue
 
             # canvas

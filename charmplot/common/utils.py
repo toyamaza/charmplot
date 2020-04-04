@@ -7,7 +7,6 @@ from charmplot.control import inputDataReader
 from charmplot.control import sample
 from charmplot.control import variable
 from typing import Dict, List, Union
-import copy
 import json
 import logging
 import os
@@ -17,6 +16,32 @@ import sys
 MC_Map = Dict[sample.Sample, ROOT.TH1]
 
 logger = logging.getLogger(__name__)
+
+
+def read_samples(conf: globalConfig.GlobalConfig, reader: inputDataReader.InputDataReader,
+                 c: channel.Channel, v: variable.Variable, fit: likelihoodFit.LikelihoodFit,
+                 samples: list, scale_factors: dict) -> MC_Map:
+    mc_map = {}
+    for s in samples:
+        # read MC histogram
+        h = reader.get_histogram(s, c, v)
+        if not h:
+            return None
+        mc_map[s] = h
+
+        # scale histogram if performed likelihood fit
+        if fit:
+            h.Scale(fit.result[s.fitName][0])
+
+        # scale histogram if given input scale factors
+        # TODO: improve the sample name propagation
+        if scale_factors:
+            if s.fitName in scale_factors:
+                sf = scale_factors[s.fitName]
+            else:
+                sf = scale_factors[c.scale_factors['scale_factors'][s.fitName]]
+            h.Scale(sf[0])
+    return mc_map
 
 
 def get_lumi(lumi_string):
@@ -220,7 +245,7 @@ def likelihood_fit(conf: globalConfig.GlobalConfig, reader: inputDataReader.Inpu
                     continue
                 h = mc_map_SR[s]
                 h.Scale(fit.result[s.fitName][0])
-                print(s.name," ",s.fitName," ",fit.result[s.fitName][0])
+                print(s.name, " ", s.fitName, " ", fit.result[s.fitName][0])
             sf_qcd_SR = scale_multijet_histogram(h_data_SR, mc_map_SR, fit_range)
             # if sf_qcd_SR < 0:
             #     sf_qcd_SR = 0
