@@ -1,0 +1,26 @@
+colorScheme: cheer_up_emo_kid
+
+variablesConf: inclusive_zjets
+
+samplesConf: powheg
+
+data: Data
+
+samples:
+  - Zjets_light
+  - Zjets_tau
+  - Diboson
+  - Top
+
+channels:
+  2018_el:
+    regions:
+      - 2018_el
+    label: '2018 el SR'
+    lumi: '2018'
+
+  2018_mu:
+    regions:
+      - 2018_mu
+    label: '2018 mu SR'
+    lumi: '2018'
