@@ -2,15 +2,15 @@ colorScheme: cheer_up_emo_kid
 
 variablesConf: inclusive_wjets
 
-samplesConf: common
+samplesConf: powheg
 
 data: Data
 
 samples:
-  - Powheg_Wjets_light
-  - Powheg_Wjets_tau
-  - Powheg_Zjets_light
-  - Powheg_Zjets_tau
+  - Wjets_light
+  - Wjets_tau
+  - Zjets_light
+  - Zjets_tau
   - Top
   - Diboson
 
@@ -18,11 +18,15 @@ channels:
   2018_el:
     regions:
       - 2018_el_SR
-    label: '2018 el SR'
+    label:
+      - '2018 el SR'
+      - 'Powheg'
     lumi: '2018'
 
   2018_mu:
     regions:
       - 2018_mu_SR
-    label: '2018 mu SR'
+    label:
+      - '2018 el SR'
+      - 'Powheg'
     lumi: '2018'
