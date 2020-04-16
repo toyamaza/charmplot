@@ -1,0 +1,68 @@
+colorScheme: cheer_up_emo_kid
+
+variablesConf: charmed_wjets
+
+samplesConf: madgraph_truth
+
+data: Data
+
+channels:
+  2018_el_wplusd_PT_Fit_OS:
+    regions:
+      - OS_2018_el_Dplus
+    samples:
+      - Top
+      - Wjets_light_Matched | 2018_el_wplusd_PT_Loose_OS_Matched
+      - Wjets_light_Rest | 2018_el_wplusd_PT_Loose_OS_Rest
+      - Wjets_tau
+      - Zjets
+      - Multijet | 2018_el_wplusd_PT_Template_OS
+      - Diboson
+    save_to_file: True
+    make_plots: False
+
+  2018_el_wplusd_PT_Fit_SS:
+    regions:
+      - SS_2018_el_Dplus
+    samples:
+      - Top
+      - Wjets_light_Matched | 2018_el_wplusd_PT_Loose_SS_Matched
+      - Wjets_light_Rest | 2018_el_wplusd_PT_Loose_SS_Rest
+      - Wjets_tau
+      - Zjets
+      - Multijet | 2018_el_wplusd_PT_Template_SS
+      - Diboson
+    save_to_file: True
+    make_plots: False
+
+  2018_el_wplusd_PT_Template_OS:
+    regions:
+      - OS_2018_el_QCD_Dplus
+    make_plots: False
+
+  2018_el_wplusd_PT_Template_SS:
+    regions:
+      - SS_2018_el_QCD_Dplus
+    make_plots: False
+
+  2018_el_wplusd_PT_Loose_OS_Matched:
+    regions:
+      - OS_2018_el_Dplus_Matched
+    make_plots: False
+
+  2018_el_wplusd_PT_Loose_SS_Matched:
+    regions:
+      - SS_2018_el_Dplus_Matched
+    make_plots: False
+
+  2018_el_wplusd_PT_Loose_OS_Rest:
+    regions:
+      - OS_2018_el_Dplus
+      - -OS_2018_el_Dplus_Matched
+    make_plots: False
+
+  2018_el_wplusd_PT_Loose_SS_Rest:
+    regions:
+      - SS_2018_el_Dplus
+      - -SS_2018_el_Dplus_Matched
+    make_plots: False
