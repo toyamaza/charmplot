@@ -187,8 +187,9 @@ class Canvas2(CanvasBase):
     def print_all(self, output, channel, var, multipage_pdf=False, first_plot=False, last_plot=False, as_png=False):
         self.pad1.cd()
         ROOT.gPad.RedrawAxis()
-        self.pad2.cd()
-        ROOT.gPad.RedrawAxis()
+        if self.pad2:
+            self.pad2.cd()
+            ROOT.gPad.RedrawAxis()
         self.print(f"{output}/{channel}/{channel}_{var}.pdf")
         if as_png:
             self.print(f"{output}/{channel}/{channel}_{var}.png")
@@ -207,7 +208,7 @@ class Canvas2(CanvasBase):
             else:
                 self.print(f"{output}/{channel}.pdf")
 
-    def configure_histograms(self, mc_map: MC_Map, data: ROOT.TH1, v: variable.Variable):
+    def configure_histograms(self, mc_map: MC_Map, data: ROOT.TH1 = None):
         if data:
             data.SetMarkerSize(0.8)
         for s, h in mc_map.items():
@@ -216,7 +217,10 @@ class Canvas2(CanvasBase):
                 h.SetFillColor(s.fillColor)
             else:
                 h.SetFillStyle(0)
-            h.SetLineWidth(0)
+            if s.lineColor:
+                h.SetLineColor(s.lineColor)
+            else:
+                h.SetLineWidth(0)
 
     def set_maximum(self, histograms: list, variable: variable.Variable, mc_min: ROOT.TH1 = None):
 
@@ -397,7 +401,7 @@ class CanvasMCRatio(Canvas2):
         self.legend = leg
         self.legend.Draw()
 
-    def configure_histograms(self, mc_map: MC_Map, v: variable.Variable, normalize: bool):
+    def configure_histograms(self, mc_map: MC_Map, normalize: bool):
         for s, h in mc_map.items():
             logger.debug(f"configuring {s} {h}")
             h.SetFillStyle(0)

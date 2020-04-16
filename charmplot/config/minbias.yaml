@@ -1,0 +1,14 @@
+colorScheme: cheer_up_emo_kid
+
+variablesConf: charmed_wjets
+
+samplesConf: minbias
+
+channels:
+  Dmeson_SR:
+    regions:
+      - Dmeson_SR
+    samples:
+      - MinBias
+    label: 'D#rightarrowK#pi#pi'
+    lumi: '2018'

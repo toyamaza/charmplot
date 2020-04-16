@@ -1,0 +1,6 @@
+colorScheme: cheer_up_emo_kid
+
+MinBias:
+  add: Pythia8EvtGen_A3NNPDF23LO_minbias_inelastic.MinBias.361237
+  subtract:
+  lineColor: "10001"

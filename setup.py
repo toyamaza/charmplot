@@ -8,5 +8,6 @@ setup(name='charmplot',
       scripts=[
           'charmplot/scripts/charm_plot.py',
           'charmplot/scripts/plot_mc_mc.py',
+          'charmplot/scripts/plot_mc.py',
       ],
       )
