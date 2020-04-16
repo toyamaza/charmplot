@@ -8,7 +8,8 @@ DataMinusBackground:
   add: data
   subtract:
     - MG_Wjets_tau
-    - MG_Zjets
+    - MG_Zjets_light
+    - MG_Zjets_tau
     - Top
     - Diboson
 

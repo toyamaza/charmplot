@@ -9,14 +9,15 @@ channelsVariables:
     rebin: 10
     ratio_range: [0.5, 1.49]
 
-samplesConf: powheg
+samplesConf: madgraph
 
 data: DataMinusBackground
 
 samples:
-  - Wjets_light
+  - Wjets_emu
   - Wjets_tau
-  - Zjets
+  - Zjets_emu
+  - Zjets_tau
   - Top
   - Diboson
 

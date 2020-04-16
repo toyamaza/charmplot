@@ -135,9 +135,7 @@ channels:
       - OS_2018_el_SR_Dplus
     samples:
       - Top
-      - Wjets_cjets_emu
-      - Wjets_bjets_emu
-      - Wjets_light_emu
+      - Wjets_emu
       - Wjets_tau
       - Zjets
       - Multijet | 2018_el_wplusd_PTCut_Template_OS
@@ -145,9 +143,7 @@ channels:
     scale_factors:
       input_file: 2018_el_wplusd_PT_Fit_OS.json
       scale_factors:
-        Wjets_cjets_emu: Wjets_emu
-        Wjets_bjets_emu: Wjets_emu
-        Wjets_light_emu: Wjets_emu
+        Wjets_emu: Wjets_emu
         Wjets_tau: Wjets_tau
         Zjets: Zjets
         Top: Top
@@ -160,9 +156,7 @@ channels:
       - SS_2018_el_SR_Dplus
     samples:
       - Top
-      - Wjets_cjets_emu
-      - Wjets_bjets_emu
-      - Wjets_light_emu
+      - Wjets_emu
       - Wjets_tau
       - Zjets
       - Multijet | 2018_el_wplusd_PTCut_Template_SS
@@ -170,9 +164,7 @@ channels:
     scale_factors:
       input_file: 2018_el_wplusd_PT_Fit_SS.json
       scale_factors:
-        Wjets_cjets_emu: Wjets_emu
-        Wjets_bjets_emu: Wjets_emu
-        Wjets_light_emu: Wjets_emu
+        Wjets_emu: Wjets_emu
         Wjets_tau: Wjets_tau
         Zjets: Zjets
         Top: Top
