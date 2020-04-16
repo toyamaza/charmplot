@@ -42,15 +42,15 @@ def main(options, conf, reader):
     # loop through all channels and variables
     for c in conf.channels:
 
-        # skip channels
-        if not c.make_plots:
-            continue
-
         # filter channels
         if options.channels:
             if c.name not in options.channels.split(","):
                 logging.debug(f"skipping channel {c.name}")
                 continue
+
+        # skip channels
+        if not c.make_plots and not c.save_to_file:
+            continue
 
         # make channel folder if not exist
         if not os.path.isdir(os.path.join(options.output, c.name)):
@@ -108,6 +108,10 @@ def main(options, conf, reader):
                         out_name = f"{out_name_split[0]}_{c.name}_{v}"
                     mc_map[s].Write(out_name)
                 out_file.Close()
+
+            # continue if not make plots
+            if not c.make_plots:
+                continue
 
             # canvas
             canv = utils.make_canvas(h_data, conf.get_var(v), c, x=800, y=800, fit=fit)
