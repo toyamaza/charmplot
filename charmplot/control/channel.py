@@ -7,6 +7,7 @@ class Channel(object):
     mass_fit = None
     scale_factors = None
     make_plots = True
+    save_to_file = False
     extra_rebin = 1
     name = ""
     lumi = ""
@@ -59,6 +60,9 @@ class Channel(object):
 
     def set_mass_fit(self, mass_fit):
         self.mass_fit = mass_fit
+
+    def set_save_to_file(self, save_to_file):
+        self.save_to_file = save_to_file
 
     def get_all(self):
         return self.add + self.subtract

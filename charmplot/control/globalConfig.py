@@ -147,6 +147,8 @@ class GlobalConfig(object):
                 chan.set_extra_rebin(val['extra_rebin'])
             if 'mass_fit' in val:
                 chan.set_mass_fit(val['mass_fit'])
+            if 'save_to_file' in val:
+                chan.set_save_to_file(val['save_to_file'])
         self.channels = channels
 
     def parse_confing(self, conf):

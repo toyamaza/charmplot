@@ -61,7 +61,7 @@ def main(options, conf, reader):
             canv = utils.make_canvas_mc_ratio(mc_map[samples[0]], conf.get_var(v), c, x=800, y=800)
 
             # configure histograms
-            canv.configure_histograms(mc_map, conf.get_var(v), options.normalize)
+            canv.configure_histograms(mc_map, options.normalize)
 
             # top pad
             canv.pad1.cd()

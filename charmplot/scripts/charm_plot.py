@@ -52,6 +52,15 @@ def main(options, conf, reader):
                 logging.debug(f"skipping channel {c.name}")
                 continue
 
+        # make channel folder if not exist
+        if not os.path.isdir(os.path.join(options.output, c.name)):
+            os.makedirs(os.path.join(options.output, c.name))
+
+        # output root file
+        out_file_name = os.path.join(options.output, c.name, "histograms.root")
+        out_file = ROOT.TFile(out_file_name, "RECREATE")
+        out_file.Close()
+
         # used MC samples in channel (default or channel specific)
         samples = utils.get_samples(conf, c)
 
@@ -71,9 +80,6 @@ def main(options, conf, reader):
         if c.mass_fit:
             mass_fit(conf, reader, c, samples)
 
-        # make channel folder if not exist
-        if not os.path.isdir(os.path.join(options.output, c.name)):
-            os.makedirs(os.path.join(options.output, c.name))
         for v in variables:
 
             # check if last plot
@@ -89,11 +95,25 @@ def main(options, conf, reader):
             if not mc_map:
                 continue
 
+            # save histograms to root file
+            if c.save_to_file:
+                logging.info(f"Saving histograms to root file for channel {c}")
+                out_file = ROOT.TFile(out_file_name, "UPDATE")
+                out_file.cd()
+                h_data.Write()
+                for s in mc_map:
+                    out_name = mc_map[s].GetName()
+                    if " | " in out_name:
+                        out_name_split = out_name.split(" | ")
+                        out_name = f"{out_name_split[0]}_{c.name}_{v}"
+                    mc_map[s].Write(out_name)
+                out_file.Close()
+
             # canvas
             canv = utils.make_canvas(h_data, conf.get_var(v), c, x=800, y=800, fit=fit)
 
             # configure histograms
-            canv.configure_histograms(mc_map, h_data, conf.get_var(v))
+            canv.configure_histograms(mc_map, h_data)
 
             # stack and total mc
             hs = utils.make_stack(samples, mc_map)
@@ -130,6 +150,9 @@ def main(options, conf, reader):
             # Print out
             canv.print_all(options.output, c.name, v, multipage_pdf=True, first_plot=first_plot, last_plot=last_plot, as_png=options.stage_out)
             first_plot = False
+
+        # close output file
+        out_file.Close()
 
 
 if __name__ == "__main__":
