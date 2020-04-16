@@ -39,6 +39,11 @@ def mass_fit(conf, reader, c, samples):
 
 def main(options, conf, reader):
 
+    # output root file
+    out_file_name = os.path.join(options.output, "histograms.root")
+    out_file = ROOT.TFile(out_file_name, "RECREATE")
+    out_file.Close()
+
     # loop through all channels and variables
     for c in conf.channels:
 
@@ -55,11 +60,6 @@ def main(options, conf, reader):
         # make channel folder if not exist
         if not os.path.isdir(os.path.join(options.output, c.name)):
             os.makedirs(os.path.join(options.output, c.name))
-
-        # output root file
-        out_file_name = os.path.join(options.output, c.name, "histograms.root")
-        out_file = ROOT.TFile(out_file_name, "RECREATE")
-        out_file.Close()
 
         # used MC samples in channel (default or channel specific)
         samples = utils.get_samples(conf, c)
