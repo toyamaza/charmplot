@@ -12,3 +12,66 @@ channels:
       - MinBias
     label: 'D#rightarrowK#pi#pi'
     lumi: '2018'
+  Dmeson_SR_Matched:
+    regions:
+      - Dmeson_SR_Matched
+    samples:
+      - MinBias
+    label: 'D#rightarrowK#pi#pi'
+    lumi: '2018'
+  Dmeson_SR_HardMisMatched:
+    regions:
+      - Dmeson_SR_HardMisMatched
+    samples:
+      - MinBias
+    label: 'D#rightarrowK#pi#pi'
+    lumi: '2018'
+  Dmeson_SR_4232MisMatched:
+    regions:
+      - Dmeson_SR_4232MisMatched
+    samples:
+      - MinBias
+    label: 'D#rightarrowK#pi#pi'
+    lumi: '2018'
+  Dmeson_SR_MxMatched:
+    regions:
+      - Dmeson_SR_MxMatched
+    samples:
+      - MinBias
+    label: 'D#rightarrowK#pi#pi'
+    lumi: '2018'
+  Dmeson_SR_431MisMatched:
+    regions:
+      - Dmeson_SR_431MisMatched
+    samples:
+      - MinBias
+    label: 'D#rightarrowK#pi#pi'
+    lumi: '2018'
+  Dmeson_SR_MxMisMatched:
+    regions:
+      - Dmeson_SR_MxMisMatched
+    samples:
+      - MinBias
+    label: 'D#rightarrowK#pi#pi'
+    lumi: '2018'
+  Dmeson_SR_421MisMatched:
+    regions:
+      - Dmeson_SR_421MisMatched
+    samples:
+      - MinBias
+    label: 'D#rightarrowK#pi#pi'
+    lumi: '2018'
+  Dmeson_SR_4122MisMatched:
+    regions:
+      - Dmeson_SR_4122MisMatched
+    samples:
+      - MinBias
+    label: 'D#rightarrowK#pi#pi'
+    lumi: '2018'
+  Dmeson_SR_Other:
+    regions:
+      - Dmeson_SR_Other
+    samples:
+      - MinBias
+    label: 'D#rightarrowK#pi#pi'
+    lumi: '2018'

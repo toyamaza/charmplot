@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 from charmplot.common import utils
+from charmplot.common import www
 from charmplot.control import inputDataReader
 import logging
 import os
@@ -75,7 +76,7 @@ def main(options, conf, reader):
             canv.set_maximum([mc_map[s] for s in samples], conf.get_var(v), mc_map[samples[0]])
 
             # Print out
-            canv.print_all(options.output, c.name, v, multipage_pdf=True, first_plot=first_plot, last_plot=last_plot)
+            canv.print_all(options.output, c.name, v, multipage_pdf=True, first_plot=first_plot, last_plot=last_plot, as_png=options.stage_out)
             first_plot = False
 
 
@@ -101,6 +102,9 @@ if __name__ == "__main__":
     parser.add_option('-o', '--output-file',
                       action="store", dest="output",
                       help="save histograms to an output file")
+    parser.add_option('--stage-out',
+                      action="store_true", dest="stage_out",
+                      help="copy plots to the www folder")
 
     # parse input arguments
     options, args = parser.parse_args()
@@ -120,3 +124,7 @@ if __name__ == "__main__":
 
     # do the plotting
     main(options, conf, reader)
+
+    # stage-out to the www folder
+    if options.stage_out:
+        www.stage_out_plots(options.output, conf.get_variables(), x=300, y=300)
