@@ -35,6 +35,34 @@ channels:
     save_to_file: True
     make_plots: False
 
+  2018_el_wplusd_PT_Extrapolated_OS:
+    regions:
+      - OS_2018_el_SR_Dplus
+    samples:
+      - Top
+      - Wjets_light_Matched | 2018_el_wplusd_OS_Matched
+      - Wjets_light_Rest | 2018_el_wplusd_OS_Rest
+      - Wjets_tau
+      - Zjets
+      - Multijet | 2018_el_wplusd_PTCut_Template_OS
+      - Diboson
+    save_to_file: True
+    make_plots: False
+
+  2018_el_wplusd_PT_Extrapolated_SS:
+    regions:
+      - SS_2018_el_SR_Dplus
+    samples:
+      - Top
+      - Wjets_light_Matched | 2018_el_wplusd_SS_Matched
+      - Wjets_light_Rest | 2018_el_wplusd_SS_Rest
+      - Wjets_tau
+      - Zjets
+      - Multijet | 2018_el_wplusd_PTCut_Template_SS
+      - Diboson
+    save_to_file: True
+    make_plots: False
+
   2018_el_wplusd_PT_Template_OS:
     regions:
       - OS_2018_el_QCD_Dplus
@@ -43,6 +71,60 @@ channels:
   2018_el_wplusd_PT_Template_SS:
     regions:
       - SS_2018_el_QCD_Dplus
+    make_plots: False
+
+  2018_el_wplusd_PTCut_Template_OS:
+    regions:
+      - OS_2018_el_QCD_PTCut_Dplus
+    make_plots: False
+
+  2018_el_wplusd_PTCut_Template_SS:
+    regions:
+      - SS_2018_el_QCD_PTCut_Dplus
+    make_plots: False
+
+  2018_el_wplusd_OS_Matched:
+    regions:
+      - OS_2018_el_SR_Dplus_Matched
+    make_plots: False
+
+  2018_el_wplusd_SS_Matched:
+    regions:
+      - SS_2018_el_SR_Dplus_Matched
+    make_plots: False
+
+  2018_el_wplusd_OS_Rest:
+    regions:
+      - OS_2018_el_SR_Dplus
+      - -OS_2018_el_SR_Dplus_Matched
+    make_plots: False
+
+  2018_el_wplusd_SS_Rest:
+    regions:
+      - SS_2018_el_SR_Dplus
+      - -SS_2018_el_SR_Dplus_Matched
+    make_plots: False
+
+  2018_el_wplusd_PT_Template_OS_Matched:
+    regions:
+      - OS_2018_el_QCD_Dplus_Matched
+    make_plots: False
+
+  2018_el_wplusd_PT_Template_SS_Matched:
+    regions:
+      - SS_2018_el_QCD_Dplus_Matched
+    make_plots: False
+
+  2018_el_wplusd_PT_Template_OS_Rest:
+    regions:
+      - OS_2018_el_QCD_Dplus
+      - -OS_2018_el_QCD_Dplus_Matched
+    make_plots: False
+
+  2018_el_wplusd_PT_Template_SS_Rest:
+    regions:
+      - SS_2018_el_QCD_Dplus
+      - -SS_2018_el_QCD_Dplus_Matched
     make_plots: False
 
   2018_el_wplusd_PT_Loose_OS_Matched:

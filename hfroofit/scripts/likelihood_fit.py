@@ -12,11 +12,11 @@ ROOT.gROOT.LoadMacro(os.path.join(dirname, "AtlasStyle.C"))
 ROOT.SetAtlasStyle()
 
 
-def get_channels(options):
-    channels = [c.split(":")[0] for c in options.channels.split(",")]
+def get_channels(list_of_channels):
+    channels = [c.split(":")[0] for c in list_of_channels.split(",")]
     channel_short = dict()
     for channel in channels:
-        for c in options.channels.split(","):
+        for c in list_of_channels.split(","):
             if channel == c.split(":")[0]:
                 if len(c.split(":")) > 1:
                     channel_short.update({channel: c.split(":")[1]})
@@ -25,7 +25,8 @@ def get_channels(options):
     return channels, channel_short
 
 
-def get_histograms(f, channels, channel_short, samples, var):
+def get_histograms(input, channels, channel_short, samples, var):
+    f = ROOT.TFile(input, "READ")
     histograms = dict()
     data = dict()
     for channel in channels:
@@ -41,10 +42,32 @@ def get_histograms(f, channels, channel_short, samples, var):
     return histograms, data
 
 
-def main(options):
-    # input file
-    f = ROOT.TFile(options.input, "READ")
+def extrapolate_multijet(extrapolate, result, input, samples, var):
+    channels, channel_short = get_channels(extrapolate)
+    histograms, data = get_histograms(input, channels, channel_short, samples, var)
+    out_dict = dict()
+    for channel in channels:
+        data_minus_prompt = data[channel].Clone(f"data_minus_prompt_{channel}")
+        multijet = None
+        for sample in samples:
+            if "Multijet" in sample:
+                multijet = histograms[channel][sample]
+                print(f"Found QCD histogram {histograms[channel][sample]}")
+                continue
+            for sf in result:
+                if sf.replace("mu_", "") in sample:
+                    histograms[channel][sample].Scale(result[sf][0])
+                    print(f"Scaling histogram {histograms[channel][sample]} by {result[sf][0]}")
+            data_minus_prompt.Add(histograms[channel][sample], -1)
+            print(f"Subtracting from data {histograms[channel][sample]}")
+        print(f"data_minus_prompt integral: {data_minus_prompt.GetSum()}")
+        print(f"multijet integral: {multijet.GetSum()}")
+        qcd_sf = [data_minus_prompt.GetSum() / multijet.GetSum(), 0.]
+        out_dict.update({f"mu_QCD_extrapolated_{channel_short[channel]}": qcd_sf})
+    return out_dict
 
+
+def main(options):
     # samples
     samples = options.samples.split(",")
 
@@ -56,11 +79,11 @@ def main(options):
 
     # channels and short names
     # need short names in some cases because RooFit is not too happy about long names
-    channels, channel_short = get_channels(options)
+    channels, channel_short = get_channels(options.channels)
 
     # read input mc
     # need to deepcopy histograms so they don't get deleted when file is closed
-    histograms, data = get_histograms(f, channels, channel_short, samples, var)
+    histograms, data = get_histograms(options.input, channels, channel_short, samples, var)
 
     # RooStats measurement
     meas = ROOT.RooStats.HistFactory.Measurement("meas", "meas")
@@ -117,14 +140,22 @@ def main(options):
         Channels[channel].Print()
         w = factory.MakeSingleChannelModel(meas, Channels[channel])
         res = fitUtils.run_fit(w, "obsData")
-        fitUtils.results_to_json(res, floatPars, options.input, channel)
+        sf = fitUtils.results_to_dict(res, floatPars)
+        if options.extrapolate:
+            qcd_sf = extrapolate_multijet(options.extrapolate, sf, options.input, samples, var)
+            sf.update(qcd_sf)
+        fitUtils.dict_to_json(sf, options.input, channel)
         results.update({channel: res})
 
     # Combined workspace
     if len(channels) > 1:
         w = factory.MakeCombinedModel(meas)
         res = fitUtils.run_fit(w, "obsData")
-        fitUtils.results_to_json(res, floatPars, options.input, "combined")
+        sf = fitUtils.results_to_dict(res, floatPars)
+        if options.extrapolate:
+            qcd_sf = extrapolate_multijet(options.extrapolate, sf, options.input, samples, var)
+            sf.update(qcd_sf)
+        fitUtils.dict_to_json(sf, options.input, "combined")
 
     # Print results
     for channel in channels:
@@ -157,6 +188,10 @@ if __name__ == "__main__":
                       action="store", dest="channels",
                       help="channels to fit",
                       default="2018_el_wplusd_PT_Fit_OS:OS,2018_el_wplusd_PT_Fit_SS:SS")
+    parser.add_option('-e', '--extrapolate',
+                      action="store", dest="extrapolate",
+                      help="extrapolate QCD template",
+                      default="2018_el_wplusd_PT_Extrapolated_OS:OS,2018_el_wplusd_PT_Extrapolated_SS:SS")
     parser.add_option('-v', '--var',
                       action="store", dest="var",
                       help="variable to fit",
