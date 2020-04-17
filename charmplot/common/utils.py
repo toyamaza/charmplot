@@ -56,6 +56,7 @@ def read_samples(conf: globalConfig.GlobalConfig, reader: inputDataReader.InputD
             elif s.fitName in c.scale_factors['scale_factors'].keys():
                 sf = scale_factors[c.scale_factors['scale_factors'][s.fitName]]
             h.Scale(sf[0])
+            logger.info(f"Scaling histogram {h} by {sf[0]}")
     return mc_map
 
 
