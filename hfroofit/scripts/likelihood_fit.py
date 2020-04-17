@@ -64,7 +64,7 @@ def main(options):
 
     # RooStats measurement
     meas = ROOT.RooStats.HistFactory.Measurement("meas", "meas")
-    meas.SetOutputFilePrefix("WPlusD")
+    meas.SetOutputFilePrefix(options.name)
     meas.SetLumi(1.0)
     meas.SetLumiRelErr(0.02)
     meas.AddConstantParam("Lumi")
@@ -161,6 +161,10 @@ if __name__ == "__main__":
                       action="store", dest="var",
                       help="variable to fit",
                       default="lep_pt")
+    parser.add_option('-n', '--name',
+                      action="store", dest="name",
+                      help="name of the fit",
+                      default="WPlusD")
 
     # parse input arguments
     options, args = parser.parse_args()
