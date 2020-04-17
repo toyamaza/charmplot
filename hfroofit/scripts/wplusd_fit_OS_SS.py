@@ -1,11 +1,8 @@
 #!/usr/bin/env python
 import ROOT
 import os
-import sys
 
-# C++ implementations
-cpp_name = os.path.join(os.path.dirname(__file__), "../utils/fitUtils.cxx")
-ROOT.gROOT.LoadMacro(cpp_name)
+from hfroofit.utils import fitUtils
 
 # ATLAS Style
 dirname = os.path.join(os.path.dirname(__file__), "../../atlasrootstyle")
@@ -29,18 +26,6 @@ samples = [
     "Diboson",
     "Multijet",
 ]
-
-
-def run_fit(w, datasetName):
-    # load model from workspace
-    mc = w.genobj("ModelConfig")
-    pdf = w.pdf(mc.GetPdf().GetName())
-
-    # load data from workspace
-    data = w.data(datasetName)
-
-    # do the fit
-    pdf.fitTo(data, ROOT.RooFit.SumW2Error(True))
 
 
 def main(options):
@@ -105,8 +90,23 @@ def main(options):
 
     # HistoToWorkspaceFactoryFast object
     factory = ROOT.RooStats.HistFactory.HistoToWorkspaceFactoryFast(meas)
+
+    # OS-only workspace
+    w_OS = factory.MakeSingleChannelModel(meas, chan_OS)
+    res_OS = fitUtils.run_fit(w_OS, "obsData")
+
+    # SS-only workspace
+    w_SS = factory.MakeSingleChannelModel(meas, chan_SS)
+    res_SS = fitUtils.run_fit(w_SS, "obsData")
+
+    # # Combined workspace
     w = factory.MakeCombinedModel(meas)
-    run_fit(w, "obsData")
+    res = fitUtils.run_fit(w, "obsData")
+
+    # print results
+    res_OS.Print()
+    res_SS.Print()
+    res.Print()
 
 
 if __name__ == "__main__":
