@@ -10,27 +10,25 @@ ROOT.gROOT.SetBatch(True)
 ROOT.gROOT.LoadMacro(os.path.join(dirname, "AtlasStyle.C"))
 ROOT.SetAtlasStyle()
 
-# fit variable
-var = "lep_pt"
-
-# channels
-channel = "2018_el_wplusd_PT_Fit"
-
-# list of samples
-samples = [
-    "Wjets_light_Matched",
-    "Wjets_light_Rest",
-    "Wjets_tau",
-    "Zjets",
-    "Top",
-    "Diboson",
-    "Multijet",
-]
-
 
 def main(options):
     # input file
     f = ROOT.TFile(options.input, "READ")
+
+    # samples
+    samples = options.samples.split(",")
+
+    # channel
+    channel = options.channel
+
+    # channel
+    var = options.var
+
+    # list of floating parameters
+    floatPars = [f"mu_{c.split(':')[0]}" for c in options.constraints.split(",")]
+
+    # list of all parameters
+    allPars = floatPars + ["mu_QCD_OS", "mu_QCD_SS"]
 
     # read input mc
     histograms_OS = {s: f.Get(f"{s}_{channel}_OS_{var}") for s in samples}
@@ -52,7 +50,6 @@ def main(options):
     meas.SetLumiRelErr(0.02)
     meas.AddConstantParam("Lumi")
     meas.SetExportOnly(False)
-    meas.SetPOI("mu_wjets")
 
     # Define HF samples
     samples_OS = {}
@@ -67,11 +64,15 @@ def main(options):
 
     # normalisation factors
     samples_OS["Multijet"].AddNormFactor("mu_QCD_OS", 1, -1000, 1000)
-    samples_OS["Wjets_light_Rest"].AddNormFactor("mu_wjets", 1, 0, 10)
-    samples_OS["Top"].AddNormFactor("mu_top", 1, 0, 10)
     samples_SS["Multijet"].AddNormFactor("mu_QCD_SS", 1, -1000, 1000)
-    samples_SS["Wjets_light_Rest"].AddNormFactor("mu_wjets", 1, 0, 10)
-    samples_SS["Top"].AddNormFactor("mu_top", 1, 0, 10)
+    constraints = options.constraints.split(",")
+    for constraint in constraints:
+        constraint = constraint.split(":")
+        sample = constraint[0]
+        args = [float(x) for x in constraint[1:]]
+        samples_OS[sample].AddNormFactor(f"mu_{sample}", *args)
+        samples_SS[sample].AddNormFactor(f"mu_{sample}", *args)
+        print(f"Set sample {sample} to {args}")
 
     # Define HF channels
     chan_OS = ROOT.RooStats.HistFactory.Channel("OS")
@@ -108,6 +109,11 @@ def main(options):
     res_SS.Print()
     res.Print()
 
+    # save results to json output
+    fitUtils.results_to_json(res_OS, allPars, options.input, "OS")
+    fitUtils.results_to_json(res_SS, allPars, options.input, "SS")
+    fitUtils.results_to_json(res, allPars, options.input, "combined")
+
 
 if __name__ == "__main__":
     import optparse
@@ -119,6 +125,22 @@ if __name__ == "__main__":
     parser.add_option('-i', '--input',
                       action="store", dest="input",
                       help="input file with histograms")
+    parser.add_option('-f', '--fit-constraints',
+                      action="store", dest="constraints",
+                      help="fit constraints",
+                      default="Top:1:0:10,Wjets_light_Rest:1:0:10")
+    parser.add_option('-s', '--samples',
+                      action="store", dest="samples",
+                      help="list of samples to fit",
+                      default="Wjets_light_Matched,Wjets_light_Rest,Wjets_tau,Zjets,Top,Diboson,Multijet")
+    parser.add_option('-c', '--channel',
+                      action="store", dest="channel",
+                      help="channel to fit",
+                      default="2018_el_wplusd_PT_Fit")
+    parser.add_option('-v', '--var',
+                      action="store", dest="var",
+                      help="variable to fit",
+                      default="lep_pt")
 
     # parse input arguments
     options, args = parser.parse_args()

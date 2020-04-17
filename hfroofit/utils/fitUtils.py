@@ -1,4 +1,5 @@
 import ROOT
+import json
 import os
 
 # C++ implementations
@@ -18,3 +19,14 @@ def run_fit(w, datasetName):
     res = pdf.fitTo(data, ROOT.RooFit.SumW2Error(True), ROOT.RooFit.Save(True))
     return res
 
+
+def results_to_json(res, pars, path, name):
+    out = dict()
+    for par in pars:
+        p = res.floatParsFinal().find(par)
+        if not p:
+            continue
+        out.update({par: [p.getVal(), p.getAsymErrorHi()]})
+    pfn = os.path.join(os.path.dirname(path), name + ".json")
+    with open(pfn, 'w') as outfile:
+        json.dump(out, outfile)
