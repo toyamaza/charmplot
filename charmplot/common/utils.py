@@ -18,6 +18,20 @@ MC_Map = Dict[sample.Sample, ROOT.TH1]
 logger = logging.getLogger(__name__)
 
 
+def save_to_file(out_file_name: str, channel: channel.Channel, var: variable.Variable, h_data: ROOT.TH1, mc_map: MC_Map):
+    logging.info(f"Saving histograms to root file for channel {channel}")
+    out_file = ROOT.TFile(out_file_name, "UPDATE")
+    out_file.cd()
+    h_data.Write()
+    for s in mc_map:
+        out_name = mc_map[s].GetName()
+        if " | " in out_name:
+            out_name_split = out_name.split(" | ")
+            out_name = f"{out_name_split[0]}_{channel.name}_{var.name}"
+        mc_map[s].Write(out_name)
+    out_file.Close()
+
+
 def read_samples(conf: globalConfig.GlobalConfig, reader: inputDataReader.InputDataReader,
                  c: channel.Channel, v: variable.Variable, fit: likelihoodFit.LikelihoodFit,
                  samples: list, scale_factors: dict) -> MC_Map:
@@ -36,9 +50,10 @@ def read_samples(conf: globalConfig.GlobalConfig, reader: inputDataReader.InputD
         # scale histogram if given input scale factors
         # TODO: improve the sample name propagation
         if scale_factors:
+            sf = [1., 0.]
             if s.fitName in scale_factors:
                 sf = scale_factors[s.fitName]
-            else:
+            elif s.fitName in c.scale_factors['scale_factors'].keys():
                 sf = scale_factors[c.scale_factors['scale_factors'][s.fitName]]
             h.Scale(sf[0])
     return mc_map
@@ -291,8 +306,8 @@ def scale_multijet_histogram(data: ROOT.TH1, mc_map: MC_Map, fit_range: list):
 
 def make_canvas(h: ROOT.TH1, v: variable.Variable, c: channel.Channel,
                 x: float = 800., y: float = 600., y_split: float = 0.30,
-                fit: likelihoodFit.LikelihoodFit = None) -> ROOT.TCanvas:
-    canv = canvas.Canvas2(c, v, x, y, y_split, fit)
+                fit: likelihoodFit.LikelihoodFit = None, scale_factors: dict = None) -> ROOT.TCanvas:
+    canv = canvas.Canvas2(c, v, x, y, y_split, fit, scale_factors)
     canv.construct(h)
     return canv
 

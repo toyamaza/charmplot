@@ -80,8 +80,8 @@ def main(options):
             s.SetHisto(histograms[channel][sample])
             if "Multijet" in sample:
                 s.SetNormalizeByTheory(False)
-                s.AddNormFactor(f"mu_QCD_{channel}", 1, -100, 100)
-                floatPars += [f"mu_QCD_{channel}"]
+                s.AddNormFactor(f"mu_QCD_{channel_short[channel]}", 1, -100, 100)
+                floatPars += [f"mu_QCD_{channel_short[channel]}"]
             else:
                 s.SetNormalizeByTheory(True)
             Samples[channel].update({sample: s})

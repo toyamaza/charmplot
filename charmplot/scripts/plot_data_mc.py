@@ -39,13 +39,14 @@ def mass_fit(conf, reader, c, samples):
 
 def main(options, conf, reader):
 
-    # output root file
-    out_file_name = os.path.join(options.output, "histograms.root")
-    out_file = ROOT.TFile(out_file_name, "RECREATE")
-    out_file.Close()
-
     # loop through all channels and variables
     for c in conf.channels:
+
+        # output root file
+        if c.save_to_file and c == conf.channels[0]:
+            out_file_name = os.path.join(options.output, "histograms.root")
+            out_file = ROOT.TFile(out_file_name, "RECREATE")
+            out_file.Close()
 
         # filter channels
         if options.channels:
@@ -82,39 +83,32 @@ def main(options, conf, reader):
 
         for v in variables:
 
+            # variable object
+            var = conf.get_var(v)
+
             # check if last plot
             last_plot = v == variables[-1]
 
             # data histogram
-            h_data = reader.get_histogram(conf.get_data(), c, conf.get_var(v))
+            h_data = reader.get_histogram(conf.get_data(), c, var)
             if not h_data:
                 continue
 
             # read input MC histograms (and scale them)
-            mc_map = utils.read_samples(conf, reader, c, conf.get_var(v), fit, samples, scale_factors)
+            mc_map = utils.read_samples(conf, reader, c, var, fit, samples, scale_factors)
             if not mc_map:
                 continue
 
             # save histograms to root file
             if c.save_to_file:
-                logging.info(f"Saving histograms to root file for channel {c}")
-                out_file = ROOT.TFile(out_file_name, "UPDATE")
-                out_file.cd()
-                h_data.Write()
-                for s in mc_map:
-                    out_name = mc_map[s].GetName()
-                    if " | " in out_name:
-                        out_name_split = out_name.split(" | ")
-                        out_name = f"{out_name_split[0]}_{c.name}_{v}"
-                    mc_map[s].Write(out_name)
-                out_file.Close()
+                utils.save_to_file(out_file_name, c, var, h_data, mc_map)
 
             # continue if not make plots
             if not c.make_plots:
                 continue
 
             # canvas
-            canv = utils.make_canvas(h_data, conf.get_var(v), c, x=800, y=800, fit=fit)
+            canv = utils.make_canvas(h_data, var, c, x=800, y=800, fit=fit, scale_factors=scale_factors)
 
             # configure histograms
             canv.configure_histograms(mc_map, h_data)
@@ -140,7 +134,7 @@ def main(options, conf, reader):
             canv.make_legend(h_data, h_mc_tot, mc_map, samples, print_yields=True)
 
             # set maximum after creating legend
-            canv.set_maximum((h_data, h_mc_tot), conf.get_var(v), mc_min=mc_map[samples[-1]])
+            canv.set_maximum((h_data, h_mc_tot), var, mc_min=mc_map[samples[-1]])
 
             # bottom pad
             canv.pad2.cd()
@@ -155,8 +149,9 @@ def main(options, conf, reader):
             canv.print_all(options.output, c.name, v, multipage_pdf=True, first_plot=first_plot, last_plot=last_plot, as_png=options.stage_out)
             first_plot = False
 
-        # close output file
-        out_file.Close()
+            # close output file
+            if c.save_to_file:
+                out_file.Close()
 
 
 if __name__ == "__main__":

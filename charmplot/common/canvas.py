@@ -120,7 +120,7 @@ class Canvas2(CanvasBase):
             self.pad1.Delete()
 
     def __init__(self, c: channel.Channel, v: variable.Variable, x: float, y: float,
-                 y_split: float = 0.35, fit: likelihoodFit.LikelihoodFit = None, suffix: str = ""):
+                 y_split: float = 0.35, fit: likelihoodFit.LikelihoodFit = None, scale_factors: dict = None, suffix: str = ""):
         super(Canvas2, self).__init__(c, v, x, y, suffix)
 
         # upper/lower canvas split
@@ -130,6 +130,7 @@ class Canvas2(CanvasBase):
 
         # fit results
         self.fit = fit
+        self.scale_factors = scale_factors
 
         # upper pad
         self.pad1 = ROOT.TPad(self.name + "_1", "", 0., self.y_split, 1., 1.)
@@ -175,7 +176,8 @@ class Canvas2(CanvasBase):
         self.atlas_label("internal")
         self.text("#sqrt{s} = 13 TeV, %.1f fb^{-1}" % (utils.get_lumi(self.channel.lumi) / 1000.))
         for label in self.channel.label:
-            self.text(f"{label}")
+            if len(label):
+                self.text(f"{label}")
 
     def fit_results(self):
         if self.fit:
@@ -183,6 +185,11 @@ class Canvas2(CanvasBase):
                 if 'Multijet' in s or s in self.fit.fixed:
                     continue
                 self.text(f"#mu({s}) = {r[0]:.3f}")
+        elif self.scale_factors:
+            for sf in self.scale_factors:
+                if "QCD" in sf:
+                    continue
+                self.text(f"{sf} = {self.scale_factors[sf][0]:.3f}")
 
     def print_all(self, output, channel, var, multipage_pdf=False, first_plot=False, last_plot=False, as_png=False):
         self.pad1.cd()
