@@ -1,17 +1,17 @@
 Dmeson_m:
-  label: 'D^{#pm} m'
+  label: 'D* m'
   unit: 'GeV'
   rebin: 10
   ratio_range: [0.5, 1.49]
 
 Dmeson_pt:
-  label: 'D^{#pm} p_{T}'
+  label: 'D* p_{T}'
   unit: 'GeV'
   rebin: 2
   ratio_range: [0.5, 1.49]
 
 Dmeson_eta:
-  label: 'D^{#pm} #eta'
+  label: 'D* #eta'
   rebin: 2
   ratio_range: [0.5, 1.49]
 
@@ -22,23 +22,23 @@ Dmeson_mdiff:
   ratio_range: [0.5,1.49]
 
 Dmeson_phi:
-  label: 'D^{#pm} #phi'
+  label: 'D* #phi'
   rebin: 2
   ratio_range: [0.5, 1.49]
 
 Dmeson_Lxy:
-  label: 'D^{#pm} L_{xy}'
+  label: 'D* L_{xy}'
   unit: 'mm'
   rebin: 2
   ratio_range: [0.5, 1.49]
 
 Dmeson_cTau:
-  label: 'D^{#pm} c#tau'
+  label: 'D* c#tau'
   rebin: 2
   ratio_range: [0.5, 1.49]
 
 Dmeson_chi2:
-  label: 'D^{#pm} #chi^{2}'
+  label: 'D* #chi^{2}'
   rebin: 2
   ratio_range: [0.5, 1.49]
 
@@ -69,13 +69,13 @@ lep_eta:
   ratio_range: [0.5, 1.49]
 
 Dmeson_d0:
-  label: 'D^{#pm} d_{0}'
+  label: 'D* d_{0}'
   unit: '#mum'
   rebin: 2
   ratio_range: [0.5, 1.49]
 
 Dmeson_dRlep:
-  label: '#DeltaR(D^{#pm}, lep)'
+  label: '#DeltaR(D*, lep)'
   rebin: 2
   ratio_range: [0.5, 1.49]
 
@@ -154,46 +154,46 @@ lep_ptvarcone30_TightTTVA_pt1000:
   rebin: 2
 
 Dmeson_dPhilep:
-  label: '#Delta#phi(D^{#pm}, lep)'
+  label: '#Delta#phi(D*, lep)'
   rebin: 2
   ratio_range: [0.5, 1.49]
 
 Dmeson_dEtalep:
-  label: '#Delta#eta(D^{#pm}, lep)'
+  label: '#Delta#eta(D*, lep)'
   rebin: 2
   ratio_range: [0.5, 1.49]
 
 Dmeson_SVr:
-  label: 'D^{#pm} SVr'
+  label: 'D* SVr'
   unit: 'mm'
   rebin: 10
   ratio_range: [0.5, 1.49]
 
 Dmeson_ptcone40_pt:
-  label: 'D^{#pm} ptcone40/p_{T}'
+  label: 'D* ptcone40/p_{T}'
   rebin: 2
   ratio_range: [0.5, 1.49]
 
 Dmeson_max_trackZ0PV:
-  label: 'D^{#pm} max z_{0}sin#theta_{PV}'
+  label: 'D* max z_{0}sin#theta_{PV}'
   unit: 'mm'
   rebin: 2
   ratio_range: [0.5, 1.49]
 
 Dmeson_max_trackZ0:
-  label: 'D^{#pm} max z_{0}sin#theta'
+  label: 'D* max z_{0}sin#theta'
   unit: 'mm'
   rebin: 2
   ratio_range: [0.5, 1.49]
 
 Dmeson_min_trackPt:
-  label: 'D^{#pm} min p_{T}(tracks)'
+  label: 'D* min p_{T}(tracks)'
   unit: 'MeV'
   rebin: 2
   ratio_range: [0.5, 1.49]
 
 Dmeson_max_trackdR:
-  label: 'D^{#pm} max #DeltaR(tracks)'
+  label: 'D* max #DeltaR(tracks)'
   rebin: 2
   ratio_range: [0.5, 1.49]
 
