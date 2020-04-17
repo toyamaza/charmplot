@@ -9,5 +9,6 @@ setup(name='charmplot',
           'charmplot/scripts/plot_data_mc.py',
           'charmplot/scripts/plot_mc_mc.py',
           'charmplot/scripts/plot_mc.py',
+          'hfroofit/scripts/wplusd_fit_OS_SS.py',
       ],
       )
