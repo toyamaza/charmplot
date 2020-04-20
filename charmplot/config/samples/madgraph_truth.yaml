@@ -4,6 +4,13 @@ Data:
   add: data
   subtract:
 
+Wjets_light:
+  add: MG_Wjets_light
+  subtract:
+  fillColor: "10001"
+  legendLabel: W#rightarrowl#nu
+  shortName: Wjets_light
+
 Wjets_light_Matched:
   add: MG_Wjets_light
   subtract:

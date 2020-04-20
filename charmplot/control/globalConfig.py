@@ -100,9 +100,9 @@ class GlobalConfig(object):
         self.variables = variables
 
         # channel specific variables
-        if 'channelsVariables' in conf:
-            for name in conf['channelsVariables']:
-                var = conf['channelsVariables'][name]
+        if 'channelVariables' in conf:
+            for name in conf['channelVariables']:
+                var = conf['channelVariables'][name]
                 v = variable.Variable(name, **var)
                 self.variables[name] = v
 

@@ -110,15 +110,16 @@ def main(options):
             Samples[channel].update({sample: s})
 
     # normalisation factors
-    constraints = options.constraints.split(",")
-    for constraint in constraints:
-        constraint = constraint.split(":")
-        sample = constraint[0]
-        args = [float(x) for x in constraint[1:]]
-        floatPars += [f"mu_{sample}"]
-        for channel in channels:
-            Samples[channel][sample].AddNormFactor(f"mu_{sample}", *args)
-        print(f"Set sample {sample} to {args}")
+    if options.constraints:
+        constraints = options.constraints.split(",")
+        for constraint in constraints:
+            constraint = constraint.split(":")
+            sample = constraint[0]
+            args = [float(x) for x in constraint[1:]]
+            floatPars += [f"mu_{sample}"]
+            for channel in channels:
+                Samples[channel][sample].AddNormFactor(f"mu_{sample}", *args)
+            print(f"Set sample {sample} to {args}")
 
     # Define HF channels
     Channels = dict()

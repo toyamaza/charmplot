@@ -45,7 +45,8 @@ class InputDataReader(object):
                 if len(sample_channel) == 2 and sample_channel[1] not in channel:
                     continue
                 if sample.shortName == sample_channel[0]:
-                    sf = scale_factors[self.channel_scale_factors['scale_factors'][s]]
+                    if self.channel_scale_factors['scale_factors'][s] in scale_factors.keys():
+                        sf = scale_factors[self.channel_scale_factors['scale_factors'][s]]
             h.Scale(sf[0])
             logger.info(f"Scaling histogram {sample.name} in {channel} by {sf[0]}")
 

@@ -2,7 +2,7 @@ colorScheme: cheer_up_emo_kid
 
 variablesConf: charmed_wjets
 
-channelsVariables:
+channelVariables:
   met_met:
     label: MET
     unit: GeV
