@@ -31,7 +31,7 @@ class InputDataReader(object):
 
         # scale histogram
         scale_factors = utils.read_scale_factors(self.channel_scale_factors)
-        self.scale_histogram(h, sample, channel, scale_factors)
+        self.scale_histogram(h, sample, c, scale_factors)
 
         return h
 
@@ -39,13 +39,15 @@ class InputDataReader(object):
         # scale histogram if given input scale factors
         if scale_factors:
             sf = [1., 0.]
-            logger.info(f"s.shortName: {sample.shortName}")
-            if sample.shortName in scale_factors:
-                sf = scale_factors[sample.shortName]
-            elif sample.shortName in self.channel_scale_factors['scale_factors'].keys():
-                sf = scale_factors[self.channel_scale_factors['scale_factors'][sample.shortName]]
+            logger.info(f"s.shortName: {sample.shortName} {channel}")
+            for s in self.channel_scale_factors['scale_factors']:
+                sample_channel = s.split(" | ")
+                if len(sample_channel) == 2 and sample_channel[1] not in channel:
+                    continue
+                if sample.shortName == sample_channel[0]:
+                    sf = scale_factors[self.channel_scale_factors['scale_factors'][s]]
             h.Scale(sf[0])
-            logger.info(f"Scaling histogram {sample.name} in {channel.name} by {sf[0]}")
+            logger.info(f"Scaling histogram {sample.name} in {channel} by {sf[0]}")
 
     def get_histogram(self, sample, channel, variable):
         h_total = None
