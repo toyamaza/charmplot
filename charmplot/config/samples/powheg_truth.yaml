@@ -9,14 +9,14 @@ Wjets_light_Matched:
   subtract:
   fillColor: "10002"
   legendLabel: 'W+#it{D}'
-  fitName: Wjets_light_Matched
+  shortName: Wjets_light_Matched
 
 Wjets_light_MisMatched:
   add: Ph_Wjets_light
   subtract:
   fillColor: "10001"
   legendLabel: 'W+#it{D} Mis'
-  fitName: Wjets_light_MisMatched
+  shortName: Wjets_light_MisMatched
 
 Wjets_light_Rest:
   add: Ph_Wjets_light

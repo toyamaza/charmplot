@@ -13,24 +13,44 @@ class InputDataReader(object):
 
     # one input file for each sample
     input_files = {}
+    channel_scale_factors = None
 
     def __init__(self, conf=None):
         self.config = conf
         self.read_input_files()
 
-    def get_histogram_from_file(self, f, c, extra_rebin, sample, variable):
+    def get_histogram_from_file(self, f, channel, sample, variable, c):
         h = f.Get(os.path.join(c, "__".join([c, variable.name])))
         if not h:
             logger.warning("Histogram for variable %s not found in channel %s for sample %s" % (
                 variable.name, c, sample.name))
             return None
         h = h.Clone(h.GetName() + "_temp")
-        utils.rebin_histogram(h, variable, extra_rebin)
+        utils.rebin_histogram(h, variable, channel.extra_rebin)
         utils.set_to_positive(h)
+
+        # scale histogram
+        scale_factors = utils.read_scale_factors(self.channel_scale_factors)
+        self.scale_histogram(h, sample, channel, scale_factors)
+
         return h
+
+    def scale_histogram(self, h, sample, channel, scale_factors):
+        # scale histogram if given input scale factors
+        if scale_factors:
+            sf = [1., 0.]
+            logger.info(f"s.shortName: {sample.shortName}")
+            if sample.shortName in scale_factors:
+                sf = scale_factors[sample.shortName]
+            elif sample.shortName in self.channel_scale_factors['scale_factors'].keys():
+                sf = scale_factors[self.channel_scale_factors['scale_factors'][sample.shortName]]
+            h.Scale(sf[0])
+            logger.info(f"Scaling histogram {sample.name} in {channel.name} by {sf[0]}")
 
     def get_histogram(self, sample, channel, variable):
         h_total = None
+        # scale factors for this channel
+        self.channel_scale_factors = channel.scale_factors
         if sample.channel:
             logging.info(f"Using channel {sample.channel} for sample {sample.name}")
             channel = self.config.get_channel(sample.channel)
@@ -44,13 +64,15 @@ class InputDataReader(object):
                 raise IOError("No input file found for sample %s", sample.name)
             f = self.input_files[input_file]
             for c in channel.add:
-                h = self.get_histogram_from_file(f, c, channel.extra_rebin, sample, variable)
+                logger.info(f"channel.add: {c} {sample.shortName}")
+                h = self.get_histogram_from_file(f, channel, sample, variable, c)
                 if not h_total:
                     h_total = h.Clone("%s_%s_%s" % (sample.name, channel.name, variable.name))
                 else:
                     h_total.Add(h, weight)
             for c in channel.subtract:
-                h = self.get_histogram_from_file(f, c, channel.extra_rebin, sample, variable)
+                logger.info(f"channel.subtract: {c} {sample.shortName}")
+                h = self.get_histogram_from_file(f, channel, sample, variable, c)
                 h_total.Add(h, -1 * weight)
         return h_total
 

@@ -68,9 +68,6 @@ def main(options, conf, reader):
         # perform likelihood fit
         fit = utils.likelihood_fit(conf, reader, c, samples)
 
-        # scale factors for this channel
-        scale_factors = utils.read_scale_factors(c.scale_factors)
-
         # keep track of first/last plot of each channel
         first_plot = True
 
@@ -95,7 +92,7 @@ def main(options, conf, reader):
                 continue
 
             # read input MC histograms (and scale them)
-            mc_map = utils.read_samples(conf, reader, c, var, fit, samples, scale_factors)
+            mc_map = utils.read_samples(conf, reader, c, var, fit, samples)
             if not mc_map:
                 continue
 
@@ -106,6 +103,9 @@ def main(options, conf, reader):
             # continue if not make plots
             if not c.make_plots:
                 continue
+
+            # scale factors for this channel (only for dispaly)
+            scale_factors = utils.read_scale_factors(c.scale_factors)
 
             # canvas
             canv = utils.make_canvas(h_data, var, c, x=800, y=800, fit=fit, scale_factors=scale_factors)

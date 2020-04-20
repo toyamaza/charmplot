@@ -17,7 +17,7 @@ class Sample(object):
     def __init__(self, name, color_scheme=None, **kwargs):
         # sample name
         self.name = name
-        self.fitName = name
+        self.shortName = name
 
         # addition
         if 'add' in kwargs:
@@ -54,8 +54,8 @@ class Sample(object):
         if 'legendLabel' in kwargs:
             self.legendLabel = kwargs.pop('legendLabel')
 
-        if 'fitName' in kwargs:
-            self.fitName = kwargs.pop('fitName')
+        if 'shortName' in kwargs:
+            self.shortName = kwargs.pop('shortName')
 
     def set_color_scheme(self, scheme):
         self.color_scheme = scheme

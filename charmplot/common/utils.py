@@ -34,7 +34,7 @@ def save_to_file(out_file_name: str, channel: channel.Channel, var: variable.Var
 
 def read_samples(conf: globalConfig.GlobalConfig, reader: inputDataReader.InputDataReader,
                  c: channel.Channel, v: variable.Variable, fit: likelihoodFit.LikelihoodFit,
-                 samples: list, scale_factors: dict) -> MC_Map:
+                 samples: list) -> MC_Map:
     mc_map = {}
     for s in samples:
         # read MC histogram
@@ -45,18 +45,7 @@ def read_samples(conf: globalConfig.GlobalConfig, reader: inputDataReader.InputD
 
         # scale histogram if performed likelihood fit
         if fit:
-            h.Scale(fit.result[s.fitName][0])
-
-        # scale histogram if given input scale factors
-        # TODO: improve the sample name propagation
-        if scale_factors:
-            sf = [1., 0.]
-            if s.fitName in scale_factors:
-                sf = scale_factors[s.fitName]
-            elif s.fitName in c.scale_factors['scale_factors'].keys():
-                sf = scale_factors[c.scale_factors['scale_factors'][s.fitName]]
-            h.Scale(sf[0])
-            logger.info(f"Scaling histogram {h} by {sf[0]}")
+            h.Scale(fit.result[s.shortName][0])
     return mc_map
 
 
@@ -260,8 +249,8 @@ def likelihood_fit(conf: globalConfig.GlobalConfig, reader: inputDataReader.Inpu
                 if 'Multijet' in s.name:
                     continue
                 h = mc_map_SR[s]
-                h.Scale(fit.result[s.fitName][0])
-                print(s.name, " ", s.fitName, " ", fit.result[s.fitName][0])
+                h.Scale(fit.result[s.shortName][0])
+                print(s.name, " ", s.shortName, " ", fit.result[s.shortName][0])
             sf_qcd_SR = scale_multijet_histogram(h_data_SR, mc_map_SR, fit_range)
             # if sf_qcd_SR < 0:
             #     sf_qcd_SR = 0
