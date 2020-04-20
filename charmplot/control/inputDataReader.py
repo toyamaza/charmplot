@@ -18,6 +18,17 @@ class InputDataReader(object):
         self.config = conf
         self.read_input_files()
 
+    def get_histogram_from_file(self, f, c, extra_rebin, sample, variable):
+        h = f.Get(os.path.join(c, "__".join([c, variable.name])))
+        if not h:
+            logger.warning("Histogram for variable %s not found in channel %s for sample %s" % (
+                variable.name, c, sample.name))
+            return None
+        h = h.Clone(h.GetName() + "_temp")
+        utils.rebin_histogram(h, variable, extra_rebin)
+        utils.set_to_positive(h)
+        return h
+
     def get_histogram(self, sample, channel, variable):
         h_total = None
         if sample.channel:
@@ -33,27 +44,13 @@ class InputDataReader(object):
                 raise IOError("No input file found for sample %s", sample.name)
             f = self.input_files[input_file]
             for c in channel.add:
-                h = f.Get(os.path.join(c, "__".join([c, variable.name])))
-                if not h:
-                    logger.warning("Histogram for variable %s not found in channel %s for sample %s" % (
-                        variable.name, c, sample.name))
-                    return None
-                h = h.Clone(h.GetName() + "_temp")
-                utils.rebin_histogram(h, variable, channel.extra_rebin)
-                utils.set_to_positive(h)
+                h = self.get_histogram_from_file(f, c, channel.extra_rebin, sample, variable)
                 if not h_total:
                     h_total = h.Clone("%s_%s_%s" % (sample.name, channel.name, variable.name))
                 else:
                     h_total.Add(h, weight)
             for c in channel.subtract:
-                h = f.Get(os.path.join(c, "__".join([c, variable.name])))
-                if not h:
-                    logger.warning("Histogram for variable %s not found in channel %s for sample %s" % (
-                        variable.name, c, sample.name))
-                    return None
-                h = h.Clone(h.GetName() + "_temp")
-                utils.rebin_histogram(h, variable, channel.extra_rebin)
-                utils.set_to_positive(h)
+                h = self.get_histogram_from_file(f, c, channel.extra_rebin, sample, variable)
                 h_total.Add(h, -1 * weight)
         return h_total
 
