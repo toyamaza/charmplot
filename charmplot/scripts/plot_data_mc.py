@@ -39,11 +39,15 @@ def mass_fit(conf, reader, c, samples):
 
 def main(options, conf, reader):
 
+    # make the output file only once
+    histogram_file_made = False
+
     # loop through all channels and variables
     for c in conf.channels:
 
         # output root file
-        if c.save_to_file and c == conf.channels[0]:
+        if c.save_to_file and not histogram_file_made:
+            histogram_file_made = True
             out_file_name = os.path.join(options.analysis_config, "histograms.root")
             out_file = ROOT.TFile(out_file_name, "RECREATE")
             out_file.Close()
