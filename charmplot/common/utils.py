@@ -277,15 +277,15 @@ def likelihood_fit(conf: globalConfig.GlobalConfig, reader: inputDataReader.Inpu
         return None
 
 
-def read_scale_factors(folder: str, scale_factor_confing: dict):
+def read_scale_factors(scale_factor_confing: dict):
     if not scale_factor_confing or 'input_file' not in scale_factor_confing:
         return None
-    full_path = os.path.join(folder, scale_factor_confing['input_file'])
-    if not os.path.isfile(full_path):
-        logger.warning(f"scale factor file not found: {full_path}")
+    path = scale_factor_confing['input_file']
+    if not os.path.isfile(path):
+        logger.warning(f"scale factor file not found: {path}")
         sys.exit(1)
-    with open(full_path, 'r') as json_file:
-        logger.debug(f"scale factor file successfully opened: {full_path}")
+    with open(path, 'r') as json_file:
+        logger.debug(f"scale factor file successfully opened: {path}")
         data = json.load(json_file)
         return data
 

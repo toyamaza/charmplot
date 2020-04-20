@@ -19,7 +19,7 @@ channels:
       - Multijet | 2018_el_wplusd_PT_Template_OS
       - Diboson
     scale_factors:
-      input_file: ../export_madgraph_truth/combined.json
+      input_file: likelihood_fit/wplusd/export_madgraph_truth/combined.json
       scale_factors:
         Top: mu_Top
         Wjets_light_Rest: mu_Wjets_light_Rest
@@ -41,7 +41,7 @@ channels:
       - Multijet | 2018_el_wplusd_PT_Template_SS
       - Diboson
     scale_factors:
-      input_file: ../export_madgraph_truth/combined.json
+      input_file: likelihood_fit/wplusd/export_madgraph_truth/combined.json
       scale_factors:
         Top: mu_Top
         Wjets_light_Rest: mu_Wjets_light_Rest
@@ -63,7 +63,7 @@ channels:
       - Multijet | 2018_el_wplusd_PTCut_Template_OS
       - Diboson
     scale_factors:
-      input_file: ../export_madgraph_truth/combined.json
+      input_file: likelihood_fit/wplusd/export_madgraph_truth/combined.json
       scale_factors:
         Top: mu_Top
         Wjets_light_Rest: mu_Wjets_light_Rest
@@ -85,7 +85,7 @@ channels:
       - Multijet | 2018_el_wplusd_PTCut_Template_SS
       - Diboson
     scale_factors:
-      input_file: ../export_madgraph_truth/combined.json
+      input_file: likelihood_fit/wplusd/export_madgraph_truth/combined.json
       scale_factors:
         Top: mu_Top
         Wjets_light_Rest: mu_Wjets_light_Rest

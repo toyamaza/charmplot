@@ -69,7 +69,7 @@ def main(options, conf, reader):
         fit = utils.likelihood_fit(conf, reader, c, samples)
 
         # scale factors for this channel
-        scale_factors = utils.read_scale_factors(options.analysis_config, c.scale_factors)
+        scale_factors = utils.read_scale_factors(c.scale_factors)
 
         # keep track of first/last plot of each channel
         first_plot = True
