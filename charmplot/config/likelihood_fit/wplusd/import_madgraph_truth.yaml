@@ -95,6 +95,31 @@ channels:
        - 'Signal Region'
     lumi: '2018'
 
+  2018_el_wplusd_PT_Extrapolated_OS-SS:
+    regions:
+      - OS_2018_el_SR_Dplus
+      - -SS_2018_el_SR_Dplus
+    samples:
+      - Wjets_light_Matched | 2018_el_wplusd_OS-SS_Matched
+      - Wjets_light_Rest | 2018_el_wplusd_OS-SS_Rest
+      - Wjets_tau
+      - Top
+      - Zjets
+      - Multijet | 2018_el_wplusd_PTCut_Template_OS-SS
+      - Diboson
+    scale_factors:
+      input_file: likelihood_fit/wplusd/export_madgraph_truth/combined.json
+      scale_factors:
+        Top: mu_Top
+        Wjets_light_Rest: mu_Wjets_light_Rest
+        Multijet | OS: mu_QCD_extrapolated_OS
+        Multijet | SS: mu_QCD_extrapolated_SS
+    label:
+       - 'W#rightarrowe#nu+D, D#rightarrowK#pi#pi, OS-SS'
+       - 'Signal Region'
+    lumi: '2018'
+    extra_rebin: 2
+
   2018_el_wplusd_PT_Template_OS:
     regions:
       - OS_2018_el_QCD_Dplus
@@ -115,6 +140,12 @@ channels:
       - SS_2018_el_QCD_PTCut_Dplus
     make_plots: False
 
+  2018_el_wplusd_PTCut_Template_OS-SS:
+    regions:
+      - OS_2018_el_QCD_PTCut_Dplus
+      - -SS_2018_el_QCD_PTCut_Dplus
+    make_plots: False
+
   2018_el_wplusd_OS_Matched:
     regions:
       - OS_2018_el_SR_Dplus_Matched
@@ -123,6 +154,12 @@ channels:
   2018_el_wplusd_SS_Matched:
     regions:
       - SS_2018_el_SR_Dplus_Matched
+    make_plots: False
+
+  2018_el_wplusd_OS-SS_Matched:
+    regions:
+      - OS_2018_el_SR_Dplus_Matched
+      - -SS_2018_el_SR_Dplus_Matched
     make_plots: False
 
   2018_el_wplusd_OS_Rest:
@@ -135,6 +172,14 @@ channels:
     regions:
       - SS_2018_el_SR_Dplus
       - -SS_2018_el_SR_Dplus_Matched
+    make_plots: False
+
+  2018_el_wplusd_OS-SS_Rest:
+    regions:
+      - OS_2018_el_SR_Dplus
+      - -OS_2018_el_SR_Dplus_Matched
+      - -SS_2018_el_SR_Dplus
+      - SS_2018_el_SR_Dplus_Matched
     make_plots: False
 
   2018_el_wplusd_PT_Template_OS_Matched:
