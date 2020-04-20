@@ -7,6 +7,40 @@ samplesConf: madgraph_truth
 data: Data
 
 channels:
+  2018_el_wplusd_PT_Template_OS:
+    regions:
+      - OS_2018_el_QCD_Dplus
+    samples:
+      - Multijet
+      - Top
+      - Wjets_light_Matched | 2018_el_wplusd_PT_Template_OS_Matched
+      - Wjets_light_Rest | 2018_el_wplusd_PT_Template_OS_Rest
+      - Wjets_tau
+      - Zjets
+      - Diboson
+    label:
+      - 'W#rightarrowe#nu+D, D#rightarrowK#pi#pi, OS'
+      - 'MET < 30 GeV, no m_{T} cut'
+    lumi: '2018'
+    qcd_template: Multijet
+
+  2018_el_wplusd_PT_Template_SS:
+    regions:
+      - SS_2018_el_QCD_Dplus
+    samples:
+      - Multijet
+      - Top
+      - Wjets_light_Matched | 2018_el_wplusd_PT_Template_SS_Matched
+      - Wjets_light_Rest | 2018_el_wplusd_PT_Template_SS_Rest
+      - Wjets_tau
+      - Zjets
+      - Diboson
+    label:
+      - 'W#rightarrowe#nu+D, D#rightarrowK#pi#pi, SS'
+      - 'MET < 30 GeV, no m_{T} cut'
+    lumi: '2018'
+    qcd_template: Multijet
+
   2018_el_wplusd_PT_Fit_OS:
     regions:
       - OS_2018_el_Dplus
@@ -61,16 +95,6 @@ channels:
       - Multijet | 2018_el_wplusd_PTCut_Template_SS
       - Diboson
     save_to_file: True
-    make_plots: False
-
-  2018_el_wplusd_PT_Template_OS:
-    regions:
-      - OS_2018_el_QCD_Dplus
-    make_plots: False
-
-  2018_el_wplusd_PT_Template_SS:
-    regions:
-      - SS_2018_el_QCD_Dplus
     make_plots: False
 
   2018_el_wplusd_PTCut_Template_OS:

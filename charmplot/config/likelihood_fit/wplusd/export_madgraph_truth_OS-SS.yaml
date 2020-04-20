@@ -31,6 +31,7 @@ channels:
       - 'MET < 30 GeV, no m_{T} cut'
     lumi: '2018'
     qcd_template: Multijet
+    extra_rebin: 2
 
   # 2018_el_wplusd_PT_Fit_OS-SS:
   #   regions:
