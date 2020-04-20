@@ -48,8 +48,8 @@ def main(options, conf, reader):
         variables = utils.get_variables(options, conf, reader, c, samples[0])
 
         # make channel folder if not exist
-        if not os.path.isdir(os.path.join(options.output, c.name)):
-            os.makedirs(os.path.join(options.output, c.name))
+        if not os.path.isdir(os.path.join(options.analysis_config, c.name)):
+            os.makedirs(os.path.join(options.analysis_config, c.name))
         for v in variables:
 
             # check if last plot
@@ -76,7 +76,7 @@ def main(options, conf, reader):
             canv.set_maximum([mc_map[s] for s in samples], conf.get_var(v), mc_map[samples[0]])
 
             # Print out
-            canv.print_all(options.output, c.name, v, multipage_pdf=True, first_plot=first_plot, last_plot=last_plot, as_png=options.stage_out)
+            canv.print_all(options.analysis_config, c.name, v, multipage_pdf=True, first_plot=first_plot, last_plot=last_plot, as_png=options.stage_out)
             first_plot = False
 
 
@@ -99,9 +99,6 @@ if __name__ == "__main__":
     parser.add_option('-n', '--normalize',
                       action="store_true", dest="normalize",
                       help="normalize to luminosity")
-    parser.add_option('-o', '--output-file',
-                      action="store", dest="output",
-                      help="save histograms to an output file")
     parser.add_option('--stage-out',
                       action="store_true", dest="stage_out",
                       help="copy plots to the www folder")
@@ -109,13 +106,9 @@ if __name__ == "__main__":
     # parse input arguments
     options, args = parser.parse_args()
 
-    # output file
-    if not options.output:
-        options.output = options.analysis_config
-
     # make output folder if not exist
-    if not os.path.isdir(options.output):
-        os.makedirs(options.output)
+    if not os.path.isdir(options.analysis_config):
+        os.makedirs(options.analysis_config)
 
     # read inputs
     from charmplot.control import globalConfig
@@ -127,4 +120,4 @@ if __name__ == "__main__":
 
     # stage-out to the www folder
     if options.stage_out:
-        www.stage_out_plots(options.output, conf.get_variables(), x=300, y=300)
+        www.stage_out_plots(options.analysis_config, conf.get_variables(), x=300, y=300)

@@ -47,8 +47,8 @@ def main(options, conf, reader):
         variables = utils.get_variables(options, conf, reader, c, samples[0])
 
         # make channel folder if not exist
-        if not os.path.isdir(os.path.join(options.output, c.name)):
-            os.makedirs(os.path.join(options.output, c.name))
+        if not os.path.isdir(os.path.join(options.analysis_config, c.name)):
+            os.makedirs(os.path.join(options.analysis_config, c.name))
         for v in variables:
 
             # check if last plot
@@ -86,7 +86,7 @@ def main(options, conf, reader):
                 h.Draw("hist same")
 
             # Print out
-            canv.print_all(options.output, c.name, v, multipage_pdf=True, first_plot=first_plot, last_plot=last_plot)
+            canv.print_all(options.analysis_config, c.name, v, multipage_pdf=True, first_plot=first_plot, last_plot=last_plot)
             first_plot = False
 
 
@@ -109,20 +109,13 @@ if __name__ == "__main__":
     parser.add_option('-n', '--normalize',
                       action="store_true", dest="normalize",
                       help="normalize to luminosity")
-    parser.add_option('-o', '--output-file',
-                      action="store", dest="output",
-                      help="save histograms to an output file")
 
     # parse input arguments
     options, args = parser.parse_args()
 
-    # output file
-    if not options.output:
-        options.output = options.analysis_config
-
     # make output folder if not exist
-    if not os.path.isdir(options.output):
-        os.makedirs(options.output)
+    if not os.path.isdir(options.analysis_config):
+        os.makedirs(options.analysis_config)
 
     # read inputs
     from charmplot.control import globalConfig

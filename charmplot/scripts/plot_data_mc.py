@@ -44,7 +44,7 @@ def main(options, conf, reader):
 
         # output root file
         if c.save_to_file and c == conf.channels[0]:
-            out_file_name = os.path.join(options.output, "histograms.root")
+            out_file_name = os.path.join(options.analysis_config, "histograms.root")
             out_file = ROOT.TFile(out_file_name, "RECREATE")
             out_file.Close()
 
@@ -59,8 +59,8 @@ def main(options, conf, reader):
             continue
 
         # make channel folder if not exist
-        if not os.path.isdir(os.path.join(options.output, c.name)):
-            os.makedirs(os.path.join(options.output, c.name))
+        if not os.path.isdir(os.path.join(options.analysis_config, c.name)):
+            os.makedirs(os.path.join(options.analysis_config, c.name))
 
         # used MC samples in channel (default or channel specific)
         samples = utils.get_samples(conf, c)
@@ -69,7 +69,7 @@ def main(options, conf, reader):
         fit = utils.likelihood_fit(conf, reader, c, samples)
 
         # scale factors for this channel
-        scale_factors = utils.read_scale_factors(options.output, c.scale_factors)
+        scale_factors = utils.read_scale_factors(options.analysis_config, c.scale_factors)
 
         # keep track of first/last plot of each channel
         first_plot = True
@@ -146,7 +146,7 @@ def main(options, conf, reader):
                 canv.draw_qcd_frac(h_qcd_frac, h_qcd_frac_err)
 
             # Print out
-            canv.print_all(options.output, c.name, v, multipage_pdf=True, first_plot=first_plot, last_plot=last_plot, as_png=options.stage_out)
+            canv.print_all(options.analysis_config, c.name, v, multipage_pdf=True, first_plot=first_plot, last_plot=last_plot, as_png=options.stage_out)
             first_plot = False
 
             # close output file
@@ -170,9 +170,6 @@ if __name__ == "__main__":
     parser.add_option('-v', '--vars',
                       action="store", dest="vars",
                       help="run over a subset of variables (comma separated)")
-    parser.add_option('-o', '--output-file',
-                      action="store", dest="output",
-                      help="save histograms to an output file")
     parser.add_option('--stage-out',
                       action="store_true", dest="stage_out",
                       help="copy plots to the www folder")
@@ -180,13 +177,9 @@ if __name__ == "__main__":
     # parse input arguments
     options, args = parser.parse_args()
 
-    # output file
-    if not options.output:
-        options.output = options.analysis_config
-
     # make output folder if not exist
-    if not os.path.isdir(options.output):
-        os.makedirs(options.output)
+    if not os.path.isdir(options.analysis_config):
+        os.makedirs(options.analysis_config)
 
     # read inputs
     from charmplot.control import globalConfig
@@ -198,4 +191,4 @@ if __name__ == "__main__":
 
     # stage-out to the www folder
     if options.stage_out:
-        www.stage_out_plots(options.output, conf.get_variables(), x=300, y=300)
+        www.stage_out_plots(options.analysis_config, conf.get_variables(), x=300, y=300)
