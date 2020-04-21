@@ -69,6 +69,8 @@ class InputDataReader(object):
             for c in channel.add:
                 logger.info(f"channel.add: {c} {sample.shortName}")
                 h = self.get_histogram_from_file(f, channel, sample, variable, c)
+                if not h:
+                    return None
                 if not h_total:
                     h_total = h.Clone("%s_%s_%s" % (sample.name, channel.name, variable.name))
                 else:
@@ -76,6 +78,8 @@ class InputDataReader(object):
             for c in channel.subtract:
                 logger.info(f"channel.subtract: {c} {sample.shortName}")
                 h = self.get_histogram_from_file(f, channel, sample, variable, c)
+                if not h:
+                    return None
                 h_total.Add(h, -1 * weight)
         return h_total
 
