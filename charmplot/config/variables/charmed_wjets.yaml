@@ -173,26 +173,14 @@ Dmeson_ptcone40_pt:
   rebin: 2
   ratio_range: [0.5, 1.49]
 
-Dmeson_Ds1:
-  label: 'D^{#pm} Ds_{1} veto'
+Dmeson_DsMin:
+  label: 'D^{#pm} Ds veto'
   unit: 'MeV'
   rebin: 10
   ratio_range: [0.5, 1.49]
 
-Dmeson_Ds2:
-  label: 'D^{#pm} Ds_{2} veto'
-  unit: 'MeV'
-  rebin: 10
-  ratio_range: [0.5, 1.49]
-
-Dmeson_Dstar1:
+Dmeson_DstarMin:
   label: 'D^{#pm} D*_{1} veto'
-  unit: 'MeV'
-  rebin: 2
-  ratio_range: [0.5, 1.49]
-
-Dmeson_Dstar2:
-  label: 'D^{#pm} D*_{2} veto'
   unit: 'MeV'
   rebin: 2
   ratio_range: [0.5, 1.49]
@@ -224,33 +212,33 @@ N_Dplus:
   label: N_{D^{+}}
   ratio_range: [0.0, 1.99]
 
-run_number:
-  label: 'run number'
-  ratio_range: [0.5, 1.49]
+# run_number:
+#   label: 'run number'
+#   ratio_range: [0.5, 1.49]
 
 pileup:
   label: '<#mu>'
   ratio_range: [0.5, 1.49]
 
-CharmEventInfo_PV_Z:
-  label: 'PV_{z}'
-  unit: mm
-  ratio_range: [0.0, 1.99]
+# CharmEventInfo_PV_Z:
+#   label: 'PV_{z}'
+#   unit: mm
+#   ratio_range: [0.0, 1.99]
 
-beamPosX_minus_PVX:
-  label: 'BS_{x} - PV_{x}'
-  unit: '#mum'
-  ratio_range: [0.0, 1.99]
+# beamPosX_minus_PVX:
+#   label: 'BS_{x} - PV_{x}'
+#   unit: '#mum'
+#   ratio_range: [0.0, 1.99]
 
-beamPosY_minus_PVY:
-  label: 'BS_{y} - PV_{y}'
-  unit: '#mum'
-  ratio_range: [0.0, 1.99]
+# beamPosY_minus_PVY:
+#   label: 'BS_{y} - PV_{y}'
+#   unit: '#mum'
+#   ratio_range: [0.0, 1.99]
 
-njets:
-  label: N_{jet}
-  ratio_range: [0.5, 1.49]
+# njets:
+#   label: N_{jet}
+#   ratio_range: [0.5, 1.49]
 
-nbjets:
-  label: N_{#it{b}-jet}
-  ratio_range: [0.5, 1.49]
+# nbjets:
+#   label: N_{#it{b}-jet}
+#   ratio_range: [0.5, 1.49]
