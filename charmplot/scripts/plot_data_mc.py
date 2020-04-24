@@ -96,7 +96,7 @@ def main(options, conf, reader):
                 continue
 
             # read input MC histograms (and scale them)
-            mc_map = utils.read_samples(conf, reader, c, var, fit, samples)
+            mc_map = utils.read_samples(conf, reader, c, var, samples, fit)
             if not mc_map:
                 continue
 
@@ -138,7 +138,7 @@ def main(options, conf, reader):
             canv.make_legend(h_data, h_mc_tot, mc_map, samples, print_yields=True)
 
             # set maximum after creating legend
-            canv.set_maximum((h_data, h_mc_tot), var, mc_min=mc_map[samples[-1]])
+            canv.set_maximum((h_data, h_mc_tot), var, mc_min=utils.get_mc_min(mc_map, samples))
 
             # bottom pad
             canv.pad2.cd()

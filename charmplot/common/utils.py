@@ -18,6 +18,13 @@ MC_Map = Dict[sample.Sample, ROOT.TH1]
 logger = logging.getLogger(__name__)
 
 
+def get_mc_min(mc_map: MC_Map, samples: list):
+    for s in reversed(samples):
+        if s not in mc_map.keys():
+            continue
+        return mc_map[s]
+
+
 def save_to_file(out_file_name: str, channel: channel.Channel, var: variable.Variable, h_data: ROOT.TH1, mc_map: MC_Map):
     logging.info(f"Saving histograms to root file for channel {channel}")
     out_file = ROOT.TFile(out_file_name, "UPDATE")
@@ -33,14 +40,14 @@ def save_to_file(out_file_name: str, channel: channel.Channel, var: variable.Var
 
 
 def read_samples(conf: globalConfig.GlobalConfig, reader: inputDataReader.InputDataReader,
-                 c: channel.Channel, v: variable.Variable, fit: likelihoodFit.LikelihoodFit,
-                 samples: list) -> MC_Map:
+                 c: channel.Channel, v: variable.Variable, samples: list,
+                 fit: likelihoodFit.LikelihoodFit=None) -> MC_Map:
     mc_map = {}
     for s in samples:
         # read MC histogram
         h = reader.get_histogram(s, c, v)
         if not h:
-            return None
+            continue
         mc_map[s] = h
 
         # scale histogram if performed likelihood fit
@@ -181,6 +188,8 @@ def make_ratio(data: ROOT.TH1, mc_tot: ROOT.TH1) -> ROOT.TH1:
 def make_stack(samples: List, mc_map: MC_Map):
     hs = ROOT.THStack()
     for s in reversed(samples):
+        if s not in mc_map.keys():
+            continue
         h = mc_map[s]
         logger.debug(f"adding {h}")
         hs.Add(h)

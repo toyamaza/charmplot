@@ -52,28 +52,37 @@ def main(options, conf, reader):
             os.makedirs(os.path.join(options.analysis_config, c.name))
         for v in variables:
 
+            # variable object
+            var = conf.get_var(v)
+
             # check if last plot
             last_plot = v == variables[-1]
 
-            # mc map
-            mc_map = {s: reader.get_histogram(s, c, conf.get_var(v)) for s in samples}
+            # read input MC histograms (and scale them)
+            mc_map = utils.read_samples(conf, reader, c, var, samples)
+            if not mc_map:
+                continue
 
             # canvas
-            canv = utils.make_canvas(mc_map[samples[0]], conf.get_var(v), c, x=800, y=800, y_split = 0)
+            canv = utils.make_canvas(mc_map[samples[0]], var, c, x=800, y=800, y_split = 0)
 
             # configure histograms
             canv.configure_histograms(mc_map)
 
             # top pad
+            hists = []
             canv.pad1.cd()
             for s in samples:
+                if s not in mc_map.keys():
+                    continue
                 mc_map[s].Draw("hist same")
+                hists.append(mc_map[s])
 
             # make legend
             canv.make_legend(data = None, mc_map = mc_map, samples = samples)
 
             # set maximum after creating legend
-            canv.set_maximum([mc_map[s] for s in samples], conf.get_var(v), mc_map[samples[0]])
+            canv.set_maximum(hists, var, utils.get_mc_min(mc_map, samples))
 
             # Print out
             canv.print_all(options.analysis_config, c.name, v, multipage_pdf=True, first_plot=first_plot, last_plot=last_plot, as_png=options.stage_out)

@@ -302,7 +302,7 @@ class Canvas2(CanvasBase):
         self.temp_err = temp_err
 
         # legend
-        self.n_entries = len(samples)
+        self.n_entries = len(mc_map)
         if data:
             self.n_entries += 1
         if mc_tot:
@@ -326,6 +326,8 @@ class Canvas2(CanvasBase):
             else:
                 leg.AddEntry(temp_err, "SM tot.", "lf")
         for s in samples:
+            if s not in mc_map.keys():
+                continue
             name = s.name
             if hasattr(s, "legendLabel"):
                 name = s.legendLabel
