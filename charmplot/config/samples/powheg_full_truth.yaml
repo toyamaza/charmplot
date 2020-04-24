@@ -7,36 +7,37 @@ Wjets_light_Matched:
   legendLabel: 'W+#it{D}^{#pm}'
   shortName: Wjets_light_Matched
 
-Wjets_light_DzeroMisMatched:
+Wjets_light_NoMatch:
   add: Ph_Wjets_light
   subtract:
-  fillColor: "10001"
-  legendLabel: 'W+#it{D}^{0} Mis'
-  shortName: Wjets_light_Dzero_MisMatched
+  fillColor: "10006"
+  legendLabel: 'No Match'
+  shortName: Wjets_light_NoMatch
 
 Wjets_light_DsMisMatched:
   add: Ph_Wjets_light
   subtract:
   fillColor: "10003"
-  legendLabel: 'W+#it{D}_{s} Mis'
+  legendLabel: 'W+#it{D}_{s}'
   shortName: Wjets_light_Ds_MisMatched
+
+Wjets_light_DzeroMisMatched:
+  add: Ph_Wjets_light
+  subtract:
+  fillColor: "10001"
+  legendLabel: 'W+#it{D}^{0}'
+  shortName: Wjets_light_Dzero_MisMatched
 
 Wjets_light_BaryonMisMatched:
   add: Ph_Wjets_light
   subtract:
   fillColor: "10004"
-  legendLabel: 'W+(#Lambda_{c}, #Omega_{c}, #Xi_{c}) Mis'
+  legendLabel: 'W+(#Lambda_{c}, #Omega_{c}, #Xi_{c})'
   shortName: Wjets_light_Baryon_MisMatched
 
 Wjets_light_HardScatter:
   add: Ph_Wjets_light
   subtract:
   fillColor: "10005"
-  legendLabel: '>0 Match Track Mis'
+  legendLabel: '>0 Hard Track'
   shortName: Wjets_light_HardScatter
-
-Wjets_light_NoMatch:
-  add: Ph_Wjets_light
-  subtract:
-  fillColor: "10006"
-  shortName: Wjets_light_NoMatch

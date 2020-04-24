@@ -37,6 +37,10 @@ def main(options, conf, reader):
         # keep track of first/last plot of each channel
         first_plot = True
 
+        # skip channels
+        if not c.make_plots and not c.save_to_file:
+            continue
+
         # samples
         if not c.samples:
             logging.critical(f"no samples given for channel {c}")
@@ -70,19 +74,27 @@ def main(options, conf, reader):
             canv.configure_histograms(mc_map)
 
             # top pad
-            hists = []
+            hists = [mc_map[s] for s in mc_map]
             canv.pad1.cd()
-            for s in samples:
-                if s not in mc_map.keys():
-                    continue
-                mc_map[s].Draw("hist same")
-                hists.append(mc_map[s])
+            if not options.do_stack:
+                for s in samples:
+                    if s not in mc_map.keys():
+                        continue
+                    mc_map[s].Draw("hist same")
+            else:
+                hs = utils.make_stack(samples, mc_map)
+                hs.Draw("samehist")
 
             # make legend
             canv.make_legend(data = None, mc_map = mc_map, samples = samples)
 
             # set maximum after creating legend
-            canv.set_maximum(hists, var, utils.get_mc_min(mc_map, samples))
+            if not options.do_stack:
+                canv.set_maximum(hists, var, utils.get_mc_min(mc_map, samples))
+            else:
+                h_mc_tot = utils.make_mc_tot(hs, "mc_tot")
+                canv.set_maximum([h_mc_tot], var, mc_min=utils.get_mc_min(mc_map, samples))
+
 
             # Print out
             canv.print_all(options.analysis_config, c.name, v, multipage_pdf=True, first_plot=first_plot, last_plot=last_plot, as_png=options.stage_out)
@@ -111,6 +123,9 @@ if __name__ == "__main__":
     parser.add_option('--stage-out',
                       action="store_true", dest="stage_out",
                       help="copy plots to the www folder")
+    parser.add_option('--stack',
+                      action="store_true", dest="do_stack",
+                      help="make stacked plots of categories")
 
     # parse input arguments
     options, args = parser.parse_args()
