@@ -1,0 +1,242 @@
+colorScheme: cheer_up_emo_kid
+
+variablesConf: charmed_wjets
+
+samplesConf: powheg_full_truth
+
+channels:
+  2018_wplusd_OS:
+    samples:
+      - Wjets_light_Matched | 2018_wplusd_OS_Matched
+      - Wjets_light_NoMatch | 2018_wplusd_OS_NoMatch
+      - Wjets_light_DsMisMatched | 2018_wplusd_OS_431MisMatched
+      - Wjets_light_DzeroMisMatched | 2018_wplusd_OS_421MisMatched
+      - Wjets_light_BaryonMisMatched | 2018_wplusd_OS_BaryonMisMatched
+      - Wjets_light_HardScatter | 2018_wplusd_OS_HardScatter
+    regions:
+      - OS_2018_el_SR_Dplus
+      - OS_2018_mu_SR_Dplus
+    label: 'W#rightarrowl#nu+D, D#rightarrowK#pi#pi, OS'
+    lumi: '2018'
+
+  2018_wplusd_SS:
+    samples:
+      - Wjets_light_Matched | 2018_wplusd_SS_Matched
+      - Wjets_light_NoMatch | 2018_wplusd_SS_NoMatch
+      - Wjets_light_DsMisMatched | 2018_wplusd_SS_431MisMatched
+      - Wjets_light_DzeroMisMatched | 2018_wplusd_SS_421MisMatched
+      - Wjets_light_BaryonMisMatched | 2018_wplusd_SS_BaryonMisMatched
+      - Wjets_light_HardScatter | 2018_wplusd_SS_HardScatter
+    regions:
+      - SS_2018_el_SR_Dplus
+      - SS_2018_mu_SR_Dplus
+    label: 'W#rightarrowl#nu+D, D#rightarrowK#pi#pi, SS'
+    lumi: '2018'
+
+  2018_wplusd_OS-SS:
+    samples:
+      - Wjets_light_Matched | 2018_wplusd_OS-SS_Matched
+      - Wjets_light_DsMisMatched | 2018_wplusd_OS-SS_431MisMatched
+      - Wjets_light_DzeroMisMatched | 2018_wplusd_OS-SS_421MisMatched
+      - Wjets_light_BaryonMisMatched | 2018_wplusd_OS-SS_BaryonMisMatched
+      - Wjets_light_HardScatter | 2018_wplusd_OS-SS_HardScatter
+      - Wjets_light_NoMatch | 2018_wplusd_OS-SS_NoMatch
+    regions:
+      - OS_2018_el_SR_Dplus
+      - OS_2018_mu_SR_Dplus
+      - -SS_2018_el_SR_Dplus
+      - -SS_2018_mu_SR_Dplus
+    label: 'W#rightarrowl#nu+D, D#rightarrowK#pi#pi, OS-SS'
+    lumi: '2018'
+
+  2018_wplusd_OS_Matched:
+    regions:
+      - OS_2018_el_SR_Dplus_Matched
+      - OS_2018_mu_SR_Dplus_Matched
+    make_plots: False
+
+  2018_wplusd_SS_Matched:
+    regions:
+      - SS_2018_el_SR_Dplus_Matched
+      - SS_2018_mu_SR_Dplus_Matched
+    make_plots: False
+
+  2018_wplusd_OS-SS_Matched:
+    regions:
+      - OS_2018_el_SR_Dplus_Matched
+      - OS_2018_mu_SR_Dplus_Matched
+      - -SS_2018_el_SR_Dplus_Matched
+      - -SS_2018_mu_SR_Dplus_Matched
+    make_plots: False
+
+  2018_wplusd_OS_421MisMatched:
+    regions:
+      - OS_2018_el_SR_Dplus_421MisMatched
+      - OS_2018_mu_SR_Dplus_421MisMatched
+    make_plots: False
+
+  2018_wplusd_SS_421MisMatched:
+    regions:
+      - SS_2018_el_SR_Dplus_421MisMatched
+      - SS_2018_mu_SR_Dplus_421MisMatched
+    make_plots: False
+
+  2018_wplusd_OS-SS_421MisMatched:
+    regions:
+      - OS_2018_el_SR_Dplus_421MisMatched
+      - OS_2018_mu_SR_Dplus_421MisMatched
+      - -SS_2018_el_SR_Dplus_421MisMatched
+      - -SS_2018_mu_SR_Dplus_421MisMatched
+    make_plots: False
+
+  2018_wplusd_OS_431MisMatched:
+    regions:
+      - OS_2018_el_SR_Dplus_431MisMatched
+      - OS_2018_mu_SR_Dplus_431MisMatched
+    make_plots: False
+
+  2018_wplusd_SS_431MisMatched:
+    regions:
+      - SS_2018_el_SR_Dplus_431MisMatched
+      - SS_2018_mu_SR_Dplus_431MisMatched
+    make_plots: False
+
+  2018_wplusd_OS-SS_431MisMatched:
+    regions:
+      - OS_2018_el_SR_Dplus_431MisMatched
+      - OS_2018_mu_SR_Dplus_431MisMatched
+      - -SS_2018_el_SR_Dplus_431MisMatched
+      - -SS_2018_mu_SR_Dplus_431MisMatched
+    make_plots: False
+
+  2018_wplusd_OS_BaryonMisMatched:
+    regions:
+      - OS_2018_el_SR_Dplus
+      - OS_2018_mu_SR_Dplus
+      - -OS_2018_el_SR_Dplus_Matched
+      - -OS_2018_mu_SR_Dplus_Matched
+      - -OS_2018_el_SR_Dplus_421MisMatched
+      - -OS_2018_mu_SR_Dplus_421MisMatched
+      - -OS_2018_el_SR_Dplus_431MisMatched
+      - -OS_2018_mu_SR_Dplus_431MisMatched
+      - -OS_2018_el_SR_Dplus_MxMatched
+      - -OS_2018_mu_SR_Dplus_MxMatched
+      - -OS_2018_el_SR_Dplus_MxMisMatched
+      - -OS_2018_mu_SR_Dplus_MxMisMatched
+      - -OS_2018_el_SR_Dplus_HardMisMatched
+      - -OS_2018_mu_SR_Dplus_HardMisMatched
+      - -OS_2018_el_SR_Dplus_Other
+      - -OS_2018_mu_SR_Dplus_Other
+    make_plots: False
+
+  2018_wplusd_SS_BaryonMisMatched:
+    regions:
+      - SS_2018_el_SR_Dplus
+      - SS_2018_mu_SR_Dplus
+      - -SS_2018_el_SR_Dplus_Matched
+      - -SS_2018_mu_SR_Dplus_Matched
+      - -SS_2018_el_SR_Dplus_421MisMatched
+      - -SS_2018_mu_SR_Dplus_421MisMatched
+      - -SS_2018_el_SR_Dplus_431MisMatched
+      - -SS_2018_mu_SR_Dplus_431MisMatched
+      - -SS_2018_el_SR_Dplus_MxMatched
+      - -SS_2018_mu_SR_Dplus_MxMatched
+      - -SS_2018_el_SR_Dplus_MxMisMatched
+      - -SS_2018_mu_SR_Dplus_MxMisMatched
+      - -SS_2018_el_SR_Dplus_HardMisMatched
+      - -SS_2018_mu_SR_Dplus_HardMisMatched
+      - -SS_2018_el_SR_Dplus_Other
+      - -SS_2018_mu_SR_Dplus_Other
+    make_plots: False
+
+  2018_wplusd_OS-SS_BaryonMisMatched:
+    regions:
+      - OS_2018_el_SR_Dplus
+      - OS_2018_mu_SR_Dplus
+      - -OS_2018_el_SR_Dplus_Matched
+      - -OS_2018_mu_SR_Dplus_Matched
+      - -OS_2018_el_SR_Dplus_421MisMatched
+      - -OS_2018_mu_SR_Dplus_421MisMatched
+      - -OS_2018_el_SR_Dplus_431MisMatched
+      - -OS_2018_mu_SR_Dplus_431MisMatched
+      - -OS_2018_el_SR_Dplus_MxMatched
+      - -OS_2018_mu_SR_Dplus_MxMatched
+      - -OS_2018_el_SR_Dplus_MxMisMatched
+      - -OS_2018_mu_SR_Dplus_MxMisMatched
+      - -OS_2018_el_SR_Dplus_HardMisMatched
+      - -OS_2018_mu_SR_Dplus_HardMisMatched
+      - -OS_2018_el_SR_Dplus_Other
+      - -OS_2018_mu_SR_Dplus_Other
+      - -SS_2018_el_SR_Dplus
+      - -SS_2018_mu_SR_Dplus
+      - SS_2018_el_SR_Dplus_Matched
+      - SS_2018_mu_SR_Dplus_Matched
+      - SS_2018_el_SR_Dplus_421MisMatched
+      - SS_2018_mu_SR_Dplus_421MisMatched
+      - SS_2018_el_SR_Dplus_431MisMatched
+      - SS_2018_mu_SR_Dplus_431MisMatched
+      - SS_2018_el_SR_Dplus_MxMatched
+      - SS_2018_mu_SR_Dplus_MxMatched
+      - SS_2018_el_SR_Dplus_MxMisMatched
+      - SS_2018_mu_SR_Dplus_MxMisMatched
+      - SS_2018_el_SR_Dplus_HardMisMatched
+      - SS_2018_mu_SR_Dplus_HardMisMatched
+      - SS_2018_el_SR_Dplus_Other
+      - SS_2018_mu_SR_Dplus_Other
+    make_plots: False
+
+  2018_wplusd_OS_HardScatter:
+    regions:
+      - OS_2018_el_SR_Dplus_MxMatched
+      - OS_2018_mu_SR_Dplus_MxMatched
+      - OS_2018_el_SR_Dplus_MxMisMatched
+      - OS_2018_mu_SR_Dplus_MxMisMatched
+      - OS_2018_el_SR_Dplus_HardMisMatched
+      - OS_2018_mu_SR_Dplus_HardMisMatched
+    make_plots: False
+
+  2018_wplusd_SS_HardScatter:
+    regions:
+      - SS_2018_el_SR_Dplus_MxMatched
+      - SS_2018_mu_SR_Dplus_MxMatched
+      - SS_2018_el_SR_Dplus_MxMisMatched
+      - SS_2018_mu_SR_Dplus_MxMisMatched
+      - SS_2018_el_SR_Dplus_HardMisMatched
+      - SS_2018_mu_SR_Dplus_HardMisMatched
+    make_plots: False
+
+  2018_wplusd_OS-SS_HardScatter:
+    regions:
+      - OS_2018_el_SR_Dplus_MxMatched
+      - OS_2018_mu_SR_Dplus_MxMatched
+      - OS_2018_el_SR_Dplus_MxMisMatched
+      - OS_2018_mu_SR_Dplus_MxMisMatched
+      - OS_2018_el_SR_Dplus_HardMisMatched
+      - OS_2018_mu_SR_Dplus_HardMisMatched
+      - -SS_2018_el_SR_Dplus_MxMatched
+      - -SS_2018_mu_SR_Dplus_MxMatched
+      - -SS_2018_el_SR_Dplus_MxMisMatched
+      - -SS_2018_mu_SR_Dplus_MxMisMatched
+      - -SS_2018_el_SR_Dplus_HardMisMatched
+      - -SS_2018_mu_SR_Dplus_HardMisMatched
+    make_plots: False
+
+  2018_wplusd_OS_NoMatch:
+    regions:
+      - OS_2018_el_SR_Dplus_Other
+      - OS_2018_mu_SR_Dplus_Other
+    make_plots: False
+
+  2018_wplusd_SS_NoMatch:
+    regions:
+      - SS_2018_el_SR_Dplus_Other
+      - SS_2018_mu_SR_Dplus_Other
+    make_plots: False
+
+  2018_wplusd_OS-SS_NoMatch:
+    regions:
+      - OS_2018_el_SR_Dplus_Other
+      - OS_2018_mu_SR_Dplus_Other
+      - -SS_2018_el_SR_Dplus_Other
+      - -SS_2018_mu_SR_Dplus_Other
+    make_plots: False
