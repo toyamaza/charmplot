@@ -1,4 +1,4 @@
-colorScheme: cheer_up_emo_kid
+colorScheme: gemstone_hues
 
 variablesConf: inclusive_wjets
 
@@ -8,8 +8,8 @@ data: Data
 
 samples:
   - Wjets_light_emu
-  - Wjets_bjets_emu
   - Wjets_cjets_emu
+  - Wjets_bjets_emu
   - Wjets_tau
   - Zjets_emu
   - Zjets_tau
@@ -21,15 +21,14 @@ channels:
     regions:
       - 2018_el_SR
     label:
-      - '2018 el SR'
-      - 'Sherpa'
-    lumi: '2018'
+      - "2018 el SR"
+      - "Sherpa"
+    lumi: "2018"
 
   2018_mu:
     regions:
       - 2018_mu_SR
     label:
-      - '2018 mu SR'
-      - 'Sherpa'
-    lumi: '2018'
-
+      - "2018 mu SR"
+      - "Sherpa"
+    lumi: "2018"

@@ -7,20 +7,27 @@ samplesConf: madgraph
 data: Data
 
 samples:
-  - Zjets_emu
+  - Zjets_light_emu
+  - Zjets_cjets_emu
+  - Zjets_bjets_emu
   - Zjets_tau
   - Diboson
   - Top
+  - Wjets
 
 channels:
   2018_el:
     regions:
       - 2018_el
-    label: '2018 el SR'
-    lumi: '2018'
+    label:
+      - "2018 el SR"
+      - "MadGraph"
+    lumi: "2018"
 
   2018_mu:
     regions:
       - 2018_mu
-    label: '2018 mu SR'
-    lumi: '2018'
+    label:
+      - "2018 mu SR"
+      - "MadGraph"
+    lumi: "2018"

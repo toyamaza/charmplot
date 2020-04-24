@@ -1,96 +1,132 @@
-colorScheme: cheer_up_emo_kid_extended
+colorScheme: gemstone_hues
 
 Data:
   add: data
   subtract:
 
-DataMinusBackground:
-  add: data
-  subtract:
-    - Sh_Wjets_tau
-    - Sh_Zjets
-    - Top
-    - Diboson
-
 Wjets:
   add:
-    - Sh_Wjets_light
+    - Sh_Wjets_light_emu
+    - Sh_Wjets_cjets_emu
+    - Sh_Wjets_bjets_emu
     - Sh_Wjets_tau
+    - Sh_Wjets_highpt_emu
   subtract:
   fillColor: "10000"
-  legendLabel: W+jets
+  legendLabel: "W+jets"
 
-Wjets_emu:
-  add: Sh_Wjets_light
+Zjets:
+  add:
+    - Sh_Zjets_light_emu
+    - Sh_Zjets_cjets_emu
+    - Sh_Zjets_bjets_emu
+    - Sh_Zjets_tau
+    - Sh_Zjets_highpt_emu
+    - Sh_Zjets_lowmass_emu
   subtract:
-  fillColor: "10000"
-  lineColor: "10001"
-  legendLabel: W#rightarrowl#nu
+  fillColor: "11000"
+  legendLabel: "Z+jets"
+
+Zjets_emu:
+  add:
+    - Sh_Zjets_light_emu
+    - Sh_Zjets_cjets_emu
+    - Sh_Zjets_bjets_emu
+    - Sh_Zjets_highpt_emu
+    - Sh_Zjets_lowmass_emu
+  subtract:
+  fillColor: "11000"
+  legendLabel: "Z#rightarrowll"
 
 Wjets_light_emu:
-  add: Sh_Wjets_light_emu
+  add:
+    - Sh_Wjets_light_emu
+    - Sh_Wjets_highpt_emu
   subtract:
   fillColor: "10000"
-  legendLabel: 'W#rightarrowl#nu + u'
+  legendLabel: "W#rightarrowl#nu + u"
 
 Wjets_cjets_emu:
   add: Sh_Wjets_cjets_emu
   subtract:
-  fillColor: "10002"
-  legendLabel: 'W#rightarrowl#nu + c'
+  fillColor: "10001"
+  legendLabel: "W#rightarrowl#nu + c"
 
 Wjets_bjets_emu:
   add: Sh_Wjets_bjets_emu
   subtract:
-  fillColor: "10001"
-  legendLabel: 'W#rightarrowl#nu + b'
+  fillColor: "10002"
+  legendLabel: "W#rightarrowl#nu + b"
 
 Wjets_tau:
-  add: Sh_Wjets_highpt_emu
   add: Sh_Wjets_tau
   subtract:
   fillColor: "10003"
-  legendLabel: 'W#rightarrow#tau#nu'
+  legendLabel: "W#rightarrow#tau#nu"
 
-Zjets:
-  add:
-    - Sh_Zjets_light
-    - Sh_Zjets_tau
+Zjets_light_emu:
+  add: Sh_Zjets_light_emu
   subtract:
-  fillColor: "10004"
-  legendLabel: Z+jets
+  fillColor: "11000"
+  legendLabel: "W#rightarrowl#nu + u"
 
-Zjets_emu:
-  add: Sh_Zjets_light
+Zjets_cjets_emu:
+  add: Sh_Zjets_cjets_emu
   subtract:
-  fillColor: "10004"
-  legendLabel: Z#rightarrowll
+  fillColor: "11001"
+  legendLabel: "W#rightarrowl#nu + c"
+
+Zjets_bjets_emu:
+  add: Sh_Zjets_bjets_emu
+  subtract:
+  fillColor: "11002"
+  legendLabel: "W#rightarrowl#nu + b"
 
 Zjets_tau:
   add: Sh_Zjets_tau
   subtract:
-  fillColor: "10005"
-  legendLabel: Z#rightarrow#tau#tau
+  fillColor: "11003"
+  legendLabel: "W#rightarrow#tau#nu"
+
+Zjets_highpt_emu:
+  add: Sh_Zjets_highpt_emu
+  subtract:
+  fillColor: "11004"
+  legendLabel: "high p_{T} Z"
+
+Zjets_lowmass_emu:
+  add: Sh_Zjets_lowmass_emu
+  subtract:
+  fillColor: "11005"
+  legendLabel: "low mass Z"
 
 Top:
   add: Top
   subtract:
-  fillColor: "10006"
+  fillColor: "12001"
   legendLabel: Top
 
 Diboson:
   add: Diboson
   subtract:
-  fillColor: "10007"
+  fillColor: "13000"
   legendLabel: Diboson
 
 Multijet:
   add: data
   subtract:
-    - Sh_Wjets_light
+    - Sh_Wjets_light_emu
+    - Sh_Wjets_cjets_emu
+    - Sh_Wjets_bjets_emu
     - Sh_Wjets_tau
-    - Sh_Zjets
+    - Sh_Wjets_highpt_emu
+    - Sh_Zjets_light_emu
+    - Sh_Zjets_cjets_emu
+    - Sh_Zjets_bjets_emu
+    - Sh_Zjets_tau
+    - Sh_Zjets_highpt_emu
+    - Sh_Zjets_lowmass_emu
     - Top
     - Diboson
-  fillColor: "10006"
+  fillColor: "14000"
   legendLabel: Multijet

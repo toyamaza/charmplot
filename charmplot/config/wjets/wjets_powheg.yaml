@@ -1,4 +1,4 @@
-colorScheme: cheer_up_emo_kid
+colorScheme: gemstone_hues
 
 variablesConf: inclusive_wjets
 
@@ -7,9 +7,9 @@ samplesConf: powheg
 data: Data
 
 samples:
-  - Wjets_light
+  - Wjets_emu
   - Wjets_tau
-  - Zjets_light
+  - Zjets_emu
   - Zjets_tau
   - Top
   - Diboson
@@ -19,14 +19,14 @@ channels:
     regions:
       - 2018_el_SR
     label:
-      - '2018 el SR'
-      - 'Powheg'
-    lumi: '2018'
+      - "2018 el SR"
+      - "Powheg"
+    lumi: "2018"
 
   2018_mu:
     regions:
       - 2018_mu_SR
     label:
-      - '2018 el SR'
-      - 'Powheg'
-    lumi: '2018'
+      - "2018 el SR"
+      - "Powheg"
+    lumi: "2018"

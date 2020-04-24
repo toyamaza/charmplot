@@ -1,27 +1,11 @@
-colorScheme: cheer_up_emo_kid
+colorScheme: gemstone_hues
 
 Data:
   add: data
   subtract:
 
-DataMinusBackground:
-  add: data
-  subtract:
-    - Ph_Wjets_tau
-    - Ph_Zjets_light
-    - Ph_Zjets_tau
-    - Top
-    - Diboson
-
-Wjets:
-  add:
-    - Ph_Wjets
-  subtract:
-  fillColor: "10000"
-  legendLabel: W+jets
-
-Wjets_light:
-  add: Ph_Wjets_light
+Wjets_emu:
+  add: Ph_Wjets_emu
   subtract:
   fillColor: "10000"
   legendLabel: W#rightarrowl#nu
@@ -29,49 +13,66 @@ Wjets_light:
 Wjets_tau:
   add: Ph_Wjets_tau
   subtract:
-  fillColor: "10001"
+  fillColor: "10003"
   legendLabel: W#rightarrow#tau#nu
 
-Zjets:
-  add:
-    - Ph_Zjets_light
-    - Ph_Zjets_tau
+Zjets_emu:
+  add: Ph_Zjets_emu
   subtract:
-  fillColor: "10002"
-  legendLabel: Z+jets
-
-Zjets_light:
-  add: Ph_Zjets_light
-  subtract:
-  fillColor: "10002"
+  fillColor: "11000"
   legendLabel: Z#rightarrowll
 
 Zjets_tau:
   add: Ph_Zjets_tau
   subtract:
-  fillColor: "10003"
+  fillColor: "11003"
   legendLabel: Z#rightarrow#tau#tau
+
+Wjets:
+  add:
+    - Ph_Wjets_emu
+    - Ph_Wjets_tau
+  subtract:
+  fillColor: "10000"
+  legendLabel: W+jets
+
+Zjets:
+  add:
+    - Ph_Zjets_emu
+    - Ph_Zjets_tau
+  subtract:
+  fillColor: "11000"
+  legendLabel: Z+jets
 
 Top:
   add: Top
   subtract:
-  fillColor: "10004"
+  fillColor: "12001"
   legendLabel: Top
 
 Diboson:
   add: Diboson
   subtract:
-  fillColor: "10005"
+  fillColor: "13000"
   legendLabel: Diboson
 
 Multijet:
   add: data
   subtract:
-    - Ph_Wjets_light
+    - Ph_Wjets_emu
     - Ph_Wjets_tau
-    - Ph_Zjets_light
+    - Ph_Zjets_emu
     - Ph_Zjets_tau
     - Top
     - Diboson
-  fillColor: "10006"
+  fillColor: "14000"
   legendLabel: Multijet
+
+DataMinusBackground:
+  add: data
+  subtract:
+    - Ph_Wjets_tau
+    - Ph_Zjets_emu
+    - Ph_Zjets_tau
+    - Top
+    - Diboson
