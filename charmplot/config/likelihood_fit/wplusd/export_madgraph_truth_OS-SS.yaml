@@ -10,6 +10,17 @@ channelVariables:
     x_range: [0, 200]
     ratio_range: [0.5, 1.49]
 
+  Dmeson_m:
+    label: 'D^{#pm} m'
+    unit: 'GeV'
+    rebin: 20
+    ratio_range: [0.5, 1.49]
+
+  Dmeson_dRlep:
+    label: '#DeltaR(D^{#pm}, lep)'
+    rebin: 4
+    ratio_range: [0.5, 1.49]
+
 samplesConf: madgraph_truth
 
 data: Data
@@ -20,51 +31,50 @@ channels:
       - OS_2018_el_QCD_Dplus
       - -SS_2018_el_QCD_Dplus
     samples:
+      - Multijet
       - Wjets_light
       - Wjets_tau
       - Top
       - Zjets
       - Diboson
-      - Multijet
     label:
       - 'W#rightarrowe#nu+D, D#rightarrowK#pi#pi, OS-SS'
       - 'MET < 30 GeV, no m_{T} cut'
     lumi: '2018'
     qcd_template: Multijet
-    extra_rebin: 2
 
-  # 2018_el_wplusd_PT_Fit_OS-SS:
-  #   regions:
-  #     - OS_2018_el_Dplus
-  #     - -SS_2018_el_Dplus
-  #   samples:
-  #     - Wjets_light_Matched | 2018_el_wplusd_PT_Loose_OS-SS_Matched
-  #     - Wjets_light_Rest | 2018_el_wplusd_PT_Loose_OS-SS_Rest
-  #     - Wjets_tau
-  #     - Top
-  #     - Zjets
-  #     - Multijet | 2018_el_wplusd_PT_Template_OS-SS
-  #     - Diboson
-  #   label:
-  #      - 'W#rightarrowe#nu+D, D#rightarrowK#pi#pi, OS-SS'
-  #      - 'Fit Region'
-  #   lumi: "2018"
-  #   save_to_file: True
+  2018_el_wplusd_PT_Fit_OS-SS:
+    regions:
+      - OS_2018_el_Dplus
+      - -SS_2018_el_Dplus
+    samples:
+      - Wjets_light_Matched | 2018_el_wplusd_PT_Loose_OS-SS_Matched
+      - Wjets_light_Rest | 2018_el_wplusd_PT_Loose_OS-SS_Rest
+      - Wjets_tau
+      - Top
+      - Zjets
+      - Multijet | 2018_el_wplusd_PT_Template_OS-SS
+      - Diboson
+    label:
+       - 'W#rightarrowe#nu+D, D#rightarrowK#pi#pi, OS-SS'
+       - 'Fit Region'
+    lumi: "2018"
+    save_to_file: True
 
-  # 2018_el_wplusd_PT_Extrapolated_OS-SS:
-  #   regions:
-  #     - OS_2018_el_SR_Dplus
-  #     - -SS_2018_el_SR_Dplus
-  #   samples:
-  #     - Wjets_light_Matched | 2018_el_wplusd_OS-SS_Matched
-  #     - Wjets_light_Rest | 2018_el_wplusd_OS-SS_Rest
-  #     - Wjets_tau
-  #     - Top
-  #     - Zjets
-  #     - Multijet | 2018_el_wplusd_PTCut_Template_OS-SS
-  #     - Diboson
-  #   save_to_file: True
-  #   make_plots: False
+  2018_el_wplusd_PT_Extrapolated_OS-SS:
+    regions:
+      - OS_2018_el_SR_Dplus
+      - -SS_2018_el_SR_Dplus
+    samples:
+      - Wjets_light_Matched | 2018_el_wplusd_OS-SS_Matched
+      - Wjets_light_Rest | 2018_el_wplusd_OS-SS_Rest
+      - Wjets_tau
+      - Top
+      - Zjets
+      - Multijet | 2018_el_wplusd_PTCut_Template_OS-SS
+      - Diboson
+    save_to_file: True
+    make_plots: False
 
   2018_el_wplusd_PTCut_Template_OS-SS:
     regions:

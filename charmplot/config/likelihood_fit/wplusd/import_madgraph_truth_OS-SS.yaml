@@ -2,6 +2,14 @@ colorScheme: cheer_up_emo_kid
 
 variablesConf: charmed_wjets
 
+channelVariables:
+  lep_pt:
+    label: lepton p_{T}
+    unit: GeV
+    rebin: 10
+    x_range: [0, 200]
+    ratio_range: [0.5, 1.49]
+
 samplesConf: madgraph_truth
 
 data: Data
@@ -54,7 +62,6 @@ channels:
        - 'W#rightarrowe#nu+D, D#rightarrowK#pi#pi, OS-SS'
        - 'Signal Region'
     lumi: '2018'
-    extra_rebin: 2
 
   2018_el_wplusd_PT_Template_OS-SS:
     regions:

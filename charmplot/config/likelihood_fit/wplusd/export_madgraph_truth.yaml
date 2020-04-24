@@ -52,8 +52,11 @@ channels:
       - Zjets
       - Multijet | 2018_el_wplusd_PT_Template_OS
       - Diboson
+    label:
+       - 'W#rightarrowe#nu+D, D#rightarrowK#pi#pi, OS-SS'
+       - 'Fit Region'
+    lumi: "2018"
     save_to_file: True
-    make_plots: False
 
   2018_el_wplusd_PT_Fit_SS:
     regions:
@@ -66,8 +69,11 @@ channels:
       - Zjets
       - Multijet | 2018_el_wplusd_PT_Template_SS
       - Diboson
+    label:
+       - 'W#rightarrowe#nu+D, D#rightarrowK#pi#pi, OS-SS'
+       - 'Fit Region'
+    lumi: "2018"
     save_to_file: True
-    make_plots: False
 
   2018_el_wplusd_PT_Extrapolated_OS:
     regions:

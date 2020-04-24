@@ -75,7 +75,7 @@ Dmeson_d0:
 
 Dmeson_dRlep:
   label: '#DeltaR(D^{#pm}, lep)'
-  rebin: 2
+  rebin: 1
   ratio_range: [0.5, 1.49]
 
 lep_EOverP:
