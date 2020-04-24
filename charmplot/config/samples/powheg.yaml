@@ -18,21 +18,18 @@ Wjets:
     - Ph_Wjets
   subtract:
   fillColor: "10000"
-  lineColor: "10001"
   legendLabel: W+jets
 
 Wjets_light:
   add: Ph_Wjets_light
   subtract:
   fillColor: "10000"
-  lineColor: "10001"
   legendLabel: W#rightarrowl#nu
 
 Wjets_tau:
   add: Ph_Wjets_tau
   subtract:
   fillColor: "10001"
-  lineColor: "10000"
   legendLabel: W#rightarrow#tau#nu
 
 Zjets:
@@ -41,21 +38,18 @@ Zjets:
     - Ph_Zjets_tau
   subtract:
   fillColor: "10002"
-  lineColor: "10003"
   legendLabel: Z+jets
 
 Zjets_light:
   add: Ph_Zjets_light
   subtract:
   fillColor: "10002"
-  lineColor: "10003"
   legendLabel: Z#rightarrowll
 
 Zjets_tau:
   add: Ph_Zjets_tau
   subtract:
   fillColor: "10003"
-  lineColor: "10002"
   legendLabel: Z#rightarrow#tau#tau
 
 Top:
