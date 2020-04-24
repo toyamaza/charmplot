@@ -8,7 +8,6 @@ channels:
   2018_el_wplusd_OS:
     samples:
       - Wjets_light_Matched | 2018_el_wplusd_OS_Matched
-      - Wjets_light_DplusMisMatched | 2018_el_wplusd_OS_411MisMatched
       - Wjets_light_DzeroMisMatched | 2018_el_wplusd_OS_421MisMatched
       - Wjets_light_DsMisMatched | 2018_el_wplusd_OS_431MisMatched
       - Wjets_light_BaryonMisMatched | 2018_el_wplusd_OS_BaryonMisMatched
@@ -22,7 +21,6 @@ channels:
   2018_el_wplusd_SS:
     samples:
       - Wjets_light_Matched | 2018_el_wplusd_SS_Matched
-      - Wjets_light_DplusMisMatched | 2018_el_wplusd_SS_411MisMatched
       - Wjets_light_DzeroMisMatched | 2018_el_wplusd_SS_421MisMatched
       - Wjets_light_DsMisMatched | 2018_el_wplusd_SS_431MisMatched
       - Wjets_light_BaryonMisMatched | 2018_el_wplusd_SS_BaryonMisMatched
@@ -36,7 +34,6 @@ channels:
   2018_el_wplusd_OS-SS:
     samples:
       - Wjets_light_Matched | 2018_el_wplusd_OS-SS_Matched
-      - Wjets_light_DplusMisMatched | 2018_el_wplusd_OS-SS_411MisMatched
       - Wjets_light_DzeroMisMatched | 2018_el_wplusd_OS-SS_421MisMatched
       - Wjets_light_DsMisMatched | 2018_el_wplusd_OS-SS_431MisMatched
       - Wjets_light_BaryonMisMatched | 2018_el_wplusd_OS-SS_BaryonMisMatched
@@ -64,22 +61,6 @@ channels:
       - -SS_2018_el_SR_Dplus_Matched
     make_plots: False
 
-  2018_el_wplusd_OS_411MisMatched:
-    regions:
-      - OS_2018_el_SR_Dplus_411MisMatched
-    make_plots: False
-
-  2018_el_wplusd_SS_411MisMatched:
-    regions:
-      - SS_2018_el_SR_Dplus_411MisMatched
-    make_plots: False
-
-  2018_el_wplusd_OS-SS_411MisMatched:
-    regions:
-      - OS_2018_el_SR_Dplus_411MisMatched
-      - -SS_2018_el_SR_Dplus_411MisMatched
-    make_plots: False
-    
   2018_el_wplusd_OS_421MisMatched:
     regions:
       - OS_2018_el_SR_Dplus_421MisMatched
@@ -115,7 +96,6 @@ channels:
   2018_el_wplusd_OS_BaryonMisMatched:
     regions:
       - OS_2018_el_SR_Dplus
-      - -OS_2018_el_SR_Dplus_411MisMatched
       - -OS_2018_el_SR_Dplus_421MisMatched
       - -OS_2018_el_SR_Dplus_431MisMatched
       - -OS_2018_el_SR_Dplus_MxMatched
@@ -127,7 +107,6 @@ channels:
   2018_el_wplusd_SS_BaryonMisMatched:
     regions:
       - SS_2018_el_SR_Dplus
-      - -SS_2018_el_SR_Dplus_411MisMatched
       - -SS_2018_el_SR_Dplus_421MisMatched
       - -SS_2018_el_SR_Dplus_431MisMatched
       - -SS_2018_el_SR_Dplus_MxMatched
@@ -139,7 +118,6 @@ channels:
   2018_el_wplusd_OS-SS_BaryonMisMatched:
     regions:
       - OS_2018_el_SR_Dplus
-      - -OS_2018_el_SR_Dplus_411MisMatched
       - -OS_2018_el_SR_Dplus_421MisMatched
       - -OS_2018_el_SR_Dplus_431MisMatched
       - -OS_2018_el_SR_Dplus_MxMatched
@@ -147,7 +125,6 @@ channels:
       - -OS_2018_el_SR_Dplus_HardMisMatched
       - -OS_2018_el_SR_Dplus_Other
       - -SS_2018_el_SR_Dplus
-      - SS_2018_el_SR_Dplus_411MisMatched
       - SS_2018_el_SR_Dplus_421MisMatched
       - SS_2018_el_SR_Dplus_431MisMatched
       - SS_2018_el_SR_Dplus_MxMatched
