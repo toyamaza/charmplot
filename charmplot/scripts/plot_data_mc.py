@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 from charmplot.common import utils
 from charmplot.common import www
+from charmplot.control import globalConfig
 from charmplot.control import inputDataReader
 import logging
 import os
@@ -181,21 +182,20 @@ if __name__ == "__main__":
     # parse input arguments
     options, args = parser.parse_args()
 
-    configs = options.analysis_config.split(",")
-    for config in configs:
+    # analysis configs
+    config = options.analysis_config
 
-        # make output folder if not exist
-        if not os.path.isdir(config):
-            os.makedirs(config)
+    # make output folder if not exist
+    if not os.path.isdir(config):
+        os.makedirs(config)
 
-        # read inputs
-        from charmplot.control import globalConfig
-        conf = globalConfig.GlobalConfig(config)
-        reader = inputDataReader.InputDataReader(conf)
+    # read inputs
+    conf = globalConfig.GlobalConfig(config)
+    reader = inputDataReader.InputDataReader(conf)
 
-        # do the plotting
-        main(options, conf, reader)
+    # do the plotting
+    main(options, conf, reader)
 
-        # stage-out to the www folder
-        if options.stage_out:
-            www.stage_out_plots(config, conf.get_variables(), x=300, y=300)
+    # stage-out to the www folder
+    if options.stage_out:
+        www.stage_out_plots(config, conf.get_variables(), x=300, y=300)
