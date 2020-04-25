@@ -1,6 +1,6 @@
 variablesConf: charmed_wjets
 
-samplesConf: sherpa
+samplesConf: madgraph
 
 data: Data
 
@@ -17,14 +17,18 @@ channels:
   2018_el_wplusd_OS:
     regions:
       - OS_2018_el_SR_Dplus
-    label: 'W#rightarrowe#nu+D, D#rightarrowK#pi#pi, OS'
-    lumi: '2018'
+    label:
+      - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, OS"
+      - "MadGraph"
+    lumi: "2018"
 
   2018_el_wplusd_SS:
     regions:
       - SS_2018_el_SR_Dplus
-    label: 'W#rightarrowe#nu+D, D#rightarrowK#pi#pi, SS'
-    lumi: '2018'
+    label:
+      - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, SS"
+      - "MadGraph"
+    lumi: "2018"
 
   2018_el_wplusd_OS-SS:
     regions:
@@ -34,24 +38,31 @@ channels:
       - Wjets_cjets_emu
       - Wjets_bjets_emu
       - Wjets_light_emu
-      - Top
       - Wjets_tau
       - Zjets
+      - Top
       - Diboson
-    label: 'W#rightarrowe#nu+D, D#rightarrowK#pi#pi, OS-SS'
-    lumi: '2018'
+    label:
+      - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, OS-SS"
+      - "MadGraph"
+    extra_rebin: 2
+    lumi: "2018"
 
   2018_mu_wplusd_OS:
     regions:
       - OS_2018_mu_SR_Dplus
-    label: 'W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, OS'
-    lumi: '2018'
+    label:
+      - "W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, OS"
+      - "MadGraph"
+    lumi: "2018"
 
   2018_mu_wplusd_SS:
     regions:
       - SS_2018_mu_SR_Dplus
-    label: 'W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, SS'
-    lumi: '2018'
+    label:
+      - "W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, SS"
+      - "MadGraph"
+    lumi: "2018"
 
   2018_mu_wplusd_OS-SS:
     regions:
@@ -61,9 +72,12 @@ channels:
       - Wjets_cjets_emu
       - Wjets_bjets_emu
       - Wjets_light_emu
-      - Top
       - Wjets_tau
       - Zjets
+      - Top
       - Diboson
-    label: 'W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, OS-SS'
-    lumi: '2018'
+    label:
+      - "W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, OS-SS"
+      - "MadGraph"
+    extra_rebin: 2
+    lumi: "2018"
