@@ -46,17 +46,17 @@ Wjets_light_emu:
   fillColor: "10000"
   legendLabel: "W#rightarrowl#nu + u"
 
-Wjets_cjets_emu:
-  add: Sh_Wjets_cjets_emu
-  subtract:
-  fillColor: "10001"
-  legendLabel: "W#rightarrowl#nu + c"
-
 Wjets_bjets_emu:
   add: Sh_Wjets_bjets_emu
   subtract:
-  fillColor: "10002"
+  fillColor: "10001"
   legendLabel: "W#rightarrowl#nu + b"
+
+Wjets_cjets_emu:
+  add: Sh_Wjets_cjets_emu
+  subtract:
+  fillColor: "10002"
+  legendLabel: "W#rightarrowl#nu + c"
 
 Wjets_tau:
   add: Sh_Wjets_tau
@@ -70,17 +70,17 @@ Zjets_light_emu:
   fillColor: "11000"
   legendLabel: "Z#rightarrowll + u"
 
-Zjets_cjets_emu:
-  add: Sh_Zjets_cjets_emu
-  subtract:
-  fillColor: "11001"
-  legendLabel: "Z#rightarrowll + c"
-
 Zjets_bjets_emu:
   add: Sh_Zjets_bjets_emu
   subtract:
-  fillColor: "11002"
+  fillColor: "11001"
   legendLabel: "Z#rightarrowll + b"
+
+Zjets_cjets_emu:
+  add: Sh_Zjets_cjets_emu
+  subtract:
+  fillColor: "11002"
+  legendLabel: "Z#rightarrowll + c"
 
 Zjets_tau:
   add: Sh_Zjets_tau

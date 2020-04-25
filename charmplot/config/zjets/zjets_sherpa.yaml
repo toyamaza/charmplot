@@ -8,8 +8,8 @@ data: Data
 
 samples:
   - Zjets_light_emu
-  - Zjets_cjets_emu
   - Zjets_bjets_emu
+  - Zjets_cjets_emu
   - Zjets_tau
   - Zjets_highpt_emu
   - Zjets_lowmass_emu

@@ -8,8 +8,8 @@ data: Data
 
 samples:
   - Wjets_light_emu
-  - Wjets_cjets_emu
   - Wjets_bjets_emu
+  - Wjets_cjets_emu
   - Wjets_tau
   - Zjets_emu
   - Zjets_tau
