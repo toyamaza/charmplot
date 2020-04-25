@@ -211,14 +211,17 @@ Dmeson_max_trackdR:
 N_Dplus:
   label: N_{D^{+}}
   ratio_range: [0.0, 1.99]
+  allow_rebin: False
 
-# run_number:
-#   label: 'run number'
-#   ratio_range: [0.5, 1.49]
+run_number:
+  label: 'run number'
+  ratio_range: [0.5, 1.49]
+  allow_rebin: False
 
 pileup:
   label: '<#mu>'
   ratio_range: [0.5, 1.49]
+  allow_rebin: False
 
 # CharmEventInfo_PV_Z:
 #   label: 'PV_{z}'
@@ -238,7 +241,9 @@ pileup:
 # njets:
 #   label: N_{jet}
 #   ratio_range: [0.5, 1.49]
+#   allow_rebin: False
 
 # nbjets:
 #   label: N_{#it{b}-jet}
 #   ratio_range: [0.5, 1.49]
+#   allow_rebin: False

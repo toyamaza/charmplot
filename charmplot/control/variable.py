@@ -11,6 +11,7 @@ class Variable(object):
     x_range = None
     ratio_range = None
     stage_out = True
+    allow_rebin = True
     rebin = 1
 
     def __init__(self, name, **kwargs):
