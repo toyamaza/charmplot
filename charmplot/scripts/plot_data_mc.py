@@ -48,7 +48,7 @@ def main(options, conf, reader):
         # output root file
         if c.save_to_file and not histogram_file_made:
             histogram_file_made = True
-            out_file_name = os.path.join(options.analysis_config, "histograms.root")
+            out_file_name = os.path.join(conf.config_name, "histograms.root")
             out_file = ROOT.TFile(out_file_name, "RECREATE")
             out_file.Close()
 
@@ -63,8 +63,8 @@ def main(options, conf, reader):
             continue
 
         # make channel folder if not exist
-        if not os.path.isdir(os.path.join(options.analysis_config, c.name)):
-            os.makedirs(os.path.join(options.analysis_config, c.name))
+        if not os.path.isdir(os.path.join(conf.config_name, c.name)):
+            os.makedirs(os.path.join(conf.config_name, c.name))
 
         # used MC samples in channel (default or channel specific)
         samples = utils.get_samples(conf, c)
@@ -150,7 +150,7 @@ def main(options, conf, reader):
                 canv.draw_qcd_frac(h_qcd_frac, h_qcd_frac_err)
 
             # Print out
-            canv.print_all(options.analysis_config, c.name, v, multipage_pdf=True, first_plot=first_plot, last_plot=last_plot, as_png=options.stage_out)
+            canv.print_all(conf.config_name, c.name, v, multipage_pdf=True, first_plot=first_plot, last_plot=last_plot, as_png=options.stage_out)
             first_plot = False
 
             # close output file
@@ -181,18 +181,21 @@ if __name__ == "__main__":
     # parse input arguments
     options, args = parser.parse_args()
 
-    # make output folder if not exist
-    if not os.path.isdir(options.analysis_config):
-        os.makedirs(options.analysis_config)
+    configs = options.analysis_config.split(",")
+    for config in configs:
 
-    # read inputs
-    from charmplot.control import globalConfig
-    conf = globalConfig.GlobalConfig(options.analysis_config)
-    reader = inputDataReader.InputDataReader(conf)
+        # make output folder if not exist
+        if not os.path.isdir(config):
+            os.makedirs(config)
 
-    # do the plotting
-    main(options, conf, reader)
+        # read inputs
+        from charmplot.control import globalConfig
+        conf = globalConfig.GlobalConfig(config)
+        reader = inputDataReader.InputDataReader(conf)
 
-    # stage-out to the www folder
-    if options.stage_out:
-        www.stage_out_plots(options.analysis_config, conf.get_variables(), x=300, y=300)
+        # do the plotting
+        main(options, conf, reader)
+
+        # stage-out to the www folder
+        if options.stage_out:
+            www.stage_out_plots(config, conf.get_variables(), x=300, y=300)
