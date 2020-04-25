@@ -68,25 +68,25 @@ Zjets_light_emu:
   add: Sh_Zjets_light_emu
   subtract:
   fillColor: "11000"
-  legendLabel: "W#rightarrowl#nu + u"
+  legendLabel: "Z#rightarrowll + u"
 
 Zjets_cjets_emu:
   add: Sh_Zjets_cjets_emu
   subtract:
   fillColor: "11001"
-  legendLabel: "W#rightarrowl#nu + c"
+  legendLabel: "Z#rightarrowll + c"
 
 Zjets_bjets_emu:
   add: Sh_Zjets_bjets_emu
   subtract:
   fillColor: "11002"
-  legendLabel: "W#rightarrowl#nu + b"
+  legendLabel: "Z#rightarrowll + b"
 
 Zjets_tau:
   add: Sh_Zjets_tau
   subtract:
   fillColor: "11003"
-  legendLabel: "W#rightarrow#tau#nu"
+  legendLabel: "Z#rightarrow#tau#tau"
 
 Zjets_highpt_emu:
   add: Sh_Zjets_highpt_emu
