@@ -7,11 +7,11 @@ samplesConf: powheg
 data: Data
 
 samples:
+  - Top
   - Wjets_emu
   - Wjets_tau
   - Zjets_emu
   - Zjets_tau
-  - Top
   - Diboson
 
 channels:
@@ -35,6 +35,13 @@ channels:
     regions:
       - OS_2018_el_SR_Dplus
       - -SS_2018_el_SR_Dplus
+    samples:
+      - Wjets_emu
+      - Wjets_tau
+      - Zjets_emu
+      - Zjets_tau
+      - Top
+      - Diboson
     label:
       - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, OS-SS"
       - "Powheg"
@@ -61,6 +68,13 @@ channels:
     regions:
       - OS_2018_mu_SR_Dplus
       - -SS_2018_mu_SR_Dplus
+    samples:
+      - Wjets_emu
+      - Wjets_tau
+      - Zjets_emu
+      - Zjets_tau
+      - Top
+      - Diboson
     label:
       - "W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, OS-SS"
       - "Powheg"
