@@ -1,0 +1,108 @@
+colorScheme: cheer_up_emo_kid_extended
+
+Data:
+  add: data
+  subtract:
+
+Wjets_light:
+  add:
+    - Sh_Wjets_light_emu
+    - Sh_Wjets_cjets_emu
+    - Sh_Wjets_bjets_emu
+    - Sh_Wjets_highpt_emu
+  subtract:
+  fillColor: "10001"
+  legendLabel: W#rightarrowl#nu
+  shortName: Wjets_light
+
+Wjets_light_Matched:
+  add:
+    - Sh_Wjets_light_emu
+    - Sh_Wjets_cjets_emu
+    - Sh_Wjets_bjets_emu
+    - Sh_Wjets_highpt_emu
+  subtract:
+  fillColor: "10002"
+  legendLabel: 'W+#it{D}'
+  shortName: Wjets_light_Matched
+
+Wjets_light_MisMatched:
+  add:
+    - Sh_Wjets_light_emu
+    - Sh_Wjets_cjets_emu
+    - Sh_Wjets_bjets_emu
+    - Sh_Wjets_highpt_emu
+  subtract:
+  fillColor: "10001"
+  legendLabel: 'W+#it{D} Mis'
+
+Wjets_light_Rest:
+  add:
+    - Sh_Wjets_light_emu
+    - Sh_Wjets_cjets_emu
+    - Sh_Wjets_bjets_emu
+    - Sh_Wjets_highpt_emu
+  subtract:
+  fillColor: "10000"
+  legendLabel: W+jets
+  shortName: Wjets_light_Rest
+
+Wjets_tau:
+  add: Sh_Wjets_tau
+  subtract:
+  fillColor: "10003"
+  legendLabel: W#rightarrow#tau#nu
+
+Zjets:
+  add:
+    - Sh_Zjets_light_emu
+    - Sh_Zjets_cjets_emu
+    - Sh_Zjets_bjets_emu
+    - Sh_Zjets_tau
+    - Sh_Zjets_highpt_emu
+    - Sh_Zjets_lowmass_emu
+  subtract:
+  fillColor: "10004"
+  legendLabel: Z+jets
+
+Zjets_light:
+  add:
+    - Sh_Zjets_light_emu
+    - Sh_Zjets_cjets_emu
+    - Sh_Zjets_bjets_emu
+    - Sh_Zjets_highpt_emu
+    - Sh_Zjets_lowmass_emu
+  subtract:
+  fillColor: "10004"
+  legendLabel: Z#rightarrowll
+
+Zjets_tau:
+  add: Sh_Zjets_tau
+  subtract:
+  fillColor: "10005"
+  legendLabel: Z#rightarrow#tau#tau
+
+Top:
+  add: Top
+  subtract:
+  fillColor: "10006"
+  legendLabel: Top
+
+Diboson:
+  add: Diboson
+  subtract:
+  fillColor: "10007"
+  legendLabel: Diboson
+
+Multijet:
+  add: data
+  subtract:
+    - Sh_Wjets_light
+    - Sh_Wjets_tau
+    - Sh_Zjets_light
+    - Sh_Zjets_tau
+    - Top
+    - Diboson
+  fillColor: "10008"
+  legendLabel: Multijet
+  shortName: Multijet
