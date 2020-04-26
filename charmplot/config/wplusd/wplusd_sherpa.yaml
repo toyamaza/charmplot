@@ -25,7 +25,9 @@ channels:
   2018_el_wplusd_SS:
     regions:
       - SS_2018_el_SR_Dplus
-    label: "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, SS"
+    label:
+      - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, SS"
+      - "Sherpa"
     lumi: "2018"
 
   2018_el_wplusd_OS-SS:
@@ -49,7 +51,9 @@ channels:
   2018_mu_wplusd_OS:
     regions:
       - OS_2018_mu_SR_Dplus
-    label: "W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, OS"
+    label:
+      - "W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, OS"
+      - "Sherpa"
     lumi: "2018"
 
   2018_mu_wplusd_SS:
