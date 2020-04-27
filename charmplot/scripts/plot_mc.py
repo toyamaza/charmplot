@@ -68,7 +68,7 @@ def main(options, conf, reader):
                 continue
 
             # canvas
-            canv = utils.make_canvas(mc_map[samples[0]], var, c, x=800, y=800, y_split = 0)
+            canv = utils.make_canvas(mc_map[samples[0]], var, c, x=800, y=800, y_split=0)
 
             # configure histograms
             canv.configure_histograms(mc_map)
@@ -86,7 +86,7 @@ def main(options, conf, reader):
                 hs.Draw("samehist")
 
             # make legend
-            canv.make_legend(data = None, mc_map = mc_map, samples = samples)
+            canv.make_legend(data=None, mc_map=mc_map, samples=samples)
 
             # set maximum after creating legend
             if not options.do_stack:
@@ -94,7 +94,6 @@ def main(options, conf, reader):
             else:
                 h_mc_tot = utils.make_mc_tot(hs, "mc_tot")
                 canv.set_maximum([h_mc_tot], var, mc_min=utils.get_mc_min(mc_map, samples))
-
 
             # Print out
             canv.print_all(options.analysis_config, c.name, v, multipage_pdf=True, first_plot=first_plot, last_plot=last_plot, as_png=options.stage_out)

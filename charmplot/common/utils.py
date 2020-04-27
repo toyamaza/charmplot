@@ -41,7 +41,7 @@ def save_to_file(out_file_name: str, channel: channel.Channel, var: variable.Var
 
 def read_samples(conf: globalConfig.GlobalConfig, reader: inputDataReader.InputDataReader,
                  c: channel.Channel, v: variable.Variable, samples: list,
-                 fit: likelihoodFit.LikelihoodFit=None) -> MC_Map:
+                 fit: likelihoodFit.LikelihoodFit = None) -> MC_Map:
     mc_map = {}
     for s in samples:
         # read MC histogram
