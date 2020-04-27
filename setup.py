@@ -9,6 +9,7 @@ setup(name='charmplot',
           'charmplot/scripts/plot_data_mc.py',
           'charmplot/scripts/plot_mc_mc.py',
           'charmplot/scripts/plot_mc.py',
+          'charmplot/scripts/get_production_fractions.py',
           'hfroofit/scripts/likelihood_fit.py',
       ],
       )
