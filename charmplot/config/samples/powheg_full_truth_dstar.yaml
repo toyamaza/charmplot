@@ -1,0 +1,50 @@
+colorScheme: cheer_up_emo_kid_extended
+
+Wjets_light_Matched:
+  add: Ph_Wjets_light
+  subtract:
+  fillColor: "10002"
+  legendLabel: 'W+#it{D}*'
+  shortName: Wjets_light_Matched
+
+Wjets_light_NoMatch:
+  add: Ph_Wjets_light
+  subtract:
+  fillColor: "10006"
+  legendLabel: 'No Match'
+  shortName: Wjets_light_NoMatch
+
+Wjets_light_DsMisMatched:
+  add: Ph_Wjets_light
+  subtract:
+  fillColor: "10003"
+  legendLabel: 'W+#it{D}_{s}'
+  shortName: Wjets_light_Ds_MisMatched
+
+Wjets_light_DzeroMisMatched:
+  add: Ph_Wjets_light
+  subtract:
+  fillColor: "10001"
+  legendLabel: 'W+#it{D}^{0}'
+  shortName: Wjets_light_Dzero_MisMatched
+
+Wjets_light_DplusMisMatched:
+  add: Ph_Wjets_light
+  subtract:
+  fillColor: "10000"
+  legendLabel: 'W+#it{D}^{+}'
+  shortName: Wjets_light_Dplus_MisMatched
+
+Wjets_light_BaryonMisMatched:
+  add: Ph_Wjets_light
+  subtract:
+  fillColor: "10004"
+  legendLabel: 'W+(#Lambda_{c}, #Omega_{c}, #Xi_{c})'
+  shortName: Wjets_light_Baryon_MisMatched
+
+Wjets_light_HardScatter:
+  add: Ph_Wjets_light
+  subtract:
+  fillColor: "10005"
+  legendLabel: '>0 Hard Track'
+  shortName: Wjets_light_HardScatter
