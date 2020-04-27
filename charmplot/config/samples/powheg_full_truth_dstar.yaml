@@ -4,7 +4,7 @@ Wjets_emu_Matched:
   add: Ph_Wjets_emu
   subtract:
   fillColor: "10002"
-  legendLabel: 'W+#it{D}^{#pm}'
+  legendLabel: 'W+#it{D}*'
   shortName: Wjets_emu_Matched
 
 Wjets_emu_NoMatch:
@@ -27,6 +27,13 @@ Wjets_emu_DzeroMisMatched:
   fillColor: "10001"
   legendLabel: 'W+#it{D}^{0}'
   shortName: Wjets_emu_Dzero_MisMatched
+
+Wjets_emu_DplusMisMatched:
+  add: Ph_Wjets_emu
+  subtract:
+  fillColor: "10000"
+  legendLabel: 'W+#it{D}^{+}'
+  shortName: Wjets_emu_Dplus_MisMatched
 
 Wjets_emu_BaryonMisMatched:
   add: Ph_Wjets_emu
