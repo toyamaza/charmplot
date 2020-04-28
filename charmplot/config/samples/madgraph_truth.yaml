@@ -1,31 +1,43 @@
-colorScheme: cheer_up_emo_kid_extended
+colorScheme: gemstone_hues
 
 Data:
   add: data
   subtract:
 
 Wjets_light:
-  add: MG_Wjets_light
+  add:
+    - MG_Wjets_light_emu
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_bjets_emu
   subtract:
-  fillColor: "10001"
+  fillColor: "10000"
   legendLabel: W#rightarrowl#nu
   shortName: Wjets_light
 
-Wjets_light_Matched:
-  add: MG_Wjets_light
+Wjets_emu_Matched:
+  add:
+    - MG_Wjets_light_emu
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_bjets_emu
   subtract:
   fillColor: "10002"
   legendLabel: 'W+#it{D}'
   shortName: Wjets_light_Matched
 
-Wjets_light_MisMatched:
-  add: MG_Wjets_light
+Wjets_emu_MisMatched:
+  add:
+    - MG_Wjets_light_emu
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_bjets_emu
   subtract:
   fillColor: "10001"
   legendLabel: 'W+#it{D} Mis'
 
-Wjets_light_Rest:
-  add: MG_Wjets_light
+Wjets_emu_Rest:
+  add:
+    - MG_Wjets_light_emu
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_bjets_emu
   subtract:
   fillColor: "10000"
   legendLabel: W+jets
@@ -39,45 +51,54 @@ Wjets_tau:
 
 Zjets:
   add:
-    - MG_Zjets_light
+    - MG_Zjets_light_emu
+    - MG_Zjets_cjets_emu
+    - MG_Zjets_bjets_emu
     - MG_Zjets_tau
   subtract:
-  fillColor: "10004"
+  fillColor: "11000"
   legendLabel: Z+jets
 
 Zjets_light:
-  add: MG_Zjets_light
+  add:
+    - MG_Zjets_light_emu
+    - MG_Zjets_cjets_emu
+    - MG_Zjets_bjets_emu
   subtract:
-  fillColor: "10004"
+  fillColor: "11000"
   legendLabel: Z#rightarrowll
 
 Zjets_tau:
   add: MG_Zjets_tau
   subtract:
-  fillColor: "10005"
+  fillColor: "11003"
   legendLabel: Z#rightarrow#tau#tau
 
 Top:
   add: Top
   subtract:
-  fillColor: "10006"
+  fillColor: "12001"
   legendLabel: Top
 
 Diboson:
   add: Diboson
   subtract:
-  fillColor: "10007"
+  fillColor: "13000"
   legendLabel: Diboson
 
 Multijet:
   add: data
   subtract:
-    - MG_Wjets_light
+    - MG_Wjets_light_emu
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_bjets_emu
     - MG_Wjets_tau
-    - MG_Zjets_light
+    - MG_Zjets_light_emu
+    - MG_Zjets_cjets_emu
+    - MG_Zjets_bjets_emu
     - MG_Zjets_tau
     - Top
     - Diboson
-  fillColor: "10008"
+  fillColor: "14000"
   legendLabel: Multijet
   shortName: Multijet
