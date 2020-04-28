@@ -15,6 +15,14 @@ samples:
   - Diboson
 
 channels:
+  2018_el_wplusd:
+    regions:
+      - 2018_el_SR_Dplus
+    label:
+      - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi"
+      - "Powheg"
+    lumi: "2018"
+
   2018_el_wplusd_OS:
     regions:
       - OS_2018_el_SR_Dplus
