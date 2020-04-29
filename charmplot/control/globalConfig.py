@@ -171,8 +171,9 @@ class GlobalConfig(object):
         # read channels
         self.read_channel(conf)
 
-    def __init__(self, config_name):
+    def __init__(self, config_name, out_name):
         self.config_name = config_name
+        self.out_name = out_name
 
         # analysis specific config
         conf = tools.parse_yaml(config_name)
