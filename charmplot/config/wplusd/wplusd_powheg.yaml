@@ -56,6 +56,14 @@ channels:
     extra_rebin: 2
     lumi: "2018"
 
+  2018_mu_wplusd:
+    regions:
+      - 2018_mu_SR_Dplus
+    label:
+      - "W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi"
+      - "Powheg"
+    lumi: "2018"
+
   2018_mu_wplusd_OS:
     regions:
       - OS_2018_mu_SR_Dplus

@@ -19,7 +19,7 @@ channels:
       - 2018_el_0tag_SR_Dplus
     label:
       - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi"
-      - "Sherpa, 0 #it{b}-tag"
+      - "MadGraph, 0 #it{b}-tag"
     lumi: "2018"
 
   2018_el_wplusd_1tag:
@@ -27,7 +27,7 @@ channels:
       - 2018_el_1tag_SR_Dplus
     label:
       - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi"
-      - "Sherpa, 1 #it{b}-tag"
+      - "MadGraph, 1 #it{b}-tag"
     lumi: "2018"
 
   2018_el_wplusd_2tag:
@@ -35,7 +35,7 @@ channels:
       - 2018_el_2tag_SR_Dplus
     label:
       - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi"
-      - "Sherpa, 2+ #it{b}-tag"
+      - "MadGraph, 2+ #it{b}-tag"
     lumi: "2018"
 
   2018_el_wplusd_OS_0tag:
@@ -43,7 +43,7 @@ channels:
       - OS_2018_el_0tag_SR_Dplus
     label:
       - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, OS"
-      - "Sherpa, 0 #it{b}-tag"
+      - "MadGraph, 0 #it{b}-tag"
     lumi: "2018"
 
   2018_el_wplusd_OS_1tag:
@@ -51,7 +51,7 @@ channels:
       - OS_2018_el_1tag_SR_Dplus
     label:
       - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, OS"
-      - "Sherpa, 1 #it{b}-tag"
+      - "MadGraph, 1 #it{b}-tag"
     lumi: "2018"
 
   2018_el_wplusd_OS_2tag:
@@ -59,7 +59,7 @@ channels:
       - OS_2018_el_2tag_SR_Dplus
     label:
       - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, OS"
-      - "Sherpa, 2+ #it{b}-tag"
+      - "MadGraph, 2+ #it{b}-tag"
     lumi: "2018"
 
   2018_el_wplusd_SS_0tag:
@@ -67,7 +67,7 @@ channels:
       - SS_2018_el_0tag_SR_Dplus
     label:
       - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, SS"
-      - "Sherpa, 0 #it{b}-tag"
+      - "MadGraph, 0 #it{b}-tag"
     lumi: "2018"
 
   2018_el_wplusd_SS_1tag:
@@ -75,7 +75,7 @@ channels:
       - SS_2018_el_1tag_SR_Dplus
     label:
       - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, SS"
-      - "Sherpa, 1 #it{b}-tag"
+      - "MadGraph, 1 #it{b}-tag"
     lumi: "2018"
 
   2018_el_wplusd_SS_2tag:
@@ -83,7 +83,7 @@ channels:
       - SS_2018_el_2tag_SR_Dplus
     label:
       - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, SS"
-      - "Sherpa, 2+ #it{b}-tag"
+      - "MadGraph, 2+ #it{b}-tag"
     lumi: "2018"
 
   2018_el_wplusd_OS-SS_0tag:
@@ -100,7 +100,7 @@ channels:
       - Diboson
     label:
       - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, OS-SS"
-      - "Sherpa, 0 #it{b}-tag"
+      - "MadGraph, 0 #it{b}-tag"
     extra_rebin: 2
     lumi: "2018"
 
@@ -118,7 +118,7 @@ channels:
       - Diboson
     label:
       - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, OS-SS"
-      - "Sherpa, 1 #it{b}-tag"
+      - "MadGraph, 1 #it{b}-tag"
     extra_rebin: 2
     lumi: "2018"
 
@@ -136,7 +136,7 @@ channels:
       - Diboson
     label:
       - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, OS-SS"
-      - "Sherpa, 2+ #it{b}-tag"
+      - "MadGraph, 2+ #it{b}-tag"
     extra_rebin: 2
     lumi: "2018"
 
@@ -145,7 +145,7 @@ channels:
       - 2018_mu_0tag_SR_Dplus
     label:
       - "W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi"
-      - "Sherpa, 0 #it{b}-tag"
+      - "MadGraph, 0 #it{b}-tag"
     lumi: "2018"
 
   2018_mu_wplusd_1tag:
@@ -153,7 +153,7 @@ channels:
       - 2018_mu_1tag_SR_Dplus
     label:
       - "W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi"
-      - "Sherpa, 1 #it{b}-tag"
+      - "MadGraph, 1 #it{b}-tag"
     lumi: "2018"
 
   2018_mu_wplusd_2tag:
@@ -161,7 +161,7 @@ channels:
       - 2018_mu_2tag_SR_Dplus
     label:
       - "W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi"
-      - "Sherpa, 2+ #it{b}-tag"
+      - "MadGraph, 2+ #it{b}-tag"
     lumi: "2018"
 
   2018_mu_wplusd_OS_0tag:
@@ -169,7 +169,7 @@ channels:
       - OS_2018_mu_0tag_SR_Dplus
     label:
       - "W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, OS"
-      - "Sherpa, 0 #it{b}-tag"
+      - "MadGraph, 0 #it{b}-tag"
     lumi: "2018"
 
   2018_mu_wplusd_OS_1tag:
@@ -177,7 +177,7 @@ channels:
       - OS_2018_mu_1tag_SR_Dplus
     label:
       - "W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, OS"
-      - "Sherpa, 1 #it{b}-tag"
+      - "MadGraph, 1 #it{b}-tag"
     lumi: "2018"
 
   2018_mu_wplusd_OS_2tag:
@@ -185,7 +185,7 @@ channels:
       - OS_2018_mu_2tag_SR_Dplus
     label:
       - "W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, OS"
-      - "Sherpa, 2+ #it{b}-tag"
+      - "MadGraph, 2+ #it{b}-tag"
     lumi: "2018"
 
   2018_mu_wplusd_SS_0tag:
@@ -193,7 +193,7 @@ channels:
       - SS_2018_mu_0tag_SR_Dplus
     label:
       - "W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, SS"
-      - "Sherpa, 0 #it{b}-tag"
+      - "MadGraph, 0 #it{b}-tag"
     lumi: "2018"
 
   2018_mu_wplusd_SS_1tag:
@@ -201,7 +201,7 @@ channels:
       - SS_2018_mu_1tag_SR_Dplus
     label:
       - "W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, SS"
-      - "Sherpa, 1 #it{b}-tag"
+      - "MadGraph, 1 #it{b}-tag"
     lumi: "2018"
 
   2018_mu_wplusd_SS_2tag:
@@ -209,7 +209,7 @@ channels:
       - SS_2018_mu_2tag_SR_Dplus
     label:
       - "W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, SS"
-      - "Sherpa, 2+ #it{b}-tag"
+      - "MadGraph, 2+ #it{b}-tag"
     lumi: "2018"
 
   2018_mu_wplusd_OS-SS_0tag:
@@ -226,7 +226,7 @@ channels:
       - Diboson
     label:
       - "W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, OS-SS"
-      - "Sherpa, 0 #it{b}-tag"
+      - "MadGraph, 0 #it{b}-tag"
     extra_rebin: 2
     lumi: "2018"
 
@@ -244,7 +244,7 @@ channels:
       - Diboson
     label:
       - "W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, OS-SS"
-      - "Sherpa, 1 #it{b}-tag"
+      - "MadGraph, 1 #it{b}-tag"
     extra_rebin: 2
     lumi: "2018"
 
@@ -262,6 +262,6 @@ channels:
       - Diboson
     label:
       - "W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, OS-SS"
-      - "Sherpa, 2+ #it{b}-tag"
+      - "MadGraph, 2+ #it{b}-tag"
     extra_rebin: 2
     lumi: "2018"
