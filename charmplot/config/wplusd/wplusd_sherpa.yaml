@@ -19,7 +19,7 @@ channels:
       - 2018_el_SR_Dplus
     label:
       - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi"
-      - "Powheg"
+      - "Sherpa"
     lumi: "2018"
 
   2018_el_wplusd_OS:

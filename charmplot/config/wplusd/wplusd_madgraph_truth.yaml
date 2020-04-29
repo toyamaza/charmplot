@@ -16,9 +16,9 @@ channels:
     regions:
       - OS_2018_el_SR_Dplus
     label:
-      - 'W#rightarrowe#nu+D, D#rightarrowK#pi#pi, OS'
+      - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, OS"
       - "MadGraph"
-    lumi: '2018'
+    lumi: "2018"
 
   2018_el_wplusd_SS:
     samples:
@@ -31,9 +31,9 @@ channels:
     regions:
       - SS_2018_el_SR_Dplus
     label:
-      - 'W#rightarrowe#nu+D, D#rightarrowK#pi#pi, SS'
+      - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, SS"
       - "MadGraph"
-    lumi: '2018'
+    lumi: "2018"
 
   2018_el_wplusd_OS-SS:
     samples:
@@ -47,9 +47,9 @@ channels:
       - OS_2018_el_SR_Dplus
       - -SS_2018_el_SR_Dplus
     label:
-      - 'W#rightarrowe#nu+D, D#rightarrowK#pi#pi, OS-SS'
+      - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, OS-SS"
       - "MadGraph"
-    lumi: '2018'
+    lumi: "2018"
 
   2018_mu_wplusd_OS:
     samples:
@@ -62,9 +62,9 @@ channels:
     regions:
       - OS_2018_mu_SR_Dplus
     label:
-      - 'W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, OS'
+      - "W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, OS"
       - "MadGraph"
-    lumi: '2018'
+    lumi: "2018"
 
   2018_mu_wplusd_SS:
     samples:
@@ -77,9 +77,9 @@ channels:
     regions:
       - SS_2018_mu_SR_Dplus
     label:
-      - 'W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, SS'
+      - "W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, SS"
       - "MadGraph"
-    lumi: '2018'
+    lumi: "2018"
 
   2018_mu_wplusd_OS-SS:
     samples:
@@ -93,9 +93,9 @@ channels:
       - OS_2018_mu_SR_Dplus
       - -SS_2018_mu_SR_Dplus
     label:
-      - 'W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, OS-SS'
+      - "W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, OS-SS"
       - "MadGraph"
-    lumi: '2018'
+    lumi: "2018"
 
   2018_el_wplusd_OS_Matched:
     regions:

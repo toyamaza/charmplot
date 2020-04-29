@@ -1,0 +1,260 @@
+variablesConf: charmed_wjets
+
+samplesConf: powheg
+
+data: Data
+
+samples:
+  - Top
+  - Wjets_emu
+  - Wjets_tau
+  - Zjets_emu
+  - Zjets_tau
+  - Diboson
+
+channels:
+  2018_el_wplusd_0tag:
+    regions:
+      - 2018_el_0tag_SR_Dplus
+    label:
+      - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi"
+      - "Sherpa, 0 #it{b}-tag"
+    lumi: "2018"
+
+  2018_el_wplusd_1tag:
+    regions:
+      - 2018_el_1tag_SR_Dplus
+    label:
+      - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi"
+      - "Sherpa, 1 #it{b}-tag"
+    lumi: "2018"
+
+  2018_el_wplusd_2tag:
+    regions:
+      - 2018_el_2tag_SR_Dplus
+    label:
+      - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi"
+      - "Sherpa, 2+ #it{b}-tag"
+    lumi: "2018"
+
+  2018_el_wplusd_OS_0tag:
+    regions:
+      - OS_2018_el_0tag_SR_Dplus
+    label:
+      - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, OS"
+      - "Sherpa, 0 #it{b}-tag"
+    lumi: "2018"
+
+  2018_el_wplusd_OS_1tag:
+    regions:
+      - OS_2018_el_1tag_SR_Dplus
+    label:
+      - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, OS"
+      - "Sherpa, 1 #it{b}-tag"
+    lumi: "2018"
+
+  2018_el_wplusd_OS_2tag:
+    regions:
+      - OS_2018_el_2tag_SR_Dplus
+    label:
+      - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, OS"
+      - "Sherpa, 2+ #it{b}-tag"
+    lumi: "2018"
+
+  2018_el_wplusd_SS_0tag:
+    regions:
+      - SS_2018_el_0tag_SR_Dplus
+    label:
+      - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, SS"
+      - "Sherpa, 0 #it{b}-tag"
+    lumi: "2018"
+
+  2018_el_wplusd_SS_1tag:
+    regions:
+      - SS_2018_el_1tag_SR_Dplus
+    label:
+      - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, SS"
+      - "Sherpa, 1 #it{b}-tag"
+    lumi: "2018"
+
+  2018_el_wplusd_SS_2tag:
+    regions:
+      - SS_2018_el_2tag_SR_Dplus
+    label:
+      - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, SS"
+      - "Sherpa, 2+ #it{b}-tag"
+    lumi: "2018"
+
+  2018_el_wplusd_OS-SS_0tag:
+    regions:
+      - OS_2018_el_0tag_SR_Dplus
+      - -SS_2018_el_0tag_SR_Dplus
+    samples:
+      - Wjets_emu
+      - Wjets_tau
+      - Zjets_emu
+      - Zjets_tau
+      - Top
+      - Diboson
+    label:
+      - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, OS-SS"
+      - "Sherpa, 0 #it{b}-tag"
+    extra_rebin: 2
+    lumi: "2018"
+
+  2018_el_wplusd_OS-SS_1tag:
+    regions:
+      - OS_2018_el_1tag_SR_Dplus
+      - -SS_2018_el_1tag_SR_Dplus
+    samples:
+      - Wjets_emu
+      - Wjets_tau
+      - Zjets_emu
+      - Zjets_tau
+      - Top
+      - Diboson
+    label:
+      - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, OS-SS"
+      - "Sherpa, 1 #it{b}-tag"
+    extra_rebin: 2
+    lumi: "2018"
+
+  2018_el_wplusd_OS-SS_2tag:
+    regions:
+      - OS_2018_el_2tag_SR_Dplus
+      - -SS_2018_el_2tag_SR_Dplus
+    samples:
+      - Wjets_emu
+      - Wjets_tau
+      - Zjets_emu
+      - Zjets_tau
+      - Top
+      - Diboson
+    label:
+      - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, OS-SS"
+      - "Sherpa, 2+ #it{b}-tag"
+    extra_rebin: 2
+    lumi: "2018"
+
+  2018_mu_wplusd_0tag:
+    regions:
+      - 2018_mu_0tag_SR_Dplus
+    label:
+      - "W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi"
+      - "Sherpa, 0 #it{b}-tag"
+    lumi: "2018"
+
+  2018_mu_wplusd_1tag:
+    regions:
+      - 2018_mu_1tag_SR_Dplus
+    label:
+      - "W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi"
+      - "Sherpa, 1 #it{b}-tag"
+    lumi: "2018"
+
+  2018_mu_wplusd_2tag:
+    regions:
+      - 2018_mu_2tag_SR_Dplus
+    label:
+      - "W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi"
+      - "Sherpa, 2+ #it{b}-tag"
+    lumi: "2018"
+
+  2018_mu_wplusd_OS_0tag:
+    regions:
+      - OS_2018_mu_0tag_SR_Dplus
+    label:
+      - "W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, OS"
+      - "Sherpa, 0 #it{b}-tag"
+    lumi: "2018"
+
+  2018_mu_wplusd_OS_1tag:
+    regions:
+      - OS_2018_mu_1tag_SR_Dplus
+    label:
+      - "W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, OS"
+      - "Sherpa, 1 #it{b}-tag"
+    lumi: "2018"
+
+  2018_mu_wplusd_OS_2tag:
+    regions:
+      - OS_2018_mu_2tag_SR_Dplus
+    label:
+      - "W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, OS"
+      - "Sherpa, 2+ #it{b}-tag"
+    lumi: "2018"
+
+  2018_mu_wplusd_SS_0tag:
+    regions:
+      - SS_2018_mu_0tag_SR_Dplus
+    label:
+      - "W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, SS"
+      - "Sherpa, 0 #it{b}-tag"
+    lumi: "2018"
+
+  2018_mu_wplusd_SS_1tag:
+    regions:
+      - SS_2018_mu_1tag_SR_Dplus
+    label:
+      - "W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, SS"
+      - "Sherpa, 1 #it{b}-tag"
+    lumi: "2018"
+
+  2018_mu_wplusd_SS_2tag:
+    regions:
+      - SS_2018_mu_2tag_SR_Dplus
+    label:
+      - "W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, SS"
+      - "Sherpa, 2+ #it{b}-tag"
+    lumi: "2018"
+
+  2018_mu_wplusd_OS-SS_0tag:
+    regions:
+      - OS_2018_mu_0tag_SR_Dplus
+      - -SS_2018_mu_0tag_SR_Dplus
+    samples:
+      - Wjets_emu
+      - Wjets_tau
+      - Zjets_emu
+      - Zjets_tau
+      - Top
+      - Diboson
+    label:
+      - "W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, OS-SS"
+      - "Sherpa, 0 #it{b}-tag"
+    extra_rebin: 2
+    lumi: "2018"
+
+  2018_mu_wplusd_OS-SS_1tag:
+    regions:
+      - OS_2018_mu_1tag_SR_Dplus
+      - -SS_2018_mu_1tag_SR_Dplus
+    samples:
+      - Wjets_emu
+      - Wjets_tau
+      - Zjets_emu
+      - Zjets_tau
+      - Top
+      - Diboson
+    label:
+      - "W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, OS-SS"
+      - "Sherpa, 1 #it{b}-tag"
+    extra_rebin: 2
+    lumi: "2018"
+
+  2018_mu_wplusd_OS-SS_2tag:
+    regions:
+      - OS_2018_mu_2tag_SR_Dplus
+      - -SS_2018_mu_2tag_SR_Dplus
+    samples:
+      - Wjets_emu
+      - Wjets_tau
+      - Zjets_emu
+      - Zjets_tau
+      - Top
+      - Diboson
+    label:
+      - "W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, OS-SS"
+      - "Sherpa, 2+ #it{b}-tag"
+    extra_rebin: 2
+    lumi: "2018"
