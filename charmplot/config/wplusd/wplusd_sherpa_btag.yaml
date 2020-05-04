@@ -33,6 +33,13 @@ channels:
   2018_el_wplusd_2tag:
     regions:
       - 2018_el_2tag_SR_Dplus
+    samples:
+      - Top_ttbar
+      - Top_single_top
+      - Top_ttx
+      - Wjets
+      - Zjets
+      - Diboson
     label:
       - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi"
       - "Sherpa, 2+ #it{b}-tag"
@@ -57,6 +64,13 @@ channels:
   2018_el_wplusd_OS_2tag:
     regions:
       - OS_2018_el_2tag_SR_Dplus
+    samples:
+      - Top_ttbar
+      - Top_single_top
+      - Top_ttx
+      - Wjets
+      - Zjets
+      - Diboson
     label:
       - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, OS"
       - "Sherpa, 2+ #it{b}-tag"
@@ -81,6 +95,13 @@ channels:
   2018_el_wplusd_SS_2tag:
     regions:
       - SS_2018_el_2tag_SR_Dplus
+    samples:
+      - Top_ttbar
+      - Top_single_top
+      - Top_ttx
+      - Wjets
+      - Zjets
+      - Diboson
     label:
       - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, SS"
       - "Sherpa, 2+ #it{b}-tag"
@@ -127,12 +148,11 @@ channels:
       - OS_2018_el_2tag_SR_Dplus
       - -SS_2018_el_2tag_SR_Dplus
     samples:
-      - Wjets_tau
-      - Wjets_cjets_emu
-      - Wjets_bjets_emu
-      - Wjets_light_emu
+      - Top_ttbar
+      - Top_single_top
+      - Top_ttx
+      - Wjets
       - Zjets
-      - Top
       - Diboson
     label:
       - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, OS-SS"
@@ -159,6 +179,13 @@ channels:
   2018_mu_wplusd_2tag:
     regions:
       - 2018_mu_2tag_SR_Dplus
+    samples:
+      - Top_ttbar
+      - Top_single_top
+      - Top_ttx
+      - Wjets
+      - Zjets
+      - Diboson
     label:
       - "W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi"
       - "Sherpa, 2+ #it{b}-tag"
@@ -183,6 +210,13 @@ channels:
   2018_mu_wplusd_OS_2tag:
     regions:
       - OS_2018_mu_2tag_SR_Dplus
+    samples:
+      - Top_ttbar
+      - Top_single_top
+      - Top_ttx
+      - Wjets
+      - Zjets
+      - Diboson
     label:
       - "W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, OS"
       - "Sherpa, 2+ #it{b}-tag"
@@ -207,6 +241,13 @@ channels:
   2018_mu_wplusd_SS_2tag:
     regions:
       - SS_2018_mu_2tag_SR_Dplus
+    samples:
+      - Top_ttbar
+      - Top_single_top
+      - Top_ttx
+      - Wjets
+      - Zjets
+      - Diboson
     label:
       - "W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, SS"
       - "Sherpa, 2+ #it{b}-tag"
@@ -253,12 +294,11 @@ channels:
       - OS_2018_mu_2tag_SR_Dplus
       - -SS_2018_mu_2tag_SR_Dplus
     samples:
-      - Wjets_tau
-      - Wjets_cjets_emu
-      - Wjets_bjets_emu
-      - Wjets_light_emu
+      - Top_ttbar
+      - Top_single_top
+      - Top_ttx
+      - Wjets
       - Zjets
-      - Top
       - Diboson
     label:
       - "W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, OS-SS"
