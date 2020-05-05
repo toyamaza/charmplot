@@ -223,6 +223,29 @@ pileup:
   ratio_range: [0.5, 1.49]
   allow_rebin: False
 
+Dmeson_m_Lxy:
+  label: 'D^{#pm} m'
+  unit: 'GeV'
+  rebin: 10
+  ratio_range: [0.5, 1.49]
+
+Dmeson_m_ptcone40_pt:
+  label: 'D^{#pm} ptcone40/p_{T}'
+  rebin: 2
+  ratio_range: [0.5, 1.49]
+
+Dmeson_m_DsMin:
+  label: 'D^{#pm} Ds veto'
+  unit: 'MeV'
+  rebin: 10
+  ratio_range: [0.5, 1.49]
+
+Dmeson_m_DstarMin:
+  label: 'D^{#pm} D*_{1} veto'
+  unit: 'MeV'
+  rebin: 2
+  ratio_range: [0.5, 1.49]
+
 # CharmEventInfo_PV_Z:
 #   label: 'PV_{z}'
 #   unit: mm
