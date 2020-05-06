@@ -14,6 +14,15 @@ Wjets:
   fillColor: "10000"
   legendLabel: "W+jets"
 
+Wjets_emu:
+  add:
+    - MG_Wjets_light_emu
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_bjets_emu
+  subtract:
+  fillColor: "10000"
+  legendLabel: W#rightarrowl#nu
+
 Zjets:
   add:
     - MG_Zjets_light_emu
@@ -125,7 +134,10 @@ Multijet:
     - MG_Zjets_cjets_emu
     - MG_Zjets_bjets_emu
     - MG_Zjets_tau
-    - Top
+    - Top_ttbar
+    - Top_single_top
+    - Top_ttx
     - Diboson
-  fillColor: "14000"
+  fillColor: "14002"
   legendLabel: Multijet
+  shortName: Multijet

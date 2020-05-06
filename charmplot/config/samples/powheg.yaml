@@ -84,10 +84,13 @@ Multijet:
     - Ph_Wjets_tau
     - Ph_Zjets_emu
     - Ph_Zjets_tau
-    - Top
+    - Top_ttbar
+    - Top_single_top
+    - Top_ttx
     - Diboson
-  fillColor: "14000"
+  fillColor: "14002"
   legendLabel: Multijet
+  shortName: Multijet
 
 DataMinusBackground:
   add: data
@@ -95,5 +98,7 @@ DataMinusBackground:
     - Ph_Wjets_tau
     - Ph_Zjets_emu
     - Ph_Zjets_tau
-    - Top
+    - Top_ttbar
+    - Top_single_top
+    - Top_ttx
     - Diboson

@@ -1,0 +1,124 @@
+colorScheme: gemstone_hues
+
+variablesConf: inclusive_wjets
+
+samplesConf: madgraph
+
+data: Data
+
+channels:
+  2018_el_QCD_PT_Fit:
+    regions:
+      - 2018_el
+    samples:
+      - Wjets_light_emu
+      - Wjets_bjets_emu
+      - Wjets_cjets_emu
+      - Wjets_tau
+      - Zjets_emu
+      - Zjets_tau
+      - Top
+      - Multijet | 2018_el_QCD_PT_Template
+      - Diboson
+    scale_factors:
+      input_file: likelihood_fit/wjets/export_madgraph_lepton_pt/2018_el_QCD_PT_Fit.json
+      scale_factors:
+        Wjets_light_emu: mu_Wjets_emu
+        Wjets_bjets_emu: mu_Wjets_emu
+        Wjets_cjets_emu: mu_Wjets_emu
+        Multijet: mu_QCD_el
+    label:
+      - "2018 el PT Fit Region"
+      - "MET > 30 GeV, no m_{T} cut"
+    lumi: "2018"
+
+  2018_mu_QCD_PT_Fit:
+    regions:
+      - 2018_mu
+    samples:
+      - Wjets_light_emu
+      - Wjets_bjets_emu
+      - Wjets_cjets_emu
+      - Wjets_tau
+      - Zjets_emu
+      - Zjets_tau
+      - Top
+      - Multijet | 2018_mu_QCD_PT_Template
+      - Diboson
+    scale_factors:
+      input_file: likelihood_fit/wjets/export_madgraph_lepton_pt/2018_mu_QCD_PT_Fit.json
+      scale_factors:
+        Wjets_light_emu: mu_Wjets_emu
+        Wjets_bjets_emu: mu_Wjets_emu
+        Wjets_cjets_emu: mu_Wjets_emu
+        Multijet: mu_QCD_mu
+    label:
+      - "2018 mu PT Fit Region"
+      - "MET > 30 GeV, no m_{T} cut"
+    lumi: "2018"
+
+  2018_el_QCD_PT_Extrapolated:
+    regions:
+      - 2018_el_SR
+    samples:
+      - Wjets_light_emu
+      - Wjets_bjets_emu
+      - Wjets_cjets_emu
+      - Wjets_tau
+      - Zjets_emu
+      - Zjets_tau
+      - Top
+      - Multijet | 2018_el_QCD_PTCut_Template
+      - Diboson
+    scale_factors:
+      input_file: likelihood_fit/wjets/export_madgraph_lepton_pt/2018_el_QCD_PT_Fit.json
+      scale_factors:
+        Wjets_light_emu: mu_Wjets_emu
+        Wjets_bjets_emu: mu_Wjets_emu
+        Wjets_cjets_emu: mu_Wjets_emu
+        Multijet: mu_QCD_extrapolated_el
+    label: "2018 el SR"
+    lumi: "2018"
+
+  2018_mu_QCD_PT_Extrapolated:
+    regions:
+      - 2018_mu_SR
+    samples:
+      - Wjets_light_emu
+      - Wjets_bjets_emu
+      - Wjets_cjets_emu
+      - Wjets_tau
+      - Zjets_emu
+      - Zjets_tau
+      - Top
+      - Multijet | 2018_mu_QCD_PTCut_Template
+      - Diboson
+    scale_factors:
+      input_file: likelihood_fit/wjets/export_madgraph_lepton_pt/2018_mu_QCD_PT_Fit.json
+      scale_factors:
+        Wjets_light_emu: mu_Wjets_emu
+        Wjets_bjets_emu: mu_Wjets_emu
+        Wjets_cjets_emu: mu_Wjets_emu
+        Multijet: mu_QCD_extrapolated_mu
+    label: "2018 mu SR"
+    lumi: "2018"
+
+  2018_el_QCD_PT_Template:
+    regions:
+      - 2018_el_QCD
+    make_plots: False
+
+  2018_mu_QCD_PT_Template:
+    regions:
+      - 2018_mu_QCD
+    make_plots: False
+
+  2018_el_QCD_PTCut_Template:
+    regions:
+      - 2018_el_QCD_PTCut
+    make_plots: False
+
+  2018_mu_QCD_PTCut_Template:
+    regions:
+      - 2018_mu_QCD_PTCut
+    make_plots: False
