@@ -51,6 +51,7 @@ def make_analysis_folder(www_folder, analysis):
     analysis_folder = os.path.join(www_folder, analysis, today_string)
     if not os.path.isdir(analysis_folder):
         os.makedirs(analysis_folder)
+        subprocess.call(['chmod', '775', www_folder])
     return analysis_folder
 
 
