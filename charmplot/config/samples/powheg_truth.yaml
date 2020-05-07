@@ -9,23 +9,24 @@ Wjets_emu_Matched:
     - Ph_Wjets_emu
   subtract:
   fillColor: "10002"
-  legendLabel: 'W+#it{D}'
+  legendLabel: "W+#it{D}"
   shortName: Wjets_light_Matched
-
-Wjets_emu_MisMatched:
-  add:
-    - Ph_Wjets_emu
-  subtract:
-  fillColor: "10001"
-  legendLabel: 'W+#it{D} Mis'
 
 Wjets_emu_Rest:
   add:
     - Ph_Wjets_emu
   subtract:
   fillColor: "10000"
-  legendLabel: W+jets
+  legendLabel: "W#rightarrowl#nu"
   shortName: Wjets_light_Rest
+
+Wjets_emu_NoMatch:
+  add:
+    - Ph_Wjets_emu
+  subtract:
+  fillColor: "10004"
+  legendLabel: "W+#it{D}(PU)"
+  shortName: Wjets_light_Matched
 
 Wjets_tau:
   add: Ph_Wjets_tau
@@ -40,7 +41,7 @@ Zjets:
   fillColor: "11000"
   legendLabel: Z+jets
 
-Zjets_light:
+Zjets_emu:
   add:
     - Ph_Zjets_emu
   subtract:
@@ -53,17 +54,74 @@ Zjets_tau:
   fillColor: "11003"
   legendLabel: Z#rightarrow#tau#tau
 
+Top_Matched:
+  add:
+    - Top_ttbar
+    - Top_single_top
+    - Top_ttx
+  subtract:
+  fillColor: "12001"
+  legendLabel: "Top+#it{D}"
+
+Top_Rest:
+  add:
+    - Top_ttbar
+    - Top_single_top
+    - Top_ttx
+  subtract:
+  fillColor: "12000"
+  legendLabel: "Top"
+
+Top_NoMatch:
+  add:
+    - Top_ttbar
+    - Top_single_top
+    - Top_ttx
+  subtract:
+  fillColor: "12002"
+  legendLabel: "Top+#it{D}(PU)"
+
 Top:
-  add: Top
+  add:
+    - Top_ttbar
+    - Top_single_top
+    - Top_ttx
   subtract:
   fillColor: "12001"
   legendLabel: Top
+
+Top_ttbar:
+  add: Top_ttbar
+  subtract:
+  fillColor: "12001"
+  legendLabel: t#bar{t}
+
+Top_single_top:
+  add: Top_single_top
+  subtract:
+  fillColor: "12002"
+  legendLabel: "single-#it{t}"
+
+Top_ttx:
+  add: Top_ttx
+  subtract:
+  fillColor: "12003"
+  legendLabel: t#bar{t}X
 
 Diboson:
   add: Diboson
   subtract:
   fillColor: "13000"
   legendLabel: Diboson
+
+Other:
+  add:
+    - Diboson
+    - Ph_Zjets_tau
+    - Ph_Wjets_tau
+  subtract:
+  fillColor: "13000"
+  legendLabel: Other
 
 Multijet:
   add: data
@@ -72,8 +130,10 @@ Multijet:
     - Ph_Wjets_tau
     - Ph_Zjets_emu
     - Ph_Zjets_tau
-    - Top
+    - Top_ttbar
+    - Top_single_top
+    - Top_ttx
     - Diboson
-  fillColor: "14000"
+  fillColor: "14002"
   legendLabel: Multijet
   shortName: Multijet
