@@ -14,7 +14,6 @@ channels:
       - Wjets_emu_NoMatch | 2018_el_wplusd_OS_NoMatch
       - Other
       - Zjets_emu
-      - Top_NoMatch | 2018_el_wplusd_OS_NoMatch
     regions:
       - OS_2018_el_SR_Dplus
     label:
@@ -31,7 +30,6 @@ channels:
       - Wjets_emu_NoMatch | 2018_el_wplusd_SS_NoMatch
       - Other
       - Zjets_emu
-      - Top_NoMatch | 2018_el_wplusd_SS_NoMatch
     regions:
       - SS_2018_el_SR_Dplus
     label:
@@ -48,7 +46,6 @@ channels:
       - Wjets_emu_NoMatch | 2018_el_wplusd_OS-SS_NoMatch
       - Other
       - Zjets_emu
-      - Top_NoMatch | 2018_el_wplusd_OS-SS_NoMatch
     regions:
       - OS_2018_el_SR_Dplus
       - -SS_2018_el_SR_Dplus
@@ -66,7 +63,6 @@ channels:
       - Wjets_emu_NoMatch | 2018_mu_wplusd_OS_NoMatch
       - Other
       - Zjets_emu
-      - Top_NoMatch | 2018_mu_wplusd_OS_NoMatch
     regions:
       - OS_2018_mu_SR_Dplus
     label:
@@ -83,7 +79,6 @@ channels:
       - Wjets_emu_NoMatch | 2018_mu_wplusd_SS_NoMatch
       - Other
       - Zjets_emu
-      - Top_NoMatch | 2018_mu_wplusd_SS_NoMatch
     regions:
       - SS_2018_mu_SR_Dplus
     label:
@@ -100,7 +95,6 @@ channels:
       - Wjets_emu_NoMatch | 2018_mu_wplusd_OS-SS_NoMatch
       - Other
       - Zjets_emu
-      - Top_NoMatch | 2018_mu_wplusd_OS-SS_NoMatch
     regions:
       - OS_2018_mu_SR_Dplus
       - -SS_2018_mu_SR_Dplus
