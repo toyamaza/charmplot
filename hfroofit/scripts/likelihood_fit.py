@@ -55,7 +55,7 @@ def extrapolate_multijet(extrapolate, result, input, samples, var):
                 print(f"Found QCD histogram {histograms[channel][sample]}")
                 continue
             for sf in result:
-                if sf.replace("mu_", "") in sample:
+                if sf[3:] in sample:
                     histograms[channel][sample].Scale(result[sf][0])
                     print(f"Scaling histogram {histograms[channel][sample]} by {result[sf][0]}")
             data_minus_prompt.Add(histograms[channel][sample], -1)
@@ -180,11 +180,11 @@ if __name__ == "__main__":
     parser.add_option('-f', '--fit-constraints',
                       action="store", dest="constraints",
                       help="fit constraints",
-                      default="Top:1:0:10,Wjets_light_Rest:1:0:10")
+                      default="Top_Rest:1:0:10,Wjets_emu_Rest:1:0:10,Top_Matched:0.831:0.8309:0.8311,Wjets_emu_Matched:0.831:0.8309:0.8311")
     parser.add_option('-s', '--samples',
                       action="store", dest="samples",
                       help="list of samples to fit",
-                      default="Wjets_light_Matched,Wjets_light_Rest,Wjets_tau,Zjets,Top,Diboson,Multijet")
+                      default="Wjets_emu_Matched,Wjets_emu_Rest,Top_Matched,Top_Rest,Wjets_emu_NoMatch,Other,Zjets_emu,Multijet")
     parser.add_option('-c', '--channels',
                       action="store", dest="channels",
                       help="channels to fit",
