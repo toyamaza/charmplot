@@ -4,6 +4,19 @@ Data:
   add: data
   subtract:
 
+DataMinusBackground:
+  add: data
+  subtract:
+    - MG_Wjets_tau
+    - MG_Zjets_light_emu
+    - MG_Zjets_cjets_emu
+    - MG_Zjets_bjets_emu
+    - MG_Zjets_tau
+    - Top_ttbar
+    - Top_single_top
+    - Top_ttx
+    - Diboson
+
 Wjets:
   add:
     - MG_Wjets_light_emu

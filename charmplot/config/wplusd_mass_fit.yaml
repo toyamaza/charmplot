@@ -4,8 +4,8 @@ variablesConf: charmed_wjets
 
 channelVariables:
   Dmeson_m:
-    label: 'D^{#pm} m'
-    unit: 'GeV'
+    label: "D^{#pm} m"
+    unit: "GeV"
     rebin: 10
     ratio_range: [0.5, 1.49]
 
@@ -27,22 +27,21 @@ channels:
       - OS_2018_el_SR_Dplus
       - -SS_2018_el_SR_Dplus
     samples:
-      - Wjets_light
+      - Wjets_emu
     mass_fit:
       var: Dmeson_m
       range: [1.75, 2.1]
       mean: [1.87, 1.8, 2.0]
       sigma: [0.02, 0.01, 5.0]
       poly_order: 2
-      chi2Fit: True
-    label: 'W#rightarrowe#nu+D, D#rightarrowK#pi#pi, OS-SS'
-    lumi: '2018'
+    label: "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, OS-SS"
+    lumi: "2018"
 
   2018_el_wplusd_OS:
     regions:
       - OS_2018_el_SR_Dplus
     samples:
-      - Wjets_light
+      - Wjets_emu
     mass_fit:
       var: Dmeson_m
       range: [1.75, 2.2]
@@ -50,14 +49,14 @@ channels:
       sigma: [0.02, 0.01, 0.1]
       bkg_function: epoly
       poly_order: 2
-    label: 'W#rightarrowe#nu+D, D#rightarrowK#pi#pi, OS'
-    lumi: '2018'
+    label: "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, OS"
+    lumi: "2018"
 
   2018_el_wplusd_SS:
     regions:
       - SS_2018_el_SR_Dplus
     samples:
-      - Wjets_light
+      - Wjets_emu
     mass_fit:
       var: Dmeson_m
       range: [1.75, 2.2]
@@ -65,30 +64,29 @@ channels:
       sigma: [0.02, 0.01, 0.1]
       bkg_function: epoly
       poly_order: 2
-    label: 'W#rightarrowe#nu+D, D#rightarrowK#pi#pi, SS'
-    lumi: '2018'
+    label: "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, SS"
+    lumi: "2018"
 
   2018_mu_wplusd_OS-SS:
     regions:
       - OS_2018_mu_SR_Dplus
       - -SS_2018_mu_SR_Dplus
     samples:
-      - Wjets_light
+      - Wjets_emu
     mass_fit:
       var: Dmeson_m
       range: [1.75, 2.1]
       mean: [1.87, 1.8, 2.0]
       sigma: [0.02, 0.01, 5.0]
       poly_order: 2
-      chi2Fit: True
-    label: 'W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, OS-SS'
-    lumi: '2018'
+    label: "W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, OS-SS"
+    lumi: "2018"
 
   2018_mu_wplusd_OS:
     regions:
       - OS_2018_mu_SR_Dplus
     samples:
-      - Wjets_light
+      - Wjets_emu
     mass_fit:
       var: Dmeson_m
       range: [1.75, 2.2]
@@ -96,14 +94,14 @@ channels:
       sigma: [0.02, 0.01, 0.1]
       bkg_function: epoly
       poly_order: 2
-    label: 'W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, OS'
-    lumi: '2018'
+    label: "W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, OS"
+    lumi: "2018"
 
   2018_mu_wplusd_SS:
     regions:
       - SS_2018_mu_SR_Dplus
     samples:
-      - Wjets_light
+      - Wjets_emu
     mass_fit:
       var: Dmeson_m
       range: [1.75, 2.2]
@@ -111,5 +109,5 @@ channels:
       sigma: [0.02, 0.01, 0.1]
       bkg_function: epoly
       poly_order: 2
-    label: 'W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, SS'
-    lumi: '2018'
+    label: "W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, SS"
+    lumi: "2018"
