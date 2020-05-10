@@ -149,6 +149,8 @@ class GlobalConfig(object):
                 chan.set_mass_fit(val['mass_fit'])
             if 'save_to_file' in val:
                 chan.set_save_to_file(val['save_to_file'])
+            if 'print_scale_factors' in val:
+                chan.set_print_scale_factors(val['print_scale_factors'])
         self.channels = channels
 
     def parse_confing(self, conf):

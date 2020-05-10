@@ -185,7 +185,7 @@ class Canvas2(CanvasBase):
                 if 'Multijet' in s or s in self.fit.fixed:
                     continue
                 self.text(f"#mu({s}) = {r[0]:.3f}")
-        elif self.scale_factors:
+        elif self.scale_factors and self.channel.print_scale_factors:
             for sf in self.scale_factors:
                 if "QCD" in sf:
                     continue

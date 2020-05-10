@@ -8,6 +8,7 @@ class Channel(object):
     scale_factors = None
     make_plots = True
     save_to_file = False
+    print_scale_factors = True
     extra_rebin = 1
     name = ""
     lumi = ""
@@ -63,6 +64,9 @@ class Channel(object):
 
     def set_save_to_file(self, save_to_file):
         self.save_to_file = save_to_file
+
+    def set_print_scale_factors(self, print_scale_factors):
+        self.print_scale_factors = print_scale_factors
 
     def get_all(self):
         return self.add + self.subtract
