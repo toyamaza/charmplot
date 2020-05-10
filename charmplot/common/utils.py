@@ -278,14 +278,18 @@ def likelihood_fit(conf: globalConfig.GlobalConfig, reader: inputDataReader.Inpu
 def read_scale_factors(scale_factor_confing: dict):
     if not scale_factor_confing or 'input_file' not in scale_factor_confing:
         return None
-    path = scale_factor_confing['input_file']
-    if not os.path.isfile(path):
-        logger.warning(f"scale factor file not found: {path}")
-        sys.exit(1)
-    with open(path, 'r') as json_file:
-        logger.debug(f"scale factor file successfully opened: {path}")
-        data = json.load(json_file)
-        return data
+    files = scale_factor_confing['input_file']
+    if type(files) != list:
+        files = [files]
+    data = {}
+    for path in files:
+        if not os.path.isfile(path):
+            logger.warning(f"scale factor file not found: {path}")
+            sys.exit(1)
+        with open(path, 'r') as json_file:
+            logger.debug(f"scale factor file successfully opened: {path}")
+            data.update(json.load(json_file))
+    return data
 
 
 def scale_multijet_histogram(data: ROOT.TH1, mc_map: MC_Map, fit_range: list):
