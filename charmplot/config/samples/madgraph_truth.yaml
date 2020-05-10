@@ -4,6 +4,58 @@ Data:
   add: data
   subtract:
 
+Wjets_emu_Top_Matched:
+  add:
+    - MG_Wjets_light_emu
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_bjets_emu
+    - Top_ttbar
+    - Top_single_top
+    - Top_ttx
+  subtract:
+  fillColor: "10002"
+  legendLabel: "Top/W+#it{D}"
+  shortName: Wjets_emu_Top_Matched
+
+Wjets_emu_Top_Rest:
+  add:
+    - MG_Wjets_light_emu
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_bjets_emu
+    - Top_ttbar
+    - Top_single_top
+    - Top_ttx
+  subtract:
+  fillColor: "10000"
+  legendLabel: "Top/W Bkg."
+  shortName: Wjets_emu_Top_Rest
+
+Wjets_emu_Top_NoMatch:
+  add:
+    - MG_Wjets_light_emu
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_bjets_emu
+    - Top_ttbar
+    - Top_single_top
+    - Top_ttx
+  subtract:
+  fillColor: "10004"
+  legendLabel: "PU #it{D}"
+  shortName: Wjets_emu_Top_NoMatch
+
+Wjets_emu_NoMatch:
+  add:
+    - MG_Wjets_light_emu
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_bjets_emu
+    - Top_ttbar
+    - Top_single_top
+    - Top_ttx
+  subtract:
+  fillColor: "10004"
+  legendLabel: "W+#it{D}(PU)"
+  shortName: Wjets_emu_NoMatch
+
 Wjets_emu_Matched:
   add:
     - MG_Wjets_light_emu
@@ -24,17 +76,14 @@ Wjets_emu_Rest:
   legendLabel: "W#rightarrowl#nu"
   shortName: Wjets_emu_Rest
 
-Wjets_emu_NoMatch:
+Wjets_emu:
   add:
     - MG_Wjets_light_emu
     - MG_Wjets_cjets_emu
     - MG_Wjets_bjets_emu
-    - Top_ttbar
-    - Top_single_top
-    - Top_ttx
   subtract:
-  fillColor: "10004"
-  legendLabel: "W+#it{D}(PU)"
+  fillColor: "10002"
+  legendLabel: "W#rightarrowl#nu"
 
 Wjets_tau:
   add: MG_Wjets_tau

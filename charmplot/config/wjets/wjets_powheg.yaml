@@ -27,6 +27,6 @@ channels:
     regions:
       - 2018_mu_SR
     label:
-      - "2018 el SR"
+      - "2018 mu SR"
       - "Powheg"
     lumi: "2018"
