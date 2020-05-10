@@ -20,10 +20,11 @@ class InputDataReader(object):
         self.read_input_files()
 
     def get_histogram_from_file(self, f, channel, sample, variable, c):
-        h = f.Get(os.path.join(c, "__".join([c, variable.name])))
+        h_name = os.path.join(c, "__".join([c, variable.name]))
+        h = f.Get(h_name)
         if not h:
-            logger.warning("Histogram for variable %s not found in channel %s for sample %s" % (
-                variable.name, c, sample.name))
+            logger.warning("Histogram %s for variable %s not found in channel %s for sample %s in file %s" % (
+                h_name, variable.name, c, sample.name, f))
             return None
         h = h.Clone(h.GetName() + "_temp")
         utils.rebin_histogram(h, variable, channel.extra_rebin)
