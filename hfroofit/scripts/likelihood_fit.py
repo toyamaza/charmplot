@@ -118,7 +118,14 @@ def main(options):
             args = [float(x) for x in constraint[1:]]
             floatPars += [f"mu_{sample}"]
             for channel in channels:
-                Samples[channel][sample].AddNormFactor(f"mu_{sample}", *args)
+                if len(args) > 1:
+                    Samples[channel][sample].AddNormFactor(f"mu_{sample}", *args)
+                else:
+                    if not len(args) == 1:
+                        continue
+                    # assuming constant norm factor here
+                    args += [args[0], args[0]]
+                    Samples[channel][sample].AddNormFactor(f"mu_{sample}", *args, True)
             print(f"Set sample {sample} to {args}")
 
     # Define HF channels
@@ -180,7 +187,7 @@ if __name__ == "__main__":
     parser.add_option('-f', '--fit-constraints',
                       action="store", dest="constraints",
                       help="fit constraints",
-                      default="Top_Rest:1:0:10,Wjets_emu_Rest:1:0:10,Top_Matched:0.831:0.8309:0.8311,Wjets_emu_Matched:0.831:0.8309:0.8311")
+                      default="Top_Rest:1:0:10,Wjets_emu_Rest:1:0:10,Top_Matched:0.831,Wjets_emu_Matched:0.831")
     parser.add_option('-s', '--samples',
                       action="store", dest="samples",
                       help="list of samples to fit",
