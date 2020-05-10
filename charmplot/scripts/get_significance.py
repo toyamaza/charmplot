@@ -12,6 +12,7 @@ ROOT.SetAtlasStyle()
 #Global Variables
 UB = 1.95
 LB = 1.79
+data_mc_SF = 1.2327
 
 def SB_function(x, p):
     if x[0] < UB and x[0] > LB:
@@ -22,6 +23,8 @@ def SB_function(x, p):
 
 
 if __name__ == "__main__":
+
+    var_in = ""
 
     mc_samples =   ["Wjets_emu_Rest", "Wjets_emu_Matched", "Wjets_tau", "Top", "Diboson", "Zjets"]
     data_samples = ["Data"]
@@ -49,36 +52,38 @@ if __name__ == "__main__":
         mc_sum.Sumw2()
         data_sum = ROOT.TH1F()
         data_sum.Sumw2()
+
         for l in leps:
             if first_hist_sig:
                 sig_sum.Clear()
-                sig_sum = file.Get("Wjets_emu_Matched_2018_" + l + "_wplusd_" + c + "_Dmeson_m")
-                sig_sum_data = file.Get("Data_2018_" + l + "_wplusd_" + c + "_Dmeson_m")
+                sig_sum = file.Get("Wjets_emu_Matched_2018_" + l + "_wplusd_" + c + "_Dmeson_m" + var_in)
+                sig_sum_data = file.Get("Data_2018_" + l + "_wplusd_" + c + "_Dmeson_m" + var_in)
                 first_hist_sig = False
             else:
                 hist = ROOT.TH1F()
                 hist_data = ROOT.TH1F()
-                hist = file.Get("Wjets_emu_Matched_2018_" + l + "_wplusd_" + c + "_Dmeson_m")
-                hist_data = file.Get("Data_2018_" + l + "_wplusd_" + c + "_Dmeson_m")
+                hist = file.Get("Wjets_emu_Matched_2018_" + l + "_wplusd_" + c + "_Dmeson_m" + var_in)
+                hist_data = file.Get("Data_2018_" + l + "_wplusd_" + c + "_Dmeson_m" + var_in)
                 sig_sum.Add(hist)
                 sig_sum_data.Add(hist_data)
             # Accumulating background Histograms
             for s in mc_samples:
+                print(s + "_2018_" + l + "_wplusd_" + c + "_Dmeson_m" + var_in)
                 if first_hist_mc:
-                    mc_sum.Clear()
-                    mc_sum = file.Get(s + "_2018_" + l + "_wplusd_" + c + "_Dmeson_m")
+                    mc_sum.Clear(s + "_2018_" + l + "_wplusd_" + c + "_Dmeson_m" + var_in)
+                    mc_sum = file.Get(s + "_2018_" + l + "_wplusd_" + c + "_Dmeson_m" + var_in)
                     first_hist_mc = False
                 else:
                     hist = ROOT.TH1F()
-                    hist = file.Get(s + "_2018_" + l + "_wplusd_" + c + "_Dmeson_m")
+                    hist = file.Get(s + "_2018_" + l + "_wplusd_" + c + "_Dmeson_m" + var_in)
                     mc_sum.Add(hist)
             print()    
             for s in data_samples:
                 if first_hist_data:
-                    data_sum = file.Get(s + "_2018_" + l + "_wplusd_" + c + "_Dmeson_m")
+                    data_sum = file.Get(s + "_2018_" + l + "_wplusd_" + c + "_Dmeson_m" + var_in)
                     first_hist_data = False
                 else:
-                    hist = file.Get(s + "_2018_" + l + "_wplusd_" + c + "_Dmeson_m")
+                    hist = file.Get(s + "_2018_" + l + "_wplusd_" + c + "_Dmeson_m" + var_in)
                     #print (hist)
                     data_sum.Add(hist)
             print()
@@ -120,11 +125,20 @@ if __name__ == "__main__":
         # Events in data SR used to normalize MC
         dIntSig_data = ROOT.Double()
         dIntSig_data_err = ROOT.Double()
-        dIntSig_data = sig_data.IntegralAndError(sig_data.GetXaxis().FindBin(LB) + 1 , sig.GetXaxis().FindBin(UB) - 1, dIntSig_data_err)
+        dIntSig_data = sig_data.IntegralAndError(sig_data.GetXaxis().FindBin(LB) + 1 , sig_data.GetXaxis().FindBin(UB) - 1, dIntSig_data_err)
+
+        #Replace uncertainty on Signal Error for OS - SS case
+        if "OS-SS" in c:
+            #OS Signal Error
+            OS_err2 = sig_sums[0].Integral(sig.GetXaxis().FindBin(LB) + 1, sig.GetXaxis().FindBin(UB) - 1)
+            SS_err2 = sig_sums[1].Integral(sig.GetXaxis().FindBin(LB) + 1, sig.GetXaxis().FindBin(UB) - 1)
+            dIntSig_data_err = (OS_err2 + SS_err2)**.5 * data_mc_SF
         # Significance where Z = N events in signal peak / uncertainty on bkg sideband
+        
         Z = dIntSig / (dErrorSR * dErrorSR + dIntSig_data_err * dIntSig_data_err)**0.5
 
         canv = ROOT.TCanvas(c,c,800,600)
+        ROOT.gStyle.SetOptFit(1111)
         d.GetXaxis().SetRangeUser(1.7,2.2)
         d.Draw("")
         bkg_fn.SetLineColor(2)
@@ -136,13 +150,13 @@ if __name__ == "__main__":
         sigMinusBkg.Add(bkgHist,-1)
         sigMinusBkg.GetXaxis().SetRangeUser(1.71,2.2)
         sigMinusBkg.Draw()
-        sig.Scale((dIntSig_data - dIntSR)/(dIntSig))
+        sig.Scale(data_mc_SF)
         sig.Draw("histsame")
         canv.Print(c+"_test2.pdf")
 
-        print( "param 0:  " + str(bkg_fn.GetParameter(0)))
+        print( "Chi2/NDF:  " + str(bkg_fn_fit.GetChisquare()/bkg_fn_fit.GetNDF()))
         print ("Integral in Peak for Signal + Background " + c + " data: " + str(dInt) + " +/- " + str(dError))
         print ("Integral in SR for fitted bkg to " + c + " data:         " + str(dIntSR) + " +/- " + str(dErrorSR))
         print ("Integral in SR for Matched MC in " + c  + "              " + str(dIntSig))
         print ("Significance for " + c + "                               " + str(Z))
-        print ("Normalization for data/MC in peak region :               " + str((dIntSig_data - dIntSR)/(dIntSig)))
+        print ("Normalization for data/MC in peak region vs Baseline SF :               " + str((dIntSig_data - dIntSR)/(dIntSig)) + " : " + str(data_mc_SF))

@@ -23,7 +23,8 @@ Dmeson_phi:
 Dmeson_Lxy:
   label: 'D^{#pm} L_{xy}'
   unit: 'mm'
-  rebin: 2
+  rebin: 1
+  x_range: [0.75, 3]
   ratio_range: [0.5, 1.49]
 
 Dmeson_cTau:
@@ -175,19 +176,18 @@ Dmeson_ptcone40_pt:
 
 Dmeson_DsMin:
   label: 'D^{#pm} Ds veto'
-  unit: 'MeV'
-  rebin: 10
+  unit: 'GeV'
+  rebin: 1
+  x_range: [0,0.1]
   ratio_range: [0.5, 1.49]
 
-Dmeson_DstarMin:
-  label: 'D^{#pm} D*_{1} veto'
-  unit: 'MeV'
+Dmeson_m_DstarMin:
+  label: 'D^{#pm} D* veto'
+  unit: 'GeV'
   rebin: 2
   ratio_range: [0.5, 1.49]
-
-Dmeson_max_trackZ0PV:
-  label: 'D^{#pm} max z_{0}sin#theta_{PV}'
-  unit: 'mm'
+  
+Dmeson_dRlep:
   rebin: 2
   ratio_range: [0.5, 1.49]
 
@@ -230,20 +230,39 @@ Dmeson_m_Lxy:
   ratio_range: [0.5, 1.49]
 
 Dmeson_m_ptcone40_pt:
-  label: 'D^{#pm} ptcone40/p_{T}'
-  rebin: 2
+  label: 'D^{#pm} m (Isolation)'
+  unit: 'GeV'
+  rebin: 10
   ratio_range: [0.5, 1.49]
 
 Dmeson_m_DsMin:
-  label: 'D^{#pm} Ds veto'
-  unit: 'MeV'
+  label: 'D^{#pm} m (Ds min)'
+  unit: 'GeV'
   rebin: 10
   ratio_range: [0.5, 1.49]
 
 Dmeson_m_DstarMin:
-  label: 'D^{#pm} D*_{1} veto'
-  unit: 'MeV'
-  rebin: 2
+  label: 'D^{#pm} (D* min) m'
+  unit: 'GeV'
+  rebin: 10
+  ratio_range: [0.5, 1.49]
+
+Dmeson_m_chi2:
+  label: 'D^{#pm} m (chi2)'
+  unit: 'GeV'
+  rebin: 10
+  ratio_range: [0.5, 1.49]
+
+Dmeson_m_dRlep:
+  label: 'D^{#pm} m (dR lep)'
+  unit: 'GeV'
+  rebin: 10
+  ratio_range: [0.5, 1.49]
+
+Dmeson_m_cosThetaStar:
+  label: 'D^{#pm} m (cosThetaStar)'
+  unit: 'GeV'
+  rebin: 10
   ratio_range: [0.5, 1.49]
 
 # CharmEventInfo_PV_Z:

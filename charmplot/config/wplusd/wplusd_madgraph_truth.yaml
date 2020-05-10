@@ -20,6 +20,7 @@ channels:
       - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, OS"
       - "MadGraph"
     lumi: "2018"
+    save_to_file: True
 
   2018_el_wplusd_SS:
     samples:
@@ -36,6 +37,7 @@ channels:
       - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, SS"
       - "MadGraph"
     lumi: "2018"
+    save_to_file: True
 
   2018_el_wplusd_OS-SS:
     samples:
@@ -53,6 +55,7 @@ channels:
       - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, OS-SS"
       - "MadGraph"
     lumi: "2018"
+    save_to_file: True
 
   2018_mu_wplusd_OS:
     samples:
@@ -69,6 +72,7 @@ channels:
       - "W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, OS"
       - "MadGraph"
     lumi: "2018"
+    save_to_file: True
 
   2018_mu_wplusd_SS:
     samples:
@@ -85,7 +89,8 @@ channels:
       - "W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, SS"
       - "MadGraph"
     lumi: "2018"
-
+    save_to_file: True
+    
   2018_mu_wplusd_OS-SS:
     samples:
       - Wjets_emu_Matched | 2018_mu_wplusd_OS-SS_Matched
@@ -102,6 +107,7 @@ channels:
       - "W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, OS-SS"
       - "MadGraph"
     lumi: "2018"
+    save_to_file: True
 
   2018_el_wplusd_OS_Matched:
     regions:

@@ -2,7 +2,7 @@ colorScheme: cheer_up_emo_kid
 
 variablesConf: charmed_wjets
 
-samplesConf: powheg_full_truth
+samplesConf: madgraph_full_truth
 
 channels:
   2018_wplusd_OS:
