@@ -152,7 +152,14 @@ def main(options):
         if options.extrapolate:
             qcd_sf = extrapolate_multijet(options.extrapolate, sf, options.input, samples, var)
             sf.update(qcd_sf)
-        fitUtils.dict_to_json(sf, options.input, channel)
+        # append short channel name to key
+        sf_out = {}
+        for key in sf:
+            key_out = key
+            if not key.endswith(channel_short[channel]):
+                key_out += "_" + channel_short[channel]
+            sf_out[key_out] = sf[key]
+        fitUtils.dict_to_json(sf_out, options.input, channel)
         results.update({channel: res})
 
     # Combined workspace
