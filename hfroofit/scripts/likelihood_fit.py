@@ -67,6 +67,25 @@ def extrapolate_multijet(extrapolate, result, input, samples, var):
     return out_dict
 
 
+def setNormFactor(sample, name, normFactor):
+    if len(normFactor) == 3:
+        sample.AddNormFactor(name, *normFactor)
+    elif len(normFactor) == 1:
+        print(f"assuming constant norm factor {name} for {sample}, {normFactor}")
+        normFactor += normFactor + normFactor
+        sample.AddNormFactor(name, *normFactor, True)
+
+
+def add_suffix(sf, suffix):
+    sf_out = {}
+    for key in sf:
+        key_out = key
+        if not key.endswith(suffix):
+            key_out += "_" + suffix
+        sf_out[key_out] = sf[key]
+    return sf_out
+
+
 def main(options):
     # samples
     samples = options.samples.split(",")
@@ -115,18 +134,11 @@ def main(options):
         for constraint in constraints:
             constraint = constraint.split(":")
             sample = constraint[0]
-            args = [float(x) for x in constraint[1:]]
             floatPars += [f"mu_{sample}"]
+            normFactor = [float(x) for x in constraint[1:]]
             for channel in channels:
-                if len(args) > 1:
-                    Samples[channel][sample].AddNormFactor(f"mu_{sample}", *args)
-                else:
-                    if not len(args) == 1:
-                        continue
-                    # assuming constant norm factor here
-                    args += [args[0], args[0]]
-                    Samples[channel][sample].AddNormFactor(f"mu_{sample}", *args, True)
-            print(f"Set sample {sample} to {args}")
+                setNormFactor(Samples[channel][sample], f"mu_{sample}", normFactor)
+            print(f"Set sample {sample} to {normFactor}")
 
     # Define HF channels
     Channels = dict()
@@ -152,13 +164,7 @@ def main(options):
         if options.extrapolate:
             qcd_sf = extrapolate_multijet(options.extrapolate, sf, options.input, samples, var)
             sf.update(qcd_sf)
-        # append short channel name to key
-        sf_out = {}
-        for key in sf:
-            key_out = key
-            if not key.endswith(channel_short[channel]):
-                key_out += "_" + channel_short[channel]
-            sf_out[key_out] = sf[key]
+        sf_out = add_suffix(sf, channel_short[channel])
         fitUtils.dict_to_json(sf_out, options.input, channel)
         results.update({channel: res})
 
