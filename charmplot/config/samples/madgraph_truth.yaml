@@ -14,7 +14,7 @@ Wjets_emu_Top_Matched:
     - Top_ttx
   subtract:
   fillColor: "10002"
-  legendLabel: "Top/W+#it{D}"
+  legendLabel: "Matched #it{D}"
   shortName: Wjets_emu_Top_Matched
 
 Wjets_emu_Top_Rest:
@@ -123,7 +123,7 @@ Top_Matched:
     - Top_ttx
   subtract:
   fillColor: "12001"
-  legendLabel: "Top+#it{D}"
+  legendLabel: "Top w/ #it{D}"
   shortName: Top_Matched
 
 Top_Rest:

@@ -8,12 +8,6 @@ channelVariables:
     x_range: [0, 200]
     ratio_range: [0.5, 1.49]
 
-  Dmeson_m:
-    label: 'D^{#pm} m'
-    unit: 'GeV'
-    rebin: 20
-    ratio_range: [0.5, 1.49]
-
 samplesConf: madgraph_truth
 
 data: Data
@@ -64,6 +58,21 @@ channels:
       - Multijet | 2018_el_wplusd_PT_Template_OS-SS
     save_to_file: True
     make_plots: False
+
+  2018_el_wplusd_PT_PreExtrapolated_OS-SS:
+    regions:
+      - OS_2018_el_SR_Dplus
+      - -SS_2018_el_SR_Dplus
+    samples:
+      - Wjets_emu_Top_Matched | 2018_el_wplusd_OS-SS_Matched
+      - Wjets_emu_Top_Rest | 2018_el_wplusd_OS-SS_Rest
+      - Wjets_emu_Top_NoMatch | 2018_el_wplusd_OS-SS_NoMatch
+      - Other
+      - Zjets_emu
+    label:
+       - 'W#rightarrowe#nu+D, D#rightarrowK#pi#pi, OS-SS'
+       - 'Signal Region, MadGraph'
+    lumi: '2018'
 
   2018_el_wplusd_PT_Extrapolated_OS-SS:
     regions:

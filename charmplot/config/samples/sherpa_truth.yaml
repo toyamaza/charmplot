@@ -82,7 +82,7 @@ Top_Matched:
     - Top_ttx
   subtract:
   fillColor: "12001"
-  legendLabel: "Top+#it{D}"
+  legendLabel: "Top w/ #it{D}"
 
 Top_Rest:
   add:
