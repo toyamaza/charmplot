@@ -12,7 +12,7 @@ ROOT.SetAtlasStyle()
 #Global Variables
 UB = 1.95
 LB = 1.79
-data_mc_SF = 1.2327
+data_mc_SF = 0.8010
 
 def SB_function(x, p):
     if x[0] < UB and x[0] > LB:
@@ -26,11 +26,12 @@ if __name__ == "__main__":
 
     var_in = ""
 
-    mc_samples =   ["Wjets_emu_Rest", "Wjets_emu_Matched", "Wjets_tau", "Top", "Diboson", "Zjets"]
+    mc_samples =   ["Wjets_emu_Rest", "Wjets_emu_Matched","Wjets_emu_NoMatch", "Top_Matched", "Top_Rest" , "Zjets_emu", "Other"]
     data_samples = ["Data"]
     file = ROOT.TFile("histograms.root")
 
     charges = ["OS", "SS", "OS-SS"]
+#    charges = ["OS-SS"]
     leps = ["el", "mu"]
     sig_sums = []
     sig_sums_data = []
@@ -40,13 +41,10 @@ if __name__ == "__main__":
     first_hist_mc = True
     first_hist_data = True
     first_hist_sig = True
+    first_hist_sig_data = True
 
     for c in charges:
-        # Get Matched MC hist for signal region
-        sig_sum = ROOT.TH1F()
-        sig_sum.Sumw2()
-        sig_sum_data = ROOT.TH1F()
-        sig_sum_data.Sumw2()
+       
         #Getting background hists
         mc_sum = ROOT.TH1F()
         mc_sum.Sumw2()
@@ -54,48 +52,73 @@ if __name__ == "__main__":
         data_sum.Sumw2()
 
         for l in leps:
-            if first_hist_sig:
-                sig_sum.Clear()
-                sig_sum = file.Get("Wjets_emu_Matched_2018_" + l + "_wplusd_" + c + "_Dmeson_m" + var_in)
-                sig_sum_data = file.Get("Data_2018_" + l + "_wplusd_" + c + "_Dmeson_m" + var_in)
-                first_hist_sig = False
-            else:
-                hist = ROOT.TH1F()
-                hist_data = ROOT.TH1F()
-                hist = file.Get("Wjets_emu_Matched_2018_" + l + "_wplusd_" + c + "_Dmeson_m" + var_in)
-                hist_data = file.Get("Data_2018_" + l + "_wplusd_" + c + "_Dmeson_m" + var_in)
-                sig_sum.Add(hist)
-                sig_sum_data.Add(hist_data)
             # Accumulating background Histograms
             for s in mc_samples:
-                print(s + "_2018_" + l + "_wplusd_" + c + "_Dmeson_m" + var_in)
+                #print(s + "_2018_" + l + "_wplusd_" + c + "_Dmeson_m" + var_in)
                 if first_hist_mc:
-                    mc_sum.Clear(s + "_2018_" + l + "_wplusd_" + c + "_Dmeson_m" + var_in)
-                    mc_sum = file.Get(s + "_2018_" + l + "_wplusd_" + c + "_Dmeson_m" + var_in)
+                    mc_sum.Clear()
+                    mc_sum = file.Get(s + "_2018_" + l + "_wplusd_" + c + "_Dmeson_m" + var_in).Clone()
                     first_hist_mc = False
                 else:
                     hist = ROOT.TH1F()
-                    hist = file.Get(s + "_2018_" + l + "_wplusd_" + c + "_Dmeson_m" + var_in)
+                    hist = file.Get(s + "_2018_" + l + "_wplusd_" + c + "_Dmeson_m" + var_in).Clone()
                     mc_sum.Add(hist)
             print()    
             for s in data_samples:
+                
                 if first_hist_data:
-                    data_sum = file.Get(s + "_2018_" + l + "_wplusd_" + c + "_Dmeson_m" + var_in)
+                    data_sum.Clear()
+                    data_sum = file.Get(s + "_2018_" + l + "_wplusd_" + c + "_Dmeson_m" + var_in).Clone()
+                    #print(s + "_2018_" + l + "_wplusd_" + c + "_Dmeson_m")
                     first_hist_data = False
                 else:
-                    hist = file.Get(s + "_2018_" + l + "_wplusd_" + c + "_Dmeson_m" + var_in)
+                    hist = file.Get(s + "_2018_" + l + "_wplusd_" + c + "_Dmeson_m" + var_in).Clone()
+                    #print(s + "_2018_" + l + "_wplusd_" + c + "_Dmeson_m")
                     #print (hist)
                     data_sum.Add(hist)
             print()
         first_hist_mc = True
         first_hist_data = True
-        first_hist_sig = True
-        sig_sums += [sig_sum]
-        sig_sums_data += [sig_sum_data]
         mc_sums += [mc_sum]
         data_sums += [data_sum]
-        print(mc_sums)
-        print(data_sums)
+
+
+    for c in charges:
+        # Get Matched MC hist for signal region
+        sig_sum = ROOT.TH1F()
+        sig_sum.Sumw2()
+        sig_sum_data = ROOT.TH1F()
+        sig_sum_data.Sumw2()
+
+        for l in leps:
+            print("lep: "+l)
+            if first_hist_sig:
+                sig_sum.Clear()
+                sig_sum = file.Get("Wjets_emu_Matched_2018_" + l + "_wplusd_" + c + "_Dmeson_m" + var_in).Clone()
+                first_hist_sig = False
+                print("el MC: " + str(sig_sum.Integral()))
+            else:
+                hist = ROOT.TH1F()
+                hist = file.Get("Wjets_emu_Matched_2018_" + l + "_wplusd_" + c + "_Dmeson_m" + var_in).Clone()
+                sig_sum.Add(hist)
+                print("mu MC: " + str(hist.Integral()))
+            if first_hist_sig_data:
+                sig_sum_data.Clear()
+                sig_sum_data = file.Get("Data_2018_" + l + "_wplusd_" + c + "_Dmeson_m" + var_in).Clone()
+                first_hist_sig_data = False
+                print("el MC: " + str(sig_sum_data.Integral()))
+            else:
+                hist_data = ROOT.TH1F()
+                hist_data = file.Get("Data_2018_" + l + "_wplusd_" + c + "_Dmeson_m" + var_in).Clone()
+                sig_sum_data.Add(hist_data)
+                print("mu MC: " + str(hist_data.Integral()))
+        first_hist_sig = True
+        first_hist_sig_data = True
+        sig_sums += [sig_sum]
+        sig_sums_data += [sig_sum_data]
+        
+    print("lep sum: " + str(sig_sums[2].Integral()))
+    print("lep sum: " + str(sig_sums_data[2].Integral()))
 
 
     bkg_fns = []
@@ -126,7 +149,7 @@ if __name__ == "__main__":
         dIntSig_data = ROOT.Double()
         dIntSig_data_err = ROOT.Double()
         dIntSig_data = sig_data.IntegralAndError(sig_data.GetXaxis().FindBin(LB) + 1 , sig_data.GetXaxis().FindBin(UB) - 1, dIntSig_data_err)
-
+        print ("just dIntSig_integral: " + str(sig_data.Integral(sig_data.GetXaxis().FindBin(LB) + 1 , sig_data.GetXaxis().FindBin(UB) - 1)))
         #Replace uncertainty on Signal Error for OS - SS case
         if "OS-SS" in c:
             #OS Signal Error
@@ -138,8 +161,13 @@ if __name__ == "__main__":
         Z = dIntSig / (dErrorSR * dErrorSR + dIntSig_data_err * dIntSig_data_err)**0.5
 
         canv = ROOT.TCanvas(c,c,800,600)
-        ROOT.gStyle.SetOptFit(1111)
-        d.GetXaxis().SetRangeUser(1.7,2.2)
+        d.GetXaxis().SetRangeUser(1.71,2.2)
+        d.GetYaxis().SetRangeUser(d.GetMinimum(),d.GetMaximum()*1.3)
+        d.GetXaxis().SetTitle("D Mass [GeV]")
+        l1 = ROOT.TLatex()
+        l1.SetTextFont(72)
+        l1.SetTextSize(28)
+        l1.DrawLatex(0.18, .85, "ATLAS Internal")
         d.Draw("")
         bkg_fn.SetLineColor(2)
         bkg_fn.Draw("same")
@@ -148,15 +176,19 @@ if __name__ == "__main__":
         bkgHist = bkg_fn.GetHistogram()
         sigMinusBkg = sig_data
         sigMinusBkg.Add(bkgHist,-1)
-        sigMinusBkg.GetXaxis().SetRangeUser(1.71,2.2)
+        sigMinusBkg.GetXaxis().SetRangeUser(1.76,2.0)
+        sigMinusBkg.GetYaxis().SetRangeUser(sigMinusBkg.GetMinimum(), sigMinusBkg.GetMaximum()*1.3)
+        sigMinusBkg.GetXaxis().SetTitle("D Mass [GeV]")
         sigMinusBkg.Draw()
         sig.Scale(data_mc_SF)
+        sig.SetLineColor(2)
         sig.Draw("histsame")
         canv.Print(c+"_test2.pdf")
 
         print( "Chi2/NDF:  " + str(bkg_fn_fit.GetChisquare()/bkg_fn_fit.GetNDF()))
-        print ("Integral in Peak for Signal + Background " + c + " data: " + str(dInt) + " +/- " + str(dError))
-        print ("Integral in SR for fitted bkg to " + c + " data:         " + str(dIntSR) + " +/- " + str(dErrorSR))
-        print ("Integral in SR for Matched MC in " + c  + "              " + str(dIntSig))
+        #print ("Integral in Peak for Signal + Background " + c + " data: " + str(dInt) + " +/- " + str(dError))
+        #print ("Integral in SR for fitted bkg to " + c + " data:         " + str(dIntSR) + " +/- " + str(dErrorSR))
+        #print ("Integral in SR for Matched MC in " + c  + "              " + str(dIntSig))
         print ("Significance for " + c + "                               " + str(Z))
+        print ("dIntSig_data: " + str(dIntSig_data) + ", dIntSR: " + str(dIntSR) + ", dIntSig: " + str(dIntSig))
         print ("Normalization for data/MC in peak region vs Baseline SF :               " + str((dIntSig_data - dIntSR)/(dIntSig)) + " : " + str(data_mc_SF))
