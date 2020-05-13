@@ -190,7 +190,9 @@ Dmeson_m_DstarMin:
 Dmeson_max_trackZ0PV:
   label: 'D^{#pm} max z_{0}sin#theta_{PV}'
   unit: 'mm'
-  
+  rebin: 2
+  ratio_range: [0.5, 1.49]
+
 Dmeson_dRlep:
   rebin: 2
   ratio_range: [0.5, 1.49]
