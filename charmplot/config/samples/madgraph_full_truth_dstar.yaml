@@ -1,0 +1,71 @@
+colorScheme: cheer_up_emo_kid_extended
+
+Wjets_emu_Matched:
+  add: 
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_light_emu
+    - MG_Wjets_bjets_emu
+  subtract:
+  fillColor: "10002"
+  legendLabel: 'W+#it{D}*'
+  shortName: Wjets_emu_Matched
+
+Wjets_emu_NoMatch:
+  add: 
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_light_emu
+    - MG_Wjets_bjets_emu
+  subtract:
+  fillColor: "10006"
+  legendLabel: 'PU + HS >0 Track'
+  shortName: Wjets_emu_NoMatch
+
+Wjets_emu_DsMisMatched:
+  add: 
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_light_emu
+    - MG_Wjets_bjets_emu
+  subtract:
+  fillColor: "10003"
+  legendLabel: 'W+#it{D}_{s}'
+  shortName: Wjets_emu_Ds_MisMatched
+
+Wjets_emu_DzeroMisMatched:
+  add: 
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_light_emu
+    - MG_Wjets_bjets_emu
+  subtract:
+  fillColor: "10001"
+  legendLabel: 'W+#it{D}^{0}'
+  shortName: Wjets_emu_Dzero_MisMatched
+
+Wjets_emu_DplusMisMatched:
+  add: 
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_light_emu
+    - MG_Wjets_bjets_emu
+  subtract:
+  fillColor: "10000"
+  legendLabel: 'W+#it{D}^{+}'
+  shortName: Wjets_emu_Dplus_MisMatched
+
+Wjets_emu_BaryonMisMatched:
+  add: 
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_light_emu
+    - MG_Wjets_bjets_emu
+  subtract:
+  fillColor: "10004"
+  legendLabel: 'W+(#Lambda_{c}, #Omega_{c}, #Xi_{c})'
+  shortName: Wjets_emu_Baryon_MisMatched
+
+Wjets_emu_HardScatter:
+  add: 
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_light_emu
+    - MG_Wjets_bjets_emu
+  subtract:
+  fillColor: "10005"
+  legendLabel: '>0 Hard Track'
+  shortName: Wjets_emu_HardScatter

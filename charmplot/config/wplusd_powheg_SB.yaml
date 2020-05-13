@@ -7,7 +7,7 @@ samplesConf: powheg
 data: Data
 
 samples:
-  - Wjets_light
+  - Wjets_emu
   - Top
   - Wjets_tau
   - Zjets
@@ -19,12 +19,14 @@ channels:
       - OS_2018_el_SB_Dplus
     label: 'W#rightarrowe#nu+D, D#rightarrowK#pi#pi, OS'
     lumi: '2018'
+    save_to_file: True
 
   2018_el_wplusd_SS:
     regions:
       - SS_2018_el_SB_Dplus
     label: 'W#rightarrowe#nu+D, D#rightarrowK#pi#pi, SS'
     lumi: '2018'
+    save_to_file: True
 
   2018_el_wplusd_OS-SS:
     regions:
@@ -32,18 +34,21 @@ channels:
       - -SS_2018_el_SB_Dplus
     label: 'W#rightarrowe#nu+D, D#rightarrowK#pi#pi, OS-SS'
     lumi: '2018'
+    save_to_file: True
 
   2018_mu_wplusd_OS:
     regions:
       - OS_2018_mu_SB_Dplus
     label: 'W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, OS'
     lumi: '2018'
+    save_to_file: True
 
   2018_mu_wplusd_SS:
     regions:
       - SS_2018_mu_SB_Dplus
     label: 'W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, SS'
     lumi: '2018'
+    save_to_file: True
 
   2018_mu_wplusd_OS-SS:
     regions:
@@ -51,3 +56,4 @@ channels:
       - -SS_2018_mu_SB_Dplus
     label: 'W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, OS-SS'
     lumi: '2018'
+    save_to_file: True

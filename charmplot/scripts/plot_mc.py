@@ -119,6 +119,9 @@ if __name__ == "__main__":
     parser.add_option('-n', '--normalize',
                       action="store_true", dest="normalize",
                       help="normalize to luminosity")
+    parser.add_option('--suffix',
+                      action="store", dest="suffix",
+                      help="suffix for the output name")
     parser.add_option('--stage-out',
                       action="store_true", dest="stage_out",
                       help="copy plots to the www folder")
@@ -129,13 +132,21 @@ if __name__ == "__main__":
     # parse input arguments
     options, args = parser.parse_args()
 
+    # output name
+    out_name = options.analysis_config
+    if options.suffix:
+        out_name = out_name.split("/")
+        out_name[0] += "_" + options.suffix
+        out_name =  "/".join(out_name)
+
     # make output folder if not exist
-    if not os.path.isdir(options.analysis_config):
-        os.makedirs(options.analysis_config)
+    if not os.path.isdir(out_name):
+        os.makedirs(out_name)
+
 
     # read inputs
     from charmplot.control import globalConfig
-    conf = globalConfig.GlobalConfig(options.analysis_config)
+    conf = globalConfig.GlobalConfig(options.analysis_config, out_name)
     reader = inputDataReader.InputDataReader(conf)
 
     # do the plotting

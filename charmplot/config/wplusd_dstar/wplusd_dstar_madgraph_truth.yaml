@@ -1,8 +1,6 @@
-colorScheme: cheer_up_emo_kid
-
 variablesConf: charmed_wjets_dstar
 
-samplesConf: powheg_truth
+samplesConf: madgraph_truth
 
 data: Data
 
@@ -10,100 +8,106 @@ channels:
   2018_el_wplusd_OS:
     samples:
       - Wjets_emu_Matched | 2018_el_wplusd_OS_Matched
-      - Wjets_emu_MisMatched | 2018_el_wplusd_OS_MisMatched
       - Wjets_emu_Rest | 2018_el_wplusd_OS_Rest
-      - Top
-      - Wjets_tau
-      - Zjets
-      - Diboson
+      - Top_Matched | 2018_el_wplusd_OS_Matched
+      - Top_Rest | 2018_el_wplusd_OS_Rest
+      - Wjets_emu_NoMatch | 2018_el_wplusd_OS_NoMatch
+      - Other
+      - Zjets_emu
     regions:
       - OS_2018_el_SR_DstarKPi
-    label: 
-      - 'W#rightarrowe#nu+D*, D#rightarrow(K#pi)#pi, OS'
-      - 'PhPy8'
-    lumi: '2018'
+    label:
+      - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, OS"
+      - "MadGraph"
+    lumi: "2018"
+    save_to_file: True
 
   2018_el_wplusd_SS:
     samples:
       - Wjets_emu_Matched | 2018_el_wplusd_SS_Matched
-      - Wjets_emu_MisMatched | 2018_el_wplusd_SS_MisMatched
       - Wjets_emu_Rest | 2018_el_wplusd_SS_Rest
-      - Top
-      - Wjets_tau
-      - Zjets
-      - Diboson
+      - Top_Matched | 2018_el_wplusd_SS_Matched
+      - Top_Rest | 2018_el_wplusd_SS_Rest
+      - Wjets_emu_NoMatch | 2018_el_wplusd_SS_NoMatch
+      - Other
+      - Zjets_emu
     regions:
       - SS_2018_el_SR_DstarKPi
-    label:  
-      - 'W#rightarrowe#nu+D*, D#rightarrow(K#pi)#pi, SS'
-      - 'PhPy8'
-    lumi: '2018'
+    label:
+      - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, SS"
+      - "MadGraph"
+    lumi: "2018"
+    save_to_file: True
 
   2018_el_wplusd_OS-SS:
     samples:
       - Wjets_emu_Matched | 2018_el_wplusd_OS-SS_Matched
-      - Wjets_emu_MisMatched | 2018_el_wplusd_OS-SS_MisMatched
       - Wjets_emu_Rest | 2018_el_wplusd_OS-SS_Rest
-      - Top
-      - Wjets_tau
-      - Zjets
-      - Diboson
+      - Top_Matched | 2018_el_wplusd_OS-SS_Matched
+      - Top_Rest | 2018_el_wplusd_OS-SS_Rest
+      - Wjets_emu_NoMatch | 2018_el_wplusd_OS-SS_NoMatch
+      - Other
+      - Zjets_emu
     regions:
       - OS_2018_el_SR_DstarKPi
       - -SS_2018_el_SR_DstarKPi
-    label:   
-      - 'W#rightarrowe#nu+D*, D#rightarrow(K#pi)#pi, OS-SS'
-      - 'PhPy8'
-    lumi: '2018'
+    label:
+      - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, OS-SS"
+      - "MadGraph"
+    lumi: "2018"
+    save_to_file: True
 
   2018_mu_wplusd_OS:
     samples:
       - Wjets_emu_Matched | 2018_mu_wplusd_OS_Matched
-      - Wjets_emu_MisMatched | 2018_mu_wplusd_OS_MisMatched
       - Wjets_emu_Rest | 2018_mu_wplusd_OS_Rest
-      - Top
-      - Wjets_tau
-      - Zjets
-      - Diboson
+      - Top_Matched | 2018_mu_wplusd_OS_Matched
+      - Top_Rest | 2018_mu_wplusd_OS_Rest
+      - Wjets_emu_NoMatch | 2018_mu_wplusd_OS_NoMatch
+      - Other
+      - Zjets_emu
     regions:
       - OS_2018_mu_SR_DstarKPi
-    label:   
-      - 'W#rightarrowe#nu+D*, D#rightarrow(K#pi)#pi, OS'
-      - 'PhPy8'
-    lumi: '2018'
+    label:
+      - "W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, OS"
+      - "MadGraph"
+    lumi: "2018"
+    save_to_file: True
 
   2018_mu_wplusd_SS:
     samples:
       - Wjets_emu_Matched | 2018_mu_wplusd_SS_Matched
-      - Wjets_emu_MisMatched | 2018_mu_wplusd_SS_MisMatched
       - Wjets_emu_Rest | 2018_mu_wplusd_SS_Rest
-      - Top
-      - Wjets_tau
-      - Zjets
-      - Diboson
+      - Top_Matched | 2018_mu_wplusd_SS_Matched
+      - Top_Rest | 2018_mu_wplusd_SS_Rest
+      - Wjets_emu_NoMatch | 2018_mu_wplusd_SS_NoMatch
+      - Other
+      - Zjets_emu
     regions:
       - SS_2018_mu_SR_DstarKPi
-    label:   
-      - 'W#rightarrowe#nu+D*, D#rightarrow(K#pi)#pi, SS'
-      - 'PhPy8'
-    lumi: '2018'
-
+    label:
+      - "W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, SS"
+      - "MadGraph"
+    lumi: "2018"
+    save_to_file: True
+    
   2018_mu_wplusd_OS-SS:
     samples:
       - Wjets_emu_Matched | 2018_mu_wplusd_OS-SS_Matched
-      - Wjets_emu_MisMatched | 2018_mu_wplusd_OS-SS_MisMatched
       - Wjets_emu_Rest | 2018_mu_wplusd_OS-SS_Rest
-      - Top
-      - Wjets_tau
-      - Zjets
-      - Diboson
+      - Top_Matched | 2018_mu_wplusd_OS-SS_Matched
+      - Top_Rest | 2018_mu_wplusd_OS-SS_Rest
+      - Wjets_emu_NoMatch | 2018_mu_wplusd_OS-SS_NoMatch
+      - Other
+      - Zjets_emu
     regions:
       - OS_2018_mu_SR_DstarKPi
       - -SS_2018_mu_SR_DstarKPi
-    label: 
-      - 'W#rightarrowe#nu+D*, D#rightarrow(K#pi)#pi, OS-SS'
-      - 'PhPy8'
-    lumi: '2018'
+    label:
+      - "W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, OS-SS"
+      - "MadGraph"
+    lumi: "2018"
+    save_to_file: True
 
   2018_el_wplusd_OS_Matched:
     regions:
@@ -121,37 +125,37 @@ channels:
       - -SS_2018_el_SR_DstarKPi_Matched
     make_plots: False
 
-  2018_el_wplusd_OS_Rest:
+  2018_el_wplusd_OS_NoMatch:
     regions:
       - OS_2018_el_SR_DstarKPi_Other
     make_plots: False
 
-  2018_el_wplusd_SS_Rest:
+  2018_el_wplusd_SS_NoMatch:
     regions:
       - SS_2018_el_SR_DstarKPi_Other
     make_plots: False
 
-  2018_el_wplusd_OS-SS_Rest:
+  2018_el_wplusd_OS-SS_NoMatch:
     regions:
       - OS_2018_el_SR_DstarKPi_Other
       - -SS_2018_el_SR_DstarKPi_Other
     make_plots: False
-  
-  2018_el_wplusd_OS_MisMatched:
+
+  2018_el_wplusd_OS_Rest:
     regions:
       - OS_2018_el_SR_DstarKPi
       - -OS_2018_el_SR_DstarKPi_Matched
       - -OS_2018_el_SR_DstarKPi_Other
     make_plots: False
 
-  2018_el_wplusd_SS_MisMatched:
+  2018_el_wplusd_SS_Rest:
     regions:
       - SS_2018_el_SR_DstarKPi
       - -SS_2018_el_SR_DstarKPi_Matched
       - -SS_2018_el_SR_DstarKPi_Other
     make_plots: False
 
-  2018_el_wplusd_OS-SS_MisMatched:
+  2018_el_wplusd_OS-SS_Rest:
     regions:
       - OS_2018_el_SR_DstarKPi
       - -OS_2018_el_SR_DstarKPi_Matched
@@ -177,37 +181,37 @@ channels:
       - -SS_2018_mu_SR_DstarKPi_Matched
     make_plots: False
 
-  2018_mu_wplusd_OS_Rest:
+  2018_mu_wplusd_OS_NoMatch:
     regions:
       - OS_2018_mu_SR_DstarKPi_Other
     make_plots: False
 
-  2018_mu_wplusd_SS_Rest:
+  2018_mu_wplusd_SS_NoMatch:
     regions:
       - SS_2018_mu_SR_DstarKPi_Other
     make_plots: False
 
-  2018_mu_wplusd_OS-SS_Rest:
+  2018_mu_wplusd_OS-SS_NoMatch:
     regions:
       - OS_2018_mu_SR_DstarKPi_Other
       - -SS_2018_mu_SR_DstarKPi_Other
     make_plots: False
-  
-  2018_mu_wplusd_OS_MisMatched:
+
+  2018_mu_wplusd_OS_Rest:
     regions:
       - OS_2018_mu_SR_DstarKPi
       - -OS_2018_mu_SR_DstarKPi_Matched
       - -OS_2018_mu_SR_DstarKPi_Other
     make_plots: False
 
-  2018_mu_wplusd_SS_MisMatched:
+  2018_mu_wplusd_SS_Rest:
     regions:
       - SS_2018_mu_SR_DstarKPi
       - -SS_2018_mu_SR_DstarKPi_Matched
       - -SS_2018_mu_SR_DstarKPi_Other
     make_plots: False
 
-  2018_mu_wplusd_OS-SS_MisMatched:
+  2018_mu_wplusd_OS-SS_Rest:
     regions:
       - OS_2018_mu_SR_DstarKPi
       - -OS_2018_mu_SR_DstarKPi_Matched
