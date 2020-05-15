@@ -17,7 +17,7 @@ Wjets_emu_Top_Matched:
   legendLabel: "Matched #it{D}"
   shortName: Wjets_emu_Top_Matched
 
-Wjets_emu_Top_Rest:
+Wjets_emu_Top_Charm:
   add:
     - MG_Wjets_light_emu
     - MG_Wjets_cjets_emu
@@ -26,9 +26,22 @@ Wjets_emu_Top_Rest:
     - Top_single_top
     - Top_ttx
   subtract:
-  fillColor: "10000"
-  legendLabel: "Top/W Bkg."
-  shortName: Wjets_emu_Top_Rest
+  fillColor: "10001"
+  legendLabel: "Top/W w/ Charm."
+  shortName: Wjets_emu_Top_Charm
+
+Wjets_emu_Top_HardMisMatched:
+  add:
+    - MG_Wjets_light_emu
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_bjets_emu
+    - Top_ttbar
+    - Top_single_top
+    - Top_ttx
+  subtract:
+  fillColor: "10001"
+  legendLabel: "Top/W w/ Light."
+  shortName: Wjets_emu_Top_Charm
 
 Wjets_emu_Top_NoMatch:
   add:
@@ -43,6 +56,36 @@ Wjets_emu_Top_NoMatch:
   legendLabel: "PU #it{D}"
   shortName: Wjets_emu_Top_NoMatch
 
+Wjets_emu_Matched:
+  add:
+    - MG_Wjets_light_emu
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_bjets_emu
+  subtract:
+  fillColor: "10002"
+  legendLabel: "W+#it{D}"
+  shortName: Wjets_emu_Matched
+
+Wjets_emu_Charm:
+  add:
+    - MG_Wjets_light_emu
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_bjets_emu
+  subtract:
+  fillColor: "10001"
+  legendLabel: "W+Charm"
+  shortName: Wjets_emu_Charm
+
+Wjets_emu_HardMisMatched:
+  add:
+    - MG_Wjets_light_emu
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_bjets_emu
+  subtract:
+  fillColor: "10000"
+  legendLabel: "W+Light"
+  shortName: Wjets_emu_Charm
+
 Wjets_emu_NoMatch:
   add:
     - MG_Wjets_light_emu
@@ -56,25 +99,44 @@ Wjets_emu_NoMatch:
   legendLabel: "W+#it{D}(PU)"
   shortName: Wjets_emu_NoMatch
 
-Wjets_emu_Matched:
+Top_Matched:
   add:
-    - MG_Wjets_light_emu
-    - MG_Wjets_cjets_emu
-    - MG_Wjets_bjets_emu
+    - Top_ttbar
+    - Top_single_top
+    - Top_ttx
   subtract:
-  fillColor: "10002"
-  legendLabel: "W+#it{D}"
-  shortName: Wjets_emu_Matched
+  fillColor: "12002"
+  legendLabel: "Top w/ #it{D}"
+  shortName: Top_Matched
 
-Wjets_emu_Rest:
+Top_Charm:
   add:
-    - MG_Wjets_light_emu
-    - MG_Wjets_cjets_emu
-    - MG_Wjets_bjets_emu
+    - Top_ttbar
+    - Top_single_top
+    - Top_ttx
   subtract:
-  fillColor: "10000"
-  legendLabel: "W#rightarrowl#nu"
-  shortName: Wjets_emu_Rest
+  fillColor: "12001"
+  legendLabel: "Top w/ Charm"
+  shortName: Top_Charm
+
+Top_HardMisMatched:
+  add:
+    - Top_ttbar
+    - Top_single_top
+    - Top_ttx
+  subtract:
+  fillColor: "12000"
+  legendLabel: "Top w/ Light"
+  shortName: Top_Charm
+
+Top_NoMatch:
+  add:
+    - Top_ttbar
+    - Top_single_top
+    - Top_ttx
+  subtract:
+  fillColor: "12002"
+  legendLabel: "Top+#it{D}(PU)"
 
 Wjets_emu:
   add:
@@ -98,7 +160,7 @@ Zjets:
     - MG_Zjets_bjets_emu
     - MG_Zjets_tau
   subtract:
-  fillColor: "11000"
+  fillColor: "11002"
   legendLabel: Z+jets
 
 Zjets_emu:
@@ -107,7 +169,7 @@ Zjets_emu:
     - MG_Zjets_cjets_emu
     - MG_Zjets_bjets_emu
   subtract:
-  fillColor: "11000"
+  fillColor: "11002"
   legendLabel: Z#rightarrowll
 
 Zjets_tau:
@@ -115,35 +177,6 @@ Zjets_tau:
   subtract:
   fillColor: "11003"
   legendLabel: Z#rightarrow#tau#tau
-
-Top_Matched:
-  add:
-    - Top_ttbar
-    - Top_single_top
-    - Top_ttx
-  subtract:
-  fillColor: "12001"
-  legendLabel: "Top w/ #it{D}"
-  shortName: Top_Matched
-
-Top_Rest:
-  add:
-    - Top_ttbar
-    - Top_single_top
-    - Top_ttx
-  subtract:
-  fillColor: "12000"
-  legendLabel: "Top"
-  shortName: Top_Rest
-
-Top_NoMatch:
-  add:
-    - Top_ttbar
-    - Top_single_top
-    - Top_ttx
-  subtract:
-  fillColor: "12002"
-  legendLabel: "Top+#it{D}(PU)"
 
 Top:
   add:

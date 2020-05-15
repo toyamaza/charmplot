@@ -5,12 +5,16 @@ samplesConf: sherpa_truth
 data: Data
 
 channels:
+  include: wplusd/truth_match.yaml
+
   2018_el_wplusd_OS:
     samples:
       - Wjets_emu_Matched | 2018_el_wplusd_OS_Matched
-      - Wjets_emu_Rest | 2018_el_wplusd_OS_Rest
+      - Wjets_emu_Charm | 2018_el_wplusd_OS_Charm
+      - Wjets_emu_HardMisMatched | 2018_el_wplusd_OS_HardMisMatched
       - Top_Matched | 2018_el_wplusd_OS_Matched
-      - Top_Rest | 2018_el_wplusd_OS_Rest
+      - Top_Charm | 2018_el_wplusd_OS_Charm
+      - Top_HardMisMatched | 2018_el_wplusd_OS_HardMisMatched
       - Wjets_emu_NoMatch | 2018_el_wplusd_OS_NoMatch
       - Other
       - Zjets_emu
@@ -20,13 +24,16 @@ channels:
       - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, OS"
       - "Sherpa"
     lumi: "2018"
+    save_to_file: True
 
   2018_el_wplusd_SS:
     samples:
       - Wjets_emu_Matched | 2018_el_wplusd_SS_Matched
-      - Wjets_emu_Rest | 2018_el_wplusd_SS_Rest
+      - Wjets_emu_Charm | 2018_el_wplusd_SS_Charm
+      - Wjets_emu_HardMisMatched | 2018_el_wplusd_SS_HardMisMatched
       - Top_Matched | 2018_el_wplusd_SS_Matched
-      - Top_Rest | 2018_el_wplusd_SS_Rest
+      - Top_Charm | 2018_el_wplusd_SS_Charm
+      - Top_HardMisMatched | 2018_el_wplusd_SS_HardMisMatched
       - Wjets_emu_NoMatch | 2018_el_wplusd_SS_NoMatch
       - Other
       - Zjets_emu
@@ -36,13 +43,16 @@ channels:
       - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, SS"
       - "Sherpa"
     lumi: "2018"
+    save_to_file: True
 
   2018_el_wplusd_OS-SS:
     samples:
       - Wjets_emu_Matched | 2018_el_wplusd_OS-SS_Matched
-      - Wjets_emu_Rest | 2018_el_wplusd_OS-SS_Rest
+      - Wjets_emu_Charm | 2018_el_wplusd_OS-SS_Charm
+      - Wjets_emu_HardMisMatched | 2018_el_wplusd_OS-SS_HardMisMatched
       - Top_Matched | 2018_el_wplusd_OS-SS_Matched
-      - Top_Rest | 2018_el_wplusd_OS-SS_Rest
+      - Top_Charm | 2018_el_wplusd_OS-SS_Charm
+      - Top_HardMisMatched | 2018_el_wplusd_OS-SS_HardMisMatched
       - Wjets_emu_NoMatch | 2018_el_wplusd_OS-SS_NoMatch
       - Other
       - Zjets_emu
@@ -53,13 +63,16 @@ channels:
       - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, OS-SS"
       - "Sherpa"
     lumi: "2018"
+    save_to_file: True
 
   2018_mu_wplusd_OS:
     samples:
       - Wjets_emu_Matched | 2018_mu_wplusd_OS_Matched
-      - Wjets_emu_Rest | 2018_mu_wplusd_OS_Rest
+      - Wjets_emu_Charm | 2018_mu_wplusd_OS_Charm
+      - Wjets_emu_HardMisMatched| 2018_mu_wplusd_OS_HardMisMatched
       - Top_Matched | 2018_mu_wplusd_OS_Matched
-      - Top_Rest | 2018_mu_wplusd_OS_Rest
+      - Top_Charm | 2018_mu_wplusd_OS_Charm
+      - Top_HardMisMatched | 2018_mu_wplusd_OS_HardMisMatched
       - Wjets_emu_NoMatch | 2018_mu_wplusd_OS_NoMatch
       - Other
       - Zjets_emu
@@ -69,13 +82,16 @@ channels:
       - "W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, OS"
       - "Sherpa"
     lumi: "2018"
+    save_to_file: True
 
   2018_mu_wplusd_SS:
     samples:
       - Wjets_emu_Matched | 2018_mu_wplusd_SS_Matched
-      - Wjets_emu_Rest | 2018_mu_wplusd_SS_Rest
+      - Wjets_emu_Charm | 2018_mu_wplusd_SS_Charm
+      - Wjets_emu_HardMisMatched | 2018_mu_wplusd_SS_HardMisMatched
       - Top_Matched | 2018_mu_wplusd_SS_Matched
-      - Top_Rest | 2018_mu_wplusd_SS_Rest
+      - Top_Charm | 2018_mu_wplusd_SS_Charm
+      - Top_HardMisMatched | 2018_mu_wplusd_SS_HardMisMatched
       - Wjets_emu_NoMatch | 2018_mu_wplusd_SS_NoMatch
       - Other
       - Zjets_emu
@@ -85,13 +101,16 @@ channels:
       - "W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, SS"
       - "Sherpa"
     lumi: "2018"
-
+    save_to_file: True
+    
   2018_mu_wplusd_OS-SS:
     samples:
       - Wjets_emu_Matched | 2018_mu_wplusd_OS-SS_Matched
-      - Wjets_emu_Rest | 2018_mu_wplusd_OS-SS_Rest
+      - Wjets_emu_Charm | 2018_mu_wplusd_OS-SS_Charm
+      - Wjets_emu_HardMisMatched | 2018_mu_wplusd_OS-SS_HardMisMatched
       - Top_Matched | 2018_mu_wplusd_OS-SS_Matched
-      - Top_Rest | 2018_mu_wplusd_OS-SS_Rest
+      - Top_Charm | 2018_mu_wplusd_OS-SS_Charm
+      - Top_HardMisMatched | 2018_mu_wplusd_OS-SS_HardMisMatched
       - Wjets_emu_NoMatch | 2018_mu_wplusd_OS-SS_NoMatch
       - Other
       - Zjets_emu
@@ -102,115 +121,4 @@ channels:
       - "W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, OS-SS"
       - "Sherpa"
     lumi: "2018"
-
-  2018_el_wplusd_OS_Matched:
-    regions:
-      - OS_2018_el_SR_Dplus_Matched
-    make_plots: False
-
-  2018_el_wplusd_SS_Matched:
-    regions:
-      - SS_2018_el_SR_Dplus_Matched
-    make_plots: False
-
-  2018_el_wplusd_OS-SS_Matched:
-    regions:
-      - OS_2018_el_SR_Dplus_Matched
-      - -SS_2018_el_SR_Dplus_Matched
-    make_plots: False
-
-  2018_el_wplusd_OS_NoMatch:
-    regions:
-      - OS_2018_el_SR_Dplus_Other
-    make_plots: False
-
-  2018_el_wplusd_SS_NoMatch:
-    regions:
-      - SS_2018_el_SR_Dplus_Other
-    make_plots: False
-
-  2018_el_wplusd_OS-SS_NoMatch:
-    regions:
-      - OS_2018_el_SR_Dplus_Other
-      - -SS_2018_el_SR_Dplus_Other
-    make_plots: False
-
-  2018_el_wplusd_OS_Rest:
-    regions:
-      - OS_2018_el_SR_Dplus
-      - -OS_2018_el_SR_Dplus_Matched
-      - -OS_2018_el_SR_Dplus_Other
-    make_plots: False
-
-  2018_el_wplusd_SS_Rest:
-    regions:
-      - SS_2018_el_SR_Dplus
-      - -SS_2018_el_SR_Dplus_Matched
-      - -SS_2018_el_SR_Dplus_Other
-    make_plots: False
-
-  2018_el_wplusd_OS-SS_Rest:
-    regions:
-      - OS_2018_el_SR_Dplus
-      - -OS_2018_el_SR_Dplus_Matched
-      - -OS_2018_el_SR_Dplus_Other
-      - -SS_2018_el_SR_Dplus
-      - SS_2018_el_SR_Dplus_Matched
-      - SS_2018_el_SR_Dplus_Other
-    make_plots: False
-
-  2018_mu_wplusd_OS_Matched:
-    regions:
-      - OS_2018_mu_SR_Dplus_Matched
-    make_plots: False
-
-  2018_mu_wplusd_SS_Matched:
-    regions:
-      - SS_2018_mu_SR_Dplus_Matched
-    make_plots: False
-
-  2018_mu_wplusd_OS-SS_Matched:
-    regions:
-      - OS_2018_mu_SR_Dplus_Matched
-      - -SS_2018_mu_SR_Dplus_Matched
-    make_plots: False
-
-  2018_mu_wplusd_OS_NoMatch:
-    regions:
-      - OS_2018_mu_SR_Dplus_Other
-    make_plots: False
-
-  2018_mu_wplusd_SS_NoMatch:
-    regions:
-      - SS_2018_mu_SR_Dplus_Other
-    make_plots: False
-
-  2018_mu_wplusd_OS-SS_NoMatch:
-    regions:
-      - OS_2018_mu_SR_Dplus_Other
-      - -SS_2018_mu_SR_Dplus_Other
-    make_plots: False
-
-  2018_mu_wplusd_OS_Rest:
-    regions:
-      - OS_2018_mu_SR_Dplus
-      - -OS_2018_mu_SR_Dplus_Matched
-      - -OS_2018_mu_SR_Dplus_Other
-    make_plots: False
-
-  2018_mu_wplusd_SS_Rest:
-    regions:
-      - SS_2018_mu_SR_Dplus
-      - -SS_2018_mu_SR_Dplus_Matched
-      - -SS_2018_mu_SR_Dplus_Other
-    make_plots: False
-
-  2018_mu_wplusd_OS-SS_Rest:
-    regions:
-      - OS_2018_mu_SR_Dplus
-      - -OS_2018_mu_SR_Dplus_Matched
-      - -OS_2018_mu_SR_Dplus_Other
-      - -SS_2018_mu_SR_Dplus
-      - SS_2018_mu_SR_Dplus_Matched
-      - SS_2018_mu_SR_Dplus_Other
-    make_plots: False
+    save_to_file: True

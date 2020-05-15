@@ -12,13 +12,21 @@ Wjets_emu_Matched:
   legendLabel: "W+#it{D}"
   shortName: Wjets_light_Matched
 
-Wjets_emu_Rest:
+Wjets_emu_Charm:
+  add:
+    - Ph_Wjets_emu
+  subtract:
+  fillColor: "10001"
+  legendLabel: "W+Charm"
+  shortName: Wjets_light_HardMisMatched
+
+Wjets_emu_HardMisMatched:
   add:
     - Ph_Wjets_emu
   subtract:
   fillColor: "10000"
-  legendLabel: "W#rightarrowl#nu"
-  shortName: Wjets_light_Rest
+  legendLabel: "W+Light"
+  shortName: Wjets_light_HardMisMatched
 
 Wjets_emu_NoMatch:
   add:
@@ -63,17 +71,29 @@ Top_Matched:
     - Top_single_top
     - Top_ttx
   subtract:
-  fillColor: "12001"
+  fillColor: "12002"
   legendLabel: "Top w/ #it{D}"
+  shortName: Top_Matched
 
-Top_Rest:
+Top_Charm:
+  add:
+    - Top_ttbar
+    - Top_single_top
+    - Top_ttx
+  subtract:
+  fillColor: "12001"
+  legendLabel: "Top w/ Charm"
+  shortName: Top_Charm
+
+Top_HardMisMatched:
   add:
     - Top_ttbar
     - Top_single_top
     - Top_ttx
   subtract:
   fillColor: "12000"
-  legendLabel: "Top"
+  legendLabel: "Top w/ Light"
+  shortName: Top_Charm
 
 Top_NoMatch:
   add:

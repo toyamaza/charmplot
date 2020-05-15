@@ -119,6 +119,12 @@ class GlobalConfig(object):
         channels = []
         for name, val in conf['channels'].items():
 
+            # include additional channel from another file
+            if name == "include":
+                conf_include = tools.parse_yaml(val)
+                self.read_channel(conf_include)
+                continue
+
             # parse inputs
             label = val['label'] if 'label' in val else ''
             lumi = val['lumi'] if 'lumi' in val else 0
@@ -151,7 +157,9 @@ class GlobalConfig(object):
                 chan.set_save_to_file(val['save_to_file'])
             if 'print_scale_factors' in val:
                 chan.set_print_scale_factors(val['print_scale_factors'])
-        self.channels = channels
+
+        # add channels
+        self.channels += channels
 
     def parse_confing(self, conf):
         for arg in self.required_arguments:
