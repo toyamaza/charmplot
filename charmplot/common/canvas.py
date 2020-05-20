@@ -388,8 +388,10 @@ class Canvas2(CanvasBase):
 
 class CanvasMCRatio(Canvas2):
 
-    def __init__(self, c: channel.Channel, v: variable.Variable, x: float, y: float, y_split: float = 0.35):
+    def __init__(self, c: channel.Channel, v: variable.Variable, ratio_title:str,
+                 x: float, y: float, y_split: float = 0.35):
         super(CanvasMCRatio, self).__init__(c, v, x, y, y_split, suffix="_mc_ratio")
+        self.ratio_title = ratio_title
 
     def make_legend(self, mc_map, samples):
         self.n_entries = len(samples)
@@ -431,7 +433,7 @@ class CanvasMCRatio(Canvas2):
         # proxy histogram to control the upper axis
         self.pad1.cd()
         self.proxy_up = self.make_proxy_histogram(h, "up")
-        self.set_axis_title(self.proxy_up, events="Normalized Entries")
+        self.set_axis_title(self.proxy_up, events="Entries")
         self.set_axis_text_size(self.proxy_up, no_x_axis=(self.y_split > 0))
         self.set_x_range(self.proxy_up)
 
@@ -439,9 +441,9 @@ class CanvasMCRatio(Canvas2):
         if self.pad2:
             self.pad2.cd()
             self.proxy_dn = self.make_proxy_histogram(h, "dn")
-            self.set_axis_title(self.proxy_dn, "Data / MC" if self.y_split else "")
+            self.set_axis_title(self.proxy_dn, self.ratio_title if self.y_split else "")
             self.set_axis_text_size(self.proxy_dn, self.y_split + self.offset)
-            self.set_ratio_range(0.0, 1.99, override=True)
+            self.set_ratio_range(0.01, 1.99, override=False)
             self.set_x_range(self.proxy_dn)
 
 

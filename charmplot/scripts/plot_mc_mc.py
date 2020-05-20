@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 from charmplot.common import utils
+from charmplot.control import globalConfig
 from charmplot.control import inputDataReader
 import logging
 import os
@@ -33,6 +34,10 @@ def main(options, conf, reader):
                 logging.debug(f"skipping channel {c.name}")
                 continue
 
+        # skip channels
+        if not c.make_plots and not c.save_to_file:
+            continue
+
         # keep track of first/last plot of each channel
         first_plot = True
 
@@ -58,7 +63,7 @@ def main(options, conf, reader):
             mc_map = {s: reader.get_histogram(s, c, conf.get_var(v)) for s in samples}
 
             # canvas
-            canv = utils.make_canvas_mc_ratio(mc_map[samples[0]], conf.get_var(v), c, x=800, y=800)
+            canv = utils.make_canvas_mc_ratio(mc_map[samples[0]], conf.get_var(v), c, ratio_title=options.ratio_title, x=800, y=800)
 
             # configure histograms
             canv.configure_histograms(mc_map, options.normalize)
@@ -109,18 +114,41 @@ if __name__ == "__main__":
     parser.add_option('-n', '--normalize',
                       action="store_true", dest="normalize",
                       help="normalize to luminosity")
+    parser.add_option('-t', '--ratio-title',
+                      action="store", dest="ratio_title",
+                      default="Data / MC",
+                      help="title of the ratio")
+    parser.add_option('--suffix',
+                      action="store", dest="suffix",
+                      help="suffix for the output name")
+    parser.add_option('--stage-out',
+                      action="store_true", dest="stage_out",
+                      help="copy plots to the www folder")
 
     # parse input arguments
     options, args = parser.parse_args()
 
+    # analysis configs
+    config = options.analysis_config
+
+    # output name
+    out_name = config
+    if options.suffix:
+        out_name = out_name.split("/")
+        out_name[0] += "_" + options.suffix
+        out_name = "/".join(out_name)
+
     # make output folder if not exist
-    if not os.path.isdir(options.analysis_config):
-        os.makedirs(options.analysis_config)
+    if not os.path.isdir(out_name):
+        os.makedirs(out_name)
 
     # read inputs
-    from charmplot.control import globalConfig
-    conf = globalConfig.GlobalConfig(options.analysis_config)
+    conf = globalConfig.GlobalConfig(config, out_name)
     reader = inputDataReader.InputDataReader(conf)
 
     # do the plotting
     main(options, conf, reader)
+
+    # stage-out to the www folder
+    if options.stage_out:
+        www.stage_out_plots(conf.out_name, conf.get_variables(), x=300, y=300)

@@ -193,10 +193,6 @@ Dmeson_max_trackZ0PV:
   rebin: 2
   ratio_range: [0.5, 1.49]
 
-Dmeson_dRlep:
-  rebin: 2
-  ratio_range: [0.5, 1.49]
-
 Dmeson_max_trackZ0:
   label: 'D^{#pm} max z_{0}sin#theta'
   unit: 'mm'

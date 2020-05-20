@@ -1,0 +1,47 @@
+variablesConf: charmed_wjets
+
+channelVariables:
+  Dmeson_m:
+    label: 'D^{#pm} m'
+    unit: 'GeV'
+    rebin: 40
+    ratio_range: [0.5, 1.49]
+
+samplesConf: madgraph_wjets_truth
+
+channels:
+  include: wplusd/truth_match.yaml
+
+  2018_el_wplusd_OS_General:
+    samples:
+      - Wjets_rw_Matched | 2018_el_wplusd_OS_Matched
+      - Wjets_Matched | 2018_el_wplusd_OS_Matched
+      - Wjets_rw_HardMisMatched | 2018_el_wplusd_OS_HardMisMatched
+      - Wjets_HardMisMatched | 2018_el_wplusd_OS_HardMisMatched
+      - Wjets_rw_MxMisMatched | 2018_el_wplusd_OS_MxMisMatched
+      - Wjets_MxMisMatched | 2018_el_wplusd_OS_MxMisMatched
+      - Wjets_rw_MxMatched | 2018_el_wplusd_OS_MxMatched
+      - Wjets_MxMatched | 2018_el_wplusd_OS_MxMatched
+    regions:
+      - OS_2018_el_SR_Dplus
+    label:
+      - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, OS"
+      - "MadGraph"
+    lumi: "2018"
+
+  2018_el_wplusd_OS_Specific:
+    samples:
+      - Wjets_rw_413MisMatched | 2018_el_wplusd_OS_413MisMatched
+      - Wjets_413MisMatched | 2018_el_wplusd_OS_413MisMatched
+      - Wjets_rw_421MisMatched | 2018_el_wplusd_OS_421MisMatched
+      - Wjets_421MisMatched | 2018_el_wplusd_OS_421MisMatched
+      - Wjets_rw_431MisMatched | 2018_el_wplusd_OS_431MisMatched
+      - Wjets_431MisMatched | 2018_el_wplusd_OS_431MisMatched
+      - Wjets_rw_BaryonMisMatched | 2018_el_wplusd_OS_BaryonMisMatched
+      - Wjets_BaryonMisMatched | 2018_el_wplusd_OS_BaryonMisMatched
+    regions:
+      - OS_2018_el_SR_Dplus
+    label:
+      - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, OS"
+      - "MadGraph"
+    lumi: "2018"
