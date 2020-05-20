@@ -14,6 +14,43 @@ channels:
       - OS_2018_el_SR_Dplus_HardMisMatched
     make_plots: False
 
+  2018_el_wplusd_OS_MxMisMatched:
+    regions:
+      - OS_2018_el_SR_Dplus_MxMisMatched
+    make_plots: False
+
+  2018_el_wplusd_OS_MxMatched:
+    regions:
+      - OS_2018_el_SR_Dplus_MxMatched
+    make_plots: False
+
+  2018_el_wplusd_OS_411MisMatched:
+    regions:
+      - OS_2018_el_SR_Dplus_411MisMatched
+    make_plots: False
+
+  2018_el_wplusd_OS_413MisMatched:
+    regions:
+      - OS_2018_el_SR_Dplus_413MisMatched
+    make_plots: False
+
+  2018_el_wplusd_OS_421MisMatched:
+    regions:
+      - OS_2018_el_SR_Dplus_421MisMatched
+    make_plots: False
+
+  2018_el_wplusd_OS_431MisMatched:
+    regions:
+      - OS_2018_el_SR_Dplus_431MisMatched
+    make_plots: False
+
+  2018_el_wplusd_OS_BaryonMisMatched:
+    regions:
+      - OS_2018_el_SR_Dplus_4122MisMatched
+      - OS_2018_el_SR_Dplus_4132MisMatched
+      - OS_2018_el_SR_Dplus_4232MisMatched
+    make_plots: False
+
   2018_el_wplusd_OS_Charm:
     regions:
       - OS_2018_el_SR_Dplus

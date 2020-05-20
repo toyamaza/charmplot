@@ -99,6 +99,16 @@ Wjets_emu_NoMatch:
   legendLabel: "W+#it{D}(PU)"
   shortName: Wjets_emu_NoMatch
 
+Wjets_emu_Rest:
+  add:
+    - MG_Wjets_light_emu
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_bjets_emu
+  subtract:
+  fillColor: "10000"
+  legendLabel: "W+jets"
+  shortName: Wjets_emu_Rest
+
 Top_Matched:
   add:
     - Top_ttbar
@@ -137,6 +147,16 @@ Top_NoMatch:
   subtract:
   fillColor: "12002"
   legendLabel: "Top+#it{D}(PU)"
+
+Top_Rest:
+  add:
+    - Top_ttbar
+    - Top_single_top
+    - Top_ttx
+  subtract:
+  fillColor: "12000"
+  legendLabel: "Top"
+  shortName: Top_Rest
 
 Wjets_emu:
   add:
