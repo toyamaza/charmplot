@@ -7,12 +7,12 @@ channelVariables:
     rebin: 40
     ratio_range: [0.01, 2.99]
 
-samplesConf: sherpa_wjets_truth
+samplesConf: sherpa_vjets_truth
 
 channels:
   include: wplusd/truth_match.yaml
 
-  2018_el_wplusd_OS_General:
+  2018_el_wjets_OS_General:
     samples:
       - Wjets_rw_Matched | 2018_el_wplusd_OS_Matched
       - Wjets_Matched | 2018_el_wplusd_OS_Matched
@@ -29,7 +29,7 @@ channels:
       - "Sherpa"
     lumi: "2018"
 
-  2018_el_wplusd_OS_Specific:
+  2018_el_wjets_OS_Specific:
     samples:
       - Wjets_rw_413MisMatched | 2018_el_wplusd_OS_413MisMatched
       - Wjets_413MisMatched | 2018_el_wplusd_OS_413MisMatched
@@ -43,5 +43,39 @@ channels:
       - OS_2018_el_SR_Dplus
     label:
       - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, OS"
+      - "Sherpa"
+    lumi: "2018"
+
+  2018_el_zjets_OS_General:
+    samples:
+      - Zjets_rw_Matched | 2018_el_wplusd_OS_Matched
+      - Zjets_Matched | 2018_el_wplusd_OS_Matched
+      - Zjets_rw_HardMisMatched | 2018_el_wplusd_OS_HardMisMatched
+      - Zjets_HardMisMatched | 2018_el_wplusd_OS_HardMisMatched
+      - Zjets_rw_MxMisMatched | 2018_el_wplusd_OS_MxMisMatched
+      - Zjets_MxMisMatched | 2018_el_wplusd_OS_MxMisMatched
+      - Zjets_rw_MxMatched | 2018_el_wplusd_OS_MxMatched
+      - Zjets_MxMatched | 2018_el_wplusd_OS_MxMatched
+    regions:
+      - OS_2018_el_SR_Dplus
+    label:
+      - "Z#rightarrowee+D, D#rightarrowK#pi#pi, OS"
+      - "Sherpa"
+    lumi: "2018"
+
+  2018_el_zjets_OS_Specific:
+    samples:
+      - Zjets_rw_413MisMatched | 2018_el_wplusd_OS_413MisMatched
+      - Zjets_413MisMatched | 2018_el_wplusd_OS_413MisMatched
+      - Zjets_rw_421MisMatched | 2018_el_wplusd_OS_421MisMatched
+      - Zjets_421MisMatched | 2018_el_wplusd_OS_421MisMatched
+      - Zjets_rw_431MisMatched | 2018_el_wplusd_OS_431MisMatched
+      - Zjets_431MisMatched | 2018_el_wplusd_OS_431MisMatched
+      - Zjets_rw_BaryonMisMatched | 2018_el_wplusd_OS_BaryonMisMatched
+      - Zjets_BaryonMisMatched | 2018_el_wplusd_OS_BaryonMisMatched
+    regions:
+      - OS_2018_el_SR_Dplus
+    label:
+      - "Z#rightarrowee+D, D#rightarrowK#pi#pi, OS"
       - "Sherpa"
     lumi: "2018"

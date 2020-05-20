@@ -115,3 +115,115 @@ Wjets_rw_BaryonMisMatched:
   subtract:
   lineColor: "15002"
   legendLabel: "W+D_{rw} (BaryonMis)"
+
+Zjets_Matched:
+  add:
+    - MG_Zjets
+  subtract:
+  lineColor: "10004"
+  legendLabel: "Z+D (Matched)"
+
+Zjets_HardMisMatched:
+  add:
+    - MG_Zjets
+  subtract:
+  lineColor: "11001"
+  legendLabel: "Z+D (HardMis)"
+
+Zjets_MxMisMatched:
+  add:
+    - MG_Zjets
+  subtract:
+  lineColor: "14004"
+  legendLabel: "Z+D (MxMis)"
+
+Zjets_MxMatched:
+  add:
+    - MG_Zjets
+  subtract:
+  lineColor: "15001"
+  legendLabel: "Z+D (Mx)"
+
+Zjets_413MisMatched:
+  add:
+    - MG_Zjets
+  subtract:
+  lineColor: "10004"
+  legendLabel: "Z+D (413Mis)"
+
+Zjets_421MisMatched:
+  add:
+    - MG_Zjets
+  subtract:
+  lineColor: "11001"
+  legendLabel: "Z+D (421Mis)"
+
+Zjets_431MisMatched:
+  add:
+    - MG_Zjets
+  subtract:
+  lineColor: "14004"
+  legendLabel: "Z+D (431Mis)"
+
+Zjets_BaryonMisMatched:
+  add:
+    - MG_Zjets
+  subtract:
+  lineColor: "15001"
+  legendLabel: "Z+D (BaryonMis)"
+
+Zjets_rw_Matched:
+  add:
+    - MG_Zjets_rw
+  subtract:
+  lineColor: "10005"
+  legendLabel: "Z+D_{rw} (Matched)"
+
+Zjets_rw_HardMisMatched:
+  add:
+    - MG_Zjets_rw
+  subtract:
+  lineColor: "11002"
+  legendLabel: "Z+D_{rw} (HardMis)"
+
+Zjets_rw_MxMisMatched:
+  add:
+    - MG_Zjets_rw
+  subtract:
+  lineColor: "14005"
+  legendLabel: "Z+D_{rw} (MxMis)"
+
+Zjets_rw_MxMatched:
+  add:
+    - MG_Zjets_rw
+  subtract:
+  lineColor: "15002"
+  legendLabel: "Z+D_{rw} (Mx)"
+
+Zjets_rw_413MisMatched:
+  add:
+    - MG_Zjets_rw
+  subtract:
+  lineColor: "10005"
+  legendLabel: "Z+D_{rw} (413Mis)"
+
+Zjets_rw_421MisMatched:
+  add:
+    - MG_Zjets_rw
+  subtract:
+  lineColor: "11002"
+  legendLabel: "Z+D_{rw} (421Mis)"
+
+Zjets_rw_431MisMatched:
+  add:
+    - MG_Zjets_rw
+  subtract:
+  lineColor: "14005"
+  legendLabel: "Z+D_{rw} (431Mis)"
+
+Zjets_rw_BaryonMisMatched:
+  add:
+    - MG_Zjets_rw
+  subtract:
+  lineColor: "15002"
+  legendLabel: "Z+D_{rw} (BaryonMis)"
