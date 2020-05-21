@@ -69,7 +69,7 @@ channels:
     samples:
       - Wjets_emu_Matched | 2018_mu_wplusd_OS_Matched
       - Wjets_emu_Charm | 2018_mu_wplusd_OS_Charm
-      - Wjets_emu_HardMisMatched| 2018_mu_wplusd_OS_HardMisMatched
+      - Wjets_emu_HardMisMatched | 2018_mu_wplusd_OS_HardMisMatched
       - Top_Matched | 2018_mu_wplusd_OS_Matched
       - Top_Charm | 2018_mu_wplusd_OS_Charm
       - Top_HardMisMatched | 2018_mu_wplusd_OS_HardMisMatched
