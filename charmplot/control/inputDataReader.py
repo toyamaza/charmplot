@@ -96,6 +96,7 @@ class InputDataReader(object):
             variables = {}
             for c in channel.get_all():
                 directory = f.Get(c)
+                logger.info(f"directory: {c}")
                 for key in directory.GetListOfKeys():
                     name = key.GetName()
                     var_name = name
