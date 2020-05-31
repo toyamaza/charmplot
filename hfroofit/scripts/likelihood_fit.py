@@ -200,11 +200,11 @@ if __name__ == "__main__":
     parser.add_option('-f', '--fit-constraints',
                       action="store", dest="constraints",
                       help="fit constraints",
-                      default="Top_Rest:1:0:10,Wjets_emu_Rest:1:0:10")
+                      default="Wjets_emu_Top_Rest:1:0:10")
     parser.add_option('-s', '--samples',
                       action="store", dest="samples",
                       help="list of samples to fit",
-                      default="Wjets_emu_Matched,Wjets_emu_Rest,Top_Matched,Top_Rest,Wjets_emu_NoMatch,Other,Zjets_emu,Multijet")
+                      default="Wjets_emu_Top_Matched,Wjets_emu_Top_Rest,Wjets_emu_NoMatch,Other,Zjets_emu,Multijet")
     parser.add_option('-c', '--channels',
                       action="store", dest="channels",
                       help="channels to fit",

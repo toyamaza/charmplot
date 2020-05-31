@@ -21,7 +21,7 @@ channels:
     scale_factors:
       input_file: likelihood_fit/wjets/export_powheg_lepton_pt/2018_el_QCD_PT_Fit.json
       scale_factors:
-        Wjets_emu: mu_Wjets_emu
+        Wjets_emu: mu_Wjets_emu_el
         Multijet: mu_QCD_el
     label:
       - "2018 el PT Fit Region"
@@ -42,7 +42,7 @@ channels:
     scale_factors:
       input_file: likelihood_fit/wjets/export_powheg_lepton_pt/2018_mu_QCD_PT_Fit.json
       scale_factors:
-        Wjets_emu: mu_Wjets_emu
+        Wjets_emu: mu_Wjets_emu_muon
         Multijet: mu_QCD_mu
     label:
       - "2018 mu PT Fit Region"
@@ -63,7 +63,7 @@ channels:
     scale_factors:
       input_file: likelihood_fit/wjets/export_powheg_lepton_pt/2018_el_QCD_PT_Fit.json
       scale_factors:
-        Wjets_emu: mu_Wjets_emu
+        Wjets_emu: mu_Wjets_emu_el
         Multijet: mu_QCD_extrapolated_el
     label: "2018 el SR"
     lumi: "2018"
@@ -82,7 +82,7 @@ channels:
     scale_factors:
       input_file: likelihood_fit/wjets/export_powheg_lepton_pt/2018_mu_QCD_PT_Fit.json
       scale_factors:
-        Wjets_emu: mu_Wjets_emu
+        Wjets_emu: mu_Wjets_emu_muon
         Multijet: mu_QCD_extrapolated_mu
     label: "2018 mu SR"
     lumi: "2018"

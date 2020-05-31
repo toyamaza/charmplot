@@ -1,6 +1,6 @@
 variablesConf: charmed_wjets
 
-samplesConf: madgraph_truth
+samplesConf: powheg_truth
 
 data: Data
 
@@ -18,14 +18,14 @@ channels:
       - Zjets_emu
       - Multijet | 2018_mu_wplusd_PT_Template_OS
     scale_factors:
-      input_file: likelihood_fit/wplusd/export_madgraph_truth_mu_SB/2018_mu_wplusd_PT_Fit_OS.json
+      input_file: likelihood_fit/wplusd/export_powheg_truth_mu_SB/2018_mu_wplusd_PT_Fit_OS.json
       scale_factors:
         Wjets_emu_Top_Rest: mu_Wjets_emu_Top_Rest_OS
         Wjets_emu_NoMatch: mu_Wjets_emu_NoMatch_OS
         Multijet: mu_QCD_OS
     label:
        - 'W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, OS'
-       - 'Fit Region, MadGraph'
+       - 'Fit Region, Powheg'
     lumi: "2018"
     print_scale_factors: True
 
@@ -40,14 +40,14 @@ channels:
       - Zjets_emu
       - Multijet | 2018_mu_wplusd_PT_Template_SS
     scale_factors:
-      input_file: likelihood_fit/wplusd/export_madgraph_truth_mu_SB/2018_mu_wplusd_PT_Fit_SS.json
+      input_file: likelihood_fit/wplusd/export_powheg_truth_mu_SB/2018_mu_wplusd_PT_Fit_SS.json
       scale_factors:
         Wjets_emu_Top_Rest: mu_Wjets_emu_Top_Rest_SS
         Wjets_emu_NoMatch: mu_Wjets_emu_NoMatch_SS
         Multijet: mu_QCD_SS
     label:
        - 'W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, SS'
-       - 'Fit Region, MadGraph'
+       - 'Fit Region, Powheg'
     lumi: "2018"
     print_scale_factors: True
 
@@ -64,8 +64,8 @@ channels:
       - Multijet | 2018_mu_wplusd_PT_Template_OS-SS
     scale_factors:
       input_file:
-        - likelihood_fit/wplusd/export_madgraph_truth_mu_SB/2018_mu_wplusd_PT_Fit_OS.json
-        - likelihood_fit/wplusd/export_madgraph_truth_mu_SB/2018_mu_wplusd_PT_Fit_SS.json
+        - likelihood_fit/wplusd/export_powheg_truth_mu_SB/2018_mu_wplusd_PT_Fit_OS.json
+        - likelihood_fit/wplusd/export_powheg_truth_mu_SB/2018_mu_wplusd_PT_Fit_SS.json
       scale_factors:
         Wjets_emu_Top_Rest | OS: mu_Wjets_emu_Top_Rest_OS
         Wjets_emu_Top_Rest | SS: mu_Wjets_emu_Top_Rest_SS
@@ -75,7 +75,7 @@ channels:
         Multijet | SS: mu_QCD_SS
     label:
        - 'W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, OS-SS'
-       - 'Fit Region, MadGraph'
+       - 'Fit Region, Powheg'
     lumi: "2018"
     print_scale_factors: True
 
@@ -90,14 +90,14 @@ channels:
       - Zjets_emu
       - Multijet | 2018_mu_wplusd_PTCut_Template_OS
     scale_factors:
-      input_file: likelihood_fit/wplusd/export_madgraph_truth_mu_SB/2018_mu_wplusd_PT_Fit_OS.json
+      input_file: likelihood_fit/wplusd/export_powheg_truth_mu_SB/2018_mu_wplusd_PT_Fit_OS.json
       scale_factors:
         Wjets_emu_Top_Rest: mu_Wjets_emu_Top_Rest_OS
         Wjets_emu_NoMatch: mu_Wjets_emu_NoMatch_OS
         Multijet: mu_QCD_extrapolated_OS
     label:
        - 'W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, OS'
-       - 'Signal Region, MadGraph'
+       - 'Signal Region, Powheg'
     lumi: '2018'
     print_scale_factors: False
 
@@ -112,14 +112,14 @@ channels:
       - Zjets_emu
       - Multijet | 2018_mu_wplusd_PTCut_Template_SS
     scale_factors:
-      input_file: likelihood_fit/wplusd/export_madgraph_truth_mu_SB/2018_mu_wplusd_PT_Fit_SS.json
+      input_file: likelihood_fit/wplusd/export_powheg_truth_mu_SB/2018_mu_wplusd_PT_Fit_SS.json
       scale_factors:
         Wjets_emu_Top_Rest: mu_Wjets_emu_Top_Rest_SS
         Wjets_emu_NoMatch: mu_Wjets_emu_NoMatch_SS
         Multijet: mu_QCD_extrapolated_SS
     label:
        - 'W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, SS'
-       - 'Signal Region, MadGraph'
+       - 'Signal Region, Powheg'
     lumi: '2018'
     print_scale_factors: True
 
@@ -136,8 +136,8 @@ channels:
       - Multijet | 2018_mu_wplusd_PTCut_Template_OS-SS
     scale_factors:
       input_file:
-        - likelihood_fit/wplusd/export_madgraph_truth_mu_SB/2018_mu_wplusd_PT_Fit_OS.json
-        - likelihood_fit/wplusd/export_madgraph_truth_mu_SB/2018_mu_wplusd_PT_Fit_SS.json
+        - likelihood_fit/wplusd/export_powheg_truth_mu_SB/2018_mu_wplusd_PT_Fit_OS.json
+        - likelihood_fit/wplusd/export_powheg_truth_mu_SB/2018_mu_wplusd_PT_Fit_SS.json
       scale_factors:
         Wjets_emu_Top_Rest | OS: mu_Wjets_emu_Top_Rest_OS
         Wjets_emu_Top_Rest | SS: mu_Wjets_emu_Top_Rest_SS
@@ -147,7 +147,7 @@ channels:
         Multijet | SS: mu_QCD_extrapolated_SS
     label:
        - 'W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, OS-SS'
-       - 'Signal Region, MadGraph'
+       - 'Signal Region, Powheg'
     lumi: '2018'
     print_scale_factors: True
 
@@ -163,14 +163,14 @@ channels:
       - Zjets_emu
       - Multijet | 2018_mu_wplusd_PTCut_Template_OS_SBplusCentral
     scale_factors:
-      input_file: likelihood_fit/wplusd/export_madgraph_truth_mu_SB/2018_mu_wplusd_PT_Fit_OS.json
+      input_file: likelihood_fit/wplusd/export_powheg_truth_mu_SB/2018_mu_wplusd_PT_Fit_OS.json
       scale_factors:
         Wjets_emu_Top_Rest: mu_Wjets_emu_Top_Rest_OS
         Wjets_emu_NoMatch: mu_Wjets_emu_NoMatch_OS
         Multijet: mu_QCD_extrapolated_OS
     label:
        - 'W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, OS'
-       - 'Signal Region, MadGraph'
+       - 'Signal Region, Powheg'
     lumi: '2018'
     print_scale_factors: False
 
@@ -186,14 +186,14 @@ channels:
       - Zjets_emu
       - Multijet | 2018_mu_wplusd_PTCut_Template_SS_SBplusCentral
     scale_factors:
-      input_file: likelihood_fit/wplusd/export_madgraph_truth_mu_SB/2018_mu_wplusd_PT_Fit_SS.json
+      input_file: likelihood_fit/wplusd/export_powheg_truth_mu_SB/2018_mu_wplusd_PT_Fit_SS.json
       scale_factors:
         Wjets_emu_Top_Rest: mu_Wjets_emu_Top_Rest_SS
         Wjets_emu_NoMatch: mu_Wjets_emu_NoMatch_SS
         Multijet: mu_QCD_extrapolated_SS
     label:
        - 'W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, SS'
-       - 'Signal Region, MadGraph'
+       - 'Signal Region, Powheg'
     lumi: '2018'
     print_scale_factors: False
 
@@ -212,8 +212,8 @@ channels:
       - Multijet | 2018_mu_wplusd_PTCut_Template_OS-SS_SBplusCentral
     scale_factors:
       input_file:
-        - likelihood_fit/wplusd/export_madgraph_truth_mu_SB/2018_mu_wplusd_PT_Fit_OS.json
-        - likelihood_fit/wplusd/export_madgraph_truth_mu_SB/2018_mu_wplusd_PT_Fit_SS.json
+        - likelihood_fit/wplusd/export_powheg_truth_mu_SB/2018_mu_wplusd_PT_Fit_OS.json
+        - likelihood_fit/wplusd/export_powheg_truth_mu_SB/2018_mu_wplusd_PT_Fit_SS.json
       scale_factors:
         Wjets_emu_Top_Rest | OS: mu_Wjets_emu_Top_Rest_OS
         Wjets_emu_Top_Rest | SS: mu_Wjets_emu_Top_Rest_SS
@@ -223,7 +223,7 @@ channels:
         Multijet | SS: mu_QCD_extrapolated_SS
     label:
        - 'W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, OS-SS'
-       - 'Signal Region, MadGraph'
+       - 'Signal Region, Powheg'
     lumi: '2018'
     print_scale_factors: False
 
@@ -240,8 +240,8 @@ channels:
       - Multijet | 2018_mu_wplusd_PTCut_Template_OS-SS_Central
     scale_factors:
       input_file:
-        - likelihood_fit/wplusd/export_madgraph_truth_mu_SB/2018_mu_wplusd_PT_Fit_OS.json
-        - likelihood_fit/wplusd/export_madgraph_truth_mu_SB/2018_mu_wplusd_PT_Fit_SS.json
+        - likelihood_fit/wplusd/export_powheg_truth_mu_SB/2018_mu_wplusd_PT_Fit_OS.json
+        - likelihood_fit/wplusd/export_powheg_truth_mu_SB/2018_mu_wplusd_PT_Fit_SS.json
       scale_factors:
         Wjets_emu_Top_Rest | OS: mu_Wjets_emu_Top_Rest_OS
         Wjets_emu_Top_Rest | SS: mu_Wjets_emu_Top_Rest_SS
@@ -251,6 +251,6 @@ channels:
         Multijet | SS: mu_QCD_extrapolated_SS
     label:
        - 'W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, OS-SS'
-       - 'Signal Region, MadGraph'
+       - 'Signal Region, Powheg'
     lumi: '2018'
     print_scale_factors: False

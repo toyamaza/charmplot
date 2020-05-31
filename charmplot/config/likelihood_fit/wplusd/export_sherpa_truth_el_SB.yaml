@@ -1,6 +1,6 @@
 variablesConf: charmed_wjets
 
-samplesConf: madgraph_truth
+samplesConf: sherpa_truth
 
 data: Data
 
@@ -50,7 +50,7 @@ channels:
       - Zjets_emu
     label:
        - 'W#rightarrowe#nu+D, D#rightarrowK#pi#pi, OS'
-       - 'Fit Region, MadGraph'
+       - 'Fit Region, Sherpa'
     lumi: "2018"
 
   2018_el_wplusd_PT_PreFit_SS:
@@ -64,7 +64,7 @@ channels:
       - Zjets_emu
     label:
        - 'W#rightarrowe#nu+D, D#rightarrowK#pi#pi, SS'
-       - 'Fit Region, MadGraph'
+       - 'Fit Region, Sherpa'
     lumi: "2018"
 
   2018_el_wplusd_PT_Fit_OS:
@@ -130,7 +130,7 @@ channels:
       - OS_2018_el_SR_DplusSideBand
     label:
       - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, OS"
-      - "MadGraph"
+      - "Sherpa"
     lumi: "2018"
 
   2018_el_wplusd_SS:
@@ -144,7 +144,7 @@ channels:
       - SS_2018_el_SR_DplusSideBand
     label:
       - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, SS"
-      - "MadGraph"
+      - "Sherpa"
     lumi: "2018"
 
   2018_el_wplusd_OS_SR:
@@ -159,7 +159,7 @@ channels:
       - OS_2018_el_SR_DplusCentral
     label:
       - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, OS"
-      - "MadGraph"
+      - "Sherpa"
     lumi: "2018"
 
   2018_el_wplusd_SS_SR:
@@ -174,5 +174,5 @@ channels:
       - SS_2018_el_SR_DplusCentral
     label:
       - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, SS"
-      - "MadGraph"
+      - "Sherpa"
     lumi: "2018"

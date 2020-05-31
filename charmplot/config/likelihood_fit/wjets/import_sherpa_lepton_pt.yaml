@@ -23,9 +23,9 @@ channels:
     scale_factors:
       input_file: likelihood_fit/wjets/export_sherpa_lepton_pt/2018_el_QCD_PT_Fit.json
       scale_factors:
-        Wjets_light_emu: mu_Wjets_emu
-        Wjets_bjets_emu: mu_Wjets_emu
-        Wjets_cjets_emu: mu_Wjets_emu
+        Wjets_light_emu: mu_Wjets_emu_el
+        Wjets_bjets_emu: mu_Wjets_emu_el
+        Wjets_cjets_emu: mu_Wjets_emu_el
         Multijet: mu_QCD_el
     label:
       - "2018 el PT Fit Region"
@@ -48,10 +48,10 @@ channels:
     scale_factors:
       input_file: likelihood_fit/wjets/export_sherpa_lepton_pt/2018_mu_QCD_PT_Fit.json
       scale_factors:
-        Wjets_light_emu: mu_Wjets_emu
-        Wjets_bjets_emu: mu_Wjets_emu
-        Wjets_cjets_emu: mu_Wjets_emu
-        Multijet: mu_QCD_mu
+        Wjets_light_emu: mu_Wjets_emu_muon
+        Wjets_bjets_emu: mu_Wjets_emu_muon
+        Wjets_cjets_emu: mu_Wjets_emu_muon
+        Multijet: mu_QCD_muon
     label:
       - "2018 mu PT Fit Region"
       - "MET > 30 GeV, no m_{T} cut"
@@ -73,9 +73,9 @@ channels:
     scale_factors:
       input_file: likelihood_fit/wjets/export_sherpa_lepton_pt/2018_el_QCD_PT_Fit.json
       scale_factors:
-        Wjets_light_emu: mu_Wjets_emu
-        Wjets_bjets_emu: mu_Wjets_emu
-        Wjets_cjets_emu: mu_Wjets_emu
+        Wjets_light_emu: mu_Wjets_emu_el
+        Wjets_bjets_emu: mu_Wjets_emu_el
+        Wjets_cjets_emu: mu_Wjets_emu_el
         Multijet: mu_QCD_extrapolated_el
     label: "2018 el SR"
     lumi: "2018"
@@ -96,10 +96,10 @@ channels:
     scale_factors:
       input_file: likelihood_fit/wjets/export_sherpa_lepton_pt/2018_mu_QCD_PT_Fit.json
       scale_factors:
-        Wjets_light_emu: mu_Wjets_emu
-        Wjets_bjets_emu: mu_Wjets_emu
-        Wjets_cjets_emu: mu_Wjets_emu
-        Multijet: mu_QCD_extrapolated_mu
+        Wjets_light_emu: mu_Wjets_emu_muon
+        Wjets_bjets_emu: mu_Wjets_emu_muon
+        Wjets_cjets_emu: mu_Wjets_emu_muon
+        Multijet: mu_QCD_extrapolated_muon
     label: "2018 mu SR"
     lumi: "2018"
 

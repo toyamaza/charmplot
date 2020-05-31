@@ -1,6 +1,6 @@
 variablesConf: charmed_wjets
 
-samplesConf: madgraph_truth
+samplesConf: powheg_truth
 
 data: Data
 
@@ -50,7 +50,7 @@ channels:
       - Zjets_emu
     label:
        - 'W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, OS'
-       - 'Fit Region, MadGraph'
+       - 'Fit Region, Powheg'
     lumi: "2018"
 
   2018_mu_wplusd_PT_PreFit_SS:
@@ -64,7 +64,7 @@ channels:
       - Zjets_emu
     label:
        - 'W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, SS'
-       - 'Fit Region, MadGraph'
+       - 'Fit Region, Powheg'
     lumi: "2018"
 
   2018_mu_wplusd_PT_Fit_OS:
@@ -130,7 +130,7 @@ channels:
       - OS_2018_mu_SR_DplusSideBand
     label:
       - "W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, OS"
-      - "MadGraph"
+      - "Powheg"
     lumi: "2018"
 
   2018_mu_wplusd_SS:
@@ -144,7 +144,7 @@ channels:
       - SS_2018_mu_SR_DplusSideBand
     label:
       - "W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, SS"
-      - "MadGraph"
+      - "Powheg"
     lumi: "2018"
 
   2018_mu_wplusd_PT_Template_OS_Matched:

@@ -4,6 +4,76 @@ Data:
   add: data
   subtract:
 
+Wjets_emu_Top_Matched:
+  add:
+    - Sh_Wjets_light_emu
+    - Sh_Wjets_cjets_emu
+    - Sh_Wjets_bjets_emu
+    - Sh_Wjets_highpt_emu
+    - Top_ttbar
+    - Top_single_top
+    - Top_ttx
+  subtract:
+  fillColor: "10002"
+  legendLabel: "Sig. W+#it{D}"
+  shortName: Wjets_emu_Top_Matched
+
+Wjets_emu_Top_Rest:
+  add:
+    - Sh_Wjets_light_emu
+    - Sh_Wjets_cjets_emu
+    - Sh_Wjets_bjets_emu
+    - Sh_Wjets_highpt_emu
+    - Top_ttbar
+    - Top_single_top
+    - Top_ttx
+  subtract:
+  fillColor: "10000"
+  legendLabel: "Bkg. W+#it{D}"
+  shortName: Wjets_emu_Top_Rest
+
+Wjets_emu_Top_Charm:
+  add:
+    - Sh_Wjets_light_emu
+    - Sh_Wjets_cjets_emu
+    - Sh_Wjets_bjets_emu
+    - Sh_Wjets_highpt_emu
+    - Top_ttbar
+    - Top_single_top
+    - Top_ttx
+  subtract:
+  fillColor: "10001"
+  legendLabel: "Top/W w/ Charm."
+  shortName: Wjets_emu_Top_Charm
+
+Wjets_emu_Top_HardMisMatched:
+  add:
+    - Sh_Wjets_light_emu
+    - Sh_Wjets_cjets_emu
+    - Sh_Wjets_bjets_emu
+    - Sh_Wjets_highpt_emu
+    - Top_ttbar
+    - Top_single_top
+    - Top_ttx
+  subtract:
+  fillColor: "10001"
+  legendLabel: "Top/W w/ Light."
+  shortName: Wjets_emu_Top_Charm
+
+Wjets_emu_Top_NoMatch:
+  add:
+    - Sh_Wjets_light_emu
+    - Sh_Wjets_cjets_emu
+    - Sh_Wjets_bjets_emu
+    - Sh_Wjets_highpt_emu
+    - Top_ttbar
+    - Top_single_top
+    - Top_ttx
+  subtract:
+  fillColor: "10004"
+  legendLabel: "PU #it{D}"
+  shortName: Wjets_emu_Top_NoMatch
+
 Wjets_emu_Matched:
   add:
     - Sh_Wjets_light_emu
