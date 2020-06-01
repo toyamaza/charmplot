@@ -95,5 +95,4 @@ channels:
     label:
       - "W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, OS-SS"
       - "Sherpa"
-    extra_rebin: 2
     lumi: "2018"
