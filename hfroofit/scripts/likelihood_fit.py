@@ -122,9 +122,11 @@ def main(options):
             s.SetHisto(histograms[channel][sample])
             if "Multijet" in sample:
                 s.SetNormalizeByTheory(False)
+                s.ActivateStatError()
                 s.AddNormFactor(f"mu_QCD_{channel_short[channel]}", 1, -100, 100)
                 floatPars += [f"mu_QCD_{channel_short[channel]}"]
             else:
+                s.ActivateStatError()
                 s.SetNormalizeByTheory(True)
             Samples[channel].update({sample: s})
 
@@ -144,7 +146,7 @@ def main(options):
     Channels = dict()
     for channel in channels:
         c = ROOT.RooStats.HistFactory.Channel(channel_short[channel])
-        c.SetStatErrorConfig(0.05, "Poisson")
+        c.SetStatErrorConfig(0.00, "Poisson")
         c.SetData(data[channel])
         for sample in samples:
             c.AddSample(Samples[channel][sample])
