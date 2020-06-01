@@ -1,302 +1,302 @@
 channels:
   2018_mu_wplusd_PT_Template_OS_Matched:
     regions:
-      - OS_2018_mu_QCD_DplusSideBand_Matched
+      - OS_2018_mu_QCD_Dplus_SideBand_Matched
     make_plots: False
 
   2018_mu_wplusd_PT_Template_SS_Matched:
     regions:
-      - SS_2018_mu_QCD_DplusSideBand_Matched
+      - SS_2018_mu_QCD_Dplus_SideBand_Matched
     make_plots: False
 
   2018_mu_wplusd_PT_Template_OS-SS:
     regions:
-      - OS_2018_mu_QCD_DplusSideBand
-      - -SS_2018_mu_QCD_DplusSideBand
+      - OS_2018_mu_QCD_Dplus_SideBand
+      - -SS_2018_mu_QCD_Dplus_SideBand
     make_plots: False
 
   2018_mu_wplusd_PT_Template_OS_NoMatch:
     regions:
-      - OS_2018_mu_QCD_DplusSideBand_Other
+      - OS_2018_mu_QCD_Dplus_SideBand_Other
     make_plots: False
 
   2018_mu_wplusd_PT_Template_SS_NoMatch:
     regions:
-      - SS_2018_mu_QCD_DplusSideBand_Other
+      - SS_2018_mu_QCD_Dplus_SideBand_Other
     make_plots: False
 
   2018_mu_wplusd_PT_Template_OS_Rest:
     regions:
-      - OS_2018_mu_QCD_DplusSideBand
-      - -OS_2018_mu_QCD_DplusSideBand_Matched
-      - -OS_2018_mu_QCD_DplusSideBand_Other
+      - OS_2018_mu_QCD_Dplus_SideBand
+      - -OS_2018_mu_QCD_Dplus_SideBand_Matched
+      - -OS_2018_mu_QCD_Dplus_SideBand_Other
     make_plots: False
 
   2018_mu_wplusd_PT_Template_SS_Rest:
     regions:
-      - SS_2018_mu_QCD_DplusSideBand
-      - -SS_2018_mu_QCD_DplusSideBand_Matched
-      - -SS_2018_mu_QCD_DplusSideBand_Other
+      - SS_2018_mu_QCD_Dplus_SideBand
+      - -SS_2018_mu_QCD_Dplus_SideBand_Matched
+      - -SS_2018_mu_QCD_Dplus_SideBand_Other
     make_plots: False
 
   2018_mu_wplusd_PT_Loose_OS_Matched:
     regions:
-      - OS_2018_mu_DplusSideBand_Matched
+      - OS_2018_mu_Dplus_SideBand_Matched
     make_plots: False
 
   2018_mu_wplusd_PT_Loose_SS_Matched:
     regions:
-      - SS_2018_mu_DplusSideBand_Matched
+      - SS_2018_mu_Dplus_SideBand_Matched
     make_plots: False
 
   2018_mu_wplusd_PT_Loose_OS_NoMatch:
     regions:
-      - OS_2018_mu_DplusSideBand_Other
+      - OS_2018_mu_Dplus_SideBand_Other
     make_plots: False
 
   2018_mu_wplusd_PT_Loose_SS_NoMatch:
     regions:
-      - SS_2018_mu_DplusSideBand_Other
+      - SS_2018_mu_Dplus_SideBand_Other
     make_plots: False
 
   2018_mu_wplusd_PT_Loose_OS_Rest:
     regions:
-      - OS_2018_mu_DplusSideBand
-      - -OS_2018_mu_DplusSideBand_Matched
-      - -OS_2018_mu_DplusSideBand_Other
+      - OS_2018_mu_Dplus_SideBand
+      - -OS_2018_mu_Dplus_SideBand_Matched
+      - -OS_2018_mu_Dplus_SideBand_Other
     make_plots: False
 
   2018_mu_wplusd_PT_Loose_SS_Rest:
     regions:
-      - SS_2018_mu_DplusSideBand
-      - -SS_2018_mu_DplusSideBand_Matched
-      - -SS_2018_mu_DplusSideBand_Other
+      - SS_2018_mu_Dplus_SideBand
+      - -SS_2018_mu_Dplus_SideBand_Matched
+      - -SS_2018_mu_Dplus_SideBand_Other
     make_plots: False
 
   2018_mu_wplusd_PTCut_Template_OS:
     regions:
-      - OS_2018_mu_QCD_PTCut_DplusSideBand
+      - OS_2018_mu_QCD_PTCut_Dplus_SideBand
     make_plots: False
 
   2018_mu_wplusd_PTCut_Template_SS:
     regions:
-      - SS_2018_mu_QCD_PTCut_DplusSideBand
+      - SS_2018_mu_QCD_PTCut_Dplus_SideBand
     make_plots: False
 
   2018_mu_wplusd_OS_Matched:
     regions:
-      - OS_2018_mu_SR_DplusSideBand_Matched
+      - OS_2018_mu_SR_Dplus_SideBand_Matched
     make_plots: False
 
   2018_mu_wplusd_SS_Matched:
     regions:
-      - SS_2018_mu_SR_DplusSideBand_Matched
+      - SS_2018_mu_SR_Dplus_SideBand_Matched
     make_plots: False
 
   2018_mu_wplusd_OS_NoMatch:
     regions:
-      - OS_2018_mu_SR_DplusSideBand_Other
+      - OS_2018_mu_SR_Dplus_SideBand_Other
     make_plots: False
 
   2018_mu_wplusd_SS_NoMatch:
     regions:
-      - SS_2018_mu_SR_DplusSideBand_Other
+      - SS_2018_mu_SR_Dplus_SideBand_Other
     make_plots: False
 
   2018_mu_wplusd_OS_Rest:
     regions:
-      - OS_2018_mu_SR_DplusSideBand
-      - -OS_2018_mu_SR_DplusSideBand_Matched
-      - -OS_2018_mu_SR_DplusSideBand_Other
+      - OS_2018_mu_SR_Dplus_SideBand
+      - -OS_2018_mu_SR_Dplus_SideBand_Matched
+      - -OS_2018_mu_SR_Dplus_SideBand_Other
     make_plots: False
 
   2018_mu_wplusd_SS_Rest:
     regions:
-      - SS_2018_mu_SR_DplusSideBand
-      - -SS_2018_mu_SR_DplusSideBand_Matched
-      - -SS_2018_mu_SR_DplusSideBand_Other
+      - SS_2018_mu_SR_Dplus_SideBand
+      - -SS_2018_mu_SR_Dplus_SideBand_Matched
+      - -SS_2018_mu_SR_Dplus_SideBand_Other
     make_plots: False
 
   2018_mu_wplusd_OS_Matched_SBplusCentral:
     regions:
-      - OS_2018_mu_SR_DplusSideBand_Matched
-      - OS_2018_mu_SR_DplusCentral_Matched
+      - OS_2018_mu_SR_Dplus_SideBand_Matched
+      - OS_2018_mu_SR_Dplus_Central_Matched
     make_plots: False
 
   2018_mu_wplusd_SS_Matched_SBplusCentral:
     regions:
-      - SS_2018_mu_SR_DplusSideBand_Matched
-      - SS_2018_mu_SR_DplusCentral_Matched
+      - SS_2018_mu_SR_Dplus_SideBand_Matched
+      - SS_2018_mu_SR_Dplus_Central_Matched
     make_plots: False
 
   2018_mu_wplusd_OS-SS_Matched_SBplusCentral:
     regions:
-      - OS_2018_mu_SR_DplusSideBand_Matched
-      - OS_2018_mu_SR_DplusCentral_Matched
-      - -SS_2018_mu_SR_DplusSideBand_Matched
-      - -SS_2018_mu_SR_DplusCentral_Matched
+      - OS_2018_mu_SR_Dplus_SideBand_Matched
+      - OS_2018_mu_SR_Dplus_Central_Matched
+      - -SS_2018_mu_SR_Dplus_SideBand_Matched
+      - -SS_2018_mu_SR_Dplus_Central_Matched
     make_plots: False
 
   2018_mu_wplusd_OS-SS_Matched_Central:
     regions:
-      - OS_2018_mu_SR_DplusCentral_Matched
-      - -SS_2018_mu_SR_DplusCentral_Matched
+      - OS_2018_mu_SR_Dplus_Central_Matched
+      - -SS_2018_mu_SR_Dplus_Central_Matched
     make_plots: False
 
   2018_mu_wplusd_OS_NoMatch_SBplusCentral:
     regions:
-      - OS_2018_mu_SR_DplusSideBand_Other
-      - OS_2018_mu_SR_DplusCentral_Other
+      - OS_2018_mu_SR_Dplus_SideBand_Other
+      - OS_2018_mu_SR_Dplus_Central_Other
     make_plots: False
 
   2018_mu_wplusd_SS_NoMatch_SBplusCentral:
     regions:
-      - SS_2018_mu_SR_DplusSideBand_Other
-      - SS_2018_mu_SR_DplusCentral_Other
+      - SS_2018_mu_SR_Dplus_SideBand_Other
+      - SS_2018_mu_SR_Dplus_Central_Other
     make_plots: False
 
   2018_mu_wplusd_OS-SS_NoMatch_SBplusCentral:
     regions:
-      - OS_2018_mu_SR_DplusSideBand_Other
-      - OS_2018_mu_SR_DplusCentral_Other
-      - -SS_2018_mu_SR_DplusSideBand_Other
-      - -SS_2018_mu_SR_DplusCentral_Other
+      - OS_2018_mu_SR_Dplus_SideBand_Other
+      - OS_2018_mu_SR_Dplus_Central_Other
+      - -SS_2018_mu_SR_Dplus_SideBand_Other
+      - -SS_2018_mu_SR_Dplus_Central_Other
     make_plots: False
 
   2018_mu_wplusd_OS-SS_NoMatch_Central:
     regions:
-      - OS_2018_mu_SR_DplusCentral_Other
-      - -SS_2018_mu_SR_DplusCentral_Other
+      - OS_2018_mu_SR_Dplus_Central_Other
+      - -SS_2018_mu_SR_Dplus_Central_Other
     make_plots: False
 
   2018_mu_wplusd_OS_Rest_SBplusCentral:
     regions:
-      - OS_2018_mu_SR_DplusSideBand
-      - -OS_2018_mu_SR_DplusSideBand_Matched
-      - -OS_2018_mu_SR_DplusSideBand_Other
-      - OS_2018_mu_SR_DplusCentral
-      - -OS_2018_mu_SR_DplusCentral_Matched
-      - -OS_2018_mu_SR_DplusCentral_Other
+      - OS_2018_mu_SR_Dplus_SideBand
+      - -OS_2018_mu_SR_Dplus_SideBand_Matched
+      - -OS_2018_mu_SR_Dplus_SideBand_Other
+      - OS_2018_mu_SR_Dplus_Central
+      - -OS_2018_mu_SR_Dplus_Central_Matched
+      - -OS_2018_mu_SR_Dplus_Central_Other
     make_plots: False
 
   2018_mu_wplusd_SS_Rest_SBplusCentral:
     regions:
-      - SS_2018_mu_SR_DplusSideBand
-      - -SS_2018_mu_SR_DplusSideBand_Matched
-      - -SS_2018_mu_SR_DplusSideBand_Other
-      - SS_2018_mu_SR_DplusCentral
-      - -SS_2018_mu_SR_DplusCentral_Matched
-      - -SS_2018_mu_SR_DplusCentral_Other
+      - SS_2018_mu_SR_Dplus_SideBand
+      - -SS_2018_mu_SR_Dplus_SideBand_Matched
+      - -SS_2018_mu_SR_Dplus_SideBand_Other
+      - SS_2018_mu_SR_Dplus_Central
+      - -SS_2018_mu_SR_Dplus_Central_Matched
+      - -SS_2018_mu_SR_Dplus_Central_Other
     make_plots: False
 
   2018_mu_wplusd_OS-SS_Rest_SBplusCentral:
     regions:
-      - OS_2018_mu_SR_DplusSideBand
-      - -OS_2018_mu_SR_DplusSideBand_Matched
-      - -OS_2018_mu_SR_DplusSideBand_Other
-      - OS_2018_mu_SR_DplusCentral
-      - -OS_2018_mu_SR_DplusCentral_Matched
-      - -OS_2018_mu_SR_DplusCentral_Other
-      - -SS_2018_mu_SR_DplusSideBand
-      - SS_2018_mu_SR_DplusSideBand_Matched
-      - SS_2018_mu_SR_DplusSideBand_Other
-      - -SS_2018_mu_SR_DplusCentral
-      - SS_2018_mu_SR_DplusCentral_Matched
-      - SS_2018_mu_SR_DplusCentral_Other
+      - OS_2018_mu_SR_Dplus_SideBand
+      - -OS_2018_mu_SR_Dplus_SideBand_Matched
+      - -OS_2018_mu_SR_Dplus_SideBand_Other
+      - OS_2018_mu_SR_Dplus_Central
+      - -OS_2018_mu_SR_Dplus_Central_Matched
+      - -OS_2018_mu_SR_Dplus_Central_Other
+      - -SS_2018_mu_SR_Dplus_SideBand
+      - SS_2018_mu_SR_Dplus_SideBand_Matched
+      - SS_2018_mu_SR_Dplus_SideBand_Other
+      - -SS_2018_mu_SR_Dplus_Central
+      - SS_2018_mu_SR_Dplus_Central_Matched
+      - SS_2018_mu_SR_Dplus_Central_Other
     make_plots: False
 
   2018_mu_wplusd_OS-SS_Rest_Central:
     regions:
-      - OS_2018_mu_SR_DplusCentral
-      - -OS_2018_mu_SR_DplusCentral_Matched
-      - -OS_2018_mu_SR_DplusCentral_Other
-      - -SS_2018_mu_SR_DplusCentral
-      - SS_2018_mu_SR_DplusCentral_Matched
-      - SS_2018_mu_SR_DplusCentral_Other
+      - OS_2018_mu_SR_Dplus_Central
+      - -OS_2018_mu_SR_Dplus_Central_Matched
+      - -OS_2018_mu_SR_Dplus_Central_Other
+      - -SS_2018_mu_SR_Dplus_Central
+      - SS_2018_mu_SR_Dplus_Central_Matched
+      - SS_2018_mu_SR_Dplus_Central_Other
     make_plots: False
 
   2018_mu_wplusd_PT_Template_OS:
     regions:
-      - OS_2018_mu_QCD_DplusSideBand
+      - OS_2018_mu_QCD_Dplus_SideBand
     make_plots: False
 
   2018_mu_wplusd_PT_Template_SS:
     regions:
-      - SS_2018_mu_QCD_DplusSideBand
+      - SS_2018_mu_QCD_Dplus_SideBand
     make_plots: False
 
   2018_mu_wplusd_PT_Loose_OS-SS_Matched:
     regions:
-      - OS_2018_mu_DplusSideBand_Matched
-      - -SS_2018_mu_DplusSideBand_Matched
+      - OS_2018_mu_Dplus_SideBand_Matched
+      - -SS_2018_mu_Dplus_SideBand_Matched
     make_plots: False
 
   2018_mu_wplusd_PT_Loose_OS-SS_NoMatch:
     regions:
-      - OS_2018_mu_DplusSideBand_Other
-      - -SS_2018_mu_DplusSideBand_Other
+      - OS_2018_mu_Dplus_SideBand_Other
+      - -SS_2018_mu_Dplus_SideBand_Other
     make_plots: False
 
   2018_mu_wplusd_PT_Loose_OS-SS_Rest:
     regions:
-      - OS_2018_mu_DplusSideBand
-      - -OS_2018_mu_DplusSideBand_Matched
-      - -OS_2018_mu_DplusSideBand_Other
-      - -SS_2018_mu_DplusSideBand
-      - SS_2018_mu_DplusSideBand_Matched
-      - SS_2018_mu_DplusSideBand_Other
+      - OS_2018_mu_Dplus_SideBand
+      - -OS_2018_mu_Dplus_SideBand_Matched
+      - -OS_2018_mu_Dplus_SideBand_Other
+      - -SS_2018_mu_Dplus_SideBand
+      - SS_2018_mu_Dplus_SideBand_Matched
+      - SS_2018_mu_Dplus_SideBand_Other
     make_plots: False
 
   2018_mu_wplusd_PTCut_Template_OS_SBplusCentral:
     regions:
-      - OS_2018_mu_QCD_PTCut_DplusSideBand
-      - OS_2018_mu_QCD_PTCut_DplusCentral
+      - OS_2018_mu_QCD_PTCut_Dplus_SideBand
+      - OS_2018_mu_QCD_PTCut_Dplus_Central
     make_plots: False
 
   2018_mu_wplusd_PTCut_Template_SS_SBplusCentral:
     regions:
-      - SS_2018_mu_QCD_PTCut_DplusSideBand
-      - SS_2018_mu_QCD_PTCut_DplusCentral
+      - SS_2018_mu_QCD_PTCut_Dplus_SideBand
+      - SS_2018_mu_QCD_PTCut_Dplus_Central
     make_plots: False
 
   2018_mu_wplusd_PTCut_Template_OS-SS_SBplusCentral:
     regions:
-      - OS_2018_mu_QCD_PTCut_DplusSideBand
-      - OS_2018_mu_QCD_PTCut_DplusCentral
-      - -SS_2018_mu_QCD_PTCut_DplusSideBand
-      - -SS_2018_mu_QCD_PTCut_DplusCentral
+      - OS_2018_mu_QCD_PTCut_Dplus_SideBand
+      - OS_2018_mu_QCD_PTCut_Dplus_Central
+      - -SS_2018_mu_QCD_PTCut_Dplus_SideBand
+      - -SS_2018_mu_QCD_PTCut_Dplus_Central
     make_plots: False
 
   2018_mu_wplusd_PTCut_Template_OS-SS_Central:
     regions:
-      - OS_2018_mu_QCD_PTCut_DplusCentral
-      - -SS_2018_mu_QCD_PTCut_DplusCentral
+      - OS_2018_mu_QCD_PTCut_Dplus_Central
+      - -SS_2018_mu_QCD_PTCut_Dplus_Central
     make_plots: False
 
   2018_mu_wplusd_PTCut_Template_OS-SS:
     regions:
-      - OS_2018_mu_QCD_PTCut_DplusSideBand
-      - -SS_2018_mu_QCD_PTCut_DplusSideBand
+      - OS_2018_mu_QCD_PTCut_Dplus_SideBand
+      - -SS_2018_mu_QCD_PTCut_Dplus_SideBand
     make_plots: False
 
   2018_mu_wplusd_OS-SS_Matched:
     regions:
-      - OS_2018_mu_SR_DplusSideBand_Matched
-      - -SS_2018_mu_SR_DplusSideBand_Matched
+      - OS_2018_mu_SR_Dplus_SideBand_Matched
+      - -SS_2018_mu_SR_Dplus_SideBand_Matched
     make_plots: False
 
   2018_mu_wplusd_OS-SS_NoMatch:
     regions:
-      - OS_2018_mu_SR_DplusSideBand_Other
-      - -SS_2018_mu_SR_DplusSideBand_Other
+      - OS_2018_mu_SR_Dplus_SideBand_Other
+      - -SS_2018_mu_SR_Dplus_SideBand_Other
     make_plots: False
 
   2018_mu_wplusd_OS-SS_Rest:
     regions:
-      - OS_2018_mu_SR_DplusSideBand
-      - -OS_2018_mu_SR_DplusSideBand_Matched
-      - -OS_2018_mu_SR_DplusSideBand_Other
-      - -SS_2018_mu_SR_DplusSideBand
-      - SS_2018_mu_SR_DplusSideBand_Matched
-      - SS_2018_mu_SR_DplusSideBand_Other
+      - OS_2018_mu_SR_Dplus_SideBand
+      - -OS_2018_mu_SR_Dplus_SideBand_Matched
+      - -OS_2018_mu_SR_Dplus_SideBand_Other
+      - -SS_2018_mu_SR_Dplus_SideBand
+      - SS_2018_mu_SR_Dplus_SideBand_Matched
+      - SS_2018_mu_SR_Dplus_SideBand_Other
     make_plots: False

@@ -9,7 +9,7 @@ channels:
 
   2018_el_wplusd_PT_Fit_OS:
     regions:
-      - OS_2018_el_DplusSideBand
+      - OS_2018_el_Dplus_SideBand
     samples:
       - Wjets_emu_Top_Matched | 2018_el_wplusd_PT_Loose_OS_Matched
       - Wjets_emu_Top_Rest | 2018_el_wplusd_PT_Loose_OS_Rest
@@ -31,7 +31,7 @@ channels:
 
   2018_el_wplusd_PT_Fit_SS:
     regions:
-      - SS_2018_el_DplusSideBand
+      - SS_2018_el_Dplus_SideBand
     samples:
       - Wjets_emu_Top_Matched | 2018_el_wplusd_PT_Loose_SS_Matched
       - Wjets_emu_Top_Rest | 2018_el_wplusd_PT_Loose_SS_Rest
@@ -53,8 +53,8 @@ channels:
 
   2018_el_wplusd_PT_Fit_OS-SS:
     regions:
-      - OS_2018_el_DplusSideBand
-      - -SS_2018_el_DplusSideBand
+      - OS_2018_el_Dplus_SideBand
+      - -SS_2018_el_Dplus_SideBand
     samples:
       - Wjets_emu_Top_Matched | 2018_el_wplusd_PT_Loose_OS-SS_Matched
       - Wjets_emu_Top_Rest | 2018_el_wplusd_PT_Loose_OS-SS_Rest
@@ -81,7 +81,7 @@ channels:
 
   2018_el_wplusd_PT_Extrapolated_OS:
     regions:
-      - OS_2018_el_SR_DplusSideBand
+      - OS_2018_el_SR_Dplus_SideBand
     samples:
       - Wjets_emu_Top_Matched | 2018_el_wplusd_OS_Matched
       - Wjets_emu_Top_Rest | 2018_el_wplusd_OS_Rest
@@ -103,7 +103,7 @@ channels:
 
   2018_el_wplusd_PT_Extrapolated_SS:
     regions:
-      - SS_2018_el_SR_DplusSideBand
+      - SS_2018_el_SR_Dplus_SideBand
     samples:
       - Wjets_emu_Top_Matched | 2018_el_wplusd_SS_Matched
       - Wjets_emu_Top_Rest | 2018_el_wplusd_SS_Rest
@@ -125,8 +125,8 @@ channels:
 
   2018_el_wplusd_PT_Extrapolated_OS-SS:
     regions:
-      - OS_2018_el_SR_DplusSideBand
-      - -SS_2018_el_SR_DplusSideBand
+      - OS_2018_el_SR_Dplus_SideBand
+      - -SS_2018_el_SR_Dplus_SideBand
     samples:
       - Wjets_emu_Top_Matched | 2018_el_wplusd_OS-SS_Matched
       - Wjets_emu_Top_Rest | 2018_el_wplusd_OS-SS_Rest
@@ -153,8 +153,8 @@ channels:
 
   2018_el_wplusd_OS:
     regions:
-      - OS_2018_el_SR_DplusSideBand
-      - OS_2018_el_SR_DplusCentral
+      - OS_2018_el_SR_Dplus_SideBand
+      - OS_2018_el_SR_Dplus_Central
     samples:
       - Wjets_emu_Top_Matched | 2018_el_wplusd_OS_Matched_SBplusCentral
       - Wjets_emu_Top_Rest | 2018_el_wplusd_OS_Rest_SBplusCentral
@@ -176,8 +176,8 @@ channels:
 
   2018_el_wplusd_SS:
     regions:
-      - SS_2018_el_SR_DplusSideBand
-      - SS_2018_el_SR_DplusCentral
+      - SS_2018_el_SR_Dplus_SideBand
+      - SS_2018_el_SR_Dplus_Central
     samples:
       - Wjets_emu_Top_Matched | 2018_el_wplusd_SS_Matched_SBplusCentral
       - Wjets_emu_Top_Rest | 2018_el_wplusd_SS_Rest_SBplusCentral
@@ -199,10 +199,10 @@ channels:
 
   2018_el_wplusd_OS-SS:
     regions:
-      - OS_2018_el_SR_DplusSideBand
-      - OS_2018_el_SR_DplusCentral
-      - -SS_2018_el_SR_DplusSideBand
-      - -SS_2018_el_SR_DplusCentral
+      - OS_2018_el_SR_Dplus_SideBand
+      - OS_2018_el_SR_Dplus_Central
+      - -SS_2018_el_SR_Dplus_SideBand
+      - -SS_2018_el_SR_Dplus_Central
     samples:
       - Wjets_emu_Top_Matched | 2018_el_wplusd_OS-SS_Matched_SBplusCentral
       - Wjets_emu_Top_Rest | 2018_el_wplusd_OS-SS_Rest_SBplusCentral
@@ -229,8 +229,8 @@ channels:
 
   2018_el_wplusd_OS-SS_Central:
     regions:
-      - OS_2018_el_SR_DplusCentral
-      - -SS_2018_el_SR_DplusCentral
+      - OS_2018_el_SR_Dplus_Central
+      - -SS_2018_el_SR_Dplus_Central
     samples:
       - Wjets_emu_Top_Matched | 2018_el_wplusd_OS-SS_Matched_Central
       - Wjets_emu_Top_Rest | 2018_el_wplusd_OS-SS_Rest_Central
