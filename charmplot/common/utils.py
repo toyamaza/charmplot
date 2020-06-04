@@ -146,7 +146,8 @@ def rebin_histogram(h: ROOT.TH1, v: variable.Variable, extra_rebin: int = 1):
     rebin = v.rebin
     if rebin and v.allow_rebin:
         h.Rebin(rebin * extra_rebin)
-    set_under_over_flow(h, v.x_range)
+    if v.allow_rebin:
+        set_under_over_flow(h, v.x_range)
 
 
 def make_stat_err(h: ROOT.TH1) -> List[Union[ROOT.TGraphErrors, ROOT.TGraphErrors]]:
