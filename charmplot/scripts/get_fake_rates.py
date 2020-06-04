@@ -51,6 +51,16 @@ def make_fake_rate_histograms(h, x_range):
             h_f.SetBinContent(bin_f, val / (1 + val))
             h_f.SetBinError(bin_f, err / (1 + val)**2)
 
+    h_f.SetBinContent(0, h_f.GetBinContent(1))
+    h_f.SetBinError(0, h_f.GetBinError(1))
+    h_f.SetBinContent(h_f.GetNbinsX() + 1, h_f.GetBinContent(h_f.GetNbinsX()))
+    h_f.SetBinError(h_f.GetNbinsX() + 1, h_f.GetBinError(h_f.GetNbinsX()))
+
+    h_F.SetBinContent(0, h_F.GetBinContent(1))
+    h_F.SetBinError(0, h_F.GetBinError(1))
+    h_F.SetBinContent(h_F.GetNbinsX() + 1, h_F.GetBinContent(h_F.GetNbinsX()))
+    h_F.SetBinError(h_F.GetNbinsX() + 1, h_F.GetBinError(h_F.GetNbinsX()))
+
     return h_F, h_f
 
 
