@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 from charmplot.common import utils
+from charmplot.common import www
 from charmplot.control import globalConfig
 from charmplot.control import inputDataReader
 import logging

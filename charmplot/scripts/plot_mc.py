@@ -137,12 +137,11 @@ if __name__ == "__main__":
     if options.suffix:
         out_name = out_name.split("/")
         out_name[0] += "_" + options.suffix
-        out_name =  "/".join(out_name)
+        out_name = "/".join(out_name)
 
     # make output folder if not exist
     if not os.path.isdir(out_name):
         os.makedirs(out_name)
-
 
     # read inputs
     from charmplot.control import globalConfig

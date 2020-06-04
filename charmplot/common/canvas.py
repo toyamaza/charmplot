@@ -388,7 +388,7 @@ class Canvas2(CanvasBase):
 
 class CanvasMCRatio(Canvas2):
 
-    def __init__(self, c: channel.Channel, v: variable.Variable, ratio_title:str,
+    def __init__(self, c: channel.Channel, v: variable.Variable, ratio_title: str,
                  x: float, y: float, y_split: float = 0.35):
         super(CanvasMCRatio, self).__init__(c, v, x, y, y_split, suffix="_mc_ratio")
         self.ratio_title = ratio_title
