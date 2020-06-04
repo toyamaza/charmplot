@@ -106,7 +106,7 @@ def main(options, conf, reader):
                 utils.save_to_file(out_file_name, c, var, h_data, mc_map)
 
             # continue if not make plots
-            if not c.make_plots:
+            if not c.make_plots or not var.make_plots:
                 continue
 
             # scale factors for this channel (only for dispaly)
