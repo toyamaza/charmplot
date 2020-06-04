@@ -50,7 +50,11 @@ class CanvasBase(object):
         for i in range(0, proxy.GetNbinsX() + 2):
             proxy.SetBinContent(i, 0)
             proxy.SetBinError(i, 0)
-        proxy.Draw("hist")
+        proxy.SetMarkerSize(0)
+        proxy.SetLineWidth(0)
+        proxy.SetMarkerStyle(0)
+        proxy.SetLineStyle(0)
+        proxy.Draw("l")
         return proxy
 
     def set_canvas_margins(self):
@@ -368,11 +372,11 @@ class Canvas2(CanvasBase):
         self.proxy_dn.SetMaximum(0.99)
         self.proxy_dn.GetYaxis().SetTitle("QCD fraction")
 
-    def construct(self, h):
+    def construct(self, h, events):
         # proxy histogram to control the upper axis
         self.pad1.cd()
         self.proxy_up = self.make_proxy_histogram(h, "up")
-        self.set_axis_title(self.proxy_up)
+        self.set_axis_title(self.proxy_up, events=events)
         self.set_axis_text_size(self.proxy_up, no_x_axis=(self.y_split > 0))
         self.set_x_range(self.proxy_up)
 

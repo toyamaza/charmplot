@@ -310,9 +310,10 @@ def scale_multijet_histogram(data: ROOT.TH1, mc_map: MC_Map, fit_range: list):
 
 def make_canvas(h: ROOT.TH1, v: variable.Variable, c: channel.Channel,
                 x: float = 800., y: float = 600., y_split: float = 0.30,
-                fit: likelihoodFit.LikelihoodFit = None, scale_factors: dict = None) -> ROOT.TCanvas:
+                fit: likelihoodFit.LikelihoodFit = None, scale_factors: dict = None,
+                events: str = "Entries") -> ROOT.TCanvas:
     canv = canvas.Canvas2(c, v, x, y, y_split, fit, scale_factors)
-    canv.construct(h)
+    canv.construct(h, events=events)
     return canv
 
 

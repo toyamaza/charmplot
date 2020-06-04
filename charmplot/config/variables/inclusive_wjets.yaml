@@ -109,3 +109,7 @@ N_Dplus:
 njets:
   label: N_{jet}
   stage_out: False
+
+lep_pt_eta:
+  make_plots: False
+  allow_rebin: False
