@@ -1,0 +1,15 @@
+colorScheme: gemstone_hues
+
+data:
+  add:
+    - data
+  subtract:
+  lineColor: "10003"
+  legendLabel: "Data v5.2"
+
+data_ref:
+  add:
+    - data_ref
+  subtract:
+  lineColor: "14003"
+  legendLabel: "Data v5"

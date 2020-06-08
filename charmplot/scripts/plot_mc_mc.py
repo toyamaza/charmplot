@@ -92,7 +92,7 @@ def main(options, conf, reader):
                 h.Draw("hist same")
 
             # Print out
-            canv.print_all(options.analysis_config, c.name, v, multipage_pdf=True, first_plot=first_plot, last_plot=last_plot)
+            canv.print_all(options.analysis_config, c.name, v, multipage_pdf=True, first_plot=first_plot, last_plot=last_plot, as_png=True)
             first_plot = False
 
 
