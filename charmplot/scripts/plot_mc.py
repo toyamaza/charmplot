@@ -25,8 +25,18 @@ root.addHandler(handler)
 
 def main(options, conf, reader):
 
+    # make the output file only once
+    histogram_file_made = False
+
     # loop through all channels and variables
     for c in conf.channels:
+
+        # output root file
+        if c.save_to_file and not histogram_file_made:
+            histogram_file_made = True
+            out_file_name = os.path.join(conf.out_name, "histograms.root")
+            out_file = ROOT.TFile(out_file_name, "RECREATE")
+            out_file.Close()
 
         # filter channels
         if options.channels:
@@ -65,6 +75,14 @@ def main(options, conf, reader):
             # read input MC histograms (and scale them)
             mc_map = utils.read_samples(conf, reader, c, var, samples)
             if not mc_map:
+                continue
+
+            # save histograms to root file
+            if c.save_to_file:
+                utils.save_to_file(out_file_name, c, var, None, mc_map)
+
+            # continue if not make plots
+            if not c.make_plots or not var.make_plots:
                 continue
 
             # canvas

@@ -29,7 +29,8 @@ def save_to_file(out_file_name: str, channel: channel.Channel, var: variable.Var
     logging.info(f"Saving histograms to root file for channel {channel}")
     out_file = ROOT.TFile(out_file_name, "UPDATE")
     out_file.cd()
-    h_data.Write()
+    if h_data:
+        h_data.Write()
     for s in mc_map:
         out_name = mc_map[s].GetName()
         if " | " in out_name:
