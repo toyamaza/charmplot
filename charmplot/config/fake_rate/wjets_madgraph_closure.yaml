@@ -1,0 +1,58 @@
+colorScheme: gemstone_hues
+
+variablesConf: inclusive_wjets
+
+samplesConf: madgraph
+
+data: Data
+
+channels:
+  2018_el_QCD:
+    regions:
+      - 2018_el_QCD
+    samples:
+      - Wjets_light_emu
+      - Wjets_bjets_emu
+      - Wjets_cjets_emu
+      - Wjets_tau
+      - Zjets_emu
+      - Zjets_tau
+      - Multijet | AntiTight_2018_el_QCD
+      - Top
+      - Diboson
+    label:
+      - "2018 el QCD Closure"
+      - "MET < 30 GeV, mT < 60 GeV"
+      - "MadGraph"
+    lumi: "2018"
+    save_to_file: True
+
+  2018_mu_QCD:
+    regions:
+      - 2018_mu_QCD
+    samples:
+      - Wjets_light_emu
+      - Wjets_bjets_emu
+      - Wjets_cjets_emu
+      - Wjets_tau
+      - Zjets_emu
+      - Zjets_tau
+      - Multijet | AntiTight_2018_mu_QCD
+      - Top
+      - Diboson
+    label:
+      - "2018 mu QCD Closure"
+      - "MET < 30 GeV, mT < 60 GeV"
+      - "MadGraph"
+    lumi: "2018"
+    save_to_file: True
+
+  AntiTight_2018_el_QCD:
+    regions:
+      - AntiTight_2018_el_QCD
+    make_plots: False
+
+  AntiTight_2018_mu_QCD:
+    regions:
+      - AntiTight_2018_mu_QCD
+    make_plots: False

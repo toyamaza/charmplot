@@ -1,0 +1,92 @@
+colorScheme: gemstone_hues
+
+variablesConf: inclusive_wjets
+
+samplesConf: sherpa
+
+data: Data
+
+channels:
+  2018_el_SR_noQCD:
+    regions:
+      - 2018_el_SR
+    samples:
+      - Wjets_light_emu
+      - Wjets_bjets_emu
+      - Wjets_cjets_emu
+      - Wjets_tau
+      - Zjets_emu
+      - Zjets_tau
+      - Top
+      - Diboson
+    label:
+      - "2018 el SR"
+      - "Sherpa"
+    lumi: "2018"
+    save_to_file: True
+
+  2018_mu_SR_noQCD:
+    regions:
+      - 2018_mu_SR
+    samples:
+      - Wjets_light_emu
+      - Wjets_bjets_emu
+      - Wjets_cjets_emu
+      - Wjets_tau
+      - Zjets_emu
+      - Zjets_tau
+      - Top
+      - Diboson
+    label:
+      - "2018 mu SR"
+      - "Sherpa"
+    lumi: "2018"
+    save_to_file: True
+
+  2018_el_SR:
+    regions:
+      - 2018_el_SR
+    samples:
+      - Wjets_light_emu
+      - Wjets_bjets_emu
+      - Wjets_cjets_emu
+      - Wjets_tau
+      - Zjets_emu
+      - Zjets_tau
+      - Multijet | AntiTight_2018_el_SR
+      - Top
+      - Diboson
+    label:
+      - "2018 el SR"
+      - "Sherpa"
+    lumi: "2018"
+    save_to_file: True
+
+  2018_mu_SR:
+    regions:
+      - 2018_mu_SR
+    samples:
+      - Wjets_light_emu
+      - Wjets_bjets_emu
+      - Wjets_cjets_emu
+      - Wjets_tau
+      - Zjets_emu
+      - Zjets_tau
+      - Multijet | AntiTight_2018_mu_SR
+      - Top
+      - Diboson
+    label:
+      - "2018 mu SR"
+      - "Sherpa"
+    lumi: "2018"
+    save_to_file: True
+
+  AntiTight_2018_el_SR:
+    regions:
+      - AntiTight_2018_el_SR
+    make_plots: False
+
+  AntiTight_2018_mu_SR:
+    regions:
+      - AntiTight_2018_mu_SR
+    make_plots: False
