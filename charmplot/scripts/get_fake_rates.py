@@ -30,8 +30,28 @@ lep_pt = variable.Variable("lep_pt", **{
 })
 
 # x range
-x_range_el = [28, 100]
+x_range_el = [28, 160]
 x_range_mu = [28, 60]
+
+
+def make_fake_rate_histogram_2D(h, histograms):
+    xbins = []
+    for i in range(1, histograms[1].GetNbinsX() + 1):
+        xbins += [histograms[1].GetBinLowEdge(i)]
+    xbins += [histograms[1].GetBinLowEdge(len(xbins) + 1)]
+
+    ybins = []
+    for i in range(1, h.GetNbinsY() + 1):
+        ybins += [h.GetYaxis().GetBinLowEdge(i)]
+    ybins += [h.GetYaxis().GetBinLowEdge(len(ybins) + 1)]
+
+    hout = ROOT.TH2D(f"{h.GetName()}_final", "", len(xbins) - 1, array('d', xbins), len(ybins) - 1, array('d', ybins))
+    for i in range(1, h.GetNbinsY() + 1):
+        for j in range(0, histograms[i].GetNbinsX() + 2):
+            hout.SetBinContent(j, i, histograms[i].GetBinContent(j))
+            hout.SetBinError(j, i, histograms[i].GetBinError(j))
+
+    return hout
 
 
 def make_fake_rate_histograms(h, x_range):
@@ -108,8 +128,8 @@ def main(options, args):
 
         lep_pt_eta_tight = f.Get(f"Multijet_{c}_lep_pt_eta")
         lep_pt_eta_loose = f.Get(f"Multijet_AntiTight_{c}_lep_pt_eta")
-        # lep_pt_eta_tight.RebinX(2)
-        # lep_pt_eta_loose.RebinX(2)
+        lep_pt_eta_tight.RebinX(2)
+        lep_pt_eta_loose.RebinX(2)
         set_range(lep_pt_eta_tight, x_range)
         set_range(lep_pt_eta_loose, x_range)
 
@@ -117,6 +137,9 @@ def main(options, args):
         fake_rate.Divide(lep_pt_eta_loose)
         out.cd()
         fake_rate.Write()
+
+        # store fake factor histograms for later
+        histograms = {}
 
         for y in range(1, fake_rate.GetNbinsY() + 1):
             # eta edge
@@ -141,6 +164,11 @@ def main(options, args):
 
             h_F.Write(h_F.GetName())
             h_f.Write(h_f.GetName())
+
+            histograms[y] = h_F
+
+        h_f_2D = make_fake_rate_histogram_2D(fake_rate, histograms)
+        h_f_2D.Write()
 
     # close out file
     out.Close()
