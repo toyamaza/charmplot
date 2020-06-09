@@ -112,12 +112,12 @@ def main(options, args):
     channels = options.channels.split(",")
 
     # out plots
-    plots_folder = os.path.join(os.path.dirname(options.input), "FakeRates")
+    plots_folder = os.path.join(os.path.dirname(options.input), f"{options.output}")
     if not os.path.isdir(plots_folder):
         os.makedirs(plots_folder)
 
     # out file
-    out = ROOT.TFile(os.path.join(plots_folder, "FakeRates.root"), "RECREATE")
+    out = ROOT.TFile(os.path.join(plots_folder, f"{options.output}.root"), "RECREATE")
 
     # y range
     y_range = [float(x) for x in options.yrange.split(":")]
@@ -169,7 +169,7 @@ def main(options, args):
                 h_f.Write(h_f.GetName())
 
                 # temporarily save in memory
-                histograms[y] = h_F
+                histograms[y] = h_f
 
             # assemble 2D histogram
             h_f_2D = make_fake_rate_histogram_2D(fake_rate, histograms)
@@ -201,7 +201,7 @@ def main(options, args):
             canv.proxy_up.SetMaximum(y_range[1])
             canv.make_legend(None, None, mc_map, mc_map.keys(), draw_option="pe")
             hs.Draw("same nostack")
-            canv.print(os.path.join(plots_folder, f"FakeRate_{c}_{y}.pdf"))
+            canv.print(os.path.join(plots_folder, f"{options.output}_{c}_{y}.pdf"))
 
     # close out file
     out.Close()
@@ -217,6 +217,10 @@ if __name__ == "__main__":
     parser.add_option('-i', '--input',
                       action="store", dest="input",
                       help="input root file")
+    parser.add_option('-o', '--output',
+                      action="store", dest="output",
+                      help="output name",
+                      default="FakeRates")
     parser.add_option('-c', '--channels',
                       action="store", dest="channels",
                       help="comma separated list of channels",
