@@ -2,6 +2,7 @@
 from array import array
 from charmplot.common import utils
 from charmplot.control import channel
+from charmplot.control import sample
 from charmplot.control import variable
 import logging
 import os
@@ -28,10 +29,6 @@ lep_pt = variable.Variable("lep_pt", **{
     "label": "p_{T}",
     "unit": "GeV",
 })
-
-# x range
-x_range_el = [28, 160]
-x_range_mu = [28, 60]
 
 
 def make_fake_rate_histogram_2D(h, histograms):
@@ -108,6 +105,9 @@ def main(options, args):
     # input file
     f = ROOT.TFile(options.input, "READ")
 
+    # samples
+    samples = options.samples.split(",")
+
     # channels
     channels = options.channels.split(",")
 
@@ -119,56 +119,89 @@ def main(options, args):
     # out file
     out = ROOT.TFile(os.path.join(plots_folder, "FakeRates.root"), "RECREATE")
 
+    # y range
+    y_range = [float(x) for x in options.yrange.split(":")]
+
     for c in channels:
 
-        if "_el_" in c:
-            x_range = x_range_el
-        else:
-            x_range = x_range_mu
+        # x range and channel name
+        x_range = [int(x) for x in c.split(":")[1:]]
+        c = c.split(":")[0]
+        print(c, x_range)
 
-        lep_pt_eta_tight = f.Get(f"Multijet_{c}_lep_pt_eta")
-        lep_pt_eta_loose = f.Get(f"Multijet_AntiTight_{c}_lep_pt_eta")
-        lep_pt_eta_tight.RebinX(2)
-        lep_pt_eta_loose.RebinX(2)
-        set_range(lep_pt_eta_tight, x_range)
-        set_range(lep_pt_eta_loose, x_range)
+        # fake rate map
+        fake_rate_map = {}
+        eta_range = {}
 
-        fake_rate = lep_pt_eta_tight.Clone(f"Fake_Rate_{c}")
-        fake_rate.Divide(lep_pt_eta_loose)
-        out.cd()
-        fake_rate.Write()
+        for s in samples:
 
-        # store fake factor histograms for later
-        histograms = {}
+            lep_pt_eta_tight = f.Get(f"{s}_{c}_lep_pt_eta")
+            lep_pt_eta_loose = f.Get(f"{s}_AntiTight_{c}_lep_pt_eta")
+            lep_pt_eta_tight.RebinX(2)
+            lep_pt_eta_loose.RebinX(2)
+            set_range(lep_pt_eta_tight, x_range)
+            set_range(lep_pt_eta_loose, x_range)
 
-        for y in range(1, fake_rate.GetNbinsY() + 1):
-            # eta edge
-            eta = [fake_rate.GetYaxis().GetBinLowEdge(y), fake_rate.GetYaxis().GetBinLowEdge(y) + fake_rate.GetYaxis().GetBinWidth(y)]
+            fake_rate = lep_pt_eta_tight.Clone(f"Fake_Rate_{s}_{c}")
+            fake_rate.Divide(lep_pt_eta_loose)
+            out.cd()
+            fake_rate.Write()
+
+            # store fake factor histograms for later
+            histograms = {}
+
+            for y in range(1, fake_rate.GetNbinsY() + 1):
+                # insert y slice in map
+                if y not in fake_rate_map.keys():
+                    fake_rate_map[y] = {}
+
+                # eta edge
+                eta = [fake_rate.GetYaxis().GetBinLowEdge(y), fake_rate.GetYaxis().GetBinLowEdge(y) + fake_rate.GetYaxis().GetBinWidth(y)]
+                eta_range[y] = eta
+
+                # get fake rate
+                projX = fake_rate.ProjectionX(f"Fake_Rate_{s}_{c}_{y}", y, y)
+                h_F, h_f = make_fake_rate_histograms(projX, x_range)
+                fake_rate_map[y][s] = h_f
+
+                # write to file
+                h_F.Write(h_F.GetName())
+                h_f.Write(h_f.GetName())
+
+                # temporarily save in memory
+                histograms[y] = h_F
+
+            # assemble 2D histogram
+            h_f_2D = make_fake_rate_histogram_2D(fake_rate, histograms)
+            h_f_2D.Write()
+
+        # plot fake rates
+        for y in fake_rate_map:
+
+            # mc_map
+            mc_map = {}
+
+            # make stack
+            hs = ROOT.THStack()
+            for i, s in enumerate(samples):
+                samp = sample.Sample(s, None, **{'add': [s], 'subtract': []})
+                fake_rate_map[y][s].SetMarkerColor(i + 1)
+                fake_rate_map[y][s].SetLineColor(i + 1)
+                mc_map[samp] = fake_rate_map[y][s]
+                hs.Add(fake_rate_map[y][s])
 
             # channel object for plotting
-            chan = channel.Channel(f"{c}_{y}", [c, f"|#eta| = [{eta[0]}, {eta[1]}]"], "2018", [], [])
-            projX = fake_rate.ProjectionX(f"Fake_Rate_{c}_{y}", y, y)
-            h_F, h_f = make_fake_rate_histograms(projX, x_range)
+            eta = eta_range[y]
+            chan = channel.Channel(f"{s}_{c}_{y}", [c, f"|#eta| = [{eta[0]}, {eta[1]}]"], "2018", [], [])
 
-            h_F.SetLineColor(ROOT.kRed)
-            h_F.SetMarkerColor(ROOT.kRed)
-
-            # fake rate
-            canv = utils.make_canvas(h_F, lep_pt, chan, x=800, y=800, y_split=0, events="f")
+            # canvas
+            canv = utils.make_canvas(hs.GetStack().Last(), lep_pt, chan, x=800, y=800, y_split=0, events="f")
             canv.proxy_up.GetXaxis().SetRangeUser(0, x_range[1] + 20)
-            canv.proxy_up.SetMaximum(1.2)
-            canv.proxy_up.SetMinimum(0)
-            # h_F.Draw("pe same")
-            h_f.Draw("same")
+            canv.proxy_up.SetMinimum(y_range[0])
+            canv.proxy_up.SetMaximum(y_range[1])
+            canv.make_legend(None, None, mc_map, mc_map.keys(), draw_option="pe")
+            hs.Draw("same nostack")
             canv.print(os.path.join(plots_folder, f"FakeRate_{c}_{y}.pdf"))
-
-            h_F.Write(h_F.GetName())
-            h_f.Write(h_f.GetName())
-
-            histograms[y] = h_F
-
-        h_f_2D = make_fake_rate_histogram_2D(fake_rate, histograms)
-        h_f_2D.Write()
 
     # close out file
     out.Close()
@@ -187,7 +220,15 @@ if __name__ == "__main__":
     parser.add_option('-c', '--channels',
                       action="store", dest="channels",
                       help="comma separated list of channels",
-                      default="2018_el_QCD,2018_mu_QCD")
+                      default="2018_el_QCD:28:160,2018_mu_QCD:28:60")
+    parser.add_option('-s', '--samples',
+                      action="store", dest="samples",
+                      help="comma separated list of samples",
+                      default="Multijet")
+    parser.add_option('-y', '--yrange',
+                      action="store", dest="yrange",
+                      help="y-axis range",
+                      default="0:1.2")
 
     # parse input arguments
     options, args = parser.parse_args()
