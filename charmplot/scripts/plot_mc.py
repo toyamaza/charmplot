@@ -1,3 +1,4 @@
+# flake8: noqa: C901
 #!/usr/bin/env python
 from charmplot.common import utils
 from charmplot.common import www
