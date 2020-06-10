@@ -17,7 +17,7 @@ channels:
       - Wjets_tau
       - Zjets_emu
       - Zjets_tau
-      - Multijet | AntiTight_2018_el_QCD
+      - Multijet_MatrixMethod | MatrixMethod_2018_el_QCD
       - Top
       - Diboson
     label:
@@ -37,7 +37,7 @@ channels:
       - Wjets_tau
       - Zjets_emu
       - Zjets_tau
-      - Multijet | AntiTight_2018_mu_QCD
+      - Multijet_MatrixMethod | MatrixMethod_2018_mu_QCD
       - Top
       - Diboson
     label:
@@ -47,12 +47,14 @@ channels:
     lumi: "2018"
     save_to_file: True
 
-  AntiTight_2018_el_QCD:
+  MatrixMethod_2018_el_QCD:
     regions:
       - AntiTight_2018_el_QCD
+      - Tight_2018_el_QCD
     make_plots: False
 
-  AntiTight_2018_mu_QCD:
+  MatrixMethod_2018_mu_QCD:
     regions:
       - AntiTight_2018_mu_QCD
+      - Tight_2018_mu_QCD
     make_plots: False

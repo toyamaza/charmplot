@@ -297,7 +297,7 @@ class Canvas2(CanvasBase):
         self.proxy_up.SetMaximum(math.pow(10, math.log10(self.max_val) * self.maximum_scale_factor +
                                           (1 - self.maximum_scale_factor) * math.log10(self.proxy_up.GetMinimum())))
 
-    def make_legend(self, data, mc_tot=None, mc_map=[], samples=[], print_yields=False):
+    def make_legend(self, data, mc_tot=None, mc_map=[], samples=[], print_yields=False, draw_option="f"):
         # temp entry for sys unc
         temp_err = ROOT.TGraphErrors()
         temp_err.SetLineColor(ROOT.kBlack)
@@ -338,7 +338,7 @@ class Canvas2(CanvasBase):
             if print_yields:
                 leg.AddEntry(mc_map[s], "%s #scale[0.50]{%.2e}" % (name, mc_map[s].GetSum()), "f")
             else:
-                leg.AddEntry(mc_map[s], "%s" % name, "f")
+                leg.AddEntry(mc_map[s], "%s" % name, draw_option)
         self.pad1.cd()
         self.legend = leg
         self.legend.Draw()

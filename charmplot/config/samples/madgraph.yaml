@@ -154,3 +154,10 @@ Multijet:
   fillColor: "14002"
   legendLabel: Multijet
   shortName: Multijet
+
+Multijet_MatrixMethod:
+  add: data
+  subtract:
+  fillColor: "14002"
+  legendLabel: Multijet
+  shortName: Multijet_MatrixMethod

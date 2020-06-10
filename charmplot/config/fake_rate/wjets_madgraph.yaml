@@ -21,7 +21,6 @@ channels:
       - Diboson
     label:
       - "2018 el SR"
-      - "MET < 30 GeV, mT < 60 GeV"
       - "MadGraph"
     lumi: "2018"
     save_to_file: True
@@ -40,7 +39,6 @@ channels:
       - Diboson
     label:
       - "2018 mu SR"
-      - "MET < 30 GeV, mT < 60 GeV"
       - "MadGraph"
     lumi: "2018"
     save_to_file: True
@@ -55,12 +53,11 @@ channels:
       - Wjets_tau
       - Zjets_emu
       - Zjets_tau
-      - Multijet | AntiTight_2018_el_SR
+      - Multijet_MatrixMethod | MatrixMethod_2018_el_SR
       - Top
       - Diboson
     label:
       - "2018 el SR"
-      - "MET < 30 GeV, mT < 60 GeV"
       - "MadGraph"
     lumi: "2018"
     save_to_file: True
@@ -75,22 +72,23 @@ channels:
       - Wjets_tau
       - Zjets_emu
       - Zjets_tau
-      - Multijet | AntiTight_2018_mu_SR
+      - Multijet_MatrixMethod | MatrixMethod_2018_mu_SR
       - Top
       - Diboson
     label:
       - "2018 mu SR"
-      - "MET < 30 GeV, mT < 60 GeV"
       - "MadGraph"
     lumi: "2018"
     save_to_file: True
 
-  AntiTight_2018_el_SR:
+  MatrixMethod_2018_el_SR:
     regions:
       - AntiTight_2018_el_SR
+      - Tight_2018_el_SR
     make_plots: False
 
-  AntiTight_2018_mu_SR:
+  MatrixMethod_2018_mu_SR:
     regions:
       - AntiTight_2018_mu_SR
+      - Tight_2018_mu_SR
     make_plots: False
