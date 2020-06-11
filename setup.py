@@ -6,6 +6,7 @@ setup(name='charmplot',
       author_email='miha.muskinja@cern.ch',
       packages=find_packages(),
       scripts=[
+          'charmplot/scripts/compare_multijet.py',
           'charmplot/scripts/get_fake_rates.py',
           'charmplot/scripts/get_production_fractions.py',
           'charmplot/scripts/plot_data_mc.py',
