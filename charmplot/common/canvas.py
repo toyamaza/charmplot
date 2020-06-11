@@ -195,7 +195,7 @@ class Canvas2(CanvasBase):
                     continue
                 self.text(f"{sf} = {self.scale_factors[sf][0]:.3f}")
 
-    def print_all(self, output, channel, var, multipage_pdf=False, first_plot=False, last_plot=False, as_png=False):
+    def print_all(self, output, channel, var, multipage_pdf=False, first_plot=False, last_plot=False, as_png=False, logy=True):
         self.pad1.cd()
         ROOT.gPad.RedrawAxis()
         if self.pad2:
@@ -207,17 +207,20 @@ class Canvas2(CanvasBase):
         if multipage_pdf:
             if first_plot:
                 self.print(f"{output}/{channel}.pdf(")
-            else:
-                self.print(f"{output}/{channel}.pdf")
-        self.set_logy()
-        self.print(f"{output}/{channel}/{channel}_{var}_LOG.pdf")
-        if as_png:
-            self.print(f"{output}/{channel}/{channel}_{var}_LOG.png")
-        if multipage_pdf:
-            if last_plot:
+            elif last_plot and not logy:
                 self.print(f"{output}/{channel}.pdf)")
             else:
                 self.print(f"{output}/{channel}.pdf")
+        if logy:
+            self.set_logy()
+            self.print(f"{output}/{channel}/{channel}_{var}_LOG.pdf")
+            if as_png:
+                self.print(f"{output}/{channel}/{channel}_{var}_LOG.png")
+            if multipage_pdf:
+                if last_plot:
+                    self.print(f"{output}/{channel}.pdf)")
+                else:
+                    self.print(f"{output}/{channel}.pdf")
 
     def configure_histograms(self, mc_map: MC_Map, data: ROOT.TH1 = None):
         if data:
@@ -253,8 +256,8 @@ class Canvas2(CanvasBase):
         max_left_ = 0
         max_right_ = 0
         for h in histograms:
-            max_left = utils.get_maximum(h, x_min, x_min + 0.65 * (x_max - x_min))
-            max_right = utils.get_maximum(h, x_min + 0.65 * (x_max - x_min), x_max - h.GetBinWidth(h.GetNbinsX()))
+            max_left = utils.get_maximum(h, x_min, x_min + self.legx_x1 * (x_max - x_min))
+            max_right = utils.get_maximum(h, x_min + self.legx_x1 * (x_max - x_min), x_max - h.GetBinWidth(h.GetNbinsX()))
             if max_left > max_left_:
                 max_left_ = max_left
             if max_right > max_right_:
@@ -311,9 +314,10 @@ class Canvas2(CanvasBase):
             self.n_entries += 1
         if mc_tot:
             self.n_entries += 1
+        self.legx_x1 = 0.60
         self.leg_y2 = 1 - 1.8 * self.text_height_small / (1 - self.y_split)
         self.leg_y1 = self.leg_y2 - self.n_entries * self.text_height_small / (1 - self.y_split)
-        leg = ROOT.TLegend(0.65, self.leg_y1, 0.9, self.leg_y2)
+        leg = ROOT.TLegend(self.legx_x1, self.leg_y1, 0.9, self.leg_y2)
         leg.SetBorderSize(0)
         leg.SetFillColor(0)
         leg.SetFillStyle(0)
@@ -321,12 +325,14 @@ class Canvas2(CanvasBase):
         leg.SetTextFont(43)
         if data:
             if print_yields:
-                leg.AddEntry(data, "Data #scale[0.50]{#splitline{%.2e}{/ MC = %1.3f}}" % (data.GetSum(), data.GetSum() / mc_tot.GetSum()), "pe")
+                leg.AddEntry(data, "Data #scale[0.60]{#splitline{%.2e}{/ MC = %1.3f}}" % (data.GetSum(), data.GetSum() / mc_tot.GetSum()), "pe")
             else:
                 leg.AddEntry(data, "Data", "pe")
         if mc_tot:
             if print_yields:
-                leg.AddEntry(temp_err, "SM tot. #scale[0.50]{%.2e}" % mc_tot.GetSum(), "lf")
+                err = ROOT.Double()
+                integral = mc_tot.IntegralAndError(0, mc_tot.GetNbinsX() + 1, err)
+                leg.AddEntry(temp_err, "SM tot. #scale[0.60]{%.2e #pm%.0f%s}" % (integral, 100 * err / integral, "%"), "lf")
             else:
                 leg.AddEntry(temp_err, "SM tot.", "lf")
         for s in samples:
@@ -336,7 +342,9 @@ class Canvas2(CanvasBase):
             if hasattr(s, "legendLabel"):
                 name = s.legendLabel
             if print_yields:
-                leg.AddEntry(mc_map[s], "%s #scale[0.50]{%.2e}" % (name, mc_map[s].GetSum()), "f")
+                err = ROOT.Double()
+                integral = mc_map[s].IntegralAndError(0, mc_map[s].GetNbinsX() + 1, err)
+                leg.AddEntry(mc_map[s], "%s #scale[0.60]{%.2e #pm%.0f%s}" % (name, mc_map[s].GetSum(), 100 * err / integral, "%"), "f")
             else:
                 leg.AddEntry(mc_map[s], "%s" % name, draw_option)
         self.pad1.cd()
@@ -393,15 +401,17 @@ class Canvas2(CanvasBase):
 class CanvasMCRatio(Canvas2):
 
     def __init__(self, c: channel.Channel, v: variable.Variable, ratio_title: str,
-                 x: float, y: float, y_split: float = 0.35):
+                 x: float, y: float, y_split: float = 0.35, ratio_range: list = [0.01, 1.99]):
         super(CanvasMCRatio, self).__init__(c, v, x, y, y_split, suffix="_mc_ratio")
         self.ratio_title = ratio_title
+        self.ratio_range = ratio_range
 
     def make_legend(self, mc_map, samples):
         self.n_entries = len(samples)
+        self.legx_x1 = 0.50
         self.leg_y2 = 1 - 1.8 * self.text_height_small / (1 - self.y_split)
         self.leg_y1 = self.leg_y2 - self.n_entries * self.text_height_small / (1 - self.y_split)
-        leg = ROOT.TLegend(0.65, self.leg_y1, 0.9, self.leg_y2)
+        leg = ROOT.TLegend(0.50, self.leg_y1, 0.9, self.leg_y2)
         leg.SetBorderSize(0)
         leg.SetFillColor(0)
         leg.SetFillStyle(0)
@@ -411,7 +421,9 @@ class CanvasMCRatio(Canvas2):
             name = s.name
             if hasattr(s, "legendLabel"):
                 name = s.legendLabel
-            leg.AddEntry(mc_map[s], "%s" % name, "l")
+            err = ROOT.Double()
+            integral = mc_map[s].IntegralAndError(0, mc_map[s].GetNbinsX() + 1, err)
+            leg.AddEntry(mc_map[s], "%s #scale[0.75]{%.2e #pm%.1f%s}" % (name, mc_map[s].GetSum(), 100 * err / integral, "%"), "l")
         self.pad1.cd()
         self.legend = leg
         self.legend.Draw()
@@ -447,7 +459,7 @@ class CanvasMCRatio(Canvas2):
             self.proxy_dn = self.make_proxy_histogram(h, "dn")
             self.set_axis_title(self.proxy_dn, self.ratio_title if self.y_split else "")
             self.set_axis_text_size(self.proxy_dn, self.y_split + self.offset)
-            self.set_ratio_range(0.01, 1.99, override=False)
+            self.set_ratio_range(self.ratio_range[0], self.ratio_range[1], override=True)
             self.set_x_range(self.proxy_dn)
 
 

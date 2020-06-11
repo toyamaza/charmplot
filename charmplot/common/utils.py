@@ -319,7 +319,8 @@ def make_canvas(h: ROOT.TH1, v: variable.Variable, c: channel.Channel,
 
 
 def make_canvas_mc_ratio(h: ROOT.TH1, v: variable.Variable, c: channel.Channel, ratio_title: str,
-                         x: float = 800., y: float = 600., y_split: float = 0.30) -> ROOT.TCanvas:
-    canv = canvas.CanvasMCRatio(c, v, ratio_title, x, y, y_split)
+                         x: float = 800., y: float = 600., y_split: float = 0.30,
+                         ratio_range: list = [0.01, 1.99]) -> ROOT.TCanvas:
+    canv = canvas.CanvasMCRatio(c, v, ratio_title, x, y, y_split, ratio_range)
     canv.construct(h)
     return canv
