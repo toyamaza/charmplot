@@ -1,0 +1,92 @@
+colorScheme: gemstone_hues
+
+variablesConf: charmed_wjets
+
+samplesConf: madgraph
+
+data: Data
+
+channels:
+  Tight_2018_el_QCD_Dplus:
+    regions:
+      - Tight_2018_el_QCD_Dplus
+    samples:
+      - Multijet
+      - Wjets_light_emu
+      - Wjets_bjets_emu
+      - Wjets_cjets_emu
+      - Wjets_tau
+      - Zjets_emu
+      - Zjets_tau
+      - Top
+      - Diboson
+    label:
+      - "2018 el QCD Tight"
+      - "MET < 30 GeV, mT < 60 GeV"
+      - "MadGraph"
+    lumi: "2018"
+    qcd_template: Multijet
+    save_to_file: True
+
+  Tight_2018_mu_QCD_Dplus:
+    regions:
+      - Tight_2018_mu_QCD_Dplus
+    samples:
+      - Multijet
+      - Wjets_light_emu
+      - Wjets_bjets_emu
+      - Wjets_cjets_emu
+      - Wjets_tau
+      - Zjets_emu
+      - Zjets_tau
+      - Top
+      - Diboson
+    label:
+      - "2018 mu QCD Tight"
+      - "MET < 30 GeV, mT < 60 GeV"
+      - "MadGraph"
+    lumi: "2018"
+    qcd_template: Multijet
+    save_to_file: True
+
+  AntiTight_2018_el_QCD_Dplus:
+    regions:
+      - AntiTight_2018_el_QCD_Dplus
+    samples:
+      - Multijet
+      - Wjets_light_emu
+      - Wjets_bjets_emu
+      - Wjets_cjets_emu
+      - Wjets_tau
+      - Zjets_emu
+      - Zjets_tau
+      - Top
+      - Diboson
+    label:
+      - "2018 el QCD AntiTight"
+      - "MET < 30 GeV, mT < 60 GeV"
+      - "MadGraph"
+    lumi: "2018"
+    qcd_template: Multijet
+    save_to_file: True
+
+  AntiTight_2018_mu_QCD_Dplus:
+    regions:
+      - AntiTight_2018_mu_QCD_Dplus
+    samples:
+      - Multijet
+      - Wjets_light_emu
+      - Wjets_bjets_emu
+      - Wjets_cjets_emu
+      - Wjets_tau
+      - Zjets_emu
+      - Zjets_tau
+      - Top
+      - Diboson
+    label:
+      - "2018 mu QCD AntiTight"
+      - "MET < 30 GeV, mT < 60 GeV"
+      - "MadGraph"
+    lumi: "2018"
+    qcd_template: Multijet
+    save_to_file: True
