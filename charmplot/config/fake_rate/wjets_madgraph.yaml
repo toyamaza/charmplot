@@ -53,7 +53,7 @@ channels:
       - Wjets_tau
       - Zjets_emu
       - Zjets_tau
-      - Multijet_MatrixMethod | MatrixMethod_2018_el_SR
+      - Multijet | MatrixMethod_2018_el_SR
       - Top
       - Diboson
     label:
@@ -72,7 +72,7 @@ channels:
       - Wjets_tau
       - Zjets_emu
       - Zjets_tau
-      - Multijet_MatrixMethod | MatrixMethod_2018_mu_SR
+      - Multijet | MatrixMethod_2018_mu_SR
       - Top
       - Diboson
     label:
@@ -84,11 +84,11 @@ channels:
   MatrixMethod_2018_el_SR:
     regions:
       - AntiTight_2018_el_SR
-      - Tight_2018_el_SR
+      # - Tight_2018_el_SR
     make_plots: False
 
   MatrixMethod_2018_mu_SR:
     regions:
       - AntiTight_2018_mu_SR
-      - Tight_2018_mu_SR
+      # - Tight_2018_mu_SR
     make_plots: False

@@ -7,9 +7,9 @@ samplesConf: madgraph
 data: Data
 
 channels:
-  2018_el_QCD:
+  Tight_2018_el_QCD:
     regions:
-      - 2018_el_QCD
+      - Tight_2018_el_QCD
     samples:
       - Multijet
       - Wjets_light_emu
@@ -28,9 +28,9 @@ channels:
     qcd_template: Multijet
     save_to_file: True
 
-  2018_mu_QCD:
+  Tight_2018_mu_QCD:
     regions:
-      - 2018_mu_QCD
+      - Tight_2018_mu_QCD
     samples:
       - Multijet
       - Wjets_light_emu

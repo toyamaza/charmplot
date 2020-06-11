@@ -291,3 +291,7 @@ Dmeson_m_cosThetaStar:
 #   label: N_{#it{b}-jet}
 #   ratio_range: [0.5, 1.49]
 #   allow_rebin: False
+
+lep_pt_eta:
+  make_plots: False
+  allow_rebin: False

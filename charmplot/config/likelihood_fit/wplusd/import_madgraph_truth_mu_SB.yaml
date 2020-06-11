@@ -151,7 +151,7 @@ channels:
     lumi: '2018'
     print_scale_factors: True
 
-  2018_mu_wplusd_OS:
+  OS_2018_mu_SR_Dplus:
     regions:
       - OS_2018_mu_SR_Dplus_SideBand
       - OS_2018_mu_SR_Dplus_Central
@@ -173,8 +173,9 @@ channels:
        - 'Signal Region, MadGraph'
     lumi: '2018'
     print_scale_factors: False
+    save_to_file: True
 
-  2018_mu_wplusd_SS:
+  SS_2018_mu_SR_Dplus:
     regions:
       - SS_2018_mu_SR_Dplus_SideBand
       - SS_2018_mu_SR_Dplus_Central
@@ -196,8 +197,9 @@ channels:
        - 'Signal Region, MadGraph'
     lumi: '2018'
     print_scale_factors: False
+    save_to_file: True
 
-  2018_mu_wplusd_OS-SS:
+  OS-SS_2018_mu_SR_Dplus:
     regions:
       - OS_2018_mu_SR_Dplus_SideBand
       - OS_2018_mu_SR_Dplus_Central
@@ -226,6 +228,7 @@ channels:
        - 'Signal Region, MadGraph'
     lumi: '2018'
     print_scale_factors: False
+    save_to_file: True
 
   2018_mu_wplusd_OS-SS_Central:
     regions:
@@ -254,3 +257,4 @@ channels:
        - 'Signal Region, MadGraph'
     lumi: '2018'
     print_scale_factors: False
+    save_to_file: True

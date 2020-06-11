@@ -24,7 +24,7 @@ Wjets:
     - MG_Wjets_bjets_emu
     - MG_Wjets_tau
   subtract:
-  fillColor: "10000"
+  fillColor: "10002"
   legendLabel: "W+jets"
 
 Wjets_emu:
@@ -136,6 +136,15 @@ Diboson:
   fillColor: "13000"
   legendLabel: Diboson
 
+Other:
+  add:
+    - Diboson
+    - MG_Zjets_tau
+    - MG_Wjets_tau
+  subtract:
+  fillColor: "13000"
+  legendLabel: Other
+
 Multijet:
   add: data
   subtract:
@@ -161,3 +170,29 @@ Multijet_MatrixMethod:
   fillColor: "14002"
   legendLabel: Multijet
   shortName: Multijet_MatrixMethod
+
+Multijet_Data:
+  add: data
+  subtract:
+  lineColor: "14002"
+  legendLabel: AntiTight Data
+  shortName: Multijet_Data
+
+Multijet_PromptMC:
+  add:
+    - MG_Wjets_light_emu
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_bjets_emu
+    - MG_Wjets_tau
+    - MG_Zjets_light_emu
+    - MG_Zjets_cjets_emu
+    - MG_Zjets_bjets_emu
+    - MG_Zjets_tau
+    - Top_ttbar
+    - Top_single_top
+    - Top_ttx
+    - Diboson
+  subtract:
+  lineColor: "10002"
+  legendLabel: AntiTight MC
+  shortName: Multijet_PromptMC

@@ -60,11 +60,14 @@ def main(options, conf, reader):
             # check if last plot
             last_plot = v == variables[-1]
 
+            # variable object
+            var = conf.get_var(v)
+
             # mc map
-            mc_map = {s: reader.get_histogram(s, c, conf.get_var(v)) for s in samples}
+            mc_map = {s: reader.get_histogram(s, c, var) for s in samples}
 
             # canvas
-            canv = utils.make_canvas_mc_ratio(mc_map[samples[0]], conf.get_var(v), c, ratio_title=options.ratio_title, x=800, y=800)
+            canv = utils.make_canvas_mc_ratio(mc_map[samples[0]], var, c, ratio_title=options.ratio_title, x=800, y=800)
 
             # configure histograms
             canv.configure_histograms(mc_map, options.normalize)
@@ -78,7 +81,7 @@ def main(options, conf, reader):
             canv.make_legend(mc_map, samples)
 
             # set maximum after creating legend
-            canv.set_maximum([mc_map[s] for s in samples], conf.get_var(v), mc_map[samples[0]])
+            canv.set_maximum([mc_map[s] for s in samples], var, mc_map[samples[0]])
 
             # bottom pad
             canv.pad2.cd()
@@ -117,7 +120,7 @@ if __name__ == "__main__":
                       help="normalize to luminosity")
     parser.add_option('-t', '--ratio-title',
                       action="store", dest="ratio_title",
-                      default="Data / MC",
+                      default="Ratio",
                       help="title of the ratio")
     parser.add_option('--suffix',
                       action="store", dest="suffix",

@@ -30,6 +30,9 @@ lep_pt = variable.Variable("lep_pt", **{
     "unit": "GeV",
 })
 
+# horizontal error bars for histograms
+ROOT.gStyle.SetErrorX(0.5)
+
 
 def make_fake_rate_histogram_2D(h, histograms):
     xbins = []
@@ -135,10 +138,10 @@ def main(options, args):
 
         for s in samples:
 
-            lep_pt_eta_tight = f.Get(f"{s}_{c}_lep_pt_eta")
+            lep_pt_eta_tight = f.Get(f"{s}_Tight_{c}_lep_pt_eta")
             lep_pt_eta_loose = f.Get(f"{s}_AntiTight_{c}_lep_pt_eta")
-            lep_pt_eta_tight.RebinX(2)
-            lep_pt_eta_loose.RebinX(2)
+            lep_pt_eta_tight.RebinX(4)
+            lep_pt_eta_loose.RebinX(4)
             set_range(lep_pt_eta_tight, x_range)
             set_range(lep_pt_eta_loose, x_range)
 
@@ -224,7 +227,7 @@ if __name__ == "__main__":
     parser.add_option('-c', '--channels',
                       action="store", dest="channels",
                       help="comma separated list of channels",
-                      default="2018_el_QCD:28:160,2018_mu_QCD:28:60")
+                      default="2018_el_QCD_Dplus:30:90,2018_mu_QCD_Dplus:30:70")
     parser.add_option('-s', '--samples',
                       action="store", dest="samples",
                       help="comma separated list of samples",
