@@ -28,7 +28,7 @@ class InputDataReader(object):
             return None
         h = h.Clone(h.GetName() + "_temp")
         utils.rebin_histogram(h, variable, channel.extra_rebin)
-        if not "MatrixMethod" in sample.name:
+        if "MatrixMethod" not in sample.name:
             utils.set_to_positive(h)
 
         # scale histogram

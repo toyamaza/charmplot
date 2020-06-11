@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-from array import array
 from charmplot.common import utils
+from charmplot.common import www
 from charmplot.control import channel
 from charmplot.control import sample
 from charmplot.control import variable
@@ -78,20 +78,20 @@ f_MatrixMethod = ROOT.TFile("/global/u2/m/mmuskinj/work/run/charmpp/v5/FakeRate/
 
 
 def main(options):
-    for channel in channels:
+    for chan in channels:
 
         # keep track of first/last plot of each channel
         first_plot = True
 
         # make channel folder if not exist
-        if not os.path.isdir(os.path.join(options.out_name, channel.name)):
-            os.makedirs(os.path.join(options.out_name, channel.name))
+        if not os.path.isdir(os.path.join(options.out_name, chan.name)):
+            os.makedirs(os.path.join(options.out_name, chan.name))
 
         for var in variables:
-            h_QCDTemplateFit = f_QCDTemplateFit.Get(f"{sample_QCDTemplateFit.name}_{channel.name}_{var.name}").Clone(
-                f"{sample_QCDTemplateFit.name}_{channel.name}_{var.name}_QCD")
-            h_MatrixMethod = f_MatrixMethod.Get(f"{sample_MatrixMethod.name}_{channel.name}_{var.name}").Clone(
-                f"{sample_MatrixMethod.name}_{channel.name}_{var.name}_MM")
+            h_QCDTemplateFit = f_QCDTemplateFit.Get(f"{sample_QCDTemplateFit.name}_{chan.name}_{var.name}").Clone(
+                f"{sample_QCDTemplateFit.name}_{chan.name}_{var.name}_QCD")
+            h_MatrixMethod = f_MatrixMethod.Get(f"{sample_MatrixMethod.name}_{chan.name}_{var.name}").Clone(
+                f"{sample_MatrixMethod.name}_{chan.name}_{var.name}_MM")
             logging.info(f"Got histograms {h_QCDTemplateFit} {h_MatrixMethod}")
 
             # Color
@@ -104,7 +104,7 @@ def main(options):
 
             # Rebin
             ratio_range = [0.01, 1.99]
-            if "OS-SS" in channel.name:
+            if "OS-SS" in chan.name:
                 h_QCDTemplateFit.Rebin(10)
                 h_MatrixMethod.Rebin(10)
                 ratio_range = [-3.99, 3.99]
@@ -119,7 +119,7 @@ def main(options):
             }
 
             # canvas
-            canv = utils.make_canvas_mc_ratio(mc_map[samples[0]], var, channel, ratio_title=options.ratio_title, x=800, y=800, ratio_range=ratio_range)
+            canv = utils.make_canvas_mc_ratio(mc_map[samples[0]], var, chan, ratio_title=options.ratio_title, x=800, y=800, ratio_range=ratio_range)
 
             # configure histograms
             canv.configure_histograms(mc_map, options.normalize)
@@ -151,7 +151,7 @@ def main(options):
                 h.Draw("same pe")
 
             # Print out
-            canv.print_all(options.analysis_config, channel.name, var.name, multipage_pdf=True,
+            canv.print_all(options.analysis_config, chan.name, var.name, multipage_pdf=True,
                            first_plot=first_plot, last_plot=last_plot, as_png=True, logy=False)
             first_plot = False
 
