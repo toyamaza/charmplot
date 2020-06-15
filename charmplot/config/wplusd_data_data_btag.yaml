@@ -1,0 +1,136 @@
+variablesConf: charmed_wjets
+
+samplesConf: wplusd_data_data
+
+channels:
+  2018_el_wplusd_OS_0tag:
+    regions:
+      - OS_2018_el_SR_0tag_Dplus
+    samples:
+      - data
+      - data_ref
+    label:
+      - 'W#rightarrowe#nu+D, D#rightarrowK#pi#pi, OS'
+      - '0-tag'
+    lumi: '2018'
+
+  2018_el_wplusd_OS_1tag:
+    regions:
+      - OS_2018_el_SR_1tag_Dplus
+    samples:
+      - data
+      - data_ref
+    label:
+      - 'W#rightarrowe#nu+D, D#rightarrowK#pi#pi, OS'
+      - '1-tag'
+    lumi: '2018'
+
+  2018_el_wplusd_OS_2tag:
+    regions:
+      - OS_2018_el_SR_2tag_Dplus
+    samples:
+      - data
+      - data_ref
+    label:
+      - 'W#rightarrowe#nu+D, D#rightarrowK#pi#pi, OS'
+      - '2-tag'
+    lumi: '2018'
+
+  2018_mu_wplusd_OS_0tag:
+    regions:
+      - OS_2018_mu_SR_0tag_Dplus
+    samples:
+      - data
+      - data_ref
+    label:
+      - 'W#rightarrowe#nu+D, D#rightarrowK#pi#pi, SS'
+      - '0-tag'
+    lumi: '2018'
+
+  2018_mu_wplusd_OS_1tag:
+    regions:
+      - OS_2018_mu_SR_1tag_Dplus
+    samples:
+      - data
+      - data_ref
+    label:
+      - 'W#rightarrowe#nu+D, D#rightarrowK#pi#pi, SS'
+      - '1-tag'
+    lumi: '2018'
+
+  2018_mu_wplusd_OS_2tag:
+    regions:
+      - OS_2018_mu_SR_2tag_Dplus
+    samples:
+      - data
+      - data_ref
+    label:
+      - 'W#rightarrowe#nu+D, D#rightarrowK#pi#pi, SS'
+      - '2-tag'
+    lumi: '2018'
+
+  2018_el_wplusd_SS_0tag:
+    regions:
+      - SS_2018_el_SR_0tag_Dplus
+    samples:
+      - data
+      - data_ref
+    label:
+      - 'W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, OS'
+      - '0-tag'
+    lumi: '2018'
+
+  2018_el_wplusd_SS_1tag:
+    regions:
+      - SS_2018_el_SR_1tag_Dplus
+    samples:
+      - data
+      - data_ref
+    label:
+      - 'W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, OS'
+      - '1-tag'
+    lumi: '2018'
+
+  2018_el_wplusd_SS_2tag:
+    regions:
+      - SS_2018_el_SR_2tag_Dplus
+    samples:
+      - data
+      - data_ref
+    label:
+      - 'W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, OS'
+      - '2-tag'
+    lumi: '2018'
+
+  2018_mu_wplusd_SS_0tag:
+    regions:
+      - SS_2018_mu_SR_0tag_Dplus
+    samples:
+      - data
+      - data_ref
+    label:
+      - 'W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, SS'
+      - '0-tag'
+    lumi: '2018'
+
+  2018_mu_wplusd_SS_1tag:
+    regions:
+      - SS_2018_mu_SR_1tag_Dplus
+    samples:
+      - data
+      - data_ref
+    label:
+      - 'W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, SS'
+      - '1-tag'
+    lumi: '2018'
+
+  2018_mu_wplusd_SS_2tag:
+    regions:
+      - SS_2018_mu_SR_2tag_Dplus
+    samples:
+      - data
+      - data_ref
+    label:
+      - 'W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, SS'
+      - '2-tag'
+    lumi: '2018'
