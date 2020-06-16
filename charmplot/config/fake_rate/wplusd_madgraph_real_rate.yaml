@@ -1,0 +1,70 @@
+colorScheme: gemstone_hues
+
+variablesConf: inclusive_wjets
+
+samplesConf: madgraph
+
+channels:
+  Tight_2018_el_SR_Dplus:
+    regions:
+      - Tight_2018_el_SR_Dplus
+    samples:
+      - Wjets_emu
+      - Wjets_tau
+      - Zjets_emu
+      - Zjets_tau
+      - Top
+      - Diboson
+    label:
+      - "2018 el Tight"
+      - "MadGraph"
+    lumi: "2018"
+    save_to_file: True
+
+  Tight_2018_mu_SR_Dplus:
+    regions:
+      - Tight_2018_mu_SR_Dplus
+    samples:
+      - Wjets_emu
+      - Wjets_tau
+      - Zjets_emu
+      - Zjets_tau
+      - Top
+      - Diboson
+    label:
+      - "2018 mu Tight"
+      - "MadGraph"
+    lumi: "2018"
+    save_to_file: True
+
+  AntiTight_2018_el_SR_Dplus:
+    regions:
+      - AntiTight_2018_el_SR_Dplus
+    samples:
+      - Wjets_emu
+      - Wjets_tau
+      - Zjets_emu
+      - Zjets_tau
+      - Top
+      - Diboson
+    label:
+      - "2018 el AntiTight"
+      - "MadGraph"
+    lumi: "2018"
+    save_to_file: True
+
+  AntiTight_2018_mu_SR_Dplus:
+    regions:
+      - AntiTight_2018_mu_SR_Dplus
+    samples:
+      - Wjets_emu
+      - Wjets_tau
+      - Zjets_emu
+      - Zjets_tau
+      - Top
+      - Diboson
+    label:
+      - "2018 mu AntiTight"
+      - "MadGraph"
+    lumi: "2018"
+    save_to_file: True

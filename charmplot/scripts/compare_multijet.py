@@ -26,7 +26,7 @@ root.addHandler(handler)
 
 # sample object
 sample_QCDTemplateFit = sample.Sample('Multijet', None, **{'add': ['Multijet'], 'subtract': [], 'legendLabel': 'QCD Fit'})
-sample_MatrixMethod = sample.Sample('Multijet', None, **{'add': ['Multijet'], 'subtract': [], 'legendLabel': 'Matrix M.'})
+sample_MatrixMethod = sample.Sample('Multijet_MatrixMethod', None, **{'add': ['Multijet'], 'subtract': [], 'legendLabel': 'Matrix M.'})
 samples = [
     sample_QCDTemplateFit,
     sample_MatrixMethod,
@@ -67,13 +67,16 @@ channels = [
     channel.Channel("OS_2018_el_SR_Dplus", ['W#rightarrowe#nu+D, D#rightarrowK#pi#pi, OS', 'Signal Region'], "2018", [], []),
     channel.Channel("SS_2018_el_SR_Dplus", ['W#rightarrowe#nu+D, D#rightarrowK#pi#pi, SS', 'Signal Region'], "2018", [], []),
     channel.Channel("OS-SS_2018_el_SR_Dplus", ['W#rightarrowe#nu+D, D#rightarrowK#pi#pi, OS-SS', 'Signal Region'], "2018", [], []),
+    channel.Channel("OS_2018_mu_SR_Dplus", ['W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, OS', 'Signal Region'], "2018", [], []),
+    channel.Channel("SS_2018_mu_SR_Dplus", ['W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, SS', 'Signal Region'], "2018", [], []),
+    channel.Channel("OS-SS_2018_mu_SR_Dplus", ['W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, OS-SS', 'Signal Region'], "2018", [], []),
 ]
 
 # horizontal error bars for histograms
 ROOT.gStyle.SetErrorX(0.5)
 
 # input files
-f_QCDTemplateFit = ROOT.TFile("/global/u2/m/mmuskinj/work/run/charmpp/v5/wplusd_qcd_pt_2_rw/likelihood_fit/wplusd/histograms.root")
+f_QCDTemplateFit = ROOT.TFile("/global/u2/m/mmuskinj/work/run/charmpp/v5/wplusd_qcd_pt_2/histograms.root")
 f_MatrixMethod = ROOT.TFile("/global/u2/m/mmuskinj/work/run/charmpp/v5/FakeRate/wplusd/fake_rate/wplusd_madgraph/histograms.root")
 
 
@@ -88,6 +91,7 @@ def main(options):
             os.makedirs(os.path.join(options.out_name, chan.name))
 
         for var in variables:
+            print(f"{sample_QCDTemplateFit.name}_{chan.name}_{var.name}")
             h_QCDTemplateFit = f_QCDTemplateFit.Get(f"{sample_QCDTemplateFit.name}_{chan.name}_{var.name}").Clone(
                 f"{sample_QCDTemplateFit.name}_{chan.name}_{var.name}_QCD")
             h_MatrixMethod = f_MatrixMethod.Get(f"{sample_MatrixMethod.name}_{chan.name}_{var.name}").Clone(
@@ -108,6 +112,10 @@ def main(options):
                 h_QCDTemplateFit.Rebin(10)
                 h_MatrixMethod.Rebin(10)
                 ratio_range = [-3.99, 3.99]
+            else:
+                h_QCDTemplateFit.Rebin(2)
+                h_MatrixMethod.Rebin(2)
+                ratio_range = [0, 2.99]
 
             # check if last plot
             last_plot = var == variables[-1]

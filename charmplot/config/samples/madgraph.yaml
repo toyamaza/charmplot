@@ -160,23 +160,37 @@ Multijet:
     - Top_single_top
     - Top_ttx
     - Diboson
-  fillColor: "14002"
+  fillColor: "14003"
   legendLabel: Multijet
   shortName: Multijet
 
 Multijet_MatrixMethod:
   add: data
   subtract:
-  fillColor: "14002"
+  fillColor: "14003"
   legendLabel: Multijet
   shortName: Multijet_MatrixMethod
 
 Multijet_Data:
   add: data
   subtract:
-  lineColor: "14002"
+  lineColor: "14003"
   legendLabel: AntiTight Data
   shortName: Multijet_Data
+
+Multijet_Data_Tight:
+  add: data
+  subtract:
+  lineColor: "10002"
+  legendLabel: Tight Data
+  shortName: Multijet_Data_Tight
+
+Multijet_Data_AntiTight:
+  add: data
+  subtract:
+  lineColor: "14003"
+  legendLabel: AntiTight Data
+  shortName: Multijet_Data_AntiTight
 
 Multijet_PromptMC:
   add:

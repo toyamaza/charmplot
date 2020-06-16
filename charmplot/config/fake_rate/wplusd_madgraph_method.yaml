@@ -1,0 +1,96 @@
+colorScheme: gemstone_hues
+
+variablesConf: charmed_wjets
+
+samplesConf: madgraph
+
+data: Data
+
+channels:
+  OS_2018_el_SR_Dplus:
+    regions:
+      - OS_2018_el_SR_Dplus
+    samples:
+      - Multijet_Data_AntiTight | OS_AntiTight_2018_el_SR_Dplus
+      - Multijet_Data_Tight | OS_Tight_2018_el_SR_Dplus
+    label:
+      - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, OS"
+      - "MadGraph"
+    lumi: "2018"
+    save_to_file: True
+
+  SS_2018_el_SR_Dplus:
+    regions:
+      - SS_2018_el_SR_Dplus
+    samples:
+      - Multijet_Data_AntiTight | SS_AntiTight_2018_el_SR_Dplus
+      - Multijet_Data_Tight | SS_Tight_2018_el_SR_Dplus
+    label:
+      - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, SS"
+      - "MadGraph"
+    lumi: "2018"
+    save_to_file: True
+
+  OS_2018_mu_SR_Dplus:
+    regions:
+      - OS_2018_mu_SR_Dplus
+    samples:
+      - Multijet_Data_AntiTight | OS_AntiTight_2018_mu_SR_Dplus
+      - Multijet_Data_Tight | OS_Tight_2018_mu_SR_Dplus
+    label:
+      - "W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, OS"
+      - "MadGraph"
+    lumi: "2018"
+    save_to_file: True
+
+  SS_2018_mu_SR_Dplus:
+    regions:
+      - SS_2018_mu_SR_Dplus
+    samples:
+      - Multijet_Data_AntiTight | SS_AntiTight_2018_mu_SR_Dplus
+      - Multijet_Data_Tight | SS_Tight_2018_mu_SR_Dplus
+    label:
+      - "W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, SS"
+      - "MadGraph"
+    lumi: "2018"
+    save_to_file: True
+
+  OS_AntiTight_2018_el_SR_Dplus:
+    regions:
+      - OS_AntiTight_2018_el_SR_Dplus
+    make_plots: False
+
+  OS_Tight_2018_el_SR_Dplus:
+    regions:
+      - OS_Tight_2018_el_SR_Dplus
+    make_plots: False
+
+  SS_AntiTight_2018_el_SR_Dplus:
+    regions:
+      - SS_AntiTight_2018_el_SR_Dplus
+    make_plots: False
+
+  SS_Tight_2018_el_SR_Dplus:
+    regions:
+      - SS_Tight_2018_el_SR_Dplus
+    make_plots: False
+
+  OS_AntiTight_2018_mu_SR_Dplus:
+    regions:
+      - OS_AntiTight_2018_mu_SR_Dplus
+    make_plots: False
+
+  OS_Tight_2018_mu_SR_Dplus:
+    regions:
+      - OS_Tight_2018_mu_SR_Dplus
+    make_plots: False
+
+  SS_AntiTight_2018_mu_SR_Dplus:
+    regions:
+      - SS_AntiTight_2018_mu_SR_Dplus
+    make_plots: False
+
+  SS_Tight_2018_mu_SR_Dplus:
+    regions:
+      - SS_Tight_2018_mu_SR_Dplus
+    make_plots: False

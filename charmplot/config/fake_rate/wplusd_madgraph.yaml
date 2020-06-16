@@ -16,7 +16,7 @@ channels:
       - Wjets_light_emu
       - Zjets_emu
       - Top
-      - Multijet | MatrixMethod_OS_2018_el_SR_Dplus
+      - Multijet_MatrixMethod | MatrixMethod_OS_2018_el_SR_Dplus
       - Other
     label:
       - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, OS"
@@ -33,7 +33,7 @@ channels:
       - Wjets_light_emu
       - Zjets_emu
       - Top
-      - Multijet | MatrixMethod_SS_2018_el_SR_Dplus
+      - Multijet_MatrixMethod | MatrixMethod_SS_2018_el_SR_Dplus
       - Other
     label:
       - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, SS"
@@ -51,7 +51,7 @@ channels:
       - Wjets_light_emu
       - Zjets_emu
       - Top
-      - Multijet | MatrixMethod_OS-SS_2018_el_SR_Dplus
+      - Multijet_MatrixMethod | MatrixMethod_OS-SS_2018_el_SR_Dplus
       - Other
     label:
       - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, OS-SS"
@@ -68,7 +68,7 @@ channels:
       - Wjets_light_emu
       - Zjets_emu
       - Top
-      - Multijet | MatrixMethod_OS_2018_mu_SR_Dplus
+      - Multijet_MatrixMethod | MatrixMethod_OS_2018_mu_SR_Dplus
       - Other
     label:
       - "W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, OS"
@@ -85,7 +85,7 @@ channels:
       - Wjets_light_emu
       - Zjets_emu
       - Top
-      - Multijet | MatrixMethod_SS_2018_mu_SR_Dplus
+      - Multijet_MatrixMethod | MatrixMethod_SS_2018_mu_SR_Dplus
       - Other
     label:
       - "W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, SS"
@@ -103,7 +103,7 @@ channels:
       - Wjets_light_emu
       - Zjets_emu
       - Top
-      - Multijet | MatrixMethod_OS-SS_2018_mu_SR_Dplus
+      - Multijet_MatrixMethod | MatrixMethod_OS-SS_2018_mu_SR_Dplus
       - Other
     label:
       - "W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, OS-SS"
@@ -114,31 +114,39 @@ channels:
   MatrixMethod_OS_2018_el_SR_Dplus:
     regions:
       - OS_AntiTight_2018_el_SR_Dplus
+      - -OS_Tight_2018_el_SR_Dplus
     make_plots: False
 
   MatrixMethod_SS_2018_el_SR_Dplus:
     regions:
       - SS_AntiTight_2018_el_SR_Dplus
+      - -SS_Tight_2018_el_SR_Dplus
     make_plots: False
 
   MatrixMethod_OS-SS_2018_el_SR_Dplus:
     regions:
       - OS_AntiTight_2018_el_SR_Dplus
       - -SS_AntiTight_2018_el_SR_Dplus
+      - -OS_Tight_2018_el_SR_Dplus
+      - SS_Tight_2018_el_SR_Dplus
     make_plots: False
 
   MatrixMethod_OS_2018_mu_SR_Dplus:
     regions:
       - OS_AntiTight_2018_mu_SR_Dplus
+      - -OS_Tight_2018_mu_SR_Dplus
     make_plots: False
 
   MatrixMethod_SS_2018_mu_SR_Dplus:
     regions:
       - SS_AntiTight_2018_mu_SR_Dplus
+      - -SS_Tight_2018_mu_SR_Dplus
     make_plots: False
 
   MatrixMethod_OS-SS_2018_mu_SR_Dplus:
     regions:
       - OS_AntiTight_2018_mu_SR_Dplus
       - -SS_AntiTight_2018_mu_SR_Dplus
+      - -OS_Tight_2018_mu_SR_Dplus
+      - SS_Tight_2018_mu_SR_Dplus
     make_plots: False

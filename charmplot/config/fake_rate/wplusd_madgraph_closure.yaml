@@ -15,7 +15,7 @@ channels:
       - Zjets
       - Top
       - Diboson
-      - Multijet | MatrixMethod_2018_el_QCD_Dplus
+      - Multijet_MatrixMethod | MatrixMethod_2018_el_QCD_Dplus
     label:
       - "2018 el QCD Closure"
       - "MET < 30 GeV, mT < 60 GeV"
@@ -31,7 +31,7 @@ channels:
       - Zjets
       - Top
       - Diboson
-      - Multijet | MatrixMethod_2018_mu_QCD_Dplus
+      - Multijet_MatrixMethod | MatrixMethod_2018_mu_QCD_Dplus
     label:
       - "2018 mu QCD Closure"
       - "MET < 30 GeV, mT < 60 GeV"
@@ -42,11 +42,11 @@ channels:
   MatrixMethod_2018_el_QCD_Dplus:
     regions:
       - AntiTight_2018_el_QCD_Dplus
-      # - Tight_2018_el_QCD_Dplus
+      - -Tight_2018_el_QCD_Dplus
     make_plots: False
 
   MatrixMethod_2018_mu_QCD_Dplus:
     regions:
       - AntiTight_2018_mu_QCD_Dplus
-      # - Tight_2018_mu_QCD_Dplus
+      - -Tight_2018_mu_QCD_Dplus
     make_plots: False

@@ -140,8 +140,8 @@ def main(options, args):
 
             lep_pt_eta_tight = f.Get(f"{s}_Tight_{c}_lep_pt_eta")
             lep_pt_eta_loose = f.Get(f"{s}_AntiTight_{c}_lep_pt_eta")
-            lep_pt_eta_tight.RebinX(4)
-            lep_pt_eta_loose.RebinX(4)
+            lep_pt_eta_tight.RebinX(2)
+            lep_pt_eta_loose.RebinX(2)
             set_range(lep_pt_eta_tight, x_range)
             set_range(lep_pt_eta_loose, x_range)
 
