@@ -1,0 +1,68 @@
+variablesConf: charmed_wjets
+
+samplesConf: misc
+
+channels:
+  2018_el_wplusd_PT_Template_OS:
+    regions:
+      - OS_2018_el_QCD_Dplus
+    samples:
+      - Multijet_Main
+      - Multijet_VR | 2018_el_wplusd_PT_Template_VR_OS
+    label:
+      - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, OS"
+      - "MET < 30 GeV, no m_{T} cut"
+    lumi: "2018"
+
+  2018_el_wplusd_PT_Template_SS:
+    regions:
+      - SS_2018_el_QCD_Dplus
+    samples:
+      - Multijet_Main
+      - Multijet_VR | 2018_el_wplusd_PT_Template_VR_SS
+    label:
+      - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, SS"
+      - "MET < 30 GeV, no m_{T} cut"
+    lumi: "2018"
+
+  2018_mu_wplusd_PT_Template_OS:
+    regions:
+      - OS_2018_mu_QCD_Dplus
+    samples:
+      - Multijet_Main
+      - Multijet_VR | 2018_mu_wplusd_PT_Template_VR_OS
+    label:
+      - "W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, OS"
+      - "MET < 30 GeV, no m_{T} cut"
+    lumi: "2018"
+
+  2018_mu_wplusd_PT_Template_SS:
+    regions:
+      - SS_2018_mu_QCD_Dplus
+    samples:
+      - Multijet_Main
+      - Multijet_VR | 2018_mu_wplusd_PT_Template_VR_SS
+    label:
+      - "W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, SS"
+      - "MET < 30 GeV, no m_{T} cut"
+    lumi: "2018"
+
+  2018_el_wplusd_PT_Template_VR_OS:
+    regions:
+      - OS_2018_el_QCD_VR_Dplus
+    make_plots: False
+
+  2018_el_wplusd_PT_Template_VR_SS:
+    regions:
+      - SS_2018_el_QCD_VR_Dplus
+    make_plots: False
+
+  2018_mu_wplusd_PT_Template_VR_OS:
+    regions:
+      - OS_2018_mu_QCD_VR_Dplus
+    make_plots: False
+
+  2018_mu_wplusd_PT_Template_VR_SS:
+    regions:
+      - SS_2018_mu_QCD_VR_Dplus
+    make_plots: False

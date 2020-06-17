@@ -1,0 +1,39 @@
+colorScheme: gemstone_hues
+
+Multijet_Main:
+  add: data
+  subtract:
+    - MG_Wjets_light_emu
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_bjets_emu
+    - MG_Wjets_tau
+    - MG_Zjets_light_emu
+    - MG_Zjets_cjets_emu
+    - MG_Zjets_bjets_emu
+    - MG_Zjets_tau
+    - Top_ttbar
+    - Top_single_top
+    - Top_ttx
+    - Diboson
+  lineColor: "14003"
+  legendLabel: "|d0sig| > 2.5(3.0)"
+  shortName: Multijet_VR
+
+Multijet_VR:
+  add: data
+  subtract:
+    - MG_Wjets_light_emu
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_bjets_emu
+    - MG_Wjets_tau
+    - MG_Zjets_light_emu
+    - MG_Zjets_cjets_emu
+    - MG_Zjets_bjets_emu
+    - MG_Zjets_tau
+    - Top_ttbar
+    - Top_single_top
+    - Top_ttx
+    - Diboson
+  lineColor: "10003"
+  legendLabel: "|d0sig| < 2.5(3.0)"
+  shortName: Multijet_VR
