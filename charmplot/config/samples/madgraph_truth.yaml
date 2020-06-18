@@ -109,7 +109,7 @@ Wjets_emu_NoMatch:
     - Top_ttx
   subtract:
   fillColor: "10004"
-  legendLabel: "W+#it{D}(PU)"
+  legendLabel: "No Match"
   shortName: Wjets_emu_NoMatch
 
 Wjets_emu_Rest:
@@ -271,3 +271,10 @@ Multijet:
   fillColor: "14002"
   legendLabel: Multijet
   shortName: Multijet
+
+Multijet_MatrixMethod:
+  add: data
+  subtract:
+  fillColor: "14003"
+  legendLabel: Multijet
+  shortName: Multijet_MatrixMethod
