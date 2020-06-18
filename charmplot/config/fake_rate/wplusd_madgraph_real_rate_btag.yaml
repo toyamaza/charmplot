@@ -1,0 +1,114 @@
+colorScheme: gemstone_hues
+
+variablesConf: inclusive_wjets
+
+samplesConf: madgraph
+
+channels:
+  Tight_2018_el_SR_0tag_Dplus:
+    regions:
+      - Tight_2018_el_SR_0tag_Dplus
+    samples:
+      - Wjets_emu
+      - Wjets_tau
+      - Top
+    label:
+      - "2018 el Tight"
+      - "MadGraph"
+    lumi: "2018"
+    save_to_file: True
+
+  Tight_2018_el_SR_1tag_Dplus:
+    regions:
+      - Tight_2018_el_SR_1tag_Dplus
+      - Tight_2018_el_SR_2tag_Dplus
+    samples:
+      - Wjets_emu
+      - Wjets_tau
+      - Top
+    label:
+      - "2018 el Tight"
+      - "MadGraph"
+    lumi: "2018"
+    save_to_file: True
+
+  Tight_2018_mu_SR_0tag_Dplus:
+    regions:
+      - Tight_2018_mu_SR_0tag_Dplus
+    samples:
+      - Wjets_emu
+      - Wjets_tau
+      - Top
+    label:
+      - "2018 mu Tight"
+      - "MadGraph"
+    lumi: "2018"
+    save_to_file: True
+
+  Tight_2018_mu_SR_1tag_Dplus:
+    regions:
+      - Tight_2018_mu_SR_1tag_Dplus
+      - Tight_2018_mu_SR_2tag_Dplus
+    samples:
+      - Wjets_emu
+      - Wjets_tau
+      - Top
+    label:
+      - "2018 mu Tight"
+      - "MadGraph"
+    lumi: "2018"
+    save_to_file: True
+
+  AntiTight_2018_el_SR_0tag_Dplus:
+    regions:
+      - AntiTight_2018_el_SR_0tag_Dplus
+    samples:
+      - Wjets_emu
+      - Wjets_tau
+      - Top
+    label:
+      - "2018 el AntiTight"
+      - "MadGraph"
+    lumi: "2018"
+    save_to_file: True
+
+  AntiTight_2018_el_SR_1tag_Dplus:
+    regions:
+      - AntiTight_2018_el_SR_1tag_Dplus
+      - AntiTight_2018_el_SR_2tag_Dplus
+    samples:
+      - Wjets_emu
+      - Wjets_tau
+      - Top
+    label:
+      - "2018 el AntiTight"
+      - "MadGraph"
+    lumi: "2018"
+    save_to_file: True
+
+  AntiTight_2018_mu_SR_0tag_Dplus:
+    regions:
+      - AntiTight_2018_mu_SR_0tag_Dplus
+    samples:
+      - Wjets_emu
+      - Wjets_tau
+      - Top
+    label:
+      - "2018 mu AntiTight"
+      - "MadGraph"
+    lumi: "2018"
+    save_to_file: True
+
+  AntiTight_2018_mu_SR_1tag_Dplus:
+    regions:
+      - AntiTight_2018_mu_SR_1tag_Dplus
+      - AntiTight_2018_mu_SR_2tag_Dplus
+    samples:
+      - Wjets_emu
+      - Wjets_tau
+      - Top
+    label:
+      - "2018 mu AntiTight"
+      - "MadGraph"
+    lumi: "2018"
+    save_to_file: True

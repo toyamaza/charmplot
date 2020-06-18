@@ -140,8 +140,8 @@ def main(options, args):
 
             lep_pt_eta_tight = f.Get(f"{s}_Tight_{c}_lep_pt_eta")
             lep_pt_eta_loose = f.Get(f"{s}_AntiTight_{c}_lep_pt_eta")
-            lep_pt_eta_tight.RebinX(2)
-            lep_pt_eta_loose.RebinX(2)
+            lep_pt_eta_tight.RebinX(4)
+            lep_pt_eta_loose.RebinX(4)
             set_range(lep_pt_eta_tight, x_range)
             set_range(lep_pt_eta_loose, x_range)
 
@@ -227,7 +227,7 @@ if __name__ == "__main__":
     parser.add_option('-c', '--channels',
                       action="store", dest="channels",
                       help="comma separated list of channels",
-                      default="2018_el_QCD_Dplus:30:90,2018_mu_QCD_Dplus:30:70")
+                      default="2018_el_QCD_0tag_Dplus:30:90,2018_el_QCD_1tag_Dplus:30:90,2018_mu_QCD_0tag_Dplus:30:70,2018_mu_QCD_1tag_Dplus:30:70")
     parser.add_option('-s', '--samples',
                       action="store", dest="samples",
                       help="comma separated list of samples",

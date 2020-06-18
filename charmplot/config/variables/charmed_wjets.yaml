@@ -282,15 +282,19 @@ Dmeson_m_cosThetaStar:
 #   unit: '#mum'
 #   ratio_range: [0.0, 1.99]
 
-# njets:
-#   label: N_{jet}
-#   ratio_range: [0.5, 1.49]
-#   allow_rebin: False
+lep_dR_bjet:
+  label: '#Delta({b}-jet}, lep)'
+  ratio_range: [0.5, 1.49]
 
-# nbjets:
-#   label: N_{#it{b}-jet}
-#   ratio_range: [0.5, 1.49]
-#   allow_rebin: False
+njets:
+  label: N_{jet}
+  ratio_range: [0.5, 1.49]
+  allow_rebin: False
+
+nbjets:
+  label: N_{#it{b}-jet}
+  ratio_range: [0.5, 1.49]
+  allow_rebin: False
 
 lep_pt_eta:
   make_plots: False
