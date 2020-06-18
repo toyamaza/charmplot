@@ -1,0 +1,500 @@
+colorScheme: gemstone_hues
+
+variablesConf: charmed_wjets
+
+samplesConf: madgraph_truth
+
+data: Data
+
+channels:
+  OS_2018_el_SR_0tag_Dplus:
+    regions:
+      - OS_2018_el_SR_0tag_Dplus
+    samples:
+      - Wjets_emu_Matched | OS_2018_el_SR_0tag_Dplus_Matched
+      - Wjets_emu_Rest | OS_2018_el_SR_0tag_Dplus_Rest
+      - Top_Matched | OS_2018_el_SR_0tag_Dplus_Matched
+      - Top_Rest | OS_2018_el_SR_0tag_Dplus_Rest
+      - Wjets_emu_NoMatch | OS_2018_el_SR_0tag_Dplus_NoMatch
+      - Multijet_MatrixMethod | MatrixMethod_OS_2018_el_SR_0tag_Dplus
+      - Zjets_emu
+      - Other
+    label:
+      - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, OS"
+      - "MadGraph, 0-tag"
+    lumi: "2018"
+    save_to_file: True
+
+  SS_2018_el_SR_0tag_Dplus:
+    regions:
+      - SS_2018_el_SR_0tag_Dplus
+    samples:
+      - Wjets_emu_Matched | SS_2018_el_SR_0tag_Dplus_Matched
+      - Wjets_emu_Rest | SS_2018_el_SR_0tag_Dplus_Rest
+      - Top_Matched | SS_2018_el_SR_0tag_Dplus_Matched
+      - Top_Rest | SS_2018_el_SR_0tag_Dplus_Rest
+      - Wjets_emu_NoMatch | SS_2018_el_SR_0tag_Dplus_NoMatch
+      - Multijet_MatrixMethod | MatrixMethod_SS_2018_el_SR_0tag_Dplus
+      - Zjets_emu
+      - Other
+    label:
+      - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, SS"
+      - "MadGraph, 0-tag"
+    lumi: "2018"
+    save_to_file: True
+
+  OS_2018_el_SR_1tag_Dplus:
+    regions:
+      - OS_2018_el_SR_1tag_Dplus
+    samples:
+      - Wjets_emu_Matched | OS_2018_el_SR_1tag_Dplus_Matched
+      - Wjets_emu_Rest | OS_2018_el_SR_1tag_Dplus_Rest
+      - Top_Matched | OS_2018_el_SR_1tag_Dplus_Matched
+      - Top_Rest | OS_2018_el_SR_1tag_Dplus_Rest
+      - Wjets_emu_NoMatch | OS_2018_el_SR_1tag_Dplus_NoMatch
+      - Multijet_MatrixMethod | MatrixMethod_OS_2018_el_SR_1tag_Dplus
+      - Zjets_emu
+      - Other
+    label:
+      - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, OS"
+      - "MadGraph, 1-tag"
+    lumi: "2018"
+    save_to_file: True
+
+  SS_2018_el_SR_1tag_Dplus:
+    regions:
+      - SS_2018_el_SR_1tag_Dplus
+    samples:
+      - Wjets_emu_Matched | SS_2018_el_SR_1tag_Dplus_Matched
+      - Wjets_emu_Rest | SS_2018_el_SR_1tag_Dplus_Rest
+      - Top_Matched | SS_2018_el_SR_1tag_Dplus_Matched
+      - Top_Rest | SS_2018_el_SR_1tag_Dplus_Rest
+      - Wjets_emu_NoMatch | SS_2018_el_SR_1tag_Dplus_NoMatch
+      - Multijet_MatrixMethod | MatrixMethod_SS_2018_el_SR_1tag_Dplus
+      - Zjets_emu
+      - Other
+    label:
+      - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, SS"
+      - "MadGraph, 1-tag"
+    lumi: "2018"
+    save_to_file: True
+
+  OS_2018_el_SR_2tag_Dplus:
+    regions:
+      - OS_2018_el_SR_2tag_Dplus
+    samples:
+      - Wjets_emu_Matched | OS_2018_el_SR_2tag_Dplus_Matched
+      - Wjets_emu_Rest | OS_2018_el_SR_2tag_Dplus_Rest
+      - Top_Matched | OS_2018_el_SR_2tag_Dplus_Matched
+      - Top_Rest | OS_2018_el_SR_2tag_Dplus_Rest
+      - Wjets_emu_NoMatch | OS_2018_el_SR_2tag_Dplus_NoMatch
+      - Multijet_MatrixMethod | MatrixMethod_OS_2018_el_SR_2tag_Dplus
+      - Zjets_emu
+      - Other
+    label:
+      - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, OS"
+      - "MadGraph, 2-tag"
+    lumi: "2018"
+    save_to_file: True
+
+  SS_2018_el_SR_2tag_Dplus:
+    regions:
+      - SS_2018_el_SR_2tag_Dplus
+    samples:
+      - Wjets_emu_Matched | SS_2018_el_SR_2tag_Dplus_Matched
+      - Wjets_emu_Rest | SS_2018_el_SR_2tag_Dplus_Rest
+      - Top_Matched | SS_2018_el_SR_2tag_Dplus_Matched
+      - Top_Rest | SS_2018_el_SR_2tag_Dplus_Rest
+      - Wjets_emu_NoMatch | SS_2018_el_SR_2tag_Dplus_NoMatch
+      - Multijet_MatrixMethod | MatrixMethod_SS_2018_el_SR_2tag_Dplus
+      - Zjets_emu
+      - Other
+    label:
+      - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, SS"
+      - "MadGraph, 2-tag"
+    lumi: "2018"
+    save_to_file: True
+
+  OS_2018_mu_SR_0tag_Dplus:
+    regions:
+      - OS_2018_mu_SR_0tag_Dplus
+    samples:
+      - Wjets_emu_Matched | OS_2018_mu_SR_0tag_Dplus_Matched
+      - Wjets_emu_Rest | OS_2018_mu_SR_0tag_Dplus_Rest
+      - Top_Matched | OS_2018_mu_SR_0tag_Dplus_Matched
+      - Top_Rest | OS_2018_mu_SR_0tag_Dplus_Rest
+      - Wjets_emu_NoMatch | OS_2018_mu_SR_0tag_Dplus_NoMatch
+      - Multijet_MatrixMethod | MatrixMethod_OS_2018_mu_SR_0tag_Dplus
+      - Zjets_emu
+      - Other
+    label:
+      - "W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, OS"
+      - "MadGraph, 0-tag"
+    lumi: "2018"
+    save_to_file: True
+
+  SS_2018_mu_SR_0tag_Dplus:
+    regions:
+      - SS_2018_mu_SR_0tag_Dplus
+    samples:
+      - Wjets_emu_Matched | SS_2018_mu_SR_0tag_Dplus_Matched
+      - Wjets_emu_Rest | SS_2018_mu_SR_0tag_Dplus_Rest
+      - Top_Matched | SS_2018_mu_SR_0tag_Dplus_Matched
+      - Top_Rest | SS_2018_mu_SR_0tag_Dplus_Rest
+      - Wjets_emu_NoMatch | SS_2018_mu_SR_0tag_Dplus_NoMatch
+      - Multijet_MatrixMethod | MatrixMethod_SS_2018_mu_SR_0tag_Dplus
+      - Zjets_emu
+      - Other
+    label:
+      - "W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, SS"
+      - "MadGraph, 0-tag"
+    lumi: "2018"
+    save_to_file: True
+
+  OS_2018_mu_SR_1tag_Dplus:
+    regions:
+      - OS_2018_mu_SR_1tag_Dplus
+    samples:
+      - Wjets_emu_Matched | OS_2018_mu_SR_1tag_Dplus_Matched
+      - Wjets_emu_Rest | OS_2018_mu_SR_1tag_Dplus_Rest
+      - Top_Matched | OS_2018_mu_SR_1tag_Dplus_Matched
+      - Top_Rest | OS_2018_mu_SR_1tag_Dplus_Rest
+      - Wjets_emu_NoMatch | OS_2018_mu_SR_1tag_Dplus_NoMatch
+      - Multijet_MatrixMethod | MatrixMethod_OS_2018_mu_SR_1tag_Dplus
+      - Zjets_emu
+      - Other
+    label:
+      - "W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, OS"
+      - "MadGraph, 1-tag"
+    lumi: "2018"
+    save_to_file: True
+
+  SS_2018_mu_SR_1tag_Dplus:
+    regions:
+      - SS_2018_mu_SR_1tag_Dplus
+    samples:
+      - Wjets_emu_Matched | SS_2018_mu_SR_1tag_Dplus_Matched
+      - Wjets_emu_Rest | SS_2018_mu_SR_1tag_Dplus_Rest
+      - Top_Matched | SS_2018_mu_SR_1tag_Dplus_Matched
+      - Top_Rest | SS_2018_mu_SR_1tag_Dplus_Rest
+      - Wjets_emu_NoMatch | SS_2018_mu_SR_1tag_Dplus_NoMatch
+      - Multijet_MatrixMethod | MatrixMethod_SS_2018_mu_SR_1tag_Dplus
+      - Zjets_emu
+      - Other
+    label:
+      - "W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, SS"
+      - "MadGraph, 1-tag"
+    lumi: "2018"
+    save_to_file: True
+
+  OS_2018_mu_SR_2tag_Dplus:
+    regions:
+      - OS_2018_mu_SR_2tag_Dplus
+    samples:
+      - Wjets_emu_Matched | OS_2018_mu_SR_2tag_Dplus_Matched
+      - Wjets_emu_Rest | OS_2018_mu_SR_2tag_Dplus_Rest
+      - Top_Matched | OS_2018_mu_SR_2tag_Dplus_Matched
+      - Top_Rest | OS_2018_mu_SR_2tag_Dplus_Rest
+      - Wjets_emu_NoMatch | OS_2018_mu_SR_2tag_Dplus_NoMatch
+      - Multijet_MatrixMethod | MatrixMethod_OS_2018_mu_SR_2tag_Dplus
+      - Zjets_emu
+      - Other
+    label:
+      - "W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, OS"
+      - "MadGraph, 2-tag"
+    lumi: "2018"
+    save_to_file: True
+
+  SS_2018_mu_SR_2tag_Dplus:
+    regions:
+      - SS_2018_mu_SR_2tag_Dplus
+    samples:
+      - Wjets_emu_Matched | SS_2018_mu_SR_2tag_Dplus_Matched
+      - Wjets_emu_Rest | SS_2018_mu_SR_2tag_Dplus_Rest
+      - Top_Matched | SS_2018_mu_SR_2tag_Dplus_Matched
+      - Top_Rest | SS_2018_mu_SR_2tag_Dplus_Rest
+      - Wjets_emu_NoMatch | SS_2018_mu_SR_2tag_Dplus_NoMatch
+      - Multijet_MatrixMethod | MatrixMethod_SS_2018_mu_SR_2tag_Dplus
+      - Zjets_emu
+      - Other
+    label:
+      - "W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, SS"
+      - "MadGraph, 2-tag"
+    lumi: "2018"
+    save_to_file: True
+
+  MatrixMethod_OS_2018_el_SR_0tag_Dplus:
+    regions:
+      - OS_AntiTight_2018_el_SR_0tag_Dplus
+      - -OS_Tight_2018_el_SR_0tag_Dplus
+    make_plots: False
+
+  OS_2018_el_SR_0tag_Dplus_Matched:
+    regions:
+      - OS_2018_el_SR_0tag_Dplus_Matched
+    make_plots: False
+
+  OS_2018_el_SR_0tag_Dplus_Rest:
+    regions:
+      - OS_2018_el_SR_0tag_Dplus
+      - -OS_2018_el_SR_0tag_Dplus_Matched
+      - -OS_2018_el_SR_0tag_Dplus_Other
+    make_plots: False
+
+  OS_2018_el_SR_0tag_Dplus_NoMatch:
+    regions:
+      - OS_2018_el_SR_0tag_Dplus_Other
+    make_plots: False
+
+  MatrixMethod_SS_2018_el_SR_0tag_Dplus:
+    regions:
+      - SS_AntiTight_2018_el_SR_0tag_Dplus
+      - -SS_Tight_2018_el_SR_0tag_Dplus
+    make_plots: False
+
+  SS_2018_el_SR_0tag_Dplus_Matched:
+    regions:
+      - SS_2018_el_SR_0tag_Dplus_Matched
+    make_plots: False
+
+  SS_2018_el_SR_0tag_Dplus_Rest:
+    regions:
+      - SS_2018_el_SR_0tag_Dplus
+      - -SS_2018_el_SR_0tag_Dplus_Matched
+      - -SS_2018_el_SR_0tag_Dplus_Other
+    make_plots: False
+
+  SS_2018_el_SR_0tag_Dplus_NoMatch:
+    regions:
+      - SS_2018_el_SR_0tag_Dplus_Other
+    make_plots: False
+
+  MatrixMethod_OS_2018_el_SR_1tag_Dplus:
+    regions:
+      - OS_AntiTight_2018_el_SR_1tag_Dplus
+      - -OS_Tight_2018_el_SR_1tag_Dplus
+    make_plots: False
+
+  OS_2018_el_SR_1tag_Dplus_Matched:
+    regions:
+      - OS_2018_el_SR_1tag_Dplus_Matched
+    make_plots: False
+
+  OS_2018_el_SR_1tag_Dplus_Rest:
+    regions:
+      - OS_2018_el_SR_1tag_Dplus
+      - -OS_2018_el_SR_1tag_Dplus_Matched
+      - -OS_2018_el_SR_1tag_Dplus_Other
+    make_plots: False
+
+  OS_2018_el_SR_1tag_Dplus_NoMatch:
+    regions:
+      - OS_2018_el_SR_1tag_Dplus_Other
+    make_plots: False
+
+  MatrixMethod_SS_2018_el_SR_1tag_Dplus:
+    regions:
+      - SS_AntiTight_2018_el_SR_1tag_Dplus
+      - -SS_Tight_2018_el_SR_1tag_Dplus
+    make_plots: False
+
+  SS_2018_el_SR_1tag_Dplus_Matched:
+    regions:
+      - SS_2018_el_SR_1tag_Dplus_Matched
+    make_plots: False
+
+  SS_2018_el_SR_1tag_Dplus_Rest:
+    regions:
+      - SS_2018_el_SR_1tag_Dplus
+      - -SS_2018_el_SR_1tag_Dplus_Matched
+      - -SS_2018_el_SR_1tag_Dplus_Other
+    make_plots: False
+
+  SS_2018_el_SR_1tag_Dplus_NoMatch:
+    regions:
+      - SS_2018_el_SR_1tag_Dplus_Other
+    make_plots: False
+
+  MatrixMethod_OS_2018_el_SR_2tag_Dplus:
+    regions:
+      - OS_AntiTight_2018_el_SR_2tag_Dplus
+      - -OS_Tight_2018_el_SR_2tag_Dplus
+    make_plots: False
+
+  OS_2018_el_SR_2tag_Dplus_Matched:
+    regions:
+      - OS_2018_el_SR_2tag_Dplus_Matched
+    make_plots: False
+
+  OS_2018_el_SR_2tag_Dplus_Rest:
+    regions:
+      - OS_2018_el_SR_2tag_Dplus
+      - -OS_2018_el_SR_2tag_Dplus_Matched
+      - -OS_2018_el_SR_2tag_Dplus_Other
+    make_plots: False
+
+  OS_2018_el_SR_2tag_Dplus_NoMatch:
+    regions:
+      - OS_2018_el_SR_2tag_Dplus_Other
+    make_plots: False
+
+  MatrixMethod_SS_2018_el_SR_2tag_Dplus:
+    regions:
+      - SS_AntiTight_2018_el_SR_2tag_Dplus
+      - -SS_Tight_2018_el_SR_2tag_Dplus
+    make_plots: False
+
+  SS_2018_el_SR_2tag_Dplus_Matched:
+    regions:
+      - SS_2018_el_SR_2tag_Dplus_Matched
+    make_plots: False
+
+  SS_2018_el_SR_2tag_Dplus_Rest:
+    regions:
+      - SS_2018_el_SR_2tag_Dplus
+      - -SS_2018_el_SR_2tag_Dplus_Matched
+      - -SS_2018_el_SR_2tag_Dplus_Other
+    make_plots: False
+
+  SS_2018_el_SR_2tag_Dplus_NoMatch:
+    regions:
+      - SS_2018_el_SR_2tag_Dplus_Other
+    make_plots: False
+
+  MatrixMethod_OS_2018_mu_SR_0tag_Dplus:
+    regions:
+      - OS_AntiTight_2018_mu_SR_0tag_Dplus
+      - -OS_Tight_2018_mu_SR_0tag_Dplus
+    make_plots: False
+
+  OS_2018_mu_SR_0tag_Dplus_Matched:
+    regions:
+      - OS_2018_mu_SR_0tag_Dplus_Matched
+    make_plots: False
+
+  OS_2018_mu_SR_0tag_Dplus_Rest:
+    regions:
+      - OS_2018_mu_SR_0tag_Dplus
+      - -OS_2018_mu_SR_0tag_Dplus_Matched
+      - -OS_2018_mu_SR_0tag_Dplus_Other
+    make_plots: False
+
+  OS_2018_mu_SR_0tag_Dplus_NoMatch:
+    regions:
+      - OS_2018_mu_SR_0tag_Dplus_Other
+    make_plots: False
+
+  MatrixMethod_SS_2018_mu_SR_0tag_Dplus:
+    regions:
+      - SS_AntiTight_2018_mu_SR_0tag_Dplus
+      - -SS_Tight_2018_mu_SR_0tag_Dplus
+    make_plots: False
+
+  SS_2018_mu_SR_0tag_Dplus_Matched:
+    regions:
+      - SS_2018_mu_SR_0tag_Dplus_Matched
+    make_plots: False
+
+  SS_2018_mu_SR_0tag_Dplus_Rest:
+    regions:
+      - SS_2018_mu_SR_0tag_Dplus
+      - -SS_2018_mu_SR_0tag_Dplus_Matched
+      - -SS_2018_mu_SR_0tag_Dplus_Other
+    make_plots: False
+
+  SS_2018_mu_SR_0tag_Dplus_NoMatch:
+    regions:
+      - SS_2018_mu_SR_0tag_Dplus_Other
+    make_plots: False
+
+  MatrixMethod_OS_2018_mu_SR_1tag_Dplus:
+    regions:
+      - OS_AntiTight_2018_mu_SR_1tag_Dplus
+      - -OS_Tight_2018_mu_SR_1tag_Dplus
+    make_plots: False
+
+  OS_2018_mu_SR_1tag_Dplus_Matched:
+    regions:
+      - OS_2018_mu_SR_1tag_Dplus_Matched
+    make_plots: False
+
+  OS_2018_mu_SR_1tag_Dplus_Rest:
+    regions:
+      - OS_2018_mu_SR_1tag_Dplus
+      - -OS_2018_mu_SR_1tag_Dplus_Matched
+      - -OS_2018_mu_SR_1tag_Dplus_Other
+    make_plots: False
+
+  OS_2018_mu_SR_1tag_Dplus_NoMatch:
+    regions:
+      - OS_2018_mu_SR_1tag_Dplus_Other
+    make_plots: False
+
+  MatrixMethod_SS_2018_mu_SR_1tag_Dplus:
+    regions:
+      - SS_AntiTight_2018_mu_SR_1tag_Dplus
+      - -SS_Tight_2018_mu_SR_1tag_Dplus
+    make_plots: False
+
+  SS_2018_mu_SR_1tag_Dplus_Matched:
+    regions:
+      - SS_2018_mu_SR_1tag_Dplus_Matched
+    make_plots: False
+
+  SS_2018_mu_SR_1tag_Dplus_Rest:
+    regions:
+      - SS_2018_mu_SR_1tag_Dplus
+      - -SS_2018_mu_SR_1tag_Dplus_Matched
+      - -SS_2018_mu_SR_1tag_Dplus_Other
+    make_plots: False
+
+  SS_2018_mu_SR_1tag_Dplus_NoMatch:
+    regions:
+      - SS_2018_mu_SR_1tag_Dplus_Other
+    make_plots: False
+
+  MatrixMethod_OS_2018_mu_SR_2tag_Dplus:
+    regions:
+      - OS_AntiTight_2018_mu_SR_2tag_Dplus
+      - -OS_Tight_2018_mu_SR_2tag_Dplus
+    make_plots: False
+
+  OS_2018_mu_SR_2tag_Dplus_Matched:
+    regions:
+      - OS_2018_mu_SR_2tag_Dplus_Matched
+    make_plots: False
+
+  OS_2018_mu_SR_2tag_Dplus_Rest:
+    regions:
+      - OS_2018_mu_SR_2tag_Dplus
+      - -OS_2018_mu_SR_2tag_Dplus_Matched
+      - -OS_2018_mu_SR_2tag_Dplus_Other
+    make_plots: False
+
+  OS_2018_mu_SR_2tag_Dplus_NoMatch:
+    regions:
+      - OS_2018_mu_SR_2tag_Dplus_Other
+    make_plots: False
+
+  MatrixMethod_SS_2018_mu_SR_2tag_Dplus:
+    regions:
+      - SS_AntiTight_2018_mu_SR_2tag_Dplus
+      - -SS_Tight_2018_mu_SR_2tag_Dplus
+    make_plots: False
+
+  SS_2018_mu_SR_2tag_Dplus_Matched:
+    regions:
+      - SS_2018_mu_SR_2tag_Dplus_Matched
+    make_plots: False
+
+  SS_2018_mu_SR_2tag_Dplus_Rest:
+    regions:
+      - SS_2018_mu_SR_2tag_Dplus
+      - -SS_2018_mu_SR_2tag_Dplus_Matched
+      - -SS_2018_mu_SR_2tag_Dplus_Other
+    make_plots: False
+
+  SS_2018_mu_SR_2tag_Dplus_NoMatch:
+    regions:
+      - SS_2018_mu_SR_2tag_Dplus_Other
+    make_plots: False
