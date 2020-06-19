@@ -6,6 +6,7 @@ from charmplot.control import globalConfig
 from charmplot.control import inputDataReader
 from charmplot.control import sample
 from charmplot.control import variable
+from copy import deepcopy
 from typing import Dict, List, Union
 import json
 import logging
@@ -23,6 +24,51 @@ def get_mc_min(mc_map: MC_Map, samples: list):
         if s not in mc_map.keys():
             continue
         return mc_map[s]
+
+
+def read_trex_input(channel: channel.Channel, var: variable.Variable, mc_map: MC_Map, trex_post_fit_histograms: Dict):
+    file_temp = ROOT.TFile(trex_post_fit_histograms[channel.name], "READ")
+    h_data_trex = deepcopy(file_temp.Get("h_Data"))
+    var_trex = h_data_trex.GetTitle().split("__")[1]
+    if var.name == var_trex:
+        logging.info(f"Replacing Data histogram with trex post-fit histogram {h_data_trex}")
+        trex_mc_tot = deepcopy(file_temp.Get("h_tot_postFit"))
+        trex_mc_tot.SetLineWidth(1)
+        trex_mc_tot.SetFillStyle(0)
+        trex_mc_tot.SetLineColor(ROOT.kWhite)
+        trex_mc_stat_err = deepcopy(file_temp.Get("g_totErr_postFit"))
+        trex_mc_stat_err_only = ROOT.TGraphAsymmErrors()
+        for i in range(trex_mc_stat_err.GetN()):
+            y = trex_mc_stat_err.GetY()[i]
+            x = trex_mc_tot.GetBinCenter(i + 1)
+            if y < 1e-10:
+                y = 0
+                yerr_low = 0
+                yerr_high = 0
+                trex_mc_stat_err.GetEYlow()[i] = yerr_low
+                trex_mc_stat_err.GetEYhigh()[i] = yerr_high
+                trex_mc_tot.SetBinContent(i + 1, y)
+            xerr_low = trex_mc_tot.GetBinWidth(i + 1) / 2.
+            xerr_high = trex_mc_tot.GetBinWidth(i + 1) / 2.
+            yerr_low = trex_mc_stat_err.GetEYlow()[i]
+            yerr_high = trex_mc_stat_err.GetEYhigh()[i]
+            trex_mc_stat_err_only.SetPoint(trex_mc_stat_err_only.GetN(), x, 1)
+            if y > 0:
+                trex_mc_stat_err_only.SetPointError(trex_mc_stat_err_only.GetN() - 1, xerr_low, xerr_high, yerr_low / y, yerr_high / y)
+            else:
+                trex_mc_stat_err_only.SetPointError(trex_mc_stat_err_only.GetN() - 1, xerr_low, xerr_high, 0, 0)
+        trex_mc_stat_err.SetFillColor(ROOT.kGray + 2)
+        trex_mc_stat_err.SetFillStyle(3354)
+        trex_mc_stat_err_only.SetFillColor(ROOT.kGray + 2)
+        trex_mc_stat_err_only.SetFillStyle(3354)
+        for s in mc_map:
+            h_temp = deepcopy(file_temp.Get(f"h_{s.shortName}_postFit"))
+            for i in range(1, h_temp.GetNbinsX() + 1):
+                if h_temp.GetBinContent(i) < 1e-10:
+                    h_temp.SetBinContent(i, 0)
+            mc_map[s] = h_temp
+    file_temp.Close()
+    return h_data_trex, trex_mc_tot, trex_mc_stat_err, trex_mc_stat_err_only
 
 
 def save_to_trex_file(trex_folder: str, channel: channel.Channel, var: variable.Variable, h_data: ROOT.TH1, mc_map: MC_Map, trex_histograms: Dict):

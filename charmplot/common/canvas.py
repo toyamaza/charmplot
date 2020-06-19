@@ -301,7 +301,7 @@ class Canvas2(CanvasBase):
             self.proxy_up.SetMaximum(math.pow(10, math.log10(self.max_val) * self.maximum_scale_factor +
                                               (1 - self.maximum_scale_factor) * math.log10(self.proxy_up.GetMinimum())))
 
-    def make_legend(self, data, mc_tot=None, mc_map=[], samples=[], print_yields=False, draw_option="f"):
+    def make_legend(self, data, mc_tot=None, mc_map=[], samples=[], print_yields=False, draw_option="f", show_error=True):
         # temp entry for sys unc
         temp_err = ROOT.TGraphErrors()
         temp_err.SetLineColor(ROOT.kBlack)
@@ -333,7 +333,10 @@ class Canvas2(CanvasBase):
             if print_yields:
                 err = ROOT.Double()
                 integral = mc_tot.IntegralAndError(0, mc_tot.GetNbinsX() + 1, err)
-                leg.AddEntry(temp_err, "SM tot. #scale[0.60]{%.2e #pm%.0f%s}" % (integral, 100 * err / integral, "%"), "lf")
+                if show_error:
+                    leg.AddEntry(temp_err, "SM tot. #scale[0.60]{%.2e #pm%.0f%s}" % (integral, 100 * err / integral, "%"), "lf")
+                else:
+                    leg.AddEntry(temp_err, "SM tot. #scale[0.60]{%.2e}" % integral, "lf")
             else:
                 leg.AddEntry(temp_err, "SM tot.", "lf")
         for s in samples:
@@ -345,7 +348,10 @@ class Canvas2(CanvasBase):
             if print_yields:
                 err = ROOT.Double()
                 integral = mc_map[s].IntegralAndError(0, mc_map[s].GetNbinsX() + 1, err)
-                leg.AddEntry(mc_map[s], "%s #scale[0.60]{%.2e #pm%.0f%s}" % (name, mc_map[s].GetSum(), 100 * err / integral, "%"), "f")
+                if show_error:
+                    leg.AddEntry(mc_map[s], "%s #scale[0.60]{%.2e #pm%.0f%s}" % (name, mc_map[s].GetSum(), 100 * err / integral, "%"), "f")
+                else:
+                    leg.AddEntry(mc_map[s], "%s #scale[0.60]{%.2e}" % (name, mc_map[s].GetSum()), "f")
             else:
                 leg.AddEntry(mc_map[s], "%s" % name, draw_option)
         self.pad1.cd()

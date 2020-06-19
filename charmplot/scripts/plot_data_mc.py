@@ -25,6 +25,17 @@ handler.setFormatter(formatter)
 root.addHandler(handler)
 
 
+def read_trex_input(trex_folder):
+    trex_histograms = {}
+    for subdir, dirs, files in os.walk(os.path.join(trex_folder, "Histograms")):
+        for file in files:
+            if "postFit" in file:
+                channel = file.replace("_postFit.root", "")
+                trex_histograms[channel] = os.path.join(subdir, file)
+    logging.info(f"Found TREx histograms {trex_histograms}")
+    return trex_histograms
+
+
 def make_trex_folder(trex_folder):
     if not os.path.isdir(trex_folder):
         os.makedirs(trex_folder)
@@ -51,6 +62,11 @@ def main(options, conf, reader):
 
     # trex histogram files (one per sample)
     trex_histograms = {}
+
+    # read trex input
+    trex_post_fit_histograms = {}
+    if options.trex_input:
+        trex_post_fit_histograms = read_trex_input(options.trex_input)
 
     # loop through all channels and variables
     for c in conf.channels:
@@ -121,6 +137,14 @@ def main(options, conf, reader):
             if not mc_map:
                 continue
 
+            # trex post-fit
+            trex_mc_tot = None
+            trex_mc_stat_err = None
+            trex_mc_stat_err_only = None
+            if c.name in trex_post_fit_histograms:
+                h_data, trex_mc_tot, trex_mc_stat_err, trex_mc_stat_err_only = utils.read_trex_input(c, var, mc_map, trex_post_fit_histograms)
+                c.label += ["post-fit"]
+
             # save histograms to root file
             if c.save_to_file:
                 utils.save_to_file(out_file_name, c, var, h_data, mc_map)
@@ -142,13 +166,20 @@ def main(options, conf, reader):
 
             # stack and total mc
             hs = utils.make_stack(samples, mc_map)
-            h_mc_tot = utils.make_mc_tot(hs, f"{c}_{v}_mc_tot")
+            if trex_mc_tot:
+                h_mc_tot = trex_mc_tot
+            else:
+                h_mc_tot = utils.make_mc_tot(hs, f"{c}_{v}_mc_tot")
 
             # ratio
             h_ratio = utils.make_ratio(h_data, h_mc_tot)
 
             # mc error
-            gr_mc_stat_err, gr_mc_stat_err_only = utils.make_stat_err(h_mc_tot)
+            if trex_mc_stat_err and trex_mc_stat_err_only:
+                gr_mc_stat_err, gr_mc_stat_err_only = trex_mc_stat_err, trex_mc_stat_err_only
+                canv.set_ratio_range(0.89, 1.11, override=True)
+            else:
+                gr_mc_stat_err, gr_mc_stat_err_only = utils.make_stat_err(h_mc_tot)
 
             # top pad
             canv.pad1.cd()
@@ -158,7 +189,7 @@ def main(options, conf, reader):
             h_data.Draw("same pe")
 
             # make legend
-            canv.make_legend(h_data, h_mc_tot, mc_map, samples, print_yields=True)
+            canv.make_legend(h_data, h_mc_tot, mc_map, samples, print_yields=True, show_error=(trex_mc_tot is None))
 
             # set maximum after creating legend
             canv.set_maximum((h_data, h_mc_tot), var, mc_min=utils.get_mc_min(mc_map, samples))
@@ -206,6 +237,9 @@ if __name__ == "__main__":
     parser.add_option('--trex',
                       action="store", dest="trex",
                       help="make output histograms for TRExFitter")
+    parser.add_option('--trex-input',
+                      action="store", dest="trex_input",
+                      help="import post-fit trex plots")
 
     # parse input arguments
     options, args = parser.parse_args()
