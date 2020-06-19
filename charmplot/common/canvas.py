@@ -298,8 +298,8 @@ class Canvas2(CanvasBase):
         self.pad1.cd()
         self.pad1.SetLogy()
         if self.max_val > 0:
-            self.proxy_up.SetMaximum(math.pow(10, math.log10(self.max_val) * self.maximum_scale_factor
-                                              + (1 - self.maximum_scale_factor) * math.log10(self.proxy_up.GetMinimum())))
+            self.proxy_up.SetMaximum(math.pow(10, math.log10(self.max_val) * self.maximum_scale_factor +
+                                              (1 - self.maximum_scale_factor) * math.log10(self.proxy_up.GetMinimum())))
 
     def make_legend(self, data, mc_tot=None, mc_map=[], samples=[], print_yields=False, draw_option="f"):
         # temp entry for sys unc

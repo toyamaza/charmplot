@@ -25,6 +25,20 @@ def get_mc_min(mc_map: MC_Map, samples: list):
         return mc_map[s]
 
 
+def save_to_trex_file(trex_folder: str, channel: channel.Channel, var: variable.Variable, h_data: ROOT.TH1, mc_map: MC_Map, trex_histograms: Dict):
+    logging.info(f"Saving histograms to trex root files for channel {channel}")
+    out_name = f"{channel.name}_{var.name}"
+    data_file = ROOT.TFile(trex_histograms["Data"], "UPDATE")
+    data_file.cd()
+    h_data.Write(out_name)
+    data_file.Close()
+    for s in mc_map:
+        out_file = ROOT.TFile(trex_histograms[s.shortName], "UPDATE")
+        out_file.cd()
+        mc_map[s].Write(out_name)
+        out_file.Close()
+
+
 def save_to_file(out_file_name: str, channel: channel.Channel, var: variable.Variable, h_data: ROOT.TH1, mc_map: MC_Map):
     logging.info(f"Saving histograms to root file for channel {channel}")
     out_file = ROOT.TFile(out_file_name, "UPDATE")

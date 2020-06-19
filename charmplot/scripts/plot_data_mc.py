@@ -1,3 +1,4 @@
+# flake8: noqa: C901
 #!/usr/bin/env python
 from charmplot.common import utils
 from charmplot.common import www
@@ -24,6 +25,11 @@ handler.setFormatter(formatter)
 root.addHandler(handler)
 
 
+def make_trex_folder(trex_folder):
+    if not os.path.isdir(trex_folder):
+        os.makedirs(trex_folder)
+
+
 def mass_fit(conf, reader, c, samples):
     fit_var = conf.get_var(c.mass_fit["var"])
     h_data = reader.get_histogram(conf.get_data(), c, fit_var)
@@ -42,6 +48,9 @@ def main(options, conf, reader):
 
     # make the output file only once
     histogram_file_made = False
+
+    # trex histogram files (one per sample)
+    trex_histograms = {}
 
     # loop through all channels and variables
     for c in conf.channels:
@@ -69,6 +78,17 @@ def main(options, conf, reader):
 
         # used MC samples in channel (default or channel specific)
         samples = utils.get_samples(conf, c)
+
+        # trex output
+        if options.trex:
+            trex_folder = os.path.join(conf.out_name, options.trex)
+            for s in samples + [conf.get_data()]:
+                make_trex_folder(trex_folder)
+                sample_file_name = os.path.join(trex_folder, f"{s.shortName}.root")
+                if s.shortName not in trex_histograms:
+                    sample_out_file = ROOT.TFile(sample_file_name, "RECREATE")
+                    trex_histograms[s.shortName] = sample_file_name
+                    sample_out_file.Close()
 
         # perform likelihood fit
         fit = utils.likelihood_fit(conf, reader, c, samples)
@@ -104,6 +124,8 @@ def main(options, conf, reader):
             # save histograms to root file
             if c.save_to_file:
                 utils.save_to_file(out_file_name, c, var, h_data, mc_map)
+                if options.trex:
+                    utils.save_to_trex_file(trex_folder, c, var, h_data, mc_map, trex_histograms)
 
             # continue if not make plots
             if not c.make_plots or not var.make_plots:
@@ -181,6 +203,9 @@ if __name__ == "__main__":
     parser.add_option('--stage-out',
                       action="store_true", dest="stage_out",
                       help="copy plots to the www folder")
+    parser.add_option('--trex',
+                      action="store", dest="trex",
+                      help="make output histograms for TRExFitter")
 
     # parse input arguments
     options, args = parser.parse_args()
