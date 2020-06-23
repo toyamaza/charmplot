@@ -145,12 +145,6 @@ def main(options, conf, reader):
                 h_data, trex_mc_tot, trex_mc_stat_err, trex_mc_stat_err_only = utils.read_trex_input(c, var, mc_map, trex_post_fit_histograms)
                 c.label += ["post-fit"]
 
-            # save histograms to root file
-            if c.save_to_file:
-                utils.save_to_file(out_file_name, c, var, h_data, mc_map)
-                if options.trex:
-                    utils.save_to_trex_file(trex_folder, c, var, h_data, mc_map, trex_histograms)
-
             # continue if not make plots
             if not c.make_plots or not var.make_plots:
                 continue
@@ -163,6 +157,12 @@ def main(options, conf, reader):
 
             # configure histograms
             canv.configure_histograms(mc_map, h_data)
+
+            # save histograms to root file
+            if c.save_to_file:
+                utils.save_to_file(out_file_name, c, var, h_data, mc_map)
+                if options.trex:
+                    utils.save_to_trex_file(trex_folder, c, var, h_data, mc_map, trex_histograms)
 
             # stack and total mc
             hs = utils.make_stack(samples, mc_map)
