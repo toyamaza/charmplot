@@ -30,6 +30,7 @@ def read_trex_input(channel: channel.Channel, var: variable.Variable, mc_map: MC
     file_temp = ROOT.TFile(trex_post_fit_histograms[channel.name], "READ")
     h_data_trex = deepcopy(file_temp.Get("h_Data"))
     var_trex = h_data_trex.GetTitle().split("__")[1]
+    logging.info(f"TRExVar {var_trex}")
     if var.name == var_trex:
         logging.info(f"Replacing Data histogram with trex post-fit histogram {h_data_trex}")
         trex_mc_tot = deepcopy(file_temp.Get("h_tot_postFit"))
@@ -172,9 +173,12 @@ def set_to_positive(h):
 
 def set_under_over_flow(h: ROOT.TH1, x_range: list):
     N = h.GetNbinsX()
+    width = h.GetBinWidth(1)
     if not x_range:
         x_range = [h.GetBinCenter(1) - h.GetBinWidth(1) * 0.5, h.GetBinCenter(N) + h.GetBinWidth(N) * 0.5]
-    x_range_bins = [h.FindBin(x_range[0]), h.FindBin(x_range[1] - h.GetBinWidth(N) * 0.1)]
+    x_range_bins = [h.FindBin(x_range[0] + width * 0.1), h.FindBin(x_range[1] - width * 0.1)]
+
+    h_new = ROOT.TH1F(f"{h.GetName()}_rebined", f"{h.GetName()}_rebined", x_range_bins[1] - x_range_bins[0] + 1, x_range[0], x_range[1])
 
     val0 = ROOT.Double()
     err0 = ROOT.Double()
@@ -202,13 +206,31 @@ def set_under_over_flow(h: ROOT.TH1, x_range: list):
     h.SetBinContent(x_range_bins[1], valN + valN1)
     h.SetBinError(x_range_bins[1], (errN**2 + errN1**2)**(0.5))
 
+    j = 1
+    for i in range(x_range_bins[0], x_range_bins[1] + 1):
+        h_new.SetBinContent(j, h.GetBinContent(i))
+        h_new.SetBinError(j, h.GetBinError(i))
+        j += 1
+
+    h_new.SetBinContent(1, val0 + val1)
+    h_new.SetBinError(1, (err0**2 + err1**2)**(0.5))
+    h_new.SetBinContent(h_new.GetNbinsX(), valN + valN1)
+    h_new.SetBinError(h_new.GetNbinsX(), (errN**2 + errN1**2)**(0.5))
+
+    h_new.SetName(h.GetName())
+    h_new.SetTitle(h.GetTitle())
+
+    return h_new
+
 
 def rebin_histogram(h: ROOT.TH1, v: variable.Variable, extra_rebin: int = 1):
     rebin = v.rebin
     if rebin and v.allow_rebin:
         h.Rebin(rebin * extra_rebin)
     if v.allow_rebin:
-        set_under_over_flow(h, v.x_range)
+        return set_under_over_flow(h, v.x_range)
+    else:
+        return h
 
 
 def make_stat_err(h: ROOT.TH1) -> List[Union[ROOT.TGraphErrors, ROOT.TGraphErrors]]:

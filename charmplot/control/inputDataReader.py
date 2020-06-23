@@ -27,15 +27,16 @@ class InputDataReader(object):
                 h_name, variable.name, c, sample.name, f))
             return None
         h = h.Clone(h.GetName() + "_temp")
-        utils.rebin_histogram(h, variable, channel.extra_rebin)
+        h_new = utils.rebin_histogram(h, variable, channel.extra_rebin)
+        print(h_new)
         if "MatrixMethod" not in sample.name:
-            utils.set_to_positive(h)
+            utils.set_to_positive(h_new)
 
         # scale histogram
         scale_factors = utils.read_scale_factors(self.channel_scale_factors)
-        self.scale_histogram(h, sample, c, scale_factors)
+        self.scale_histogram(h_new, sample, c, scale_factors)
 
-        return h
+        return h_new
 
     def scale_histogram(self, h, sample, channel, scale_factors):
         # scale histogram if given input scale factors
