@@ -281,6 +281,7 @@ def make_stack(samples: List, mc_map: MC_Map):
 
 
 def make_mc_tot(hs: ROOT.THStack, name: str) -> ROOT.TH1:
+    logger.debug("In make mc tot")
     h = hs.GetStack().Last().Clone(name)
     h.SetLineWidth(1)
     h.SetFillStyle(0)
