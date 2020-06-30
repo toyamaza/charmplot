@@ -348,7 +348,7 @@ class Canvas2(CanvasBase):
             if print_yields:
                 err = ROOT.Double()
                 integral = mc_map[s].IntegralAndError(0, mc_map[s].GetNbinsX() + 1, err)
-                if show_error:
+                if show_error and integral != 0:
                     leg.AddEntry(mc_map[s], "%s #scale[0.60]{%.2e #pm%.0f%s}" % (name, mc_map[s].GetSum(), 100 * err / integral, "%"), "f")
                 else:
                     leg.AddEntry(mc_map[s], "%s #scale[0.60]{%.2e}" % (name, mc_map[s].GetSum()), "f")

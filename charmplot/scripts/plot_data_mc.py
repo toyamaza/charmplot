@@ -133,7 +133,7 @@ def main(options, conf, reader):
                 continue
 
             # read input MC histograms (and scale them)
-            mc_map = utils.read_samples(conf, reader, c, var, samples, fit)
+            mc_map = utils.read_samples(conf, reader, c, var, samples, fit, force_positive=c.force_positive)
             if not mc_map:
                 continue
 
@@ -141,7 +141,12 @@ def main(options, conf, reader):
             trex_mc_tot = None
             trex_mc_stat_err = None
             trex_mc_stat_err_only = None
-            if c.name in trex_post_fit_histograms:
+            if trex_post_fit_histograms and c.trex_subtraction:
+                channelOS = conf.get_channel(c.trex_subtraction["OS"])
+                channelSS = conf.get_channel(c.trex_subtraction["SS"])
+                h_data, trex_mc_tot, trex_mc_stat_err, trex_mc_stat_err_only = utils.trex_subtraction(channelOS, channelSS, var, mc_map, trex_post_fit_histograms)
+                c.label += ["post-fit"]
+            elif c.name in trex_post_fit_histograms:
                 h_data, trex_mc_tot, trex_mc_stat_err, trex_mc_stat_err_only = utils.read_trex_input(c, var, mc_map, trex_post_fit_histograms)
                 c.label += ["post-fit"]
 

@@ -88,6 +88,12 @@ class InputDataReader(object):
                 if not h_total:
                     return None
                 h_total.Add(h, -1 * weight)
+        if force_positive:
+            utils.set_to_positive(h_total)
+        if not sample.statError:
+            logger.info(f"Set stat error of {sample} to zero.")
+            for i in range(0, h_total.GetNbinsX() + 2):
+                h_total.SetBinError(i, 0)
         return h_total
 
     def find_variables(self, sample, channel):

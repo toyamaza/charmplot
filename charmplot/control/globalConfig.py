@@ -157,6 +157,10 @@ class GlobalConfig(object):
                 chan.set_save_to_file(val['save_to_file'])
             if 'print_scale_factors' in val:
                 chan.set_print_scale_factors(val['print_scale_factors'])
+            if 'force_positive' in val:
+                chan.set_force_positive(val['force_positive'])
+            if 'trex_subtraction' in val:
+                chan.set_trex_subtraction(val['trex_subtraction'])
 
         # add channels
         self.channels += channels

@@ -13,6 +13,7 @@ class Sample(object):
     add = []
     subtract = []
     color_scheme = None
+    statError = True
 
     def __init__(self, name, color_scheme=None, **kwargs):
         # sample name
@@ -56,6 +57,9 @@ class Sample(object):
 
         if 'shortName' in kwargs:
             self.shortName = kwargs.pop('shortName')
+
+        if 'statError' in kwargs:
+            self.statError = kwargs.pop('statError')
 
     def set_color_scheme(self, scheme):
         self.color_scheme = scheme

@@ -26,6 +26,53 @@ def get_mc_min(mc_map: MC_Map, samples: list):
         return mc_map[s]
 
 
+def trex_subtraction(channelOS: channel.Channel, channelSS: channel.Channel,
+                     var: variable.Variable, mc_map: MC_Map, trex_post_fit_histograms: Dict):
+    logging.info(f"Making post-fit histograms for {channelOS.name} - {channelSS.name}")
+    mc_map_OS = deepcopy(mc_map)
+    mc_map_SS = deepcopy(mc_map)
+    h_data_trex_OS, trex_mc_tot_OS, trex_mc_stat_err_OS, trex_mc_stat_err_only_OS = read_trex_input(channelOS, var, mc_map_OS, trex_post_fit_histograms)
+    h_data_trex_SS, trex_mc_tot_SS, trex_mc_stat_err_SS, trex_mc_stat_err_only_SS = read_trex_input(channelSS, var, mc_map_SS, trex_post_fit_histograms)
+    h_data_trex = h_data_trex_OS.Clone(h_data_trex_OS.GetName().replace("OS", "OS-SS"))
+    h_data_trex.Add(h_data_trex_SS, -1)
+    trex_mc_tot = trex_mc_tot_OS.Clone(trex_mc_tot_OS.GetName().replace("OS", "OS-SS"))
+    trex_mc_tot.Add(trex_mc_tot_SS, -1)
+    for s in mc_map_OS:
+        h_temp = mc_map_OS[s].Clone(mc_map_OS[s].GetName().replace("OS", "OS-SS"))
+        h_temp_SS = None
+        for s2 in mc_map_SS:
+            if s2.shortName == s.shortName:
+                h_temp_SS = mc_map_SS[s2]
+                break
+        h_temp.Add(h_temp_SS, -1)
+        logger.info(f"Subtracting {h_temp_SS.GetName()} {h_temp_SS.GetSum()} from {h_temp.GetSum()}")
+        for s2 in mc_map:
+            if s2.shortName == s.shortName:
+                mc_map[s2] = h_temp
+                break
+    trex_mc_stat_err = trex_mc_stat_err_OS.Clone(trex_mc_stat_err_OS.GetName().replace("OS", "OS-SS"))
+    trex_mc_stat_err_only = trex_mc_stat_err_only_OS.Clone(trex_mc_stat_err_only_OS.GetName().replace("OS", "OS-SS"))
+    for i in range(trex_mc_stat_err.GetN()):
+        yOS = trex_mc_stat_err_OS.GetY()[i]
+        ySS = trex_mc_stat_err_SS.GetY()[i]
+        yerr_lowOS = trex_mc_stat_err_OS.GetEYlow()[i]
+        yerr_highOS = trex_mc_stat_err_OS.GetEYhigh()[i]
+        yerr_lowSS = trex_mc_stat_err_SS.GetEYlow()[i]
+        yerr_highSS = trex_mc_stat_err_SS.GetEYhigh()[i]
+        trex_mc_stat_err.GetY()[i] = yOS - ySS
+        trex_mc_stat_err.GetEYlow()[i] = yerr_lowOS + yerr_lowSS
+        trex_mc_stat_err.GetEYhigh()[i] = yerr_highOS + yerr_highSS
+        # trex_mc_stat_err.GetEYlow()[i] = (yerr_lowOS**2 + yerr_lowSS**2)**(0.5)
+        # trex_mc_stat_err.GetEYhigh()[i] = (yerr_highOS**2 + yerr_highSS**2)**(0.5)
+        if yOS - ySS > 0:
+            trex_mc_stat_err_only.GetEYlow()[i] = trex_mc_stat_err.GetEYlow()[i] / (yOS - ySS)
+            trex_mc_stat_err_only.GetEYhigh()[i] = trex_mc_stat_err.GetEYhigh()[i] / (yOS - ySS)
+        else:
+            trex_mc_stat_err_only.GetEYlow()[i] = 0
+            trex_mc_stat_err_only.GetEYhigh()[i] = 0
+    return h_data_trex, trex_mc_tot, trex_mc_stat_err, trex_mc_stat_err_only
+
+
 def read_trex_input(channel: channel.Channel, var: variable.Variable, mc_map: MC_Map, trex_post_fit_histograms: Dict):
     file_temp = ROOT.TFile(trex_post_fit_histograms[channel.name], "READ")
     h_data_trex = deepcopy(file_temp.Get("h_Data"))
@@ -103,11 +150,11 @@ def save_to_file(out_file_name: str, channel: channel.Channel, var: variable.Var
 
 def read_samples(conf: globalConfig.GlobalConfig, reader: inputDataReader.InputDataReader,
                  c: channel.Channel, v: variable.Variable, samples: list,
-                 fit: likelihoodFit.LikelihoodFit = None) -> MC_Map:
+                 fit: likelihoodFit.LikelihoodFit = None, force_positive: bool = False) -> MC_Map:
     mc_map = {}
     for s in samples:
         # read MC histogram
-        h = reader.get_histogram(s, c, v)
+        h = reader.get_histogram(s, c, v, force_positive)
         if not h:
             continue
         mc_map[s] = h

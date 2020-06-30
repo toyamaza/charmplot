@@ -9,6 +9,7 @@ class Channel(object):
     make_plots = True
     save_to_file = False
     print_scale_factors = True
+    force_positive = False
     extra_rebin = 1
     name = ""
     lumi = ""
@@ -16,6 +17,7 @@ class Channel(object):
     add = []
     subtract = []
     samples = []
+    trex_subtraction = {}
 
     def __init__(self, name, label, lumi, add, subtract=[], samples=[]):
         self.name = name
@@ -67,6 +69,12 @@ class Channel(object):
 
     def set_print_scale_factors(self, print_scale_factors):
         self.print_scale_factors = print_scale_factors
+
+    def set_force_positive(self, force_positive):
+        self.force_positive = force_positive
+
+    def set_trex_subtraction(self, trex_subtraction):
+        self.trex_subtraction = trex_subtraction
 
     def get_all(self):
         return self.add + self.subtract
