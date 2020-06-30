@@ -204,12 +204,14 @@ Zjets_emu:
   subtract:
   fillColor: "11002"
   legendLabel: Z#rightarrowll
+  shortName: Zjets_emu
 
 Zjets_tau:
   add: MG_Zjets_tau
   subtract:
   fillColor: "11003"
   legendLabel: Z#rightarrow#tau#tau
+  shortName: Zjets_tau
 
 Top:
   add:
@@ -219,6 +221,7 @@ Top:
   subtract:
   fillColor: "12001"
   legendLabel: Top
+  shortName: Top
 
 Top_ttbar:
   add: Top_ttbar
@@ -243,6 +246,7 @@ Diboson:
   subtract:
   fillColor: "13000"
   legendLabel: Diboson
+  shortName: Diboson
 
 Other:
   add:
@@ -250,8 +254,9 @@ Other:
     - MG_Zjets_tau
     - MG_Wjets_tau
   subtract:
-  fillColor: "13000"
+  fillColor: "15000"
   legendLabel: Other
+  shortName: Other
 
 Multijet:
   add: data
@@ -278,3 +283,11 @@ Multijet_MatrixMethod:
   fillColor: "14003"
   legendLabel: Multijet
   shortName: Multijet_MatrixMethod
+
+MockMC:
+  add: data
+  subtract:
+  fillColor: "13001"
+  legendLabel: MockMC
+  shortName: MockMC
+  statError: True
