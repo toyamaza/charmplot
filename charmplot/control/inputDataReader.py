@@ -19,15 +19,21 @@ class InputDataReader(object):
         self.config = conf
         self.read_input_files()
 
-    def get_histogram_from_file(self, f, channel, sample, variable, c, extra_rebin=1):
+    def get_histogram_from_file(self, f, channel, sample, variable, c, extra_rebin=1, sys=None):
         logger.debug(f"In get_histogram_from_file with {channel.name} {sample.name} {variable} {c} extra_rebin: {extra_rebin}")
         h_name = os.path.join(c, "__".join([c, variable.name]))
-        h = f.Get(h_name)
+        h = None
+        if sys:
+            channel_sys = sys + "_SYS_" + c
+            h_name_sys = os.path.join(channel_sys, "__".join([channel_sys, variable.name]))
+            h = f.Get(h_name_sys)
+        if not h:
+            h = f.Get(h_name)
         if not h:
             logger.warning("Histogram %s for variable %s not found in channel %s for sample %s in file %s" % (
                 h_name, variable.name, c, sample.name, f))
             return None
-        h = h.Clone(h.GetName() + "_temp")
+        h = h.Clone(f"{h.GetName()}_{sys}")
         h_new = utils.rebin_histogram(h, variable, extra_rebin)
         logger.info(f"Got histogram {h_new}")
         if "MatrixMethod" not in sample.name:
@@ -67,7 +73,7 @@ class InputDataReader(object):
                 quot.SetBinError(i,0.0)
         return quot
 
-    def get_histogram(self, sample, channel, variable, force_positive=False):
+    def get_histogram(self, sample, channel, variable, force_positive=False, sys=None):
         h_total = None
         h_denom = None
         # scale factors for this channel
@@ -87,7 +93,7 @@ class InputDataReader(object):
             f = self.input_files[input_file]
             for c in channel.add:
                 logger.info(f"channel.add: {c} {sample.shortName}")
-                h = self.get_histogram_from_file(f, channel, sample, variable, c, extra_rebin)
+                h = self.get_histogram_from_file(f, channel, sample, variable, c, extra_rebin, sys)
                 if not h:
                     continue
                 if not h_total:
@@ -96,7 +102,7 @@ class InputDataReader(object):
                     h_total.Add(h, weight)
             for c in channel.subtract:
                 logger.info(f"channel.subtract: {c} {sample.shortName}")
-                h = self.get_histogram_from_file(f, channel, sample, variable, c, extra_rebin)
+                h = self.get_histogram_from_file(f, channel, sample, variable, c, extra_rebin, sys)
                 if not h:
                     continue
                 if not h_total:

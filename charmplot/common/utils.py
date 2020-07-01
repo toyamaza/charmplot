@@ -119,12 +119,16 @@ def read_trex_input(channel: channel.Channel, var: variable.Variable, mc_map: MC
     return h_data_trex, trex_mc_tot, trex_mc_stat_err, trex_mc_stat_err_only
 
 
-def save_to_trex_file(trex_folder: str, channel: channel.Channel, var: variable.Variable, h_data: ROOT.TH1, mc_map: MC_Map, trex_histograms: Dict):
+def save_to_trex_file(trex_folder: str, channel: channel.Channel, var: variable.Variable,
+                      h_data: ROOT.TH1, mc_map: MC_Map, trex_histograms: Dict, sys: str = None):
     logging.info(f"Saving histograms to trex root files for channel {channel}")
     out_name = f"{channel.name}_{var.name}"
+    if sys:
+        out_name += f"_{sys}"
     data_file = ROOT.TFile(trex_histograms["Data"], "UPDATE")
     data_file.cd()
-    h_data.Write(out_name)
+    if not sys:
+        h_data.Write(out_name)
     data_file.Close()
     for s in mc_map:
         out_file = ROOT.TFile(trex_histograms[s.shortName], "UPDATE")
@@ -150,11 +154,12 @@ def save_to_file(out_file_name: str, channel: channel.Channel, var: variable.Var
 
 def read_samples(conf: globalConfig.GlobalConfig, reader: inputDataReader.InputDataReader,
                  c: channel.Channel, v: variable.Variable, samples: list,
-                 fit: likelihoodFit.LikelihoodFit = None, force_positive: bool = False) -> MC_Map:
+                 fit: likelihoodFit.LikelihoodFit = None, force_positive: bool = False,
+                 sys: str = None) -> MC_Map:
     mc_map = {}
     for s in samples:
         # read MC histogram
-        h = reader.get_histogram(s, c, v, force_positive)
+        h = reader.get_histogram(s, c, v, force_positive, sys)
         if not h:
             continue
         mc_map[s] = h
@@ -442,8 +447,8 @@ def scale_multijet_histogram(data: ROOT.TH1, mc_map: MC_Map, fit_range: list):
 def make_canvas(h: ROOT.TH1, v: variable.Variable, c: channel.Channel,
                 x: float = 800., y: float = 600., y_split: float = 0.30,
                 fit: likelihoodFit.LikelihoodFit = None, scale_factors: dict = None,
-                events: str = "Entries") -> ROOT.TCanvas:
-    canv = canvas.Canvas2(c, v, x, y, y_split, fit, scale_factors)
+                events: str = "Entries", sys: str = None) -> ROOT.TCanvas:
+    canv = canvas.Canvas2(c, v, x, y, y_split, fit, scale_factors, sys=sys)
     canv.construct(h, events=events)
     return canv
 

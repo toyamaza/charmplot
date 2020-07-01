@@ -119,102 +119,106 @@ def main(options, conf, reader):
         if c.mass_fit:
             mass_fit(conf, reader, c, samples)
 
-        for v in variables:
+        systematics = [None]
+        for sys in systematics:
 
-            # variable object
-            var = conf.get_var(v)
+            for v in variables:
 
-            # check if last plot
-            last_plot = v == variables[-1]
+                # variable object
+                var = conf.get_var(v)
 
-            # data histogram
-            h_data = reader.get_histogram(conf.get_data(), c, var)
-            if not h_data:
-                continue
+                # check if last plot
+                last_plot = v == variables[-1] and sys == systematics[-1]
 
-            # read input MC histograms (and scale them)
-            mc_map = utils.read_samples(conf, reader, c, var, samples, fit, force_positive=c.force_positive)
-            if not mc_map:
-                continue
+                # data histogram
+                h_data = reader.get_histogram(conf.get_data(), c, var)
+                if not h_data:
+                    continue
 
-            # trex post-fit
-            trex_mc_tot = None
-            trex_mc_stat_err = None
-            trex_mc_stat_err_only = None
-            if trex_post_fit_histograms and c.trex_subtraction:
-                channelOS = conf.get_channel(c.trex_subtraction["OS"])
-                channelSS = conf.get_channel(c.trex_subtraction["SS"])
-                h_data, trex_mc_tot, trex_mc_stat_err, trex_mc_stat_err_only = utils.trex_subtraction(channelOS, channelSS, var, mc_map, trex_post_fit_histograms)
-                c.label += ["post-fit"]
-            elif c.name in trex_post_fit_histograms:
-                h_data, trex_mc_tot, trex_mc_stat_err, trex_mc_stat_err_only = utils.read_trex_input(c, var, mc_map, trex_post_fit_histograms)
-                c.label += ["post-fit"]
+                # read input MC histograms (and scale them)
+                mc_map = utils.read_samples(conf, reader, c, var, samples, fit, force_positive=c.force_positive, sys=sys)
+                if not mc_map:
+                    continue
 
-            # continue if not make plots
-            if not c.make_plots or not var.make_plots:
-                continue
+                # trex post-fit
+                trex_mc_tot = None
+                trex_mc_stat_err = None
+                trex_mc_stat_err_only = None
+                if trex_post_fit_histograms and c.trex_subtraction:
+                    channelOS = conf.get_channel(c.trex_subtraction["OS"])
+                    channelSS = conf.get_channel(c.trex_subtraction["SS"])
+                    h_data, trex_mc_tot, trex_mc_stat_err, trex_mc_stat_err_only = utils.trex_subtraction(channelOS, channelSS, var, mc_map, trex_post_fit_histograms)
+                    c.label += ["post-fit"]
+                elif c.name in trex_post_fit_histograms:
+                    h_data, trex_mc_tot, trex_mc_stat_err, trex_mc_stat_err_only = utils.read_trex_input(c, var, mc_map, trex_post_fit_histograms)
+                    c.label += ["post-fit"]
 
-            # scale factors for this channel (only for dispaly)
-            scale_factors = utils.read_scale_factors(c.scale_factors)
+                # continue if not make plots
+                if not c.make_plots or not var.make_plots:
+                    continue
 
-            # canvas
-            canv = utils.make_canvas(h_data, var, c, x=800, y=800, fit=fit, scale_factors=scale_factors)
+                # scale factors for this channel (only for dispaly)
+                scale_factors = utils.read_scale_factors(c.scale_factors)
 
-            # configure histograms
-            canv.configure_histograms(mc_map, h_data)
+                # canvas
+                canv = utils.make_canvas(h_data, var, c, x=800, y=800, fit=fit, scale_factors=scale_factors, sys=sys)
 
-            # save histograms to root file
-            if c.save_to_file:
-                utils.save_to_file(out_file_name, c, var, h_data, mc_map)
-                if options.trex:
-                    utils.save_to_trex_file(trex_folder, c, var, h_data, mc_map, trex_histograms)
+                # configure histograms
+                canv.configure_histograms(mc_map, h_data)
 
-            # stack and total mc
-            hs = utils.make_stack(samples, mc_map)
-            if trex_mc_tot:
-                h_mc_tot = trex_mc_tot
-            else:
-                h_mc_tot = utils.make_mc_tot(hs, f"{c}_{v}_mc_tot")
+                # save histograms to root file
+                if c.save_to_file:
+                    utils.save_to_file(out_file_name, c, var, h_data, mc_map)
+                    if options.trex:
+                        utils.save_to_trex_file(trex_folder, c, var, h_data, mc_map, trex_histograms, sys=sys)
 
-            # ratio
-            h_ratio = utils.make_ratio(h_data, h_mc_tot)
+                # stack and total mc
+                hs = utils.make_stack(samples, mc_map)
+                if trex_mc_tot:
+                    h_mc_tot = trex_mc_tot
+                else:
+                    h_mc_tot = utils.make_mc_tot(hs, f"{c}_{v}_mc_tot")
 
-            # mc error
-            if trex_mc_stat_err and trex_mc_stat_err_only:
-                gr_mc_stat_err, gr_mc_stat_err_only = trex_mc_stat_err, trex_mc_stat_err_only
-                canv.set_ratio_range(0.89, 1.11, override=True)
-            else:
-                gr_mc_stat_err, gr_mc_stat_err_only = utils.make_stat_err(h_mc_tot)
+                # ratio
+                h_ratio = utils.make_ratio(h_data, h_mc_tot)
 
-            # top pad
-            canv.pad1.cd()
-            hs.Draw("same hist")
-            h_mc_tot.Draw("same hist")
-            gr_mc_stat_err.Draw("e2")
-            h_data.Draw("same pe")
+                # mc error
+                if trex_mc_stat_err and trex_mc_stat_err_only:
+                    gr_mc_stat_err, gr_mc_stat_err_only = trex_mc_stat_err, trex_mc_stat_err_only
+                    if c.name not in ["OS-SS_2018_el_SR_2tag_Dplus", "OS-SS_2018_mu_SR_2tag_Dplus"]:
+                        canv.set_ratio_range(0.89, 1.11, override=True)
+                else:
+                    gr_mc_stat_err, gr_mc_stat_err_only = utils.make_stat_err(h_mc_tot)
 
-            # make legend
-            canv.make_legend(h_data, h_mc_tot, mc_map, samples, print_yields=True, show_error=(trex_mc_tot is None))
+                # top pad
+                canv.pad1.cd()
+                hs.Draw("same hist")
+                h_mc_tot.Draw("same hist")
+                gr_mc_stat_err.Draw("e2")
+                h_data.Draw("same pe")
 
-            # set maximum after creating legend
-            canv.set_maximum((h_data, h_mc_tot), var, mc_min=utils.get_mc_min(mc_map, samples))
+                # make legend
+                canv.make_legend(h_data, h_mc_tot, mc_map, samples, print_yields=True, show_error=(trex_mc_tot is None))
 
-            # bottom pad
-            canv.pad2.cd()
-            if not c.qcd_template:
-                gr_mc_stat_err_only.Draw("le2")
-                h_ratio.Draw("same pe")
-            else:
-                h_qcd_frac, h_qcd_frac_err = utils.get_fraction_histogram(mc_map[conf.get_sample(c.qcd_template)], h_data)
-                canv.draw_qcd_frac(h_qcd_frac, h_qcd_frac_err)
+                # set maximum after creating legend
+                canv.set_maximum((h_data, h_mc_tot), var, mc_min=utils.get_mc_min(mc_map, samples))
 
-            # Print out
-            canv.print_all(conf.out_name, c.name, v, multipage_pdf=True, first_plot=first_plot, last_plot=last_plot, as_png=options.stage_out)
-            first_plot = False
+                # bottom pad
+                canv.pad2.cd()
+                if not c.qcd_template:
+                    gr_mc_stat_err_only.Draw("le2")
+                    h_ratio.Draw("same pe")
+                else:
+                    h_qcd_frac, h_qcd_frac_err = utils.get_fraction_histogram(mc_map[conf.get_sample(c.qcd_template)], h_data)
+                    canv.draw_qcd_frac(h_qcd_frac, h_qcd_frac_err)
 
-            # close output file
-            if c.save_to_file:
-                out_file.Close()
+                # Print out
+                canv.print_all(conf.out_name, c.name, v, multipage_pdf=True, first_plot=first_plot, last_plot=last_plot, as_png=options.stage_out)
+                first_plot = False
+
+                # close output file
+                if c.save_to_file:
+                    out_file.Close()
 
 
 if __name__ == "__main__":

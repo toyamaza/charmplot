@@ -23,7 +23,8 @@ class CanvasBase(object):
     def __del__(self):
         self.canv.Delete()
 
-    def __init__(self, c: channel.Channel, v: variable.Variable, x: float, y: float, suffix: str = ""):
+    def __init__(self, c: channel.Channel, v: variable.Variable, x: float, y: float, suffix: str = "",
+                 sys: str = ""):
         self.name = f"{c.name}_{v.name}"
         if suffix:
             self.name += f"_{suffix}"
@@ -31,6 +32,9 @@ class CanvasBase(object):
         self.variable = v
         self.x = x
         self.y = y
+        self.sys = sys
+        if self.sys:
+            self.name += f"_{self.sys}"
         self.canv = ROOT.TCanvas(self.name, "", int(self.x), int(self.y))
         self.set_canvas_margins()
         logger.debug(f"created canvas with name {self.name}")
@@ -124,8 +128,9 @@ class Canvas2(CanvasBase):
             self.pad1.Delete()
 
     def __init__(self, c: channel.Channel, v: variable.Variable, x: float, y: float,
-                 y_split: float = 0.35, fit: likelihoodFit.LikelihoodFit = None, scale_factors: dict = None, suffix: str = ""):
-        super(Canvas2, self).__init__(c, v, x, y, suffix)
+                 y_split: float = 0.35, fit: likelihoodFit.LikelihoodFit = None,
+                 scale_factors: dict = None, suffix: str = "", sys: str = ""):
+        super(Canvas2, self).__init__(c, v, x, y, suffix, sys)
 
         # upper/lower canvas split
         self.y_split = y_split
@@ -164,6 +169,10 @@ class Canvas2(CanvasBase):
         # set ATLAS label
         self.set_atlas_label()
 
+        # sys string
+        if sys:
+            self.text(f"sys: {sys}")
+
         # print fit results
         self.fit_results()
 
@@ -201,9 +210,15 @@ class Canvas2(CanvasBase):
         if self.pad2:
             self.pad2.cd()
             ROOT.gPad.RedrawAxis()
-        self.print(f"{output}/{channel}/{channel}_{var}.pdf")
+        if not self.sys:
+            self.print(f"{output}/{channel}/{channel}_{var}.pdf")
+        else:
+            self.print(f"{output}/{channel}/{channel}_{var}_{self.sys}.pdf")
         if as_png:
-            self.print(f"{output}/{channel}/{channel}_{var}.png")
+            if not self.sys:
+                self.print(f"{output}/{channel}/{channel}_{var}.png")
+            else:
+                self.print(f"{output}/{channel}/{channel}_{var}_{self.sys}.png")
         if multipage_pdf:
             if first_plot:
                 self.print(f"{output}/{channel}.pdf(")
@@ -213,9 +228,15 @@ class Canvas2(CanvasBase):
                 self.print(f"{output}/{channel}.pdf")
         if logy:
             self.set_logy()
-            self.print(f"{output}/{channel}/{channel}_{var}_LOG.pdf")
+            if not self.sys:
+                self.print(f"{output}/{channel}/{channel}_{var}_LOG.pdf")
+            else:
+                self.print(f"{output}/{channel}/{channel}_{var}_{self.sys}_LOG.pdf")
             if as_png:
-                self.print(f"{output}/{channel}/{channel}_{var}_LOG.png")
+                if not self.sys:
+                    self.print(f"{output}/{channel}/{channel}_{var}_LOG.png")
+                else:
+                    self.print(f"{output}/{channel}/{channel}_{var}_{self.sys}_LOG.png")
             if multipage_pdf:
                 if last_plot:
                     self.print(f"{output}/{channel}.pdf)")
