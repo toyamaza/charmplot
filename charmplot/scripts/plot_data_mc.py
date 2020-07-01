@@ -119,13 +119,14 @@ def main(options, conf, reader):
         if c.mass_fit:
             mass_fit(conf, reader, c, samples)
 
-        systematics = [None]
-        for sys in systematics:
+        for v in variables:
 
-            for v in variables:
+            # variable object
+            var = conf.get_var(v)
 
-                # variable object
-                var = conf.get_var(v)
+            # systematics
+            systematics = [None]
+            for sys in systematics:
 
                 # check if last plot
                 last_plot = v == variables[-1] and sys == systematics[-1]
