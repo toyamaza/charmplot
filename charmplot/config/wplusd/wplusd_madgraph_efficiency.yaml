@@ -1,0 +1,36 @@
+variablesConf: charmed_wjets_eff
+
+samplesConf: madgraph_truth
+
+channels:
+  2018_wplusd:
+    samples:
+      - Wjets_emu_Matched_Charm | 2018_wplusd_Matched
+      - Top_Matched | 2018_wplusd_Matched
+      - SPG_Matched | inclusive_wplusd_Matched
+    regions:
+      - 2018_el_SR_recoMatch_truth_Dplus_RM
+      - 2018_mu_SR_recoMatch_truth_Dplus_RM
+      - /2018_el_SR_truth_Dplus_RM
+      - /2018_mu_SR_truth_Dplus_RM
+    label:
+      - "W#rightarrowl#nu+D, D#rightarrowK#pi#pi, Eff"
+      - "MadGraph"
+    lumi: "2018"
+    save_to_file: True
+
+  2018_wplusd_Matched:
+    regions:
+      - 2018_el_SR_recoMatch_truth_Dplus_RM
+      - 2018_mu_SR_recoMatch_truth_Dplus_RM
+      - /2018_el_SR_truth_Dplus_RM
+      - /2018_mu_SR_truth_Dplus_RM
+    make_plots: False
+
+  inclusive_wplusd_Matched:
+    regions:
+      - inclusive_SR_recoMatch_truth_Dplus_RM
+      - inclusive_SR_recoMatch_truth_Dplus_RM
+      - /inclusive_SR_truth_Dplus_RM
+      - /inclusive_SR_truth_Dplus_RM
+    make_plots: False

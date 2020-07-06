@@ -1,0 +1,222 @@
+variablesConf: charmed_wjets
+
+samplesConf: madgraph_truth
+
+data: Data
+
+channels:
+  2018_el_wplusd_OS:
+    samples:
+      - Wjets_emu_Matched | 2018_el_wplusd_OS_Matched
+      - Wjets_emu_Rest | 2018_el_wplusd_OS_Rest
+      - Top_Matched | 2018_el_wplusd_OS_Matched
+      - Top_Rest | 2018_el_wplusd_OS_Rest
+      - Wjets_emu_NoMatch | 2018_el_wplusd_OS_NoMatch
+      - Other
+      - Zjets_emu
+    regions:
+      - 2018_el_SR_Dplus_OS_pt_bin1
+    label:
+      - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, OS"
+      - "MadGraph"
+    lumi: "2018"
+    save_to_file: True
+
+  2018_el_wplusd_SS:
+    samples:
+      - Wjets_emu_Matched | 2018_el_wplusd_SS_Matched
+      - Wjets_emu_Rest | 2018_el_wplusd_SS_Rest
+      - Top_Matched | 2018_el_wplusd_SS_Matched
+      - Top_Rest | 2018_el_wplusd_SS_Rest
+      - Wjets_emu_NoMatch | 2018_el_wplusd_SS_NoMatch
+      - Other
+      - Zjets_emu
+    regions:
+      - 2018_el_SR_Dplus_SS_pt_bin1
+    label:
+      - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, SS"
+      - "MadGraph"
+    lumi: "2018"
+    save_to_file: True
+
+  2018_el_wplusd_OS-SS:
+    samples:
+      - Wjets_emu_Matched | 2018_el_wplusd_OS-SS_Matched
+      - Wjets_emu_Rest | 2018_el_wplusd_OS-SS_Rest
+      - Top_Matched | 2018_el_wplusd_OS-SS_Matched
+      - Top_Rest | 2018_el_wplusd_OS-SS_Rest
+      - Wjets_emu_NoMatch | 2018_el_wplusd_OS-SS_NoMatch
+      - Other
+      - Zjets_emu
+    regions:
+      - 2018_el_SR_Dplus_OS_pt_bin1
+      - -2018_el_SR_Dplus_SS_pt_bin1
+    label:
+      - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, OS-SS"
+      - "MadGraph"
+    lumi: "2018"
+    save_to_file: True
+
+  2018_mu_wplusd_OS:
+    samples:
+      - Wjets_emu_Matched | 2018_mu_wplusd_OS_Matched
+      - Wjets_emu_Rest | 2018_mu_wplusd_OS_Rest
+      - Top_Matched | 2018_mu_wplusd_OS_Matched
+      - Top_Rest | 2018_mu_wplusd_OS_Rest
+      - Wjets_emu_NoMatch | 2018_mu_wplusd_OS_NoMatch
+      - Other
+      - Zjets_emu
+    regions:
+      - 2018_mu_SR_Dplus_OS_pt_bin1
+    label:
+      - "W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, OS"
+      - "MadGraph"
+    lumi: "2018"
+    save_to_file: True
+
+  2018_mu_wplusd_SS:
+    samples:
+      - Wjets_emu_Matched | 2018_mu_wplusd_SS_Matched
+      - Wjets_emu_Rest | 2018_mu_wplusd_SS_Rest
+      - Top_Matched | 2018_mu_wplusd_SS_Matched
+      - Top_Rest | 2018_mu_wplusd_SS_Rest
+      - Wjets_emu_NoMatch | 2018_mu_wplusd_SS_NoMatch
+      - Other
+      - Zjets_emu
+    regions:
+      - 2018_mu_SR_Dplus_SS_pt_bin1
+    label:
+      - "W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, SS"
+      - "MadGraph"
+    lumi: "2018"
+    save_to_file: True
+    
+  2018_mu_wplusd_OS-SS:
+    samples:
+      - Wjets_emu_Matched | 2018_mu_wplusd_OS-SS_Matched
+      - Wjets_emu_Rest | 2018_mu_wplusd_OS-SS_Rest
+      - Top_Matched | 2018_mu_wplusd_OS-SS_Matched
+      - Top_Rest | 2018_mu_wplusd_OS-SS_Rest
+      - Wjets_emu_NoMatch | 2018_mu_wplusd_OS-SS_NoMatch
+      - Other
+      - Zjets_emu
+    regions:
+      - 2018_mu_SR_Dplus_OS_pt_bin1
+      - -2018_mu_SR_Dplus_SS_pt_bin1
+    label:
+      - "W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, OS-SS"
+      - "MadGraph"
+    lumi: "2018"
+    save_to_file: True
+
+  2018_el_wplusd_OS_Matched:
+    regions:
+      - 2018_el_SR_Dplus_OS_Matched_pt_bin1
+    make_plots: False
+
+  2018_el_wplusd_SS_Matched:
+    regions:
+      - 2018_el_SR_Dplus_SS_Matched_pt_bin1
+    make_plots: False
+
+  2018_el_wplusd_OS-SS_Matched:
+    regions:
+      - 2018_el_SR_Dplus_OS_Matched_pt_bin1
+      - -2018_el_SR_Dplus_SS_Matched_pt_bin1
+    make_plots: False
+
+  2018_el_wplusd_OS_NoMatch:
+    regions:
+      - 2018_el_SR_Dplus_OS_Other_pt_bin1
+    make_plots: False
+
+  2018_el_wplusd_SS_NoMatch:
+    regions:
+      - 2018_el_SR_Dplus_SS_Other_pt_bin1
+    make_plots: False
+
+  2018_el_wplusd_OS-SS_NoMatch:
+    regions:
+      - 2018_el_SR_Dplus_OS_Other_pt_bin1
+      - -2018_el_SR_Dplus_SS_Other_pt_bin1
+    make_plots: False
+
+  2018_el_wplusd_OS_Rest:
+    regions:
+      - 2018_el_SR_Dplus_OS_pt_bin1
+      - -2018_el_SR_Dplus_OS_Matched_pt_bin1
+      - -2018_el_SR_Dplus_OS_Other_pt_bin1
+    make_plots: False
+
+  2018_el_wplusd_SS_Rest:
+    regions:
+      - 2018_el_SR_Dplus_SS_pt_bin1
+      - -2018_el_SR_Dplus_SS_Matched_pt_bin1
+      - -2018_el_SR_Dplus_SS_Other_pt_bin1
+    make_plots: False
+
+  2018_el_wplusd_OS-SS_Rest:
+    regions:
+      - 2018_el_SR_Dplus_OS_pt_bin1
+      - -2018_el_SR_Dplus_OS_Matched_pt_bin1
+      - -2018_el_SR_Dplus_OS_Other_pt_bin1
+      - -2018_el_SR_Dplus_SS_pt_bin1
+      - 2018_el_SR_Dplus_SS_Matched_pt_bin1
+      - 2018_el_SR_Dplus_SS_Other_pt_bin1
+    make_plots: False
+
+  2018_mu_wplusd_OS_Matched:
+    regions:
+      - 2018_mu_SR_Dplus_OS_Matched_pt_bin1
+    make_plots: False
+
+  2018_mu_wplusd_SS_Matched:
+    regions:
+      - 2018_mu_SR_Dplus_SS_Matched_pt_bin1
+    make_plots: False
+
+  2018_mu_wplusd_OS-SS_Matched:
+    regions:
+      - 2018_mu_SR_Dplus_OS_Matched_pt_bin1
+      - -2018_mu_SR_Dplus_SS_Matched_pt_bin1
+    make_plots: False
+
+  2018_mu_wplusd_OS_NoMatch:
+    regions:
+      - 2018_mu_SR_Dplus_OS_Other_pt_bin1
+    make_plots: False
+
+  2018_mu_wplusd_SS_NoMatch:
+    regions:
+      - 2018_mu_SR_Dplus_SS_Other_pt_bin1
+    make_plots: False
+
+  2018_mu_wplusd_OS-SS_NoMatch:
+    regions:
+      - 2018_mu_SR_Dplus_OS_Other_pt_bin1
+      - -2018_mu_SR_Dplus_SS_Other_pt_bin1
+    make_plots: False
+
+  2018_mu_wplusd_OS_Rest:
+    regions:
+      - 2018_mu_SR_Dplus_OS_pt_bin1
+      - -2018_mu_SR_Dplus_OS_Matched_pt_bin1
+      - -2018_mu_SR_Dplus_OS_Other_pt_bin1
+    make_plots: False
+
+  2018_mu_wplusd_SS_Rest:
+    regions:
+      - 2018_mu_SR_Dplus_SS_pt_bin1
+      - -2018_mu_SR_Dplus_SS_Matched_pt_bin1
+      - -2018_mu_SR_Dplus_SS_Other_pt_bin1
+    make_plots: False
+
+  2018_mu_wplusd_OS-SS_Rest:
+    regions:
+      - 2018_mu_SR_Dplus_OS
+      - -2018_mu_SR_Dplus_OS_Matched_pt_bin1
+      - -2018_mu_SR_Dplus_OS_Other_pt_bin1
+      - -2018_mu_SR_Dplus_SS_pt_bin1
+      - 2018_mu_SR_Dplus_SS_Matched_pt_bin1
+      - 2018_mu_SR_Dplus_SS_Other_pt_bin1
+    make_plots: False

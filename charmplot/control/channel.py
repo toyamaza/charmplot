@@ -16,10 +16,11 @@ class Channel(object):
     label = []
     add = []
     subtract = []
+    divide = []
     samples = []
     trex_subtraction = {}
 
-    def __init__(self, name, label, lumi, add, subtract=[], samples=[]):
+    def __init__(self, name, label, lumi, add, subtract=[], divide = [], samples=[]):
         self.name = name
         self.lumi = lumi
         # label
@@ -37,6 +38,11 @@ class Channel(object):
             self.subtract = subtract
         elif type(subtract) == str:
             self.subtract = [subtract]
+        # division
+        if type(divide) == list:
+            self.divide = divide
+        elif type(divide) == str:
+            self.divide = [divide]
         # samples
         if type(samples) == list:
             self.samples = samples

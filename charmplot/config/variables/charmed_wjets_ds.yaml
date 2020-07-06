@@ -1,7 +1,7 @@
 Dmeson_m:
   label: 'D^{#pm} m'
   unit: 'GeV'
-  rebin: 10
+  rebin: 20
   ratio_range: [0.5, 1.49]
 
 Dmeson_m0:
@@ -342,7 +342,6 @@ Dmeson_cosThetaStar9:
   rebin: 2
   ratio_range: [0.5, 1.49]
 
-
 met_met:
   label: MET
   unit: GeV
@@ -379,6 +378,13 @@ Dmeson_dRlep:
   label: '#DeltaR(D^{#pm}, lep)'
   rebin: 1
   ratio_range: [0.5, 1.49]
+
+Dmeson_PhiMass:
+  label: 'm(#phi)'
+  unit: MeV
+  rebin: 4
+  ratio_range: [0.5, 1.49]
+  x_range: [1012, 1028]
 
 lep_EOverP:
   label: 'lepton E/|p|'
@@ -536,11 +542,16 @@ Dmeson_m_DstarMin:
   label: 'D^{#pm} D* veto'
   unit: 'GeV'
   rebin: 2
+  x_range: [-1,1000000]
   ratio_range: [0.5, 1.49]
 
 Dmeson_max_trackZ0PV:
   label: 'D^{#pm} max z_{0}sin#theta_{PV}'
   unit: 'mm'
+  rebin: 2
+  ratio_range: [0.5, 1.49]
+
+Dmeson_dRlep:
   rebin: 2
   ratio_range: [0.5, 1.49]
 
@@ -648,66 +659,6 @@ Dmeson_m_cosThetaStar:
   rebin: 10
   ratio_range: [0.5, 1.49]
 
-Dmeson_chi2_x_m0:
-  make_plots: False
-#  label: 'D^{#pm} #chi^{2} 0'
-#  rebin: 2
-#  ratio_range: [0.5, 1.49]
-
-Dmeson_chi2_x_m1:
-  make_plots: False
-#  label: 'D^{#pm} #chi^{2} 1'
-#  rebin: 2
-#  ratio_range: [0.5, 1.49]
-
-Dmeson_chi2_x_m2:
-  make_plots: False
-#  label: 'D^{#pm} #chi^{2} 2'
-#  rebin: 2
-#  ratio_range: [0.5, 1.49]
-
-Dmeson_chi2_x_m3:
-  make_plots: False
-#  label: 'D^{#pm} #chi^{2} 3'
-#  rebin: 2
-#  ratio_range: [0.5, 1.49]
-
-Dmeson_chi2_x_m4:
-  make_plots: False
-#  label: 'D^{#pm} #chi^{2} 4'
-#  rebin: 2
-#  ratio_range: [0.5, 1.49]
-
-Dmeson_chi2_x_m5:
-  make_plots: False
-#  label: 'D^{#pm} #chi^{2} 5'
-#  rebin: 2
-#  ratio_range: [0.5, 1.49]
-
-Dmeson_chi2_x_m6:
-  make_plots: False
-#  label: 'D^{#pm} #chi^{2} 6'
-#  rebin: 2
-#  ratio_range: [0.5, 1.49]
-
-Dmeson_chi2_x_m7:
-  make_plots: False
-#  label: 'D^{#pm} #chi^{2} 7'
-#  rebin: 2
-#  ratio_range: [0.5, 1.49]
-
-Dmeson_chi2_x_m8:
-  make_plots: False
-#  label: 'D^{#pm} #chi^{2} 8'
-#  rebin: 2
-#  ratio_range: [0.5, 1.49]
-
-Dmeson_chi2_x_m9:
-  make_plots: False
-#  label: 'D^{#pm} #chi^{2} 9'
-#  rebin: 2
-#  ratio_range: [0.5, 1.49]
-
 # CharmEventInfo_PV_Z:
 #   label: 'PV_{z}'
 #   unit: mm
@@ -723,20 +674,12 @@ Dmeson_chi2_x_m9:
 #   unit: '#mum'
 #   ratio_range: [0.0, 1.99]
 
-lep_dR_bjet:
-  label: '#Delta({b}-jet}, lep)'
-  ratio_range: [0.5, 1.49]
+# njets:
+#   label: N_{jet}
+#   ratio_range: [0.5, 1.49]
+#   allow_rebin: False
 
-njets:
-  label: N_{jet}
-  ratio_range: [0.5, 1.49]
-  allow_rebin: False
-
-nbjets:
-  label: N_{#it{b}-jet}
-  ratio_range: [0.5, 1.49]
-  allow_rebin: False
-
-lep_pt_eta:
-  make_plots: False
-  allow_rebin: False
+# nbjets:
+#   label: N_{#it{b}-jet}
+#   ratio_range: [0.5, 1.49]
+#   allow_rebin: False

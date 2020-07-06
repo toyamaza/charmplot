@@ -1,0 +1,65 @@
+colorScheme: gemstone_hues
+
+Wjets_emu_Matched_Charm0:
+  add:
+    - "D_CharmAnalysis.999914.DMinus"
+  subtract:
+  fillColor: "10001"
+  legendLabel: "AllCuts"
+  shortName: Wjets_emu_Matched
+
+Wjets_emu_Matched_Charm1:
+  add:
+    - "D_CharmAnalysis.999914.DMinus"
+  subtract:
+  fillColor: "10003"
+  legendLabel: "#Chi^{2}"
+  shortName: Wjets_emu_Matched
+
+Wjets_emu_Matched_Charm3:
+  add:
+    - "D_CharmAnalysis.999914.DMinus"
+  subtract:
+  fillColor: "10005"
+  legendLabel: "Track #DeltaR"
+  shortName: Wjets_emu_Matched
+
+Wjets_emu_Matched_Charm4:
+  add:
+    - "D_CharmAnalysis.999914.DMinus"
+  subtract:
+  fillColor: "12001"
+  legendLabel: "L_{xy}"
+  shortName: Wjets_emu_Matched
+
+Wjets_emu_Matched_Charm6:
+  add:
+    - "D_CharmAnalysis.999914.DMinus"
+  subtract:
+  fillColor: "12002"
+  legendLabel: "cos(#theta*)"
+  shortName: Wjets_emu_Matched
+
+Wjets_emu_Matched_Charm7:
+  add:
+    - "D_CharmAnalysis.999914.DMinus"
+  subtract:
+  fillColor: "12003"
+  legendLabel: "D* rej"
+  shortName: Wjets_emu_Matched
+
+Wjets_emu_Matched_Charm8:
+  add:
+    - "D_CharmAnalysis.999914.DMinus"
+  subtract:
+  fillColor: "12005"
+  legendLabel: "D_s rej"
+  shortName: Wjets_emu_Matched
+
+Wjets_emu_Matched_Charm_noCuts:
+  add:
+    - "D_CharmAnalysis.999914.DMinus"
+  subtract:
+  fillColor: "13000"
+  legendLabel: "no cuts"
+  shortName: Wjets_emu_Matched

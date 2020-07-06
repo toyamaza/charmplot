@@ -17,7 +17,7 @@ Wjets_emu_NoMatch:
     - MG_Wjets_bjets_emu
   subtract:
   fillColor: "10006"
-  legendLabel: 'PU + HS >0 Track'
+  legendLabel: 'No Match'
   shortName: Wjets_emu_NoMatch
 
 Wjets_emu_DsMisMatched:
