@@ -22,9 +22,10 @@ formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(messag
 handler.setFormatter(formatter)
 root.addHandler(handler)
 
+
 def main(options, conf, reader):
 
-# loop through all channels and variables
+    # loop through all channels and variables
     for c in conf.channels:
 
         # filter channels
@@ -136,12 +137,11 @@ if __name__ == "__main__":
     if options.suffix:
         out_name = out_name.split("/")
         out_name[0] += "_" + options.suffix
-        out_name =  "/".join(out_name)
+        out_name = "/".join(out_name)
 
     # make output folder if not exist
     if not os.path.isdir(out_name):
         os.makedirs(out_name)
-
 
     # read inputs
     from charmplot.control import globalConfig

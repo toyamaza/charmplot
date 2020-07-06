@@ -60,7 +60,7 @@ class InputDataReader(object):
             h.Scale(sf[0])
             logger.info(f"Scaling histogram {sample.name} in {channel} by {sf[0]}")
 
-    def eff_divide(self,h_num, h_den):
+    def eff_divide(self, h_num, h_den):
         quot = h_num.Clone()
         quot.Divide(h_den)
         for i in range(h_num.GetNbinsX()):
@@ -68,9 +68,9 @@ class InputDataReader(object):
             n = h_den.GetBinContent(i)
             print(str(k) + ", " + str(n))
             if n > 0:
-                quot.SetBinError(i,pow(k*(n-k)/(n**3), .5))
+                quot.SetBinError(i, pow(k * (n - k) / (n**3), .5))
             else:
-                quot.SetBinError(i,0.0)
+                quot.SetBinError(i, 0.0)
         return quot
 
     def get_histogram(self, sample, channel, variable, force_positive=False, sys=None):
