@@ -7,7 +7,7 @@ samplesConf: madgraph_truth
 data: Data
 
 channels:
-  2018_el_SR_0tag_Dplus_OS:
+  OS_2018_el_SR_0tag_Dplus:
     regions:
       - 2018_el_SR_0tag_Dplus_OS
     samples:
@@ -25,7 +25,7 @@ channels:
     lumi: "2018"
     save_to_file: True
 
-  2018_el_SR_0tag_Dplus_SS:
+  SS_2018_el_SR_0tag_Dplus:
     regions:
       - 2018_el_SR_0tag_Dplus_SS
     samples:
@@ -43,7 +43,7 @@ channels:
     lumi: "2018"
     save_to_file: True
 
-  2018_el_SR_0tag_Dplus_OS-SS:
+  OS-SS_2018_el_SR_0tag_Dplus:
     regions:
       - 2018_el_SR_0tag_Dplus_OS
       - -2018_el_SR_0tag_Dplus_SS
@@ -61,11 +61,11 @@ channels:
       - "MadGraph, 0-tag"
     lumi: "2018"
     trex_subtraction:
-      OS: 2018_el_SR_0tag_Dplus_OS
-      SS: 2018_el_SR_0tag_Dplus_SS
+      OS: OS_2018_el_SR_0tag_Dplus
+      SS: SS_2018_el_SR_0tag_Dplus
     save_to_file: True
 
-  2018_el_SR_1tag_Dplus_OS:
+  OS_2018_el_SR_1tag_Dplus:
     regions:
       - 2018_el_SR_1tag_Dplus_OS
     samples:
@@ -83,7 +83,7 @@ channels:
     lumi: "2018"
     save_to_file: True
 
-  2018_el_SR_1tag_Dplus_SS:
+  SS_2018_el_SR_1tag_Dplus:
     regions:
       - 2018_el_SR_1tag_Dplus_SS
     samples:
@@ -101,7 +101,7 @@ channels:
     lumi: "2018"
     save_to_file: True
 
-  2018_el_SR_1tag_Dplus_OS-SS:
+  OS-SS_2018_el_SR_1tag_Dplus:
     regions:
       - 2018_el_SR_1tag_Dplus_OS
       - -2018_el_SR_1tag_Dplus_SS
@@ -119,11 +119,11 @@ channels:
       - "MadGraph, 1-tag"
     lumi: "2018"
     trex_subtraction:
-      OS: 2018_el_SR_1tag_Dplus_OS
-      SS: 2018_el_SR_1tag_Dplus_SS
+      OS: OS_2018_el_SR_1tag_Dplus
+      SS: SS_2018_el_SR_1tag_Dplus
     save_to_file: True
 
-  2018_el_SR_2tag_Dplus_OS:
+  OS_2018_el_SR_2tag_Dplus:
     regions:
       - 2018_el_SR_2tag_Dplus_OS
     samples:
@@ -141,7 +141,7 @@ channels:
     lumi: "2018"
     save_to_file: True
 
-  2018_el_SR_2tag_Dplus_SS:
+  SS_2018_el_SR_2tag_Dplus:
     regions:
       - 2018_el_SR_2tag_Dplus_SS
     samples:
@@ -159,7 +159,7 @@ channels:
     lumi: "2018"
     save_to_file: True
 
-  2018_el_SR_2tag_Dplus_OS-SS:
+  OS-SS_2018_el_SR_2tag_Dplus:
     regions:
       - 2018_el_SR_2tag_Dplus_OS
       - -2018_el_SR_2tag_Dplus_SS
@@ -178,11 +178,11 @@ channels:
     lumi: "2018"
     extra_rebin: 10
     trex_subtraction:
-      OS: 2018_el_SR_2tag_Dplus_OS
-      SS: 2018_el_SR_2tag_Dplus_SS
+      OS: OS_2018_el_SR_2tag_Dplus
+      SS: SS_2018_el_SR_2tag_Dplus
     save_to_file: True
 
-  2018_mu_SR_0tag_Dplus_OS:
+  OS_2018_mu_SR_0tag_Dplus:
     regions:
       - 2018_mu_SR_0tag_Dplus_OS
     samples:
@@ -200,7 +200,7 @@ channels:
     lumi: "2018"
     save_to_file: True
 
-  2018_mu_SR_0tag_Dplus_SS:
+  SS_2018_mu_SR_0tag_Dplus:
     regions:
       - 2018_mu_SR_0tag_Dplus_SS
     samples:
@@ -218,7 +218,7 @@ channels:
     lumi: "2018"
     save_to_file: True
 
-  2018_mu_SR_1tag_Dplus_OS:
+  OS_2018_mu_SR_1tag_Dplus:
     regions:
       - 2018_mu_SR_1tag_Dplus_OS
     samples:
@@ -236,7 +236,7 @@ channels:
     lumi: "2018"
     save_to_file: True
 
-  2018_mu_SR_1tag_Dplus_SS:
+  SS_2018_mu_SR_1tag_Dplus:
     regions:
       - 2018_mu_SR_1tag_Dplus_SS
     samples:
@@ -254,7 +254,7 @@ channels:
     lumi: "2018"
     save_to_file: True
 
-  2018_mu_SR_2tag_Dplus_OS:
+  OS_2018_mu_SR_2tag_Dplus:
     regions:
       - 2018_mu_SR_2tag_Dplus_OS
     samples:
@@ -272,7 +272,7 @@ channels:
     lumi: "2018"
     save_to_file: True
 
-  2018_mu_SR_2tag_Dplus_SS:
+  SS_2018_mu_SR_2tag_Dplus:
     regions:
       - 2018_mu_SR_2tag_Dplus_SS
     samples:
