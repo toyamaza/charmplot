@@ -19,7 +19,7 @@ channels:
       - Other
       - Zjets_emu
     regions:
-      - OS_2018_el_SR_Dplus
+      - 2018_el_SR_Dplus_OS
     label:
       - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, OS"
       - "MadGraph"
@@ -38,7 +38,7 @@ channels:
       - Other
       - Zjets_emu
     regions:
-      - SS_2018_el_SR_Dplus
+      - 2018_el_SR_Dplus_SS
     label:
       - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, SS"
       - "MadGraph"
@@ -57,8 +57,8 @@ channels:
       - Other
       - Zjets_emu
     regions:
-      - OS_2018_el_SR_Dplus
-      - -SS_2018_el_SR_Dplus
+      - 2018_el_SR_Dplus_OS
+      - -2018_el_SR_Dplus_SS
     label:
       - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, OS-SS"
       - "MadGraph"
@@ -77,7 +77,7 @@ channels:
       - Other
       - Zjets_emu
     regions:
-      - OS_2018_mu_SR_Dplus
+      - 2018_mu_SR_Dplus_OS
     label:
       - "W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, OS"
       - "MadGraph"
@@ -96,7 +96,7 @@ channels:
       - Other
       - Zjets_emu
     regions:
-      - SS_2018_mu_SR_Dplus
+      - 2018_mu_SR_Dplus_SS
     label:
       - "W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, SS"
       - "MadGraph"
@@ -115,8 +115,8 @@ channels:
       - Other
       - Zjets_emu
     regions:
-      - OS_2018_mu_SR_Dplus
-      - -SS_2018_mu_SR_Dplus
+      - 2018_mu_SR_Dplus_OS
+      - -2018_mu_SR_Dplus_SS
     label:
       - "W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, OS-SS"
       - "MadGraph"

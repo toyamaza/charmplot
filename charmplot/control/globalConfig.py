@@ -15,15 +15,18 @@ logger = logging.getLogger(__name__)
 def parse_regions(regions):
     plus = []
     minus = []
+    divide = []
     if type(regions) == list:
         for c in regions:
             if c.startswith("-"):
                 minus += [c[1:]]
+            elif c.startswith("/"):
+                divide += [c[1:]]
             else:
                 plus += [c]
     elif type(regions) == str:
         plus += [regions]
-    return plus, minus
+    return plus, minus, divide
 
 
 class GlobalConfig(object):
@@ -128,10 +131,10 @@ class GlobalConfig(object):
             # parse inputs
             label = val['label'] if 'label' in val else ''
             lumi = val['lumi'] if 'lumi' in val else 0
-            plus, minus = parse_regions(val['regions'])
+            plus, minus, divide = parse_regions(val['regions'])
 
             # make channel object
-            chan = channel.Channel(name, label, lumi, plus, minus)
+            chan = channel.Channel(name, label, lumi, plus, minus, divide)
             channels += [chan]
 
             # append properties

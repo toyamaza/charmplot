@@ -99,7 +99,12 @@ def main(options, conf, reader):
                 for s in samples:
                     if s not in mc_map.keys():
                         continue
-                    mc_map[s].Draw("hist same")
+                    mc_map[s].SetMarkerColor(mc_map[s].GetFillColor())
+                    fcolor = mc_map[s].GetFillColor()
+                    mc_map[s].SetFillColor(0)
+                    gr_mc_stat_err, gr_mc_stat_err_only = utils.make_stat_err(mc_map[s])
+                    gr_mc_stat_err.Draw("e1")
+                    mc_map[s].Draw("hist same e1")
             else:
                 hs = utils.make_stack(samples, mc_map)
                 hs.Draw("samehist")

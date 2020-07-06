@@ -325,8 +325,9 @@ class Canvas2(CanvasBase):
         leg.SetTextSize(28)
         leg.SetTextFont(43)
         if data:
-            if print_yields:
-                leg.AddEntry(data, "Data #scale[0.60]{#splitline{%.2e}{/ MC = %1.3f}}" % (data.GetSum(), data.GetSum() / mc_tot.GetSum()), "pe")
+            if print_yields and mc_tot.GetSum() > 0.1:
+                print(mc_tot.GetSum())
+                leg.AddEntry(data, "Data #scale[0.50]{#splitline{%.2e}{/ MC = %1.3f}}" % (data.GetSum(), data.GetSum() / mc_tot.GetSum()), "pe")
             else:
                 leg.AddEntry(data, "Data", "pe")
         if mc_tot:

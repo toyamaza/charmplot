@@ -1,0 +1,9 @@
+colorScheme: gemstone_hues
+
+Wjets_emu_Matched_Charm:
+  add:
+    - "D_CharmAnalysis.999914.DMinus"
+  subtract:
+  fillColor: "10002"
+  legendLabel: "W+#it{D}"
+  shortName: Wjets_emu_Matched

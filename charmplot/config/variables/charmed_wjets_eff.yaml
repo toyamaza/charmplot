@@ -1,0 +1,23 @@
+D_pt0:
+  label: 'D^{#pm} p_{T}'
+  unit: 'GeV'
+  rebin: 8
+  #x_range: [0,100]
+  ratio_range: [0.5, 1.49]
+
+D_eta0:
+  label: 'D^{#pm} #eta'
+  rebin: 2
+  ratio_range: [0.5, 1.49]
+
+D_MinTrackPt0:
+  label: 'D^{#pm} Min Track p_{T}'
+  unit: 'GeV'
+  rebin: 2
+  ratio_range: [0.5, 1.49]
+
+D_Lxy0:
+  label: 'D^{#pm} Lxy'
+  unit: 'mm'
+  rebin: 2
+  ratio_range: [0.5, 1.49]

@@ -19,7 +19,7 @@ class InputDataReader(object):
         self.config = conf
         self.read_input_files()
 
-    def get_histogram_from_file(self, f, channel, sample, variable, c, extra_rebin):
+    def get_histogram_from_file(self, f, channel, sample, variable, c, extra_rebin=1):
         logger.debug(f"In get_histogram_from_file with {channel.name} {sample.name} {variable} {c} extra_rebin: {extra_rebin}")
         h_name = os.path.join(c, "__".join([c, variable.name]))
         h = f.Get(h_name)
@@ -54,8 +54,22 @@ class InputDataReader(object):
             h.Scale(sf[0])
             logger.info(f"Scaling histogram {sample.name} in {channel} by {sf[0]}")
 
+    def eff_divide(self,h_num, h_den):
+        quot = h_num.Clone()
+        quot.Divide(h_den)
+        for i in range(h_num.GetNbinsX()):
+            k = h_num.GetBinContent(i)
+            n = h_den.GetBinContent(i)
+            print(str(k) + ", " + str(n))
+            if n > 0:
+                quot.SetBinError(i,pow(k*(n-k)/(n**3), .5))
+            else:
+                quot.SetBinError(i,0.0)
+        return quot
+
     def get_histogram(self, sample, channel, variable, force_positive=False):
         h_total = None
+        h_denom = None
         # scale factors for this channel
         self.channel_scale_factors = channel.scale_factors
         extra_rebin = channel.extra_rebin
@@ -88,12 +102,24 @@ class InputDataReader(object):
                 if not h_total:
                     return None
                 h_total.Add(h, -1 * weight)
+            for c in channel.divide:
+                print("Division occurs")
+                logger.info(f"channel.divide: {c} {sample.shortName}")
+                h = self.get_histogram_from_file(f, channel, sample, variable, c, extra_rebin)
+                if not h:
+                    continue
+                if not h_denom:
+                    h_denom = h.Clone("%s_%s_%s" % (sample.name, channel.name, variable.name))
+                else:
+                    h_denom.Add(h, weight)
         if force_positive:
             utils.set_to_positive(h_total)
         if not sample.statError:
             logger.info(f"Set stat error of {sample} to zero.")
             for i in range(0, h_total.GetNbinsX() + 2):
                 h_total.SetBinError(i, 0)
+        if h_denom:
+            h_total = self.eff_divide(h_total, h_denom)
         return h_total
 
     def find_variables(self, sample, channel):

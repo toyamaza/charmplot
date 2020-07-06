@@ -1,0 +1,99 @@
+variablesConf: charmed_wjets_Ds
+
+samplesConf: madgraph
+
+data: Data
+
+samples:
+  - Top
+  - Wjets_tau
+  - Wjets_cjets_emu
+  - Wjets_bjets_emu
+  - Wjets_light_emu
+  - Zjets
+  - Diboson
+
+channels:
+  2018_el_wplusd:
+    regions:
+      - 2018_el_SR_Ds
+    label:
+      - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi"
+      - "MadGraph"
+    lumi: "2018"
+
+  2018_el_wplusd_OS:
+    regions:
+      - OS_2018_el_SR_Ds
+    label:
+      - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, OS"
+      - "MadGraph"
+    lumi: "2018"
+
+  2018_el_wplusd_SS:
+    regions:
+      - SS_2018_el_SR_Ds
+    label:
+      - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, SS"
+      - "MadGraph"
+    lumi: "2018"
+
+  2018_el_wplusd_OS-SS:
+    regions:
+      - OS_2018_el_SR_Ds
+      - -SS_2018_el_SR_Ds
+    samples:
+      - Wjets_tau
+      - Wjets_cjets_emu
+      - Wjets_bjets_emu
+      - Wjets_light_emu
+      - Zjets
+      - Top
+      - Diboson
+    label:
+      - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, OS-SS"
+      - "MadGraph"
+    extra_rebin: 2
+    lumi: "2018"
+
+  2018_mu_wplusd:
+    regions:
+      - 2018_mu_SR_Ds
+    label:
+      - "W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi"
+      - "MadGraph"
+    lumi: "2018"
+
+  2018_mu_wplusd_OS:
+    regions:
+      - OS_2018_mu_SR_Ds
+    label:
+      - "W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, OS"
+      - "MadGraph"
+    lumi: "2018"
+
+  2018_mu_wplusd_SS:
+    regions:
+      - SS_2018_mu_SR_Ds
+    label:
+      - "W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, SS"
+      - "MadGraph"
+    lumi: "2018"
+
+  2018_mu_wplusd_OS-SS:
+    regions:
+      - OS_2018_mu_SR_Ds
+      - -SS_2018_mu_SR_Ds
+    samples:
+      - Wjets_tau
+      - Wjets_cjets_emu
+      - Wjets_bjets_emu
+      - Wjets_light_emu
+      - Zjets
+      - Top
+      - Diboson
+    label:
+      - "W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, OS-SS"
+      - "MadGraph"
+    extra_rebin: 2
+    lumi: "2018"
