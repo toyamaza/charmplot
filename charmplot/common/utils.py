@@ -264,11 +264,6 @@ def set_under_over_flow(h: ROOT.TH1, x_range: list):
         h_new.SetBinError(j, h.GetBinError(i))
         j += 1
 
-    h_new.SetBinContent(1, val0 + val1)
-    h_new.SetBinError(1, (err0**2 + err1**2)**(0.5))
-    h_new.SetBinContent(h_new.GetNbinsX(), valN + valN1)
-    h_new.SetBinError(h_new.GetNbinsX(), (errN**2 + errN1**2)**(0.5))
-
     h_new.SetName(h.GetName())
     h_new.SetTitle(h.GetTitle())
 
