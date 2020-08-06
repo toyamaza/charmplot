@@ -6,6 +6,9 @@ samplesConf: powheg
 
 data: Data
 
+systematics:
+  - experimental
+
 samples:
   - Zjets_emu
   - Zjets_tau

@@ -6,6 +6,9 @@ samplesConf: sherpa
 
 data: Data
 
+systematics:
+  - experimental
+
 samples:
   - Zjets_light_emu
   - Zjets_bjets_emu

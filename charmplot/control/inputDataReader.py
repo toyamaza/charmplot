@@ -24,8 +24,7 @@ class InputDataReader(object):
         h_name = os.path.join(c, "__".join([c, variable.name]))
         h = None
         if sys:
-            channel_sys = sys + "_SYS_" + c
-            h_name_sys = os.path.join(channel_sys, "__".join([channel_sys, variable.name]))
+            h_name_sys = os.path.join(sys, c, "_-_".join([sys, "__".join([c, variable.name])]))
             h = f.Get(h_name_sys)
         if not h:
             h = f.Get(h_name)
@@ -33,7 +32,8 @@ class InputDataReader(object):
             logger.warning("Histogram %s for variable %s not found in channel %s for sample %s in file %s" % (
                 h_name, variable.name, c, sample.name, f))
             return None
-        h = h.Clone(f"{h.GetName()}_{sys}")
+        if sys:
+            h = h.Clone(f"{h.GetName()}_{sys}")
         h_new = utils.rebin_histogram(h, variable, extra_rebin)
         logger.info(f"Got histogram {h_new}")
         if "MatrixMethod" not in sample.name:

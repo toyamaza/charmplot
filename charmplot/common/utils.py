@@ -162,6 +162,8 @@ def read_samples(conf: globalConfig.GlobalConfig, reader: inputDataReader.InputD
         h = reader.get_histogram(s, c, v, force_positive, sys)
         if not h:
             continue
+        if sys:
+            h = h.Clone(f"{h.GetName()}_{sys}")
         mc_map[s] = h
 
         # scale histogram if performed likelihood fit
@@ -281,23 +283,73 @@ def rebin_histogram(h: ROOT.TH1, v: variable.Variable, extra_rebin: int = 1):
 
 
 def make_stat_err(h: ROOT.TH1) -> List[Union[ROOT.TGraphErrors, ROOT.TGraphErrors]]:
-    gr = ROOT.TGraphErrors()
-    gr_err_only = ROOT.TGraphErrors()
+    gr = ROOT.TGraphAsymmErrors()
+    gr_err_only = ROOT.TGraphAsymmErrors()
     for i in range(0, h.GetNbinsX() + 2):
         x = h.GetBinCenter(i)
         y = h.GetBinContent(i)
         gr.SetPoint(gr.GetN(), x, y)
-        gr.SetPointError(gr.GetN() - 1, (h.GetBinWidth(i) / 2.), h.GetBinError(i))
+        gr.SetPointError(gr.GetN() - 1, (h.GetBinWidth(i) / 2.), (h.GetBinWidth(i) / 2.), h.GetBinError(i), h.GetBinError(i))
         gr_err_only.SetPoint(gr_err_only.GetN(), x, 1)
         if y:
-            gr_err_only.SetPointError(gr_err_only.GetN() - 1, (h.GetBinWidth(i) / 2.), h.GetBinError(i) / y)
+            gr_err_only.SetPointError(gr_err_only.GetN() - 1, (h.GetBinWidth(i) / 2.), (h.GetBinWidth(i) / 2.), h.GetBinError(i) / y, h.GetBinError(i) / y)
         else:
-            gr_err_only.SetPointError(gr_err_only.GetN() - 1, (h.GetBinWidth(i) / 2.), 0)
+            gr_err_only.SetPointError(gr_err_only.GetN() - 1, (h.GetBinWidth(i) / 2.), (h.GetBinWidth(i) / 2.), 0, 0)
     gr.SetFillColor(ROOT.kGray + 2)
     gr.SetFillStyle(3354)
     gr_err_only.SetFillColor(ROOT.kGray + 2)
     gr_err_only.SetFillStyle(3354)
     return gr, gr_err_only
+
+
+def make_sys_err(h: ROOT.TH1, h_sys: List) -> List[Union[ROOT.TGraphErrors, ROOT.TGraphErrors]]:
+    gr = ROOT.TGraphAsymmErrors()
+    gr_err_only = ROOT.TGraphAsymmErrors()
+    for i in range(0, h.GetNbinsX() + 2):
+        x = h.GetBinCenter(i)
+        y = h.GetBinContent(i)
+        sys = [h_sys.GetBinContent(i) for h_sys in h_sys]
+        y_err_up = 0
+        y_err_dn = 0
+        for y_sys in sys:
+            if y_sys >= y:
+                err = y_sys - y
+                y_err_up += err**2
+            else:
+                err = y - y_sys
+                y_err_dn += err**2
+        y_err_up = (y_err_up)**(0.5)
+        y_err_dn = (y_err_dn)**(0.5)
+        gr.SetPoint(gr.GetN(), x, y)
+        gr.SetPointError(gr.GetN() - 1, (h.GetBinWidth(i) / 2.), (h.GetBinWidth(i) / 2.), y_err_dn, y_err_up)
+        gr_err_only.SetPoint(gr_err_only.GetN(), x, 1)
+        if y:
+            gr_err_only.SetPointError(gr_err_only.GetN() - 1, (h.GetBinWidth(i) / 2.), (h.GetBinWidth(i) / 2.), y_err_dn / y, y_err_up / y)
+        else:
+            gr_err_only.SetPointError(gr_err_only.GetN() - 1, (h.GetBinWidth(i) / 2.), (h.GetBinWidth(i) / 2.), 0, 0)
+    gr.SetFillColor(ROOT.kGray + 2)
+    gr.SetFillStyle(3354)
+    gr_err_only.SetFillColor(ROOT.kGray + 2)
+    gr_err_only.SetFillStyle(3354)
+    return gr, gr_err_only
+
+
+def combine_error(gr1: ROOT.TGraphAsymmErrors, gr2: ROOT.TGraphAsymmErrors) -> ROOT.TGraphAsymmErrors:
+    gr = ROOT.TGraphAsymmErrors()
+    for i in range(0, gr1.GetN()):
+        x = gr1.GetX()[i]
+        y = gr1.GetY()[i]
+        err_x_dn = gr1.GetEXlow()[i]
+        err_x_up = gr1.GetEXhigh()[i]
+        err_y_1_dn = gr1.GetEYlow()[i]
+        err_y_1_up = gr1.GetEYhigh()[i]
+        err_y_2_dn = gr2.GetEYlow()[i]
+        err_y_2_up = gr2.GetEYhigh()[i]
+        gr.SetPoint(i, x, y)
+        gr.SetPointError(i, err_x_dn, err_x_up, (err_y_1_dn**2 + err_y_2_dn**2)**(0.5), (err_y_1_up**2 + err_y_2_up**2)**(0.5))
+    gr.SetFillColor(ROOT.kBlue - 4)
+    gr.SetFillStyle(3345)
+    return gr
 
 
 def make_ratio(data: ROOT.TH1, mc_tot: ROOT.TH1) -> ROOT.TH1:

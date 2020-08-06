@@ -41,6 +41,10 @@ class GlobalConfig(object):
     data = None
     samples = []
     channels = []
+    systematics = []
+
+    def get_systematics(self):
+        return self.systematics
 
     def get_data_and_mc(self):
         if self.data:
@@ -198,6 +202,13 @@ class GlobalConfig(object):
         # global samples config
         assert 'samplesConf' in conf
         self.samples_config = tools.parse_yaml(os.path.join('samples', conf['samplesConf']))
+
+        # systematics
+        if 'systematics' in conf:
+            systematics = []
+            for sys_group in conf['systematics']:
+                systematics += tools.parse_yaml(os.path.join('systematics', sys_group))['systematics']
+            self.systematics += systematics
 
         # color scheme
         color_scheme = getattr(colorScheme, self.samples_config['colorScheme'])

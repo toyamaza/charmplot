@@ -108,7 +108,7 @@ Zjets_lowmass_emu:
   add: Sh_Zjets_lowmass_emu
   subtract:
   fillColor: "11005"
-  legendLabel: "low mass Z"
+  legendLabel: "low mZ"
 
 Top:
   add:

@@ -326,8 +326,8 @@ class Canvas2(CanvasBase):
         # temp entry for sys unc
         temp_err = ROOT.TGraphErrors()
         temp_err.SetLineColor(ROOT.kBlack)
-        temp_err.SetFillColor(ROOT.kGray + 2)
-        temp_err.SetFillStyle(3354)
+        temp_err.SetFillColor(ROOT.kBlue - 4)
+        temp_err.SetFillStyle(3444)
         self.temp_err = temp_err
 
         # legend
