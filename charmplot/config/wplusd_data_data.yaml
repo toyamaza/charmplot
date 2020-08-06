@@ -5,8 +5,8 @@ samplesConf: wplusd_data_data
 channels:
   2018_el_wplusd_OS-SS:
     regions:
-      - OS_2018_el_SR_Dplus
-      - -SS_2018_el_SR_Dplus
+      - 2018_el_SR_Dplus_OS
+      - -2018_el_SR_Dplus_SS
     samples:
       - data
       - data_ref
@@ -15,8 +15,8 @@ channels:
 
   2018_mu_wplusd_OS-SS:
     regions:
-      - OS_2018_mu_SR_Dplus
-      - -SS_2018_mu_SR_Dplus
+      - 2018_mu_SR_Dplus_OS
+      - -2018_mu_SR_Dplus_SS
     samples:
       - data
       - data_ref
@@ -25,7 +25,7 @@ channels:
 
   2018_el_wplusd_OS:
     regions:
-      - OS_2018_el_SR_Dplus
+      - 2018_el_SR_Dplus_OS
     samples:
       - data
       - data_ref
@@ -34,7 +34,7 @@ channels:
 
   2018_mu_wplusd_OS:
     regions:
-      - OS_2018_mu_SR_Dplus
+      - 2018_mu_SR_Dplus_OS
     samples:
       - data
       - data_ref
@@ -43,7 +43,7 @@ channels:
 
   2018_el_wplusd_SS:
     regions:
-      - SS_2018_el_SR_Dplus
+      - 2018_el_SR_Dplus_SS
     samples:
       - data
       - data_ref
@@ -52,7 +52,7 @@ channels:
 
   2018_mu_wplusd_SS:
     regions:
-      - SS_2018_mu_SR_Dplus
+      - 2018_mu_SR_Dplus_SS
     samples:
       - data
       - data_ref
