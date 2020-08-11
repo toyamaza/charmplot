@@ -128,7 +128,7 @@ def main(options, conf, reader):
             var = conf.get_var(v)
 
             # check if last plot
-            last_plot = v == variables[-1] and sys == systematics[-1]
+            last_plot = v == variables[-1]
 
             # data histogram
             h_data = reader.get_histogram(conf.get_data(), c, var)
@@ -137,7 +137,8 @@ def main(options, conf, reader):
 
             # read input MC histograms (and scale them)
             mc_map = utils.read_samples(conf, reader, c, var, samples, fit, force_positive=c.force_positive)
-            mc_map_sys = {sys: utils.read_samples(conf, reader, c, var, samples, fit, force_positive=c.force_positive, sys=sys) for sys in systematics}
+            if (len(systematics)):
+                mc_map_sys = {sys: utils.read_samples(conf, reader, c, var, samples, fit, force_positive=c.force_positive, sys=sys) for sys in systematics}
             if not mc_map:
                 continue
 
@@ -180,7 +181,8 @@ def main(options, conf, reader):
                 h_mc_tot = trex_mc_tot
             else:
                 h_mc_tot = utils.make_mc_tot(hs, f"{c}_{v}_mc_tot")
-            h_mc_tot_sys = [utils.make_mc_tot(utils.make_stack(samples, mc_map_sys[sys]), f"{c}_{v}_{sys}_mc_tot") for sys in systematics]
+            if (len(systematics)):
+                h_mc_tot_sys = [utils.make_mc_tot(utils.make_stack(samples, mc_map_sys[sys]), f"{c}_{v}_{sys}_mc_tot") for sys in systematics]
 
             # ratio
             h_ratio = utils.make_ratio(h_data, h_mc_tot)
@@ -194,17 +196,19 @@ def main(options, conf, reader):
                 gr_mc_stat_err, gr_mc_stat_err_only = utils.make_stat_err(h_mc_tot)
 
             # sys error
-            gr_mc_sys_err, gr_mc_sys_err_only = utils.make_sys_err(h_mc_tot, h_mc_tot_sys)
+            if (len(systematics)):
+                gr_mc_sys_err, gr_mc_sys_err_only = utils.make_sys_err(h_mc_tot, h_mc_tot_sys)
 
-            # total error
-            gr_mc_tot_err = utils.combine_error(gr_mc_stat_err, gr_mc_sys_err)
-            gr_mc_tot_err_only = utils.combine_error(gr_mc_stat_err_only, gr_mc_sys_err_only)
+                # total error
+                gr_mc_tot_err = utils.combine_error(gr_mc_stat_err, gr_mc_sys_err)
+                gr_mc_tot_err_only = utils.combine_error(gr_mc_stat_err_only, gr_mc_sys_err_only)
 
             # top pad
             canv.pad1.cd()
             hs.Draw("same hist")
             h_mc_tot.Draw("same hist")
-            gr_mc_tot_err.Draw("e2")
+            if (len(systematics)):
+                gr_mc_tot_err.Draw("e2")
             gr_mc_stat_err.Draw("e2")
             h_data.Draw("same pe")
 
@@ -217,7 +221,8 @@ def main(options, conf, reader):
             # bottom pad
             canv.pad2.cd()
             if not c.qcd_template:
-                gr_mc_tot_err_only.Draw("le2")
+                if (len(systematics)):
+                    gr_mc_tot_err_only.Draw("le2")
                 gr_mc_stat_err_only.Draw("le2")
                 h_ratio.Draw("same pe")
             else:

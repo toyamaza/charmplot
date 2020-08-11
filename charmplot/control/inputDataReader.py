@@ -20,7 +20,7 @@ class InputDataReader(object):
         self.read_input_files()
 
     def get_histogram_from_file(self, f, channel, sample, variable, c, extra_rebin=1, sys=None):
-        logger.debug(f"In get_histogram_from_file with {channel.name} {sample.name} {variable} {c} extra_rebin: {extra_rebin}")
+        logger.debug(f"In get_histogram_from_file with {channel.name} {sample.name} {variable} {c} {f} extra_rebin: {extra_rebin}")
         h_name = os.path.join(c, "__".join([c, variable.name]))
         h = None
         if sys:
@@ -33,7 +33,9 @@ class InputDataReader(object):
                 h_name, variable.name, c, sample.name, f))
             return None
         if sys:
-            h = h.Clone(f"{h.GetName()}_{sys}")
+            h = h.Clone(f"{h.GetName()}_{sys}_{f.GetName().replace('.root', '')}")
+        else:
+            h = h.Clone(f"{h.GetName()}_{f.GetName().replace('.root', '')}")
         h_new = utils.rebin_histogram(h, variable, extra_rebin)
         logger.info(f"Got histogram {h_new}")
         if "MatrixMethod" not in sample.name:
