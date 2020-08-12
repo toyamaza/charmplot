@@ -232,6 +232,17 @@ Dmeson_Lxy4:
   x_range: [0.75, 3]
   ratio_range: [0.5, 1.49]
 
+Dmeson_impactSig:
+  label: 'D^{#pm} 3D Impact Significance'
+  rebin: 2
+  x_range: [0.0, 10.0]
+  ratio_range: [0.0, 1.49]
+
+Dmeson_z0sinTheta:
+  label: 'D^{#pm} z_{0}sin(#theta)'
+  unit: 'mm'
+  ratio_range: [0.0, 1.99]
+
 Dmeson_cTau:
   label: 'D^{#pm} c#tau'
   rebin: 2
