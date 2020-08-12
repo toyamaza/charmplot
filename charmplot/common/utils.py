@@ -8,14 +8,14 @@ from charmplot.control import sample
 from charmplot.control import variable
 from copy import deepcopy
 from typing import Dict, List, Union
-import numpy as np
+import array
 import json
+import lhapdf
 import logging
+import numpy as np
 import os
 import ROOT
 import sys
-import array
-import lhapdf
 
 MC_Map = Dict[sample.Sample, ROOT.TH1]
 
