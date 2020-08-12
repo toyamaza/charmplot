@@ -236,7 +236,7 @@ Dmeson_impactSig:
   label: 'D^{#pm} 3D Impact Significance'
   rebin: 2
   x_range: [0.0, 10.0]
-  ratio_range: [0.0, 1.49]
+  ratio_range: [0.5, 1.49]
 
 Dmeson_z0sinTheta:
   label: 'D^{#pm} z_{0}sin(#theta)'
