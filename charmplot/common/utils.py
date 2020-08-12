@@ -337,11 +337,27 @@ def make_sys_err(h: ROOT.TH1, h_sys: List) -> List[Union[ROOT.TGraphErrors, ROOT
     return gr, gr_err_only
 
 
+def make_empty_error_bands(h: ROOT.TH1) -> List[Union[ROOT.TGraphErrors, ROOT.TGraphErrors]]:
+    gr = ROOT.TGraphAsymmErrors()
+    gr_err_only = ROOT.TGraphAsymmErrors()
+    for i in range(0, h.GetNbinsX() + 2):
+        x = h.GetBinCenter(i)
+        y = h.GetBinContent(i)
+        gr.SetPoint(gr.GetN(), x, y)
+        gr.SetPointError(gr.GetN() - 1, (h.GetBinWidth(i) / 2.), (h.GetBinWidth(i) / 2.), 0, 0)
+        gr_err_only.SetPoint(gr_err_only.GetN(), x, 1)
+        gr_err_only.SetPointError(gr_err_only.GetN() - 1, (h.GetBinWidth(i) / 2.), (h.GetBinWidth(i) / 2.), 0, 0)
+    return gr, gr_err_only
+
+
 def make_pdf_err(h: ROOT.TH1, h_var: List) -> List[Union[ROOT.TGraphErrors, ROOT.TGraphErrors]]:
     # h_var is expected to have only the PDF variations and no QCD parameter variations!!
+    if not len(h_var):
+        return make_empty_error_bands(h)
+
     pdfset = lhapdf.getPDFSet('NNPDF30_nnlo_as_0118')
     pdfset.mkPDFs()
-    nBins = h_var[0].GetNbinsX()
+    nBins = h.GetNbinsX()
 
     xval = ROOT.std.vector("float")(nBins)
     yval = ROOT.std.vector("float")(nBins)
@@ -404,9 +420,10 @@ def make_pdf_err(h: ROOT.TH1, h_var: List) -> List[Union[ROOT.TGraphErrors, ROOT
 
 def make_minmax_err(h: ROOT.TH1, h_var: List) -> List[Union[ROOT.TGraphErrors, ROOT.TGraphErrors]]:
     # h_var is expected to have only the QCD parameter variations!!
-    gr = ROOT.TGraphAsymmErrors()
-    gr_err_only = ROOT.TGraphAsymmErrors()
-    nBins = h_var[0].GetNbinsX()
+    if not len(h_var):
+        return make_empty_error_bands(h)
+
+    nBins = h.GetNbinsX()
 
     xval = ROOT.std.vector("float")(nBins)
     yval = ROOT.std.vector("float")(nBins)

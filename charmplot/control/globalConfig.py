@@ -227,12 +227,16 @@ class GlobalConfig(object):
                 sys_dict = tools.parse_yaml(os.path.join('systematics', sys_group))
 
                 if 'experimental' in sys_group:
-                    systematics += sys_dict['systematics']
+                    systematics += sys_dict['variations']
 
-                if 'theory' in sys_group:
-                    pdf_systematics += sys_dict['pdf_systematics']
-                    qcd_systematics += sys_dict['qcd_systematics']
-                    pdf_choice_systematics += sys_dict['pdf_choice_systematics']
+                if 'sherpa_theory_pdf' in sys_group:
+                    pdf_systematics += sys_dict['variations']
+
+                if 'sherpa_theory_qcd' in sys_group:
+                    qcd_systematics += sys_dict['variations']
+
+                if 'sherpa_theory_pdf_choice' in sys_group:
+                    pdf_choice_systematics += sys_dict['variations']
 
             self.systematics += systematics
             self.pdf_systematics += pdf_systematics

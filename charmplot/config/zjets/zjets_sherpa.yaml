@@ -8,7 +8,9 @@ data: Data
 
 systematics:
   - experimental
-  - theory
+  - sherpa_theory_pdf
+  - sherpa_theory_qcd
+  - sherpa_theory_pdf_choice
 
 samples:
   - Zjets_light_emu

@@ -231,8 +231,7 @@ def main(options, conf, reader):
             canv.pad1.cd()
             hs.Draw("same hist")
             h_mc_tot.Draw("same hist")
-            if (len(systematics)):
-                gr_mc_tot_err.Draw("e2")
+            gr_mc_tot_err.Draw("e2")
             gr_mc_stat_err.Draw("e2")
             h_data.Draw("same pe")
 
@@ -245,8 +244,7 @@ def main(options, conf, reader):
             # bottom pad
             canv.pad2.cd()
             if not c.qcd_template:
-                if (len(systematics)):
-                    gr_mc_tot_err_only.Draw("le2")
+                gr_mc_tot_err_only.Draw("le2")
                 gr_mc_stat_err_only.Draw("le2")
                 h_ratio.Draw("same pe")
             else:

@@ -1,4 +1,4 @@
-systematics:
+variations:
   - EG_RESOLUTION_ALL__1down
   - EG_RESOLUTION_ALL__1up
   - EG_SCALE_AF2__1down
