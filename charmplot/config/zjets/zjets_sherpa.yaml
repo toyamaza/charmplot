@@ -8,6 +8,7 @@ data: Data
 
 systematics:
   - experimental
+  - theoretical
 
 samples:
   - Zjets_light_emu

@@ -14,4 +14,8 @@ setup(name='charmplot',
           'charmplot/scripts/plot_mc.py',
           'hfroofit/scripts/likelihood_fit.py',
       ],
+      install_requires=[
+          'PyYAML',
+          'lhapdf',
+      ]
       )
