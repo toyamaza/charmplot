@@ -7,6 +7,7 @@ from charmplot.control import variable
 import copy
 import logging
 import os
+import sys
 
 
 logger = logging.getLogger(__name__)
@@ -42,9 +43,21 @@ class GlobalConfig(object):
     samples = []
     channels = []
     systematics = []
-
+    pdf_systematics = []
+    pdf_choice_systematics = []
+    qcd_systematics = []
+    
     def get_systematics(self):
         return self.systematics
+    
+    def get_qcd_systematics(self):
+        return self.qcd_systematics
+    
+    def get_pdf_systematics(self):
+        return self.pdf_systematics
+    
+    def get_pdf_choice_systematics(self):
+        return self.pdf_choice_systematics
 
     def get_data_and_mc(self):
         if self.data:
@@ -202,13 +215,31 @@ class GlobalConfig(object):
         # global samples config
         assert 'samplesConf' in conf
         self.samples_config = tools.parse_yaml(os.path.join('samples', conf['samplesConf']))
-
         # systematics
         if 'systematics' in conf:
             systematics = []
+            pdf_systematics = []
+            pdf_choice_systematics = []
+            qcd_systematics = []
+            
             for sys_group in conf['systematics']:
-                systematics += tools.parse_yaml(os.path.join('systematics', sys_group))['systematics']
+                
+                sys_dict = tools.parse_yaml(os.path.join('systematics', sys_group)) 
+
+                if 'experimental' in sys_group:
+                    systematics += sys_dict['systematics']
+                    
+                if 'theoretical' in sys_group:
+                    pdf_systematics += sys_dict['pdf_systematics']
+                    qcd_systematics += sys_dict['qcd_systematics']
+                    pdf_choice_systematics += sys_dict['pdf_choice_systematics']
+
             self.systematics += systematics
+            self.pdf_systematics += pdf_systematics
+            self.qcd_systematics += qcd_systematics
+            self.pdf_choice_systematics += pdf_choice_systematics
+
+            ####
 
         # color scheme
         color_scheme = getattr(colorScheme, self.samples_config['colorScheme'])

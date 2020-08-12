@@ -5,6 +5,7 @@ from charmplot.common import www
 from charmplot.control import globalConfig
 from charmplot.control import inputDataReader
 import logging
+import lhapdf
 import os
 import ROOT
 import sys
@@ -14,6 +15,11 @@ dirname = os.path.join(os.path.dirname(__file__), "../../atlasrootstyle")
 ROOT.gROOT.SetBatch(True)
 ROOT.gROOT.LoadMacro(os.path.join(dirname, "AtlasStyle.C"))
 ROOT.SetAtlasStyle()
+
+# LHAPDF stuff
+os.system('LHAPDF_PATH=$(command -v lhapdf)')
+os.system('LHAPDF_PATH=${LHAPDF_PATH//\/bin\/lhapdf/}')
+os.system('export LHAPDF_DATA_PATH=/cvmfs/sft.cern.ch/lcg/external/lhapdfsets/current/:/cvmfs/sft.cern.ch/lcg/views/LCG_96bpython3/x86_64-centos7-gcc8-opt/share/LHAPDF')
 
 # logging
 root = logging.getLogger()
@@ -121,7 +127,14 @@ def main(options, conf, reader):
 
         # systematics
         systematics = conf.get_systematics()
-
+        
+        ##theory  systematics
+        qcd_systematics = conf.get_qcd_systematics()
+        
+        pdf_systematics = conf.get_pdf_systematics()
+        
+        pdf_choice_systematics = conf.get_pdf_choice_systematics()
+        
         for v in variables:
 
             # variable object
@@ -134,11 +147,15 @@ def main(options, conf, reader):
             h_data = reader.get_histogram(conf.get_data(), c, var)
             if not h_data:
                 continue
-
+            ### need to read theory uncertainties here also
+            
+            
             # read input MC histograms (and scale them)
             mc_map = utils.read_samples(conf, reader, c, var, samples, fit, force_positive=c.force_positive)
-            if (len(systematics)):
-                mc_map_sys = {sys: utils.read_samples(conf, reader, c, var, samples, fit, force_positive=c.force_positive, sys=sys) for sys in systematics}
+            mc_map_sys = {sys: utils.read_samples(conf, reader, c, var, samples, fit, force_positive=c.force_positive, sys=sys) for sys in systematics}
+            mc_map_pdf = {sys: utils.read_samples(conf, reader, c, var, samples, fit, force_positive=c.force_positive, sys=sys) for sys in pdf_systematics}
+            mc_map_pdf_choice = {sys: utils.read_samples(conf, reader, c, var, samples, fit, force_positive=c.force_positive, sys=sys) for sys in pdf_choice_systematics}
+            mc_map_qcd = {sys: utils.read_samples(conf, reader, c, var, samples, fit, force_positive=c.force_positive, sys=sys) for sys in qcd_systematics}
             if not mc_map:
                 continue
 
@@ -181,8 +198,11 @@ def main(options, conf, reader):
                 h_mc_tot = trex_mc_tot
             else:
                 h_mc_tot = utils.make_mc_tot(hs, f"{c}_{v}_mc_tot")
-            if (len(systematics)):
-                h_mc_tot_sys = [utils.make_mc_tot(utils.make_stack(samples, mc_map_sys[sys]), f"{c}_{v}_{sys}_mc_tot") for sys in systematics]
+            h_mc_tot_sys = [utils.make_mc_tot(utils.make_stack(samples, mc_map_sys[sys]), f"{c}_{v}_{sys}_mc_tot") for sys in systematics]
+            ###
+            h_mc_tot_pdf = [utils.make_mc_tot(utils.make_stack(samples, mc_map_pdf[sys]), f"{c}_{v}_{sys}_mc_tot") for sys in pdf_systematics]
+            h_mc_tot_pdf_choice = [utils.make_mc_tot(utils.make_stack(samples, mc_map_pdf_choice[sys]), f"{c}_{v}_{sys}_mc_tot") for sys in pdf_choice_systematics]
+            h_mc_tot_qcd = [utils.make_mc_tot(utils.make_stack(samples, mc_map_qcd[sys]), f"{c}_{v}_{sys}_mc_tot") for sys in qcd_systematics]
 
             # ratio
             h_ratio = utils.make_ratio(h_data, h_mc_tot)
@@ -196,12 +216,22 @@ def main(options, conf, reader):
                 gr_mc_stat_err, gr_mc_stat_err_only = utils.make_stat_err(h_mc_tot)
 
             # sys error
-            if (len(systematics)):
-                gr_mc_sys_err, gr_mc_sys_err_only = utils.make_sys_err(h_mc_tot, h_mc_tot_sys)
+            gr_mc_sys_err, gr_mc_sys_err_only = utils.make_sys_err(h_mc_tot, h_mc_tot_sys)
+            
+            ### add PDF and QCD stuff here
+            gr_mc_pdf_err, gr_mc_pdf_err_only = utils.make_pdf_err(h_mc_tot, h_mc_tot_pdf)
+            gr_mc_qcd_err, gr_mc_qcd_err_only = utils.make_minmax_err(h_mc_tot, h_mc_tot_qcd)
+            gr_mc_pdf_choice_err, gr_mc_pdf_choice_err_only = utils.make_minmax_err(h_mc_tot, h_mc_tot_pdf_choice)
+            
+            
+            # total error
+            ### combine PDF and QCD stuff here
+            gr_mc_tot_err = utils.combine_error_multiple([gr_mc_stat_err,gr_mc_sys_err,gr_mc_pdf_err,gr_mc_qcd_err,gr_mc_pdf_choice_err])
 
-                # total error
-                gr_mc_tot_err = utils.combine_error(gr_mc_stat_err, gr_mc_sys_err)
-                gr_mc_tot_err_only = utils.combine_error(gr_mc_stat_err_only, gr_mc_sys_err_only)
+
+            
+            gr_mc_tot_err_only = utils.combine_error_multiple([gr_mc_stat_err_only,gr_mc_sys_err_only,gr_mc_pdf_err_only,gr_mc_qcd_err_only,gr_mc_pdf_choice_err_only])
+
 
             # top pad
             canv.pad1.cd()

@@ -5,7 +5,7 @@ Z_m:
 Z_pt:
   label: p_{T}(ll)
   unit: GeV
-  rebin: 2
+  rebin: 1
   x_range: [0, 200]
 
 Z_eta:

@@ -8,11 +8,14 @@ from charmplot.control import sample
 from charmplot.control import variable
 from copy import deepcopy
 from typing import Dict, List, Union
+import numpy as np
 import json
 import logging
 import os
 import ROOT
 import sys
+import array
+import lhapdf
 
 MC_Map = Dict[sample.Sample, ROOT.TH1]
 
@@ -304,7 +307,7 @@ def make_stat_err(h: ROOT.TH1) -> List[Union[ROOT.TGraphErrors, ROOT.TGraphError
 
 def make_sys_err(h: ROOT.TH1, h_sys: List) -> List[Union[ROOT.TGraphErrors, ROOT.TGraphErrors]]:
     gr = ROOT.TGraphAsymmErrors()
-    gr_err_only = ROOT.TGraphAsymmErrors()
+    gr_err_only = ROOT.TGraphAsymmErrors() 
     for i in range(0, h.GetNbinsX() + 2):
         x = h.GetBinCenter(i)
         y = h.GetBinContent(i)
@@ -334,6 +337,153 @@ def make_sys_err(h: ROOT.TH1, h_sys: List) -> List[Union[ROOT.TGraphErrors, ROOT
     return gr, gr_err_only
 
 
+
+## make PDF uncertainty
+def make_pdf_err(h: ROOT.TH1,h_var: List) -> List[Union[ROOT.TGraphErrors, ROOT.TGraphErrors]]:
+    ##h_var is expected to have only the PDF variations and no QCD parameter variations!!
+    pdfset = lhapdf.getPDFSet('NNPDF30_nnlo_as_0118')
+    pdfset.mkPDFs()
+#     gr = ROOT.TGraphAsymmErrors()
+#     gr_err_only = ROOT.TGraphAsymmErrors() 
+    
+    nBins = h_var[0].GetNbinsX()
+    
+    xval = ROOT.std.vector("float")(nBins)
+    yval = ROOT.std.vector("float")(nBins)
+    exh = ROOT.std.vector("float")(nBins)
+    exl = ROOT.std.vector("float")(nBins)
+    for a in range(nBins):
+        xval[a] = h.GetBinCenter(a+1)
+        yval[a] = h.GetBinContent(a+1)
+        exh[a] = h.GetBinWidth(a+1) / 2.
+        exl[a] = h.GetBinWidth(a+1) / 2.
+        
+    
+    exh = np.asarray(exh)
+    exl = np.asarray(exl)
+    
+    xval = np.asarray(xval)
+    yval = np.asarray(yval)
+    
+
+    pdfvars = np.zeros((len(h_var), nBins))
+    
+    for i in range(len(h_var)):
+        pdfvars[i,: ] = np.array([ h_var[i].GetBinContent(binNo) for binNo in range(1,nBins+1) ])
+        
+    pdferrplus = np.array([ pdfset.uncertainty(pdfvars[:,i]).errplus  for i in range(nBins) ])
+    pdferrminus = np.array([ pdfset.uncertainty(pdfvars[:,i]).errminus  for i in range(nBins) ])
+    
+    
+    exh = np.hstack((0,exh,0))
+    exl = np.hstack((0,exl,0))
+    xval = np.hstack((xval[0],xval,xval[-1]))
+    yval = np.hstack((yval[0],yval,yval[-1]))
+    pdferrplus = np.hstack(([0],pdferrplus,[0]))
+    pdferrminus = np.hstack(([0],pdferrminus,[0]))
+    
+    with np.errstate(divide='ignore',invalid='ignore'):
+        pdfeyh_o = pdferrplus/yval
+        pdfeyl_o = pdferrminus/yval
+        pdfeyh_o[yval == 0.] = 0.
+        pdfeyl_o[yval == 0.] = 0.
+    
+    pdfeyh = array.array('d',pdferrplus)
+    pdfeyl = array.array('d',pdferrminus)
+    
+    pdfeyh_o = array.array('d',pdfeyh_o)
+    pdfeyl_o = array.array('d',pdfeyl_o)
+    
+    exh = array.array('d',exh)
+    exl = array.array('d',exl)
+    
+    unity = array.array('d',np.ones((nBins+2,)))
+    xval = array.array('d',xval)
+    yval = array.array('d',yval)
+    
+    gr = ROOT.TGraphAsymmErrors(nBins+2,xval,yval,exl,exh,pdfeyl,pdfeyh)
+    gr_err_only = ROOT.TGraphAsymmErrors(nBins+2,xval,unity,exl,exh,pdfeyl_o,pdfeyh_o)
+    gr.SetFillColor(ROOT.kGray + 2)
+    gr.SetFillStyle(3354)
+    gr_err_only.SetFillColor(ROOT.kGray + 2)
+    gr_err_only.SetFillStyle(3354)
+    return gr, gr_err_only
+
+## make QCD/pdf choice uncertainty
+
+def make_minmax_err(h: ROOT.TH1,h_var: List) -> List[Union[ROOT.TGraphErrors, ROOT.TGraphErrors]]:
+    ##h_var is expected to have only the QCD parameter variations!!
+    gr = ROOT.TGraphAsymmErrors()
+    gr_err_only = ROOT.TGraphAsymmErrors()
+    nBins = h_var[0].GetNbinsX()
+    
+    xval = ROOT.std.vector("float")(nBins)
+    yval = ROOT.std.vector("float")(nBins)
+    exh = ROOT.std.vector("float")(nBins)
+    exl = ROOT.std.vector("float")(nBins)
+
+    eyh = eyl = np.zeros((nBins,))
+    
+    for a in range(nBins):
+        xval[a] = h.GetBinCenter(a+1)
+        yval[a] = h.GetBinContent(a+1)
+        exh[a] = h.GetBinWidth(a+1) / 2.
+        exl[a] = h.GetBinWidth(a+1) / 2.
+    
+    exh = np.asarray(exh)
+    exl = np.asarray(exl)
+             
+    xval = np.asarray(xval)
+    yval = np.asarray(yval)
+    
+    for i in range(1, h.GetNbinsX() + 1):
+        bin_list = []
+        for hist in h_var:
+            bin_list.append(hist.GetBinContent(i))
+        if len(bin_list) != 0:
+            eyh[i-1] = np.abs(np.max(bin_list)-yval[i-1])
+            eyl[i-1] = np.abs(np.min(bin_list)-yval[i-1])
+        else:
+            eyh[i-1] = 0
+            eyl[i-1] = 0
+    
+    exh = np.hstack((0,exh,0))
+    exl = np.hstack((0,exl,0))
+    xval = np.hstack((xval[0],xval,xval[-1]))
+    yval = np.hstack((yval[0],yval,yval[-1]))
+    eyh = np.hstack((0,eyh,0))
+    eyl = np.hstack((0,eyl,0))
+    
+    with np.errstate(divide='ignore', invalid='ignore'):
+        eyh_o = eyh/yval
+        eyl_o = eyl/yval
+        eyh_o[yval==0.] = 0.
+        eyl_o[yval==0.] = 0.
+    
+    eyh = array.array('d',eyh)
+    eyl = array.array('d',eyl)
+    
+    eyh_o = array.array('d',eyh_o)
+    eyl_o = array.array('d',eyl_o)
+    
+    exh = array.array('d',exh)
+    exl = array.array('d',exl)
+    
+    xval = array.array('d',xval)
+    yval = array.array('d',yval)
+    unity = array.array('d',np.ones((nBins+2,)))
+    gr = ROOT.TGraphAsymmErrors(nBins+2,xval,yval,exl,exl,eyl,eyh)
+    gr_err_only = ROOT.TGraphAsymmErrors(nBins+2,xval,unity,exl,exl,eyl_o,eyh_o)
+    
+    
+    gr.SetFillColor(ROOT.kGray + 2)
+    gr.SetFillStyle(3354)
+    gr_err_only.SetFillColor(ROOT.kGray + 2)
+    gr_err_only.SetFillStyle(3354)
+    return gr, gr_err_only
+
+
+
 def combine_error(gr1: ROOT.TGraphAsymmErrors, gr2: ROOT.TGraphAsymmErrors) -> ROOT.TGraphAsymmErrors:
     gr = ROOT.TGraphAsymmErrors()
     for i in range(0, gr1.GetN()):
@@ -350,6 +500,26 @@ def combine_error(gr1: ROOT.TGraphAsymmErrors, gr2: ROOT.TGraphAsymmErrors) -> R
     gr.SetFillColor(ROOT.kBlue - 4)
     gr.SetFillStyle(3345)
     return gr
+
+def combine_error_multiple(asym_list):
+    gr1 = asym_list[0]
+    gr = ROOT.TGraphAsymmErrors()
+    for i in range(0, gr1.GetN()):
+        x = gr1.GetX()[i]
+        y = gr1.GetY()[i]
+        err_x_dn = gr1.GetEXlow()[i]
+        err_x_up = gr1.GetEXhigh()[i]
+        err_y_dn = np.sum(np.array([asym.GetEYlow()[i] for asym in asym_list])**2)**0.5
+        err_y_up = np.sum(np.array([asym.GetEYhigh()[i] for asym in asym_list])**2)**0.5
+        gr.SetPoint(i, x, y)
+        gr.SetPointError(i, err_x_dn, err_x_up, err_y_dn, err_y_up)
+
+    gr.SetFillColor(ROOT.kBlue - 4)
+    gr.SetFillStyle(3345)
+    return gr
+
+
+
 
 
 def make_ratio(data: ROOT.TH1, mc_tot: ROOT.TH1) -> ROOT.TH1:
