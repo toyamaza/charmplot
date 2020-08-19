@@ -3,6 +3,7 @@ from charmplot.common import utils
 from charmplot.common import www
 from charmplot.control import globalConfig
 from charmplot.control import inputDataReader
+from copy import deepcopy
 from multiprocessing import Pool
 import logging
 import os
@@ -19,9 +20,9 @@ ROOT.SetAtlasStyle()
 
 # logging
 root = logging.getLogger()
-root.setLevel(logging.DEBUG)
+root.setLevel(logging.INFO)
 handler = logging.StreamHandler(sys.stdout)
-handler.setLevel(logging.DEBUG)
+handler.setLevel(logging.INFO)
 formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 handler.setFormatter(formatter)
 root.addHandler(handler)
@@ -65,15 +66,21 @@ def mass_fit(conf, reader, c, samples):
 
 
 def wrapper(args):
-    options, conf, reader, trex_post_fit_histograms, c = args
-    process_channel(options, conf, reader, trex_post_fit_histograms, c)
+    options, conf, reader, c = args
+    process_channel(options, conf, reader, c)
 
 
-def process_channel(options, conf, reader, trex_post_fit_histograms, c):
+def process_channel(options, conf, reader, c):
+
+    # read trex input
+    trex_post_fit_histograms = {}
+    if options.trex_input:
+        trex_post_fit_histograms = read_trex_input(options.trex_input)
 
     # trex histogram files (one per sample)
     trex_histograms = {}
-    trex_folder = os.path.join(conf.out_name, options.trex)
+    if (options.trex):
+        trex_folder = os.path.join(conf.out_name, options.trex)
 
     # output root file
     if c.save_to_file:
@@ -135,15 +142,15 @@ def process_channel(options, conf, reader, trex_post_fit_histograms, c):
         mc_map = utils.read_samples(conf, reader, c, var, samples, fit, force_positive=c.force_positive)
 
         # experimental syst histograms
-        mc_map_sys = {syst: utils.read_samples(conf, reader, c, var, samples, fit, force_positive=c.force_positive, syst=syst) for syst in systematics}
+        mc_map_sys = {syst: utils.read_samples(conf, reader, c, var, samples, fit, force_positive=c.force_positive, sys=syst) for syst in systematics}
         if not mc_map:
             return
 
         # theory syst histograms
-        mc_map_pdf = {syst: utils.read_samples(conf, reader, c, var, samples, fit, force_positive=c.force_positive, syst=syst) for syst in pdf_systematics}
+        mc_map_pdf = {syst: utils.read_samples(conf, reader, c, var, samples, fit, force_positive=c.force_positive, sys=syst) for syst in pdf_systematics}
         mc_map_pdf_choice = {syst: utils.read_samples(conf, reader, c, var, samples, fit,
-                                                      force_positive=c.force_positive, syst=syst) for syst in pdf_choice_systematics}
-        mc_map_qcd = {syst: utils.read_samples(conf, reader, c, var, samples, fit, force_positive=c.force_positive, syst=syst) for syst in qcd_systematics}
+                                                      force_positive=c.force_positive, sys=syst) for syst in pdf_choice_systematics}
+        mc_map_qcd = {syst: utils.read_samples(conf, reader, c, var, samples, fit, force_positive=c.force_positive, sys=syst) for syst in qcd_systematics}
 
         # trex post-fit
         trex_mc_tot = None
@@ -253,18 +260,19 @@ def process_channel(options, conf, reader, trex_post_fit_histograms, c):
         if c.save_to_file:
             out_file.Close()
 
+    logging.info(f"finished processing channel {c.name}")
+
 
 def main(options, conf, reader):
-
-    # read trex input
-    trex_post_fit_histograms = {}
-    if options.trex_input:
-        trex_post_fit_histograms = read_trex_input(options.trex_input)
 
     # trex output
     if options.trex:
         trex_folder = os.path.join(conf.out_name, options.trex)
         make_trex_folder(trex_folder)
+
+    # make output folder
+    if not os.path.isdir(conf.out_name):
+        os.makedirs(conf.out_name)
 
     # loop through all channels and variables
     concurrnet_jobs = []
@@ -280,28 +288,12 @@ def main(options, conf, reader):
         if not c.make_plots and not c.save_to_file:
             continue
 
-        concurrnet_jobs += [[options, conf, reader, trex_post_fit_histograms, c]]
-
-    print(len(concurrnet_jobs))
-
-    # check if tqdm is available
-    import imp
-    try:
-        imp.find_module('tqdm')
-        tqdm_found = True
-    except ImportError:
-        print("tqdm module not found so there will be no progress bar. Install tqdm to get a progress bar with:\npip install tqdm")
-        tqdm_found = False
+        concurrnet_jobs += [[options, deepcopy(conf), deepcopy(reader), c]]
 
     # multiprocessing pool
     p = Pool(int(options.threads))
-    if tqdm_found:
-        import tqdm
-        for _ in tqdm.tqdm(p.imap_unordered(wrapper, concurrnet_jobs), total=len(concurrnet_jobs)):
-            pass
-    else:
-        for i, _ in enumerate(p.imap_unordered(wrapper, concurrnet_jobs)):
-            print("done processing job %s/%s" % (i + 1, len(concurrnet_jobs)))
+    for i, _ in enumerate(p.imap_unordered(wrapper, concurrnet_jobs)):
+        print("done processing job %s/%s" % (i + 1, len(concurrnet_jobs)))
 
 
 if __name__ == "__main__":
