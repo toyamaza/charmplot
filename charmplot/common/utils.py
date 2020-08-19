@@ -124,15 +124,15 @@ def read_trex_input(channel: channel.Channel, var: variable.Variable, mc_map: MC
 
 def save_to_trex_file(trex_folder: str, channel: channel.Channel, var: variable.Variable,
                       h_data: ROOT.TH1, mc_map: MC_Map, trex_histograms: Dict, sys: str = None):
-    logging.info(f"Saving histograms to trex root files for channel {channel}")
+    logging.info(f"Saving histograms to trex root files for channel {channel} for sys {sys}")
     out_name = f"{channel.name}_{var.name}"
     if sys:
         out_name += f"_{sys}"
-    data_file = ROOT.TFile(trex_histograms["Data"], "UPDATE")
-    data_file.cd()
     if not sys:
+        data_file = ROOT.TFile(trex_histograms["Data"], "UPDATE")
+        data_file.cd()
         h_data.Write(out_name)
-    data_file.Close()
+        data_file.Close()
     for s in mc_map:
         out_file = ROOT.TFile(trex_histograms[s.shortName], "UPDATE")
         out_file.cd()

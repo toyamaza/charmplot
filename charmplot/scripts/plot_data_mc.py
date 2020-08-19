@@ -3,10 +3,13 @@ from charmplot.common import utils
 from charmplot.common import www
 from charmplot.control import globalConfig
 from charmplot.control import inputDataReader
+from multiprocessing import Pool
 import logging
 import os
 import ROOT
+import subprocess
 import sys
+import time
 
 # ATLAS Style
 dirname = os.path.join(os.path.dirname(__file__), "../../atlasrootstyle")
@@ -22,6 +25,13 @@ handler.setLevel(logging.DEBUG)
 formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 handler.setFormatter(formatter)
 root.addHandler(handler)
+
+
+def hadd_wrapper(args):
+    p = subprocess.Popen(["hadd"] + ["-f"] + args,
+                         stderr=subprocess.STDOUT)
+    p.communicate()
+    return
 
 
 def read_trex_input(trex_folder):
@@ -54,28 +64,211 @@ def mass_fit(conf, reader, c, samples):
     utils.mass_fit(conf, h_mc_tot, c, "MC")
 
 
-def main(options, conf, reader):
+def wrapper(args):
+    options, conf, reader, trex_post_fit_histograms, c = args
+    process_channel(options, conf, reader, trex_post_fit_histograms, c)
 
-    # make the output file only once
-    histogram_file_made = False
+
+def process_channel(options, conf, reader, trex_post_fit_histograms, c):
 
     # trex histogram files (one per sample)
     trex_histograms = {}
+    trex_folder = os.path.join(conf.out_name, options.trex)
+
+    # output root file
+    if c.save_to_file:
+        out_file_name = os.path.join(conf.out_name, f"histograms_tmp_{c}.root")
+        out_file = ROOT.TFile(out_file_name, "RECREATE")
+        out_file.Close()
+
+    # make channel folder if not exist
+    if not os.path.isdir(os.path.join(conf.out_name, c.name)):
+        os.makedirs(os.path.join(conf.out_name, c.name))
+
+    # used MC samples in channel (default or channel specific)
+    samples = utils.get_samples(conf, c)
+
+    # trex output
+    if options.trex:
+        for s in samples + [conf.get_data()]:
+            sample_file_name = os.path.join(trex_folder, f"{s.shortName}_tmp_{c}.root")
+            if s.shortName not in trex_histograms:
+                sample_out_file = ROOT.TFile(sample_file_name, "RECREATE")
+                trex_histograms[s.shortName] = sample_file_name
+                sample_out_file.Close()
+
+    # perform likelihood fit
+    fit = utils.likelihood_fit(conf, reader, c, samples)
+
+    # keep track of first/last plot of each channel
+    first_plot = True
+
+    # list of variables
+    variables = utils.get_variables(options, conf, reader, c)
+
+    # mass fit
+    if c.mass_fit:
+        mass_fit(conf, reader, c, samples)
+
+    # systematics
+    systematics = conf.get_systematics()
+
+    # theory systematics
+    qcd_systematics = conf.get_qcd_systematics()
+    pdf_systematics = conf.get_pdf_systematics()
+    pdf_choice_systematics = conf.get_pdf_choice_systematics()
+
+    for v in variables:
+
+        # variable object
+        var = conf.get_var(v)
+
+        # check if last plot
+        last_plot = v == variables[-1]
+
+        # data histogram
+        h_data = reader.get_histogram(conf.get_data(), c, var)
+        if not h_data:
+            return
+
+        # read input MC histograms (and scale them)
+        mc_map = utils.read_samples(conf, reader, c, var, samples, fit, force_positive=c.force_positive)
+
+        # experimental syst histograms
+        mc_map_sys = {syst: utils.read_samples(conf, reader, c, var, samples, fit, force_positive=c.force_positive, syst=syst) for syst in systematics}
+        if not mc_map:
+            return
+
+        # theory syst histograms
+        mc_map_pdf = {syst: utils.read_samples(conf, reader, c, var, samples, fit, force_positive=c.force_positive, syst=syst) for syst in pdf_systematics}
+        mc_map_pdf_choice = {syst: utils.read_samples(conf, reader, c, var, samples, fit,
+                                                      force_positive=c.force_positive, syst=syst) for syst in pdf_choice_systematics}
+        mc_map_qcd = {syst: utils.read_samples(conf, reader, c, var, samples, fit, force_positive=c.force_positive, syst=syst) for syst in qcd_systematics}
+
+        # trex post-fit
+        trex_mc_tot = None
+        trex_mc_stat_err = None
+        trex_mc_stat_err_only = None
+        if trex_post_fit_histograms and c.trex_subtraction:
+            channelOS = conf.get_channel(c.trex_subtraction["OS"])
+            channelSS = conf.get_channel(c.trex_subtraction["SS"])
+            h_data, trex_mc_tot, trex_mc_stat_err, trex_mc_stat_err_only = utils.trex_subtraction(
+                channelOS, channelSS, var, mc_map, trex_post_fit_histograms)
+            c.label += ["post-fit"]
+        elif c.name in trex_post_fit_histograms:
+            h_data, trex_mc_tot, trex_mc_stat_err, trex_mc_stat_err_only = utils.read_trex_input(c, var, mc_map, trex_post_fit_histograms)
+            c.label += ["post-fit"]
+
+        # continue if not make plots
+        if not c.make_plots or not var.make_plots:
+            return
+
+        # scale factors for this channel (only for dispaly)
+        scale_factors = utils.read_scale_factors(c.scale_factors)
+
+        # canvas
+        canv = utils.make_canvas(h_data, var, c, x=800, y=800, fit=fit, scale_factors=scale_factors)
+
+        # configure histograms
+        canv.configure_histograms(mc_map, h_data)
+
+        # save histograms to root file
+        if c.save_to_file:
+            utils.save_to_file(out_file_name, c, var, h_data, mc_map)
+            if options.trex:
+                utils.save_to_trex_file(trex_folder, c, var, h_data, mc_map, trex_histograms)
+                for syst in systematics:
+                    utils.save_to_trex_file(trex_folder, c, var, None, mc_map_sys[syst], trex_histograms, syst)
+
+        # stack and total mc
+        hs = utils.make_stack(samples, mc_map)
+        if trex_mc_tot:
+            h_mc_tot = trex_mc_tot
+        else:
+            h_mc_tot = utils.make_mc_tot(hs, f"{c}_{v}_mc_tot")
+
+        # MC tot for experimental systematics
+        h_mc_tot_sys = [utils.make_mc_tot(utils.make_stack(samples, mc_map_sys[syst]), f"{c}_{v}_{syst}_mc_tot") for syst in systematics]
+
+        # MC tot for theory systematics
+        h_mc_tot_pdf = [utils.make_mc_tot(utils.make_stack(samples, mc_map_pdf[syst]), f"{c}_{v}_{syst}_mc_tot") for syst in pdf_systematics]
+        h_mc_tot_pdf_choice = [utils.make_mc_tot(utils.make_stack(samples, mc_map_pdf_choice[syst]),
+                                                 f"{c}_{v}_{syst}_mc_tot") for syst in pdf_choice_systematics]
+        h_mc_tot_qcd = [utils.make_mc_tot(utils.make_stack(samples, mc_map_qcd[syst]), f"{c}_{v}_{syst}_mc_tot") for syst in qcd_systematics]
+
+        # ratio
+        h_ratio = utils.make_ratio(h_data, h_mc_tot)
+
+        # mc stat error
+        if trex_mc_stat_err and trex_mc_stat_err_only:
+            gr_mc_stat_err, gr_mc_stat_err_only = trex_mc_stat_err, trex_mc_stat_err_only
+            if c.name not in ["OS-SS_2018_el_2tag_SR_Dplus", "OS-SS_2018_mu_2tag_SR_Dplus"]:
+                canv.set_ratio_range(0.89, 1.11, override=True)
+        else:
+            gr_mc_stat_err, gr_mc_stat_err_only = utils.make_stat_err(h_mc_tot)
+
+        # experimental syst error band
+        gr_mc_sys_err, gr_mc_sys_err_only = utils.make_sys_err(h_mc_tot, h_mc_tot_sys)
+
+        # theory syst error band
+        gr_mc_pdf_err, gr_mc_pdf_err_only = utils.make_pdf_err(h_mc_tot, h_mc_tot_pdf)
+        gr_mc_qcd_err, gr_mc_qcd_err_only = utils.make_minmax_err(h_mc_tot, h_mc_tot_qcd)
+        gr_mc_pdf_choice_err, gr_mc_pdf_choice_err_only = utils.make_minmax_err(h_mc_tot, h_mc_tot_pdf_choice)
+
+        # total error
+        # combine experimental and theory syst
+        gr_mc_tot_err = utils.combine_error_multiple([gr_mc_stat_err, gr_mc_sys_err, gr_mc_pdf_err, gr_mc_qcd_err, gr_mc_pdf_choice_err])
+        gr_mc_tot_err_only = utils.combine_error_multiple(
+            [gr_mc_stat_err_only, gr_mc_sys_err_only, gr_mc_pdf_err_only, gr_mc_qcd_err_only, gr_mc_pdf_choice_err_only])
+
+        # top pad
+        canv.pad1.cd()
+        hs.Draw("same hist")
+        h_mc_tot.Draw("same hist")
+        gr_mc_tot_err.Draw("e2")
+        gr_mc_stat_err.Draw("e2")
+        h_data.Draw("same pe")
+
+        # make legend
+        canv.make_legend(h_data, h_mc_tot, mc_map, samples, print_yields=True, show_error=(trex_mc_tot is None))
+
+        # set maximum after creating legend
+        canv.set_maximum((h_data, h_mc_tot), var, mc_min=utils.get_mc_min(mc_map, samples))
+
+        # bottom pad
+        canv.pad2.cd()
+        if not c.qcd_template:
+            gr_mc_tot_err_only.Draw("le2")
+            gr_mc_stat_err_only.Draw("le2")
+            h_ratio.Draw("same pe")
+        else:
+            h_qcd_frac, h_qcd_frac_err = utils.get_fraction_histogram(mc_map[conf.get_sample(c.qcd_template)], h_data)
+            canv.draw_qcd_frac(h_qcd_frac, h_qcd_frac_err)
+
+        # Print out
+        canv.print_all(conf.out_name, c.name, v, multipage_pdf=True, first_plot=first_plot, last_plot=last_plot, as_png=options.stage_out)
+        first_plot = False
+
+        # close output file
+        if c.save_to_file:
+            out_file.Close()
+
+
+def main(options, conf, reader):
 
     # read trex input
     trex_post_fit_histograms = {}
     if options.trex_input:
         trex_post_fit_histograms = read_trex_input(options.trex_input)
 
-    # loop through all channels and variables
-    for c in conf.channels:
+    # trex output
+    if options.trex:
+        trex_folder = os.path.join(conf.out_name, options.trex)
+        make_trex_folder(trex_folder)
 
-        # output root file
-        if c.save_to_file and not histogram_file_made:
-            histogram_file_made = True
-            out_file_name = os.path.join(conf.out_name, "histograms.root")
-            out_file = ROOT.TFile(out_file_name, "RECREATE")
-            out_file.Close()
+    # loop through all channels and variables
+    concurrnet_jobs = []
+    for c in conf.channels:
 
         # filter channels
         if options.channels:
@@ -87,177 +280,28 @@ def main(options, conf, reader):
         if not c.make_plots and not c.save_to_file:
             continue
 
-        # make channel folder if not exist
-        if not os.path.isdir(os.path.join(conf.out_name, c.name)):
-            os.makedirs(os.path.join(conf.out_name, c.name))
+        concurrnet_jobs += [[options, conf, reader, trex_post_fit_histograms, c]]
 
-        # used MC samples in channel (default or channel specific)
-        samples = utils.get_samples(conf, c)
+    print(len(concurrnet_jobs))
 
-        # trex output
-        if options.trex:
-            trex_folder = os.path.join(conf.out_name, options.trex)
-            for s in samples + [conf.get_data()]:
-                make_trex_folder(trex_folder)
-                sample_file_name = os.path.join(trex_folder, f"{s.shortName}.root")
-                if s.shortName not in trex_histograms:
-                    sample_out_file = ROOT.TFile(sample_file_name, "RECREATE")
-                    trex_histograms[s.shortName] = sample_file_name
-                    sample_out_file.Close()
+    # check if tqdm is available
+    import imp
+    try:
+        imp.find_module('tqdm')
+        tqdm_found = True
+    except ImportError:
+        print("tqdm module not found so there will be no progress bar. Install tqdm to get a progress bar with:\npip install tqdm")
+        tqdm_found = False
 
-        # perform likelihood fit
-        fit = utils.likelihood_fit(conf, reader, c, samples)
-
-        # keep track of first/last plot of each channel
-        first_plot = True
-
-        # list of variables
-        variables = utils.get_variables(options, conf, reader, c)
-
-        # mass fit
-        if c.mass_fit:
-            mass_fit(conf, reader, c, samples)
-
-        # systematics
-        systematics = conf.get_systematics()
-
-        # theory systematics
-        qcd_systematics = conf.get_qcd_systematics()
-        pdf_systematics = conf.get_pdf_systematics()
-        pdf_choice_systematics = conf.get_pdf_choice_systematics()
-
-        for v in variables:
-
-            # variable object
-            var = conf.get_var(v)
-
-            # check if last plot
-            last_plot = v == variables[-1]
-
-            # data histogram
-            h_data = reader.get_histogram(conf.get_data(), c, var)
-            if not h_data:
-                continue
-
-            # read input MC histograms (and scale them)
-            mc_map = utils.read_samples(conf, reader, c, var, samples, fit, force_positive=c.force_positive)
-
-            # experimental sys histograms
-            mc_map_sys = {sys: utils.read_samples(conf, reader, c, var, samples, fit, force_positive=c.force_positive, sys=sys) for sys in systematics}
-            if not mc_map:
-                continue
-
-            # theory sys histograms
-            mc_map_pdf = {sys: utils.read_samples(conf, reader, c, var, samples, fit, force_positive=c.force_positive, sys=sys) for sys in pdf_systematics}
-            mc_map_pdf_choice = {sys: utils.read_samples(conf, reader, c, var, samples, fit,
-                                                         force_positive=c.force_positive, sys=sys) for sys in pdf_choice_systematics}
-            mc_map_qcd = {sys: utils.read_samples(conf, reader, c, var, samples, fit, force_positive=c.force_positive, sys=sys) for sys in qcd_systematics}
-
-            # trex post-fit
-            trex_mc_tot = None
-            trex_mc_stat_err = None
-            trex_mc_stat_err_only = None
-            if trex_post_fit_histograms and c.trex_subtraction:
-                channelOS = conf.get_channel(c.trex_subtraction["OS"])
-                channelSS = conf.get_channel(c.trex_subtraction["SS"])
-                h_data, trex_mc_tot, trex_mc_stat_err, trex_mc_stat_err_only = utils.trex_subtraction(
-                    channelOS, channelSS, var, mc_map, trex_post_fit_histograms)
-                c.label += ["post-fit"]
-            elif c.name in trex_post_fit_histograms:
-                h_data, trex_mc_tot, trex_mc_stat_err, trex_mc_stat_err_only = utils.read_trex_input(c, var, mc_map, trex_post_fit_histograms)
-                c.label += ["post-fit"]
-
-            # continue if not make plots
-            if not c.make_plots or not var.make_plots:
-                continue
-
-            # scale factors for this channel (only for dispaly)
-            scale_factors = utils.read_scale_factors(c.scale_factors)
-
-            # canvas
-            canv = utils.make_canvas(h_data, var, c, x=800, y=800, fit=fit, scale_factors=scale_factors)
-
-            # configure histograms
-            canv.configure_histograms(mc_map, h_data)
-
-            # save histograms to root file
-            if c.save_to_file:
-                utils.save_to_file(out_file_name, c, var, h_data, mc_map)
-                if options.trex:
-                    utils.save_to_trex_file(trex_folder, c, var, h_data, mc_map, trex_histograms)
-
-            # stack and total mc
-            hs = utils.make_stack(samples, mc_map)
-            if trex_mc_tot:
-                h_mc_tot = trex_mc_tot
-            else:
-                h_mc_tot = utils.make_mc_tot(hs, f"{c}_{v}_mc_tot")
-
-            # MC tot for experimental systematics
-            h_mc_tot_sys = [utils.make_mc_tot(utils.make_stack(samples, mc_map_sys[sys]), f"{c}_{v}_{sys}_mc_tot") for sys in systematics]
-
-            # MC tot for theory systematics
-            h_mc_tot_pdf = [utils.make_mc_tot(utils.make_stack(samples, mc_map_pdf[sys]), f"{c}_{v}_{sys}_mc_tot") for sys in pdf_systematics]
-            h_mc_tot_pdf_choice = [utils.make_mc_tot(utils.make_stack(samples, mc_map_pdf_choice[sys]),
-                                                     f"{c}_{v}_{sys}_mc_tot") for sys in pdf_choice_systematics]
-            h_mc_tot_qcd = [utils.make_mc_tot(utils.make_stack(samples, mc_map_qcd[sys]), f"{c}_{v}_{sys}_mc_tot") for sys in qcd_systematics]
-
-            # ratio
-            h_ratio = utils.make_ratio(h_data, h_mc_tot)
-
-            # mc stat error
-            if trex_mc_stat_err and trex_mc_stat_err_only:
-                gr_mc_stat_err, gr_mc_stat_err_only = trex_mc_stat_err, trex_mc_stat_err_only
-                if c.name not in ["OS-SS_2018_el_SR_2tag_Dplus", "OS-SS_2018_mu_SR_2tag_Dplus"]:
-                    canv.set_ratio_range(0.89, 1.11, override=True)
-            else:
-                gr_mc_stat_err, gr_mc_stat_err_only = utils.make_stat_err(h_mc_tot)
-
-            # experimental sys error band
-            gr_mc_sys_err, gr_mc_sys_err_only = utils.make_sys_err(h_mc_tot, h_mc_tot_sys)
-
-            # theory sys error band
-            gr_mc_pdf_err, gr_mc_pdf_err_only = utils.make_pdf_err(h_mc_tot, h_mc_tot_pdf)
-            gr_mc_qcd_err, gr_mc_qcd_err_only = utils.make_minmax_err(h_mc_tot, h_mc_tot_qcd)
-            gr_mc_pdf_choice_err, gr_mc_pdf_choice_err_only = utils.make_minmax_err(h_mc_tot, h_mc_tot_pdf_choice)
-
-            # total error
-            # combine experimental and theory sys
-            gr_mc_tot_err = utils.combine_error_multiple([gr_mc_stat_err, gr_mc_sys_err, gr_mc_pdf_err, gr_mc_qcd_err, gr_mc_pdf_choice_err])
-            gr_mc_tot_err_only = utils.combine_error_multiple(
-                [gr_mc_stat_err_only, gr_mc_sys_err_only, gr_mc_pdf_err_only, gr_mc_qcd_err_only, gr_mc_pdf_choice_err_only])
-
-            # top pad
-            canv.pad1.cd()
-            hs.Draw("same hist")
-            h_mc_tot.Draw("same hist")
-            gr_mc_tot_err.Draw("e2")
-            gr_mc_stat_err.Draw("e2")
-            h_data.Draw("same pe")
-
-            # make legend
-            canv.make_legend(h_data, h_mc_tot, mc_map, samples, print_yields=True, show_error=(trex_mc_tot is None))
-
-            # set maximum after creating legend
-            canv.set_maximum((h_data, h_mc_tot), var, mc_min=utils.get_mc_min(mc_map, samples))
-
-            # bottom pad
-            canv.pad2.cd()
-            if not c.qcd_template:
-                gr_mc_tot_err_only.Draw("le2")
-                gr_mc_stat_err_only.Draw("le2")
-                h_ratio.Draw("same pe")
-            else:
-                h_qcd_frac, h_qcd_frac_err = utils.get_fraction_histogram(mc_map[conf.get_sample(c.qcd_template)], h_data)
-                canv.draw_qcd_frac(h_qcd_frac, h_qcd_frac_err)
-
-            # Print out
-            canv.print_all(conf.out_name, c.name, v, multipage_pdf=True, first_plot=first_plot, last_plot=last_plot, as_png=options.stage_out)
-            first_plot = False
-
-            # close output file
-            if c.save_to_file:
-                out_file.Close()
+    # multiprocessing pool
+    p = Pool(int(options.threads))
+    if tqdm_found:
+        import tqdm
+        for _ in tqdm.tqdm(p.imap_unordered(wrapper, concurrnet_jobs), total=len(concurrnet_jobs)):
+            pass
+    else:
+        for i, _ in enumerate(p.imap_unordered(wrapper, concurrnet_jobs)):
+            print("done processing job %s/%s" % (i + 1, len(concurrnet_jobs)))
 
 
 if __name__ == "__main__":
@@ -288,6 +332,10 @@ if __name__ == "__main__":
     parser.add_option('--trex-input',
                       action="store", dest="trex_input",
                       help="import post-fit trex plots")
+    parser.add_option('-t', '--threads',
+                      action="store", dest="threads",
+                      help="number of threads",
+                      default=8)
 
     # parse input arguments
     options, args = parser.parse_args()
@@ -312,6 +360,27 @@ if __name__ == "__main__":
 
     # do the plotting
     main(options, conf, reader)
+
+    # wait
+    time.sleep(1)
+
+    # merge trex output
+    if options.trex:
+        samples = {}
+        trex_folder = os.path.join(conf.out_name, options.trex)
+        for r, d, f in os.walk(trex_folder):
+            for file in f:
+                if '.root' in file and '_tmp_' in file:
+                    sample = file.split("_tmp_")[0]
+                    if sample not in samples:
+                        samples[sample] = []
+                    samples[sample] += [os.path.join(trex_folder, file)]
+        jobs = [[os.path.join(trex_folder, f"{sample}.root")] + samples[sample] for sample in samples]
+        print(jobs)
+        p = Pool(1)
+        for i, _ in enumerate(p.imap_unordered(hadd_wrapper, jobs)):
+            print("done processing hadd job %s/%s" % (i + 1, len(jobs)))
+        os.system(f"rm {trex_folder}/*_tmp_*")
 
     # stage-out to the www folder
     if options.stage_out:
