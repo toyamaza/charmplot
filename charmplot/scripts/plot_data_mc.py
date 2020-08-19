@@ -20,9 +20,9 @@ ROOT.SetAtlasStyle()
 
 # logging
 root = logging.getLogger()
-root.setLevel(logging.INFO)
+root.setLevel(logging.ERROR)
 handler = logging.StreamHandler(sys.stdout)
-handler.setLevel(logging.INFO)
+handler.setLevel(logging.DEBUG)
 formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 handler.setFormatter(formatter)
 root.addHandler(handler)
@@ -65,12 +65,17 @@ def mass_fit(conf, reader, c, samples):
     utils.mass_fit(conf, h_mc_tot, c, "MC")
 
 
-def wrapper(args):
-    options, conf, reader, c = args
-    process_channel(options, conf, reader, c)
+def wrapper(args,):
+    options, conf, c = args
+    process_channel(options, conf, c)
 
 
-def process_channel(options, conf, reader, c):
+def process_channel(options, conf, c):
+
+    logging.error(f"start processing channel {c.name}")
+
+    # read inputs
+    reader = inputDataReader.InputDataReader(conf)
 
     # read trex input
     trex_post_fit_histograms = {}
@@ -260,10 +265,10 @@ def process_channel(options, conf, reader, c):
         if c.save_to_file:
             out_file.Close()
 
-    logging.info(f"finished processing channel {c.name}")
+    logging.error(f"finished processing channel {c.name}")
 
 
-def main(options, conf, reader):
+def main(options, conf):
 
     # trex output
     if options.trex:
@@ -286,9 +291,12 @@ def main(options, conf, reader):
 
         # skip channels
         if not c.make_plots and not c.save_to_file:
+            logging.debug(f"skipping channel {c.name}")
             continue
 
-        concurrnet_jobs += [[options, deepcopy(conf), deepcopy(reader), c]]
+        concurrnet_jobs += [[options, conf, c]]
+
+    print(len(concurrnet_jobs))
 
     # multiprocessing pool
     p = Pool(int(options.threads))
@@ -342,16 +350,15 @@ if __name__ == "__main__":
         out_name[0] += "_" + options.suffix
         out_name = "/".join(out_name)
 
+    # config object
+    conf = globalConfig.GlobalConfig(config, out_name)
+
     # make output folder if not exist
     if not os.path.isdir(out_name):
         os.makedirs(out_name)
 
-    # read inputs
-    conf = globalConfig.GlobalConfig(config, out_name)
-    reader = inputDataReader.InputDataReader(conf)
-
     # do the plotting
-    main(options, conf, reader)
+    main(options, conf)
 
     # wait
     time.sleep(1)
