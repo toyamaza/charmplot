@@ -5,7 +5,7 @@ samplesConf: wplusd_data_data
 channels:
   2018_el_wplusd_OS_0tag:
     regions:
-      - OS_2018_el_SR_0tag_Dplus
+      - OS_2018_el_0tag_SR_Dplus
     samples:
       - data
       - data_ref
@@ -16,7 +16,7 @@ channels:
 
   2018_el_wplusd_OS_1tag:
     regions:
-      - OS_2018_el_SR_1tag_Dplus
+      - OS_2018_el_1tag_SR_Dplus
     samples:
       - data
       - data_ref
@@ -27,7 +27,7 @@ channels:
 
   2018_el_wplusd_OS_2tag:
     regions:
-      - OS_2018_el_SR_2tag_Dplus
+      - OS_2018_el_2tag_SR_Dplus
     samples:
       - data
       - data_ref
@@ -38,7 +38,7 @@ channels:
 
   2018_mu_wplusd_OS_0tag:
     regions:
-      - OS_2018_mu_SR_0tag_Dplus
+      - OS_2018_mu_0tag_SR_Dplus
     samples:
       - data
       - data_ref
@@ -49,7 +49,7 @@ channels:
 
   2018_mu_wplusd_OS_1tag:
     regions:
-      - OS_2018_mu_SR_1tag_Dplus
+      - OS_2018_mu_1tag_SR_Dplus
     samples:
       - data
       - data_ref
@@ -60,7 +60,7 @@ channels:
 
   2018_mu_wplusd_OS_2tag:
     regions:
-      - OS_2018_mu_SR_2tag_Dplus
+      - OS_2018_mu_2tag_SR_Dplus
     samples:
       - data
       - data_ref
@@ -71,7 +71,7 @@ channels:
 
   2018_el_wplusd_SS_0tag:
     regions:
-      - SS_2018_el_SR_0tag_Dplus
+      - SS_2018_el_0tag_SR_Dplus
     samples:
       - data
       - data_ref
@@ -82,7 +82,7 @@ channels:
 
   2018_el_wplusd_SS_1tag:
     regions:
-      - SS_2018_el_SR_1tag_Dplus
+      - SS_2018_el_1tag_SR_Dplus
     samples:
       - data
       - data_ref
@@ -93,7 +93,7 @@ channels:
 
   2018_el_wplusd_SS_2tag:
     regions:
-      - SS_2018_el_SR_2tag_Dplus
+      - SS_2018_el_2tag_SR_Dplus
     samples:
       - data
       - data_ref
@@ -104,7 +104,7 @@ channels:
 
   2018_mu_wplusd_SS_0tag:
     regions:
-      - SS_2018_mu_SR_0tag_Dplus
+      - SS_2018_mu_0tag_SR_Dplus
     samples:
       - data
       - data_ref
@@ -115,7 +115,7 @@ channels:
 
   2018_mu_wplusd_SS_1tag:
     regions:
-      - SS_2018_mu_SR_1tag_Dplus
+      - SS_2018_mu_1tag_SR_Dplus
     samples:
       - data
       - data_ref
@@ -126,7 +126,7 @@ channels:
 
   2018_mu_wplusd_SS_2tag:
     regions:
-      - SS_2018_mu_SR_2tag_Dplus
+      - SS_2018_mu_2tag_SR_Dplus
     samples:
       - data
       - data_ref

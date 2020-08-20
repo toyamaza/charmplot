@@ -1,7 +1,8 @@
 Dmeson_m:
   label: 'D^{#pm} m'
   unit: 'GeV'
-  rebin: 10
+  rebin: 2
+  x_range: [1.7, 2.2]
   ratio_range: [0.5, 1.49]
 
 Dmeson_m0:
