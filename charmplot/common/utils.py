@@ -113,7 +113,10 @@ def read_trex_input(channel: channel.Channel, var: variable.Variable, mc_map: MC
         trex_mc_stat_err_only.SetFillColor(ROOT.kGray + 2)
         trex_mc_stat_err_only.SetFillStyle(3354)
         for s in mc_map:
-            h_temp = deepcopy(file_temp.Get(f"h_{s.shortName}_postFit"))
+            name = s.shortName
+            if s.shortName == "Wjets_emu_Matched":
+                name += "_OS" if "OS" in channel.name else "_SS"
+            h_temp = deepcopy(file_temp.Get(f"h_{name}_postFit"))
             for i in range(1, h_temp.GetNbinsX() + 1):
                 if h_temp.GetBinContent(i) < 1e-10:
                     h_temp.SetBinContent(i, 0)

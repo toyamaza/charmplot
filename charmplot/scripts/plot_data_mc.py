@@ -130,6 +130,13 @@ def process_channel(options, conf, c):
     pdf_systematics = conf.get_pdf_systematics()
     pdf_choice_systematics = conf.get_pdf_choice_systematics()
 
+    # no sys if TREx import
+    if options.trex_input:
+        systematics = []
+        qcd_systematics = []
+        pdf_systematics = []
+        pdf_choice_systematics = []
+
     for v in variables:
 
         # variable object
