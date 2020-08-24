@@ -20,7 +20,7 @@ ROOT.SetAtlasStyle()
 
 # logging
 root = logging.getLogger()
-root.setLevel(logging.ERROR)
+root.setLevel(logging.DEBUG)
 handler = logging.StreamHandler(sys.stdout)
 handler.setLevel(logging.DEBUG)
 formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
