@@ -137,11 +137,14 @@ def main(options, args):
         eta_range = {}
 
         for s in samples:
+            v = "lep_pt_eta" if not "_el_" in c else "lep_pt_calo_eta"
 
-            lep_pt_eta_tight = f.Get(f"{s}_Tight_{c}_lep_pt_eta")
-            lep_pt_eta_loose = f.Get(f"{s}_AntiTight_{c}_lep_pt_eta")
-            lep_pt_eta_tight.RebinX(4)
-            lep_pt_eta_loose.RebinX(4)
+            rebin = 6 if not "_el_" in c else 6
+
+            lep_pt_eta_tight = f.Get(f"{s}_Tight_{c}_{v}")
+            lep_pt_eta_loose = f.Get(f"{s}_AntiTight_{c}_{v}")
+            lep_pt_eta_tight.RebinX(rebin)
+            lep_pt_eta_loose.RebinX(rebin)
             set_range(lep_pt_eta_tight, x_range)
             set_range(lep_pt_eta_loose, x_range)
 
