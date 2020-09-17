@@ -140,6 +140,9 @@ class InputDataReader(object):
             variables = {}
             for c in channel.get_all():
                 directory = f.Get(c)
+                if not directory:
+                    logger.warning(f"directory {c} not found in file {f}")
+                    continue
                 logger.info(f"directory: {c}")
                 for key in directory.GetListOfKeys():
                     name = key.GetName()
