@@ -45,7 +45,6 @@ class InputDataReader(object):
         # scale histogram
         scale_factors = utils.read_scale_factors(self.channel_scale_factors)
         self.scale_histogram(h_new, sample, c, scale_factors)
-
         return h_new
 
     def scale_histogram(self, h, sample, channel, scale_factors):
