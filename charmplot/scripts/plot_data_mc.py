@@ -19,9 +19,9 @@ ROOT.SetAtlasStyle()
 
 # logging
 root = logging.getLogger()
-root.setLevel(logging.DEBUG)
+root.setLevel(logging.INFO)
 handler = logging.StreamHandler(sys.stdout)
-handler.setLevel(logging.ERROR)
+handler.setLevel(logging.INFO)
 formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 handler.setFormatter(formatter)
 root.addHandler(handler)
@@ -418,16 +418,18 @@ if __name__ == "__main__":
     # merge regular output
     out_files = []
     out_folder = os.path.join(conf.out_name)
+    files_exist = False
     for r, d, f in os.walk(out_folder):
         for file in f:
             if '.root' in file and '_tmp_' in file:
                 out_files += [os.path.join(out_folder, file)]
-    jobs = [[os.path.join(out_folder, f"histograms.root")] + out_files]
-    print(jobs)
-    p = Pool(1)
-    for i, _ in enumerate(p.imap_unordered(hadd_wrapper, jobs)):
-        print("done processing hadd job %s/%s" % (i + 1, len(jobs)))
-    os.system(f"rm {out_folder}/*_tmp_*")
+                files_exist = True
+    if files_exist:
+        jobs = [[os.path.join(out_folder, f"histograms.root")] + out_files]
+        p = Pool(1)
+        for i, _ in enumerate(p.imap_unordered(hadd_wrapper, jobs)):
+            print("done processing hadd job %s/%s" % (i + 1, len(jobs)))
+        os.system(f"rm {out_folder}/*_tmp_*")
 
     # stage-out to the www folder
     if options.stage_out:
