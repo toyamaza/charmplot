@@ -89,7 +89,7 @@ def process_channel(options, conf, c):
 
     # output root file
     if c.save_to_file:
-        out_file_name = os.path.join(conf.out_name, f"histograms_tmp_{c}.root")
+        out_file_name = os.path.join(conf.out_name, f"histograms_tmp_{c.name}.root")
         out_file = ROOT.TFile(out_file_name, "RECREATE")
         out_file.Close()
 
@@ -151,7 +151,7 @@ def process_channel(options, conf, c):
         # data histogram
         h_data = reader.get_histogram(conf.get_data(), c, var)
         if not h_data:
-            return
+            continue
 
         # read input MC histograms (and scale them)
         mc_map = utils.read_samples(conf, reader, c, var, samples, fit, force_positive=c.force_positive)
@@ -159,7 +159,7 @@ def process_channel(options, conf, c):
         # experimental syst histograms
         mc_map_sys = {syst: utils.read_samples(conf, reader, c, var, samples, fit, force_positive=c.force_positive, sys=syst) for syst in systematics}
         if not mc_map:
-            return
+            continue
 
         # theory syst histograms
         mc_map_pdf = {syst: utils.read_samples(conf, reader, c, var, samples, fit, force_positive=c.force_positive, sys=syst) for syst in pdf_systematics}
@@ -187,9 +187,13 @@ def process_channel(options, conf, c):
             h_data, trex_mc_tot, trex_mc_stat_err, trex_mc_stat_err_only = utils.read_trex_input(c, var, mc_map, trex_post_fit_histograms)
             c.label += ["post-fit"]
 
+        # save histograms to root file
+        if c.save_to_file:
+            utils.save_to_file(out_file_name, c, var, h_data, mc_map)
+
         # continue if not make plots
         if not c.make_plots or not var.make_plots:
-            return
+            continue
 
         # scale factors for this channel (only for dispaly)
         scale_factors = utils.read_scale_factors(c.scale_factors)
@@ -201,12 +205,10 @@ def process_channel(options, conf, c):
         canv.configure_histograms(mc_map, h_data)
 
         # save histograms to root file
-        if c.save_to_file:
-            utils.save_to_file(out_file_name, c, var, h_data, mc_map)
-            if options.trex:
-                utils.save_to_trex_file(trex_folder, c, var, h_data, mc_map, trex_histograms)
-                for syst in systematics:
-                    utils.save_to_trex_file(trex_folder, c, var, None, mc_map_sys[syst], trex_histograms, syst)
+        if c.save_to_file and options.trex:
+            utils.save_to_trex_file(trex_folder, c, var, h_data, mc_map, trex_histograms)
+            for syst in systematics:
+                utils.save_to_trex_file(trex_folder, c, var, None, mc_map_sys[syst], trex_histograms, syst)
 
         # stack and total mc
         hs = utils.make_stack(samples, mc_map)
@@ -411,6 +413,20 @@ if __name__ == "__main__":
         for i, _ in enumerate(p.imap_unordered(hadd_wrapper, jobs)):
             print("done processing hadd job %s/%s" % (i + 1, len(jobs)))
         os.system(f"rm {trex_folder}/*_tmp_*")
+
+    # merge regular output
+    out_files = []
+    out_folder = os.path.join(conf.out_name)
+    for r, d, f in os.walk(out_folder):
+        for file in f:
+            if '.root' in file and '_tmp_' in file:
+                out_files += [os.path.join(out_folder, file)]
+    jobs = [[os.path.join(out_folder, f"histograms.root")] + out_files]
+    print(jobs)
+    p = Pool(1)
+    for i, _ in enumerate(p.imap_unordered(hadd_wrapper, jobs)):
+        print("done processing hadd job %s/%s" % (i + 1, len(jobs)))
+    os.system(f"rm {out_folder}/*_tmp_*")
 
     # stage-out to the www folder
     if options.stage_out:

@@ -121,7 +121,7 @@ class InputDataReader(object):
                 else:
                     h_denom.Add(h, weight)
         if force_positive:
-            utils.set_to_positive(h_total)
+            utils.set_to_positive_simple(h_total)
         if not sample.statError:
             logger.info(f"Set stat error of {sample} to zero.")
             for i in range(0, h_total.GetNbinsX() + 2):

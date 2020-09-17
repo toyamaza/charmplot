@@ -225,6 +225,13 @@ def get_maximum(h, x1, x2):
     return out
 
 
+def set_to_positive_simple(h):
+    for i in range(0, h.GetNbinsX() + 2):
+        if h.GetBinContent(i) <= 0:
+            h.SetBinContent(i, 1e-5)
+            h.SetBinError(i, 1e-5)
+
+
 def set_to_positive(h):
     for i in range(0, h.GetNbinsX() + 2):
         if h.GetBinContent(i) <= 0:
