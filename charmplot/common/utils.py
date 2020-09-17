@@ -383,6 +383,7 @@ def make_pdf_err(h: ROOT.TH1, h_var: List) -> List[Union[ROOT.TGraphErrors, ROOT
 
     pdferrplus = np.array([pdfset.uncertainty(pdfvars[:, i]).errplus for i in range(nBins)])
     pdferrminus = np.array([pdfset.uncertainty(pdfvars[:, i]).errminus for i in range(nBins)])
+    
 
     exh = np.hstack((0, exh, 0))
     exl = np.hstack((0, exl, 0))
@@ -416,6 +417,102 @@ def make_pdf_err(h: ROOT.TH1, h_var: List) -> List[Union[ROOT.TGraphErrors, ROOT
     gr.SetFillStyle(3354)
     gr_err_only.SetFillColor(ROOT.kGray + 2)
     gr_err_only.SetFillStyle(3354)
+    return gr, gr_err_only
+
+def make_ttbar_pdf_err(h: ROOT.TH1, h_var: List) -> List[Union[ROOT.TGraphErrors, ROOT.TGraphErrors]]:
+    # h_var is expected to have only the PDF variations and no QCD parameter variations!!
+    if not len(h_var):
+        return make_empty_error_bands(h)
+    
+    h_var1 = [hist for hist in h_var if ("260" in hist.GetName())]
+    
+    nom_sum  = h_var[0].GetSum()
+    for hist in h_var1:
+        hist.Scale(nom_sum/hist.GetSum())
+    
+    
+    
+    h_var2 = [hist for hist in h_var if ("909" in hist.GetName())]
+
+    
+    pdfset1 = lhapdf.getPDFSet('NNPDF30_nlo_as_0118')
+    pdfset1.mkPDFs()
+    pdfset2 = lhapdf.getPDFSet('PDF4LHC15_nlo_30')
+    pdfset2.mkPDFs()
+    nBins = h.GetNbinsX()
+
+    
+    xval = ROOT.std.vector("float")(nBins)
+    yval = ROOT.std.vector("float")(nBins)
+    exh = ROOT.std.vector("float")(nBins)
+    exl = ROOT.std.vector("float")(nBins)
+    for a in range(nBins):
+        xval[a] = h.GetBinCenter(a + 1)
+        yval[a] = h.GetBinContent(a + 1)
+        exh[a] = h.GetBinWidth(a + 1) / 2.
+        exl[a] = h.GetBinWidth(a + 1) / 2.
+
+    exh = np.asarray(exh)
+    exl = np.asarray(exl)
+
+    xval = np.asarray(xval)
+    yval = np.asarray(yval)
+
+    pdfvars1 = np.zeros((len(h_var1), nBins))
+    pdfvars2 = np.zeros((len(h_var2), nBins))
+    
+
+
+    for i in range(len(h_var1)):
+        pdfvars1[i, :] = np.array([h_var1[i].GetBinContent(binNo) for binNo in range(1, nBins + 1)])
+        
+    for i in range(len(h_var2)):
+        pdfvars2[i, :] = np.array([h_var2[i].GetBinContent(binNo) for binNo in range(1, nBins + 1)])
+
+    
+    pdferrplus1 = np.array([pdfset1.uncertainty(pdfvars1[:, i]).errplus for i in range(nBins)])
+    pdferrminus1 = np.array([pdfset1.uncertainty(pdfvars1[:, i]).errminus for i in range(nBins)])
+    
+    pdferrplus2 = np.array([pdfset2.uncertainty(pdfvars2[:, i]).errplus for i in range(nBins)])
+    pdferrminus2 = np.array([pdfset2.uncertainty(pdfvars2[:, i]).errminus for i in range(nBins)])
+    
+    pdferrplus = np.sqrt(pdferrplus1**2+0*pdferrplus2**2)
+    pdferrminus = np.sqrt(pdferrminus1**2+0*pdferrminus2**2)
+    
+    exh = np.hstack((0, exh, 0))
+    exl = np.hstack((0, exl, 0))
+    xval = np.hstack((xval[0], xval, xval[-1]))
+    yval = np.hstack((yval[0], yval, yval[-1]))
+    pdferrplus = np.hstack(([0], pdferrplus, [0]))
+    pdferrminus = np.hstack(([0], pdferrminus, [0]))
+
+    with np.errstate(divide='ignore', invalid='ignore'):
+        pdfeyh_o = pdferrplus / yval
+        pdfeyl_o = pdferrminus / yval
+        pdfeyh_o[yval == 0.] = 0.
+        pdfeyl_o[yval == 0.] = 0.
+
+    pdfeyh = array.array('d', pdferrplus)
+    pdfeyl = array.array('d', pdferrminus)
+
+    pdfeyh_o = array.array('d', pdfeyh_o)
+    pdfeyl_o = array.array('d', pdfeyl_o)
+    
+
+    exh = array.array('d', exh)
+    exl = array.array('d', exl)
+
+    unity = array.array('d', np.ones((nBins + 2,)))
+    xval = array.array('d', xval)
+    yval = array.array('d', yval)
+
+    gr = ROOT.TGraphAsymmErrors(nBins + 2, xval, yval, exl, exh, pdfeyl, pdfeyh)
+    gr_err_only = ROOT.TGraphAsymmErrors(nBins + 2, xval, unity, exl, exh, pdfeyl_o, pdfeyh_o)
+    gr.SetFillColor(ROOT.kGray + 2)
+    gr.SetFillStyle(3354)
+    gr_err_only.SetFillColor(ROOT.kGray + 2)
+    gr_err_only.SetFillStyle(3354)
+
     return gr, gr_err_only
 
 
@@ -510,6 +607,27 @@ def combine_error(gr1: ROOT.TGraphAsymmErrors, gr2: ROOT.TGraphAsymmErrors) -> R
 
 
 def combine_error_multiple(asym_list):
+
+    gr1 = asym_list[0]
+    gr = ROOT.TGraphAsymmErrors()
+    for i in range(0, gr1.GetN()):
+        x = gr1.GetX()[i]
+        y = gr1.GetY()[i]
+        err_x_dn = gr1.GetEXlow()[i]
+        err_x_up = gr1.GetEXhigh()[i]
+        err_y_dn = np.sum(np.array([asym.GetEYlow()[i] for asym in asym_list])**2)**0.5
+        print([asym.GetEYlow()[i] for asym in asym_list])
+        err_y_up = np.sum(np.array([asym.GetEYhigh()[i] for asym in asym_list])**2)**0.5
+        gr.SetPoint(i, x, y)
+        gr.SetPointError(i, err_x_dn, err_x_up, err_y_dn, err_y_up)
+
+    gr.SetFillColor(ROOT.kBlue - 4)
+    gr.SetFillStyle(3345)
+    return gr
+
+def combine_error_multiple_new(asym_list):
+#     for i in range(0, asym_list[5].GetN()):
+#         print(asym_list[5].GetEYlow()[i])
     gr1 = asym_list[0]
     gr = ROOT.TGraphAsymmErrors()
     for i in range(0, gr1.GetN()):

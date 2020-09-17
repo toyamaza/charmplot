@@ -22,7 +22,7 @@ ROOT.SetAtlasStyle()
 root = logging.getLogger()
 root.setLevel(logging.ERROR)
 handler = logging.StreamHandler(sys.stdout)
-handler.setLevel(logging.DEBUG)
+handler.setLevel(logging.ERROR)
 formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 handler.setFormatter(formatter)
 root.addHandler(handler)
@@ -128,6 +128,9 @@ def process_channel(options, conf, c):
     # theory systematics
     qcd_systematics = conf.get_qcd_systematics()
     pdf_systematics = conf.get_pdf_systematics()
+    ttbar_pdf_systematics = conf.get_ttbar_pdf()
+    ttbar_choice_systematics = conf.get_ttbar_choice()
+    ttbar_qcd_systematics = conf.get_ttbar_qcd()
     pdf_choice_systematics = conf.get_pdf_choice_systematics()
 
     for v in variables:
@@ -153,6 +156,12 @@ def process_channel(options, conf, c):
 
         # theory syst histograms
         mc_map_pdf = {syst: utils.read_samples(conf, reader, c, var, samples, fit, force_positive=c.force_positive, sys=syst) for syst in pdf_systematics}
+        mc_map_ttbar_pdf = {syst: utils.read_samples(conf, reader, c, var, samples, fit, force_positive=c.force_positive, sys=syst) for syst in ttbar_pdf_systematics}
+        
+        mc_map_ttbar_qcd = {syst: utils.read_samples(conf, reader, c, var, samples, fit, force_positive=c.force_positive, sys=syst) for syst in ttbar_qcd_systematics}
+        
+        mc_map_ttbar_choice = {syst: utils.read_samples(conf, reader, c, var, samples, fit, force_positive=c.force_positive, sys=syst) for syst in ttbar_choice_systematics}
+        
         mc_map_pdf_choice = {syst: utils.read_samples(conf, reader, c, var, samples, fit,
                                                       force_positive=c.force_positive, sys=syst) for syst in pdf_choice_systematics}
         mc_map_qcd = {syst: utils.read_samples(conf, reader, c, var, samples, fit, force_positive=c.force_positive, sys=syst) for syst in qcd_systematics}
@@ -204,6 +213,13 @@ def process_channel(options, conf, c):
 
         # MC tot for theory systematics
         h_mc_tot_pdf = [utils.make_mc_tot(utils.make_stack(samples, mc_map_pdf[syst]), f"{c}_{v}_{syst}_mc_tot") for syst in pdf_systematics]
+        
+        h_mc_tot_ttbar_pdf = [utils.make_mc_tot(utils.make_stack(samples, mc_map_ttbar_pdf[syst]), f"{c}_{v}_{syst}_mc_tot") for syst in ttbar_pdf_systematics]
+        
+        h_mc_tot_ttbar_choice = [utils.make_mc_tot(utils.make_stack(samples, mc_map_ttbar_choice[syst]), f"{c}_{v}_{syst}_mc_tot") for syst in ttbar_choice_systematics]
+        
+        h_mc_tot_ttbar_qcd = [utils.make_mc_tot(utils.make_stack(samples, mc_map_ttbar_qcd[syst]), f"{c}_{v}_{syst}_mc_tot") for syst in ttbar_qcd_systematics]
+        
         h_mc_tot_pdf_choice = [utils.make_mc_tot(utils.make_stack(samples, mc_map_pdf_choice[syst]),
                                                  f"{c}_{v}_{syst}_mc_tot") for syst in pdf_choice_systematics]
         h_mc_tot_qcd = [utils.make_mc_tot(utils.make_stack(samples, mc_map_qcd[syst]), f"{c}_{v}_{syst}_mc_tot") for syst in qcd_systematics]
@@ -223,15 +239,23 @@ def process_channel(options, conf, c):
         gr_mc_sys_err, gr_mc_sys_err_only = utils.make_sys_err(h_mc_tot, h_mc_tot_sys)
 
         # theory syst error band
+
         gr_mc_pdf_err, gr_mc_pdf_err_only = utils.make_pdf_err(h_mc_tot, h_mc_tot_pdf)
         gr_mc_qcd_err, gr_mc_qcd_err_only = utils.make_minmax_err(h_mc_tot, h_mc_tot_qcd)
         gr_mc_pdf_choice_err, gr_mc_pdf_choice_err_only = utils.make_minmax_err(h_mc_tot, h_mc_tot_pdf_choice)
-
+        gr_mc_ttbar_err, gr_mc_ttbar_err_only = utils.make_ttbar_pdf_err(h_mc_tot, h_mc_tot_ttbar_pdf)
+        gr_mc_ttbar_choice_err, gr_mc_ttbar_choice_err_only = utils.make_minmax_err(h_mc_tot, h_mc_tot_ttbar_choice)
+        gr_mc_ttbar_qcd_err, gr_mc_ttbar_qcd_err_only = utils.make_sys_err(h_mc_tot, h_mc_tot_ttbar_qcd)
         # total error
         # combine experimental and theory syst
-        gr_mc_tot_err = utils.combine_error_multiple([gr_mc_stat_err, gr_mc_sys_err, gr_mc_pdf_err, gr_mc_qcd_err, gr_mc_pdf_choice_err])
-        gr_mc_tot_err_only = utils.combine_error_multiple(
-            [gr_mc_stat_err_only, gr_mc_sys_err_only, gr_mc_pdf_err_only, gr_mc_qcd_err_only, gr_mc_pdf_choice_err_only])
+        
+        gr_mc_tot_err = utils.combine_error_multiple([gr_mc_stat_err, gr_mc_sys_err, gr_mc_pdf_err, gr_mc_qcd_err, gr_mc_pdf_choice_err,gr_mc_ttbar_err,gr_mc_ttbar_choice_err,gr_mc_ttbar_qcd_err])
+        
+
+        
+        gr_mc_tot_err_only = utils.combine_error_multiple([gr_mc_stat_err_only, gr_mc_sys_err_only, gr_mc_pdf_err_only, gr_mc_qcd_err_only, gr_mc_pdf_choice_err_only,gr_mc_ttbar_err_only, gr_mc_ttbar_choice_err_only,gr_mc_ttbar_qcd_err_only])
+        
+
 
         # top pad
         canv.pad1.cd()

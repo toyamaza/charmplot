@@ -7,7 +7,7 @@ from charmplot.control import variable
 import copy
 import logging
 import os
-
+import sys
 
 logger = logging.getLogger(__name__)
 
@@ -45,6 +45,9 @@ class GlobalConfig(object):
     pdf_systematics = []
     pdf_choice_systematics = []
     qcd_systematics = []
+    ttbar_pdf_systematics = []
+    ttbar_choice_systematics = []
+    ttbar_qcd_systematics = []
 
     def get_systematics(self):
         return self.systematics
@@ -57,6 +60,15 @@ class GlobalConfig(object):
 
     def get_pdf_choice_systematics(self):
         return self.pdf_choice_systematics
+    
+    def get_ttbar_pdf(self):
+        return self.ttbar_pdf_systematics
+    
+    def get_ttbar_choice(self):
+        return self.ttbar_choice_systematics
+    
+    def get_ttbar_qcd(self):
+        return self.ttbar_qcd_systematics
 
     def get_data_and_mc(self):
         if self.data:
@@ -221,6 +233,9 @@ class GlobalConfig(object):
             pdf_systematics = []
             pdf_choice_systematics = []
             qcd_systematics = []
+            ttbar_pdf_systematics = []
+            ttbar_choice_systematics = []
+            ttbar_qcd_systematics = []
 
             for sys_group in conf['systematics']:
 
@@ -228,8 +243,8 @@ class GlobalConfig(object):
 
                 if 'experimental' in sys_group:
                     systematics += sys_dict['variations']
-
-                if 'sherpa_theory_pdf' in sys_group:
+                    
+                if ('sherpa_theory_pdf' in sys_group) and ('choice' not in sys_group):
                     pdf_systematics += sys_dict['variations']
 
                 if 'sherpa_theory_qcd' in sys_group:
@@ -237,11 +252,23 @@ class GlobalConfig(object):
 
                 if 'sherpa_theory_pdf_choice' in sys_group:
                     pdf_choice_systematics += sys_dict['variations']
+                    
+                if 'ttbar_theory_pdf' == sys_group:
+                    ttbar_pdf_systematics += sys_dict['variations']
+                    
+                if 'ttbar_theory_choice' in sys_group:
+                    ttbar_choice_systematics += sys_dict['variations']
+                    
+                if 'ttbar_theory_qcd' in sys_group:
+                    ttbar_qcd_systematics += sys_dict['variations']
 
             self.systematics += systematics
             self.pdf_systematics += pdf_systematics
             self.qcd_systematics += qcd_systematics
             self.pdf_choice_systematics += pdf_choice_systematics
+            self.ttbar_pdf_systematics += ttbar_pdf_systematics
+            self.ttbar_choice_systematics += ttbar_choice_systematics
+            self.ttbar_qcd_systematics += ttbar_qcd_systematics
 
         # color scheme
         color_scheme = getattr(colorScheme, self.samples_config['colorScheme'])
