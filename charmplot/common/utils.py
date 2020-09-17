@@ -114,6 +114,8 @@ def read_trex_input(channel: channel.Channel, var: variable.Variable, mc_map: MC
         trex_mc_stat_err_only.SetFillStyle(3354)
         for s in mc_map:
             name = s.shortName
+            if s.shortName == "MockMC":
+                name += "_0tag" if "0tag" in channel.name else "_1tag"
             # if s.shortName == "Wjets_emu_Matched":
             #     name += "_OS" if "OS" in channel.name else "_SS"
             h_temp = deepcopy(file_temp.Get(f"h_{name}_postFit"))
