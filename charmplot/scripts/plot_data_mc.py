@@ -3,7 +3,6 @@ from charmplot.common import utils
 from charmplot.common import www
 from charmplot.control import globalConfig
 from charmplot.control import inputDataReader
-from copy import deepcopy
 from multiprocessing import Pool
 import logging
 import os
@@ -163,12 +162,15 @@ def process_channel(options, conf, c):
 
         # theory syst histograms
         mc_map_pdf = {syst: utils.read_samples(conf, reader, c, var, samples, fit, force_positive=c.force_positive, sys=syst) for syst in pdf_systematics}
-        mc_map_ttbar_pdf = {syst: utils.read_samples(conf, reader, c, var, samples, fit, force_positive=c.force_positive, sys=syst) for syst in ttbar_pdf_systematics}
-        
-        mc_map_ttbar_qcd = {syst: utils.read_samples(conf, reader, c, var, samples, fit, force_positive=c.force_positive, sys=syst) for syst in ttbar_qcd_systematics}
-        
-        mc_map_ttbar_choice = {syst: utils.read_samples(conf, reader, c, var, samples, fit, force_positive=c.force_positive, sys=syst) for syst in ttbar_choice_systematics}
-        
+        mc_map_ttbar_pdf = {syst: utils.read_samples(conf, reader, c, var, samples, fit, force_positive=c.force_positive, sys=syst)
+                            for syst in ttbar_pdf_systematics}
+
+        mc_map_ttbar_qcd = {syst: utils.read_samples(conf, reader, c, var, samples, fit, force_positive=c.force_positive, sys=syst)
+                            for syst in ttbar_qcd_systematics}
+
+        mc_map_ttbar_choice = {syst: utils.read_samples(conf, reader, c, var, samples, fit,
+                                                        force_positive=c.force_positive, sys=syst) for syst in ttbar_choice_systematics}
+
         mc_map_pdf_choice = {syst: utils.read_samples(conf, reader, c, var, samples, fit,
                                                       force_positive=c.force_positive, sys=syst) for syst in pdf_choice_systematics}
         mc_map_qcd = {syst: utils.read_samples(conf, reader, c, var, samples, fit, force_positive=c.force_positive, sys=syst) for syst in qcd_systematics}
@@ -220,18 +222,17 @@ def process_channel(options, conf, c):
         # MC tot for experimental systematics
         h_mc_tot_sys = [utils.make_mc_tot(utils.make_stack(samples, mc_map_sys[syst]), f"{c}_{v}_{syst}_mc_tot") for syst in systematics]
 
-        # MC tot for theory systematics
+        # Sherpa V+jets theory sys
         h_mc_tot_pdf = [utils.make_mc_tot(utils.make_stack(samples, mc_map_pdf[syst]), f"{c}_{v}_{syst}_mc_tot") for syst in pdf_systematics]
-        
-        h_mc_tot_ttbar_pdf = [utils.make_mc_tot(utils.make_stack(samples, mc_map_ttbar_pdf[syst]), f"{c}_{v}_{syst}_mc_tot") for syst in ttbar_pdf_systematics]
-        
-        h_mc_tot_ttbar_choice = [utils.make_mc_tot(utils.make_stack(samples, mc_map_ttbar_choice[syst]), f"{c}_{v}_{syst}_mc_tot") for syst in ttbar_choice_systematics]
-        
-        h_mc_tot_ttbar_qcd = [utils.make_mc_tot(utils.make_stack(samples, mc_map_ttbar_qcd[syst]), f"{c}_{v}_{syst}_mc_tot") for syst in ttbar_qcd_systematics]
-        
         h_mc_tot_pdf_choice = [utils.make_mc_tot(utils.make_stack(samples, mc_map_pdf_choice[syst]),
                                                  f"{c}_{v}_{syst}_mc_tot") for syst in pdf_choice_systematics]
         h_mc_tot_qcd = [utils.make_mc_tot(utils.make_stack(samples, mc_map_qcd[syst]), f"{c}_{v}_{syst}_mc_tot") for syst in qcd_systematics]
+
+        # ttbar theory sys
+        h_mc_tot_ttbar_pdf = [utils.make_mc_tot(utils.make_stack(samples, mc_map_ttbar_pdf[syst]), f"{c}_{v}_{syst}_mc_tot") for syst in ttbar_pdf_systematics]
+        h_mc_tot_ttbar_choice = [utils.make_mc_tot(utils.make_stack(samples, mc_map_ttbar_choice[syst]),
+                                                   f"{c}_{v}_{syst}_mc_tot") for syst in ttbar_choice_systematics]
+        h_mc_tot_ttbar_qcd = [utils.make_mc_tot(utils.make_stack(samples, mc_map_ttbar_qcd[syst]), f"{c}_{v}_{syst}_mc_tot") for syst in ttbar_qcd_systematics]
 
         # ratio
         h_ratio = utils.make_ratio(h_data, h_mc_tot)
@@ -248,23 +249,23 @@ def process_channel(options, conf, c):
         gr_mc_sys_err, gr_mc_sys_err_only = utils.make_sys_err(h_mc_tot, h_mc_tot_sys)
 
         # theory syst error band
-
         gr_mc_pdf_err, gr_mc_pdf_err_only = utils.make_pdf_err(h_mc_tot, h_mc_tot_pdf, 'NNPDF30_nnlo_as_0118')
         gr_mc_qcd_err, gr_mc_qcd_err_only = utils.make_minmax_err(h_mc_tot, h_mc_tot_qcd)
         gr_mc_pdf_choice_err, gr_mc_pdf_choice_err_only = utils.make_minmax_err(h_mc_tot, h_mc_tot_pdf_choice)
-        gr_mc_ttbar_err, gr_mc_ttbar_err_only = utils.make_pdf_err(h_mc_tot, h_mc_tot_ttbar_pdf, 'NNPDF30_nlo_as_0118',1)
+        gr_mc_ttbar_err, gr_mc_ttbar_err_only = utils.make_pdf_err(
+            h_mc_tot, h_mc_tot_ttbar_pdf, 'NNPDF30_nlo_as_0118', 1)
         gr_mc_ttbar_choice_err, gr_mc_ttbar_choice_err_only = utils.make_minmax_err(h_mc_tot, h_mc_tot_ttbar_choice)
         gr_mc_ttbar_qcd_err, gr_mc_ttbar_qcd_err_only = utils.make_sys_err(h_mc_tot, h_mc_tot_ttbar_qcd)
+
         # total error
         # combine experimental and theory syst
-        
-        gr_mc_tot_err = utils.combine_error_multiple([gr_mc_stat_err, gr_mc_sys_err, gr_mc_pdf_err, gr_mc_qcd_err, gr_mc_pdf_choice_err,gr_mc_ttbar_err,gr_mc_ttbar_choice_err,gr_mc_ttbar_qcd_err])
-        
+        gr_mc_tot_err = utils.combine_error_multiple([gr_mc_stat_err, gr_mc_sys_err, gr_mc_pdf_err, gr_mc_qcd_err,
+                                                      gr_mc_pdf_choice_err, gr_mc_ttbar_err, gr_mc_ttbar_choice_err, gr_mc_ttbar_qcd_err])
 
-        
-        gr_mc_tot_err_only = utils.combine_error_multiple([gr_mc_stat_err_only, gr_mc_sys_err_only, gr_mc_pdf_err_only, gr_mc_qcd_err_only, gr_mc_pdf_choice_err_only,gr_mc_ttbar_err_only, gr_mc_ttbar_choice_err_only,gr_mc_ttbar_qcd_err_only])
-        
-
+        # total error for the ratio plot
+        gr_mc_tot_err_only = utils.combine_error_multiple(
+            [gr_mc_stat_err_only, gr_mc_sys_err_only, gr_mc_pdf_err_only, gr_mc_qcd_err_only,
+             gr_mc_pdf_choice_err_only, gr_mc_ttbar_err_only, gr_mc_ttbar_choice_err_only, gr_mc_ttbar_qcd_err_only])
 
         # top pad
         canv.pad1.cd()

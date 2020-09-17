@@ -371,9 +371,9 @@ def make_pdf_err(h: ROOT.TH1, h_var: List, pdfstring: str, Norm: bool = 0) -> Li
     pdfset.mkPDFs()
     nBins = h.GetNbinsX()
     if Norm:
-        nom_sum  = h_var[0].GetSum()
+        nom_sum = h_var[0].GetSum()
         for hist in h_var:
-            hist.Scale(nom_sum/hist.GetSum())
+            hist.Scale(nom_sum / hist.GetSum())
     xval = ROOT.std.vector("float")(nBins)
     yval = ROOT.std.vector("float")(nBins)
     exh = ROOT.std.vector("float")(nBins)

@@ -137,9 +137,9 @@ def main(options, args):
         eta_range = {}
 
         for s in samples:
-            v = "lep_pt_eta" if not "_el_" in c else "lep_pt_calo_eta"
+            v = "lep_pt_eta" if "_el_" not in c else "lep_pt_calo_eta"
 
-            rebin = 6 if not "_el_" in c else 6
+            rebin = 6 if "_el_" not in c else 6
 
             lep_pt_eta_tight = f.Get(f"{s}_Tight_{c}_{v}")
             lep_pt_eta_loose = f.Get(f"{s}_AntiTight_{c}_{v}")

@@ -59,13 +59,13 @@ class GlobalConfig(object):
 
     def get_pdf_choice_systematics(self):
         return self.pdf_choice_systematics
-    
+
     def get_ttbar_pdf(self):
         return self.ttbar_pdf_systematics
-    
+
     def get_ttbar_choice(self):
         return self.ttbar_choice_systematics
-    
+
     def get_ttbar_qcd(self):
         return self.ttbar_qcd_systematics
 
@@ -242,7 +242,7 @@ class GlobalConfig(object):
 
                 if 'experimental' in sys_group:
                     systematics += sys_dict['variations']
-                    
+
                 if ('sherpa_theory_pdf' in sys_group) and ('choice' not in sys_group):
                     pdf_systematics += sys_dict['variations']
 
@@ -251,13 +251,13 @@ class GlobalConfig(object):
 
                 if 'sherpa_theory_pdf_choice' in sys_group:
                     pdf_choice_systematics += sys_dict['variations']
-                    
+
                 if 'ttbar_theory_pdf' == sys_group:
                     ttbar_pdf_systematics += sys_dict['variations']
-                    
+
                 if 'ttbar_theory_choice' in sys_group:
                     ttbar_choice_systematics += sys_dict['variations']
-                    
+
                 if 'ttbar_theory_qcd' in sys_group:
                     ttbar_qcd_systematics += sys_dict['variations']
 
