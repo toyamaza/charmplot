@@ -1,4 +1,8 @@
+type: minmax
+affecting:
+  - Top_Matched
+  - Top_Rest
 variations:
-  - GEN_PDF_260000 
-  - GEN_PDF_90900 
+  - GEN_PDF_260000
+  - GEN_PDF_90900
   - GEN_PDF_13165

@@ -40,16 +40,10 @@ class GlobalConfig(object):
     data = None
     samples = []
     channels = []
-    systematics = []
-    pdf_systematics = []
-    pdf_choice_systematics = []
-    qcd_systematics = []
-    ttbar_pdf_systematics = []
-    ttbar_choice_systematics = []
-    ttbar_qcd_systematics = []
+    systematics_map = {}
 
     def get_systematics(self):
-        return self.systematics
+        return self.systematics_map
 
     def get_qcd_systematics(self):
         return self.qcd_systematics
@@ -228,46 +222,10 @@ class GlobalConfig(object):
 
         # systematics
         if 'systematics' in conf:
-            systematics = []
-            pdf_systematics = []
-            pdf_choice_systematics = []
-            qcd_systematics = []
-            ttbar_pdf_systematics = []
-            ttbar_choice_systematics = []
-            ttbar_qcd_systematics = []
-
             for sys_group in conf['systematics']:
 
                 sys_dict = tools.parse_yaml(os.path.join('systematics', sys_group))
-
-                if 'experimental' in sys_group:
-                    systematics += sys_dict['variations']
-
-                if ('sherpa_theory_pdf' in sys_group) and ('choice' not in sys_group):
-                    pdf_systematics += sys_dict['variations']
-
-                if 'sherpa_theory_qcd' in sys_group:
-                    qcd_systematics += sys_dict['variations']
-
-                if 'sherpa_theory_pdf_choice' in sys_group:
-                    pdf_choice_systematics += sys_dict['variations']
-
-                if 'ttbar_theory_pdf' == sys_group:
-                    ttbar_pdf_systematics += sys_dict['variations']
-
-                if 'ttbar_theory_choice' in sys_group:
-                    ttbar_choice_systematics += sys_dict['variations']
-
-                if 'ttbar_theory_qcd' in sys_group:
-                    ttbar_qcd_systematics += sys_dict['variations']
-
-            self.systematics += systematics
-            self.pdf_systematics += pdf_systematics
-            self.qcd_systematics += qcd_systematics
-            self.pdf_choice_systematics += pdf_choice_systematics
-            self.ttbar_pdf_systematics += ttbar_pdf_systematics
-            self.ttbar_choice_systematics += ttbar_choice_systematics
-            self.ttbar_qcd_systematics += ttbar_qcd_systematics
+                self.systematics_map[sys_group] = sys_dict
 
         # color scheme
         color_scheme = getattr(colorScheme, self.samples_config['colorScheme'])

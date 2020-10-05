@@ -71,7 +71,7 @@ def wrapper(args,):
 
 def process_channel(options, conf, c):
 
-    logging.error(f"start processing channel {c.name}")
+    logging.info(f"start processing channel {c.name}")
 
     # read inputs
     reader = inputDataReader.InputDataReader(conf)
@@ -124,20 +124,9 @@ def process_channel(options, conf, c):
     # systematics
     systematics = conf.get_systematics()
 
-    # theory systematics
-    qcd_systematics = conf.get_qcd_systematics()
-    pdf_systematics = conf.get_pdf_systematics()
-    ttbar_pdf_systematics = conf.get_ttbar_pdf()
-    ttbar_choice_systematics = conf.get_ttbar_choice()
-    ttbar_qcd_systematics = conf.get_ttbar_qcd()
-    pdf_choice_systematics = conf.get_pdf_choice_systematics()
-
     # no sys if TREx import
     if options.trex_input:
-        systematics = []
-        qcd_systematics = []
-        pdf_systematics = []
-        pdf_choice_systematics = []
+        systematics = None
 
     for v in variables:
 
@@ -154,26 +143,16 @@ def process_channel(options, conf, c):
 
         # read input MC histograms (and scale them)
         mc_map = utils.read_samples(conf, reader, c, var, samples, fit, force_positive=c.force_positive)
-
-        # experimental syst histograms
-        mc_map_sys = {syst: utils.read_samples(conf, reader, c, var, samples, fit, force_positive=c.force_positive, sys=syst) for syst in systematics}
         if not mc_map:
             continue
 
-        # theory syst histograms
-        mc_map_pdf = {syst: utils.read_samples(conf, reader, c, var, samples, fit, force_positive=c.force_positive, sys=syst) for syst in pdf_systematics}
-        mc_map_ttbar_pdf = {syst: utils.read_samples(conf, reader, c, var, samples, fit, force_positive=c.force_positive, sys=syst)
-                            for syst in ttbar_pdf_systematics}
-
-        mc_map_ttbar_qcd = {syst: utils.read_samples(conf, reader, c, var, samples, fit, force_positive=c.force_positive, sys=syst)
-                            for syst in ttbar_qcd_systematics}
-
-        mc_map_ttbar_choice = {syst: utils.read_samples(conf, reader, c, var, samples, fit,
-                                                        force_positive=c.force_positive, sys=syst) for syst in ttbar_choice_systematics}
-
-        mc_map_pdf_choice = {syst: utils.read_samples(conf, reader, c, var, samples, fit,
-                                                      force_positive=c.force_positive, sys=syst) for syst in pdf_choice_systematics}
-        mc_map_qcd = {syst: utils.read_samples(conf, reader, c, var, samples, fit, force_positive=c.force_positive, sys=syst) for syst in qcd_systematics}
+        # systematics histograms
+        if systematics:
+            mc_map_sys = {}
+            for group in systematics:
+                variations = systematics[group]['variations']
+                mc_map_sys[group] = {syst: utils.read_samples(conf, reader, c, var, samples, fit,
+                                                              force_positive=c.force_positive, sys=syst) for syst in variations}
 
         # trex post-fit
         trex_mc_tot = None
@@ -209,8 +188,33 @@ def process_channel(options, conf, c):
         # save histograms to root file
         if c.save_to_file and options.trex:
             utils.save_to_trex_file(trex_folder, c, var, h_data, mc_map, trex_histograms)
-            for syst in systematics:
-                utils.save_to_trex_file(trex_folder, c, var, None, mc_map_sys[syst], trex_histograms, syst)
+            if systematics:
+                for group in systematics:
+                    variations = systematics[group]['variations']
+                    sys_type = systematics[group]['type']
+                    affecting = systematics[group].get('affecting')
+                    if sys_type == 'updown':
+                        for syst in variations:
+                            utils.save_to_trex_file(trex_folder, c, var, None, mc_map_sys[group][syst], trex_histograms, syst)
+                    elif sys_type == 'minmax' and affecting:
+                        for s in mc_map:
+                            if s.shortName not in affecting:
+                                continue
+                            sys_hists = [mc_map_sys[group][syst][s] for syst in variations]
+                            nominal_hist = mc_map[s]
+                            gr_mc_sys_err, _ = utils.make_minmax_err(nominal_hist, sys_hists)
+                            h_up, _ = utils.sys_graph_to_hists(gr_mc_sys_err, nominal_hist, group)
+                            utils.save_histograms_to_trex_file(trex_folder, c, var, h_up, s, trex_histograms, f"{group}_up")
+                    elif affecting:
+                        for s in mc_map:
+                            if s.shortName not in affecting:
+                                continue
+                            sys_hists = [mc_map_sys[group][syst][s] for syst in variations]
+                            nominal_hist = mc_map[s]
+                            gr_mc_sys_err, _ = utils.make_pdf_err(nominal_hist, sys_hists, sys_type)
+                            h_up, h_dn = utils.sys_graph_to_hists(gr_mc_sys_err, nominal_hist, group)
+                            utils.save_histograms_to_trex_file(trex_folder, c, var, h_up, s, trex_histograms, f"{group}_up")
+                            utils.save_histograms_to_trex_file(trex_folder, c, var, h_dn, s, trex_histograms, f"{group}_dn")
 
         # stack and total mc
         hs = utils.make_stack(samples, mc_map)
@@ -219,20 +223,13 @@ def process_channel(options, conf, c):
         else:
             h_mc_tot = utils.make_mc_tot(hs, f"{c}_{v}_mc_tot")
 
-        # MC tot for experimental systematics
-        h_mc_tot_sys = [utils.make_mc_tot(utils.make_stack(samples, mc_map_sys[syst]), f"{c}_{v}_{syst}_mc_tot") for syst in systematics]
-
-        # Sherpa V+jets theory sys
-        h_mc_tot_pdf = [utils.make_mc_tot(utils.make_stack(samples, mc_map_pdf[syst]), f"{c}_{v}_{syst}_mc_tot") for syst in pdf_systematics]
-        h_mc_tot_pdf_choice = [utils.make_mc_tot(utils.make_stack(samples, mc_map_pdf_choice[syst]),
-                                                 f"{c}_{v}_{syst}_mc_tot") for syst in pdf_choice_systematics]
-        h_mc_tot_qcd = [utils.make_mc_tot(utils.make_stack(samples, mc_map_qcd[syst]), f"{c}_{v}_{syst}_mc_tot") for syst in qcd_systematics]
-
-        # ttbar theory sys
-        h_mc_tot_ttbar_pdf = [utils.make_mc_tot(utils.make_stack(samples, mc_map_ttbar_pdf[syst]), f"{c}_{v}_{syst}_mc_tot") for syst in ttbar_pdf_systematics]
-        h_mc_tot_ttbar_choice = [utils.make_mc_tot(utils.make_stack(samples, mc_map_ttbar_choice[syst]),
-                                                   f"{c}_{v}_{syst}_mc_tot") for syst in ttbar_choice_systematics]
-        h_mc_tot_ttbar_qcd = [utils.make_mc_tot(utils.make_stack(samples, mc_map_ttbar_qcd[syst]), f"{c}_{v}_{syst}_mc_tot") for syst in ttbar_qcd_systematics]
+        # MC tot for systematics
+        if systematics:
+            h_mc_tot_sys = {}
+            for group in systematics:
+                variations = systematics[group]['variations']
+                h_mc_tot_sys[group] = [utils.make_mc_tot(utils.make_stack(samples, mc_map_sys[group][syst]),
+                                                         f"{c}_{v}_{group}_{syst}_mc_tot") for syst in variations]
 
         # ratio
         h_ratio = utils.make_ratio(h_data, h_mc_tot)
@@ -245,27 +242,25 @@ def process_channel(options, conf, c):
         else:
             gr_mc_stat_err, gr_mc_stat_err_only = utils.make_stat_err(h_mc_tot)
 
-        # experimental syst error band
-        gr_mc_sys_err, gr_mc_sys_err_only = utils.make_sys_err(h_mc_tot, h_mc_tot_sys)
-
-        # theory syst error band
-        gr_mc_pdf_err, gr_mc_pdf_err_only = utils.make_pdf_err(h_mc_tot, h_mc_tot_pdf, 'NNPDF30_nnlo_as_0118')
-        gr_mc_qcd_err, gr_mc_qcd_err_only = utils.make_minmax_err(h_mc_tot, h_mc_tot_qcd)
-        gr_mc_pdf_choice_err, gr_mc_pdf_choice_err_only = utils.make_minmax_err(h_mc_tot, h_mc_tot_pdf_choice)
-        gr_mc_ttbar_err, gr_mc_ttbar_err_only = utils.make_pdf_err(
-            h_mc_tot, h_mc_tot_ttbar_pdf, 'NNPDF30_nlo_as_0118', 1)
-        gr_mc_ttbar_choice_err, gr_mc_ttbar_choice_err_only = utils.make_minmax_err(h_mc_tot, h_mc_tot_ttbar_choice)
-        gr_mc_ttbar_qcd_err, gr_mc_ttbar_qcd_err_only = utils.make_sys_err(h_mc_tot, h_mc_tot_ttbar_qcd)
+        # systematics error bands
+        gr_mc_sys_err_map = []
+        gr_mc_sys_err_only_map = []
+        if systematics:
+            for group in systematics:
+                sys_type = systematics[group]['type']
+                if sys_type == 'updown':
+                    gr_mc_sys_err, gr_mc_sys_err_only = utils.make_sys_err(h_mc_tot, h_mc_tot_sys[group])
+                elif sys_type == 'minmax':
+                    gr_mc_sys_err, gr_mc_sys_err_only = utils.make_minmax_err(h_mc_tot, h_mc_tot_sys[group])
+                else:
+                    print(sys_type, " ", len(h_mc_tot_sys[group]))
+                    gr_mc_sys_err, gr_mc_sys_err_only = utils.make_pdf_err(h_mc_tot, h_mc_tot_sys[group], sys_type)
+                gr_mc_sys_err_map += [gr_mc_sys_err]
+                gr_mc_sys_err_only_map += [gr_mc_sys_err_only]
 
         # total error
-        # combine experimental and theory syst
-        gr_mc_tot_err = utils.combine_error_multiple([gr_mc_stat_err, gr_mc_sys_err, gr_mc_pdf_err, gr_mc_qcd_err,
-                                                      gr_mc_pdf_choice_err, gr_mc_ttbar_err, gr_mc_ttbar_choice_err, gr_mc_ttbar_qcd_err])
-
-        # total error for the ratio plot
-        gr_mc_tot_err_only = utils.combine_error_multiple(
-            [gr_mc_stat_err_only, gr_mc_sys_err_only, gr_mc_pdf_err_only, gr_mc_qcd_err_only,
-             gr_mc_pdf_choice_err_only, gr_mc_ttbar_err_only, gr_mc_ttbar_choice_err_only, gr_mc_ttbar_qcd_err_only])
+        gr_mc_tot_err = utils.combine_error_multiple([gr_mc_stat_err] + gr_mc_sys_err_map)
+        gr_mc_tot_err_only = utils.combine_error_multiple([gr_mc_stat_err_only] + gr_mc_sys_err_only_map)
 
         # top pad
         canv.pad1.cd()
@@ -299,7 +294,7 @@ def process_channel(options, conf, c):
         if c.save_to_file:
             out_file.Close()
 
-    logging.error(f"finished processing channel {c.name}")
+    logging.info(f"finished processing channel {c.name}")
 
 
 def main(options, conf):

@@ -145,6 +145,18 @@ def save_to_trex_file(trex_folder: str, channel: channel.Channel, var: variable.
         out_file.Close()
 
 
+def save_histograms_to_trex_file(trex_folder: str, channel: channel.Channel, var: variable.Variable,
+                                 h: ROOT.TH1, s: sample.Sample, trex_histograms: Dict, sys: str = None):
+    logging.info(f"Saving histogram {h} to trex root files for channel {channel} for sys {sys}")
+    out_name = f"{channel.name}_{var.name}"
+    if sys:
+        out_name += f"_{sys}"
+    out_file = ROOT.TFile(trex_histograms[s.shortName], "UPDATE")
+    out_file.cd()
+    h.Write(out_name)
+    out_file.Close()
+
+
 def save_to_file(out_file_name: str, channel: channel.Channel, var: variable.Variable, h_data: ROOT.TH1, mc_map: MC_Map):
     logging.info(f"Saving histograms to root file for channel {channel}")
     out_file = ROOT.TFile(out_file_name, "UPDATE")
@@ -363,17 +375,19 @@ def make_empty_error_bands(h: ROOT.TH1) -> List[Union[ROOT.TGraphErrors, ROOT.TG
     return gr, gr_err_only
 
 
-def make_pdf_err(h: ROOT.TH1, h_var: List, pdfstring: str, Norm: bool = 0) -> List[Union[ROOT.TGraphErrors, ROOT.TGraphErrors]]:
+def make_pdf_err(h: ROOT.TH1, h_var: List, pdfstring: str, norm: bool = False) -> List[Union[ROOT.TGraphErrors, ROOT.TGraphErrors]]:
     # h_var is expected to have only the PDF variations and no QCD parameter variations!!
     if not len(h_var):
         return make_empty_error_bands(h)
+
     pdfset = lhapdf.getPDFSet(pdfstring)
     pdfset.mkPDFs()
     nBins = h.GetNbinsX()
-    if Norm:
+    if norm:
         nom_sum = h_var[0].GetSum()
         for hist in h_var:
             hist.Scale(nom_sum / hist.GetSum())
+
     xval = ROOT.std.vector("float")(nBins)
     yval = ROOT.std.vector("float")(nBins)
     exh = ROOT.std.vector("float")(nBins)
@@ -383,6 +397,7 @@ def make_pdf_err(h: ROOT.TH1, h_var: List, pdfstring: str, Norm: bool = 0) -> Li
         yval[a] = h.GetBinContent(a + 1)
         exh[a] = h.GetBinWidth(a + 1) / 2.
         exl[a] = h.GetBinWidth(a + 1) / 2.
+
     exh = np.asarray(exh)
     exl = np.asarray(exl)
     xval = np.asarray(xval)
@@ -555,6 +570,16 @@ def make_stack(samples: List, mc_map: MC_Map):
         logger.debug(f"adding {h}")
         hs.Add(h)
     return hs
+
+
+def sys_graph_to_hists(gr: ROOT.TGraphErrors, nominal: ROOT.TH1, name: str) -> List[Union[ROOT.TH1, ROOT.TH1]]:
+    h_up = nominal.Clone(f"{nominal.GetName()}_{name}_up")
+    h_dn = nominal.Clone(f"{nominal.GetName()}_{name}_dn")
+    for i in range(0, nominal.GetNbinsX() + 2):
+        y = nominal.GetBinContent(i)
+        h_up.SetBinContent(i, y + gr.GetEYhigh()[i])
+        h_dn.SetBinContent(i, y - gr.GetEYlow()[i])
+    return h_up, h_dn
 
 
 def make_mc_tot(hs: ROOT.THStack, name: str) -> ROOT.TH1:
