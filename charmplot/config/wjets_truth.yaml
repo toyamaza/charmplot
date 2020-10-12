@@ -1,0 +1,18 @@
+variablesConf: inclusive_wjets
+
+samplesConf: wjets_madgraph_truth
+
+channels:
+  el_minus_fid:
+    regions:
+      - el_minus_fid
+    samples:
+      - Wminus
+      - Wplus | el_plus_fid
+    label: 'Fiducial W+jets'
+    lumi: '2018'
+
+  el_plus_fid:
+    regions:
+      - el_plus_fid
+    make_plots: False

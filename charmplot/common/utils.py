@@ -7,6 +7,7 @@ from charmplot.control import inputDataReader
 from charmplot.control import sample
 from charmplot.control import variable
 from copy import deepcopy
+from ctypes import c_double
 from typing import Dict, List, Union
 import array
 import json
@@ -262,14 +263,10 @@ def set_under_over_flow(h: ROOT.TH1, x_range: list):
 
     h_new = ROOT.TH1F(f"{h.GetName()}_rebined", f"{h.GetName()}_rebined", x_range_bins[1] - x_range_bins[0] + 1, x_range[0], x_range[1])
 
-    val0 = ROOT.Double()
-    err0 = ROOT.Double()
-    val1 = ROOT.Double()
-    err1 = ROOT.Double()
-    valN = ROOT.Double()
-    errN = ROOT.Double()
-    valN1 = ROOT.Double()
-    errN1 = ROOT.Double()
+    err0 = c_double()
+    err1 = c_double()
+    errN = c_double()
+    errN1 = c_double()
 
     val0 = h.IntegralAndError(0, x_range_bins[0] - 1, err0)
     val1 = h.IntegralAndError(x_range_bins[0], x_range_bins[0], err1)
@@ -284,9 +281,9 @@ def set_under_over_flow(h: ROOT.TH1, x_range: list):
         h.SetBinError(i, 0)
 
     h.SetBinContent(x_range_bins[0], val0 + val1)
-    h.SetBinError(x_range_bins[0], (err0**2 + err1**2)**(0.5))
+    h.SetBinError(x_range_bins[0], (err0.value**2 + err1.value**2)**(0.5))
     h.SetBinContent(x_range_bins[1], valN + valN1)
-    h.SetBinError(x_range_bins[1], (errN**2 + errN1**2)**(0.5))
+    h.SetBinError(x_range_bins[1], (errN.value**2 + errN1.value**2)**(0.5))
 
     j = 1
     for i in range(x_range_bins[0], x_range_bins[1] + 1):

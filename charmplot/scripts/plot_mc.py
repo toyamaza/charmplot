@@ -49,7 +49,7 @@ def main(options, conf, reader):
         first_plot = True
 
         # skip channels
-        if not c.make_plots and not c.save_to_file:
+        if not (c.make_plots or c.save_to_file):
             continue
 
         # samples
