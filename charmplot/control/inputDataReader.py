@@ -30,8 +30,7 @@ class InputDataReader(object):
         if not h:
             h = f.Get(h_name)
         if not h:
-            logger.warning("Histogram %s for variable %s not found in channel %s for sample %s in file %s" % (
-                h_name, variable.name, c, sample.name, f))
+            logger.warning(f"Histogram {h_name} not found for sample {sample}!")
             return None
         if sys:
             h = h.Clone(f"{h.GetName()}_{sys}_{f.GetName().replace('.root', '')}")
