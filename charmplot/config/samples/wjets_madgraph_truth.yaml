@@ -1,0 +1,17 @@
+colorScheme: gemstone_hues
+
+Wplus:
+  add:
+    - MGPy8EG_Wjets.Truth
+  subtract:
+  lineColor: "ROOT.kBlue"
+  legendLabel: "W^{+} + jets"
+  shortName: Wplus
+
+Wminus:
+  add:
+    - MGPy8EG_Wjets.Truth
+  subtract:
+  lineColor: "ROOT.kRed"
+  legendLabel: "W^{-} + jets"
+  shortName: Wminus

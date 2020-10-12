@@ -7,6 +7,7 @@ from charmplot.control import inputDataReader
 from charmplot.control import sample
 from charmplot.control import variable
 from copy import deepcopy
+from ctypes import c_double
 from typing import Dict, List, Union
 import array
 import json
@@ -262,14 +263,10 @@ def set_under_over_flow(h: ROOT.TH1, x_range: list):
 
     h_new = ROOT.TH1F(f"{h.GetName()}_rebined", f"{h.GetName()}_rebined", x_range_bins[1] - x_range_bins[0] + 1, x_range[0], x_range[1])
 
-    val0 = ROOT.Double()
-    err0 = ROOT.Double()
-    val1 = ROOT.Double()
-    err1 = ROOT.Double()
-    valN = ROOT.Double()
-    errN = ROOT.Double()
-    valN1 = ROOT.Double()
-    errN1 = ROOT.Double()
+    err0 = c_double()
+    err1 = c_double()
+    errN = c_double()
+    errN1 = c_double()
 
     val0 = h.IntegralAndError(0, x_range_bins[0] - 1, err0)
     val1 = h.IntegralAndError(x_range_bins[0], x_range_bins[0], err1)
@@ -284,9 +281,9 @@ def set_under_over_flow(h: ROOT.TH1, x_range: list):
         h.SetBinError(i, 0)
 
     h.SetBinContent(x_range_bins[0], val0 + val1)
-    h.SetBinError(x_range_bins[0], (err0**2 + err1**2)**(0.5))
+    h.SetBinError(x_range_bins[0], (err0.value**2 + err1.value**2)**(0.5))
     h.SetBinContent(x_range_bins[1], valN + valN1)
-    h.SetBinError(x_range_bins[1], (errN**2 + errN1**2)**(0.5))
+    h.SetBinError(x_range_bins[1], (errN.value**2 + errN1.value**2)**(0.5))
 
     j = 1
     for i in range(x_range_bins[0], x_range_bins[1] + 1):
@@ -328,6 +325,29 @@ def make_stat_err(h: ROOT.TH1) -> List[Union[ROOT.TGraphErrors, ROOT.TGraphError
     gr_err_only.SetFillColor(ROOT.kGray + 2)
     gr_err_only.SetFillStyle(3354)
     return gr, gr_err_only
+
+
+def make_stat_err_and_nominal(h: ROOT.TH1) -> List[Union[ROOT.TGraphErrors, ROOT.TGraphErrors, ROOT.TGraphErrors]]:
+    gr_val_only = ROOT.TGraphErrors()
+    gr = ROOT.TGraphAsymmErrors()
+    gr_err_only = ROOT.TGraphAsymmErrors()
+    for i in range(0, h.GetNbinsX() + 2):
+        x = h.GetBinCenter(i)
+        y = h.GetBinContent(i)
+        gr_val_only.SetPoint(gr_val_only.GetN(), x, y)
+        gr_val_only.SetPointError(gr_val_only.GetN() - 1, (h.GetBinWidth(i) / 2.), 0)
+        gr.SetPoint(gr.GetN(), x, y)
+        gr.SetPointError(gr.GetN() - 1, (h.GetBinWidth(i) / 2.), (h.GetBinWidth(i) / 2.), h.GetBinError(i), h.GetBinError(i))
+        gr_err_only.SetPoint(gr_err_only.GetN(), x, 1)
+        if y:
+            gr_err_only.SetPointError(gr_err_only.GetN() - 1, (h.GetBinWidth(i) / 2.), (h.GetBinWidth(i) / 2.), h.GetBinError(i) / y, h.GetBinError(i) / y)
+        else:
+            gr_err_only.SetPointError(gr_err_only.GetN() - 1, (h.GetBinWidth(i) / 2.), (h.GetBinWidth(i) / 2.), 0, 0)
+    gr.SetFillColor(ROOT.kGray + 2)
+    gr.SetFillStyle(3354)
+    gr_err_only.SetFillColor(ROOT.kGray + 2)
+    gr_err_only.SetFillStyle(3354)
+    return gr_val_only, gr, gr_err_only
 
 
 def make_sys_err(h: ROOT.TH1, h_sys: List) -> List[Union[ROOT.TGraphErrors, ROOT.TGraphErrors]]:
@@ -699,6 +719,15 @@ def make_canvas(h: ROOT.TH1, v: variable.Variable, c: channel.Channel,
                 fit: likelihoodFit.LikelihoodFit = None, scale_factors: dict = None,
                 events: str = "Entries", sys: str = None) -> ROOT.TCanvas:
     canv = canvas.Canvas2(c, v, x, y, y_split, fit, scale_factors, sys=sys)
+    canv.construct(h, events=events)
+    return canv
+
+
+def make_canvas_unfold(h: ROOT.TH1, v: variable.Variable, c: channel.Channel,
+                       x: float = 800., y: float = 600., y_split: float = 0.30,
+                       fit: likelihoodFit.LikelihoodFit = None, scale_factors: dict = None,
+                       events: str = "Entries", sys: str = None) -> ROOT.TCanvas:
+    canv = canvas.CanvasCrossSection(c, v, x, y, y_split, fit, scale_factors, sys=sys)
     canv.construct(h, events=events)
     return canv
 

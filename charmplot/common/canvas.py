@@ -3,6 +3,7 @@ from charmplot.common import likelihoodFit
 from charmplot.control import channel
 from charmplot.control import variable
 from charmplot.control import sample
+from ctypes import c_double
 from typing import Dict
 import logging
 import math
@@ -322,7 +323,7 @@ class Canvas2(CanvasBase):
             self.proxy_up.SetMaximum(math.pow(10, math.log10(self.max_val) * self.maximum_scale_factor +
                                               (1 - self.maximum_scale_factor) * math.log10(self.proxy_up.GetMinimum())))
 
-    def make_legend(self, data, mc_tot=None, mc_map=[], samples=[], print_yields=False, draw_option="f", show_error=True):
+    def make_legend(self, data, mc_tot=None, mc_map=[], samples=[], print_yields=False, draw_option="f", show_error=True, data_name=None):
         # temp entry for sys unc
         temp_err = ROOT.TGraphErrors()
         temp_err.SetLineColor(ROOT.kBlack)
@@ -346,17 +347,18 @@ class Canvas2(CanvasBase):
         leg.SetTextSize(28)
         leg.SetTextFont(43)
         if data:
+            data_string = data_name if data_name else "Data"
             if print_yields and mc_tot.GetSum() > 0.1:
                 print(mc_tot.GetSum())
-                leg.AddEntry(data, "Data #scale[0.50]{#splitline{%.2e}{/ MC = %1.3f}}" % (data.GetSum(), data.GetSum() / mc_tot.GetSum()), "pe")
+                leg.AddEntry(data, "%s #scale[0.50]{#splitline{%.2e}{/ MC = %1.3f}}" % (data_string, data.GetSum(), data.GetSum() / mc_tot.GetSum()), "pe")
             else:
-                leg.AddEntry(data, "Data", "pe")
+                leg.AddEntry(data, data_string, "pe")
         if mc_tot:
             if print_yields:
-                err = ROOT.Double()
+                err = c_double(0)
                 integral = mc_tot.IntegralAndError(0, mc_tot.GetNbinsX() + 1, err)
                 if show_error:
-                    leg.AddEntry(temp_err, "SM tot. #scale[0.60]{%.2e #pm%.0f%s}" % (integral, 100 * err / integral, "%"), "lf")
+                    leg.AddEntry(temp_err, "SM tot. #scale[0.60]{%.2e #pm%.0f%s}" % (integral, 100 * err.value / integral, "%"), "lf")
                 else:
                     leg.AddEntry(temp_err, "SM tot. #scale[0.60]{%.2e}" % integral, "lf")
             else:
@@ -368,10 +370,10 @@ class Canvas2(CanvasBase):
             if hasattr(s, "legendLabel"):
                 name = s.legendLabel
             if print_yields:
-                err = ROOT.Double()
+                err = c_double(0)
                 integral = mc_map[s].IntegralAndError(0, mc_map[s].GetNbinsX() + 1, err)
                 if show_error and integral != 0:
-                    leg.AddEntry(mc_map[s], "%s #scale[0.60]{%.2e #pm%.0f%s}" % (name, mc_map[s].GetSum(), 100 * err / integral, "%"), "f")
+                    leg.AddEntry(mc_map[s], "%s #scale[0.60]{%.2e #pm%.0f%s}" % (name, mc_map[s].GetSum(), 100 * err.value / integral, "%"), "f")
                 else:
                     leg.AddEntry(mc_map[s], "%s #scale[0.60]{%.2e}" % (name, mc_map[s].GetSum()), "f")
             else:
@@ -450,9 +452,9 @@ class CanvasMCRatio(Canvas2):
             name = s.name
             if hasattr(s, "legendLabel"):
                 name = s.legendLabel
-            err = ROOT.Double()
+            err = c_double(0)
             integral = mc_map[s].IntegralAndError(0, mc_map[s].GetNbinsX() + 1, err)
-            leg.AddEntry(mc_map[s], "%s #scale[0.75]{%.2e #pm%.1f%s}" % (name, mc_map[s].GetSum(), 100 * err / integral, "%"), "l")
+            leg.AddEntry(mc_map[s], "%s #scale[0.75]{%.2e #pm%.1f%s}" % (name, mc_map[s].GetSum(), 100 * err.value / integral, "%"), "l")
         self.pad1.cd()
         self.legend = leg
         self.legend.Draw()
@@ -539,3 +541,72 @@ class CanvasMassFit(Canvas2):
         line.DrawLatex(0.65, 1 - 2.5 * self.text_height - self.n_entries * self.text_height_small, text)
         self.n_entries += 1
         self.leg_y1 -= self.text_height_small
+
+
+class CanvasCrossSection(Canvas2):
+
+    def make_legend(self, data, graphs=[], samples=[], draw_option="flp", show_error=True, data_name=None):
+        # temp entry for sys unc
+        temp_err = ROOT.TGraphErrors()
+        temp_err.SetLineColor(ROOT.kBlack)
+        temp_err.SetFillColor(ROOT.kBlue - 4)
+        temp_err.SetFillStyle(3444)
+        self.temp_err = temp_err
+
+        # legend
+        self.n_entries = len(graphs)
+        if data:
+            self.n_entries += 1
+        self.legx_x1 = 0.60
+        self.leg_y2 = 1 - 1.8 * self.text_height_small / (1 - self.y_split)
+        self.leg_y1 = self.leg_y2 - self.n_entries * self.text_height_small / (1 - self.y_split)
+        leg = ROOT.TLegend(self.legx_x1, self.leg_y1, 0.9, self.leg_y2)
+        leg.SetBorderSize(0)
+        leg.SetFillColor(0)
+        leg.SetFillStyle(0)
+        leg.SetTextSize(28)
+        leg.SetTextFont(43)
+        if data:
+            data_string = data_name if data_name else "Data"
+            leg.AddEntry(data, data_string, "flp")
+        for i, s in enumerate(samples):
+            name = s.name
+            if hasattr(s, "legendLabel"):
+                name = s.legendLabel
+            leg.AddEntry(graphs[i], "%s" % name, draw_option)
+        self.pad1.cd()
+        self.legend = leg
+        self.legend.Draw()
+
+    def set_axis_title(self, proxy, title="", events="Events"):
+        self.bin_width = proxy.GetBinWidth(1)
+        precision = 1
+        bin_width = self.bin_width
+        while (bin_width % 1 > 1e-4 and precision < 4):
+            precision += 1
+            bin_width *= 10
+
+        if self.variable.label:
+            if self.variable.unit:
+                proxy.GetXaxis().SetTitle(f"{self.variable.label} [{self.variable.unit}]")
+                proxy.GetYaxis().SetTitle(f"{events} [pb / {self.bin_width:.{precision}f} {self.variable.unit}]")
+            else:
+                proxy.GetXaxis().SetTitle(f"{self.variable.label}")
+                proxy.GetYaxis().SetTitle(f"{events} [pb / {self.bin_width:.{precision}f}]")
+        else:
+            proxy.GetXaxis().SetTitle(f"{self.variable.name}")
+            proxy.GetYaxis().SetTitle(f"{events} [pb {self.bin_width:.{precision}f}]")
+
+        if title:
+            proxy.GetYaxis().SetTitle(title)
+
+    def print_all(self, output, channel, var, logy=True):
+        self.pad1.cd()
+        ROOT.gPad.RedrawAxis()
+        if self.pad2:
+            self.pad2.cd()
+            ROOT.gPad.RedrawAxis()
+        self.print(f"{output}/xsec_{channel}_{var}.pdf")
+        if logy:
+            self.set_logy()
+            self.print(f"{output}/xsec_{channel}_{var}_LOG.pdf")
