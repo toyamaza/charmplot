@@ -31,12 +31,12 @@ root.addHandler(handler)
 ROOT.gStyle.SetErrorX(0.5)
 
 # proxy samples
-sample_MG_FTAG = sample.Sample('FTAG_MG', None, **{'add': ['MadGraph'], 'subtract': [], 'legendLabel': 'MG FTAG4', 'lineColor': 'ROOT.kBlue'})
-sample_MG_TRUTH = sample.Sample('TRUTH_MG', None, **{'add': ['MadGraph'], 'subtract': [], 'legendLabel': 'MG TRUTH1', 'lineColor': 'ROOT.kRed'})
+sample_MG_FTAG = sample.Sample('FTAG_MG', None, **{'add': ['MadGraph'], 'subtract': [], 'legendLabel': 'Fid. Truth + Reco.', 'lineColor': 'ROOT.kBlue'})
+sample_MG_TRUTH = sample.Sample('TRUTH_MG', None, **{'add': ['MadGraph'], 'subtract': [], 'legendLabel': 'Fid. Truth', 'lineColor': 'ROOT.kRed'})
 sample_Sherpa = sample.Sample('Sherpa', None, **{'add': ['Sherpa'], 'subtract': [], 'legendLabel': 'Sherpa', 'lineColor': 'ROOT.kBlack'})
-sample_MG_Prediction = sample.Sample('MG_Prediction', None, **{'add': ['MadGraph'], 'subtract': [], 'legendLabel': 'MG TRUTH1', 'lineColor': 'ROOT.kBlue'})
-sample_MG_FTAG_ALL = sample.Sample('FTAG_MG', None, **{'add': ['MadGraph'], 'subtract': [], 'legendLabel': 'MG All Reco', 'lineColor': 'ROOT.kRed'})
-sample_MG_FTAG_FID = sample.Sample('FTAG_MG', None, **{'add': ['MadGraph'], 'subtract': [], 'legendLabel': 'MG Fid Reco', 'lineColor': 'ROOT.kBlue'})
+sample_MG_Prediction = sample.Sample('MG_Prediction', None, **{'add': ['MadGraph'], 'subtract': [], 'legendLabel': 'MG Truth', 'lineColor': 'ROOT.kBlue'})
+sample_MG_FTAG_ALL = sample.Sample('FTAG_MG', None, **{'add': ['MadGraph'], 'subtract': [], 'legendLabel': 'Reco.', 'lineColor': 'ROOT.kRed'})
+sample_MG_FTAG_FID = sample.Sample('FTAG_MG', None, **{'add': ['MadGraph'], 'subtract': [], 'legendLabel': 'Fid. Truth + Reco.', 'lineColor': 'ROOT.kBlue'})
 
 # variables to plot
 variables = [
@@ -112,9 +112,9 @@ def main(options):
                 h_inclusive_d.SetBinContent(i + 1, int_d)
                 h_inclusive_r.SetBinContent(i + 1, int_m)
                 h_inclusive_t.SetBinContent(i + 1, int_t)
-                h_inclusive_d.SetBinError(i + 1, err_d)
-                h_inclusive_r.SetBinError(i + 1, err_m)
-                h_inclusive_t.SetBinError(i + 1, err_t)
+                h_inclusive_d.SetBinError(i + 1, err_d.value)
+                h_inclusive_r.SetBinError(i + 1, err_m.value)
+                h_inclusive_t.SetBinError(i + 1, err_t.value)
 
             # rebin
             h_d.Rebin(var.rebin)
@@ -149,7 +149,7 @@ def main(options):
                 mc_map[s].Draw("hist same")
 
             # make legend
-            canv.make_legend(mc_map, samples)
+            canv.make_legend(mc_map, samples, print_yields=False)
 
             # set maximum after creating legend
             canv.set_maximum([mc_map[s] for s in samples], var, mc_map[samples[0]])
@@ -191,7 +191,7 @@ def main(options):
                 mc_map[s].Draw("hist same")
 
             # make legend
-            canv.make_legend(mc_map, samples)
+            canv.make_legend(mc_map, samples, print_yields=False)
 
             # set maximum after creating legend
             canv.set_maximum([mc_map[s] for s in samples], var, mc_map[samples[0]])
@@ -234,26 +234,26 @@ def main(options):
             # total mc
             hs = utils.make_stack(samples, mc_map)
             h_mc_tot = utils.make_mc_tot(hs, f"{c}_{var.name}_mc_tot")
-            h_mc_tot.SetLineColor(ROOT.kBlue)
+            h_mc_tot.SetLineColor(ROOT.kRed)
 
             # mc stat error
             gr_mc, gr_mc_stat_err, gr_mc_stat_err_only = utils.make_stat_err_and_nominal(h_mc_tot)
-            gr_mc.SetLineColor(ROOT.kBlue)
+            gr_mc.SetLineColor(ROOT.kRed)
             gr_mc.SetMarkerSize(0.8)
             gr_mc.SetMarkerStyle(24)
-            gr_mc.SetMarkerColor(ROOT.kBlue)
-            gr_mc_stat_err.SetLineColor(ROOT.kBlue)
-            gr_mc_stat_err.SetFillColor(ROOT.kBlue - 10)
+            gr_mc.SetMarkerColor(ROOT.kRed)
+            gr_mc_stat_err.SetLineColor(ROOT.kRed)
+            gr_mc_stat_err.SetFillColor(ROOT.kRed - 10)
             gr_mc_stat_err.SetFillStyle(1001)
             gr_mc_stat_err.SetMarkerSize(0.8)
             gr_mc_stat_err.SetMarkerStyle(24)
-            gr_mc_stat_err.SetMarkerColor(ROOT.kBlue)
-            gr_mc_stat_err_only.SetLineColor(ROOT.kBlue)
-            gr_mc_stat_err_only.SetFillColor(ROOT.kBlue - 10)
+            gr_mc_stat_err.SetMarkerColor(ROOT.kRed)
+            gr_mc_stat_err_only.SetLineColor(ROOT.kRed)
+            gr_mc_stat_err_only.SetFillColor(ROOT.kRed - 10)
             gr_mc_stat_err_only.SetFillStyle(1001)
             gr_mc_stat_err_only.SetMarkerSize(0.8)
             gr_mc_stat_err_only.SetMarkerStyle(24)
-            gr_mc_stat_err_only.SetMarkerColor(ROOT.kBlue)
+            gr_mc_stat_err_only.SetMarkerColor(ROOT.kRed)
 
             # data stat error
             gr_data, gr_data_stat_err, gr_data_stat_err_only = utils.make_stat_err_and_nominal(h_u)
@@ -369,7 +369,7 @@ if __name__ == "__main__":
     parser.add_option('-c', '--channels',
                       action="store", dest="channels",
                       help="list of channels",
-                      default="el_plus,el_minus")
+                      default="el_plus,el_minus,mu_plus,mu_minus")
     parser.add_option('-l', '--lumi',
                       action="store", dest="lumi",
                       help="luminosity",

@@ -437,7 +437,7 @@ class CanvasMCRatio(Canvas2):
         self.ratio_title = ratio_title
         self.ratio_range = ratio_range
 
-    def make_legend(self, mc_map, samples):
+    def make_legend(self, mc_map, samples, print_yields = True):
         self.n_entries = len(samples)
         self.legx_x1 = 0.50
         self.leg_y2 = 1 - 1.8 * self.text_height_small / (1 - self.y_split)
@@ -454,7 +454,10 @@ class CanvasMCRatio(Canvas2):
                 name = s.legendLabel
             err = c_double(0)
             integral = mc_map[s].IntegralAndError(0, mc_map[s].GetNbinsX() + 1, err)
-            leg.AddEntry(mc_map[s], "%s #scale[0.75]{%.2e #pm%.1f%s}" % (name, mc_map[s].GetSum(), 100 * err.value / integral, "%"), "l")
+            if print_yields:
+                leg.AddEntry(mc_map[s], "%s #scale[0.75]{%.2e #pm%.1f%s}" % (name, mc_map[s].GetSum(), 100 * err.value / integral, "%"), "l")
+            else:
+                leg.AddEntry(mc_map[s], name, "l")
         self.pad1.cd()
         self.legend = leg
         self.legend.Draw()
