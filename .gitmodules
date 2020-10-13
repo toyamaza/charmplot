@@ -1,3 +1,6 @@
 [submodule "atlasrootstyle"]
 	path = atlasrootstyle
 	url = ssh://git@gitlab.cern.ch:7999/lbnl/CharmPhysics/atlasrootstyle.git
+[submodule "RooUnfold"]
+	path = RooUnfold
+	url = ssh://git@gitlab.cern.ch:7999/berkeleylab/CharmPhysics/RooUnfold.git
