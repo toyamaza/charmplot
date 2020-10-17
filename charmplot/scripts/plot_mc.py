@@ -94,17 +94,20 @@ def main(options, conf, reader):
 
             # top pad
             hists = [mc_map[s] for s in mc_map]
+            errors = []
             canv.pad1.cd()
             if not options.do_stack:
                 for s in samples:
                     if s not in mc_map.keys():
                         continue
-                    mc_map[s].SetMarkerColor(mc_map[s].GetFillColor())
-                    fcolor = mc_map[s].GetFillColor()
-                    mc_map[s].SetFillColor(0)
+                    fcolor = mc_map[s].GetLineColor()
                     gr_mc_stat_err, gr_mc_stat_err_only = utils.make_stat_err(mc_map[s])
-                    gr_mc_stat_err.Draw("e1")
-                    mc_map[s].Draw("hist same e1")
+                    gr_mc_stat_err.SetLineColor(fcolor)
+                    gr_mc_stat_err.SetFillColorAlpha(fcolor, 0.25)
+                    gr_mc_stat_err.SetFillStyle(1001)
+                    errors += [gr_mc_stat_err]
+                    gr_mc_stat_err.Draw("e2")
+                    mc_map[s].Draw("hist same")
             else:
                 hs = utils.make_stack(samples, mc_map)
                 hs.Draw("samehist")

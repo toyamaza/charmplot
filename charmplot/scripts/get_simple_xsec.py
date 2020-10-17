@@ -51,7 +51,7 @@ variables = [
         "unit": "GeV",
         "x_range": [0, 200],
         "ratio_range": [0.89, 1.11],
-        "rebin": 4,
+        "rebin": 1,
     }),
     variable.Variable("met_mt", **{
         "label": "m_{T}",
@@ -96,7 +96,7 @@ def main(options):
             h_r = f_r.Get(f"{reco_string}_fid/{reco_string}_fid__truth_{var.name}").Clone(f"h_r_{reco_string}")
             h_t = f_t.Get(f"{c}_fid/{c}_fid__{var.name}").Clone(f"h_t_{reco_string}")
             h_r_all = f_r.Get(f"{reco_string}/{reco_string}__{var.name}").Clone(f"h_r_all_{reco_string}")
-            h_r_fid = f_r.Get(f"{reco_string}_fid/{reco_string}_fid__{var.name}").Clone(f"h_r_all_{reco_string}")
+            h_r_fid = f_r.Get(f"{reco_string}_fid/{reco_string}_fid__truth_{var.name}").Clone(f"h_r_all_{reco_string}")
             logging.info(f"read histograms {h_d} {h_r} {h_t}")
 
             if var == variables[0]:

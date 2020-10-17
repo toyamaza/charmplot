@@ -15,3 +15,27 @@ Wminus:
   lineColor: "ROOT.kRed"
   legendLabel: "W^{-} + jets"
   shortName: Wminus
+
+WPlusD_OS:
+  add:
+    - MGPy8EG_Wjets.Truth
+  subtract:
+  lineColor: "ROOT.kBlue"
+  legendLabel: "W + D (OS)"
+  shortName: WPlusD_OS
+
+WPlusD_SS:
+  add:
+    - MGPy8EG_Wjets.Truth
+  subtract:
+  lineColor: "ROOT.kGreen"
+  legendLabel: "W + D (SS)"
+  shortName: WPlusD_SS
+
+WPlusD_OS_minus_SS:
+  add:
+    - MGPy8EG_Wjets.Truth
+  subtract:
+  lineColor: "ROOT.kRed"
+  legendLabel: "W + D (OS-SS)"
+  shortName: WPlusD_OSSS

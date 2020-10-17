@@ -1,0 +1,27 @@
+variablesConf: charmed_wjets_truth
+
+samplesConf: wjets_madgraph_truth
+
+channels:
+  el_minus_Dplus_fid:
+    regions:
+      - el_minus_Dplus_OS_fid
+    samples:
+      - WPlusD_OS
+      - WPlusD_SS | el_minus_Dplus_SS_fid
+      - WPlusD_OS_minus_SS | el_minus_Dplus_OS-SS_fid
+    label:
+      - 'Fiducial W+D'
+      - 'D^{+}#rightarrowK#pi#pi'
+    lumi: '2018'
+
+  el_minus_Dplus_SS_fid:
+    regions:
+      - el_minus_Dplus_SS_fid
+    make_plots: False
+
+  el_minus_Dplus_OS-SS_fid:
+    regions:
+      - el_minus_Dplus_OS_fid
+      - -el_minus_Dplus_SS_fid
+    make_plots: False
