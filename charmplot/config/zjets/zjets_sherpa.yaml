@@ -6,8 +6,8 @@ samplesConf: sherpa
 
 data: Data
 
-# systematics:
-#   - experimental
+systematics:
+  - experimental
 #   - sherpa_theory_pdf
 #   - sherpa_theory_qcd
 #   - sherpa_theory_pdf_choice
@@ -21,7 +21,6 @@ samples:
   - Zjets_lowmass_emu
   - Diboson
   - Top
-  - Wjets
 
 channels:
   2018_el:

@@ -16,7 +16,6 @@ samples:
   - Zjets_tau
   - Diboson
   - Top
-  - Wjets
 
 channels:
   2018_el:
