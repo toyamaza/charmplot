@@ -43,13 +43,13 @@ channels:
       - 2018_el_SR_Dplus_OS
       - -2018_el_SR_Dplus_SS
     samples:
-      - Wjets_tau
       - Wjets_cjets_emu
       - Wjets_bjets_emu
       - Wjets_light_emu
       - Zjets
       - Top
       - Diboson
+      - Wjets_tau
     label:
       - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, OS-SS"
       - "MadGraph"
