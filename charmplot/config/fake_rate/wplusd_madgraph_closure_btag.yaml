@@ -6,16 +6,24 @@ samplesConf: madgraph
 
 data: Data
 
+channelVariables:
+  lep_pt:
+    label: lepton p_{T}
+    unit: GeV
+    rebin: 4
+    x_range: [0, 200]
+    ratio_range: [0.5, 1.49]
+
 channels:
-  2018_el_QCD_0tag_Dplus:
+  2018_el_0tag_QCD_Dplus:
     regions:
-      - 2018_el_QCD_0tag_Dplus
+      - 2018_el_0tag_QCD_Dplus
     samples:
       - Wjets
       - Zjets
       - Top
       - Diboson
-      - Multijet_MatrixMethod | MatrixMethod_2018_el_QCD_0tag_Dplus
+      - Multijet_MatrixMethod | MatrixMethod_2018_el_0tag_QCD_Dplus
     label:
       - "2018 el QCD Closure"
       - "MET < 30 GeV, mT < 60 GeV"
@@ -23,15 +31,16 @@ channels:
     lumi: "2018"
     save_to_file: True
 
-  2018_el_QCD_1tag_Dplus:
+  2018_el_1tag_QCD_Dplus:
     regions:
-      - 2018_el_QCD_1tag_Dplus
+      - 2018_el_1tag_QCD_Dplus
+      - 2018_el_2tag_QCD_Dplus
     samples:
       - Wjets
       - Zjets
       - Top
       - Diboson
-      - Multijet_MatrixMethod | MatrixMethod_2018_el_QCD_1tag_Dplus
+      - Multijet_MatrixMethod | MatrixMethod_2018_el_1tag_QCD_Dplus
     label:
       - "2018 el QCD Closure"
       - "MET < 30 GeV, mT < 60 GeV"
@@ -39,31 +48,15 @@ channels:
     lumi: "2018"
     save_to_file: True
 
-  2018_el_QCD_2tag_Dplus:
+  2018_mu_0tag_QCD_Dplus:
     regions:
-      - 2018_el_QCD_2tag_Dplus
+      - 2018_mu_0tag_QCD_Dplus
     samples:
       - Wjets
       - Zjets
       - Top
       - Diboson
-      - Multijet_MatrixMethod | MatrixMethod_2018_el_QCD_2tag_Dplus
-    label:
-      - "2018 el QCD Closure"
-      - "MET < 30 GeV, mT < 60 GeV"
-      - "MadGraph"
-    lumi: "2018"
-    save_to_file: True
-
-  2018_mu_QCD_0tag_Dplus:
-    regions:
-      - 2018_mu_QCD_0tag_Dplus
-    samples:
-      - Wjets
-      - Zjets
-      - Top
-      - Diboson
-      - Multijet_MatrixMethod | MatrixMethod_2018_mu_QCD_0tag_Dplus
+      - Multijet_MatrixMethod | MatrixMethod_2018_mu_0tag_QCD_Dplus
     label:
       - "2018 mu QCD Closure"
       - "MET < 30 GeV, mT < 60 GeV"
@@ -71,15 +64,16 @@ channels:
     lumi: "2018"
     save_to_file: True
 
-  2018_mu_QCD_1tag_Dplus:
+  2018_mu_1tag_QCD_Dplus:
     regions:
-      - 2018_mu_QCD_1tag_Dplus
+      - 2018_mu_1tag_QCD_Dplus
+      - 2018_mu_2tag_QCD_Dplus
     samples:
       - Wjets
       - Zjets
       - Top
       - Diboson
-      - Multijet_MatrixMethod | MatrixMethod_2018_mu_QCD_1tag_Dplus
+      - Multijet_MatrixMethod | MatrixMethod_2018_mu_1tag_QCD_Dplus
     label:
       - "2018 mu QCD Closure"
       - "MET < 30 GeV, mT < 60 GeV"
@@ -87,54 +81,38 @@ channels:
     lumi: "2018"
     save_to_file: True
 
-  2018_mu_QCD_2tag_Dplus:
+  MatrixMethod_2018_el_0tag_QCD_Dplus:
     regions:
-      - 2018_mu_QCD_2tag_Dplus
-    samples:
-      - Wjets
-      - Zjets
-      - Top
-      - Diboson
-      - Multijet_MatrixMethod | MatrixMethod_2018_mu_QCD_2tag_Dplus
-    label:
-      - "2018 mu QCD Closure"
-      - "MET < 30 GeV, mT < 60 GeV"
-      - "MadGraph"
-    lumi: "2018"
-    save_to_file: True
-
-  MatrixMethod_2018_el_QCD_0tag_Dplus:
-    regions:
-      - AntiTight_2018_el_QCD_0tag_Dplus
-      - -Tight_2018_el_QCD_0tag_Dplus
+      - AntiTight_2018_el_0tag_QCD_Dplus
+      - -Tight_2018_el_0tag_QCD_Dplus
     make_plots: False
 
-  MatrixMethod_2018_el_QCD_1tag_Dplus:
+  MatrixMethod_2018_el_1tag_QCD_Dplus:
     regions:
-      - AntiTight_2018_el_QCD_1tag_Dplus
-      - -Tight_2018_el_QCD_1tag_Dplus
+      - AntiTight_2018_el_1tag_QCD_Dplus
+      - -Tight_2018_el_1tag_QCD_Dplus
     make_plots: False
 
-  MatrixMethod_2018_el_QCD_2tag_Dplus:
+  MatrixMethod_2018_el_2tag_QCD_Dplus:
     regions:
-      - AntiTight_2018_el_QCD_2tag_Dplus
-      - -Tight_2018_el_QCD_2tag_Dplus
+      - AntiTight_2018_el_2tag_QCD_Dplus
+      - -Tight_2018_el_2tag_QCD_Dplus
     make_plots: False
 
-  MatrixMethod_2018_mu_QCD_0tag_Dplus:
+  MatrixMethod_2018_mu_0tag_QCD_Dplus:
     regions:
-      - AntiTight_2018_mu_QCD_0tag_Dplus
-      - -Tight_2018_mu_QCD_0tag_Dplus
+      - AntiTight_2018_mu_0tag_QCD_Dplus
+      - -Tight_2018_mu_0tag_QCD_Dplus
     make_plots: False
 
-  MatrixMethod_2018_mu_QCD_1tag_Dplus:
+  MatrixMethod_2018_mu_1tag_QCD_Dplus:
     regions:
-      - AntiTight_2018_mu_QCD_1tag_Dplus
-      - -Tight_2018_mu_QCD_1tag_Dplus
+      - AntiTight_2018_mu_1tag_QCD_Dplus
+      - -Tight_2018_mu_1tag_QCD_Dplus
     make_plots: False
 
-  MatrixMethod_2018_mu_QCD_2tag_Dplus:
+  MatrixMethod_2018_mu_2tag_QCD_Dplus:
     regions:
-      - AntiTight_2018_mu_QCD_2tag_Dplus
-      - -Tight_2018_mu_QCD_2tag_Dplus
+      - AntiTight_2018_mu_2tag_QCD_Dplus
+      - -Tight_2018_mu_2tag_QCD_Dplus
     make_plots: False
