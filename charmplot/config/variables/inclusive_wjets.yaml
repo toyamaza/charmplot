@@ -113,3 +113,7 @@ njets:
 lep_pt_eta:
   make_plots: False
   allow_rebin: False
+
+lep_pt_calo_eta:
+  make_plots: False
+  allow_rebin: False

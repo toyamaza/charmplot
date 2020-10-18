@@ -73,6 +73,9 @@ met_dphi:
 njets:
   label: N_{jet}
 
+nbjets:
+  label: N_{b-jet}
+
 lep1_d0:
   label: d_{0}^{1}
   unit: '#mum'
@@ -122,6 +125,12 @@ lep1_ptvarcone30_TightTTVA_pt1000:
   label: ptvarcone30^{1}
   unit: GeV
   ratio_range: [0.0, 1.99]
+
+lep1_ptvarcone30_plus_neflowisol20:
+  label: (ptvarcone30 + 0.4*neflowisol20)^{1}/p_{T}^{1}
+
+lep2_ptvarcone30_plus_neflowisol20:
+  label: (ptvarcone30 + 0.4*neflowisol20)^{2}/p_{T}^{2}
 
 lep2_d0:
   label: d_{0}^{2}
