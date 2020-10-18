@@ -3,16 +3,34 @@ variablesConf: inclusive_wjets
 samplesConf: wjets_madgraph_truth
 
 channels:
-  el_minus_fid:
+  el_fid:
     regions:
       - el_minus_fid
     samples:
       - Wminus
       - Wplus | el_plus_fid
-    label: 'Fiducial W+jets'
+    label:
+      - 'Fiducial W+jets'
+      - 'Electron Channel'
+    lumi: '2018'
+
+  mu_fid:
+    regions:
+      - mu_minus_fid
+    samples:
+      - Wminus
+      - Wplus | mu_plus_fid
+    label:
+      - 'Fiducial W+jets'
+      - 'Muon Channel'
     lumi: '2018'
 
   el_plus_fid:
     regions:
       - el_plus_fid
+    make_plots: False
+
+  mu_plus_fid:
+    regions:
+      - mu_plus_fid
     make_plots: False
