@@ -1,12 +1,10 @@
 #!/usr/bin/env python
 from charmplot.common import utils
-from charmplot.common import www
 from charmplot.control import channel
 from charmplot.control import sample
 from charmplot.control import variable
 from ctypes import c_double
 import logging
-import math
 import os
 import ROOT
 import sys
