@@ -1,0 +1,734 @@
+variablesConf: charmed_wjets_dstar
+
+samplesConf: madgraph_truth
+
+data: Data
+
+
+  
+channels:
+##################################
+##################################
+###
+### 2-tag
+###
+##################################
+##################################
+  OS_2018_el_2tag_SR_DstarKPiPi0:
+    samples:
+      - Wjets_emu_Matched | 2018_el_2tag_wplusdPi0_OS_Matched
+      - Wjets_emu_Rest | 2018_el_2tag_wplusdPi0_OS_Rest
+      - Top_Matched | 2018_el_2tag_wplusdPi0_OS_Matched
+      - Top_Rest | 2018_el_2tag_wplusdPi0_OS_Rest
+      - Wjets_emu_NoMatch | 2018_el_2tag_wplusdPi0_OS_NoMatch
+      - Other
+      - Zjets_emu
+    regions:
+      - 2018_el_2tag_SR_DstarKPiPi0_OS
+    label:
+      - "W#rightarrowe#nu+D*, D*#rightarrow(K#pi#pi^{0})#pi, OS"
+      - "MadGraph, 2-tag"
+    lumi: "2018"
+    save_to_file: True
+
+    
+  OS_2018_mu_2tag_SR_DstarKPiPi0:
+    samples:
+      - Wjets_emu_Matched | 2018_mu_2tag_wplusdPi0_OS_Matched
+      - Wjets_emu_Rest | 2018_mu_2tag_wplusdPi0_OS_Rest
+      - Top_Matched | 2018_mu_2tag_wplusdPi0_OS_Matched
+      - Top_Rest | 2018_mu_2tag_wplusdPi0_OS_Rest
+      - Wjets_emu_NoMatch | 2018_mu_2tag_wplusdPi0_OS_NoMatch
+      - Other
+      - Zjets_emu
+    regions:
+      - 2018_mu_2tag_SR_DstarKPiPi0_OS
+    label:
+      - "W#rightarrow#mu#nu+D*, D*#rightarrow(K#pi#pi^{0})#pi, OS"
+      - "MadGraph, 2-tag"
+    lumi: "2018"
+    save_to_file: True
+
+    
+  SS_2018_el_2tag_SR_DstarKPiPi0:
+    samples:
+      - Wjets_emu_Matched | 2018_el_2tag_wplusdPi0_SS_Matched
+      - Wjets_emu_Rest | 2018_el_2tag_wplusdPi0_SS_Rest
+      - Top_Matched | 2018_el_2tag_wplusdPi0_SS_Matched
+      - Top_Rest | 2018_el_2tag_wplusdPi0_SS_Rest
+      - Wjets_emu_NoMatch | 2018_el_2tag_wplusdPi0_SS_NoMatch
+      - Other
+      - Zjets_emu
+    regions:
+      - 2018_el_2tag_SR_DstarKPiPi0_SS
+    label:
+      - "W#rightarrowe#nu+D*, D*#rightarrow(K#pi#pi^{0})#pi, SS"
+      - "MadGraph, 2-tag"
+    lumi: "2018"
+    save_to_file: True
+
+    
+  SS_2018_mu_2tag_SR_DstarKPiPi0:
+    samples:
+      - Wjets_emu_Matched | 2018_mu_2tag_wplusdPi0_SS_Matched
+      - Wjets_emu_Rest | 2018_mu_2tag_wplusdPi0_SS_Rest
+      - Top_Matched | 2018_mu_2tag_wplusdPi0_SS_Matched
+      - Top_Rest | 2018_mu_2tag_wplusdPi0_SS_Rest
+      - Wjets_emu_NoMatch | 2018_mu_2tag_wplusdPi0_SS_NoMatch
+      - Other
+      - Zjets_emu
+    regions:
+      - 2018_mu_2tag_SR_DstarKPiPi0_SS
+    label:
+      - "W#rightarrow#mu#nu+D*, D*#rightarrow(K#pi#pi^{0})#pi, SS"
+      - "MadGraph, 2-tag"
+    lumi: "2018"
+    save_to_file: True
+
+  OS-SS_2018_el_2tag_SR_DstarKPiPi0:
+    samples:
+      - Wjets_emu_Matched | 2018_el_2tag_wplusdPi0_OS-SS_Matched
+      - Wjets_emu_Rest | 2018_el_2tag_wplusdPi0_OS-SS_Rest
+      - Top_Matched | 2018_el_2tag_wplusdPi0_OS-SS_Matched
+      - Top_Rest | 2018_el_2tag_wplusdPi0_OS-SS_Rest
+      - Wjets_emu_NoMatch | 2018_el_2tag_wplusdPi0_OS-SS_NoMatch
+      - Other
+      - Zjets_emu
+    regions:
+      - 2018_el_2tag_SR_DstarKPiPi0_OS
+      - -2018_el_2tag_SR_DstarKPiPi0_SS
+    label:
+      - "W#rightarrowe#nu+D*, D*#rightarrow(K#pi#pi^{0})#pi, OS-SS"
+      - "MadGraph, 2-tag"
+    lumi: "2018"
+    save_to_file: True
+
+    
+  OS-SS_2018_mu_2tag_SR_DstarKPiPi0:
+    samples:
+      - Wjets_emu_Matched | 2018_mu_2tag_wplusdPi0_OS-SS_Matched
+      - Wjets_emu_Rest | 2018_mu_2tag_wplusdPi0_OS-SS_Rest
+      - Top_Matched | 2018_mu_2tag_wplusdPi0_OS-SS_Matched
+      - Top_Rest | 2018_mu_2tag_wplusdPi0_OS-SS_Rest
+      - Wjets_emu_NoMatch | 2018_mu_2tag_wplusdPi0_OS-SS_NoMatch
+      - Other
+      - Zjets_emu
+    regions:
+      - 2018_mu_2tag_SR_DstarKPiPi0_OS
+      - -2018_mu_2tag_SR_DstarKPiPi0_SS
+    label:
+      - "W#rightarrow#mu#nu+D*, D*#rightarrow(K#pi#pi^{0})#pi, OS-SS"
+      - "MadGraph, 2-tag"
+    lumi: "2018"
+    save_to_file: True
+
+#############################   
+## OS    
+#############################
+
+  2018_el_2tag_wplusdPi0_OS_Matched:
+   regions:
+     - 2018_el_2tag_SR_DstarKPiPi0_OS_Matched
+   make_plots: False
+   
+  2018_mu_2tag_wplusdPi0_OS_Matched:
+   regions:
+     - 2018_mu_2tag_SR_DstarKPiPi0_OS_Matched
+   make_plots: False
+
+  2018_el_2tag_wplusdPi0_OS_Rest:
+   regions:
+     - 2018_el_2tag_SR_DstarKPiPi0_OS
+     - -2018_el_2tag_SR_DstarKPiPi0_OS_Other
+     - -2018_el_2tag_SR_DstarKPiPi0_OS_Matched
+   make_plots: False
+   
+  2018_mu_2tag_wplusdPi0_OS_Rest:
+   regions:
+     - 2018_mu_2tag_SR_DstarKPiPi0_OS
+     - -2018_mu_2tag_SR_DstarKPiPi0_OS_Other
+     - -2018_mu_2tag_SR_DstarKPiPi0_OS_Matched
+   make_plots: False
+
+  2018_el_2tag_wplusdPi0_OS_NoMatch:
+   regions:
+     - 2018_el_2tag_SR_DstarKPiPi0_OS_Other
+   make_plots: False
+   
+  2018_mu_2tag_wplusdPi0_OS_NoMatch:
+   regions:
+     - 2018_mu_2tag_SR_DstarKPiPi0_OS_Other
+   make_plots: False
+#############################   
+## SS    
+#############################
+  2018_el_2tag_wplusdPi0_SS_Matched:
+   regions:
+     - 2018_el_2tag_SR_DstarKPiPi0_SS_Matched
+   make_plots: False
+   
+  2018_mu_2tag_wplusdPi0_SS_Matched:
+   regions:
+     - 2018_mu_2tag_SR_DstarKPiPi0_SS_Matched
+   make_plots: False
+
+
+  2018_el_2tag_wplusdPi0_SS_Rest:
+   regions:
+     - 2018_el_2tag_SR_DstarKPiPi0_SS
+     - -2018_el_2tag_SR_DstarKPiPi0_SS_Other
+     - -2018_el_2tag_SR_DstarKPiPi0_SS_Matched
+   make_plots: False
+   
+
+  2018_mu_2tag_wplusdPi0_SS_Rest:
+   regions:
+     - 2018_mu_2tag_SR_DstarKPiPi0_SS
+     - -2018_mu_2tag_SR_DstarKPiPi0_SS_Other
+     - -2018_mu_2tag_SR_DstarKPiPi0_SS_Matched
+   make_plots: False
+   
+
+  2018_el_2tag_wplusdPi0_SS_NoMatch:
+   regions:
+     - 2018_el_2tag_SR_DstarKPiPi0_SS_Other
+   make_plots: False
+   
+  2018_mu_2tag_wplusdPi0_SS_NoMatch:
+   regions:
+     - 2018_mu_2tag_SR_DstarKPiPi0_SS_Other
+   make_plots: False
+   
+#############################   
+## OS-SS    
+#############################
+  2018_el_2tag_wplusdPi0_OS-SS_Matched:
+   regions:
+     - 2018_el_2tag_SR_DstarKPiPi0_OS_Matched
+     - -2018_el_2tag_SR_DstarKPiPi0_SS_Matched
+   make_plots: False
+   
+  2018_mu_2tag_wplusdPi0_OS-SS_Matched:
+   regions:
+     - 2018_mu_2tag_SR_DstarKPiPi0_OS_Matched
+     - -2018_mu_2tag_SR_DstarKPiPi0_SS_Matched
+   make_plots: False
+   
+
+  2018_el_2tag_wplusdPi0_OS-SS_Rest:
+   regions:
+     - 2018_el_2tag_SR_DstarKPiPi0_OS
+     - -2018_el_2tag_SR_DstarKPiPi0_OS_Other
+     - -2018_el_2tag_SR_DstarKPiPi0_OS_Matched
+     - -2018_el_2tag_SR_DstarKPiPi0_SS
+     - 2018_el_2tag_SR_DstarKPiPi0_SS_Other
+     - 2018_el_2tag_SR_DstarKPiPi0_SS_Matched
+   make_plots: False
+
+
+  2018_mu_2tag_wplusdPi0_OS-SS_Rest:
+   regions:
+     - 2018_mu_2tag_SR_DstarKPiPi0_OS
+     - -2018_mu_2tag_SR_DstarKPiPi0_OS_Other
+     - -2018_mu_2tag_SR_DstarKPiPi0_OS_Matched
+     - -2018_mu_2tag_SR_DstarKPiPi0_SS
+     - 2018_mu_2tag_SR_DstarKPiPi0_SS_Other
+     - 2018_mu_2tag_SR_DstarKPiPi0_SS_Matched
+   make_plots: False
+
+  2018_el_2tag_wplusdPi0_OS-SS_NoMatch:
+   regions:
+     - 2018_el_2tag_SR_DstarKPiPi0_OS_Other
+     - -2018_el_2tag_SR_DstarKPiPi0_SS_Other
+   make_plots: False
+    
+  2018_mu_2tag_wplusdPi0_OS-SS_NoMatch:
+   regions:
+     - 2018_mu_2tag_SR_DstarKPiPi0_OS_Other
+     - -2018_mu_2tag_SR_DstarKPiPi0_SS_Other
+   make_plots: False
+
+
+
+##################################
+##################################
+###
+### 1-tag
+###
+##################################
+##################################
+  OS_2018_el_1tag_SR_DstarKPiPi0:
+    samples:
+      - Wjets_emu_Matched | 2018_el_1tag_wplusdPi0_OS_Matched
+      - Wjets_emu_Rest | 2018_el_1tag_wplusdPi0_OS_Rest
+      - Top_Matched | 2018_el_1tag_wplusdPi0_OS_Matched
+      - Top_Rest | 2018_el_1tag_wplusdPi0_OS_Rest
+      - Wjets_emu_NoMatch | 2018_el_1tag_wplusdPi0_OS_NoMatch
+      - Other
+      - Zjets_emu
+    regions:
+      - 2018_el_1tag_SR_DstarKPiPi0_OS
+    label:
+      - "W#rightarrowe#nu+D*, D*#rightarrow(K#pi#pi^{0})#pi, OS"
+      - "MadGraph, 1-tag"
+    lumi: "2018"
+    save_to_file: True
+#     force_positive: True
+    
+  OS_2018_mu_1tag_SR_DstarKPiPi0:
+    samples:
+      - Wjets_emu_Matched | 2018_mu_1tag_wplusdPi0_OS_Matched
+      - Wjets_emu_Rest | 2018_mu_1tag_wplusdPi0_OS_Rest
+      - Top_Matched | 2018_mu_1tag_wplusdPi0_OS_Matched
+      - Top_Rest | 2018_mu_1tag_wplusdPi0_OS_Rest
+      - Wjets_emu_NoMatch | 2018_mu_1tag_wplusdPi0_OS_NoMatch
+      - Other
+      - Zjets_emu
+    regions:
+      - 2018_mu_1tag_SR_DstarKPiPi0_OS
+    label:
+      - "W#rightarrow#mu#nu+D*, D*#rightarrow(K#pi#pi^{0})#pi, OS"
+      - "MadGraph, 1-tag"
+    lumi: "2018"
+    save_to_file: True
+
+    
+  SS_2018_el_1tag_SR_DstarKPiPi0:
+    samples:
+      - Wjets_emu_Matched | 2018_el_1tag_wplusdPi0_SS_Matched
+      - Wjets_emu_Rest | 2018_el_1tag_wplusdPi0_SS_Rest
+      - Top_Matched | 2018_el_1tag_wplusdPi0_SS_Matched
+      - Top_Rest | 2018_el_1tag_wplusdPi0_SS_Rest
+      - Wjets_emu_NoMatch | 2018_el_1tag_wplusdPi0_SS_NoMatch
+      - Other
+      - Zjets_emu
+    regions:
+      - 2018_el_1tag_SR_DstarKPiPi0_SS
+    label:
+      - "W#rightarrowe#nu+D*, D*#rightarrow(K#pi#pi^{0})#pi, SS"
+      - "MadGraph, 1-tag"
+    lumi: "2018"
+    save_to_file: True
+
+    
+  SS_2018_mu_1tag_SR_DstarKPiPi0:
+    samples:
+      - Wjets_emu_Matched | 2018_mu_1tag_wplusdPi0_SS_Matched
+      - Wjets_emu_Rest | 2018_mu_1tag_wplusdPi0_SS_Rest
+      - Top_Matched | 2018_mu_1tag_wplusdPi0_SS_Matched
+      - Top_Rest | 2018_mu_1tag_wplusdPi0_SS_Rest
+      - Wjets_emu_NoMatch | 2018_mu_1tag_wplusdPi0_SS_NoMatch
+      - Other
+      - Zjets_emu
+    regions:
+      - 2018_mu_1tag_SR_DstarKPiPi0_SS
+    label:
+      - "W#rightarrow#mu#nu+D*, D*#rightarrow(K#pi#pi^{0})#pi, SS"
+      - "MadGraph, 1-tag"
+    lumi: "2018"
+    save_to_file: True
+
+    
+  OS-SS_2018_el_1tag_SR_DstarKPiPi0:
+    samples:
+      - Wjets_emu_Matched | 2018_el_1tag_wplusdPi0_OS-SS_Matched
+      - Wjets_emu_Rest | 2018_el_1tag_wplusdPi0_OS-SS_Rest
+      - Top_Matched | 2018_el_1tag_wplusdPi0_OS-SS_Matched
+      - Top_Rest | 2018_el_1tag_wplusdPi0_OS-SS_Rest
+      - Wjets_emu_NoMatch | 2018_el_1tag_wplusdPi0_OS-SS_NoMatch
+      - Other
+      - Zjets_emu
+    regions:
+      - 2018_el_1tag_SR_DstarKPiPi0_OS
+      - -2018_el_1tag_SR_DstarKPiPi0_SS
+    label:
+      - "W#rightarrowe#nu+D*, D*#rightarrow(K#pi#pi^{0})#pi, OS-SS"
+      - "MadGraph, 1-tag"
+    lumi: "2018"
+    save_to_file: True
+
+    
+  OS-SS_2018_mu_1tag_SR_DstarKPiPi0:
+    samples:
+      - Wjets_emu_Matched | 2018_mu_1tag_wplusdPi0_OS-SS_Matched
+      - Wjets_emu_Rest | 2018_mu_1tag_wplusdPi0_OS-SS_Rest
+      - Top_Matched | 2018_mu_1tag_wplusdPi0_OS-SS_Matched
+      - Top_Rest | 2018_mu_1tag_wplusdPi0_OS-SS_Rest
+      - Wjets_emu_NoMatch | 2018_mu_1tag_wplusdPi0_OS-SS_NoMatch
+      - Other
+      - Zjets_emu
+    regions:
+      - 2018_mu_1tag_SR_DstarKPiPi0_OS
+      - -2018_mu_1tag_SR_DstarKPiPi0_SS
+    label:
+      - "W#rightarrow#mu#nu+D*, D*#rightarrow(K#pi#pi^{0})#pi, OS-SS"
+      - "MadGraph, 1-tag"
+    lumi: "2018"
+    save_to_file: True
+
+#############################   
+## OS    
+#############################
+
+  2018_el_1tag_wplusdPi0_OS_Matched:
+   regions:
+     - 2018_el_1tag_SR_DstarKPiPi0_OS_Matched
+   make_plots: False
+   
+  2018_mu_1tag_wplusdPi0_OS_Matched:
+   regions:
+     - 2018_mu_1tag_SR_DstarKPiPi0_OS_Matched
+   make_plots: False
+
+  2018_el_1tag_wplusdPi0_OS_Rest:
+   regions:
+     - 2018_el_1tag_SR_DstarKPiPi0_OS
+     - -2018_el_1tag_SR_DstarKPiPi0_OS_Other
+     - -2018_el_1tag_SR_DstarKPiPi0_OS_Matched
+   make_plots: False
+   
+  2018_mu_1tag_wplusdPi0_OS_Rest:
+   regions:
+     - 2018_mu_1tag_SR_DstarKPiPi0_OS
+     - -2018_mu_1tag_SR_DstarKPiPi0_OS_Other
+     - -2018_mu_1tag_SR_DstarKPiPi0_OS_Matched
+   make_plots: False
+
+  2018_el_1tag_wplusdPi0_OS_NoMatch:
+   regions:
+     - 2018_el_1tag_SR_DstarKPiPi0_OS_Other
+   make_plots: False
+   
+  2018_mu_1tag_wplusdPi0_OS_NoMatch:
+   regions:
+     - 2018_mu_1tag_SR_DstarKPiPi0_OS_Other
+   make_plots: False
+#############################   
+## SS    
+#############################
+  2018_el_1tag_wplusdPi0_SS_Matched:
+   regions:
+     - 2018_el_1tag_SR_DstarKPiPi0_SS_Matched
+   make_plots: False
+   
+  2018_mu_1tag_wplusdPi0_SS_Matched:
+   regions:
+     - 2018_mu_1tag_SR_DstarKPiPi0_SS_Matched
+   make_plots: False
+
+
+  2018_el_1tag_wplusdPi0_SS_Rest:
+   regions:
+     - 2018_el_1tag_SR_DstarKPiPi0_SS
+     - -2018_el_1tag_SR_DstarKPiPi0_SS_Other
+     - -2018_el_1tag_SR_DstarKPiPi0_SS_Matched
+   make_plots: False
+   
+
+  2018_mu_1tag_wplusdPi0_SS_Rest:
+   regions:
+     - 2018_mu_1tag_SR_DstarKPiPi0_SS
+     - -2018_mu_1tag_SR_DstarKPiPi0_SS_Other
+     - -2018_mu_1tag_SR_DstarKPiPi0_SS_Matched
+   make_plots: False
+   
+
+  2018_el_1tag_wplusdPi0_SS_NoMatch:
+   regions:
+     - 2018_el_1tag_SR_DstarKPiPi0_SS_Other
+   make_plots: False
+   
+  2018_mu_1tag_wplusdPi0_SS_NoMatch:
+   regions:
+     - 2018_mu_1tag_SR_DstarKPiPi0_SS_Other
+   make_plots: False
+   
+#############################   
+## OS-SS    
+#############################
+  2018_el_1tag_wplusdPi0_OS-SS_Matched:
+   regions:
+     - 2018_el_1tag_SR_DstarKPiPi0_OS_Matched
+     - -2018_el_1tag_SR_DstarKPiPi0_SS_Matched
+   make_plots: False
+   
+  2018_mu_1tag_wplusdPi0_OS-SS_Matched:
+   regions:
+     - 2018_mu_1tag_SR_DstarKPiPi0_OS_Matched
+     - -2018_mu_1tag_SR_DstarKPiPi0_SS_Matched
+   make_plots: False
+   
+
+  2018_el_1tag_wplusdPi0_OS-SS_Rest:
+   regions:
+     - 2018_el_1tag_SR_DstarKPiPi0_OS
+     - -2018_el_1tag_SR_DstarKPiPi0_OS_Other
+     - -2018_el_1tag_SR_DstarKPiPi0_OS_Matched
+     - -2018_el_1tag_SR_DstarKPiPi0_SS
+     - 2018_el_1tag_SR_DstarKPiPi0_SS_Other
+     - 2018_el_1tag_SR_DstarKPiPi0_SS_Matched
+   make_plots: False
+
+
+  2018_mu_1tag_wplusdPi0_OS-SS_Rest:
+   regions:
+     - 2018_mu_1tag_SR_DstarKPiPi0_OS
+     - -2018_mu_1tag_SR_DstarKPiPi0_OS_Other
+     - -2018_mu_1tag_SR_DstarKPiPi0_OS_Matched
+     - -2018_mu_1tag_SR_DstarKPiPi0_SS
+     - 2018_mu_1tag_SR_DstarKPiPi0_SS_Other
+     - 2018_mu_1tag_SR_DstarKPiPi0_SS_Matched
+   make_plots: False
+
+  2018_el_1tag_wplusdPi0_OS-SS_NoMatch:
+   regions:
+     - 2018_el_1tag_SR_DstarKPiPi0_OS_Other
+     - -2018_el_1tag_SR_DstarKPiPi0_SS_Other
+   make_plots: False
+    
+  2018_mu_1tag_wplusdPi0_OS-SS_NoMatch:
+   regions:
+     - 2018_mu_1tag_SR_DstarKPiPi0_OS_Other
+     - -2018_mu_1tag_SR_DstarKPiPi0_SS_Other
+   make_plots: False
+   
+   
+   
+   
+   
+##################################
+##################################
+###
+### 0-tag
+###
+##################################
+##################################
+  OS_2018_el_0tag_SR_DstarKPiPi0:
+    samples:
+      - Wjets_emu_Matched | 2018_el_0tag_wplusdPi0_OS_Matched
+      - Wjets_emu_Rest | 2018_el_0tag_wplusdPi0_OS_Rest
+      - Top_Matched | 2018_el_0tag_wplusdPi0_OS_Matched
+      - Top_Rest | 2018_el_0tag_wplusdPi0_OS_Rest
+      - Wjets_emu_NoMatch | 2018_el_0tag_wplusdPi0_OS_NoMatch
+      - Other
+      - Zjets_emu
+    regions:
+      - 2018_el_0tag_SR_DstarKPiPi0_OS
+    label:
+      - "W#rightarrowe#nu+D*, D*#rightarrow(K#pi#pi^{0})#pi, OS"
+      - "MadGraph, 0-tag"
+    lumi: "2018"
+    save_to_file: True
+    
+  OS_2018_mu_0tag_SR_DstarKPiPi0:
+    samples:
+      - Wjets_emu_Matched | 2018_mu_0tag_wplusdPi0_OS_Matched
+      - Wjets_emu_Rest | 2018_mu_0tag_wplusdPi0_OS_Rest
+      - Top_Matched | 2018_mu_0tag_wplusdPi0_OS_Matched
+      - Top_Rest | 2018_mu_0tag_wplusdPi0_OS_Rest
+      - Wjets_emu_NoMatch | 2018_mu_0tag_wplusdPi0_OS_NoMatch
+      - Other
+      - Zjets_emu
+    regions:
+      - 2018_mu_0tag_SR_DstarKPiPi0_OS
+    label:
+      - "W#rightarrow#mu#nu+D*, D*#rightarrow(K#pi#pi^{0})#pi, OS"
+      - "MadGraph, 0-tag"
+    lumi: "2018"
+    save_to_file: True
+    
+  SS_2018_el_0tag_SR_DstarKPiPi0:
+    samples:
+      - Wjets_emu_Matched | 2018_el_0tag_wplusdPi0_SS_Matched
+      - Wjets_emu_Rest | 2018_el_0tag_wplusdPi0_SS_Rest
+      - Top_Matched | 2018_el_0tag_wplusdPi0_SS_Matched
+      - Top_Rest | 2018_el_0tag_wplusdPi0_SS_Rest
+      - Wjets_emu_NoMatch | 2018_el_0tag_wplusdPi0_SS_NoMatch
+      - Other
+      - Zjets_emu
+    regions:
+      - 2018_el_0tag_SR_DstarKPiPi0_SS
+    label:
+      - "W#rightarrowe#nu+D*, D*#rightarrow(K#pi#pi^{0})#pi, SS"
+      - "MadGraph, 0-tag"
+    lumi: "2018"
+    save_to_file: True
+    
+  SS_2018_mu_0tag_SR_DstarKPiPi0:
+    samples:
+      - Wjets_emu_Matched | 2018_mu_0tag_wplusdPi0_SS_Matched
+      - Wjets_emu_Rest | 2018_mu_0tag_wplusdPi0_SS_Rest
+      - Top_Matched | 2018_mu_0tag_wplusdPi0_SS_Matched
+      - Top_Rest | 2018_mu_0tag_wplusdPi0_SS_Rest
+      - Wjets_emu_NoMatch | 2018_mu_0tag_wplusdPi0_SS_NoMatch
+      - Other
+      - Zjets_emu
+    regions:
+      - 2018_mu_0tag_SR_DstarKPiPi0_SS
+    label:
+      - "W#rightarrow#mu#nu+D*, D*#rightarrow(K#pi#pi^{0})#pi, SS"
+      - "MadGraph, 0-tag"
+    lumi: "2018"
+    save_to_file: True
+    
+  OS-SS_2018_el_0tag_SR_DstarKPiPi0:
+    samples:
+      - Wjets_emu_Matched | 2018_el_0tag_wplusdPi0_OS-SS_Matched
+      - Wjets_emu_Rest | 2018_el_0tag_wplusdPi0_OS-SS_Rest
+      - Top_Matched | 2018_el_0tag_wplusdPi0_OS-SS_Matched
+      - Top_Rest | 2018_el_0tag_wplusdPi0_OS-SS_Rest
+      - Wjets_emu_NoMatch | 2018_el_0tag_wplusdPi0_OS-SS_NoMatch
+      - Other
+      - Zjets_emu
+    regions:
+      - 2018_el_0tag_SR_DstarKPiPi0_OS
+      - -2018_el_0tag_SR_DstarKPiPi0_SS
+    label:
+      - "W#rightarrowe#nu+D*, D*#rightarrow(K#pi#pi^{0})#pi, OS-SS"
+      - "MadGraph, 0-tag"
+    lumi: "2018"
+    save_to_file: True
+    
+  OS-SS_2018_mu_0tag_SR_DstarKPiPi0:
+    samples:
+      - Wjets_emu_Matched | 2018_mu_0tag_wplusdPi0_OS-SS_Matched
+      - Wjets_emu_Rest | 2018_mu_0tag_wplusdPi0_OS-SS_Rest
+      - Top_Matched | 2018_mu_0tag_wplusdPi0_OS-SS_Matched
+      - Top_Rest | 2018_mu_0tag_wplusdPi0_OS-SS_Rest
+      - Wjets_emu_NoMatch | 2018_mu_0tag_wplusdPi0_OS-SS_NoMatch
+      - Other
+      - Zjets_emu
+    regions:
+      - 2018_mu_0tag_SR_DstarKPiPi0_OS
+      - -2018_mu_0tag_SR_DstarKPiPi0_SS
+    label:
+      - "W#rightarrow#mu#nu+D*, D*#rightarrow(K#pi#pi^{0})#pi, OS-SS"
+      - "MadGraph, 0-tag"
+    lumi: "2018"
+    save_to_file: True
+
+#############################   
+## OS    
+#############################
+
+  2018_el_0tag_wplusdPi0_OS_Matched:
+   regions:
+     - 2018_el_0tag_SR_DstarKPiPi0_OS_Matched
+   make_plots: False
+   
+  2018_mu_0tag_wplusdPi0_OS_Matched:
+   regions:
+     - 2018_mu_0tag_SR_DstarKPiPi0_OS_Matched
+   make_plots: False
+
+  2018_el_0tag_wplusdPi0_OS_Rest:
+   regions:
+     - 2018_el_0tag_SR_DstarKPiPi0_OS
+     - -2018_el_0tag_SR_DstarKPiPi0_OS_Other
+     - -2018_el_0tag_SR_DstarKPiPi0_OS_Matched
+   make_plots: False
+   
+  2018_mu_0tag_wplusdPi0_OS_Rest:
+   regions:
+     - 2018_mu_0tag_SR_DstarKPiPi0_OS
+     - -2018_mu_0tag_SR_DstarKPiPi0_OS_Other
+     - -2018_mu_0tag_SR_DstarKPiPi0_OS_Matched
+   make_plots: False
+
+  2018_el_0tag_wplusdPi0_OS_NoMatch:
+   regions:
+     - 2018_el_0tag_SR_DstarKPiPi0_OS_Other
+   make_plots: False
+   
+  2018_mu_0tag_wplusdPi0_OS_NoMatch:
+   regions:
+     - 2018_mu_0tag_SR_DstarKPiPi0_OS_Other
+   make_plots: False
+#############################   
+## SS    
+#############################
+  2018_el_0tag_wplusdPi0_SS_Matched:
+   regions:
+     - 2018_el_0tag_SR_DstarKPiPi0_SS_Matched
+   make_plots: False
+   
+  2018_mu_0tag_wplusdPi0_SS_Matched:
+   regions:
+     - 2018_mu_0tag_SR_DstarKPiPi0_SS_Matched
+   make_plots: False
+
+
+  2018_el_0tag_wplusdPi0_SS_Rest:
+   regions:
+     - 2018_el_0tag_SR_DstarKPiPi0_SS
+     - -2018_el_0tag_SR_DstarKPiPi0_SS_Other
+     - -2018_el_0tag_SR_DstarKPiPi0_SS_Matched
+   make_plots: False
+   
+
+  2018_mu_0tag_wplusdPi0_SS_Rest:
+   regions:
+     - 2018_mu_0tag_SR_DstarKPiPi0_SS
+     - -2018_mu_0tag_SR_DstarKPiPi0_SS_Other
+     - -2018_mu_0tag_SR_DstarKPiPi0_SS_Matched
+   make_plots: False
+   
+
+  2018_el_0tag_wplusdPi0_SS_NoMatch:
+   regions:
+     - 2018_el_0tag_SR_DstarKPiPi0_SS_Other
+   make_plots: False
+   
+  2018_mu_0tag_wplusdPi0_SS_NoMatch:
+   regions:
+     - 2018_mu_0tag_SR_DstarKPiPi0_SS_Other
+   make_plots: False
+   
+#############################   
+## OS-SS    
+#############################
+  2018_el_0tag_wplusdPi0_OS-SS_Matched:
+   regions:
+     - 2018_el_0tag_SR_DstarKPiPi0_OS_Matched
+     - -2018_el_0tag_SR_DstarKPiPi0_SS_Matched
+   make_plots: False
+   
+  2018_mu_0tag_wplusdPi0_OS-SS_Matched:
+   regions:
+     - 2018_mu_0tag_SR_DstarKPiPi0_OS_Matched
+     - -2018_mu_0tag_SR_DstarKPiPi0_SS_Matched
+   make_plots: False
+   
+
+  2018_el_0tag_wplusdPi0_OS-SS_Rest:
+   regions:
+     - 2018_el_0tag_SR_DstarKPiPi0_OS
+     - -2018_el_0tag_SR_DstarKPiPi0_OS_Other
+     - -2018_el_0tag_SR_DstarKPiPi0_OS_Matched
+     - -2018_el_0tag_SR_DstarKPiPi0_SS
+     - 2018_el_0tag_SR_DstarKPiPi0_SS_Other
+     - 2018_el_0tag_SR_DstarKPiPi0_SS_Matched
+   make_plots: False
+
+
+  2018_mu_0tag_wplusdPi0_OS-SS_Rest:
+   regions:
+     - 2018_mu_0tag_SR_DstarKPiPi0_OS
+     - -2018_mu_0tag_SR_DstarKPiPi0_OS_Other
+     - -2018_mu_0tag_SR_DstarKPiPi0_OS_Matched
+     - -2018_mu_0tag_SR_DstarKPiPi0_SS
+     - 2018_mu_0tag_SR_DstarKPiPi0_SS_Other
+     - 2018_mu_0tag_SR_DstarKPiPi0_SS_Matched
+   make_plots: False
+
+  2018_el_0tag_wplusdPi0_OS-SS_NoMatch:
+   regions:
+     - 2018_el_0tag_SR_DstarKPiPi0_OS_Other
+     - -2018_el_0tag_SR_DstarKPiPi0_SS_Other
+   make_plots: False
+    
+  2018_mu_0tag_wplusdPi0_OS-SS_NoMatch:
+   regions:
+     - 2018_mu_0tag_SR_DstarKPiPi0_OS_Other
+     - -2018_mu_0tag_SR_DstarKPiPi0_SS_Other
+   make_plots: False
