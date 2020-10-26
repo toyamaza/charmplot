@@ -421,7 +421,7 @@ def make_pdf_err(h: ROOT.TH1, h_var: List, pdfstring: str, Norm: bool = 0) -> Li
     return gr, gr_err_only
 
 
-def make_minmax_err(h: ROOT.TH1, h_var: List, Norm: bool = 0) -> List[Union[ROOT.TGraphErrors, ROOT.TGraphErrors]]:
+def make_minmax_err(h: ROOT.TH1, h_var: List, Norm: bool = False) -> List[Union[ROOT.TGraphErrors, ROOT.TGraphErrors]]:
     # h_var is expected to have only the QCD parameter variations!!
     if not len(h_var):
         return make_empty_error_bands(h)
