@@ -249,9 +249,9 @@ def process_channel(options, conf, c):
         gr_mc_sys_err, gr_mc_sys_err_only = utils.make_sys_err(h_mc_tot, h_mc_tot_sys)
 
         # theory syst error band
-        gr_mc_pdf_err, gr_mc_pdf_err_only = utils.make_pdf_err(h_mc_tot, h_mc_tot_pdf, 'NNPDF30_nnlo_as_0118', Norm = 1)
+        gr_mc_pdf_err, gr_mc_pdf_err_only = utils.make_pdf_err(h_mc_tot, h_mc_tot_pdf, 'NNPDF30_nnlo_as_0118', Norm = True)
         gr_mc_qcd_err, gr_mc_qcd_err_only = utils.make_minmax_err(h_mc_tot, h_mc_tot_qcd)
-        gr_mc_pdf_choice_err, gr_mc_pdf_choice_err_only = utils.make_minmax_err(h_mc_tot, h_mc_tot_pdf_choice, Norm = 1)
+        gr_mc_pdf_choice_err, gr_mc_pdf_choice_err_only = utils.make_minmax_err(h_mc_tot, h_mc_tot_pdf_choice, Norm = True)
         gr_mc_ttbar_err, gr_mc_ttbar_err_only = utils.make_pdf_err(
             h_mc_tot, h_mc_tot_ttbar_pdf, 'NNPDF30_nlo_as_0118', 1)
         gr_mc_ttbar_choice_err, gr_mc_ttbar_choice_err_only = utils.make_minmax_err(h_mc_tot, h_mc_tot_ttbar_choice)
