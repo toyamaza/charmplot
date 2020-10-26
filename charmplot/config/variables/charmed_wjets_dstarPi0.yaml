@@ -9,6 +9,10 @@ Dmeson_pt:
   unit: 'GeV'
   rebin: 2
   ratio_range: [0.5, 1.49]
+  
+Dmeson_D0massDiff:
+  make_plots: False
+  allow_rebin: False
 
 Dmeson_eta:
   label: 'D* #eta'
@@ -18,7 +22,8 @@ Dmeson_eta:
 Dmeson_mdiff:
   label: 'm(D*-D^{0})'
   unit: 'MeV'
-  rebin: 10
+  rebin: 50
+  x_range: [140, 180]
   ratio_range: [0.5,1.49]
 
 Dmeson_phi:

@@ -356,6 +356,7 @@ class Canvas2(CanvasBase):
                 err = ROOT.Double()
                 integral = mc_tot.IntegralAndError(0, mc_tot.GetNbinsX() + 1, err)
                 if show_error:
+                    print(mc_tot.GetName())
                     leg.AddEntry(temp_err, "SM tot. #scale[0.60]{%.2e #pm%.0f%s}" % (integral, 100 * err / integral, "%"), "lf")
                 else:
                     leg.AddEntry(temp_err, "SM tot. #scale[0.60]{%.2e}" % integral, "lf")
