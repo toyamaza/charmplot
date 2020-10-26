@@ -347,6 +347,7 @@ class Canvas2(CanvasBase):
         leg.SetTextFont(43)
         if data:
             if print_yields and mc_tot.GetSum() > 0.1:
+                print(mc_tot.GetSum())
                 leg.AddEntry(data, "Data #scale[0.50]{#splitline{%.2e}{/ MC = %1.3f}}" % (data.GetSum(), data.GetSum() / mc_tot.GetSum()), "pe")
             else:
                 leg.AddEntry(data, "Data", "pe")
@@ -355,7 +356,6 @@ class Canvas2(CanvasBase):
                 err = ROOT.Double()
                 integral = mc_tot.IntegralAndError(0, mc_tot.GetNbinsX() + 1, err)
                 if show_error:
-                    print(mc_tot.GetName())
                     leg.AddEntry(temp_err, "SM tot. #scale[0.60]{%.2e #pm%.0f%s}" % (integral, 100 * err / integral, "%"), "lf")
                 else:
                     leg.AddEntry(temp_err, "SM tot. #scale[0.60]{%.2e}" % integral, "lf")
