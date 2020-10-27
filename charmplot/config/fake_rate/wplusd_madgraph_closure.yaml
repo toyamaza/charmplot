@@ -6,6 +6,9 @@ samplesConf: madgraph
 
 data: Data
 
+systematics:
+  - matrix_method
+
 channels:
   2018_el_QCD_Dplus:
     regions:

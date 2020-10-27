@@ -2,7 +2,7 @@ colorScheme: gemstone_hues
 
 variablesConf: inclusive_wjets
 
-samplesConf: sherpa
+samplesConf: powheg
 
 systematics:
   - experimental
@@ -14,9 +14,7 @@ channels:
     regions:
       - 2018_el_SR
     samples:
-      - Wjets_light_emu
-      - Wjets_bjets_emu
-      - Wjets_cjets_emu
+      - Wjets_emu
       - Wjets_tau
       - Zjets_emu
       - Zjets_tau
@@ -24,7 +22,7 @@ channels:
       - Diboson
     label:
       - "2018 el SR"
-      - "Sherpa"
+      - "Powheg"
     lumi: "2018"
     save_to_file: True
 
@@ -32,9 +30,7 @@ channels:
     regions:
       - 2018_mu_SR
     samples:
-      - Wjets_light_emu
-      - Wjets_bjets_emu
-      - Wjets_cjets_emu
+      - Wjets_emu
       - Wjets_tau
       - Zjets_emu
       - Zjets_tau
@@ -42,7 +38,7 @@ channels:
       - Diboson
     label:
       - "2018 mu SR"
-      - "Sherpa"
+      - "Powheg"
     lumi: "2018"
     save_to_file: True
 
@@ -50,9 +46,7 @@ channels:
     regions:
       - 2018_el_SR
     samples:
-      - Wjets_light_emu
-      - Wjets_bjets_emu
-      - Wjets_cjets_emu
+      - Wjets_emu
       - Wjets_tau
       - Zjets_emu
       - Zjets_tau
@@ -61,7 +55,7 @@ channels:
       - Diboson
     label:
       - "2018 el SR"
-      - "Sherpa"
+      - "Powheg"
     lumi: "2018"
     save_to_file: True
 
@@ -69,9 +63,7 @@ channels:
     regions:
       - 2018_mu_SR
     samples:
-      - Wjets_light_emu
-      - Wjets_bjets_emu
-      - Wjets_cjets_emu
+      - Wjets_emu
       - Wjets_tau
       - Zjets_emu
       - Zjets_tau
@@ -80,7 +72,7 @@ channels:
       - Diboson
     label:
       - "2018 mu SR"
-      - "Sherpa"
+      - "Powheg"
     lumi: "2018"
     save_to_file: True
 

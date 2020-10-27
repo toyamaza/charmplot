@@ -6,6 +6,9 @@ samplesConf: madgraph
 
 data: Data
 
+systematics:
+  - matrix_method
+
 channelVariables:
   lep_pt:
     label: lepton p_{T}

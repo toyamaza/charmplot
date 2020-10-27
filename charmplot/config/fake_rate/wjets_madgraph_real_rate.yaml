@@ -5,9 +5,9 @@ variablesConf: inclusive_wjets
 samplesConf: madgraph
 
 channels:
-  2018_el_SR:
+  Tight_2018_el_SR:
     regions:
-      - 2018_el_SR
+      - Tight_2018_el_SR
     samples:
       - Wjets_emu
       - Wjets_tau
@@ -21,9 +21,9 @@ channels:
     lumi: "2018"
     save_to_file: True
 
-  2018_mu_SR:
+  Tight_2018_mu_SR:
     regions:
-      - 2018_mu_SR
+      - Tight_2018_mu_SR
     samples:
       - Wjets_emu
       - Wjets_tau

@@ -4,6 +4,9 @@ variablesConf: inclusive_wjets
 
 samplesConf: madgraph
 
+systematics:
+  - experimental
+
 data: Data
 
 channels:
@@ -84,11 +87,11 @@ channels:
   MatrixMethod_2018_el_SR:
     regions:
       - AntiTight_2018_el_SR
-      # - Tight_2018_el_SR
+      - -Tight_2018_el_SR
     make_plots: False
 
   MatrixMethod_2018_mu_SR:
     regions:
       - AntiTight_2018_mu_SR
-      # - Tight_2018_mu_SR
+      - -Tight_2018_mu_SR
     make_plots: False

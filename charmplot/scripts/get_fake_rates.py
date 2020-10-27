@@ -104,7 +104,7 @@ def set_range(h, x_range):
             h.SetBinError(j, i, 0)
 
 
-def main(options, args):
+def main(conf, options, args):
     # input file
     f = ROOT.TFile(options.input, "READ")
 
@@ -127,28 +127,33 @@ def main(options, args):
 
     for c in channels:
 
+        # channel name
+        channel_name = c.split(":")[0]
+
+        # samples in config
+        channel_config = conf.get_channel(f"Tight_{channel_name}")
+
         # x range and channel name
-        x_range = [int(x) for x in c.split(":")[1:]]
-        c = c.split(":")[0]
-        print(c, x_range)
+        x_range = [int(x) for x in c.split(":")[1:3]]
 
         # fake rate map
         fake_rate_map = {}
         eta_range = {}
 
         for s in samples:
-            v = "lep_pt_eta" if "_el_" not in c else "lep_pt_calo_eta"
 
-            rebin = 6 if "_el_" not in c else 6
+            v = "lep_pt_eta" if "_el_" not in channel_name else "lep_pt_calo_eta"
 
-            lep_pt_eta_tight = f.Get(f"{s}_Tight_{c}_{v}")
-            lep_pt_eta_loose = f.Get(f"{s}_AntiTight_{c}_{v}")
+            rebin = int(c.split(":")[3])
+
+            lep_pt_eta_tight = f.Get(f"{s}_Tight_{channel_name}_{v}")
+            lep_pt_eta_loose = f.Get(f"{s}_AntiTight_{channel_name}_{v}")
             lep_pt_eta_tight.RebinX(rebin)
             lep_pt_eta_loose.RebinX(rebin)
             set_range(lep_pt_eta_tight, x_range)
             set_range(lep_pt_eta_loose, x_range)
 
-            fake_rate = lep_pt_eta_tight.Clone(f"Fake_Rate_{s}_{c}")
+            fake_rate = lep_pt_eta_tight.Clone(f"Fake_Rate_{s}_{channel_name}")
             fake_rate.Divide(lep_pt_eta_loose)
             out.cd()
             fake_rate.Write()
@@ -166,7 +171,7 @@ def main(options, args):
                 eta_range[y] = eta
 
                 # get fake rate
-                projX = fake_rate.ProjectionX(f"Fake_Rate_{s}_{c}_{y}", y, y)
+                projX = fake_rate.ProjectionX(f"Fake_Rate_{s}_{channel_name}_{y}", y, y)
                 h_F, h_f = make_fake_rate_histograms(projX, x_range)
                 fake_rate_map[y][s] = h_f
 
@@ -189,16 +194,16 @@ def main(options, args):
 
             # make stack
             hs = ROOT.THStack()
-            for i, s in enumerate(samples):
-                samp = sample.Sample(s, None, **{'add': [s], 'subtract': []})
-                fake_rate_map[y][s].SetMarkerColor(i + 1)
-                fake_rate_map[y][s].SetLineColor(i + 1)
-                mc_map[samp] = fake_rate_map[y][s]
+            for s in samples:
+                sample_config = conf.get_sample(s)
+                fake_rate_map[y][s].SetMarkerColor(sample_config.lineColor)
+                fake_rate_map[y][s].SetLineColor(sample_config.lineColor)
+                mc_map[sample_config] = fake_rate_map[y][s]
                 hs.Add(fake_rate_map[y][s])
 
             # channel object for plotting
             eta = eta_range[y]
-            chan = channel.Channel(f"{s}_{c}_{y}", [c, f"|#eta| = [{eta[0]}, {eta[1]}]"], "2018", [], [])
+            chan = channel.Channel(f"{s}_{channel_name}_{y}", [channel_name, f"|#eta| = [{eta[0]}, {eta[1]}]"], "2018", [], [])
 
             # canvas
             canv = utils.make_canvas(hs.GetStack().Last(), lep_pt, chan, x=800, y=800, y_split=0, events="f")
@@ -207,7 +212,7 @@ def main(options, args):
             canv.proxy_up.SetMaximum(y_range[1])
             canv.make_legend(None, None, mc_map, mc_map.keys(), draw_option="pe")
             hs.Draw("same nostack")
-            canv.print(os.path.join(plots_folder, f"{options.output}_{c}_{y}.pdf"))
+            canv.print(os.path.join(plots_folder, f"{options.output}_{channel_name}_{y}.pdf"))
 
     # close out file
     out.Close()
@@ -220,6 +225,9 @@ if __name__ == "__main__":
     # ----------------------------------------------------
     # arguments
     # ----------------------------------------------------
+    parser.add_option('-a', '--analysis-config',
+                      action="store", dest="analysis_config",
+                      help="analysis config file")
     parser.add_option('-i', '--input',
                       action="store", dest="input",
                       help="input root file")
@@ -243,5 +251,9 @@ if __name__ == "__main__":
     # parse input arguments
     options, args = parser.parse_args()
 
+    # config
+    from charmplot.control import globalConfig
+    conf = globalConfig.GlobalConfig(options.analysis_config, options.analysis_config)
+
     # run
-    main(options, args)
+    main(conf, options, args)

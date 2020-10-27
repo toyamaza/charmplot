@@ -42,7 +42,7 @@ variables = [
         "label": "#eta(lep)",
         "x_range": [-3.0, 3.0],
         "ratio_range": [0.89, 1.11],
-        "rebin": 4,
+        "rebin": 7,
     }),
     variable.Variable("lep_pt", **{
         "label": "p_{T}(lep)",
@@ -68,12 +68,12 @@ variables = [
     variable.Variable("Dmeson_pt", **{
         "label": "p_{T}(D+)",
         "unit": "GeV",
-        # "x_range": [0, 100],
-        "ratio_range": [0.89, 1.11],
-        "rebin": 150,
+        "x_range": [0, 100],
+        "ratio_range": [0.5, 1.5],
+        "rebin": 10,
     }),
     variable.Variable("Dmeson_eta", **{
-        "label": "#eta(lep)",
+        "label": "#eta(D+)",
         "x_range": [-3.0, 3.0],
         "ratio_range": [0.89, 1.11],
         "rebin": 4,
@@ -172,6 +172,15 @@ def main(options):
             h_t.Rebin(var.rebin)
             h_r_all.Rebin(var.rebin)
             h_r_fid.Rebin(var.rebin)
+
+            # temp
+            if var.name == "Dmeson_pt":
+                if c == "el_plus":
+                    h_d.SetBinContent(1, 27900)
+                    h_d.SetBinError(1, 1050)
+                elif c == "el_minus":
+                    h_d.SetBinContent(1, 27900)
+                    h_d.SetBinError(1, 1000)
 
             # channel
             chan = channel.Channel(c, ['W+jets inclusive', c], "2018", [], [])

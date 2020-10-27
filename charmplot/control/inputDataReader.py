@@ -20,7 +20,7 @@ class InputDataReader(object):
         self.read_input_files()
 
     def get_histogram_from_file(self, f, channel, sample, variable, c, extra_rebin=1, sys=None):
-        logger.debug(f"In get_histogram_from_file with {channel.name} {sample.name}")
+        logger.debug(f"In get_histogram_from_file with {f.GetName()} {channel.name} {sample.name}")
         # logger.debug(f"In get_histogram_from_file with {channel.name} {sample.name} {variable} {c} {f} extra_rebin: {extra_rebin}")
         h_name = os.path.join(c, "__".join([c, variable.name]))
         h = None
@@ -44,6 +44,10 @@ class InputDataReader(object):
         # scale histogram
         scale_factors = utils.read_scale_factors(self.channel_scale_factors)
         self.scale_histogram(h_new, sample, c, scale_factors)
+
+        # scaling from MC config
+        if sample.scaleMC and 'data' not in f.GetName():
+            h_new.Scale(sample.scaleMC)
         return h_new
 
     def scale_histogram(self, h, sample, channel, scale_factors):

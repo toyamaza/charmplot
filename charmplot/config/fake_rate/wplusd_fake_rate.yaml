@@ -1,0 +1,122 @@
+colorScheme: gemstone_hues
+
+variablesConf: charmed_wjets
+
+samplesConf: real_fake_rate_measurement
+
+channels:
+  Tight_2018_el_0tag_QCD_Dplus:
+    regions:
+      - Tight_2018_el_0tag_QCD_Dplus
+    samples:
+      - MG_Multijet
+      - Sh_Multijet
+      - MG_Multijet_Up
+      - MG_Multijet_Dn
+    label:
+      - "2018 el QCD Tight"
+      - "MET < 30 GeV, mT < 60 GeV"
+    lumi: "2018"
+    save_to_file: True
+
+  Tight_2018_el_1tag_QCD_Dplus:
+    regions:
+      - Tight_2018_el_1tag_QCD_Dplus
+      - Tight_2018_el_2tag_QCD_Dplus
+    samples:
+      - MG_Multijet
+      - Sh_Multijet
+      - MG_Multijet_Up
+      - MG_Multijet_Dn
+    label:
+      - "2018 el QCD Tight"
+      - "MET < 30 GeV, mT < 60 GeV"
+    lumi: "2018"
+    save_to_file: True
+
+  Tight_2018_mu_0tag_QCD_Dplus:
+    regions:
+      - Tight_2018_mu_0tag_QCD_Dplus
+    samples:
+      - MG_Multijet
+      - Sh_Multijet
+      - MG_Multijet_Up
+      - MG_Multijet_Dn
+    label:
+      - "2018 mu QCD Tight"
+      - "MET < 30 GeV, mT < 60 GeV"
+    lumi: "2018"
+    save_to_file: True
+
+  Tight_2018_mu_1tag_QCD_Dplus:
+    regions:
+      - Tight_2018_mu_1tag_QCD_Dplus
+      - Tight_2018_mu_2tag_QCD_Dplus
+    samples:
+      - MG_Multijet
+      - Sh_Multijet
+      - MG_Multijet_Up
+      - MG_Multijet_Dn
+    label:
+      - "2018 mu QCD Tight"
+      - "MET < 30 GeV, mT < 60 GeV"
+    lumi: "2018"
+    save_to_file: True
+
+  AntiTight_2018_el_0tag_QCD_Dplus:
+    regions:
+      - AntiTight_2018_el_0tag_QCD_Dplus
+    samples:
+      - MG_Multijet
+      - Sh_Multijet
+      - MG_Multijet_Up
+      - MG_Multijet_Dn
+    label:
+      - "2018 el QCD AntiTight"
+      - "MET < 30 GeV, mT < 60 GeV"
+    lumi: "2018"
+    save_to_file: True
+
+  AntiTight_2018_el_1tag_QCD_Dplus:
+    regions:
+      - AntiTight_2018_el_1tag_QCD_Dplus
+      - AntiTight_2018_el_2tag_QCD_Dplus
+    samples:
+      - MG_Multijet
+      - Sh_Multijet
+      - MG_Multijet_Up
+      - MG_Multijet_Dn
+    label:
+      - "2018 el QCD AntiTight"
+      - "MET < 30 GeV, mT < 60 GeV"
+    lumi: "2018"
+    save_to_file: True
+
+  AntiTight_2018_mu_0tag_QCD_Dplus:
+    regions:
+      - AntiTight_2018_mu_0tag_QCD_Dplus
+    samples:
+      - MG_Multijet
+      - Sh_Multijet
+      - MG_Multijet_Up
+      - MG_Multijet_Dn
+    label:
+      - "2018 mu QCD AntiTight"
+      - "MET < 30 GeV, mT < 60 GeV"
+    lumi: "2018"
+    save_to_file: True
+
+  AntiTight_2018_mu_1tag_QCD_Dplus:
+    regions:
+      - AntiTight_2018_mu_1tag_QCD_Dplus
+      - AntiTight_2018_mu_2tag_QCD_Dplus
+    samples:
+      - MG_Multijet
+      - Sh_Multijet
+      - MG_Multijet_Up
+      - MG_Multijet_Dn
+    label:
+      - "2018 mu QCD AntiTight"
+      - "MET < 30 GeV, mT < 60 GeV"
+    lumi: "2018"
+    save_to_file: True

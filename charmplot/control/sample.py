@@ -14,6 +14,7 @@ class Sample(object):
     subtract = []
     color_scheme = None
     statError = True
+    scaleMC = None
 
     def __init__(self, name, color_scheme=None, **kwargs):
         # sample name
@@ -60,6 +61,9 @@ class Sample(object):
 
         if 'statError' in kwargs:
             self.statError = kwargs.pop('statError')
+
+        if 'scaleMC' in kwargs:
+            self.scaleMC = float(kwargs.pop('scaleMC'))
 
     def set_color_scheme(self, scheme):
         self.color_scheme = scheme
