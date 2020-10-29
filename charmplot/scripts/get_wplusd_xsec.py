@@ -42,7 +42,7 @@ variables = [
         "label": "#eta(lep)",
         "x_range": [-3.0, 3.0],
         "ratio_range": [0.89, 1.11],
-        "rebin": 7,
+        "rebin": 5,
     }),
     variable.Variable("lep_pt", **{
         "label": "p_{T}(lep)",
@@ -68,7 +68,7 @@ variables = [
     variable.Variable("Dmeson_pt", **{
         "label": "p_{T}(D+)",
         "unit": "GeV",
-        "x_range": [0, 100],
+        "x_range": [0, 150],
         "ratio_range": [0.5, 1.5],
         "rebin": 10,
     }),
@@ -91,13 +91,17 @@ def main(options):
     channels = options.channels.split(",")
 
     # inclusive histograms
-    h_inclusive_d = ROOT.TH1F("h_inclusive_d", "h_inclusive_d", len(channels), 0, len(channels))
-    h_inclusive_r = ROOT.TH1F("h_inclusive_r", "h_inclusive_r", len(channels), 0, len(channels))
-    h_inclusive_t = ROOT.TH1F("h_inclusive_t", "h_inclusive_t", len(channels), 0, len(channels))
+    h_d_inc = ROOT.TH1F("h_d_inc", "h_d_inc", len(channels), 0, len(channels))
+    h_r_inc = ROOT.TH1F("h_r_inc", "h_r_inc", len(channels), 0, len(channels))
+    h_t_inc = ROOT.TH1F("h_t_inc", "h_t_inc", len(channels), 0, len(channels))
+    h_r_all_inc = ROOT.TH1F("h_r_all_inc", "h_r_all_inc", len(channels), 0, len(channels))
+    h_r_fid_inc = ROOT.TH1F("h_r_fid_inc", "h_r_fid_inc", len(channels), 0, len(channels))
     for i, c in enumerate(channels):
-        h_inclusive_d.GetXaxis().SetBinLabel(i + 1, c)
-        h_inclusive_r.GetXaxis().SetBinLabel(i + 1, c)
-        h_inclusive_t.GetXaxis().SetBinLabel(i + 1, c)
+        h_d_inc.GetXaxis().SetBinLabel(i + 1, c)
+        h_r_inc.GetXaxis().SetBinLabel(i + 1, c)
+        h_t_inc.GetXaxis().SetBinLabel(i + 1, c)
+        h_r_all_inc.GetXaxis().SetBinLabel(i + 1, c)
+        h_r_fid_inc.GetXaxis().SetBinLabel(i + 1, c)
 
     for var in variables:
 
@@ -152,19 +156,27 @@ def main(options):
             if var == variables[0]:
                 # pointers to store errors
                 err_d = c_double(0)
-                err_m = c_double(0)
+                err_r = c_double(0)
                 err_t = c_double(0)
+                err_r_all = c_double(0)
+                err_r_fid = c_double(0)
                 int_d = h_d.IntegralAndError(0, h_d.GetNbinsX() + 1, err_d)
-                int_m = h_r.IntegralAndError(0, h_r.GetNbinsX() + 1, err_m)
+                int_r = h_r.IntegralAndError(0, h_r.GetNbinsX() + 1, err_r)
                 int_t = h_t.IntegralAndError(0, h_t.GetNbinsX() + 1, err_t)
+                int_r_all = h_r_all.IntegralAndError(0, h_r_all.GetNbinsX() + 1, err_r_all)
+                int_r_fid = h_r_fid.IntegralAndError(0, h_r_fid.GetNbinsX() + 1, err_r_fid)
 
                 # set inclusive histograms
-                h_inclusive_d.SetBinContent(i + 1, int_d)
-                h_inclusive_r.SetBinContent(i + 1, int_m)
-                h_inclusive_t.SetBinContent(i + 1, int_t)
-                h_inclusive_d.SetBinError(i + 1, err_d.value)
-                h_inclusive_r.SetBinError(i + 1, err_m.value)
-                h_inclusive_t.SetBinError(i + 1, err_t.value)
+                h_d_inc.SetBinContent(i + 1, int_d)
+                h_r_inc.SetBinContent(i + 1, int_r)
+                h_t_inc.SetBinContent(i + 1, int_t)
+                h_r_all_inc.SetBinContent(i + 1, int_r_all)
+                h_r_fid_inc.SetBinContent(i + 1, int_r_fid)
+                h_d_inc.SetBinError(i + 1, err_d.value)
+                h_r_inc.SetBinError(i + 1, err_r.value)
+                h_t_inc.SetBinError(i + 1, err_t.value)
+                h_r_all_inc.SetBinError(i + 1, err_r_all.value)
+                h_r_fid_inc.SetBinError(i + 1, err_r_fid.value)
 
             # rebin
             h_d.Rebin(var.rebin)
@@ -172,15 +184,6 @@ def main(options):
             h_t.Rebin(var.rebin)
             h_r_all.Rebin(var.rebin)
             h_r_fid.Rebin(var.rebin)
-
-            # temp
-            if var.name == "Dmeson_pt":
-                if c == "el_plus":
-                    h_d.SetBinContent(1, 27900)
-                    h_d.SetBinError(1, 1050)
-                elif c == "el_minus":
-                    h_d.SetBinContent(1, 27900)
-                    h_d.SetBinError(1, 1000)
 
             # channel
             chan = channel.Channel(c, ['W+jets inclusive', c], "2018", [], [])
@@ -360,50 +363,99 @@ def main(options):
             # Print out
             canv.print_all(options.output, c, var.name)
 
-    # inclusive efficiency
-    h_eff = h_inclusive_r.Clone("h_eff")
-    h_eff.Divide(h_inclusive_t)
-
     # inclusive cross-section
-    h_xsec = h_inclusive_d.Clone("h_xsec")
-    h_xsec.Multiply(h_inclusive_t)
-    h_xsec.Divide(h_inclusive_r)
-    h_xsec.Scale(1. / float(options.lumi))
-    h_xsec.Scale(1. / 1000)  # fb
+    h_u_inc = h_d_inc.Clone("h_u_inc")
+    h_u_inc.Multiply(h_t_inc)
+    h_u_inc.Divide(h_r_inc)
+    h_u_inc.Multiply(h_r_fid_inc)
+    h_u_inc.Divide(h_r_all_inc)
+    h_u_inc.Scale(1. / float(options.lumi))
 
-    # theory cross-section
-    gr_xsec = ROOT.TGraphErrors()
-    for i in range(h_xsec.GetNbinsX()):
-        if i % 2 == 0:
-            gr_xsec.SetPoint(i, i + 0.5, 11330 / 1000.)
-            gr_xsec.SetPointError(i, 0.5, 300 / 1000.)
-        else:
-            gr_xsec.SetPoint(i, i + 0.5, 8370 / 1000.)
-            gr_xsec.SetPointError(i, 0.5, 220 / 1000.)
-    gr_xsec.SetFillColor(ROOT.kGreen + 1)
-    gr_xsec.SetLineColor(ROOT.kBlack)
+    # prediction
+    h_p_inc = h_t_inc.Clone(f"h_p_inc")
+    h_p_inc.Scale(1. / float(options.lumi))
 
-    # plot efficiency
-    canv_eff = ROOT.TCanvas("canv_eff", "canv_eff", 800, 800)
-    h_eff.Draw("pe text")
-    h_eff.SetMinimum(0)
-    h_eff.SetMaximum(0.3)
-    h_eff.GetYaxis().SetTitle("Total Efficiency")
-    h_eff.GetXaxis().SetTitle("Channel")
-    ROOT.gPad.RedrawAxis()
-    canv_eff.Print(f"{options.output}/inclusive_eff.pdf")
+    # var and channel object
+    var = variable.Variable("Region", **{"label": "Region", "ratio_range": [0.49, 1.51]})
+    chan = channel.Channel('inclusive', ['W+jets inclusive', 'inclusive'], "2018", [], [])
 
-    # plot cross-section
-    canv_eff = ROOT.TCanvas("canv_xsec", "canv_xsec", 800, 800)
-    h_xsec.Draw("pe")
-    gr_xsec.Draw("e2")
-    h_xsec.Draw("pe text same")
-    h_xsec.SetMinimum(0)
-    h_xsec.SetMaximum(20)
-    h_xsec.GetYaxis().SetTitle("Total Cross-Section [fb]")
-    h_xsec.GetXaxis().SetTitle("Channel")
-    ROOT.gPad.RedrawAxis()
-    canv_eff.Print(f"{options.output}/inclusive_xsec.pdf")
+    # samples
+    samples = [sample_MG_Prediction]
+
+    # mc map
+    mc_map = {
+        sample_MG_Prediction: h_p_inc,
+    }
+
+    # total mc
+    hs = utils.make_stack(samples, mc_map)
+    h_mc_tot = utils.make_mc_tot(hs, "mc_tot_inclusive")
+    h_mc_tot.SetLineColor(ROOT.kRed)
+
+    # mc stat error
+    gr_mc, gr_mc_stat_err, gr_mc_stat_err_only = utils.make_stat_err_and_nominal(h_mc_tot)
+    gr_mc.SetLineColor(ROOT.kRed)
+    gr_mc.SetMarkerSize(0.8)
+    gr_mc.SetMarkerStyle(24)
+    gr_mc.SetMarkerColor(ROOT.kRed)
+    gr_mc_stat_err.SetLineColor(ROOT.kRed)
+    gr_mc_stat_err.SetFillColor(ROOT.kRed - 10)
+    gr_mc_stat_err.SetFillStyle(1001)
+    gr_mc_stat_err.SetMarkerSize(0.8)
+    gr_mc_stat_err.SetMarkerStyle(24)
+    gr_mc_stat_err.SetMarkerColor(ROOT.kRed)
+    gr_mc_stat_err_only.SetLineColor(ROOT.kRed)
+    gr_mc_stat_err_only.SetFillColor(ROOT.kRed - 10)
+    gr_mc_stat_err_only.SetFillStyle(1001)
+    gr_mc_stat_err_only.SetMarkerSize(0.8)
+    gr_mc_stat_err_only.SetMarkerStyle(24)
+    gr_mc_stat_err_only.SetMarkerColor(ROOT.kRed)
+
+    # data stat error
+    gr_data, gr_data_stat_err, gr_data_stat_err_only = utils.make_stat_err_and_nominal(h_u_inc)
+    gr_data.SetMarkerSize(0.8)
+    gr_data_stat_err.SetFillColor(ROOT.kGray + 3)
+    gr_data_stat_err.SetFillStyle(3354)
+    gr_data_stat_err.SetMarkerSize(0.8)
+    gr_data_stat_err_only.SetFillColor(ROOT.kGray + 3)
+    gr_data_stat_err_only.SetFillStyle(3354)
+    gr_data_stat_err_only.SetMarkerSize(0.8)
+    ROOT.gStyle.SetHatchesSpacing(0.50)
+
+    # canvas
+    canv = utils.make_canvas_unfold(h_u_inc, var, chan, x=800, y=800, events="#sigma_{fig}")
+
+    # configure histograms
+    canv.configure_histograms(mc_map, h_u_inc)
+    h_ratio = utils.make_ratio(h_mc_tot, h_u_inc)
+    gr_mc_ratio = gr_mc_stat_err_only.Clone()
+    for i in range(0, h_mc_tot.GetNbinsX() + 2):
+        gr_mc_stat_err_only.SetPoint(i, gr_mc_stat_err_only.GetX()[i], h_ratio.GetBinContent(i))
+        gr_mc_ratio.SetPoint(i, gr_mc_ratio.GetX()[i], h_ratio.GetBinContent(i))
+        gr_mc_ratio.SetPointError(i, h_ratio.GetBinWidth(i) * 0.5, h_ratio.GetBinWidth(i) * 0.5, 0, 0)
+
+    # top pad
+    canv.pad1.cd()
+    gr_mc_stat_err.Draw("e2")
+    gr_mc.Draw("pe")
+    gr_data_stat_err.Draw("e2")
+    gr_data.Draw("pe")
+
+    # make legend
+    canv.make_legend(gr_data_stat_err, [gr_mc_stat_err], samples, data_name="MadGraph (MG Unf.)")
+
+    # set maximum after creating legend
+    canv.set_maximum((h_u_inc, h_mc_tot), var, mc_min=utils.get_mc_min(mc_map, samples))
+
+    # bottom pad
+    canv.pad2.cd()
+    canv.set_axis_title(canv.proxy_dn, "MC / Data")
+    gr_data_stat_err_only.Draw("e2")
+    gr_mc_stat_err_only.Draw("e2")
+    gr_mc_ratio.Draw("pe")
+
+    # Print out
+    canv.print_all(options.output, "inclusive", "integral")
 
 
 if __name__ == "__main__":

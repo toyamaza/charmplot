@@ -4,6 +4,7 @@ variablesConf: charmed_wjets
 samplesConf: madgraph_truth
 data: Data
 systematics:
+  - matrix_method
   - experimental
   - ttbar_theory_pdf
   - ttbar_theory_choice

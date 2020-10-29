@@ -52,7 +52,7 @@ class CanvasBase(object):
 
     def make_proxy_histogram(self, h, name="proxy"):
         proxy = h.Clone(f"{self.name}_{h.GetName()}_{name}")
-        for i in range(0, proxy.GetNbinsX() + 2):
+        for i in range(1, proxy.GetNbinsX() + 1):
             proxy.SetBinContent(i, 0)
             proxy.SetBinError(i, 0)
         proxy.SetMarkerSize(0)
