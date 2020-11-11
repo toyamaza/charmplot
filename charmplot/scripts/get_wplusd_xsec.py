@@ -5,9 +5,11 @@ from charmplot.control import sample
 from charmplot.control import variable
 from ctypes import c_double
 import logging
+import math
 import os
 import ROOT
 import sys
+import yaml
 
 # ATLAS Style
 dirname = os.path.join(os.path.dirname(__file__), "../../atlasrootstyle")
@@ -80,6 +82,13 @@ variables = [
     }),
 ]
 
+# rename channel
+rename_map = {
+    "el_minus" : "W^{-}(e^{-}#bar{#nu})+D^{+}",
+    "el_plus" : "W^{+}(e^{+}#nu)+D^{-}",
+    "mu_minus" : "W^{-}(#mu^{-}#bar{#nu})+D^{+}",
+    "mu_plus" : "W^{+}(#mu^{+}#nu)+D^{-}",
+}
 
 def main(options):
     f_d = ROOT.TFile(options.data, "READ")
@@ -90,6 +99,23 @@ def main(options):
     # channels
     channels = options.channels.split(",")
 
+    # TREx output
+    trex_yields = {}
+    if options.trex:
+        for c in channels:
+            trex_yields[c] = {'Yield' : 0, 'Error' : 0}
+            with open(os.path.join(options.trex, f'WCharm_{c}_all_OS-SS/WCharm_{c}_asimov_OS-SS/Tables/Table_postfit.yaml')) as f:
+                table = yaml.load(f, Loader=yaml.FullLoader)
+                for x in table:
+                    print(x['Region'])
+                    for s in x['Samples']:
+                        if 'Sample' in s and s['Sample'] == "W+D":
+                            print(s['Sample'])
+                            print(s['Yield'])
+                            print(s['Error'])
+                            trex_yields[c]['Yield'] += s['Yield']
+                            trex_yields[c]['Error'] = math.sqrt((s['Error'])**2 + (trex_yields[c]['Error'])**2)
+
     # inclusive histograms
     h_d_inc = ROOT.TH1F("h_d_inc", "h_d_inc", len(channels), 0, len(channels))
     h_r_inc = ROOT.TH1F("h_r_inc", "h_r_inc", len(channels), 0, len(channels))
@@ -97,11 +123,14 @@ def main(options):
     h_r_all_inc = ROOT.TH1F("h_r_all_inc", "h_r_all_inc", len(channels), 0, len(channels))
     h_r_fid_inc = ROOT.TH1F("h_r_fid_inc", "h_r_fid_inc", len(channels), 0, len(channels))
     for i, c in enumerate(channels):
-        h_d_inc.GetXaxis().SetBinLabel(i + 1, c)
-        h_r_inc.GetXaxis().SetBinLabel(i + 1, c)
-        h_t_inc.GetXaxis().SetBinLabel(i + 1, c)
-        h_r_all_inc.GetXaxis().SetBinLabel(i + 1, c)
-        h_r_fid_inc.GetXaxis().SetBinLabel(i + 1, c)
+        h_d_inc.GetXaxis().SetBinLabel(i + 1, rename_map[c])
+        if trex_yields:
+            h_d_inc.SetBinContent(i + 1, trex_yields[c]['Yield'])
+            h_d_inc.SetBinError(i + 1, trex_yields[c]['Error'])
+        h_r_inc.GetXaxis().SetBinLabel(i + 1, rename_map[c])
+        h_t_inc.GetXaxis().SetBinLabel(i + 1, rename_map[c])
+        h_r_all_inc.GetXaxis().SetBinLabel(i + 1, rename_map[c])
+        h_r_fid_inc.GetXaxis().SetBinLabel(i + 1, rename_map[c])
 
     for var in variables:
 
@@ -167,12 +196,14 @@ def main(options):
                 int_r_fid = h_r_fid.IntegralAndError(0, h_r_fid.GetNbinsX() + 1, err_r_fid)
 
                 # set inclusive histograms
-                h_d_inc.SetBinContent(i + 1, int_d)
+                if not trex_yields:
+                    h_d_inc.SetBinContent(i + 1, int_d)
                 h_r_inc.SetBinContent(i + 1, int_r)
                 h_t_inc.SetBinContent(i + 1, int_t)
                 h_r_all_inc.SetBinContent(i + 1, int_r_all)
                 h_r_fid_inc.SetBinContent(i + 1, int_r_fid)
-                h_d_inc.SetBinError(i + 1, err_d.value)
+                if not trex_yields:
+                    h_d_inc.SetBinError(i + 1, err_d.value)
                 h_r_inc.SetBinError(i + 1, err_r.value)
                 h_t_inc.SetBinError(i + 1, err_t.value)
                 h_r_all_inc.SetBinError(i + 1, err_r_all.value)
@@ -423,7 +454,7 @@ def main(options):
     ROOT.gStyle.SetHatchesSpacing(0.50)
 
     # canvas
-    canv = utils.make_canvas_unfold(h_u_inc, var, chan, x=800, y=800, events="#sigma_{fig}")
+    canv = utils.make_canvas_unfold(h_u_inc, var, chan, x=800, y=800, events="#sigma_{fid}")
 
     # configure histograms
     canv.configure_histograms(mc_map, h_u_inc)
@@ -442,7 +473,7 @@ def main(options):
     gr_data.Draw("pe")
 
     # make legend
-    canv.make_legend(gr_data_stat_err, [gr_mc_stat_err], samples, data_name="MadGraph (MG Unf.)")
+    canv.make_legend(gr_data_stat_err, [gr_mc_stat_err], samples, data_name="Asimov (MG Unf.)")
 
     # set maximum after creating legend
     canv.set_maximum((h_u_inc, h_mc_tot), var, mc_min=utils.get_mc_min(mc_map, samples))
@@ -481,14 +512,17 @@ if __name__ == "__main__":
                       action="store", dest="channels",
                       help="list of channels",
                       default="el_plus,el_minus,mu_plus,mu_minus")
-    parser.add_option('--mode',
-                      action="store", dest="mode",
-                      help="charm meson mode",
-                      default="Dplus")
     parser.add_option('-l', '--lumi',
                       action="store", dest="lumi",
                       help="luminosity",
                       default=58450.1)
+    parser.add_option('--mode',
+                      action="store", dest="mode",
+                      help="charm meson mode",
+                      default="Dplus")
+    parser.add_option('--trex',
+                      action="store", dest="trex",
+                      help="trex output")
 
     # parse input arguments
     options, args = parser.parse_args()
