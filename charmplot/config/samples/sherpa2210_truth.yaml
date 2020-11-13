@@ -1,0 +1,186 @@
+---
+Data:
+  add: data
+  subtract: null
+Diboson:
+  add: Diboson
+  fillColor: '13000'
+  legendLabel: Diboson
+  shortName: Diboson
+  subtract: null
+MockMC:
+  add: data
+  fillColor: '13001'
+  legendLabel: MockMC
+  shortName: MockMC
+  statError: true
+  subtract: null
+Multijet:
+  add: data
+  fillColor: '14002'
+  legendLabel: Multijet
+  shortName: Multijet
+  subtract:
+    - Sh_2210_Wjets_light_emu
+    - Sh_2210_Wjets_cjets_emu
+    - Sh_2210_Wjets_bjets_emu
+    - Sh_2210_Wjets_tau
+    - Sh_2210_Zjets_emu
+    - Sh_2210_Zjets_tau
+    - Top_ttbar
+    - Top_single_top
+    - Top_ttx
+    - Diboson
+Multijet_MatrixMethod:
+  add: data
+  fillColor: '14003'
+  legendLabel: Multijet
+  shortName: Multijet_MatrixMethod
+  subtract: null
+Other:
+  add:
+    - Diboson
+    - Sh_2210_Zjets_tau
+    - Sh_2210_Wjets_tau
+  fillColor: '15000'
+  legendLabel: Other
+  shortName: Other
+  subtract: null
+Top:
+  add:
+    - Top_ttbar
+    - Top_single_top
+    - Top_ttx
+  fillColor: '12001'
+  legendLabel: Top
+  shortName: Top
+  subtract: null
+Top_Matched:
+  add:
+    - Top_ttbar
+    - Top_single_top
+    - Top_ttx
+  fillColor: '12002'
+  legendLabel: 'Top w/ #it{D}'
+  shortName: Top_Matched
+  subtract: null
+Top_Rest:
+  add:
+    - Top_ttbar
+    - Top_single_top
+    - Top_ttx
+  fillColor: '12000'
+  legendLabel: Top
+  shortName: Top_Rest
+  subtract: null
+Top_single_top:
+  add: Top_single_top
+  fillColor: '12002'
+  legendLabel: 'single-#it{t}'
+  subtract: null
+Top_ttbar:
+  add: Top_ttbar
+  fillColor: '12001'
+  legendLabel: 't#bar{t}'
+  subtract: null
+Top_ttx:
+  add: Top_ttx
+  fillColor: '12003'
+  legendLabel: 't#bar{t}X'
+  subtract: null
+Wjets_emu:
+  add:
+    - Sh_2210_Wjets_light_emu
+    - Sh_2210_Wjets_cjets_emu
+    - Sh_2210_Wjets_bjets_emu
+  fillColor: '10002'
+  legendLabel: W#rightarrowl#nu
+  subtract: null
+Wjets_emu_Matched:
+  add:
+    - Sh_2210_Wjets_light_emu
+    - Sh_2210_Wjets_cjets_emu
+    - Sh_2210_Wjets_bjets_emu
+  fillColor: '10004'
+  legendLabel: 'W+#it{D}'
+  shortName: Wjets_emu_Matched
+  subtract: null
+Wjets_emu_NoMatch:
+  add:
+    - Sh_2210_Wjets_light_emu
+    - Sh_2210_Wjets_cjets_emu
+    - Sh_2210_Wjets_bjets_emu
+    - Top_ttbar
+    - Top_single_top
+    - Top_ttx
+  fillColor: '10000'
+  legendLabel: No Match
+  shortName: Wjets_emu_NoMatch
+  subtract: null
+Wjets_emu_Rest:
+  add:
+    - Sh_2210_Wjets_light_emu
+    - Sh_2210_Wjets_cjets_emu
+    - Sh_2210_Wjets_bjets_emu
+  fillColor: '10002'
+  legendLabel: W+jets
+  shortName: Wjets_emu_Rest
+  subtract: null
+Wjets_emu_bjets:
+  add:
+    - Sh_2210_Wjets_bjets_emu
+  legendLabel: W#rightarrowl#nu + b
+  lineColor: '10004'
+  subtract: null
+Wjets_emu_cjets:
+  add:
+    - Sh_2210_Wjets_cjets_emu
+  legendLabel: W#rightarrowl#nu + c
+  lineColor: '10002'
+  subtract: null
+Wjets_emu_light:
+  add:
+    - Sh_2210_Wjets_light_emu
+  legendLabel: W#rightarrowl#nu + u
+  lineColor: '10000'
+  subtract: null
+Wjets_tau:
+  add: Sh_2210_Wjets_tau
+  fillColor: '10003'
+  legendLabel: W#rightarrow#tau#nu
+  subtract: null
+Zjets:
+  add:
+    - Sh_2210_Zjets_emu
+    - Sh_2210_Zjets_tau
+  fillColor: '11002'
+  legendLabel: Z+jets
+  subtract: null
+Zjets_emu:
+  add:
+    - Sh_2210_Zjets_emu
+  fillColor: '11002'
+  legendLabel: Z#rightarrowll
+  shortName: Zjets_emu
+  subtract: null
+Zjets_emu_Matched:
+  add:
+    - Sh_2210_Zjets_emu
+  fillColor: '11002'
+  legendLabel: 'Z+#it{D}'
+  shortName: Zjets_emu_Matched
+  subtract: null
+Zjets_emu_Rest:
+  add:
+    - Sh_2210_Zjets_emu
+  fillColor: '11000'
+  legendLabel: Z#rightarrowll
+  shortName: Zjets_emu_Rest
+  subtract: null
+Zjets_tau:
+  add: Sh_2210_Zjets_tau
+  fillColor: '11003'
+  legendLabel: Z#rightarrow#tau#tau
+  shortName: Zjets_tau
+  subtract: null
+colorScheme: gemstone_hues

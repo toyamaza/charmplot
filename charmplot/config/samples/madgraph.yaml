@@ -100,7 +100,7 @@ Zjets_emu:
     - MG_Zjets_cjets_emu
     - MG_Zjets_bjets_emu
   subtract:
-  fillColor: "11000"
+  fillColor: "11002"
   legendLabel: "Z#rightarrowll"
 
 Top:
@@ -142,7 +142,7 @@ Other:
     - MG_Zjets_tau
     - MG_Wjets_tau
   subtract:
-  fillColor: "13000"
+  fillColor: "15000"
   legendLabel: Other
 
 Multijet:

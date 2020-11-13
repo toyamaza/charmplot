@@ -1180,3 +1180,843 @@ channels:
       - Tight_2018_mu_plus_2tag_SR_Dplus_OS
       - AntiTight_2018_mu_plus_2tag_SR_Dplus_SS
       - '-Tight_2018_mu_plus_2tag_SR_Dplus_SS'
+
+  2018_SR_Dplus_OS_Matched:
+    make_plots: false
+    regions:
+      - 2018_el_minus_0tag_SR_Dplus_OS_Matched
+      - 2018_el_minus_1tag_SR_Dplus_OS_Matched
+      - 2018_el_minus_2tag_SR_Dplus_OS_Matched
+      - 2018_el_plus_0tag_SR_Dplus_OS_Matched
+      - 2018_el_plus_1tag_SR_Dplus_OS_Matched
+      - 2018_el_plus_2tag_SR_Dplus_OS_Matched
+      - 2018_mu_minus_0tag_SR_Dplus_OS_Matched
+      - 2018_mu_minus_1tag_SR_Dplus_OS_Matched
+      - 2018_mu_minus_2tag_SR_Dplus_OS_Matched
+      - 2018_mu_plus_0tag_SR_Dplus_OS_Matched
+      - 2018_mu_plus_1tag_SR_Dplus_OS_Matched
+      - 2018_mu_plus_2tag_SR_Dplus_OS_Matched
+  2018_SR_Dplus_OS_Rest:
+    make_plots: false
+    regions:
+      - 2018_el_minus_0tag_SR_Dplus_OS
+      - 2018_el_minus_1tag_SR_Dplus_OS
+      - 2018_el_minus_2tag_SR_Dplus_OS
+      - 2018_el_plus_0tag_SR_Dplus_OS
+      - 2018_el_plus_1tag_SR_Dplus_OS
+      - 2018_el_plus_2tag_SR_Dplus_OS
+      - 2018_mu_minus_0tag_SR_Dplus_OS
+      - 2018_mu_minus_1tag_SR_Dplus_OS
+      - 2018_mu_minus_2tag_SR_Dplus_OS
+      - 2018_mu_plus_0tag_SR_Dplus_OS
+      - 2018_mu_plus_1tag_SR_Dplus_OS
+      - 2018_mu_plus_2tag_SR_Dplus_OS
+      - '-2018_el_minus_0tag_SR_Dplus_OS_Matched'
+      - '-2018_el_minus_1tag_SR_Dplus_OS_Matched'
+      - '-2018_el_minus_2tag_SR_Dplus_OS_Matched'
+      - '-2018_el_plus_0tag_SR_Dplus_OS_Matched'
+      - '-2018_el_plus_1tag_SR_Dplus_OS_Matched'
+      - '-2018_el_plus_2tag_SR_Dplus_OS_Matched'
+      - '-2018_mu_minus_0tag_SR_Dplus_OS_Matched'
+      - '-2018_mu_minus_1tag_SR_Dplus_OS_Matched'
+      - '-2018_mu_minus_2tag_SR_Dplus_OS_Matched'
+      - '-2018_mu_plus_0tag_SR_Dplus_OS_Matched'
+      - '-2018_mu_plus_1tag_SR_Dplus_OS_Matched'
+      - '-2018_mu_plus_2tag_SR_Dplus_OS_Matched'
+      - '-2018_el_minus_0tag_SR_Dplus_OS_Other'
+      - '-2018_el_minus_1tag_SR_Dplus_OS_Other'
+      - '-2018_el_minus_2tag_SR_Dplus_OS_Other'
+      - '-2018_el_plus_0tag_SR_Dplus_OS_Other'
+      - '-2018_el_plus_1tag_SR_Dplus_OS_Other'
+      - '-2018_el_plus_2tag_SR_Dplus_OS_Other'
+      - '-2018_mu_minus_0tag_SR_Dplus_OS_Other'
+      - '-2018_mu_minus_1tag_SR_Dplus_OS_Other'
+      - '-2018_mu_minus_2tag_SR_Dplus_OS_Other'
+      - '-2018_mu_plus_0tag_SR_Dplus_OS_Other'
+      - '-2018_mu_plus_1tag_SR_Dplus_OS_Other'
+      - '-2018_mu_plus_2tag_SR_Dplus_OS_Other'
+  2018_SR_Dplus_OS_NoMatch:
+    make_plots: false
+    regions:
+      - 2018_el_minus_0tag_SR_Dplus_OS_Other
+      - 2018_el_minus_1tag_SR_Dplus_OS_Other
+      - 2018_el_minus_2tag_SR_Dplus_OS_Other
+      - 2018_el_plus_0tag_SR_Dplus_OS_Other
+      - 2018_el_plus_1tag_SR_Dplus_OS_Other
+      - 2018_el_plus_2tag_SR_Dplus_OS_Other
+      - 2018_mu_minus_0tag_SR_Dplus_OS_Other
+      - 2018_mu_minus_1tag_SR_Dplus_OS_Other
+      - 2018_mu_minus_2tag_SR_Dplus_OS_Other
+      - 2018_mu_plus_0tag_SR_Dplus_OS_Other
+      - 2018_mu_plus_1tag_SR_Dplus_OS_Other
+      - 2018_mu_plus_2tag_SR_Dplus_OS_Other
+  MatrixMethod_2018_SR_Dplus_OS:
+    make_plots: false
+    regions:
+      - AntiTight_2018_el_minus_0tag_SR_Dplus_OS
+      - AntiTight_2018_el_minus_1tag_SR_Dplus_OS
+      - AntiTight_2018_el_minus_2tag_SR_Dplus_OS
+      - AntiTight_2018_el_plus_0tag_SR_Dplus_OS
+      - AntiTight_2018_el_plus_1tag_SR_Dplus_OS
+      - AntiTight_2018_el_plus_2tag_SR_Dplus_OS
+      - AntiTight_2018_mu_minus_0tag_SR_Dplus_OS
+      - AntiTight_2018_mu_minus_1tag_SR_Dplus_OS
+      - AntiTight_2018_mu_minus_2tag_SR_Dplus_OS
+      - AntiTight_2018_mu_plus_0tag_SR_Dplus_OS
+      - AntiTight_2018_mu_plus_1tag_SR_Dplus_OS
+      - AntiTight_2018_mu_plus_2tag_SR_Dplus_OS
+      - AntiTight_2018_el_minus_0tag_SR_Dplus_OS
+      - '-Tight_2018_el_minus_0tag_SR_Dplus_OS'
+      - '-Tight_2018_el_minus_1tag_SR_Dplus_OS'
+      - '-Tight_2018_el_minus_2tag_SR_Dplus_OS'
+      - '-Tight_2018_el_plus_0tag_SR_Dplus_OS'
+      - '-Tight_2018_el_plus_1tag_SR_Dplus_OS'
+      - '-Tight_2018_el_plus_2tag_SR_Dplus_OS'
+      - '-Tight_2018_mu_minus_0tag_SR_Dplus_OS'
+      - '-Tight_2018_mu_minus_1tag_SR_Dplus_OS'
+      - '-Tight_2018_mu_minus_2tag_SR_Dplus_OS'
+      - '-Tight_2018_mu_plus_0tag_SR_Dplus_OS'
+      - '-Tight_2018_mu_plus_1tag_SR_Dplus_OS'
+      - '-Tight_2018_mu_plus_2tag_SR_Dplus_OS'
+  2018_SR_Dplus_SS_Matched:
+    make_plots: false
+    regions:
+      - 2018_el_minus_0tag_SR_Dplus_SS_Matched
+      - 2018_el_minus_1tag_SR_Dplus_SS_Matched
+      - 2018_el_minus_2tag_SR_Dplus_SS_Matched
+      - 2018_el_plus_0tag_SR_Dplus_SS_Matched
+      - 2018_el_plus_1tag_SR_Dplus_SS_Matched
+      - 2018_el_plus_2tag_SR_Dplus_SS_Matched
+      - 2018_mu_minus_0tag_SR_Dplus_SS_Matched
+      - 2018_mu_minus_1tag_SR_Dplus_SS_Matched
+      - 2018_mu_minus_2tag_SR_Dplus_SS_Matched
+      - 2018_mu_plus_0tag_SR_Dplus_SS_Matched
+      - 2018_mu_plus_1tag_SR_Dplus_SS_Matched
+      - 2018_mu_plus_2tag_SR_Dplus_SS_Matched
+  2018_SR_Dplus_SS_Rest:
+    make_plots: false
+    regions:
+      - 2018_el_minus_0tag_SR_Dplus_SS
+      - 2018_el_minus_1tag_SR_Dplus_SS
+      - 2018_el_minus_2tag_SR_Dplus_SS
+      - 2018_el_plus_0tag_SR_Dplus_SS
+      - 2018_el_plus_1tag_SR_Dplus_SS
+      - 2018_el_plus_2tag_SR_Dplus_SS
+      - 2018_mu_minus_0tag_SR_Dplus_SS
+      - 2018_mu_minus_1tag_SR_Dplus_SS
+      - 2018_mu_minus_2tag_SR_Dplus_SS
+      - 2018_mu_plus_0tag_SR_Dplus_SS
+      - 2018_mu_plus_1tag_SR_Dplus_SS
+      - 2018_mu_plus_2tag_SR_Dplus_SS
+      - '-2018_el_minus_0tag_SR_Dplus_SS_Matched'
+      - '-2018_el_minus_1tag_SR_Dplus_SS_Matched'
+      - '-2018_el_minus_2tag_SR_Dplus_SS_Matched'
+      - '-2018_el_plus_0tag_SR_Dplus_SS_Matched'
+      - '-2018_el_plus_1tag_SR_Dplus_SS_Matched'
+      - '-2018_el_plus_2tag_SR_Dplus_SS_Matched'
+      - '-2018_mu_minus_0tag_SR_Dplus_SS_Matched'
+      - '-2018_mu_minus_1tag_SR_Dplus_SS_Matched'
+      - '-2018_mu_minus_2tag_SR_Dplus_SS_Matched'
+      - '-2018_mu_plus_0tag_SR_Dplus_SS_Matched'
+      - '-2018_mu_plus_1tag_SR_Dplus_SS_Matched'
+      - '-2018_mu_plus_2tag_SR_Dplus_SS_Matched'
+      - '-2018_el_minus_0tag_SR_Dplus_SS_Other'
+      - '-2018_el_minus_1tag_SR_Dplus_SS_Other'
+      - '-2018_el_minus_2tag_SR_Dplus_SS_Other'
+      - '-2018_el_plus_0tag_SR_Dplus_SS_Other'
+      - '-2018_el_plus_1tag_SR_Dplus_SS_Other'
+      - '-2018_el_plus_2tag_SR_Dplus_SS_Other'
+      - '-2018_mu_minus_0tag_SR_Dplus_SS_Other'
+      - '-2018_mu_minus_1tag_SR_Dplus_SS_Other'
+      - '-2018_mu_minus_2tag_SR_Dplus_SS_Other'
+      - '-2018_mu_plus_0tag_SR_Dplus_SS_Other'
+      - '-2018_mu_plus_1tag_SR_Dplus_SS_Other'
+      - '-2018_mu_plus_2tag_SR_Dplus_SS_Other'
+  2018_SR_Dplus_SS_NoMatch:
+    make_plots: false
+    regions:
+      - 2018_el_minus_0tag_SR_Dplus_SS_Other
+      - 2018_el_minus_1tag_SR_Dplus_SS_Other
+      - 2018_el_minus_2tag_SR_Dplus_SS_Other
+      - 2018_el_plus_0tag_SR_Dplus_SS_Other
+      - 2018_el_plus_1tag_SR_Dplus_SS_Other
+      - 2018_el_plus_2tag_SR_Dplus_SS_Other
+      - 2018_mu_minus_0tag_SR_Dplus_SS_Other
+      - 2018_mu_minus_1tag_SR_Dplus_SS_Other
+      - 2018_mu_minus_2tag_SR_Dplus_SS_Other
+      - 2018_mu_plus_0tag_SR_Dplus_SS_Other
+      - 2018_mu_plus_1tag_SR_Dplus_SS_Other
+      - 2018_mu_plus_2tag_SR_Dplus_SS_Other
+  MatrixMethod_2018_SR_Dplus_SS:
+    make_plots: false
+    regions:
+      - AntiTight_2018_el_minus_0tag_SR_Dplus_SS
+      - AntiTight_2018_el_minus_1tag_SR_Dplus_SS
+      - AntiTight_2018_el_minus_2tag_SR_Dplus_SS
+      - AntiTight_2018_el_plus_0tag_SR_Dplus_SS
+      - AntiTight_2018_el_plus_1tag_SR_Dplus_SS
+      - AntiTight_2018_el_plus_2tag_SR_Dplus_SS
+      - AntiTight_2018_mu_minus_0tag_SR_Dplus_SS
+      - AntiTight_2018_mu_minus_1tag_SR_Dplus_SS
+      - AntiTight_2018_mu_minus_2tag_SR_Dplus_SS
+      - AntiTight_2018_mu_plus_0tag_SR_Dplus_SS
+      - AntiTight_2018_mu_plus_1tag_SR_Dplus_SS
+      - AntiTight_2018_mu_plus_2tag_SR_Dplus_SS
+      - AntiTight_2018_el_minus_0tag_SR_Dplus_SS
+      - '-Tight_2018_el_minus_0tag_SR_Dplus_SS'
+      - '-Tight_2018_el_minus_1tag_SR_Dplus_SS'
+      - '-Tight_2018_el_minus_2tag_SR_Dplus_SS'
+      - '-Tight_2018_el_plus_0tag_SR_Dplus_SS'
+      - '-Tight_2018_el_plus_1tag_SR_Dplus_SS'
+      - '-Tight_2018_el_plus_2tag_SR_Dplus_SS'
+      - '-Tight_2018_mu_minus_0tag_SR_Dplus_SS'
+      - '-Tight_2018_mu_minus_1tag_SR_Dplus_SS'
+      - '-Tight_2018_mu_minus_2tag_SR_Dplus_SS'
+      - '-Tight_2018_mu_plus_0tag_SR_Dplus_SS'
+      - '-Tight_2018_mu_plus_1tag_SR_Dplus_SS'
+      - '-Tight_2018_mu_plus_2tag_SR_Dplus_SS'
+  2018_SR_Dplus_OS-SS_Matched:
+    make_plots: false
+    regions:
+      - 2018_el_minus_0tag_SR_Dplus_OS_Matched
+      - 2018_el_minus_1tag_SR_Dplus_OS_Matched
+      - 2018_el_minus_2tag_SR_Dplus_OS_Matched
+      - 2018_el_plus_0tag_SR_Dplus_OS_Matched
+      - 2018_el_plus_1tag_SR_Dplus_OS_Matched
+      - 2018_el_plus_2tag_SR_Dplus_OS_Matched
+      - 2018_mu_minus_0tag_SR_Dplus_OS_Matched
+      - 2018_mu_minus_1tag_SR_Dplus_OS_Matched
+      - 2018_mu_minus_2tag_SR_Dplus_OS_Matched
+      - 2018_mu_plus_0tag_SR_Dplus_OS_Matched
+      - 2018_mu_plus_1tag_SR_Dplus_OS_Matched
+      - 2018_mu_plus_2tag_SR_Dplus_OS_Matched
+      - '-2018_el_minus_0tag_SR_Dplus_SS_Matched'
+      - '-2018_el_minus_1tag_SR_Dplus_SS_Matched'
+      - '-2018_el_minus_2tag_SR_Dplus_SS_Matched'
+      - '-2018_el_plus_0tag_SR_Dplus_SS_Matched'
+      - '-2018_el_plus_1tag_SR_Dplus_SS_Matched'
+      - '-2018_el_plus_2tag_SR_Dplus_SS_Matched'
+      - '-2018_mu_minus_0tag_SR_Dplus_SS_Matched'
+      - '-2018_mu_minus_1tag_SR_Dplus_SS_Matched'
+      - '-2018_mu_minus_2tag_SR_Dplus_SS_Matched'
+      - '-2018_mu_plus_0tag_SR_Dplus_SS_Matched'
+      - '-2018_mu_plus_1tag_SR_Dplus_SS_Matched'
+      - '-2018_mu_plus_2tag_SR_Dplus_SS_Matched'
+  2018_SR_Dplus_OS-SS_Rest:
+    make_plots: false
+    regions:
+      - 2018_el_minus_0tag_SR_Dplus_OS
+      - 2018_el_minus_1tag_SR_Dplus_OS
+      - 2018_el_minus_2tag_SR_Dplus_OS
+      - 2018_el_plus_0tag_SR_Dplus_OS
+      - 2018_el_plus_1tag_SR_Dplus_OS
+      - 2018_el_plus_2tag_SR_Dplus_OS
+      - 2018_mu_minus_0tag_SR_Dplus_OS
+      - 2018_mu_minus_1tag_SR_Dplus_OS
+      - 2018_mu_minus_2tag_SR_Dplus_OS
+      - 2018_mu_plus_0tag_SR_Dplus_OS
+      - 2018_mu_plus_1tag_SR_Dplus_OS
+      - 2018_mu_plus_2tag_SR_Dplus_OS
+      - '-2018_el_minus_0tag_SR_Dplus_OS_Matched'
+      - '-2018_el_minus_1tag_SR_Dplus_OS_Matched'
+      - '-2018_el_minus_2tag_SR_Dplus_OS_Matched'
+      - '-2018_el_plus_0tag_SR_Dplus_OS_Matched'
+      - '-2018_el_plus_1tag_SR_Dplus_OS_Matched'
+      - '-2018_el_plus_2tag_SR_Dplus_OS_Matched'
+      - '-2018_mu_minus_0tag_SR_Dplus_OS_Matched'
+      - '-2018_mu_minus_1tag_SR_Dplus_OS_Matched'
+      - '-2018_mu_minus_2tag_SR_Dplus_OS_Matched'
+      - '-2018_mu_plus_0tag_SR_Dplus_OS_Matched'
+      - '-2018_mu_plus_1tag_SR_Dplus_OS_Matched'
+      - '-2018_mu_plus_2tag_SR_Dplus_OS_Matched'
+      - '-2018_el_minus_0tag_SR_Dplus_OS_Other'
+      - '-2018_el_minus_1tag_SR_Dplus_OS_Other'
+      - '-2018_el_minus_2tag_SR_Dplus_OS_Other'
+      - '-2018_el_plus_0tag_SR_Dplus_OS_Other'
+      - '-2018_el_plus_1tag_SR_Dplus_OS_Other'
+      - '-2018_el_plus_2tag_SR_Dplus_OS_Other'
+      - '-2018_mu_minus_0tag_SR_Dplus_OS_Other'
+      - '-2018_mu_minus_1tag_SR_Dplus_OS_Other'
+      - '-2018_mu_minus_2tag_SR_Dplus_OS_Other'
+      - '-2018_mu_plus_0tag_SR_Dplus_OS_Other'
+      - '-2018_mu_plus_1tag_SR_Dplus_OS_Other'
+      - '-2018_mu_plus_2tag_SR_Dplus_OS_Other'
+      - '-2018_el_minus_0tag_SR_Dplus_SS'
+      - '-2018_el_minus_1tag_SR_Dplus_SS'
+      - '-2018_el_minus_2tag_SR_Dplus_SS'
+      - '-2018_el_plus_0tag_SR_Dplus_SS'
+      - '-2018_el_plus_1tag_SR_Dplus_SS'
+      - '-2018_el_plus_2tag_SR_Dplus_SS'
+      - '-2018_mu_minus_0tag_SR_Dplus_SS'
+      - '-2018_mu_minus_1tag_SR_Dplus_SS'
+      - '-2018_mu_minus_2tag_SR_Dplus_SS'
+      - '-2018_mu_plus_0tag_SR_Dplus_SS'
+      - '-2018_mu_plus_1tag_SR_Dplus_SS'
+      - '-2018_mu_plus_2tag_SR_Dplus_SS'
+      - 2018_el_minus_0tag_SR_Dplus_SS_Matched
+      - 2018_el_minus_1tag_SR_Dplus_SS_Matched
+      - 2018_el_minus_2tag_SR_Dplus_SS_Matched
+      - 2018_el_plus_0tag_SR_Dplus_SS_Matched
+      - 2018_el_plus_1tag_SR_Dplus_SS_Matched
+      - 2018_el_plus_2tag_SR_Dplus_SS_Matched
+      - 2018_mu_minus_0tag_SR_Dplus_SS_Matched
+      - 2018_mu_minus_1tag_SR_Dplus_SS_Matched
+      - 2018_mu_minus_2tag_SR_Dplus_SS_Matched
+      - 2018_mu_plus_0tag_SR_Dplus_SS_Matched
+      - 2018_mu_plus_1tag_SR_Dplus_SS_Matched
+      - 2018_mu_plus_2tag_SR_Dplus_SS_Matched
+      - 2018_el_minus_0tag_SR_Dplus_SS_Other
+      - 2018_el_minus_1tag_SR_Dplus_SS_Other
+      - 2018_el_minus_2tag_SR_Dplus_SS_Other
+      - 2018_el_plus_0tag_SR_Dplus_SS_Other
+      - 2018_el_plus_1tag_SR_Dplus_SS_Other
+      - 2018_el_plus_2tag_SR_Dplus_SS_Other
+      - 2018_mu_minus_0tag_SR_Dplus_SS_Other
+      - 2018_mu_minus_1tag_SR_Dplus_SS_Other
+      - 2018_mu_minus_2tag_SR_Dplus_SS_Other
+      - 2018_mu_plus_0tag_SR_Dplus_SS_Other
+      - 2018_mu_plus_1tag_SR_Dplus_SS_Other
+      - 2018_mu_plus_2tag_SR_Dplus_SS_Other
+  2018_SR_Dplus_OS-SS_NoMatch:
+    make_plots: false
+    regions:
+      - 2018_el_minus_0tag_SR_Dplus_OS_Other
+      - 2018_el_minus_1tag_SR_Dplus_OS_Other
+      - 2018_el_minus_2tag_SR_Dplus_OS_Other
+      - 2018_el_plus_0tag_SR_Dplus_OS_Other
+      - 2018_el_plus_1tag_SR_Dplus_OS_Other
+      - 2018_el_plus_2tag_SR_Dplus_OS_Other
+      - 2018_mu_minus_0tag_SR_Dplus_OS_Other
+      - 2018_mu_minus_1tag_SR_Dplus_OS_Other
+      - 2018_mu_minus_2tag_SR_Dplus_OS_Other
+      - 2018_mu_plus_0tag_SR_Dplus_OS_Other
+      - 2018_mu_plus_1tag_SR_Dplus_OS_Other
+      - 2018_mu_plus_2tag_SR_Dplus_OS_Other
+      - '-2018_el_minus_0tag_SR_Dplus_SS_Other'
+      - '-2018_el_minus_1tag_SR_Dplus_SS_Other'
+      - '-2018_el_minus_2tag_SR_Dplus_SS_Other'
+      - '-2018_el_plus_0tag_SR_Dplus_SS_Other'
+      - '-2018_el_plus_1tag_SR_Dplus_SS_Other'
+      - '-2018_el_plus_2tag_SR_Dplus_SS_Other'
+      - '-2018_mu_minus_0tag_SR_Dplus_SS_Other'
+      - '-2018_mu_minus_1tag_SR_Dplus_SS_Other'
+      - '-2018_mu_minus_2tag_SR_Dplus_SS_Other'
+      - '-2018_mu_plus_0tag_SR_Dplus_SS_Other'
+      - '-2018_mu_plus_1tag_SR_Dplus_SS_Other'
+      - '-2018_mu_plus_2tag_SR_Dplus_SS_Other'
+  MatrixMethod_2018_SR_Dplus_OS-SS:
+    make_plots: false
+    regions:
+      - AntiTight_2018_el_minus_0tag_SR_Dplus_OS
+      - AntiTight_2018_el_minus_1tag_SR_Dplus_OS
+      - AntiTight_2018_el_minus_2tag_SR_Dplus_OS
+      - AntiTight_2018_el_plus_0tag_SR_Dplus_OS
+      - AntiTight_2018_el_plus_1tag_SR_Dplus_OS
+      - AntiTight_2018_el_plus_2tag_SR_Dplus_OS
+      - AntiTight_2018_mu_minus_0tag_SR_Dplus_OS
+      - AntiTight_2018_mu_minus_1tag_SR_Dplus_OS
+      - AntiTight_2018_mu_minus_2tag_SR_Dplus_OS
+      - AntiTight_2018_mu_plus_0tag_SR_Dplus_OS
+      - AntiTight_2018_mu_plus_1tag_SR_Dplus_OS
+      - AntiTight_2018_mu_plus_2tag_SR_Dplus_OS
+      - AntiTight_2018_el_minus_0tag_SR_Dplus_OS
+      - '-Tight_2018_el_minus_0tag_SR_Dplus_OS'
+      - '-Tight_2018_el_minus_1tag_SR_Dplus_OS'
+      - '-Tight_2018_el_minus_2tag_SR_Dplus_OS'
+      - '-Tight_2018_el_plus_0tag_SR_Dplus_OS'
+      - '-Tight_2018_el_plus_1tag_SR_Dplus_OS'
+      - '-Tight_2018_el_plus_2tag_SR_Dplus_OS'
+      - '-Tight_2018_mu_minus_0tag_SR_Dplus_OS'
+      - '-Tight_2018_mu_minus_1tag_SR_Dplus_OS'
+      - '-Tight_2018_mu_minus_2tag_SR_Dplus_OS'
+      - '-Tight_2018_mu_plus_0tag_SR_Dplus_OS'
+      - '-Tight_2018_mu_plus_1tag_SR_Dplus_OS'
+      - '-Tight_2018_mu_plus_2tag_SR_Dplus_OS'
+      - '-AntiTight_2018_el_minus_0tag_SR_Dplus_SS'
+      - '-AntiTight_2018_el_minus_1tag_SR_Dplus_SS'
+      - '-AntiTight_2018_el_minus_2tag_SR_Dplus_SS'
+      - '-AntiTight_2018_el_plus_0tag_SR_Dplus_SS'
+      - '-AntiTight_2018_el_plus_1tag_SR_Dplus_SS'
+      - '-AntiTight_2018_el_plus_2tag_SR_Dplus_SS'
+      - '-AntiTight_2018_mu_minus_0tag_SR_Dplus_SS'
+      - '-AntiTight_2018_mu_minus_1tag_SR_Dplus_SS'
+      - '-AntiTight_2018_mu_minus_2tag_SR_Dplus_SS'
+      - '-AntiTight_2018_mu_plus_0tag_SR_Dplus_SS'
+      - '-AntiTight_2018_mu_plus_1tag_SR_Dplus_SS'
+      - '-AntiTight_2018_mu_plus_2tag_SR_Dplus_SS'
+      - '-AntiTight_2018_el_minus_0tag_SR_Dplus_SS'
+      - Tight_2018_el_minus_0tag_SR_Dplus_SS
+      - Tight_2018_el_minus_1tag_SR_Dplus_SS
+      - Tight_2018_el_minus_2tag_SR_Dplus_SS
+      - Tight_2018_el_plus_0tag_SR_Dplus_SS
+      - Tight_2018_el_plus_1tag_SR_Dplus_SS
+      - Tight_2018_el_plus_2tag_SR_Dplus_SS
+      - Tight_2018_mu_minus_0tag_SR_Dplus_SS
+      - Tight_2018_mu_minus_1tag_SR_Dplus_SS
+      - Tight_2018_mu_minus_2tag_SR_Dplus_SS
+      - Tight_2018_mu_plus_0tag_SR_Dplus_SS
+      - Tight_2018_mu_plus_1tag_SR_Dplus_SS
+      - Tight_2018_mu_plus_2tag_SR_Dplus_SS
+
+
+
+  2018_0tag_SR_Dplus_OS_Matched:
+    make_plots: false
+    regions:
+      - 2018_el_minus_0tag_SR_Dplus_OS_Matched
+      - 2018_el_plus_0tag_SR_Dplus_OS_Matched
+      - 2018_mu_minus_0tag_SR_Dplus_OS_Matched
+      - 2018_mu_plus_0tag_SR_Dplus_OS_Matched
+  2018_0tag_SR_Dplus_OS_Rest:
+    make_plots: false
+    regions:
+      - 2018_el_minus_0tag_SR_Dplus_OS
+      - 2018_el_plus_0tag_SR_Dplus_OS
+      - 2018_mu_minus_0tag_SR_Dplus_OS
+      - 2018_mu_plus_0tag_SR_Dplus_OS
+      - '-2018_el_minus_0tag_SR_Dplus_OS_Matched'
+      - '-2018_el_plus_0tag_SR_Dplus_OS_Matched'
+      - '-2018_mu_minus_0tag_SR_Dplus_OS_Matched'
+      - '-2018_mu_plus_0tag_SR_Dplus_OS_Matched'
+      - '-2018_el_minus_0tag_SR_Dplus_OS_Other'
+      - '-2018_el_plus_0tag_SR_Dplus_OS_Other'
+      - '-2018_mu_minus_0tag_SR_Dplus_OS_Other'
+      - '-2018_mu_plus_0tag_SR_Dplus_OS_Other'
+  2018_0tag_SR_Dplus_OS_NoMatch:
+    make_plots: false
+    regions:
+      - 2018_el_minus_0tag_SR_Dplus_OS_Other
+      - 2018_el_plus_0tag_SR_Dplus_OS_Other
+      - 2018_mu_minus_0tag_SR_Dplus_OS_Other
+      - 2018_mu_plus_0tag_SR_Dplus_OS_Other
+  MatrixMethod_2018_0tag_SR_Dplus_OS:
+    make_plots: false
+    regions:
+      - AntiTight_2018_el_minus_0tag_SR_Dplus_OS
+      - AntiTight_2018_el_plus_0tag_SR_Dplus_OS
+      - AntiTight_2018_mu_minus_0tag_SR_Dplus_OS
+      - AntiTight_2018_mu_plus_0tag_SR_Dplus_OS
+      - AntiTight_2018_el_minus_0tag_SR_Dplus_OS
+      - '-Tight_2018_el_minus_0tag_SR_Dplus_OS'
+      - '-Tight_2018_el_plus_0tag_SR_Dplus_OS'
+      - '-Tight_2018_mu_minus_0tag_SR_Dplus_OS'
+      - '-Tight_2018_mu_plus_0tag_SR_Dplus_OS'
+  2018_0tag_SR_Dplus_SS_Matched:
+    make_plots: false
+    regions:
+      - 2018_el_minus_0tag_SR_Dplus_SS_Matched
+      - 2018_el_plus_0tag_SR_Dplus_SS_Matched
+      - 2018_mu_minus_0tag_SR_Dplus_SS_Matched
+      - 2018_mu_plus_0tag_SR_Dplus_SS_Matched
+  2018_0tag_SR_Dplus_SS_Rest:
+    make_plots: false
+    regions:
+      - 2018_el_minus_0tag_SR_Dplus_SS
+      - 2018_el_plus_0tag_SR_Dplus_SS
+      - 2018_mu_minus_0tag_SR_Dplus_SS
+      - 2018_mu_plus_0tag_SR_Dplus_SS
+      - '-2018_el_minus_0tag_SR_Dplus_SS_Matched'
+      - '-2018_el_plus_0tag_SR_Dplus_SS_Matched'
+      - '-2018_mu_minus_0tag_SR_Dplus_SS_Matched'
+      - '-2018_mu_plus_0tag_SR_Dplus_SS_Matched'
+      - '-2018_el_minus_0tag_SR_Dplus_SS_Other'
+      - '-2018_el_plus_0tag_SR_Dplus_SS_Other'
+      - '-2018_mu_minus_0tag_SR_Dplus_SS_Other'
+      - '-2018_mu_plus_0tag_SR_Dplus_SS_Other'
+  2018_0tag_SR_Dplus_SS_NoMatch:
+    make_plots: false
+    regions:
+      - 2018_el_minus_0tag_SR_Dplus_SS_Other
+      - 2018_el_plus_0tag_SR_Dplus_SS_Other
+      - 2018_mu_minus_0tag_SR_Dplus_SS_Other
+      - 2018_mu_plus_0tag_SR_Dplus_SS_Other
+  MatrixMethod_2018_0tag_SR_Dplus_SS:
+    make_plots: false
+    regions:
+      - AntiTight_2018_el_minus_0tag_SR_Dplus_SS
+      - AntiTight_2018_el_plus_0tag_SR_Dplus_SS
+      - AntiTight_2018_mu_minus_0tag_SR_Dplus_SS
+      - AntiTight_2018_mu_plus_0tag_SR_Dplus_SS
+      - AntiTight_2018_el_minus_0tag_SR_Dplus_SS
+      - '-Tight_2018_el_minus_0tag_SR_Dplus_SS'
+      - '-Tight_2018_el_plus_0tag_SR_Dplus_SS'
+      - '-Tight_2018_mu_minus_0tag_SR_Dplus_SS'
+      - '-Tight_2018_mu_plus_0tag_SR_Dplus_SS'
+  2018_0tag_SR_Dplus_OS-SS_Matched:
+    make_plots: false
+    regions:
+      - 2018_el_minus_0tag_SR_Dplus_OS_Matched
+      - 2018_el_plus_0tag_SR_Dplus_OS_Matched
+      - 2018_mu_minus_0tag_SR_Dplus_OS_Matched
+      - 2018_mu_plus_0tag_SR_Dplus_OS_Matched
+      - '-2018_el_minus_0tag_SR_Dplus_SS_Matched'
+      - '-2018_el_plus_0tag_SR_Dplus_SS_Matched'
+      - '-2018_mu_minus_0tag_SR_Dplus_SS_Matched'
+      - '-2018_mu_plus_0tag_SR_Dplus_SS_Matched'
+  2018_0tag_SR_Dplus_OS-SS_Rest:
+    make_plots: false
+    regions:
+      - 2018_el_minus_0tag_SR_Dplus_OS
+      - 2018_el_plus_0tag_SR_Dplus_OS
+      - 2018_mu_minus_0tag_SR_Dplus_OS
+      - 2018_mu_plus_0tag_SR_Dplus_OS
+      - '-2018_el_minus_0tag_SR_Dplus_OS_Matched'
+      - '-2018_el_plus_0tag_SR_Dplus_OS_Matched'
+      - '-2018_mu_minus_0tag_SR_Dplus_OS_Matched'
+      - '-2018_mu_plus_0tag_SR_Dplus_OS_Matched'
+      - '-2018_el_minus_0tag_SR_Dplus_OS_Other'
+      - '-2018_el_plus_0tag_SR_Dplus_OS_Other'
+      - '-2018_mu_minus_0tag_SR_Dplus_OS_Other'
+      - '-2018_mu_plus_0tag_SR_Dplus_OS_Other'
+      - '-2018_el_minus_0tag_SR_Dplus_SS'
+      - '-2018_el_plus_0tag_SR_Dplus_SS'
+      - '-2018_mu_minus_0tag_SR_Dplus_SS'
+      - '-2018_mu_plus_0tag_SR_Dplus_SS'
+      - 2018_el_minus_0tag_SR_Dplus_SS_Matched
+      - 2018_el_plus_0tag_SR_Dplus_SS_Matched
+      - 2018_mu_minus_0tag_SR_Dplus_SS_Matched
+      - 2018_mu_plus_0tag_SR_Dplus_SS_Matched
+      - 2018_el_minus_0tag_SR_Dplus_SS_Other
+      - 2018_el_plus_0tag_SR_Dplus_SS_Other
+      - 2018_mu_minus_0tag_SR_Dplus_SS_Other
+      - 2018_mu_plus_0tag_SR_Dplus_SS_Other
+  2018_0tag_SR_Dplus_OS-SS_NoMatch:
+    make_plots: false
+    regions:
+      - 2018_el_minus_0tag_SR_Dplus_OS_Other
+      - 2018_el_plus_0tag_SR_Dplus_OS_Other
+      - 2018_mu_minus_0tag_SR_Dplus_OS_Other
+      - 2018_mu_plus_0tag_SR_Dplus_OS_Other
+      - '-2018_el_minus_0tag_SR_Dplus_SS_Other'
+      - '-2018_el_plus_0tag_SR_Dplus_SS_Other'
+      - '-2018_mu_minus_0tag_SR_Dplus_SS_Other'
+      - '-2018_mu_plus_0tag_SR_Dplus_SS_Other'
+  MatrixMethod_2018_0tag_SR_Dplus_OS-SS:
+    make_plots: false
+    regions:
+      - AntiTight_2018_el_minus_0tag_SR_Dplus_OS
+      - AntiTight_2018_el_plus_0tag_SR_Dplus_OS
+      - AntiTight_2018_mu_minus_0tag_SR_Dplus_OS
+      - AntiTight_2018_mu_plus_0tag_SR_Dplus_OS
+      - AntiTight_2018_el_minus_0tag_SR_Dplus_OS
+      - '-Tight_2018_el_minus_0tag_SR_Dplus_OS'
+      - '-Tight_2018_el_plus_0tag_SR_Dplus_OS'
+      - '-Tight_2018_mu_minus_0tag_SR_Dplus_OS'
+      - '-Tight_2018_mu_plus_0tag_SR_Dplus_OS'
+      - '-AntiTight_2018_el_minus_0tag_SR_Dplus_SS'
+      - '-AntiTight_2018_el_plus_0tag_SR_Dplus_SS'
+      - '-AntiTight_2018_mu_minus_0tag_SR_Dplus_SS'
+      - '-AntiTight_2018_mu_plus_0tag_SR_Dplus_SS'
+      - '-AntiTight_2018_el_minus_0tag_SR_Dplus_SS'
+      - Tight_2018_el_minus_0tag_SR_Dplus_SS
+      - Tight_2018_el_plus_0tag_SR_Dplus_SS
+      - Tight_2018_mu_minus_0tag_SR_Dplus_SS
+      - Tight_2018_mu_plus_0tag_SR_Dplus_SS
+
+
+  2018_1tag_SR_Dplus_OS_Matched:
+    make_plots: false
+    regions:
+      - 2018_el_minus_1tag_SR_Dplus_OS_Matched
+      - 2018_el_plus_1tag_SR_Dplus_OS_Matched
+      - 2018_mu_minus_1tag_SR_Dplus_OS_Matched
+      - 2018_mu_plus_1tag_SR_Dplus_OS_Matched
+  2018_1tag_SR_Dplus_OS_Rest:
+    make_plots: false
+    regions:
+      - 2018_el_minus_1tag_SR_Dplus_OS
+      - 2018_el_plus_1tag_SR_Dplus_OS
+      - 2018_mu_minus_1tag_SR_Dplus_OS
+      - 2018_mu_plus_1tag_SR_Dplus_OS
+      - '-2018_el_minus_1tag_SR_Dplus_OS_Matched'
+      - '-2018_el_plus_1tag_SR_Dplus_OS_Matched'
+      - '-2018_mu_minus_1tag_SR_Dplus_OS_Matched'
+      - '-2018_mu_plus_1tag_SR_Dplus_OS_Matched'
+      - '-2018_el_minus_1tag_SR_Dplus_OS_Other'
+      - '-2018_el_plus_1tag_SR_Dplus_OS_Other'
+      - '-2018_mu_minus_1tag_SR_Dplus_OS_Other'
+      - '-2018_mu_plus_1tag_SR_Dplus_OS_Other'
+  2018_1tag_SR_Dplus_OS_NoMatch:
+    make_plots: false
+    regions:
+      - 2018_el_minus_1tag_SR_Dplus_OS_Other
+      - 2018_el_plus_1tag_SR_Dplus_OS_Other
+      - 2018_mu_minus_1tag_SR_Dplus_OS_Other
+      - 2018_mu_plus_1tag_SR_Dplus_OS_Other
+  MatrixMethod_2018_1tag_SR_Dplus_OS:
+    make_plots: false
+    regions:
+      - AntiTight_2018_el_minus_1tag_SR_Dplus_OS
+      - AntiTight_2018_el_plus_1tag_SR_Dplus_OS
+      - AntiTight_2018_mu_minus_1tag_SR_Dplus_OS
+      - AntiTight_2018_mu_plus_1tag_SR_Dplus_OS
+      - AntiTight_2018_el_minus_1tag_SR_Dplus_OS
+      - '-Tight_2018_el_minus_1tag_SR_Dplus_OS'
+      - '-Tight_2018_el_plus_1tag_SR_Dplus_OS'
+      - '-Tight_2018_mu_minus_1tag_SR_Dplus_OS'
+      - '-Tight_2018_mu_plus_1tag_SR_Dplus_OS'
+  2018_1tag_SR_Dplus_SS_Matched:
+    make_plots: false
+    regions:
+      - 2018_el_minus_1tag_SR_Dplus_SS_Matched
+      - 2018_el_plus_1tag_SR_Dplus_SS_Matched
+      - 2018_mu_minus_1tag_SR_Dplus_SS_Matched
+      - 2018_mu_plus_1tag_SR_Dplus_SS_Matched
+  2018_1tag_SR_Dplus_SS_Rest:
+    make_plots: false
+    regions:
+      - 2018_el_minus_1tag_SR_Dplus_SS
+      - 2018_el_plus_1tag_SR_Dplus_SS
+      - 2018_mu_minus_1tag_SR_Dplus_SS
+      - 2018_mu_plus_1tag_SR_Dplus_SS
+      - '-2018_el_minus_1tag_SR_Dplus_SS_Matched'
+      - '-2018_el_plus_1tag_SR_Dplus_SS_Matched'
+      - '-2018_mu_minus_1tag_SR_Dplus_SS_Matched'
+      - '-2018_mu_plus_1tag_SR_Dplus_SS_Matched'
+      - '-2018_el_minus_1tag_SR_Dplus_SS_Other'
+      - '-2018_el_plus_1tag_SR_Dplus_SS_Other'
+      - '-2018_mu_minus_1tag_SR_Dplus_SS_Other'
+      - '-2018_mu_plus_1tag_SR_Dplus_SS_Other'
+  2018_1tag_SR_Dplus_SS_NoMatch:
+    make_plots: false
+    regions:
+      - 2018_el_minus_1tag_SR_Dplus_SS_Other
+      - 2018_el_plus_1tag_SR_Dplus_SS_Other
+      - 2018_mu_minus_1tag_SR_Dplus_SS_Other
+      - 2018_mu_plus_1tag_SR_Dplus_SS_Other
+  MatrixMethod_2018_1tag_SR_Dplus_SS:
+    make_plots: false
+    regions:
+      - AntiTight_2018_el_minus_1tag_SR_Dplus_SS
+      - AntiTight_2018_el_plus_1tag_SR_Dplus_SS
+      - AntiTight_2018_mu_minus_1tag_SR_Dplus_SS
+      - AntiTight_2018_mu_plus_1tag_SR_Dplus_SS
+      - AntiTight_2018_el_minus_1tag_SR_Dplus_SS
+      - '-Tight_2018_el_minus_1tag_SR_Dplus_SS'
+      - '-Tight_2018_el_plus_1tag_SR_Dplus_SS'
+      - '-Tight_2018_mu_minus_1tag_SR_Dplus_SS'
+      - '-Tight_2018_mu_plus_1tag_SR_Dplus_SS'
+  2018_1tag_SR_Dplus_OS-SS_Matched:
+    make_plots: false
+    regions:
+      - 2018_el_minus_1tag_SR_Dplus_OS_Matched
+      - 2018_el_plus_1tag_SR_Dplus_OS_Matched
+      - 2018_mu_minus_1tag_SR_Dplus_OS_Matched
+      - 2018_mu_plus_1tag_SR_Dplus_OS_Matched
+      - '-2018_el_minus_1tag_SR_Dplus_SS_Matched'
+      - '-2018_el_plus_1tag_SR_Dplus_SS_Matched'
+      - '-2018_mu_minus_1tag_SR_Dplus_SS_Matched'
+      - '-2018_mu_plus_1tag_SR_Dplus_SS_Matched'
+  2018_1tag_SR_Dplus_OS-SS_Rest:
+    make_plots: false
+    regions:
+      - 2018_el_minus_1tag_SR_Dplus_OS
+      - 2018_el_plus_1tag_SR_Dplus_OS
+      - 2018_mu_minus_1tag_SR_Dplus_OS
+      - 2018_mu_plus_1tag_SR_Dplus_OS
+      - '-2018_el_minus_1tag_SR_Dplus_OS_Matched'
+      - '-2018_el_plus_1tag_SR_Dplus_OS_Matched'
+      - '-2018_mu_minus_1tag_SR_Dplus_OS_Matched'
+      - '-2018_mu_plus_1tag_SR_Dplus_OS_Matched'
+      - '-2018_el_minus_1tag_SR_Dplus_OS_Other'
+      - '-2018_el_plus_1tag_SR_Dplus_OS_Other'
+      - '-2018_mu_minus_1tag_SR_Dplus_OS_Other'
+      - '-2018_mu_plus_1tag_SR_Dplus_OS_Other'
+      - '-2018_el_minus_1tag_SR_Dplus_SS'
+      - '-2018_el_plus_1tag_SR_Dplus_SS'
+      - '-2018_mu_minus_1tag_SR_Dplus_SS'
+      - '-2018_mu_plus_1tag_SR_Dplus_SS'
+      - 2018_el_minus_1tag_SR_Dplus_SS_Matched
+      - 2018_el_plus_1tag_SR_Dplus_SS_Matched
+      - 2018_mu_minus_1tag_SR_Dplus_SS_Matched
+      - 2018_mu_plus_1tag_SR_Dplus_SS_Matched
+      - 2018_el_minus_1tag_SR_Dplus_SS_Other
+      - 2018_el_plus_1tag_SR_Dplus_SS_Other
+      - 2018_mu_minus_1tag_SR_Dplus_SS_Other
+      - 2018_mu_plus_1tag_SR_Dplus_SS_Other
+  2018_1tag_SR_Dplus_OS-SS_NoMatch:
+    make_plots: false
+    regions:
+      - 2018_el_minus_1tag_SR_Dplus_OS_Other
+      - 2018_el_plus_1tag_SR_Dplus_OS_Other
+      - 2018_mu_minus_1tag_SR_Dplus_OS_Other
+      - 2018_mu_plus_1tag_SR_Dplus_OS_Other
+      - '-2018_el_minus_1tag_SR_Dplus_SS_Other'
+      - '-2018_el_plus_1tag_SR_Dplus_SS_Other'
+      - '-2018_mu_minus_1tag_SR_Dplus_SS_Other'
+      - '-2018_mu_plus_1tag_SR_Dplus_SS_Other'
+  MatrixMethod_2018_1tag_SR_Dplus_OS-SS:
+    make_plots: false
+    regions:
+      - AntiTight_2018_el_minus_1tag_SR_Dplus_OS
+      - AntiTight_2018_el_plus_1tag_SR_Dplus_OS
+      - AntiTight_2018_mu_minus_1tag_SR_Dplus_OS
+      - AntiTight_2018_mu_plus_1tag_SR_Dplus_OS
+      - AntiTight_2018_el_minus_1tag_SR_Dplus_OS
+      - '-Tight_2018_el_minus_1tag_SR_Dplus_OS'
+      - '-Tight_2018_el_plus_1tag_SR_Dplus_OS'
+      - '-Tight_2018_mu_minus_1tag_SR_Dplus_OS'
+      - '-Tight_2018_mu_plus_1tag_SR_Dplus_OS'
+      - '-AntiTight_2018_el_minus_1tag_SR_Dplus_SS'
+      - '-AntiTight_2018_el_plus_1tag_SR_Dplus_SS'
+      - '-AntiTight_2018_mu_minus_1tag_SR_Dplus_SS'
+      - '-AntiTight_2018_mu_plus_1tag_SR_Dplus_SS'
+      - '-AntiTight_2018_el_minus_1tag_SR_Dplus_SS'
+      - Tight_2018_el_minus_1tag_SR_Dplus_SS
+      - Tight_2018_el_plus_1tag_SR_Dplus_SS
+      - Tight_2018_mu_minus_1tag_SR_Dplus_SS
+      - Tight_2018_mu_plus_1tag_SR_Dplus_SS
+
+
+  2018_2tag_SR_Dplus_OS_Matched:
+    make_plots: false
+    regions:
+      - 2018_el_minus_2tag_SR_Dplus_OS_Matched
+      - 2018_el_plus_2tag_SR_Dplus_OS_Matched
+      - 2018_mu_minus_2tag_SR_Dplus_OS_Matched
+      - 2018_mu_plus_2tag_SR_Dplus_OS_Matched
+  2018_2tag_SR_Dplus_OS_Rest:
+    make_plots: false
+    regions:
+      - 2018_el_minus_2tag_SR_Dplus_OS
+      - 2018_el_plus_2tag_SR_Dplus_OS
+      - 2018_mu_minus_2tag_SR_Dplus_OS
+      - 2018_mu_plus_2tag_SR_Dplus_OS
+      - '-2018_el_minus_2tag_SR_Dplus_OS_Matched'
+      - '-2018_el_plus_2tag_SR_Dplus_OS_Matched'
+      - '-2018_mu_minus_2tag_SR_Dplus_OS_Matched'
+      - '-2018_mu_plus_2tag_SR_Dplus_OS_Matched'
+      - '-2018_el_minus_2tag_SR_Dplus_OS_Other'
+      - '-2018_el_plus_2tag_SR_Dplus_OS_Other'
+      - '-2018_mu_minus_2tag_SR_Dplus_OS_Other'
+      - '-2018_mu_plus_2tag_SR_Dplus_OS_Other'
+  2018_2tag_SR_Dplus_OS_NoMatch:
+    make_plots: false
+    regions:
+      - 2018_el_minus_2tag_SR_Dplus_OS_Other
+      - 2018_el_plus_2tag_SR_Dplus_OS_Other
+      - 2018_mu_minus_2tag_SR_Dplus_OS_Other
+      - 2018_mu_plus_2tag_SR_Dplus_OS_Other
+  MatrixMethod_2018_2tag_SR_Dplus_OS:
+    make_plots: false
+    regions:
+      - AntiTight_2018_el_minus_2tag_SR_Dplus_OS
+      - AntiTight_2018_el_plus_2tag_SR_Dplus_OS
+      - AntiTight_2018_mu_minus_2tag_SR_Dplus_OS
+      - AntiTight_2018_mu_plus_2tag_SR_Dplus_OS
+      - AntiTight_2018_el_minus_2tag_SR_Dplus_OS
+      - '-Tight_2018_el_minus_2tag_SR_Dplus_OS'
+      - '-Tight_2018_el_plus_2tag_SR_Dplus_OS'
+      - '-Tight_2018_mu_minus_2tag_SR_Dplus_OS'
+      - '-Tight_2018_mu_plus_2tag_SR_Dplus_OS'
+  2018_2tag_SR_Dplus_SS_Matched:
+    make_plots: false
+    regions:
+      - 2018_el_minus_2tag_SR_Dplus_SS_Matched
+      - 2018_el_plus_2tag_SR_Dplus_SS_Matched
+      - 2018_mu_minus_2tag_SR_Dplus_SS_Matched
+      - 2018_mu_plus_2tag_SR_Dplus_SS_Matched
+  2018_2tag_SR_Dplus_SS_Rest:
+    make_plots: false
+    regions:
+      - 2018_el_minus_2tag_SR_Dplus_SS
+      - 2018_el_plus_2tag_SR_Dplus_SS
+      - 2018_mu_minus_2tag_SR_Dplus_SS
+      - 2018_mu_plus_2tag_SR_Dplus_SS
+      - '-2018_el_minus_2tag_SR_Dplus_SS_Matched'
+      - '-2018_el_plus_2tag_SR_Dplus_SS_Matched'
+      - '-2018_mu_minus_2tag_SR_Dplus_SS_Matched'
+      - '-2018_mu_plus_2tag_SR_Dplus_SS_Matched'
+      - '-2018_el_minus_2tag_SR_Dplus_SS_Other'
+      - '-2018_el_plus_2tag_SR_Dplus_SS_Other'
+      - '-2018_mu_minus_2tag_SR_Dplus_SS_Other'
+      - '-2018_mu_plus_2tag_SR_Dplus_SS_Other'
+  2018_2tag_SR_Dplus_SS_NoMatch:
+    make_plots: false
+    regions:
+      - 2018_el_minus_2tag_SR_Dplus_SS_Other
+      - 2018_el_plus_2tag_SR_Dplus_SS_Other
+      - 2018_mu_minus_2tag_SR_Dplus_SS_Other
+      - 2018_mu_plus_2tag_SR_Dplus_SS_Other
+  MatrixMethod_2018_2tag_SR_Dplus_SS:
+    make_plots: false
+    regions:
+      - AntiTight_2018_el_minus_2tag_SR_Dplus_SS
+      - AntiTight_2018_el_plus_2tag_SR_Dplus_SS
+      - AntiTight_2018_mu_minus_2tag_SR_Dplus_SS
+      - AntiTight_2018_mu_plus_2tag_SR_Dplus_SS
+      - AntiTight_2018_el_minus_2tag_SR_Dplus_SS
+      - '-Tight_2018_el_minus_2tag_SR_Dplus_SS'
+      - '-Tight_2018_el_plus_2tag_SR_Dplus_SS'
+      - '-Tight_2018_mu_minus_2tag_SR_Dplus_SS'
+      - '-Tight_2018_mu_plus_2tag_SR_Dplus_SS'
+  2018_2tag_SR_Dplus_OS-SS_Matched:
+    make_plots: false
+    regions:
+      - 2018_el_minus_2tag_SR_Dplus_OS_Matched
+      - 2018_el_plus_2tag_SR_Dplus_OS_Matched
+      - 2018_mu_minus_2tag_SR_Dplus_OS_Matched
+      - 2018_mu_plus_2tag_SR_Dplus_OS_Matched
+      - '-2018_el_minus_2tag_SR_Dplus_SS_Matched'
+      - '-2018_el_plus_2tag_SR_Dplus_SS_Matched'
+      - '-2018_mu_minus_2tag_SR_Dplus_SS_Matched'
+      - '-2018_mu_plus_2tag_SR_Dplus_SS_Matched'
+  2018_2tag_SR_Dplus_OS-SS_Rest:
+    make_plots: false
+    regions:
+      - 2018_el_minus_2tag_SR_Dplus_OS
+      - 2018_el_plus_2tag_SR_Dplus_OS
+      - 2018_mu_minus_2tag_SR_Dplus_OS
+      - 2018_mu_plus_2tag_SR_Dplus_OS
+      - '-2018_el_minus_2tag_SR_Dplus_OS_Matched'
+      - '-2018_el_plus_2tag_SR_Dplus_OS_Matched'
+      - '-2018_mu_minus_2tag_SR_Dplus_OS_Matched'
+      - '-2018_mu_plus_2tag_SR_Dplus_OS_Matched'
+      - '-2018_el_minus_2tag_SR_Dplus_OS_Other'
+      - '-2018_el_plus_2tag_SR_Dplus_OS_Other'
+      - '-2018_mu_minus_2tag_SR_Dplus_OS_Other'
+      - '-2018_mu_plus_2tag_SR_Dplus_OS_Other'
+      - '-2018_el_minus_2tag_SR_Dplus_SS'
+      - '-2018_el_plus_2tag_SR_Dplus_SS'
+      - '-2018_mu_minus_2tag_SR_Dplus_SS'
+      - '-2018_mu_plus_2tag_SR_Dplus_SS'
+      - 2018_el_minus_2tag_SR_Dplus_SS_Matched
+      - 2018_el_plus_2tag_SR_Dplus_SS_Matched
+      - 2018_mu_minus_2tag_SR_Dplus_SS_Matched
+      - 2018_mu_plus_2tag_SR_Dplus_SS_Matched
+      - 2018_el_minus_2tag_SR_Dplus_SS_Other
+      - 2018_el_plus_2tag_SR_Dplus_SS_Other
+      - 2018_mu_minus_2tag_SR_Dplus_SS_Other
+      - 2018_mu_plus_2tag_SR_Dplus_SS_Other
+  2018_2tag_SR_Dplus_OS-SS_NoMatch:
+    make_plots: false
+    regions:
+      - 2018_el_minus_2tag_SR_Dplus_OS_Other
+      - 2018_el_plus_2tag_SR_Dplus_OS_Other
+      - 2018_mu_minus_2tag_SR_Dplus_OS_Other
+      - 2018_mu_plus_2tag_SR_Dplus_OS_Other
+      - '-2018_el_minus_2tag_SR_Dplus_SS_Other'
+      - '-2018_el_plus_2tag_SR_Dplus_SS_Other'
+      - '-2018_mu_minus_2tag_SR_Dplus_SS_Other'
+      - '-2018_mu_plus_2tag_SR_Dplus_SS_Other'
+  MatrixMethod_2018_2tag_SR_Dplus_OS-SS:
+    make_plots: false
+    regions:
+      - AntiTight_2018_el_minus_2tag_SR_Dplus_OS
+      - AntiTight_2018_el_plus_2tag_SR_Dplus_OS
+      - AntiTight_2018_mu_minus_2tag_SR_Dplus_OS
+      - AntiTight_2018_mu_plus_2tag_SR_Dplus_OS
+      - AntiTight_2018_el_minus_2tag_SR_Dplus_OS
+      - '-Tight_2018_el_minus_2tag_SR_Dplus_OS'
+      - '-Tight_2018_el_plus_2tag_SR_Dplus_OS'
+      - '-Tight_2018_mu_minus_2tag_SR_Dplus_OS'
+      - '-Tight_2018_mu_plus_2tag_SR_Dplus_OS'
+      - '-AntiTight_2018_el_minus_2tag_SR_Dplus_SS'
+      - '-AntiTight_2018_el_plus_2tag_SR_Dplus_SS'
+      - '-AntiTight_2018_mu_minus_2tag_SR_Dplus_SS'
+      - '-AntiTight_2018_mu_plus_2tag_SR_Dplus_SS'
+      - '-AntiTight_2018_el_minus_2tag_SR_Dplus_SS'
+      - Tight_2018_el_minus_2tag_SR_Dplus_SS
+      - Tight_2018_el_plus_2tag_SR_Dplus_SS
+      - Tight_2018_mu_minus_2tag_SR_Dplus_SS
+      - Tight_2018_mu_plus_2tag_SR_Dplus_SS
