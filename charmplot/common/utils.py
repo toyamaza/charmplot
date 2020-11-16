@@ -462,7 +462,7 @@ def make_minmax_err(h: ROOT.TH1, h_var: List, Norm: bool = False) -> List[Union[
         return make_empty_error_bands(h)
 
     nBins = h.GetNbinsX()
-    
+
     if Norm:
         nom_sum = h_var[0].GetSum()
         for hist in h_var:

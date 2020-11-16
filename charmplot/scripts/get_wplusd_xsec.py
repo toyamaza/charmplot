@@ -84,11 +84,12 @@ variables = [
 
 # rename channel
 rename_map = {
-    "el_minus" : "W^{-}(e^{-}#bar{#nu})+D^{+}",
-    "el_plus" : "W^{+}(e^{+}#nu)+D^{-}",
-    "mu_minus" : "W^{-}(#mu^{-}#bar{#nu})+D^{+}",
-    "mu_plus" : "W^{+}(#mu^{+}#nu)+D^{-}",
+    "el_minus": "W^{-}(e^{-}#bar{#nu})+D^{+}",
+    "el_plus": "W^{+}(e^{+}#nu)+D^{-}",
+    "mu_minus": "W^{-}(#mu^{-}#bar{#nu})+D^{+}",
+    "mu_plus": "W^{+}(#mu^{+}#nu)+D^{-}",
 }
+
 
 def main(options):
     f_d = ROOT.TFile(options.data, "READ")
@@ -103,7 +104,7 @@ def main(options):
     trex_yields = {}
     if options.trex:
         for c in channels:
-            trex_yields[c] = {'Yield' : 0, 'Error' : 0}
+            trex_yields[c] = {'Yield': 0, 'Error': 0}
             with open(os.path.join(options.trex, f'WCharm_{c}_all_OS-SS/WCharm_{c}_asimov_OS-SS/Tables/Table_postfit.yaml')) as f:
                 table = yaml.load(f, Loader=yaml.FullLoader)
                 for x in table:

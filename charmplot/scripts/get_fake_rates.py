@@ -2,7 +2,6 @@
 from array import array
 from charmplot.common import utils
 from charmplot.control import channel
-from charmplot.control import sample
 from charmplot.control import variable
 import logging
 import os
@@ -129,9 +128,6 @@ def main(conf, options, args):
 
         # channel name
         channel_name = c.split(":")[0]
-
-        # samples in config
-        channel_config = conf.get_channel(f"Tight_{channel_name}")
 
         # x range and channel name
         x_range = [int(x) for x in c.split(":")[1:3]]
