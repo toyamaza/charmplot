@@ -27,8 +27,9 @@ class InputDataReader(object):
         if sys:
             h_name_sys = os.path.join(sys, c, "_-_".join([sys, "__".join([c, variable.name])]))
             h = f.Get(h_name_sys)
+            if not h:
+                logger.warning(f"Systematic histogram with name {h_name_sys} not found! Using nominal instead.")
         if not h:
-            logger.warning(f"Systematic histogram with name {h_name_sys} not found! Using nominal instead.")
             h = f.Get(h_name)
         if not h:
             logger.warning(f"Histogram {h_name} not found for sample {sample}!")
