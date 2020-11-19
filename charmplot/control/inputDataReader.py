@@ -22,10 +22,10 @@ class InputDataReader(object):
     def get_histogram_from_file(self, f, channel, sample, variable, c, extra_rebin=1, sys=None):
         logger.debug(f"In get_histogram_from_file with {f.GetName()} {channel.name} {sample.name}")
         # logger.debug(f"In get_histogram_from_file with {channel.name} {sample.name} {variable} {c} {f} extra_rebin: {extra_rebin}")
-        h_name = os.path.join(c, "__".join([c, variable.name]))
+        h_name = "__".join([c, variable.name])
         h = None
         if sys:
-            h_name_sys = os.path.join(sys, c, "_-_".join([sys, "__".join([c, variable.name])]))
+            h_name_sys = "_-_".join([sys, "__".join([c, variable.name])])
             h = f.Get(h_name_sys)
             if not h:
                 logger.warning(f"Systematic histogram with name {h_name_sys} not found! Using nominal instead.")
@@ -144,12 +144,8 @@ class InputDataReader(object):
             f = self.input_files[input_file]
             variables = {}
             for c in channel.get_all():
-                directory = f.Get(c)
-                if not directory:
-                    logger.warning(f"directory {c} not found in file {f}")
-                    continue
-                logger.info(f"directory: {c}")
-                for key in directory.GetListOfKeys():
+                logger.info(f"channel: {c}")
+                for key in f.GetListOfKeys():
                     name = key.GetName()
                     var_name = name
                     if name.startswith(c):
