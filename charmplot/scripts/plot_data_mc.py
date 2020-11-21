@@ -19,9 +19,9 @@ ROOT.SetAtlasStyle()
 
 # logging
 root = logging.getLogger()
-root.setLevel(logging.INFO)
+root.setLevel(logging.DEBUG)
 handler = logging.StreamHandler(sys.stdout)
-handler.setLevel(logging.INFO)
+handler.setLevel(logging.DEBUG)
 formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 handler.setFormatter(formatter)
 root.addHandler(handler)
@@ -373,7 +373,7 @@ if __name__ == "__main__":
     config = options.analysis_config
 
     # output name
-    out_name = config
+    out_name = config.replace(".yaml", "").replace(".yml", "")
     if options.suffix:
         out_name = out_name.split("/")
         out_name[0] += "_" + options.suffix

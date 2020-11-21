@@ -14,6 +14,7 @@ setup(name='charmplot',
           'charmplot/scripts/plot_data_mc.py',
           'charmplot/scripts/plot_mc_mc.py',
           'charmplot/scripts/plot_mc.py',
+          'gen/generate_wplusd_config.py',
           'hfroofit/scripts/likelihood_fit.py',
       ],
       install_requires=[

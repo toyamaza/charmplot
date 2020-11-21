@@ -1,5 +1,4 @@
 import logging
-import os
 import ROOT
 
 
@@ -152,10 +151,10 @@ class InputDataReader(object):
                         var_name = var_name[len(c):]
                         while var_name.startswith("_"):
                             var_name = var_name[1:]
-                    if var_name not in variables:
-                        variables[var_name] = 1
-                    else:
-                        variables[var_name] += 1
+                        if var_name not in variables:
+                            variables[var_name] = 1
+                        else:
+                            variables[var_name] += 1
             for var in variables:
                 if variables[var] == len(channel.get_all()):
                     all_vars.add(var)

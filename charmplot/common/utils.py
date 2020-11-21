@@ -23,6 +23,10 @@ MC_Map = Dict[sample.Sample, ROOT.TH1]
 logger = logging.getLogger(__name__)
 
 
+def eprint(*args, **kwargs):
+    print(*args, file=sys.stderr, **kwargs)
+
+
 def get_mc_min(mc_map: MC_Map, samples: list):
     for s in reversed(samples):
         if s not in mc_map.keys():
