@@ -1265,7 +1265,6 @@ channels:
       - AntiTight_2018_mu_plus_0tag_SR_Dplus_OS
       - AntiTight_2018_mu_plus_1tag_SR_Dplus_OS
       - AntiTight_2018_mu_plus_2tag_SR_Dplus_OS
-      - AntiTight_2018_el_minus_0tag_SR_Dplus_OS
       - '-Tight_2018_el_minus_0tag_SR_Dplus_OS'
       - '-Tight_2018_el_minus_1tag_SR_Dplus_OS'
       - '-Tight_2018_el_minus_2tag_SR_Dplus_OS'
@@ -1362,7 +1361,6 @@ channels:
       - AntiTight_2018_mu_plus_0tag_SR_Dplus_SS
       - AntiTight_2018_mu_plus_1tag_SR_Dplus_SS
       - AntiTight_2018_mu_plus_2tag_SR_Dplus_SS
-      - AntiTight_2018_el_minus_0tag_SR_Dplus_SS
       - '-Tight_2018_el_minus_0tag_SR_Dplus_SS'
       - '-Tight_2018_el_minus_1tag_SR_Dplus_SS'
       - '-Tight_2018_el_minus_2tag_SR_Dplus_SS'
@@ -1519,7 +1517,6 @@ channels:
       - AntiTight_2018_mu_plus_0tag_SR_Dplus_OS
       - AntiTight_2018_mu_plus_1tag_SR_Dplus_OS
       - AntiTight_2018_mu_plus_2tag_SR_Dplus_OS
-      - AntiTight_2018_el_minus_0tag_SR_Dplus_OS
       - '-Tight_2018_el_minus_0tag_SR_Dplus_OS'
       - '-Tight_2018_el_minus_1tag_SR_Dplus_OS'
       - '-Tight_2018_el_minus_2tag_SR_Dplus_OS'
@@ -1596,7 +1593,6 @@ channels:
       - AntiTight_2018_el_plus_0tag_SR_Dplus_OS
       - AntiTight_2018_mu_minus_0tag_SR_Dplus_OS
       - AntiTight_2018_mu_plus_0tag_SR_Dplus_OS
-      - AntiTight_2018_el_minus_0tag_SR_Dplus_OS
       - '-Tight_2018_el_minus_0tag_SR_Dplus_OS'
       - '-Tight_2018_el_plus_0tag_SR_Dplus_OS'
       - '-Tight_2018_mu_minus_0tag_SR_Dplus_OS'
@@ -1637,7 +1633,6 @@ channels:
       - AntiTight_2018_el_plus_0tag_SR_Dplus_SS
       - AntiTight_2018_mu_minus_0tag_SR_Dplus_SS
       - AntiTight_2018_mu_plus_0tag_SR_Dplus_SS
-      - AntiTight_2018_el_minus_0tag_SR_Dplus_SS
       - '-Tight_2018_el_minus_0tag_SR_Dplus_SS'
       - '-Tight_2018_el_plus_0tag_SR_Dplus_SS'
       - '-Tight_2018_mu_minus_0tag_SR_Dplus_SS'
@@ -1698,7 +1693,6 @@ channels:
       - AntiTight_2018_el_plus_0tag_SR_Dplus_OS
       - AntiTight_2018_mu_minus_0tag_SR_Dplus_OS
       - AntiTight_2018_mu_plus_0tag_SR_Dplus_OS
-      - AntiTight_2018_el_minus_0tag_SR_Dplus_OS
       - '-Tight_2018_el_minus_0tag_SR_Dplus_OS'
       - '-Tight_2018_el_plus_0tag_SR_Dplus_OS'
       - '-Tight_2018_mu_minus_0tag_SR_Dplus_OS'
@@ -1707,7 +1701,6 @@ channels:
       - '-AntiTight_2018_el_plus_0tag_SR_Dplus_SS'
       - '-AntiTight_2018_mu_minus_0tag_SR_Dplus_SS'
       - '-AntiTight_2018_mu_plus_0tag_SR_Dplus_SS'
-      - '-AntiTight_2018_el_minus_0tag_SR_Dplus_SS'
       - Tight_2018_el_minus_0tag_SR_Dplus_SS
       - Tight_2018_el_plus_0tag_SR_Dplus_SS
       - Tight_2018_mu_minus_0tag_SR_Dplus_SS
@@ -1750,7 +1743,6 @@ channels:
       - AntiTight_2018_el_plus_1tag_SR_Dplus_OS
       - AntiTight_2018_mu_minus_1tag_SR_Dplus_OS
       - AntiTight_2018_mu_plus_1tag_SR_Dplus_OS
-      - AntiTight_2018_el_minus_1tag_SR_Dplus_OS
       - '-Tight_2018_el_minus_1tag_SR_Dplus_OS'
       - '-Tight_2018_el_plus_1tag_SR_Dplus_OS'
       - '-Tight_2018_mu_minus_1tag_SR_Dplus_OS'
@@ -1791,7 +1783,6 @@ channels:
       - AntiTight_2018_el_plus_1tag_SR_Dplus_SS
       - AntiTight_2018_mu_minus_1tag_SR_Dplus_SS
       - AntiTight_2018_mu_plus_1tag_SR_Dplus_SS
-      - AntiTight_2018_el_minus_1tag_SR_Dplus_SS
       - '-Tight_2018_el_minus_1tag_SR_Dplus_SS'
       - '-Tight_2018_el_plus_1tag_SR_Dplus_SS'
       - '-Tight_2018_mu_minus_1tag_SR_Dplus_SS'
@@ -1852,7 +1843,6 @@ channels:
       - AntiTight_2018_el_plus_1tag_SR_Dplus_OS
       - AntiTight_2018_mu_minus_1tag_SR_Dplus_OS
       - AntiTight_2018_mu_plus_1tag_SR_Dplus_OS
-      - AntiTight_2018_el_minus_1tag_SR_Dplus_OS
       - '-Tight_2018_el_minus_1tag_SR_Dplus_OS'
       - '-Tight_2018_el_plus_1tag_SR_Dplus_OS'
       - '-Tight_2018_mu_minus_1tag_SR_Dplus_OS'
@@ -1861,7 +1851,6 @@ channels:
       - '-AntiTight_2018_el_plus_1tag_SR_Dplus_SS'
       - '-AntiTight_2018_mu_minus_1tag_SR_Dplus_SS'
       - '-AntiTight_2018_mu_plus_1tag_SR_Dplus_SS'
-      - '-AntiTight_2018_el_minus_1tag_SR_Dplus_SS'
       - Tight_2018_el_minus_1tag_SR_Dplus_SS
       - Tight_2018_el_plus_1tag_SR_Dplus_SS
       - Tight_2018_mu_minus_1tag_SR_Dplus_SS
@@ -1904,7 +1893,6 @@ channels:
       - AntiTight_2018_el_plus_2tag_SR_Dplus_OS
       - AntiTight_2018_mu_minus_2tag_SR_Dplus_OS
       - AntiTight_2018_mu_plus_2tag_SR_Dplus_OS
-      - AntiTight_2018_el_minus_2tag_SR_Dplus_OS
       - '-Tight_2018_el_minus_2tag_SR_Dplus_OS'
       - '-Tight_2018_el_plus_2tag_SR_Dplus_OS'
       - '-Tight_2018_mu_minus_2tag_SR_Dplus_OS'
@@ -1945,7 +1933,6 @@ channels:
       - AntiTight_2018_el_plus_2tag_SR_Dplus_SS
       - AntiTight_2018_mu_minus_2tag_SR_Dplus_SS
       - AntiTight_2018_mu_plus_2tag_SR_Dplus_SS
-      - AntiTight_2018_el_minus_2tag_SR_Dplus_SS
       - '-Tight_2018_el_minus_2tag_SR_Dplus_SS'
       - '-Tight_2018_el_plus_2tag_SR_Dplus_SS'
       - '-Tight_2018_mu_minus_2tag_SR_Dplus_SS'
@@ -2006,7 +1993,6 @@ channels:
       - AntiTight_2018_el_plus_2tag_SR_Dplus_OS
       - AntiTight_2018_mu_minus_2tag_SR_Dplus_OS
       - AntiTight_2018_mu_plus_2tag_SR_Dplus_OS
-      - AntiTight_2018_el_minus_2tag_SR_Dplus_OS
       - '-Tight_2018_el_minus_2tag_SR_Dplus_OS'
       - '-Tight_2018_el_plus_2tag_SR_Dplus_OS'
       - '-Tight_2018_mu_minus_2tag_SR_Dplus_OS'
@@ -2015,7 +2001,6 @@ channels:
       - '-AntiTight_2018_el_plus_2tag_SR_Dplus_SS'
       - '-AntiTight_2018_mu_minus_2tag_SR_Dplus_SS'
       - '-AntiTight_2018_mu_plus_2tag_SR_Dplus_SS'
-      - '-AntiTight_2018_el_minus_2tag_SR_Dplus_SS'
       - Tight_2018_el_minus_2tag_SR_Dplus_SS
       - Tight_2018_el_plus_2tag_SR_Dplus_SS
       - Tight_2018_mu_minus_2tag_SR_Dplus_SS

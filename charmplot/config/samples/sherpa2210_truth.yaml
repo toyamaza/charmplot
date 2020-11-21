@@ -130,19 +130,19 @@ Wjets_emu_bjets:
   add:
     - Sh_2210_Wjets_bjets_emu
   legendLabel: W#rightarrowl#nu + b
-  lineColor: '10004'
+  lineColor: '10002'
   subtract: null
 Wjets_emu_cjets:
   add:
     - Sh_2210_Wjets_cjets_emu
   legendLabel: W#rightarrowl#nu + c
-  lineColor: '10002'
+  lineColor: '10004'
   subtract: null
 Wjets_emu_light:
   add:
     - Sh_2210_Wjets_light_emu
   legendLabel: W#rightarrowl#nu + u
-  lineColor: '10000'
+  lineColor: '11002'
   subtract: null
 Wjets_tau:
   add: Sh_2210_Wjets_tau

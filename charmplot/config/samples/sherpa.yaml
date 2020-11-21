@@ -68,6 +68,57 @@ Wjets_cjets_emu:
   fillColor: "10002"
   legendLabel: "W#rightarrowl#nu + c"
 
+Wjets_emu_light:
+  add:
+    - Sh_Wjets_light_emu
+    - Sh_Wjets_highpt_emu
+  subtract:
+  lineColor: "11002"
+  legendLabel: "W#rightarrowl#nu + u"
+
+Wjets_emu_bjets:
+  add: Sh_Wjets_bjets_emu
+  subtract:
+  lineColor: "10002"
+  legendLabel: "W#rightarrowl#nu + b"
+
+Wjets_emu_cjets:
+  add: Sh_Wjets_cjets_emu
+  subtract:
+  lineColor: "10004"
+  legendLabel: "W#rightarrowl#nu + c"
+
+Wjets_emu_MAXHTPTV0_70:
+  add:
+    - Sherpa_Wjets.MC16e.MAXHTPTV0_70
+  subtract:
+  lineColor: "10004"
+  legendLabel: "W#rightarrowl#nu + c (0, 70)"
+
+Wjets_emu_MAXHTPTV70_140:
+  add: Sherpa_Wjets.MC16e.MAXHTPTV70_140
+  subtract:
+  lineColor: "11002"
+  legendLabel: "W#rightarrowl#nu + c (70, 140)"
+
+Wjets_emu_MAXHTPTV140_280:
+  add: Sherpa_Wjets.MC16e.MAXHTPTV140_280
+  subtract:
+  lineColor: "11004"
+  legendLabel: "W#rightarrowl#nu + c (140, 280)"
+
+Wjets_emu_MAXHTPTV280_500:
+  add: Sherpa_Wjets.MC16e.MAXHTPTV280_500
+  subtract:
+  lineColor: "12004"
+  legendLabel: "W#rightarrowl#nu + c (280, 500)"
+
+Wjets_emu_MAXHTPTV500_1000:
+  add: Sherpa_Wjets.MC16e.MAXHTPTV500_1000
+  subtract:
+  lineColor: "13004"
+  legendLabel: "W#rightarrowl#nu + c (500, 1000)"
+
 Wjets_tau:
   add: Sh_Wjets_tau
   subtract:

@@ -1,0 +1,55 @@
+---
+colorScheme: gemstone_hues
+variablesConf: charmed_wjets
+samplesConf: sherpa
+channels:
+  OS_2018_SR_Dplus:
+    label:
+      - 'W+D, D#rightarrowK#pi#pi, OS'
+      - 'Sherpa2.2.1'
+    lumi: '2018'
+    regions:
+      - 2018_el_minus_0tag_SR_Dplus_OS
+      - 2018_el_minus_1tag_SR_Dplus_OS
+      - 2018_el_minus_2tag_SR_Dplus_OS
+      - 2018_el_plus_0tag_SR_Dplus_OS
+      - 2018_el_plus_1tag_SR_Dplus_OS
+      - 2018_el_plus_2tag_SR_Dplus_OS
+      - 2018_mu_minus_0tag_SR_Dplus_OS
+      - 2018_mu_minus_1tag_SR_Dplus_OS
+      - 2018_mu_minus_2tag_SR_Dplus_OS
+      - 2018_mu_plus_0tag_SR_Dplus_OS
+      - 2018_mu_plus_1tag_SR_Dplus_OS
+      - 2018_mu_plus_2tag_SR_Dplus_OS
+    samples:
+      - Wjets_emu_light
+      - Wjets_emu_cjets
+      - Wjets_emu_bjets
+    save_to_file: true
+    extra_rebin: 2
+  OS_2018_SR_Dplus_PTV:
+    label:
+      - 'W+D, D#rightarrowK#pi#pi, OS'
+      - 'Sherpa2.2.1'
+    lumi: '2018'
+    regions:
+      - 2018_el_minus_0tag_SR_Dplus_OS
+      - 2018_el_minus_1tag_SR_Dplus_OS
+      - 2018_el_minus_2tag_SR_Dplus_OS
+      - 2018_el_plus_0tag_SR_Dplus_OS
+      - 2018_el_plus_1tag_SR_Dplus_OS
+      - 2018_el_plus_2tag_SR_Dplus_OS
+      - 2018_mu_minus_0tag_SR_Dplus_OS
+      - 2018_mu_minus_1tag_SR_Dplus_OS
+      - 2018_mu_minus_2tag_SR_Dplus_OS
+      - 2018_mu_plus_0tag_SR_Dplus_OS
+      - 2018_mu_plus_1tag_SR_Dplus_OS
+      - 2018_mu_plus_2tag_SR_Dplus_OS
+    samples:
+      - Wjets_emu_MAXHTPTV0_70
+      - Wjets_emu_MAXHTPTV70_140
+      - Wjets_emu_MAXHTPTV140_280
+      - Wjets_emu_MAXHTPTV280_500
+      - Wjets_emu_MAXHTPTV500_1000
+    save_to_file: true
+    extra_rebin: 2
