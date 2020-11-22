@@ -22,17 +22,21 @@ def format(string):
 
 class DataMCConfig:
 
-    def __init__(self, variables, samples):
+    def __init__(self, variables, samples, systematics=[]):
         self.variables = variables
         self.samples = samples
+        self.systematics = systematics
 
     def to_dict(self):
-        return {
+        out = {
             'variablesConf': self.variables,
             'samplesConf': self.samples,
             'data': 'Data',
             'channels': {},
         }
+        if self.systematics:
+            out['systematics'] = self.systematics
+        return out
 
 
 class WDTruthSamples:

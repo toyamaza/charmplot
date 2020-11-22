@@ -10,14 +10,31 @@ def main(options):
 
     for sample_config in options.samples.split(","):
 
+        # TODO: make configurable?
         signs = ['OS', 'SS']
         years = ['2017', '2018']
         leptons = ['el', 'mu']
         charges = ['plus', 'minus']
         btags = ['0tag', '1tag', '2tag']
 
+        # systematics
+        systematics = []
+        if options.systematics:
+            systematics = [
+                'matrix_method',
+                'experimental',
+                'ttbar_theory_pdf',
+                'ttbar_theory_choice',
+                'ttbar_theory_qcd',
+            ]
+
+        # Base config
+        config = templates.DataMCConfig(variables='charmed_wjets',
+                                        samples=sample_config,
+                                        systematics=systematics).to_dict()
+
         # Helper object to generate channels
-        channelGenerator = templates.ChannelGenerator(config=templates.DataMCConfig(variables='charmed_wjets', samples=sample_config).to_dict(),
+        channelGenerator = templates.ChannelGenerator(config=config,
                                                       samples=templates.WDTruthSamples().get(),
                                                       decay_mode=options.decay_mode,
                                                       signs=signs,
@@ -74,6 +91,9 @@ if __name__ == "__main__":
                       action="store", dest="samples",
                       help="different sample configurations (madgraph_truth,sherpa_truth,sherpa2210_truth,madgraph_fxfx_truth)",
                       default="madgraph_truth")
+    parser.add_option('--sys',
+                      action="store_true", dest="systematics",
+                      help="add systematics")
 
     # parse input arguments
     options, args = parser.parse_args()
