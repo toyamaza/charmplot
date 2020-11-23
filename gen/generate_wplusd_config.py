@@ -11,6 +11,15 @@ def main(options):
     for sample_config in options.samples.split(","):
 
         # TODO: make configurable?
+        make_os_ss = True
+        make_os_minus_ss = True
+        force_positive = False
+
+        # TODO: make configurable?
+        samples = templates.WDTruthSamples().get()
+        # samples = templates.WDFitSamples().get()
+
+        # TODO: make configurable?
         signs = ['OS', 'SS']
         years = ['2017', '2018']
         leptons = ['el', 'mu']
@@ -21,8 +30,8 @@ def main(options):
         systematics = []
         if options.systematics:
             systematics = [
-                'matrix_method',
                 'experimental',
+                'matrix_method',
                 'ttbar_theory_pdf',
                 'ttbar_theory_choice',
                 'ttbar_theory_qcd',
@@ -30,12 +39,12 @@ def main(options):
 
         # Base config
         config = templates.DataMCConfig(variables='charmed_wjets',
-                                        samples=sample_config,
+                                        sample_config=sample_config,
                                         systematics=systematics).to_dict()
 
         # Helper object to generate channels
         channelGenerator = templates.ChannelGenerator(config=config,
-                                                      samples=templates.WDTruthSamples().get(),
+                                                      samples=samples,
                                                       decay_mode=options.decay_mode,
                                                       signs=signs,
                                                       years=years,
@@ -43,30 +52,33 @@ def main(options):
                                                       charges=charges,
                                                       btags=btags,
                                                       process_string=process_string,
-                                                      sample_config=sample_config)
+                                                      sample_config=sample_config,
+                                                      force_positive=force_positive)
 
-        # integrated over: lepton (el mu), charge (plus minus), btag (0-tag 1-tag 2-tag)
-        channelGenerator.make_channel(years, extra_rebin=2)
-        for sign in signs:
-            channelGenerator.make_channel(years, sign=sign, extra_rebin=2)
-
-        # integrated over: lepton, charge
-        for btag in btags:
-            channelGenerator.make_channel(years, btag=btag, extra_rebin=2)
+        # OS/SS plots
+        if make_os_ss:
             for sign in signs:
-                channelGenerator.make_channel(years, sign=sign, btag=btag, extra_rebin=2)
+                channelGenerator.make_channel(years, sign=sign, extra_rebin=2)
+                for btag in btags:
+                    channelGenerator.make_channel(years, sign=sign, btag=btag, extra_rebin=2)
+                for lepton in leptons:
+                    channelGenerator.make_channel(years, sign=sign, lepton=lepton, extra_rebin=2)
+                    for btag in btags:
+                        channelGenerator.make_channel(years, sign=sign, btag=btag, lepton=lepton, extra_rebin=2)
+                        for charge in charges:
+                            channelGenerator.make_channel(years, sign=sign, btag=btag, lepton=lepton, charge=charge, extra_rebin=2)
 
-        # integrated over: charge, btag
-        for lepton in leptons:
-            channelGenerator.make_channel(years, lepton=lepton, extra_rebin=2)
-            for sign in signs:
-                channelGenerator.make_channel(years, sign=sign, lepton=lepton, extra_rebin=2)
-
-            # integrated over: charge
+        # OS-SS plots
+        if make_os_minus_ss:
+            channelGenerator.make_channel(years, extra_rebin=2)
             for btag in btags:
-                channelGenerator.make_channel(years, btag=btag, lepton=lepton, extra_rebin=2)
-                for sign in signs:
-                    channelGenerator.make_channel(years, sign=sign, btag=btag, lepton=lepton, extra_rebin=2)
+                channelGenerator.make_channel(years, btag=btag, extra_rebin=2)
+            for lepton in leptons:
+                channelGenerator.make_channel(years, lepton=lepton, extra_rebin=2)
+                for btag in btags:
+                    channelGenerator.make_channel(years, btag=btag, lepton=lepton, extra_rebin=2)
+                    for charge in charges:
+                        channelGenerator.make_channel(years, btag=btag, lepton=lepton, charge=charge, extra_rebin=2)
 
         with open(f'{options.analysis_config}_{sample_config}.yaml', 'w') as outfile:
             yaml.dump(channelGenerator.get_config(), outfile, default_flow_style=False)

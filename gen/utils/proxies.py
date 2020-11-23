@@ -3,23 +3,69 @@ import abc
 
 
 class ProxyChannel:
+    os_minus_ss_fit_configuration = False
+
+    def __init__(self, os_minus_ss_fit_configuration: bool = False):
+        self.os_minus_ss_fit_configuration = os_minus_ss_fit_configuration
+
+    def format(self, regions):
+        if not self.os_minus_ss_fit_configuration:
+            return regions
+        else:
+            out = []
+            for reg in regions:
+                out += [reg]
+                sign = ""
+                anti_sign = "-"
+                reg_nosign = reg
+                if reg.startswith("-"):
+                    sign = "-"
+                    anti_sign = ""
+                    reg_nosign = reg[1:]
+                if "_OS" in reg_nosign:
+                    reg_nosign = reg_nosign.replace("_OS", "_SS")
+                else:
+                    reg_nosign = reg_nosign.replace("_SS", "_OS")
+                out += [f"{anti_sign}{reg_nosign}"]
+            return out
+
     @property
     @abc.abstractmethod
     def name(self):
         pass
 
     @abc.abstractmethod
-    def format(self, regions):
+    def get_regions(self, regions):
         pass
 
     def get_name(self):
         return self.name
 
 
+class PlainChannel(ProxyChannel):
+    name = 'Plain'
+
+    def get_regions(self, regions):
+        return self.format(regions)
+
+
+class MockMC(ProxyChannel):
+    name = 'MockMC'
+
+    def get_regions(self, regions):
+        out = []
+        for reg in regions:
+            if "_OS" in reg:
+                out += [reg.replace("_OS", "_SS")]
+            else:
+                out += [reg]
+        return self.format(out)
+
+
 class MatrixMethod(ProxyChannel):
     name = 'MatrixMethod'
 
-    def format(self, regions):
+    def get_regions(self, regions):
         out = []
         for reg in regions:
             sign = ""
@@ -30,27 +76,27 @@ class MatrixMethod(ProxyChannel):
                 anti_sign = ""
             out += [f"{sign}AntiTight_{reg}"]
             out += [f"{anti_sign}Tight_{reg}"]
-        return out
+        return self.format(out)
 
 
 class Matched(ProxyChannel):
     name = 'Matched'
 
-    def format(self, regions):
-        return [reg + "_Matched" for reg in regions]
+    def get_regions(self, regions):
+        return self.format([reg + "_Matched" for reg in regions])
 
 
 class NoMatch(ProxyChannel):
     name = 'NoMatch'
 
-    def format(self, regions):
-        return [reg + "_Other" for reg in regions]
+    def get_regions(self, regions):
+        return self.format([reg + "_Other" for reg in regions])
 
 
 class Rest(ProxyChannel):
     name = 'Rest'
 
-    def format(self, regions):
+    def get_regions(self, regions):
         out = []
         for reg in regions:
             anti_sign = "-"
@@ -59,4 +105,4 @@ class Rest(ProxyChannel):
                 anti_sign = ""
             out += [f"{anti_sign}{reg}_Matched"]
             out += [f"{anti_sign}{reg}_Other"]
-        return regions + out
+        return self.format(regions + out)

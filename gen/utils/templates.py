@@ -22,15 +22,15 @@ def format(string):
 
 class DataMCConfig:
 
-    def __init__(self, variables, samples, systematics=[]):
+    def __init__(self, variables, sample_config, systematics=[]):
         self.variables = variables
-        self.samples = samples
+        self.sample_config = sample_config
         self.systematics = systematics
 
     def to_dict(self):
         out = {
             'variablesConf': self.variables,
-            'samplesConf': self.samples,
+            'samplesConf': self.sample_config,
             'data': 'Data',
             'channels': {},
         }
@@ -38,6 +38,23 @@ class DataMCConfig:
             out['systematics'] = self.systematics
         return out
 
+
+class WDFitSamples:
+
+    samples = [
+        ['MockMC', proxies.MockMC()],
+        ['Wjets_emu_Matched', proxies.Matched(os_minus_ss_fit_configuration=True)],
+        ['Wjets_emu_Rest', proxies.Rest(os_minus_ss_fit_configuration=True)],
+        ['Top_Matched', proxies.Matched(os_minus_ss_fit_configuration=True)],
+        ['Top_Rest', proxies.Rest(os_minus_ss_fit_configuration=True)],
+        ['Wjets_emu_NoMatch', proxies.NoMatch(os_minus_ss_fit_configuration=True)],
+        ['Zjets_emu', proxies.PlainChannel(os_minus_ss_fit_configuration=True)],
+        ['Other', proxies.PlainChannel(os_minus_ss_fit_configuration=True)],
+        ['Multijet_MatrixMethod', proxies.MatrixMethod(os_minus_ss_fit_configuration=True)]
+    ]
+
+    def get(self):
+        return self.samples
 
 class WDTruthSamples:
 
@@ -74,7 +91,7 @@ class WDFlavourSamples:
 
 class ChannelGenerator:
 
-    def __init__(self, config, samples, decay_mode, signs, years, leptons, charges, btags, process_string, sample_config):
+    def __init__(self, config, samples, decay_mode, signs, years, leptons, charges, btags, process_string, sample_config, force_positive=False):
         self.config = config
         self.samples = samples
         self.decay_mode = decay_mode
@@ -85,6 +102,7 @@ class ChannelGenerator:
         self.btags = btags
         self.process_string = process_string
         self.sample_config = sample_config
+        self.force_positive = force_positive
 
     def get_config(self):
         return self.config
@@ -97,6 +115,7 @@ class ChannelGenerator:
             'label': self.generate_channel_labels(sign=sign, lepton=lepton, charge=charge, btag=btag),
             'lumi': '+'.join(lumi),
             'extra_rebin': extra_rebin,
+            'force_positive': self.force_positive,
             'samples': [],
         }
         self.config['channels'][channel_name] = channel
@@ -116,7 +135,7 @@ class ChannelGenerator:
                 proxy_channel_name = channel_name + "_" + proxy.get_name()
                 proxy_channel = {
                     'make_plots': False,
-                    'regions': proxy.format(regions),
+                    'regions': proxy.get_regions(regions),
                 }
                 self.config['channels'][proxy_channel_name] = proxy_channel
                 channel['samples'] += [f'{sample[0]} | {proxy_channel_name}']
