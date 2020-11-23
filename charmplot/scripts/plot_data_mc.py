@@ -102,7 +102,8 @@ def process_channel(options, conf, c):
     # trex output
     if options.trex:
         for s in samples + [conf.get_data()]:
-            sample_file_name = os.path.join(trex_folder, f"{s.shortName}_tmp_{c}.root")
+            sample_file_name = os.path.join(trex_folder, f"{s.shortName}_tmp_{c.name}.root")
+            logging.info(f"created file for trex input {sample_file_name}")
             if s.shortName not in trex_histograms:
                 sample_out_file = ROOT.TFile(sample_file_name, "RECREATE")
                 trex_histograms[s.shortName] = sample_file_name
@@ -186,7 +187,7 @@ def process_channel(options, conf, c):
         canv.configure_histograms(mc_map, h_data)
 
         # save histograms to root file
-        if c.save_to_file and options.trex:
+        if options.trex:
             utils.save_to_trex_file(trex_folder, c, var, h_data, mc_map, trex_histograms)
             if systematics:
                 for group in systematics:
@@ -376,8 +377,12 @@ if __name__ == "__main__":
     out_name = config.replace(".yaml", "").replace(".yml", "")
     if options.suffix:
         out_name = out_name.split("/")
-        out_name[0] += "_" + options.suffix
-        out_name = "/".join(out_name)
+        if out_name[0] != ".":
+            out_name[0] += "_" + options.suffix
+            out_name = "/".join(out_name)
+        else:
+            out_name[1] += "_" + options.suffix
+            out_name = "/".join(out_name)
 
     # config object
     conf = globalConfig.GlobalConfig(config, out_name)
