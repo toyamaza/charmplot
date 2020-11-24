@@ -133,7 +133,7 @@ def read_trex_input(channel: channel.Channel, var: variable.Variable, mc_map: MC
 
 
 def save_to_trex_file(trex_folder: str, channel: channel.Channel, var: variable.Variable,
-                      h_data: ROOT.TH1, mc_map: MC_Map, trex_histograms: Dict, sys: str = None):
+                      h_data: ROOT.TH1, mc_map: MC_Map, trex_histograms: Dict, sys: str = None, affecting: str=""):
     logging.info(f"Saving histograms to trex root files for channel {channel} for sys {sys}")
     out_name = f"{channel.name}_{var.name}"
     if sys:
@@ -144,6 +144,8 @@ def save_to_trex_file(trex_folder: str, channel: channel.Channel, var: variable.
         h_data.Write(out_name)
         data_file.Close()
     for s in mc_map:
+        if affecting and s.shortName not in affecting:
+            continue
         out_file = ROOT.TFile(trex_histograms[s.shortName], "UPDATE")
         out_file.cd()
         mc_map[s].Write(out_name)
@@ -180,9 +182,21 @@ def save_to_file(out_file_name: str, channel: channel.Channel, var: variable.Var
 def read_samples(conf: globalConfig.GlobalConfig, reader: inputDataReader.InputDataReader,
                  c: channel.Channel, v: variable.Variable, samples: list,
                  fit: likelihoodFit.LikelihoodFit = None, force_positive: bool = False,
-                 sys: str = None) -> MC_Map:
+                 sys: str = None, affecting: bool = None, fallback: MC_Map = None) -> MC_Map:
     mc_map = {}
     for s in samples:
+        # fallback to nominal if sys does not affect the sample
+        if sys and fallback and affecting:
+            if s.shortName not in affecting:
+                logging.info(f"Fallback to nominal histogram for {s.shortName} and sys {sys}")
+                if not s in fallback:
+                    logging.info(f"Fallback histogram not found, continuing...")
+                    continue
+                h_nominal = fallback[s]
+                h = h_nominal.Clone(f"{h_nominal.GetName()}_{sys}")
+                mc_map[s] = h
+                continue
+
         # read MC histogram
         h = reader.get_histogram(s, c, v, force_positive, sys)
         if not h:

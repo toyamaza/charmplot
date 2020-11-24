@@ -152,8 +152,9 @@ def process_channel(options, conf, c):
             mc_map_sys = {}
             for group in systematics:
                 variations = systematics[group]['variations']
+                affecting = systematics[group].get('affecting')
                 mc_map_sys[group] = {syst: utils.read_samples(conf, reader, c, var, samples, fit,
-                                                              force_positive=c.force_positive, sys=syst) for syst in variations}
+                                                              force_positive=c.force_positive, sys=syst, affecting=affecting, fallback=mc_map) for syst in variations}
 
         # trex post-fit
         trex_mc_tot = None
@@ -196,19 +197,19 @@ def process_channel(options, conf, c):
                     affecting = systematics[group].get('affecting')
                     if sys_type == 'updown':
                         for syst in variations:
-                            utils.save_to_trex_file(trex_folder, c, var, None, mc_map_sys[group][syst], trex_histograms, syst)
-                    elif sys_type == 'minmax' and affecting:
+                            utils.save_to_trex_file(trex_folder, c, var, None, mc_map_sys[group][syst], trex_histograms, syst, affecting)
+                    elif sys_type == 'minmax':
                         for s in mc_map:
-                            if s.shortName not in affecting:
+                            if affecting and s.shortName not in affecting:
                                 continue
                             sys_hists = [mc_map_sys[group][syst][s] for syst in variations]
                             nominal_hist = mc_map[s]
                             gr_mc_sys_err, _ = utils.make_minmax_err(nominal_hist, sys_hists)
                             h_up, _ = utils.sys_graph_to_hists(gr_mc_sys_err, nominal_hist, group)
                             utils.save_histograms_to_trex_file(trex_folder, c, var, h_up, s, trex_histograms, f"{group}_up")
-                    elif affecting:
+                    else:
                         for s in mc_map:
-                            if s.shortName not in affecting:
+                            if affecting and s.shortName not in affecting:
                                 continue
                             sys_hists = [mc_map_sys[group][syst][s] for syst in variations]
                             nominal_hist = mc_map[s]

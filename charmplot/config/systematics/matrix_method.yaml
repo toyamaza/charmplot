@@ -1,4 +1,6 @@
 type: updown
+affecting:
+  - Multijet_MatrixMethod
 variations:
   - MM_REAL_RATE_STAT__1up
   - MM_REAL_RATE_STAT__1down
