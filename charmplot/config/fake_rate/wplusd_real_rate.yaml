@@ -11,10 +11,9 @@ channels:
     samples:
       - MG_Wjets_emu
       - Sh_Wjets_emu
-      # - Ph_Wjets_emu
       - Top_ttbar
     label:
-      - "2018 el Tight"
+      - "el Tight"
       - "0-tag"
     lumi: "2018"
     save_to_file: True
@@ -26,10 +25,9 @@ channels:
     samples:
       - MG_Wjets_emu
       - Sh_Wjets_emu
-      # - Ph_Wjets_emu
       - Top_ttbar
     label:
-      - "2018 el Tight"
+      - "el Tight"
       - "1-tag"
     lumi: "2018"
     save_to_file: True
@@ -40,10 +38,9 @@ channels:
     samples:
       - MG_Wjets_emu
       - Sh_Wjets_emu
-      # - Ph_Wjets_emu
       - Top_ttbar
     label:
-      - "2018 mu Tight"
+      - "mu Tight"
       - "0-tag"
     lumi: "2018"
     save_to_file: True
@@ -55,10 +52,9 @@ channels:
     samples:
       - MG_Wjets_emu
       - Sh_Wjets_emu
-      # - Ph_Wjets_emu
       - Top_ttbar
     label:
-      - "2018 mu Tight"
+      - "mu Tight"
       - "1-tag"
     lumi: "2018"
     save_to_file: True
@@ -69,10 +65,9 @@ channels:
     samples:
       - MG_Wjets_emu
       - Sh_Wjets_emu
-      # - Ph_Wjets_emu
       - Top_ttbar
     label:
-      - "2018 el AntiTight"
+      - "el AntiTight"
       - "0-tag"
     lumi: "2018"
     save_to_file: True
@@ -84,10 +79,9 @@ channels:
     samples:
       - MG_Wjets_emu
       - Sh_Wjets_emu
-      # - Ph_Wjets_emu
       - Top_ttbar
     label:
-      - "2018 el AntiTight"
+      - "el AntiTight"
       - "1-tag"
     lumi: "2018"
     save_to_file: True
@@ -98,10 +92,9 @@ channels:
     samples:
       - MG_Wjets_emu
       - Sh_Wjets_emu
-      # - Ph_Wjets_emu
       - Top_ttbar
     label:
-      - "2018 mu AntiTight"
+      - "mu AntiTight"
     lumi: "2018"
     save_to_file: True
 
@@ -112,10 +105,235 @@ channels:
     samples:
       - MG_Wjets_emu
       - Sh_Wjets_emu
-      # - Ph_Wjets_emu
       - Top_ttbar
     label:
-      - "2018 mu AntiTight"
+      - "mu AntiTight"
       - "1-tag"
     lumi: "2018"
+    save_to_file: True
+
+  Tight_2017_el_0tag_SR_Dplus:
+    regions:
+      - Tight_2017_el_0tag_SR_Dplus
+    samples:
+      - MG_Wjets_emu
+      - Sh_Wjets_emu
+      - Top_ttbar
+    label:
+      - "el Tight"
+      - "0-tag"
+    lumi: "2017"
+    save_to_file: True
+
+  Tight_2017_el_1tag_SR_Dplus:
+    regions:
+      - Tight_2017_el_1tag_SR_Dplus
+      - Tight_2017_el_2tag_SR_Dplus
+    samples:
+      - MG_Wjets_emu
+      - Sh_Wjets_emu
+      - Top_ttbar
+    label:
+      - "el Tight"
+      - "1-tag"
+    lumi: "2017"
+    save_to_file: True
+
+  Tight_2017_mu_0tag_SR_Dplus:
+    regions:
+      - Tight_2017_mu_0tag_SR_Dplus
+    samples:
+      - MG_Wjets_emu
+      - Sh_Wjets_emu
+      - Top_ttbar
+    label:
+      - "mu Tight"
+      - "0-tag"
+    lumi: "2017"
+    save_to_file: True
+
+  Tight_2017_mu_1tag_SR_Dplus:
+    regions:
+      - Tight_2017_mu_1tag_SR_Dplus
+      - Tight_2017_mu_2tag_SR_Dplus
+    samples:
+      - MG_Wjets_emu
+      - Sh_Wjets_emu
+      - Top_ttbar
+    label:
+      - "mu Tight"
+      - "1-tag"
+    lumi: "2017"
+    save_to_file: True
+
+  AntiTight_2017_el_0tag_SR_Dplus:
+    regions:
+      - AntiTight_2017_el_0tag_SR_Dplus
+    samples:
+      - MG_Wjets_emu
+      - Sh_Wjets_emu
+      - Top_ttbar
+    label:
+      - "el AntiTight"
+      - "0-tag"
+    lumi: "2017"
+    save_to_file: True
+
+  AntiTight_2017_el_1tag_SR_Dplus:
+    regions:
+      - AntiTight_2017_el_1tag_SR_Dplus
+      - AntiTight_2017_el_2tag_SR_Dplus
+    samples:
+      - MG_Wjets_emu
+      - Sh_Wjets_emu
+      - Top_ttbar
+    label:
+      - "el AntiTight"
+      - "1-tag"
+    lumi: "2017"
+    save_to_file: True
+
+  AntiTight_2017_mu_0tag_SR_Dplus:
+    regions:
+      - AntiTight_2017_mu_0tag_SR_Dplus
+    samples:
+      - MG_Wjets_emu
+      - Sh_Wjets_emu
+      - Top_ttbar
+    label:
+      - "mu AntiTight"
+    lumi: "2017"
+    save_to_file: True
+
+  AntiTight_2017_mu_1tag_SR_Dplus:
+    regions:
+      - AntiTight_2017_mu_1tag_SR_Dplus
+      - AntiTight_2017_mu_2tag_SR_Dplus
+    samples:
+      - MG_Wjets_emu
+      - Sh_Wjets_emu
+      - Top_ttbar
+    label:
+      - "mu AntiTight"
+      - "1-tag"
+    lumi: "2017"
+    save_to_file: True
+
+  Tight_el_0tag_SR_Dplus:
+    regions:
+      - Tight_2018_el_0tag_SR_Dplus
+      - Tight_2017_el_0tag_SR_Dplus
+    samples:
+      - MG_Wjets_emu
+      - Sh_Wjets_emu
+      - Top_ttbar
+    label:
+      - "el Tight"
+      - "0-tag"
+    lumi: "2017+2018"
+    save_to_file: True
+
+  Tight_el_1tag_SR_Dplus:
+    regions:
+      - Tight_2018_el_1tag_SR_Dplus
+      - Tight_2018_el_2tag_SR_Dplus
+      - Tight_2017_el_1tag_SR_Dplus
+      - Tight_2017_el_2tag_SR_Dplus
+    samples:
+      - MG_Wjets_emu
+      - Sh_Wjets_emu
+      - Top_ttbar
+    label:
+      - "el Tight"
+      - "1-tag"
+    lumi: "2017+2018"
+    save_to_file: True
+
+  Tight_mu_0tag_SR_Dplus:
+    regions:
+      - Tight_2018_mu_0tag_SR_Dplus
+      - Tight_2017_mu_0tag_SR_Dplus
+    samples:
+      - MG_Wjets_emu
+      - Sh_Wjets_emu
+      - Top_ttbar
+    label:
+      - "mu Tight"
+      - "0-tag"
+    lumi: "2017+2018"
+    save_to_file: True
+
+  Tight_mu_1tag_SR_Dplus:
+    regions:
+      - Tight_2018_mu_1tag_SR_Dplus
+      - Tight_2018_mu_2tag_SR_Dplus
+      - Tight_2017_mu_1tag_SR_Dplus
+      - Tight_2017_mu_2tag_SR_Dplus
+    samples:
+      - MG_Wjets_emu
+      - Sh_Wjets_emu
+      - Top_ttbar
+    label:
+      - "mu Tight"
+      - "1-tag"
+    lumi: "2017+2018"
+    save_to_file: True
+
+  AntiTight_el_0tag_SR_Dplus:
+    regions:
+      - AntiTight_2018_el_0tag_SR_Dplus
+      - AntiTight_2017_el_0tag_SR_Dplus
+    samples:
+      - MG_Wjets_emu
+      - Sh_Wjets_emu
+      - Top_ttbar
+    label:
+      - "el AntiTight"
+      - "0-tag"
+    lumi: "2017+2018"
+    save_to_file: True
+
+  AntiTight_el_1tag_SR_Dplus:
+    regions:
+      - AntiTight_2018_el_1tag_SR_Dplus
+      - AntiTight_2018_el_2tag_SR_Dplus
+      - AntiTight_2017_el_1tag_SR_Dplus
+      - AntiTight_2017_el_2tag_SR_Dplus
+    samples:
+      - MG_Wjets_emu
+      - Sh_Wjets_emu
+      - Top_ttbar
+    label:
+      - "el AntiTight"
+      - "1-tag"
+    lumi: "2017+2018"
+    save_to_file: True
+
+  AntiTight_mu_0tag_SR_Dplus:
+    regions:
+      - AntiTight_2018_mu_0tag_SR_Dplus
+      - AntiTight_2017_mu_0tag_SR_Dplus
+    samples:
+      - MG_Wjets_emu
+      - Sh_Wjets_emu
+      - Top_ttbar
+    label:
+      - "mu AntiTight"
+    lumi: "2017+2018"
+    save_to_file: True
+
+  AntiTight_mu_1tag_SR_Dplus:
+    regions:
+      - AntiTight_2018_mu_1tag_SR_Dplus
+      - AntiTight_2018_mu_2tag_SR_Dplus
+      - AntiTight_2017_mu_1tag_SR_Dplus
+      - AntiTight_2017_mu_2tag_SR_Dplus
+    samples:
+      - MG_Wjets_emu
+      - Sh_Wjets_emu
+      - Top_ttbar
+    label:
+      - "mu AntiTight"
+      - "1-tag"
+    lumi: "2017+2018"
     save_to_file: True

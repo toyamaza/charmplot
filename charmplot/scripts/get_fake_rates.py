@@ -138,10 +138,11 @@ def main(conf, options, args):
 
         for s in samples:
 
-            v = "lep_pt_eta" if "_el_" not in channel_name else "lep_pt_calo_eta"
+            v = "lep_pt_eta" if "el_" not in channel_name else "lep_pt_calo_eta"
 
             rebin = int(c.split(":")[3])
 
+            print(f"{s}_Tight_{channel_name}_{v}")
             lep_pt_eta_tight = f.Get(f"{s}_Tight_{channel_name}_{v}")
             lep_pt_eta_loose = f.Get(f"{s}_AntiTight_{channel_name}_{v}")
             lep_pt_eta_tight.RebinX(rebin)
@@ -199,10 +200,11 @@ def main(conf, options, args):
 
             # channel object for plotting
             eta = eta_range[y]
-            chan = channel.Channel(f"{s}_{channel_name}_{y}", [channel_name, f"|#eta| = [{eta[0]}, {eta[1]}]"], "2018", [], [])
+            chan = channel.Channel(f"{s}_{channel_name}_{y}", [channel_name, f"|#eta| = [{eta[0]}, {eta[1]}]"], "2017+2018", [], [])
 
             # canvas
-            canv = utils.make_canvas(hs.GetStack().Last(), lep_pt, chan, x=800, y=800, y_split=0, events="f")
+            var = lep_pt
+            canv = utils.make_canvas(hs.GetStack().Last(), var, chan, x=800, y=800, y_split=0, events="f")
             canv.proxy_up.GetXaxis().SetRangeUser(0, x_range[1] + 20)
             canv.proxy_up.SetMinimum(y_range[0])
             canv.proxy_up.SetMaximum(y_range[1])
@@ -234,7 +236,7 @@ if __name__ == "__main__":
     parser.add_option('-c', '--channels',
                       action="store", dest="channels",
                       help="comma separated list of channels",
-                      default="2018_el_QCD_0tag_Dplus:30:90,2018_el_QCD_1tag_Dplus:30:90,2018_mu_QCD_0tag_Dplus:30:70,2018_mu_QCD_1tag_Dplus:30:70")
+                      default="el_QCD_0tag_Dplus:30:90,el_QCD_1tag_Dplus:30:90,mu_QCD_0tag_Dplus:30:70,mu_QCD_1tag_Dplus:30:70")
     parser.add_option('-s', '--samples',
                       action="store", dest="samples",
                       help="comma separated list of samples",
