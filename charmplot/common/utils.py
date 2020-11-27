@@ -133,7 +133,7 @@ def read_trex_input(channel: channel.Channel, var: variable.Variable, mc_map: MC
 
 
 def save_to_trex_file(trex_folder: str, channel: channel.Channel, var: variable.Variable,
-                      h_data: ROOT.TH1, mc_map: MC_Map, trex_histograms: Dict, sys: str = None, affecting: str=""):
+                      h_data: ROOT.TH1, mc_map: MC_Map, trex_histograms: Dict, sys: str = None, affecting: str = ""):
     logging.info(f"Saving histograms to trex root files for channel {channel} for sys {sys}")
     out_name = f"{channel.name}_{var.name}"
     if sys:
@@ -189,7 +189,7 @@ def read_samples(conf: globalConfig.GlobalConfig, reader: inputDataReader.InputD
         if sys and fallback and affecting:
             if s.shortName not in affecting:
                 logging.info(f"Fallback to nominal histogram for {s.shortName} and sys {sys}")
-                if not s in fallback:
+                if s not in fallback:
                     logging.info(f"Fallback histogram not found, continuing...")
                     continue
                 h_nominal = fallback[s]

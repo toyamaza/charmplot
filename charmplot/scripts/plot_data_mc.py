@@ -154,7 +154,8 @@ def process_channel(options, conf, c):
                 variations = systematics[group]['variations']
                 affecting = systematics[group].get('affecting')
                 mc_map_sys[group] = {syst: utils.read_samples(conf, reader, c, var, samples, fit,
-                                                              force_positive=c.force_positive, sys=syst, affecting=affecting, fallback=mc_map) for syst in variations}
+                                                              force_positive=c.force_positive, sys=syst,
+                                                              affecting=affecting, fallback=mc_map) for syst in variations}
 
         # trex post-fit
         trex_mc_tot = None
@@ -278,6 +279,22 @@ def process_channel(options, conf, c):
         # set maximum after creating legend
         canv.set_maximum((h_data, h_mc_tot), var, mc_min=utils.get_mc_min(mc_map, samples))
 
+        # find minimum
+        if options.nology:
+            min_negative = {}
+            for s in samples:
+                if s not in mc_map:
+                    continue
+                h = mc_map[s]
+                for i in range(1, h.GetNbinsX() + 1):
+                    if h.GetBinContent(i) < 0:
+                        if i not in min_negative:
+                            min_negative[i] = 0
+                        min_negative[i] += h.GetBinContent(i)
+            if min_negative.values():
+                min_negative = min(min_negative.values())
+                canv.proxy_up.SetMinimum(min_negative)
+
         # bottom pad
         canv.pad2.cd()
         if not c.qcd_template:
@@ -289,7 +306,8 @@ def process_channel(options, conf, c):
             canv.draw_qcd_frac(h_qcd_frac, h_qcd_frac_err)
 
         # Print out
-        canv.print_all(conf.out_name, c.name, v, multipage_pdf=True, first_plot=first_plot, last_plot=last_plot, as_png=options.stage_out)
+        canv.print_all(conf.out_name, c.name, v, multipage_pdf=True, first_plot=first_plot,
+                       last_plot=last_plot, as_png=options.stage_out, logy=(not options.nology))
         first_plot = False
 
         # close output file
@@ -363,6 +381,9 @@ if __name__ == "__main__":
     parser.add_option('--trex-input',
                       action="store", dest="trex_input",
                       help="import post-fit trex plots")
+    parser.add_option('--nology',
+                      action="store_true", dest="nology",
+                      help="no log-y plots")
     parser.add_option('-t', '--threads',
                       action="store", dest="threads",
                       help="number of threads",

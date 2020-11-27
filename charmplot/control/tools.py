@@ -16,3 +16,11 @@ def parse_yaml(config_name):
             return yaml.safe_load(stream)
         except yaml.YAMLError as exc:
             print(exc)
+
+
+def parse_yaml_file(name):
+    with open(name, 'r') as stream:
+        try:
+            return yaml.safe_load(stream)
+        except yaml.YAMLError as exc:
+            print(exc)

@@ -48,13 +48,14 @@ class WDFitSamples:
         ['Top_Matched', proxies.Matched(os_minus_ss_fit_configuration=True)],
         ['Top_Rest', proxies.Rest(os_minus_ss_fit_configuration=True)],
         ['Wjets_emu_NoMatch', proxies.NoMatch(os_minus_ss_fit_configuration=True)],
-        ['Zjets_emu', proxies.PlainChannel(os_minus_ss_fit_configuration=True)],
         ['Other', proxies.PlainChannel(os_minus_ss_fit_configuration=True)],
+        ['Zjets_emu', proxies.PlainChannel(os_minus_ss_fit_configuration=True)],
         ['Multijet_MatrixMethod', proxies.MatrixMethod(os_minus_ss_fit_configuration=True)]
     ]
 
     def get(self):
         return self.samples
+
 
 class WDTruthSamples:
 

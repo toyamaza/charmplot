@@ -221,7 +221,9 @@ class Canvas2(CanvasBase):
             else:
                 self.print(f"{output}/{channel}/{channel}_{var}_{self.sys}.png")
         if multipage_pdf:
-            if first_plot:
+            if first_plot and last_plot and not logy:
+                self.print(f"{output}/{channel}.pdf")
+            elif first_plot:
                 self.print(f"{output}/{channel}.pdf(")
             elif last_plot and not logy:
                 self.print(f"{output}/{channel}.pdf)")
@@ -327,8 +329,10 @@ class Canvas2(CanvasBase):
         # temp entry for sys unc
         temp_err = ROOT.TGraphErrors()
         temp_err.SetLineColor(ROOT.kBlack)
-        temp_err.SetFillColor(ROOT.kBlue - 4)
-        temp_err.SetFillStyle(3444)
+        # temp_err.SetFillColor(ROOT.kBlue - 4)
+        # temp_err.SetFillStyle(3444)
+        temp_err.SetFillColor(ROOT.kGray + 2)
+        temp_err.SetFillStyle(3354)
         self.temp_err = temp_err
 
         # legend
@@ -338,6 +342,8 @@ class Canvas2(CanvasBase):
         if mc_tot:
             self.n_entries += 1
         self.legx_x1 = 0.60
+        if not print_yields:
+            self.legx_x1 += 0.10
         self.leg_y2 = 1 - 1.8 * self.text_height_small / (1 - self.y_split)
         self.leg_y1 = self.leg_y2 - self.n_entries * self.text_height_small / (1 - self.y_split)
         leg = ROOT.TLegend(self.legx_x1, self.leg_y1, 0.9, self.leg_y2)

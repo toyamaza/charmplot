@@ -15,11 +15,9 @@ class ProxyChannel:
             out = []
             for reg in regions:
                 out += [reg]
-                sign = ""
                 anti_sign = "-"
                 reg_nosign = reg
                 if reg.startswith("-"):
-                    sign = "-"
                     anti_sign = ""
                     reg_nosign = reg[1:]
                 if "_OS" in reg_nosign:
