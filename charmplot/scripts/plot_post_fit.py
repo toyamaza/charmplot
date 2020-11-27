@@ -30,7 +30,9 @@ def get_err_hist(f, par):
     h_temp = f.Get(f"h_tot_{par}_Up_postFit")
     if h_temp:
         h_err_up = h_temp.Clone(f"{h_temp.GetName()}_err")
-        h_err_up.Add(f.Get("h_tot_postFit"), -1)
+    else:
+        h_mc_tot = f.Get("h_tot_postFit")
+        h_err_up = h_mc_tot.Clone(f"{h_mc_tot.GetName()}_err")
     return h_err_up
 
 
@@ -111,20 +113,21 @@ def main(options, conf, total=False):
             sample = conf.get_sample(sample_name)
             samples += [sample]
             h_name = f"h_{sample.shortName}_postFit"
+            h_name_SS = f"h_{sample.shortName}_SS_postFit"
             h = f.Get(h_name)
             if not h:
                 continue
-            h_SS = f_SS.Get(h_name)
+            h_SS = f_SS.Get(h_name_SS)
             if h_SS:
                 h.Add(h_SS, -1)
             logging.info(f"Got histogram {h} for sample {sample_name}")
             if total:
                 h.Add(f_1.Get(h_name))
                 h.Add(f_2.Get(h_name))
-                if f_SS_1.Get(h_name):
-                    h.Add(f_SS_1.Get(h_name), -1)
-                if f_SS_2.Get(h_name):
-                    h.Add(f_SS_2.Get(h_name), -1)
+                if f_SS_1.Get(h_name_SS):
+                    h.Add(f_SS_1.Get(h_name_SS), -1)
+                if f_SS_2.Get(h_name_SS):
+                    h.Add(f_SS_2.Get(h_name_SS), -1)
             mc_map[sample] = h
 
         # get data
@@ -165,36 +168,15 @@ def main(options, conf, total=False):
         # systematic uncertainties
         h_mc_tot_err_histograms = []
         for par in corr_parameters:
-            h_err = None
-            h_sys_OS_up = get_err_hist(f, par)
-            h_sys_SS_up = get_err_hist(f_SS, par)
-            if h_sys_OS_up:
-                h_err = h_sys_OS_up.Clone(f"{h_sys_OS_up.GetName()}_final")
-            if h_sys_SS_up and h_err:
-                h_err.Add(h_sys_SS_up, -1)
+            h_mc_tot_Up = get_err_hist(f, par)
+            h_mc_tot_Up.Add(get_err_hist(f_SS, par), -1)
             if total:
-                # 1-tag
-                h_sys_OS_up_1 = get_err_hist(f_1, par)
-                h_sys_SS_up_1 = get_err_hist(f_SS_1, par)
-                if h_sys_OS_up_1:
-                    if h_err:
-                        h_err.Add(h_sys_OS_up_1)
-                    else:
-                        h_err = h_sys_OS_up_1.Clone(f"{h_sys_OS_up_1.GetName()}_final")
-                if h_sys_SS_up_1 and h_err:
-                    h_err.Add(h_sys_SS_up_1, -1)
-                # 2-tag
-                h_sys_OS_up_2 = get_err_hist(f_2, par)
-                h_sys_SS_up_2 = get_err_hist(f_SS_2, par)
-                if h_sys_OS_up_2:
-                    if h_err:
-                        h_err.Add(h_sys_OS_up_2)
-                    else:
-                        h_err = h_sys_OS_up_2.Clone(f"{h_sys_OS_up_2.GetName()}_final")
-                if h_sys_SS_up_2 and h_err:
-                    h_err.Add(h_sys_SS_up_2, -1)
-
-            h_mc_tot_err_histograms += [h_err]
+                h_mc_tot_Up.Add(get_err_hist(f_1, par))
+                h_mc_tot_Up.Add(get_err_hist(f_SS_1, par), -1)
+                h_mc_tot_Up.Add(get_err_hist(f_2, par))
+                h_mc_tot_Up.Add(get_err_hist(f_SS_2, par), -1)
+            h_mc_tot_Up.Add(h_mc_tot, -1)
+            h_mc_tot_err_histograms += [h_mc_tot_Up]
 
         for x in range(1, h_mc_tot.GetNbinsX() + 1):
             g_mc_tot_err.GetEYlow()[x] = 0.
@@ -204,8 +186,8 @@ def main(options, conf, total=False):
                 for j in range(i):
                     if h_mc_tot_err_histograms[i] and h_mc_tot_err_histograms[j]:
                         corr = corr_correlation_rows[i][j]
-                        err_i = h_mc_tot_err_histograms[i].GetBinContent(x)
-                        err_j = h_mc_tot_err_histograms[j].GetBinContent(x)
+                        err_i = abs(h_mc_tot_err_histograms[i].GetBinContent(x))
+                        err_j = abs(h_mc_tot_err_histograms[j].GetBinContent(x))
                         err = err_i * err_j * corr * 2
                         g_mc_tot_err.GetEYlow()[x] += err
                         g_mc_tot_err.GetEYhigh()[x] += err

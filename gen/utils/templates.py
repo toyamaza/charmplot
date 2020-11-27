@@ -65,8 +65,8 @@ class WDTruthSamples:
         ['Top_Matched', proxies.Matched()],
         ['Top_Rest', proxies.Rest()],
         ['Wjets_emu_NoMatch', proxies.NoMatch()],
-        ['Zjets_emu'],
         ['Other'],
+        ['Zjets_emu'],
         ['Multijet_MatrixMethod', proxies.MatrixMethod()]
     ]
 

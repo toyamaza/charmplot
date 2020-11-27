@@ -39,8 +39,6 @@ class InputDataReader(object):
             h = h.Clone(f"{h.GetName()}_{f.GetName().replace('.root', '')}")
         h_new = utils.rebin_histogram(h, variable, extra_rebin)
         logger.info(f"Got histogram {h_new}")
-        # if "MatrixMethod" not in sample.name:
-        #     utils.set_to_positive(h_new)
 
         # scale histogram
         scale_factors = utils.read_scale_factors(self.channel_scale_factors)
@@ -125,7 +123,7 @@ class InputDataReader(object):
                 else:
                     h_denom.Add(h, weight)
         if force_positive:
-            utils.set_to_positive_simple(h_total)
+            utils.set_to_positive(h_total)
         if not sample.statError:
             logger.info(f"Set stat error of {sample} to zero.")
             for i in range(0, h_total.GetNbinsX() + 2):
