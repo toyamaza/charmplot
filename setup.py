@@ -8,6 +8,7 @@ setup(name='charmplot',
       scripts=[
           'charmplot/scripts/compare_multijet.py',
           'charmplot/scripts/get_fake_rates.py',
+          'charmplot/scripts/get_post_fit_yields.py',
           'charmplot/scripts/get_production_fractions.py',
           'charmplot/scripts/get_simple_xsec.py',
           'charmplot/scripts/get_wplusd_xsec.py',

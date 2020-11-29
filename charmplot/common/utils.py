@@ -113,9 +113,9 @@ def read_trex_input(channel: channel.Channel, var: variable.Variable, mc_map: MC
                 trex_mc_stat_err_only.SetPointError(trex_mc_stat_err_only.GetN() - 1, xerr_low, xerr_high, yerr_low / y, yerr_high / y)
             else:
                 trex_mc_stat_err_only.SetPointError(trex_mc_stat_err_only.GetN() - 1, xerr_low, xerr_high, 0, 0)
-        trex_mc_stat_err.SetFillColor(ROOT.kGray + 2)
+        trex_mc_stat_err.SetFillColor(ROOT.kGray + 3)
         trex_mc_stat_err.SetFillStyle(3354)
-        trex_mc_stat_err_only.SetFillColor(ROOT.kGray + 2)
+        trex_mc_stat_err_only.SetFillColor(ROOT.kGray + 3)
         trex_mc_stat_err_only.SetFillStyle(3354)
         for s in mc_map:
             name = s.shortName
@@ -331,9 +331,9 @@ def make_stat_err(h: ROOT.TH1) -> List[Union[ROOT.TGraphErrors, ROOT.TGraphError
             gr_err_only.SetPointError(gr_err_only.GetN() - 1, (h.GetBinWidth(i) / 2.), (h.GetBinWidth(i) / 2.), h.GetBinError(i) / y, h.GetBinError(i) / y)
         else:
             gr_err_only.SetPointError(gr_err_only.GetN() - 1, (h.GetBinWidth(i) / 2.), (h.GetBinWidth(i) / 2.), 0, 0)
-    gr.SetFillColor(ROOT.kGray + 2)
+    gr.SetFillColor(ROOT.kGray + 3)
     gr.SetFillStyle(3354)
-    gr_err_only.SetFillColor(ROOT.kGray + 2)
+    gr_err_only.SetFillColor(ROOT.kGray + 3)
     gr_err_only.SetFillStyle(3354)
     return gr, gr_err_only
 
@@ -354,9 +354,9 @@ def make_stat_err_and_nominal(h: ROOT.TH1) -> List[Union[ROOT.TGraphErrors, ROOT
             gr_err_only.SetPointError(gr_err_only.GetN() - 1, (h.GetBinWidth(i) / 2.), (h.GetBinWidth(i) / 2.), h.GetBinError(i) / y, h.GetBinError(i) / y)
         else:
             gr_err_only.SetPointError(gr_err_only.GetN() - 1, (h.GetBinWidth(i) / 2.), (h.GetBinWidth(i) / 2.), 0, 0)
-    gr.SetFillColor(ROOT.kGray + 2)
+    gr.SetFillColor(ROOT.kGray + 3)
     gr.SetFillStyle(3354)
-    gr_err_only.SetFillColor(ROOT.kGray + 2)
+    gr_err_only.SetFillColor(ROOT.kGray + 3)
     gr_err_only.SetFillStyle(3354)
     return gr_val_only, gr, gr_err_only
 
@@ -386,9 +386,9 @@ def make_sys_err(h: ROOT.TH1, h_sys: List) -> List[Union[ROOT.TGraphErrors, ROOT
             gr_err_only.SetPointError(gr_err_only.GetN() - 1, (h.GetBinWidth(i) / 2.), (h.GetBinWidth(i) / 2.), y_err_dn / y, y_err_up / y)
         else:
             gr_err_only.SetPointError(gr_err_only.GetN() - 1, (h.GetBinWidth(i) / 2.), (h.GetBinWidth(i) / 2.), 0, 0)
-    gr.SetFillColor(ROOT.kGray + 2)
+    gr.SetFillColor(ROOT.kGray + 3)
     gr.SetFillStyle(3354)
-    gr_err_only.SetFillColor(ROOT.kGray + 2)
+    gr_err_only.SetFillColor(ROOT.kGray + 3)
     gr_err_only.SetFillStyle(3354)
     return gr, gr_err_only
 
@@ -460,9 +460,9 @@ def make_pdf_err(h: ROOT.TH1, h_var: List, pdfstring: str, norm: bool = False) -
     yval = array.array('d', yval)
     gr = ROOT.TGraphAsymmErrors(nBins + 2, xval, yval, exl, exh, pdfeyl, pdfeyh)
     gr_err_only = ROOT.TGraphAsymmErrors(nBins + 2, xval, unity, exl, exh, pdfeyl_o, pdfeyh_o)
-    gr.SetFillColor(ROOT.kGray + 2)
+    gr.SetFillColor(ROOT.kGray + 3)
     gr.SetFillStyle(3354)
-    gr_err_only.SetFillColor(ROOT.kGray + 2)
+    gr_err_only.SetFillColor(ROOT.kGray + 3)
     gr_err_only.SetFillStyle(3354)
     return gr, gr_err_only
 
@@ -537,9 +537,9 @@ def make_minmax_err(h: ROOT.TH1, h_var: List, Norm: bool = False) -> List[Union[
     gr = ROOT.TGraphAsymmErrors(nBins + 2, xval, yval, exl, exl, eyl, eyh)
     gr_err_only = ROOT.TGraphAsymmErrors(nBins + 2, xval, unity, exl, exl, eyl_o, eyh_o)
 
-    gr.SetFillColor(ROOT.kGray + 2)
+    gr.SetFillColor(ROOT.kGray + 3)
     gr.SetFillStyle(3354)
-    gr_err_only.SetFillColor(ROOT.kGray + 2)
+    gr_err_only.SetFillColor(ROOT.kGray + 3)
     gr_err_only.SetFillStyle(3354)
     return gr, gr_err_only
 

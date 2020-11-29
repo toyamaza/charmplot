@@ -1,15 +1,13 @@
 #!/usr/bin/env python
-from charmplot.common import utils
-from charmplot.common import www
-from charmplot.control.channel import Channel
 from charmplot.control import globalConfig
 from charmplot.control import tools
+from charmplot.control.channel import Channel
 import logging
 import math
 import os
+import re
 import ROOT
 import sys
-import re
 
 # ATLAS Style
 dirname = os.path.join(os.path.dirname(__file__), "../../atlasrootstyle")
@@ -45,10 +43,6 @@ def main(options, conf):
 
     # channels
     channels = []
-
-    # fitted variable
-    var = conf.get_var(options.var)
-    logging.info(f"Got variable {var}")
 
     # parse input
     for file in os.listdir(trex_histogram_folder):
@@ -96,16 +90,7 @@ def main(options, conf):
         channel_temp = plot['+'][0]
         channels_all = plot['+'] + plot['-']
         channel_name = "_".join([channel.name for channel in channels_all])
-
-        # labels
-        labels = []
-        for label in channel_temp.label:
-            if len(plot['-']) > 0:
-                label = label.replace("OS", "OS-SS")
-            if len(plot['+']) > 1 and "tag" in label:
-                label = label.split(",")[0]
-            labels += [label]
-        chan = Channel(channel_name, labels, channel_temp.lumi, [], [])
+        chan = Channel(channel_name, [], channel_temp.lumi, [], [])
 
         # read files
         files = {}
@@ -124,17 +109,24 @@ def main(options, conf):
 
         # get mc samples
         mc_map = {}
+        sample_names = {}
         for sample in samples:
+            sample_names[sample] = {}
             h_sum = None
             for channel in plot['+']:
                 if 'MockMC' in sample.shortName:
                     btag = re.findall("([012]tag)", channel.name)[0]
-                    h_temp = files[channel].Get(f"h_{sample.shortName}_{btag}_postFit")
+                    name = f"h_{sample.shortName}_{btag}_postFit"
+                    h_temp = files[channel].Get(name)
+                    sample_names[sample][channel] = name
                 else:
                     if "SS" in channel.name:
-                        h_temp = files[channel].Get(f"h_{sample.shortName}_SS_postFit")
+                        name = f"h_{sample.shortName}_SS_postFit"
+                        h_temp = files[channel].Get(name)
                     else:
-                        h_temp = files[channel].Get(f"h_{sample.shortName}_postFit")
+                        name = f"h_{sample.shortName}_postFit"
+                        h_temp = files[channel].Get(name)
+                    sample_names[sample][channel] = name
                 if h_temp:
                     if h_sum is None:
                         h_sum = h_temp.Clone(f"{h_temp.GetName()}_{chan.name}")
@@ -143,9 +135,12 @@ def main(options, conf):
             for channel in plot['-']:
                 if 'MockMC' in sample.shortName:
                     btag = re.findall("([012]tag)", channel.name)[0]
-                    h_temp = files[channel].Get(f"h_{sample.shortName}_{btag}_postFit")
+                    name = f"h_{sample.shortName}_{btag}_postFit"
+                    h_temp = files[channel].Get(name)
                 else:
-                    h_temp = files[channel].Get(f"h_{sample.shortName}_SS_postFit")
+                    name = f"h_{sample.shortName}_SS_postFit"
+                    h_temp = files[channel].Get(name)
+                sample_names[sample][channel] = name
                 if h_temp:
                     if h_sum is None:
                         h_sum = h_temp.Clone(f"{h_temp.GetName()}_{chan.name}")
@@ -178,18 +173,6 @@ def main(options, conf):
         for channel in plot['-']:
             h_temp = files[channel].Get("h_tot_postFit")
             h_mc_tot.Add(h_temp, -1)
-
-        # canvas
-        canv = utils.make_canvas(h_data, var, chan, x=800, y=800)
-
-        # configure histograms
-        canv.configure_histograms(mc_map, h_data)
-
-        # stack and total mc
-        hs = utils.make_stack(samples, mc_map)
-
-        # stat error
-        g_mc_tot_err, g_mc_tot_err_only = utils.make_stat_err(h_mc_tot)
 
         # systematic uncertainties
         h_mc_tot_err_histograms_Up = []
@@ -233,73 +216,100 @@ def main(options, conf):
             h_mc_tot_err_histograms_Dn += [h_mc_tot_Dn]
 
         # calculate error bands
-        for x in range(1, h_mc_tot.GetNbinsX() + 1):
-            g_mc_tot_err.GetEYlow()[x] = 0.
-            g_mc_tot_err.GetEYhigh()[x] = 0.
+        h_mc_tot_Err = 0
+        # off diagonal
+        for i in range(n_pars):
+            for j in range(i):
+                if h_mc_tot_err_histograms_Up[i] and h_mc_tot_err_histograms_Up[j] and h_mc_tot_err_histograms_Dn[i] and h_mc_tot_err_histograms_Dn[j]:
+                    corr = corr_correlation_rows[i][j]
+                    err_i = (h_mc_tot_err_histograms_Up[i].GetSum() - h_mc_tot_err_histograms_Dn[i].GetSum()) / 2.
+                    err_j = (h_mc_tot_err_histograms_Up[j].GetSum() - h_mc_tot_err_histograms_Dn[j].GetSum()) / 2.
+                    err = err_i * err_j * corr * 2
+                    h_mc_tot_Err += err
+        # diagonal
+        for i in range(n_pars):
+            if h_mc_tot_err_histograms_Up[i] and h_mc_tot_err_histograms_Dn[i]:
+                err_i = (h_mc_tot_err_histograms_Up[i].GetSum() - h_mc_tot_err_histograms_Dn[i].GetSum()) / 2.
+                err = err_i * err_i
+                h_mc_tot_Err += err
+
+        # final
+        h_mc_tot_Err = math.sqrt(h_mc_tot_Err)
+
+        # uncertainties for each sample
+        sample_errors = {}
+        for sample in samples:
+            # systematic uncertainties
+            h_sample_err_histograms_Up = []
+            h_sample_err_histograms_Dn = []
+            for par in corr_parameters:
+                h_sample_Up = None
+                h_sample_Dn = None
+                for channel in plot['+']:
+                    h_temp_up = get_err_hist(files[channel], par, "Up", sample_names[sample][channel])
+                    h_temp_dn = get_err_hist(files[channel], par, "Down", sample_names[sample][channel])
+                    if h_temp_up:
+                        if not h_sample_Up:
+                            h_sample_Up = h_temp_up.Clone(f"{h_temp_up.GetName()}_{chan.name}_err_up")
+                        else:
+                            h_sample_Up.Add(h_temp_up)
+                    if h_temp_dn:
+                        if not h_sample_Dn:
+                            h_sample_Dn = h_temp_dn.Clone(f"{h_temp_dn.GetName()}_{chan.name}_err_dn")
+                        else:
+                            h_sample_Dn.Add(h_temp_dn)
+                for channel in plot['-']:
+                    h_temp_up = get_err_hist(files[channel], par, "Up", sample_names[sample][channel])
+                    h_temp_dn = get_err_hist(files[channel], par, "Down", sample_names[sample][channel])
+                    if h_temp_up:
+                        if not h_sample_Up:
+                            h_sample_Up = h_temp_up.Clone(f"{h_temp_up.GetName()}_{chan.name}_err_up")
+                            h_sample_Up.Scale(-1.)
+                        else:
+                            h_sample_Up.Add(h_temp_up, -1)
+                    if h_temp_dn:
+                        if not h_sample_Dn:
+                            h_sample_Dn = h_temp_dn.Clone(f"{h_temp_dn.GetName()}_{chan.name}_err_dn")
+                        else:
+                            h_sample_Dn.Add(h_temp_dn, -1)
+                            h_sample_Dn.Scale(-1.)
+
+                # subtract nominal
+                if sample in mc_map:
+                    h_sample_Up.Add(mc_map[sample], -1)
+                    h_sample_Dn.Add(mc_map[sample], -1)
+                h_sample_err_histograms_Up += [h_sample_Up]
+                h_sample_err_histograms_Dn += [h_sample_Dn]
+
+            # calculate error bands
+            h_sample_Err = 0
             # off diagonal
             for i in range(n_pars):
                 for j in range(i):
-                    if h_mc_tot_err_histograms_Up[i] and h_mc_tot_err_histograms_Up[j] and h_mc_tot_err_histograms_Dn[i] and h_mc_tot_err_histograms_Dn[j]:
+                    if h_sample_err_histograms_Up[i] and h_sample_err_histograms_Up[j] and h_sample_err_histograms_Dn[i] and h_sample_err_histograms_Dn[j]:
                         corr = corr_correlation_rows[i][j]
-                        err_i = (h_mc_tot_err_histograms_Up[i].GetBinContent(x) - h_mc_tot_err_histograms_Dn[i].GetBinContent(x)) / 2.
-                        err_j = (h_mc_tot_err_histograms_Up[j].GetBinContent(x) - h_mc_tot_err_histograms_Dn[j].GetBinContent(x)) / 2.
+                        err_i = (h_sample_err_histograms_Up[i].GetSum() - h_sample_err_histograms_Dn[i].GetSum()) / 2.
+                        err_j = (h_sample_err_histograms_Up[j].GetSum() - h_sample_err_histograms_Dn[j].GetSum()) / 2.
                         err = err_i * err_j * corr * 2
-                        g_mc_tot_err.GetEYlow()[x] += err
-                        g_mc_tot_err.GetEYhigh()[x] += err
+                        h_sample_Err += err
             # diagonal
             for i in range(n_pars):
-                if h_mc_tot_err_histograms_Up[i] and h_mc_tot_err_histograms_Dn[i]:
-                    err_i = (h_mc_tot_err_histograms_Up[i].GetBinContent(x) - h_mc_tot_err_histograms_Dn[i].GetBinContent(x)) / 2.
+                if h_sample_err_histograms_Up[i] and h_sample_err_histograms_Dn[i]:
+                    err_i = (h_sample_err_histograms_Up[i].GetSum() - h_sample_err_histograms_Dn[i].GetSum()) / 2.
                     err = err_i * err_i
-                    g_mc_tot_err.GetEYlow()[x] += err
-                    g_mc_tot_err.GetEYhigh()[x] += err
+                    h_sample_Err += err
 
             # final
-            g_mc_tot_err.GetEYhigh()[x] = math.sqrt(g_mc_tot_err.GetEYhigh()[x])
-            g_mc_tot_err.GetEYlow()[x] = math.sqrt(g_mc_tot_err.GetEYlow()[x])
-            g_mc_tot_err_only.GetEYhigh()[x] = g_mc_tot_err.GetEYhigh()[x] / h_mc_tot.GetBinContent(x)
-            g_mc_tot_err_only.GetEYlow()[x] = g_mc_tot_err.GetEYlow()[x] / h_mc_tot.GetBinContent(x)
+            h_sample_Err = math.sqrt(h_sample_Err)
+            sample_errors[sample] = h_sample_Err
 
-        # ratio
-        h_ratio = utils.make_ratio(h_data, h_mc_tot)
-
-        # top pad
-        canv.pad1.cd()
-        hs.Draw("same hist")
-        h_mc_tot.Draw("same hist")
-        g_mc_tot_err.Draw("e2")
-        h_data.Draw("same pe")
-
-        # make legend
-        canv.make_legend(h_data, h_mc_tot, mc_map, samples, print_yields=True, show_error=False)
-
-        # set maximum after creating legend
-        canv.set_maximum((h_data, h_mc_tot), var, mc_min=utils.get_mc_min(mc_map, samples))
-
-        # find minimum
-        min_negative = {}
-        for s in samples:
-            if s not in mc_map:
-                continue
-            h = mc_map[s]
-            for i in range(1, h.GetNbinsX() + 1):
-                if h.GetBinContent(i) < 0:
-                    if i not in min_negative:
-                        min_negative[i] = 0
-                    min_negative[i] += h.GetBinContent(i)
-        if min_negative.values():
-            min_negative = min(min_negative.values())
-            canv.proxy_up.SetMinimum(min_negative)
-
-        # bottom pad
-        canv.pad2.cd()
-        g_mc_tot_err_only.Draw("le2")
-        h_ratio.Draw("same pe")
-
-        # Print out
-        canv.print(f"{conf.out_name}/{chan.name}_{var.name}.pdf")
-
-        logging.info(f"finished processing channel {channel.name}")
+        # print out
+        logging.info(f"=== Printing yields for {chan.name} ===")
+        logging.info(f"Data: {h_data.GetSum()}")
+        logging.info(f"MC. Tot.: {h_mc_tot.GetSum()} += {h_mc_tot_Err}")
+        for sample in samples:
+            if sample in mc_map and sample in sample_errors:
+                logging.info(f"{sample.shortName}: {mc_map[sample].GetSum()} += {sample_errors[sample]}")
 
 
 if __name__ == "__main__":
@@ -312,23 +322,9 @@ if __name__ == "__main__":
     parser.add_option('-a', '--analysis-config',
                       action="store", dest="analysis_config",
                       help="analysis config file")
-    parser.add_option('-v', '--var',
-                      action="store", dest="var",
-                      help="fitted variable",
-                      default="Dmeson_m")
-    parser.add_option('--suffix',
-                      action="store", dest="suffix",
-                      help="suffix for the output name")
-    parser.add_option('--stage-out',
-                      action="store_true", dest="stage_out",
-                      help="copy plots to the www folder")
     parser.add_option('--trex-input',
                       action="store", dest="trex_input",
                       help="import post-fit trex plots")
-    parser.add_option('-t', '--threads',
-                      action="store", dest="threads",
-                      help="number of threads",
-                      default=8)
 
     # parse input arguments
     options, args = parser.parse_args()
@@ -338,25 +334,9 @@ if __name__ == "__main__":
 
     # output name
     out_name = config.replace(".yaml", "").replace(".yml", "")
-    if options.suffix:
-        out_name = out_name.split("/")
-        if out_name[0] != ".":
-            out_name[0] += "_" + options.suffix
-            out_name = "/".join(out_name)
-        else:
-            out_name[1] += "_" + options.suffix
-            out_name = "/".join(out_name)
 
     # config object
     conf = globalConfig.GlobalConfig(config, out_name)
 
-    # make output folder if not exist
-    if not os.path.isdir(out_name):
-        os.makedirs(out_name)
-
     # do the plotting
     main(options, conf)
-
-    # stage-out to the www folder
-    if options.stage_out:
-        www.stage_out_plots(conf.out_name, conf.get_variables(), x=300, y=300)

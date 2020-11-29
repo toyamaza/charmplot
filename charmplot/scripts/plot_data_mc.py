@@ -274,7 +274,7 @@ def process_channel(options, conf, c):
         h_data.Draw("same pe")
 
         # make legend
-        canv.make_legend(h_data, h_mc_tot, mc_map, samples, print_yields=True, show_error=(trex_mc_tot is None))
+        canv.make_legend(h_data, h_mc_tot, mc_map, samples, print_yields=True, show_error=False)
 
         # set maximum after creating legend
         canv.set_maximum((h_data, h_mc_tot), var, mc_min=utils.get_mc_min(mc_map, samples))
