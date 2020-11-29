@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import gen.utils.templates as templates
+import sys
 import yaml
 
 # process string
@@ -8,16 +9,23 @@ process_string = 'W#rightarrowl#nu+D, D#rightarrowK#pi#pi'
 
 def main(options):
 
-    for sample_config in options.samples.split(","):
+    for sample_config in options.samples_config.split(","):
 
         # TODO: make configurable?
         make_os_ss = True
-        make_os_minus_ss = True
-        force_positive = False
+        make_os_minus_ss = not options.fit_only
+        force_positive = options.fit_only
 
-        # TODO: make configurable?
-        samples = templates.WDTruthSamples().get()
-        # samples = templates.WDFitSamples().get()
+        # sample type
+        if options.samples.lower() == 'truth':
+            samples = templates.WDTruthSamples().get()
+        elif options.samples.lower() == 'flavor' or options.samples.lower() == 'flavour':
+            samples = templates.WDFlavourSamples().get()
+        elif options.samples.lower() == 'fit':
+            samples = templates.WDFitSamples().get()
+        else:
+            print(f"ERROR: Unknown samples type {options.samples}")
+            sys.exit(1)
 
         # TODO: make configurable?
         signs = ['OS', 'SS']
@@ -58,27 +66,33 @@ def main(options):
         # OS/SS plots
         if make_os_ss:
             for sign in signs:
-                channelGenerator.make_channel(years, sign=sign, extra_rebin=2)
-                for btag in btags:
-                    channelGenerator.make_channel(years, sign=sign, btag=btag, extra_rebin=2)
-                for lepton in leptons:
-                    channelGenerator.make_channel(years, sign=sign, lepton=lepton, extra_rebin=2)
+                if not options.fit_only:
+                    channelGenerator.make_channel(years, sign=sign, extra_rebin=2)
                     for btag in btags:
-                        channelGenerator.make_channel(years, sign=sign, btag=btag, lepton=lepton, extra_rebin=2)
+                        channelGenerator.make_channel(years, sign=sign, btag=btag, extra_rebin=2)
+                for lepton in leptons:
+                    if not options.fit_only:
+                        channelGenerator.make_channel(years, sign=sign, lepton=lepton, extra_rebin=2)
+                    for btag in btags:
+                        if not options.fit_only:
+                            channelGenerator.make_channel(years, sign=sign, btag=btag, lepton=lepton, extra_rebin=2)
                         for charge in charges:
                             channelGenerator.make_channel(years, sign=sign, btag=btag, lepton=lepton, charge=charge, extra_rebin=2)
 
-        # OS-SS plots
-        if make_os_minus_ss:
-            channelGenerator.make_channel(years, extra_rebin=2)
-            for btag in btags:
-                channelGenerator.make_channel(years, btag=btag, extra_rebin=2)
-            for lepton in leptons:
-                channelGenerator.make_channel(years, lepton=lepton, extra_rebin=2)
+        if not options.fit_only:
+            # OS-SS plots
+            if make_os_minus_ss:
+                channelGenerator.make_channel(years, extra_rebin=2)
                 for btag in btags:
-                    channelGenerator.make_channel(years, btag=btag, lepton=lepton, extra_rebin=2)
+                    channelGenerator.make_channel(years, btag=btag, extra_rebin=2)
+                for lepton in leptons:
+                    channelGenerator.make_channel(years, lepton=lepton, extra_rebin=2)
                     for charge in charges:
-                        channelGenerator.make_channel(years, btag=btag, lepton=lepton, charge=charge, extra_rebin=2)
+                        channelGenerator.make_channel(years, lepton=lepton, charge=charge, extra_rebin=2)
+                    for btag in btags:
+                        channelGenerator.make_channel(years, btag=btag, lepton=lepton, extra_rebin=2)
+                        for charge in charges:
+                            channelGenerator.make_channel(years, btag=btag, lepton=lepton, charge=charge, extra_rebin=2)
 
         with open(f'{options.analysis_config}_{sample_config}.yaml', 'w') as outfile:
             yaml.dump(channelGenerator.get_config(), outfile, default_flow_style=False)
@@ -101,8 +115,15 @@ if __name__ == "__main__":
                       default="SR_Dplus")
     parser.add_option('-s', '--samples',
                       action="store", dest="samples",
+                      help="type of samples (truth, flavor, fit)",
+                      default="truth")
+    parser.add_option('--samples-config',
+                      action="store", dest="samples_config",
                       help="different sample configurations (madgraph_truth,sherpa_truth,sherpa2210_truth,madgraph_fxfx_truth)",
                       default="madgraph_truth")
+    parser.add_option('--fit-only',
+                      action="store_true", dest="fit_only",
+                      help="only regions necessaty for the fit")
     parser.add_option('--sys',
                       action="store_true", dest="systematics",
                       help="add systematics")
