@@ -12,7 +12,7 @@ def main(options):
     for sample_config in options.samples_config.split(","):
 
         # TODO: make configurable
-        extra_rebin = 2.5
+        extra_rebin = int(options.extra_rebin)
 
         # TODO: make configurable?
         make_os_ss = True
@@ -122,6 +122,10 @@ if __name__ == "__main__":
                       action="store", dest="samples",
                       help="type of samples (truth, flavor, fit)",
                       default="truth")
+    parser.add_option('-r', '--extra-rebin',
+                      action="store", dest="extra_rebin",
+                      help="extra rebin",
+                      default=1)
     parser.add_option('--samples-config',
                       action="store", dest="samples_config",
                       help="different sample configurations (madgraph_truth,sherpa_truth,sherpa2210_truth,madgraph_fxfx_truth)",
