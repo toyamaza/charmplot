@@ -90,7 +90,10 @@ def main(options, conf):
             corr_correlation_rows = x['correlation_rows']
     n_pars = len(corr_parameters)
 
-    for plot in individual_plots + OS_minus_SS_plots + [OS_minus_SS_total]:
+    # plots = individual_plots + OS_minus_SS_plots + [OS_minus_SS_total]
+    plots = individual_plots + OS_minus_SS_plots
+
+    for plot in plots:
 
         # create channel
         channel_temp = plot['+'][0]
@@ -105,6 +108,7 @@ def main(options, conf):
             if len(plot['+']) > 1 and "tag" in label:
                 label = label.split(",")[0]
             labels += [label]
+        labels += ['post-fit']
         chan = Channel(channel_name, labels, channel_temp.lumi, [], [])
 
         # read files
@@ -295,6 +299,7 @@ def main(options, conf):
         canv.pad2.cd()
         g_mc_tot_err_only.Draw("le2")
         h_ratio.Draw("same pe")
+        canv.set_ratio_range(0.81, 1.19, override=True)
 
         # Print out
         canv.print(f"{conf.out_name}/{chan.name}_{var.name}.pdf")

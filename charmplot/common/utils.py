@@ -182,9 +182,17 @@ def save_to_file(out_file_name: str, channel: channel.Channel, var: variable.Var
 def read_samples(conf: globalConfig.GlobalConfig, reader: inputDataReader.InputDataReader,
                  c: channel.Channel, v: variable.Variable, samples: list,
                  fit: likelihoodFit.LikelihoodFit = None, force_positive: bool = False,
-                 sys: str = None, affecting: bool = None, fallback: MC_Map = None) -> MC_Map:
+                 sys: str = None, affecting: list = None, fallback: MC_Map = None) -> MC_Map:
     mc_map = {}
     for s in samples:
+        if s.shortName == "MockMC":
+            if not sys:
+                continue
+            else:
+                h_nominal = fallback[s]
+                h = h_nominal.Clone(f"{h_nominal.GetName()}_{sys}")
+                mc_map[s] = h
+                continue
         # fallback to nominal if sys does not affect the sample
         if sys and fallback and affecting:
             if s.shortName not in affecting:
@@ -265,6 +273,11 @@ def set_to_positive(h):
             # h.SetBinError(i, 1e-5)
 
 
+def set_errors_to_zero(h):
+    for i in range(0, h.GetNbinsX() + 2):
+        h.SetBinError(i, 0.)
+
+
 def set_under_over_flow(h: ROOT.TH1, x_range: list):
     N = h.GetNbinsX()
     width = h.GetBinWidth(1)
@@ -311,7 +324,7 @@ def set_under_over_flow(h: ROOT.TH1, x_range: list):
 def rebin_histogram(h: ROOT.TH1, v: variable.Variable, extra_rebin: int = 1):
     rebin = v.rebin
     if rebin and v.allow_rebin:
-        h.Rebin(rebin * extra_rebin)
+        h.Rebin(int(rebin * extra_rebin))
     if v.allow_rebin:
         return set_under_over_flow(h, v.x_range)
     else:

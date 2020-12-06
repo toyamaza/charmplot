@@ -1,0 +1,8 @@
+type: alt_sample
+affecting:
+  - Top_Matched
+  - Top_Rest
+variations:
+  - Top_HS
+  - Top_Shower
+  # - Top_ISR

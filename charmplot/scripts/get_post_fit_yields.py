@@ -84,7 +84,10 @@ def main(options, conf):
             corr_correlation_rows = x['correlation_rows']
     n_pars = len(corr_parameters)
 
-    for plot in individual_plots + OS_minus_SS_plots + [OS_minus_SS_total]:
+    # plots = individual_plots + OS_minus_SS_plots + [OS_minus_SS_total]
+    plots = OS_minus_SS_plots
+
+    for plot in plots:
 
         # create channel
         channel_temp = plot['+'][0]
@@ -104,6 +107,8 @@ def main(options, conf):
             for sample_name in channel.samples:
                 sample = conf.get_sample(sample_name)
                 if sample.shortName not in sample_names:
+                    if options.samples and sample.shortName not in options.samples.split(","):
+                        continue
                     sample_names.append(sample.shortName)
                     samples.append(sample)
 
@@ -283,6 +288,7 @@ def main(options, conf):
 
             # calculate error bands
             h_sample_Err = 0
+            h_sample_Err_matrix = []
             # off diagonal
             for i in range(n_pars):
                 for j in range(i):
@@ -292,15 +298,18 @@ def main(options, conf):
                         err_j = (h_sample_err_histograms_Up[j].GetSum() - h_sample_err_histograms_Dn[j].GetSum()) / 2.
                         err = err_i * err_j * corr * 2
                         h_sample_Err += err
+                        h_sample_Err_matrix += [[err, (i, j)]]
             # diagonal
             for i in range(n_pars):
                 if h_sample_err_histograms_Up[i] and h_sample_err_histograms_Dn[i]:
                     err_i = (h_sample_err_histograms_Up[i].GetSum() - h_sample_err_histograms_Dn[i].GetSum()) / 2.
                     err = err_i * err_i
                     h_sample_Err += err
+                    h_sample_Err_matrix += [[err, (i, i)]]
 
             # final
             h_sample_Err = math.sqrt(h_sample_Err)
+            h_sample_Err_matrix = sorted(h_sample_Err_matrix, key=lambda x: x[0], reverse=True)
             sample_errors[sample] = h_sample_Err
 
         # print out
@@ -322,6 +331,9 @@ if __name__ == "__main__":
     parser.add_option('-a', '--analysis-config',
                       action="store", dest="analysis_config",
                       help="analysis config file")
+    parser.add_option('-s', '--samples',
+                      action="store", dest="samples",
+                      help="get yields only for the specified samples")
     parser.add_option('--trex-input',
                       action="store", dest="trex_input",
                       help="import post-fit trex plots")

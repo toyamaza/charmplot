@@ -42,6 +42,9 @@ class GlobalConfig(object):
     channels = []
     systematics_map = {}
 
+    def add_sample(self, sample):
+        self.samples += [sample]
+
     def get_systematics(self):
         return self.systematics_map
 

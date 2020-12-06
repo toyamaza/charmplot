@@ -4,6 +4,7 @@ from charmplot.common import www
 from charmplot.control import globalConfig
 from charmplot.control import inputDataReader
 from multiprocessing import Pool
+import copy
 import logging
 import os
 import ROOT
@@ -147,15 +148,66 @@ def process_channel(options, conf, c):
         if not mc_map:
             continue
 
+        # MockMC
+        MockMC_sample = None
+        for sample in samples:
+            if sample.shortName == "MockMC":
+                MockMC_sample = sample
+        if MockMC_sample:
+            if "SS" in c.name:
+                MockMC_data = h_data
+                MockMC_samples = mc_map
+            else:
+                channel_SS = conf.get_channel(c.name.replace("OS", "SS"))
+                samples_SS = utils.get_samples(conf, channel_SS)
+                logging.info(f"Getting MockMC from channel {channel_SS.name}")
+                MockMC_data = reader.get_histogram(conf.get_data(), channel_SS, var)
+                MockMC_samples = utils.read_samples(conf, reader, channel_SS, var, samples_SS, fit, force_positive=channel_SS.force_positive)
+
+            # construct it
+            MockMC_histogram = MockMC_data.Clone(f"{h_data.GetName()}_MockMC")
+            for sample in MockMC_samples:
+                if MockMC_samples[sample]:
+                    MockMC_histogram.Add(MockMC_samples[sample], -1)
+
+            # set errors to zero
+            utils.set_errors_to_zero(MockMC_histogram)
+
+            # Add to map
+            mc_map[MockMC_sample] = MockMC_histogram
+
         # systematics histograms
         if systematics:
             mc_map_sys = {}
             for group in systematics:
-                variations = systematics[group]['variations']
+                variations = systematics[group].get('variations')
                 affecting = systematics[group].get('affecting')
-                mc_map_sys[group] = {syst: utils.read_samples(conf, reader, c, var, samples, fit,
-                                                              force_positive=c.force_positive, sys=syst,
-                                                              affecting=affecting, fallback=mc_map) for syst in variations}
+                sys_type = systematics[group].get('type')
+                if sys_type != 'alt_sample':
+                    mc_map_sys[group] = {syst: utils.read_samples(conf, reader, c, var, samples, fit,
+                                                                  force_positive=c.force_positive, sys=syst,
+                                                                  affecting=affecting, fallback=mc_map) for syst in variations}
+                else:
+                    # load files for alternative samples
+                    for syst in variations:
+                        sample = conf.construct_sample(syst)
+                        if not sample:
+                            logging.error(f"sample not found for variation {syst}!")
+                        conf.add_sample(sample)
+                        reader.read_input_file(sample)
+                    # start with nominal for all samples
+                    mc_map_sys[group] = {syst: utils.read_samples(conf, reader, c, var, samples, fit,
+                                                                  force_positive=c.force_positive, sys=syst,
+                                                                  affecting=[''], fallback=mc_map) for syst in variations}
+                    # replace affected with alternative samples
+                    for syst in variations:
+                        for s in affecting:
+                            sample = next((x for x in samples if x.shortName == s), None)
+                            sample_sys = conf.get_sample(syst)
+                            sample_sys.channel = sample.channel
+                            h_sys = reader.get_histogram(sample_sys, c, var, c.force_positive)
+                            if h_sys:
+                                mc_map_sys[group][syst][sample] = h_sys
 
         # trex post-fit
         trex_mc_tot = None
@@ -193,10 +245,10 @@ def process_channel(options, conf, c):
             utils.save_to_trex_file(trex_folder, c, var, h_data, mc_map, trex_histograms)
             if systematics:
                 for group in systematics:
-                    variations = systematics[group]['variations']
-                    sys_type = systematics[group]['type']
+                    variations = systematics[group].get('variations')
                     affecting = systematics[group].get('affecting')
-                    if sys_type == 'updown':
+                    sys_type = systematics[group].get('type')
+                    if sys_type in ['updown', 'alt_sample']:
                         for syst in variations:
                             utils.save_to_trex_file(trex_folder, c, var, None, mc_map_sys[group][syst], trex_histograms, syst, affecting)
                     elif sys_type == 'minmax':
@@ -251,7 +303,7 @@ def process_channel(options, conf, c):
         if systematics:
             for group in systematics:
                 sys_type = systematics[group]['type']
-                if sys_type == 'updown':
+                if sys_type in ['updown', 'alt_sample']:
                     gr_mc_sys_err, gr_mc_sys_err_only = utils.make_sys_err(h_mc_tot, h_mc_tot_sys[group])
                 elif sys_type == 'minmax':
                     gr_mc_sys_err, gr_mc_sys_err_only = utils.make_minmax_err(h_mc_tot, h_mc_tot_sys[group])

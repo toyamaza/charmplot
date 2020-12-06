@@ -180,6 +180,24 @@ Wjets_emu:
   fillColor: "10002"
   legendLabel: "W#rightarrowl#nu"
 
+Wjets_emu_Sherpa2210:
+  add:
+    - Sh_2210_Wjets_light_emu
+    - Sh_2210_Wjets_cjets_emu
+    - Sh_2210_Wjets_bjets_emu
+  subtract:
+  fillColor: "10002"
+  legendLabel: "W#rightarrowl#nu"
+  shortName: Wjets_emu_Sherpa2210
+
+MG_FxFx_Wjets_emu:
+  add:
+    - MG_FxFx_Wjets_emu
+  subtract:
+  fillColor: "10002"
+  legendLabel: "W#rightarrowl#nu"
+  shortName: MG_FxFx_Wjets_emu
+
 Wjets_tau:
   add: MG_Wjets_tau
   subtract:
@@ -242,6 +260,36 @@ Top:
   fillColor: "12001"
   legendLabel: Top
   shortName: Top
+
+Top_HS:
+  add:
+    - Top_ttbar_HS
+    - Top_single_top
+    - Top_ttx
+  subtract:
+  fillColor: "12001"
+  legendLabel: t#bar{t}
+  shortName: Top_HS
+
+Top_ISR:
+  add:
+    - Top_ttbar_ISR
+    - Top_single_top
+    - Top_ttx
+  subtract:
+  fillColor: "12001"
+  legendLabel: t#bar{t}
+  shortName: Top_ISR
+
+Top_Shower:
+  add:
+    - Top_ttbar_Shower
+    - Top_single_top
+    - Top_ttx
+  subtract:
+  fillColor: "12001"
+  legendLabel: t#bar{t}
+  shortName: Top_Shower
 
 Top_ttbar:
   add: Top_ttbar
@@ -308,7 +356,7 @@ MockMC:
   add: data
   subtract:
   fillColor: "13001"
-  legendLabel: MockMC
+  legendLabel: "Ch. Symm."
   shortName: MockMC
   statError: True
   

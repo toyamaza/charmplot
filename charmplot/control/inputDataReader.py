@@ -122,7 +122,7 @@ class InputDataReader(object):
                     h_denom = h.Clone("%s_%s_%s" % (sample.name, channel.name, variable.name))
                 else:
                     h_denom.Add(h, weight)
-        if force_positive:
+        if force_positive and h_total:
             utils.set_to_positive(h_total)
         if not sample.statError:
             logger.info(f"Set stat error of {sample} to zero.")
@@ -158,15 +158,18 @@ class InputDataReader(object):
                     all_vars.add(var)
         return all_vars
 
+    def read_input_file(self, sample):
+        for input_file in sample.get_all():
+            if input_file in self.input_files:
+                continue
+            f = ROOT.TFile("%s.root" % input_file, "READ")
+            if not f:
+                logger.critical("No input file found for sample %s", sample.name)
+                raise IOError("No input file found for sample %s", sample.name)
+            else:
+                logger.info("Successfully read input file for sample %s", sample.name)
+                self.input_files[input_file] = f
+
     def read_input_files(self):
         for s in self.config.get_data_and_mc():
-            for input_file in s.get_all():
-                if input_file in self.input_files:
-                    continue
-                f = ROOT.TFile("%s.root" % input_file, "READ")
-                if not f:
-                    logger.critical("No input file found for sample %s", s.name)
-                    raise IOError("No input file found for sample %s", s.name)
-                else:
-                    logger.info("Successfully read input file for sample %s", s.name)
-                    self.input_files[input_file] = f
+            self.read_input_file(s)

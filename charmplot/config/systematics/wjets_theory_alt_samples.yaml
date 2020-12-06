@@ -1,0 +1,7 @@
+type: alt_sample
+affecting:
+  - Wjets_emu_Matched
+  - Wjets_emu_Rest
+variations:
+  - MG_FxFx_Wjets_emu
+  # - Wjets_emu_Sherpa2210
