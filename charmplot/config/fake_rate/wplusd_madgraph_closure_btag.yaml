@@ -169,8 +169,8 @@ channels:
 
   el_1tag_QCD_Dplus:
     regions:
-      - 2019_el_1tag_QCD_Dplus
-      - 2019_el_2tag_QCD_Dplus
+      - 2018_el_1tag_QCD_Dplus
+      - 2018_el_2tag_QCD_Dplus
       - 2017_el_1tag_QCD_Dplus
       - 2017_el_2tag_QCD_Dplus
     samples:
@@ -286,7 +286,7 @@ channels:
       - -Tight_2018_el_0tag_QCD_Dplus
     make_plots: False
 
-  MatrixMethodel_1tag_QCD_Dplus:
+  MatrixMethod_el_1tag_QCD_Dplus:
     regions:
       - AntiTight_2018_el_1tag_QCD_Dplus
       - -Tight_2018_el_1tag_QCD_Dplus
