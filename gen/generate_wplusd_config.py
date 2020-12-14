@@ -12,7 +12,7 @@ def main(options):
     for sample_config in options.samples_config.split(","):
 
         # TODO: make configurable
-        extra_rebin = int(options.extra_rebin)
+        extra_rebin = float(options.extra_rebin)
 
         # TODO: make configurable?
         make_os_ss = True
@@ -35,7 +35,7 @@ def main(options):
         years = ['2017', '2018']
         leptons = ['el', 'mu']
         charges = ['plus', 'minus']
-        btags = ['0tag', '1tag', '2tag']
+        btags = ['0tag', ['1tag', '2tag']]
 
         # systematics
         systematics = []
@@ -74,30 +74,30 @@ def main(options):
                 if not options.fit_only:
                     channelGenerator.make_channel(years, sign=sign, extra_rebin=extra_rebin)
                     for btag in btags:
-                        channelGenerator.make_channel(years, sign=sign, btag=btag, extra_rebin=extra_rebin * (2 if btag == '2tag' else 1))
+                        channelGenerator.make_channel(years, sign=sign, btag=btag, extra_rebin=extra_rebin * (2 if btag != '0tag' else 1))
                 for lepton in leptons:
                     if not options.fit_only:
                         channelGenerator.make_channel(years, sign=sign, lepton=lepton, extra_rebin=extra_rebin)
                     for btag in btags:
                         if not options.fit_only:
-                            channelGenerator.make_channel(years, sign=sign, btag=btag, lepton=lepton, extra_rebin=extra_rebin * (2 if btag == '2tag' else 1))
+                            channelGenerator.make_channel(years, sign=sign, btag=btag, lepton=lepton, extra_rebin=extra_rebin * (2 if btag != '0tag' else 1))
                         for charge in charges:
-                            channelGenerator.make_channel(years, sign=sign, btag=btag, lepton=lepton, charge=charge, extra_rebin=extra_rebin * (2 if btag == '2tag' else 1))
+                            channelGenerator.make_channel(years, sign=sign, btag=btag, lepton=lepton, charge=charge, extra_rebin=extra_rebin * (2 if btag != '0tag' else 1))
 
         if not options.fit_only:
             # OS-SS plots
             if make_os_minus_ss:
                 channelGenerator.make_channel(years, extra_rebin=extra_rebin)
                 for btag in btags:
-                    channelGenerator.make_channel(years, btag=btag, extra_rebin=extra_rebin * (2 if btag == '2tag' else 1))
+                    channelGenerator.make_channel(years, btag=btag, extra_rebin=extra_rebin * (2 if btag != '0tag' else 1))
                 for lepton in leptons:
                     channelGenerator.make_channel(years, lepton=lepton, extra_rebin=extra_rebin)
                     for charge in charges:
                         channelGenerator.make_channel(years, lepton=lepton, charge=charge, extra_rebin=extra_rebin)
                     for btag in btags:
-                        channelGenerator.make_channel(years, btag=btag, lepton=lepton, extra_rebin=extra_rebin * (2 if btag == '2tag' else 1))
+                        channelGenerator.make_channel(years, btag=btag, lepton=lepton, extra_rebin=extra_rebin * (2 if btag != '0tag' else 1))
                         for charge in charges:
-                            channelGenerator.make_channel(years, btag=btag, lepton=lepton, charge=charge, extra_rebin=extra_rebin * (2 if btag == '2tag' else 1))
+                            channelGenerator.make_channel(years, btag=btag, lepton=lepton, charge=charge, extra_rebin=extra_rebin * (2 if btag != '0tag' else 1))
 
         with open(f'{options.analysis_config}_{sample_config}.yaml', 'w') as outfile:
             yaml.dump(channelGenerator.get_config(), outfile, default_flow_style=False)
@@ -117,7 +117,7 @@ if __name__ == "__main__":
     parser.add_option('-d', '--decay-mode',
                       action="store", dest="decay_mode",
                       help="the decay mode string",
-                      default="SR_Dplus")
+                      default="Dplus")
     parser.add_option('-s', '--samples',
                       action="store", dest="samples",
                       help="type of samples (truth, flavor, fit)",

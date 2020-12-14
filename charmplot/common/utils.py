@@ -27,6 +27,15 @@ def eprint(*args, **kwargs):
     print(*args, file=sys.stderr, **kwargs)
 
 
+def get_gr_from_hist(h: ROOT.TH1) -> ROOT.TGraphErrors:
+    gr = ROOT.TGraphErrors()
+    for i in range(1, h.GetNbinsX() + 1):
+        gr.SetPoint(gr.GetN(), h.GetBinCenter(i), h.GetBinContent(i))
+        gr.SetPointError(gr.GetN()-1, 0, h.GetBinError(i))
+    gr.SetMarkerSize(1.0)
+    return gr
+
+
 def get_mc_min(mc_map: MC_Map, samples: list):
     for s in reversed(samples):
         if s not in mc_map.keys():

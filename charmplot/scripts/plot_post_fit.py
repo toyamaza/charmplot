@@ -133,7 +133,7 @@ def main(options, conf):
             for channel in plot['+']:
                 if 'MockMC' in sample.shortName:
                     btag = re.findall("([012]tag)", channel.name)[0]
-                    h_temp = files[channel].Get(f"h_{sample.shortName}_{btag}_postFit")
+                    h_temp = files[channel].Get(f"h_SymmBkg_{btag}_postFit")
                 else:
                     if "SS" in channel.name:
                         h_temp = files[channel].Get(f"h_{sample.shortName}_SS_postFit")
@@ -147,7 +147,7 @@ def main(options, conf):
             for channel in plot['-']:
                 if 'MockMC' in sample.shortName:
                     btag = re.findall("([012]tag)", channel.name)[0]
-                    h_temp = files[channel].Get(f"h_{sample.shortName}_{btag}_postFit")
+                    h_temp = files[channel].Get(f"h_SymmBkg_{btag}_postFit")
                 else:
                     h_temp = files[channel].Get(f"h_{sample.shortName}_SS_postFit")
                 if h_temp:
@@ -267,12 +267,16 @@ def main(options, conf):
         # ratio
         h_ratio = utils.make_ratio(h_data, h_mc_tot)
 
+        # data graph
+        gr_data = utils.get_gr_from_hist(h_data)
+        gr_ratio = utils.get_gr_from_hist(h_ratio)
+
         # top pad
         canv.pad1.cd()
         hs.Draw("same hist")
         h_mc_tot.Draw("same hist")
         g_mc_tot_err.Draw("e2")
-        h_data.Draw("same pe")
+        gr_data.Draw("pe0")
 
         # make legend
         canv.make_legend(h_data, h_mc_tot, mc_map, samples, print_yields=True, show_error=False)
@@ -298,8 +302,8 @@ def main(options, conf):
         # bottom pad
         canv.pad2.cd()
         g_mc_tot_err_only.Draw("le2")
-        h_ratio.Draw("same pe")
-        canv.set_ratio_range(0.81, 1.19, override=True)
+        gr_ratio.Draw("pe0")
+        canv.set_ratio_range(0.71, 1.29, override=True)
 
         # Print out
         canv.print(f"{conf.out_name}/{chan.name}_{var.name}.pdf")

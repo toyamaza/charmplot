@@ -146,28 +146,30 @@ class ChannelGenerator:
             sign = f'{sign}_'
         else:
             sign = 'OS-SS_'
-        name = f'{sign}{format(year)}{format(lepton)}{format(charge)}{format(btag)}{self.decay_mode}'
+        btag_massaged = [btag] if type(btag) != list else btag
+        name = f'{sign}{format(year)}{format(lepton)}{format(charge)}{format(btag_massaged[0])}{self.decay_mode}'
         return name
 
     def generate_channel_regions(self, sign='', year='', lepton='', charge='', btag=''):
         regions = []
+        btag_massaged = [btag] if type(btag) != list else btag
         if sign:
-            regions = [f'{format(y)}{format(l)}{format(c)}{format(b)}{self.decay_mode}_{sign}'
+            regions = [f'{format(y)}{format(l)}{format(c)}SR_{format(b)}{self.decay_mode}_{sign}'
                        for y in (self.years if not year else [year])
                        for l in (self.leptons if not lepton else [lepton])
                        for c in (self.charges if not charge else [charge])
-                       for b in (self.btags if not btag else [btag])]
+                       for b in (self.btags if not btag else btag_massaged)]
         else:
-            regions = [f'{format(y)}{format(l)}{format(c)}{format(b)}{self.decay_mode}_OS'
+            regions = [f'{format(y)}{format(l)}{format(c)}SR_{format(b)}{self.decay_mode}_OS'
                        for y in (self.years if not year else [year])
                        for l in (self.leptons if not lepton else [lepton])
                        for c in (self.charges if not charge else [charge])
-                       for b in (self.btags if not btag else [btag])] + \
-                [f'-{format(y)}{format(l)}{format(c)}{format(b)}{self.decay_mode}_SS'
+                       for b in (self.btags if not btag else btag_massaged)] + \
+                [f'-{format(y)}{format(l)}{format(c)}SR_{format(b)}{self.decay_mode}_SS'
                  for y in (self.years if not year else [year])
                  for l in (self.leptons if not lepton else [lepton])
                  for c in (self.charges if not charge else [charge])
-                 for b in (self.btags if not btag else [btag])]
+                 for b in (self.btags if not btag else btag_massaged)]
         return regions
 
     def generate_channel_labels(self, sign='', lepton='', charge='', btag=''):
@@ -180,7 +182,8 @@ class ChannelGenerator:
         else:
             row2 = 'inclusive channel'
         if btag:
-            row2 += f', {btag}'
+            btag_massaged = [btag] if type(btag) != list else btag
+            row2 += f', {"+".join(btag_massaged)}'
         labels += [row2]
         labels += [label_dict[self.sample_config]]
         return labels

@@ -32,7 +32,7 @@ D_phi:
 met_met:
   label: MET
   unit: GeV
-  rebin: 4
+  rebin: 2
   x_range: [0, 200]
   ratio_range: [0.5, 1.49]
 

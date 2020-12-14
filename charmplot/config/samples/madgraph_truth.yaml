@@ -79,6 +79,26 @@ Wjets_emu_Matched:
   legendLabel: "W+#it{D}"
   shortName: Wjets_emu_Matched
 
+Wjets_emu_MatchedFid:
+  add:
+    - MG_Wjets_light_emu
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_bjets_emu
+  subtract:
+  fillColor: "10004"
+  legendLabel: "W+#it{D_{fid}}"
+  shortName: Wjets_emu_MatchedFid
+
+Wjets_emu_MatchedNoFid:
+  add:
+    - MG_Wjets_light_emu
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_bjets_emu
+  subtract:
+  fillColor: "10002"
+  legendLabel: "W+#it{D_{nofid}}"
+  shortName: Wjets_emu_MatchedNoFid
+
 Wjets_emu_Charm:
   add:
     - MG_Wjets_light_emu
@@ -118,7 +138,7 @@ Wjets_emu_Rest:
     - MG_Wjets_cjets_emu
     - MG_Wjets_bjets_emu
   subtract:
-  fillColor: "10002"
+  fillColor: "10001"
   legendLabel: "W+jets"
   shortName: Wjets_emu_Rest
 

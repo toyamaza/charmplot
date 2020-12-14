@@ -392,6 +392,11 @@ Dmeson_dRlep:
   rebin: 1
   ratio_range: [0.5, 1.49]
 
+Dmeson_dRbjet:
+  label: '#DeltaR(D^{#pm}, #it{b}-jet)_{min}'
+  rebin: 2
+  ratio_range: [0.5, 1.49]
+
 lep_EOverP:
   label: 'lepton E/|p|'
   rebin: 2

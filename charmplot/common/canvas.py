@@ -188,7 +188,10 @@ class Canvas2(CanvasBase):
     def set_atlas_label(self):
         # ATLAS label
         self.atlas_label("internal")
-        self.text("#sqrt{s} = 13 TeV, %.1f fb^{-1}" % (utils.get_lumi(self.channel.lumi) / 1000.))
+        if self.channel.lumi:
+            self.text("#sqrt{s} = 13 TeV, %.1f fb^{-1}" % (utils.get_lumi(self.channel.lumi) / 1000.))
+        else:
+            self.text("#sqrt{s} = 13 TeV")
         for label in self.channel.label:
             if len(label):
                 self.text(f"{label}")

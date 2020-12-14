@@ -113,7 +113,7 @@ def main(options, conf, reader):
                 hs.Draw("samehist")
 
             # make legend
-            canv.make_legend(data=None, mc_map=mc_map, samples=samples)
+            canv.make_legend(data=None, mc_map=mc_map, samples=samples, print_yields=True)
 
             # set maximum after creating legend
             if not options.do_stack:

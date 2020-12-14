@@ -168,10 +168,11 @@ def process_channel(options, conf, c):
             MockMC_histogram = MockMC_data.Clone(f"{h_data.GetName()}_MockMC")
             for sample in MockMC_samples:
                 if MockMC_samples[sample]:
-                    MockMC_histogram.Add(MockMC_samples[sample], -1)
+                    for i in range(0, MockMC_histogram.GetNbinsX() + 2):
+                        MockMC_histogram.SetBinContent(i, MockMC_histogram.GetBinContent(i) - MockMC_samples[sample].GetBinContent(i))
 
             # set errors to zero
-            utils.set_errors_to_zero(MockMC_histogram)
+            # utils.set_errors_to_zero(MockMC_histogram)
 
             # Add to map
             mc_map[MockMC_sample] = MockMC_histogram

@@ -83,6 +83,27 @@ class Matched(ProxyChannel):
     def get_regions(self, regions):
         return self.format([reg + "_Matched" for reg in regions])
 
+# class Matched(ProxyChannel):
+#     name = 'Matched'
+
+#     def get_regions(self, regions):
+#         return self.format([reg + "_Matched" for reg in regions] +
+#                            [reg + "_MatchedFid" for reg in regions])
+
+
+class MatchedFid(ProxyChannel):
+    name = 'MatchedFid'
+
+    def get_regions(self, regions):
+        return self.format([reg + "_MatchedFid" for reg in regions])
+
+
+class MatchedNoFid(ProxyChannel):
+    name = 'MatchedNoFid'
+
+    def get_regions(self, regions):
+        return self.format([reg + "_Matched" for reg in regions])
+
 
 class NoMatch(ProxyChannel):
     name = 'NoMatch'
@@ -90,6 +111,21 @@ class NoMatch(ProxyChannel):
     def get_regions(self, regions):
         return self.format([reg + "_Other" for reg in regions])
 
+
+# class Rest(ProxyChannel):
+#     name = 'Rest'
+
+#     def get_regions(self, regions):
+#         out = []
+#         for reg in regions:
+#             anti_sign = "-"
+#             if reg.startswith("-"):
+#                 reg = reg[1:]
+#                 anti_sign = ""
+#             out += [f"{anti_sign}{reg}_Matched"]
+#             out += [f"{anti_sign}{reg}_MatchedFid"]
+#             out += [f"{anti_sign}{reg}_Other"]
+#         return self.format(regions + out)
 
 class Rest(ProxyChannel):
     name = 'Rest'
