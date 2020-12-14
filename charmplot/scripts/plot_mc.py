@@ -29,6 +29,10 @@ def main(options, conf, reader):
     # make the output file only once
     histogram_file_made = False
 
+    # systematics
+    systematics = conf.get_systematics()
+    # print(systematics)
+
     # loop through all channels and variables
     for c in conf.channels:
 
@@ -44,6 +48,12 @@ def main(options, conf, reader):
             if c.name not in options.channels.split(","):
                 logging.debug(f"skipping channel {c.name}")
                 continue
+
+        # used MC samples in channel (default or channel specific)
+        samples = utils.get_samples(conf, c)
+
+        # perform likelihood fit
+        fit = utils.likelihood_fit(conf, reader, c, samples)
 
         # keep track of first/last plot of each channel
         first_plot = True
@@ -78,6 +88,16 @@ def main(options, conf, reader):
             if not mc_map:
                 continue
 
+            # systematics histograms
+            if systematics:
+                mc_map_sys = {}
+                for group in systematics:
+                    variations = systematics[group]['variations']
+                    affecting = systematics[group].get('affecting')
+                    mc_map_sys[group] = {syst: utils.read_samples(conf, reader, c, var, samples, fit,
+                                                                force_positive=c.force_positive, sys=syst,
+                                                                affecting=affecting, fallback=mc_map) for syst in variations}
+
             # save histograms to root file
             if c.save_to_file:
                 utils.save_to_file(out_file_name, c, var, None, mc_map)
@@ -111,6 +131,51 @@ def main(options, conf, reader):
             else:
                 hs = utils.make_stack(samples, mc_map)
                 hs.Draw("samehist")
+
+            # stack and total mc
+            hs = utils.make_stack(samples, mc_map)
+            h_mc_tot = utils.make_mc_tot(hs, f"{c}_{v}_mc_tot")
+
+            # MC tot for systematics
+            if systematics:
+                h_mc_tot_sys = {}
+                for group in systematics:
+                    variations = systematics[group]['variations']
+                    h_mc_tot_sys[group] = [utils.make_mc_tot(utils.make_stack(samples, mc_map_sys[group][syst]),
+                                                            f"{c}_{v}_{group}_{syst}_mc_tot") for syst in variations]
+
+            # mc stat error
+            gr_mc_stat_err, gr_mc_stat_err_only = utils.make_stat_err(h_mc_tot)
+
+            # systematics error bands
+            gr_mc_sys_err_map = []
+            gr_mc_sys_err_only_map = []
+            if systematics:
+                for group in systematics:
+                    sys_type = systematics[group]['type']
+                    if sys_type == 'updown':
+                        gr_mc_sys_err, gr_mc_sys_err_only = utils.make_sys_err(h_mc_tot, h_mc_tot_sys[group])
+                    elif sys_type == 'minmax':
+                        gr_mc_sys_err, gr_mc_sys_err_only = utils.make_minmax_err(h_mc_tot, h_mc_tot_sys[group])
+                    else:
+                        print(sys_type, " ", len(h_mc_tot_sys[group]))
+                        gr_mc_sys_err, gr_mc_sys_err_only = utils.make_pdf_err(h_mc_tot, h_mc_tot_sys[group], sys_type)
+                    gr_mc_sys_err_map += [gr_mc_sys_err]
+                    gr_mc_sys_err_only_map += [gr_mc_sys_err_only]
+
+            # total error
+            gr_mc_tot_err = utils.combine_error_multiple([gr_mc_stat_err] + gr_mc_sys_err_map)
+            gr_mc_tot_err_only = utils.combine_error_multiple([gr_mc_stat_err_only] + gr_mc_sys_err_only_map)
+
+            # top pad
+            canv.pad1.cd()
+            hs.Draw("same hist")
+            h_mc_tot.Draw("same hist")
+            gr_mc_tot_err.Draw("e2")
+            gr_mc_stat_err.Draw("e2")
+
+            # make legend
+            # canv.make_legend(h_mc_tot, mc_map, samples, print_yields=True, show_error=False)
 
             # make legend
             canv.make_legend(data=None, mc_map=mc_map, samples=samples)

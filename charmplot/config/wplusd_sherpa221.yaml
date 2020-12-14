@@ -2,6 +2,10 @@
 colorScheme: gemstone_hues
 variablesConf: charmed_wjets
 samplesConf: sherpa
+systematics:
+  - sherpa_theory_pdf
+  - sherpa_theory_qcd
+  - sherpa_theory_choice
 channels:
   OS_2018_SR_Dplus:
     label:
