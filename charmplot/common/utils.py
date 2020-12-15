@@ -31,7 +31,7 @@ def get_gr_from_hist(h: ROOT.TH1) -> ROOT.TGraphErrors:
     gr = ROOT.TGraphErrors()
     for i in range(1, h.GetNbinsX() + 1):
         gr.SetPoint(gr.GetN(), h.GetBinCenter(i), h.GetBinContent(i))
-        gr.SetPointError(gr.GetN()-1, 0, h.GetBinError(i))
+        gr.SetPointError(gr.GetN() - 1, 0, h.GetBinError(i))
     gr.SetMarkerSize(1.0)
     return gr
 
@@ -155,10 +155,28 @@ def save_to_trex_file(trex_folder: str, channel: channel.Channel, var: variable.
     for s in mc_map:
         if affecting and s.shortName not in affecting:
             continue
-        out_file = ROOT.TFile(trex_histograms[s.shortName], "UPDATE")
-        out_file.cd()
-        mc_map[s].Write(out_name)
-        out_file.Close()
+        if s.makeGhostSample:
+            if not sys:
+                h_ghost = mc_map[s].Clone(f"{mc_map[s].GetName()}_GHOST")
+                # minimum = h_ghost.GetMinimum()
+                for i in range(0, h_ghost.GetNbinsX() + 2):
+                    h_ghost.SetBinContent(i, 10000.)
+                    h_ghost.SetBinError(i, 0)
+                out_file = ROOT.TFile(trex_histograms[s.shortName + "_GHOST"], "UPDATE")
+                h_ghost.Write(out_name)
+                out_file.Close()
+            out_file = ROOT.TFile(trex_histograms[s.shortName], "UPDATE")
+            out_file.cd()
+            h_offset = mc_map[s].Clone(f"{mc_map[s].GetName()}_OFFSET")
+            for i in range(0, h_offset.GetNbinsX() + 2):
+                h_offset.SetBinContent(i, h_offset.GetBinContent(i) + 10000.)
+            h_offset.Write(out_name)
+            out_file.Close()
+        else:
+            out_file = ROOT.TFile(trex_histograms[s.shortName], "UPDATE")
+            out_file.cd()
+            mc_map[s].Write(out_name)
+            out_file.Close()
 
 
 def save_histograms_to_trex_file(trex_folder: str, channel: channel.Channel, var: variable.Variable,
@@ -194,14 +212,14 @@ def read_samples(conf: globalConfig.GlobalConfig, reader: inputDataReader.InputD
                  sys: str = None, affecting: list = None, fallback: MC_Map = None) -> MC_Map:
     mc_map = {}
     for s in samples:
-        if s.shortName == "MockMC":
-            if not sys:
-                continue
-            else:
-                h_nominal = fallback[s]
-                h = h_nominal.Clone(f"{h_nominal.GetName()}_{sys}")
-                mc_map[s] = h
-                continue
+        # if s.shortName == "MockMC":
+        #     if not sys:
+        #         continue
+        #     else:
+        #         h_nominal = fallback[s]
+        #         h = h_nominal.Clone(f"{h_nominal.GetName()}_{sys}")
+        #         mc_map[s] = h
+        #         continue
         # fallback to nominal if sys does not affect the sample
         if sys and fallback and affecting:
             if s.shortName not in affecting:

@@ -93,6 +93,8 @@ def main(options, conf):
     # plots = individual_plots + OS_minus_SS_plots + [OS_minus_SS_total]
     plots = individual_plots + OS_minus_SS_plots
 
+    subtract_manually = True
+
     for plot in plots:
 
         # create channel
@@ -126,6 +128,11 @@ def main(options, conf):
                     sample_names.append(sample.shortName)
                     samples.append(sample)
 
+        # put MockMC last
+        if len(plot['-']):
+            samples += [samples.pop(0)]
+            sample_names += [sample_names.pop(0)]
+
         # get mc samples
         mc_map = {}
         for sample in samples:
@@ -133,12 +140,20 @@ def main(options, conf):
             for channel in plot['+']:
                 if 'MockMC' in sample.shortName:
                     btag = re.findall("([012]tag)", channel.name)[0]
-                    h_temp = files[channel].Get(f"h_SymmBkg_{btag}_postFit")
+                    h_temp = files[channel].Get(f"h_SymmBkg_postFit")
                 else:
                     if "SS" in channel.name:
                         h_temp = files[channel].Get(f"h_{sample.shortName}_SS_postFit")
+                        if "MatrixMethod" in sample.shortName:
+                            h_temp_couter = files[channel].Get(f"h_{sample.shortName}_CounterTerm_SS_postFit")
+                            if h_temp_couter:
+                                h_temp.Add(h_temp_couter)
                     else:
                         h_temp = files[channel].Get(f"h_{sample.shortName}_postFit")
+                        if "MatrixMethod" in sample.shortName:
+                            h_temp_couter = files[channel].Get(f"h_{sample.shortName}_CounterTerm_postFit")
+                            if h_temp_couter:
+                                h_temp.Add(h_temp_couter)
                 if h_temp:
                     if h_sum is None:
                         h_sum = h_temp.Clone(f"{h_temp.GetName()}_{chan.name}")
@@ -147,9 +162,13 @@ def main(options, conf):
             for channel in plot['-']:
                 if 'MockMC' in sample.shortName:
                     btag = re.findall("([012]tag)", channel.name)[0]
-                    h_temp = files[channel].Get(f"h_SymmBkg_{btag}_postFit")
+                    h_temp = files[channel].Get(f"h_SymmBkg_postFit")
                 else:
                     h_temp = files[channel].Get(f"h_{sample.shortName}_SS_postFit")
+                    if "MatrixMethod" in sample.shortName:
+                        h_temp_couter = files[channel].Get(f"h_{sample.shortName}_CounterTerm_SS_postFit")
+                        if h_temp_couter:
+                            h_temp.Add(h_temp_couter)
                 if h_temp:
                     if h_sum is None:
                         h_sum = h_temp.Clone(f"{h_temp.GetName()}_{chan.name}")
@@ -167,9 +186,15 @@ def main(options, conf):
                 h_data = h_temp.Clone(f"{h_temp.GetName()}_{chan.name}")
             else:
                 h_data.Add(h_temp)
-        for channel in plot['-']:
-            h_temp = files[channel].Get("h_Data")
-            h_data.Add(h_temp, -1)
+            if subtract_manually and len(plot['-']):
+                for channel_SS in channels:
+                    if channel_SS.name == channel.name.replace("OS_", "SS_"):
+                        h_temp_SS = files[channel_SS].Get("h_Data")
+                        h_data.Add(h_temp_SS, -1)
+        if not subtract_manually:
+            for channel in plot['-']:
+                h_temp = files[channel].Get("h_Data")
+                h_data.Add(h_temp, -1)
 
         # get mc tot
         h_mc_tot = None
@@ -179,9 +204,15 @@ def main(options, conf):
                 h_mc_tot = h_temp.Clone(f"{h_temp.GetName()}_{chan.name}")
             else:
                 h_mc_tot.Add(h_temp)
-        for channel in plot['-']:
-            h_temp = files[channel].Get("h_tot_postFit")
-            h_mc_tot.Add(h_temp, -1)
+            if subtract_manually and len(plot['-']):
+                for channel_SS in channels:
+                    if channel_SS.name == channel.name.replace("OS_", "SS_"):
+                        h_temp_SS = files[channel_SS].Get("h_tot_postFit")
+                        h_mc_tot.Add(h_temp_SS, -1)
+        if not subtract_manually:
+            for channel in plot['-']:
+                h_temp = files[channel].Get("h_tot_postFit")
+                h_mc_tot.Add(h_temp, -1)
 
         # canvas
         canv = utils.make_canvas(h_data, var, chan, x=800, y=800)
@@ -214,21 +245,22 @@ def main(options, conf):
                         h_mc_tot_Dn = h_temp_dn.Clone(f"{h_temp_dn.GetName()}_{chan.name}_err_dn")
                     else:
                         h_mc_tot_Dn.Add(h_temp_dn)
-            for channel in plot['-']:
-                h_temp_up = get_err_hist(files[channel], par, "Up", "h_tot_postFit")
-                h_temp_dn = get_err_hist(files[channel], par, "Down", "h_tot_postFit")
-                if h_temp_up:
-                    if not h_mc_tot_Up:
-                        h_mc_tot_Up = h_temp_up.Clone(f"{h_temp_up.GetName()}_{chan.name}_err_up")
-                        h_mc_tot_Up.Scale(-1.)
-                    else:
-                        h_mc_tot_Up.Add(h_temp_up, -1)
-                if h_temp_dn:
-                    if not h_mc_tot_Dn:
-                        h_mc_tot_Dn = h_temp_dn.Clone(f"{h_temp_dn.GetName()}_{chan.name}_err_dn")
-                        h_mc_tot_Dn.Scale(-1)
-                    else:
-                        h_mc_tot_Dn.Add(h_temp_dn, -1)
+            if not subtract_manually:
+                for channel in plot['-']:
+                    h_temp_up = get_err_hist(files[channel], par, "Up", "h_tot_postFit")
+                    h_temp_dn = get_err_hist(files[channel], par, "Down", "h_tot_postFit")
+                    if h_temp_up:
+                        if not h_mc_tot_Up:
+                            h_mc_tot_Up = h_temp_up.Clone(f"{h_temp_up.GetName()}_{chan.name}_err_up")
+                            h_mc_tot_Up.Scale(-1.)
+                        else:
+                            h_mc_tot_Up.Add(h_temp_up, -1)
+                    if h_temp_dn:
+                        if not h_mc_tot_Dn:
+                            h_mc_tot_Dn = h_temp_dn.Clone(f"{h_temp_dn.GetName()}_{chan.name}_err_dn")
+                            h_mc_tot_Dn.Scale(-1)
+                        else:
+                            h_mc_tot_Dn.Add(h_temp_dn, -1)
 
             # subtract nominal
             h_mc_tot_Up.Add(h_mc_tot, -1)

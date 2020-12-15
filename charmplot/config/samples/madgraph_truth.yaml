@@ -371,6 +371,7 @@ Multijet_MatrixMethod:
   fillColor: "14003"
   legendLabel: Multijet
   shortName: Multijet_MatrixMethod
+  makeGhostSample: True
 
 MockMC:
   add: data

@@ -108,7 +108,7 @@ class ChannelGenerator:
     def get_config(self):
         return self.config
 
-    def make_channel(self, lumi, sign='', year='', lepton='', charge='', btag='', extra_rebin=1):
+    def make_channel(self, lumi, sign='', year='', lepton='', charge='', btag='', extra_rebin=1, os_only=False):
         channel_name = self.generate_channel_name(sign=sign, year=year, lepton=lepton, charge=charge, btag=btag)
         regions = self.generate_channel_regions(sign=sign, year=year, lepton=lepton, charge=charge, btag=btag)
         channel = {
@@ -128,6 +128,8 @@ class ChannelGenerator:
 
         # add samples
         for sample in self.samples:
+            if 'MockMC' not in sample[0] and os_only and 'SS' in channel_name:
+                continue
             if len(sample) == 1:
                 channel['samples'] += [sample[0]]
             else:
