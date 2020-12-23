@@ -145,13 +145,13 @@ def main(options, conf):
                     if "SS" in channel.name:
                         h_temp = files[channel].Get(f"h_{sample.shortName}_SS_postFit")
                         if "MatrixMethod" in sample.shortName:
-                            h_temp_couter = files[channel].Get(f"h_{sample.shortName}_CounterTerm_SS_postFit")
+                            h_temp_couter = files[channel].Get(f"h_{sample.shortName}_GHOST_SS_postFit")
                             if h_temp_couter:
                                 h_temp.Add(h_temp_couter)
                     else:
                         h_temp = files[channel].Get(f"h_{sample.shortName}_postFit")
                         if "MatrixMethod" in sample.shortName:
-                            h_temp_couter = files[channel].Get(f"h_{sample.shortName}_CounterTerm_postFit")
+                            h_temp_couter = files[channel].Get(f"h_{sample.shortName}_GHOST_postFit")
                             if h_temp_couter:
                                 h_temp.Add(h_temp_couter)
                 if h_temp:
@@ -166,7 +166,7 @@ def main(options, conf):
                 else:
                     h_temp = files[channel].Get(f"h_{sample.shortName}_SS_postFit")
                     if "MatrixMethod" in sample.shortName:
-                        h_temp_couter = files[channel].Get(f"h_{sample.shortName}_CounterTerm_SS_postFit")
+                        h_temp_couter = files[channel].Get(f"h_{sample.shortName}_GHOST_SS_postFit")
                         if h_temp_couter:
                             h_temp.Add(h_temp_couter)
                 if h_temp:
@@ -218,7 +218,7 @@ def main(options, conf):
         canv = utils.make_canvas(h_data, var, chan, x=800, y=800)
 
         # configure histograms
-        canv.configure_histograms(mc_map, h_data)
+        canv.configure_histograms(mc_map, h_data, style=conf.style)
 
         # stack and total mc
         hs = utils.make_stack(samples, mc_map)

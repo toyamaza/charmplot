@@ -118,7 +118,7 @@ if __name__ == "__main__":
     parser.add_option('-a', '--analysis-config',
                       action="store", dest="analysis_config",
                       help="analysis config name",
-                      default="wplud")
+                      default="wplusd")
     parser.add_option('-d', '--decay-mode',
                       action="store", dest="decay_mode",
                       help="the decay mode string",

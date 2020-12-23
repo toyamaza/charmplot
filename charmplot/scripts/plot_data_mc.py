@@ -265,7 +265,7 @@ def process_channel(options, conf, c):
         canv = utils.make_canvas(h_data, var, c, x=800, y=800, fit=fit, scale_factors=scale_factors)
 
         # configure histograms
-        canv.configure_histograms(mc_map, h_data)
+        canv.configure_histograms(mc_map, h_data, style = conf.style)
 
         # save histograms to root file
         if options.trex:

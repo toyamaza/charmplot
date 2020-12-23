@@ -1,6 +1,15 @@
 #!/usr/bin/env python
 import gen.utils.proxies as proxies
 
+def flatten(xs):
+    result = []
+    if isinstance(xs, (list, tuple)):
+        for x in xs:
+            result.extend(flatten(x))
+    else:
+        result.append(xs)
+    return result
+
 label_dict = {
     'madgraph_truth': 'MadGraph LO',
     'sherpa_truth': 'Sherpa 2.2.1',
@@ -154,6 +163,8 @@ class ChannelGenerator:
 
     def generate_channel_regions(self, sign='', year='', lepton='', charge='', btag=''):
         regions = []
+        if not btag:
+            btag = flatten(self.btags)
         btag_massaged = [btag] if type(btag) != list else btag
         if sign:
             regions = [f'{format(y)}{format(l)}{format(c)}SR_{format(b)}{self.decay_mode}_{sign}'

@@ -249,7 +249,7 @@ class Canvas2(CanvasBase):
                 else:
                     self.print(f"{output}/{channel}.pdf")
 
-    def configure_histograms(self, mc_map: MC_Map, data: ROOT.TH1 = None):
+    def configure_histograms(self, mc_map: MC_Map, data: ROOT.TH1 = None, style: Dict = None):
         if data:
             data.SetMarkerSize(0.8)
         for s, h in mc_map.items():
