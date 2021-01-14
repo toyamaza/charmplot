@@ -1,4 +1,3 @@
-# flake8: noqa: C901
 #!/usr/bin/env python
 from charmplot.common import utils
 from charmplot.control import channel
@@ -36,12 +35,15 @@ samples_dict = {
     "PDF65060": sample.Sample('PDF65060', None, **{'add': [], 'subtract': [], 'legendLabel': 'ATLAS-epWZ16-EIG', 'lineColor': 'ROOT.kGray+2'}),
     "PDF14400": sample.Sample('PDF14400', None, **{'add': [], 'subtract': [], 'legendLabel': 'CT18NLO', 'lineColor': 'ROOT.kGreen'}),
     "PDF14600": sample.Sample('PDF14600', None, **{'add': [], 'subtract': [], 'legendLabel': 'CT18ANLO', 'lineColor': 'ROOT.kGreen+3'}),
+    "LOMG": sample.Sample('LOMG', None, **{'add': [], 'subtract': [], 'legendLabel': 'LO MG', 'lineColor': 'ROOT.kRed'}),
+    "MGFxFx": sample.Sample('MGFxFx', None, **{'add': [], 'subtract': [], 'legendLabel': 'MG FxFx', 'lineColor': 'ROOT.kRed'}),
 }
 
 # label dict
 label_dict = {
     "meson_eta": "#eta(D)",
     "meson_pt": "p_{T}(D)",
+    "lep_eta": "#eta(lep)",
 }
 
 
@@ -63,10 +65,15 @@ def process_file(f, name):
     at_variation = False
     save_histo = False
     for line in f:
-        if "BEGIN HISTO1D" in line and "_VarBand" in line:
+        if "BEGIN HISTO1D" in line and ("_VarBand" in line or "LOMG" in line or ("MGFxFx" in line and "[" not in line)):
             logging.info(f"{line}")
             at_variation = True
-            variation = re.findall("BEGIN HISTO1D .([\w]+)\[_VarBand\]", line)[0]
+            if "_VarBand" in line:
+                variation = re.findall("BEGIN HISTO1D .([\w]+)\[_VarBand\]", line)[0]  # noqa: W605
+            elif "LOMG" in line:
+                variation = "LOMG"
+            elif "MGFxFx" in line:
+                variation = "MGFxFx"
             x_low = []
             x_high = []
             y = []
@@ -118,27 +125,27 @@ def main(options):
             var = variable.Variable(v, **{"label": label_dict[v], "unit": ("GeV" if v in ["meson_pt", "lep_pt"] else "")})
 
             # channel
-            chan = channel.Channel(c, ["W+D", c], "", [], [])
+            chan = channel.Channel(c, ["mg5aMC@NL W+D", c], "", [], [])
 
             # samples
-            samples = [x for x in samples_dict.values()]
+            samples = [samples_dict[x] for x in histograms.keys()]
 
             # mc map
             mc_map = {samples_dict[var]: histograms[var] for var in histograms}
 
             # canvas
             yaxis_label = f"d#sigma / d{label_dict[v]} [pb]"
-            canv = utils.make_canvas_mc_ratio(mc_map[samples[0]], var, chan, "Ratio", x=800, y=800, ratio_range=[0.01, 1.99], events=yaxis_label)
+            canv = utils.make_canvas_mc_ratio(mc_map[samples[0]], var, chan, "Ratio", x=800, y=800, ratio_range=[0.81, 1.79], events=yaxis_label)
 
             # configure histograms
             canv.configure_histograms(mc_map, True)
 
             # top pad
             canv.pad1.cd()
-            hists = [mc_map[s] for s in mc_map]
             errors = []
             canv.pad1.cd()
             for s in samples:
+                print(s.name)
                 fcolor = mc_map[s].GetLineColor()
                 gr_mc_stat_err, _ = utils.make_stat_err(mc_map[s])
                 gr_mc_stat_err.SetLineColor(fcolor)
