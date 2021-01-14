@@ -8,6 +8,7 @@ setup(name='charmplot',
       scripts=[
           'charmplot/scripts/compare_multijet.py',
           'charmplot/scripts/extract_error_bands_from_rivet_dat_files.py',
+          'charmplot/scripts/extract_variations_from_rivet_dat_files.py',
           'charmplot/scripts/get_fake_rates.py',
           'charmplot/scripts/get_post_fit_yields.py',
           'charmplot/scripts/get_production_fractions.py',
