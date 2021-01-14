@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 import gen.utils.proxies as proxies
 
+
 def flatten(xs):
     result = []
     if isinstance(xs, (list, tuple)):
@@ -9,6 +10,7 @@ def flatten(xs):
     else:
         result.append(xs)
     return result
+
 
 label_dict = {
     'madgraph_truth': 'MadGraph LO',
@@ -19,6 +21,9 @@ label_dict = {
     'sherpa': 'Sherpa 2.2.1',
     'sherpa2210': 'Sherpa 2.2.10',
     'madgraph_fxfx': 'MadGraph FxFx',
+    'truth_comparison': 'LO MG vs. LO Powheg',
+    'wplusd_comparison': 'MadGraph LO',
+    'flavor_comparison': 'MadGraph LO',
 }
 
 
@@ -40,9 +45,10 @@ class DataMCConfig:
         out = {
             'variablesConf': self.variables,
             'samplesConf': self.sample_config,
-            'data': 'Data',
             'channels': {},
         }
+        if self.sample_config not in ['truth_comparison', 'wplusd_comparison']:
+            out['data'] = 'Data'
         if self.systematics:
             out['systematics'] = self.systematics
         return out
@@ -93,6 +99,44 @@ class WDFlavourSamples:
         ['Zjets_emu'],
         ['Other'],
         ['Multijet_MatrixMethod', proxies.MatrixMethod()]
+    ]
+
+    def get(self):
+        return self.samples
+
+
+class WDTruthComparisonSamples:
+
+    samples = [
+        ['MG_Wjets_emu_Matched', proxies.Matched()],
+        ['Ph_Wjets_emu_Matched', proxies.Matched()],
+        ['MG_Wjets_emu_Rest', proxies.Rest()],
+        ['Ph_Wjets_emu_Rest', proxies.Rest()],
+    ]
+
+    def get(self):
+        return self.samples
+
+
+class WDComparisonSamples:
+
+    samples = [
+        ['MG_Wjets_emu_Rest_el_minus', proxies.Rest(allowed_regions=["el_minus"], name="el_minus")],
+        ['MG_Wjets_emu_Rest_el_plus', proxies.Rest(allowed_regions=["el_plus"], name="el_plus")],
+        ['MG_Wjets_emu_Rest_mu_minus', proxies.Rest(allowed_regions=["mu_minus"], name="mu_minus")],
+        ['MG_Wjets_emu_Rest_mu_plus', proxies.Rest(allowed_regions=["mu_plus"], name="mu_plus")],
+    ]
+
+    def get(self):
+        return self.samples
+
+
+class WDFlavourComparison:
+
+    samples = [
+        ['MG_Wjets_light_Rest', proxies.Rest()],
+        ['MG_Wjets_cjets_Rest', proxies.Rest()],
+        ['MG_Wjets_bjets_Rest', proxies.Rest()],
     ]
 
     def get(self):

@@ -27,6 +27,12 @@ def main(options):
             samples = templates.WDFlavourSamples().get()
         elif options.samples.lower() == 'fit':
             samples = templates.WDFitSamples().get()
+        elif options.samples.lower() == 'truth_comparison':
+            samples = templates.WDTruthComparisonSamples().get()
+        elif options.samples.lower() == 'wplusd_comparison':
+            samples = templates.WDComparisonSamples().get()
+        elif options.samples.lower() == 'flavor_comparison':
+            samples = templates.WDFlavourComparison().get()
         else:
             print(f"ERROR: Unknown samples type {options.samples}")
             sys.exit(1)
