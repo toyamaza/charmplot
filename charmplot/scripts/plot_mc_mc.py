@@ -39,6 +39,12 @@ def main(options, conf, reader):
         if not c.make_plots and not c.save_to_file:
             continue
 
+        # output root file
+        if c.save_to_file:
+            out_file_name = os.path.join(conf.out_name, f"histograms_{c.name}.root")
+            out_file = ROOT.TFile(out_file_name, "RECREATE")
+            out_file.Close()
+
         # keep track of first/last plot of each channel
         first_plot = True
 
@@ -53,8 +59,9 @@ def main(options, conf, reader):
         variables = utils.get_variables(options, conf, reader, c, samples[0])
 
         # make channel folder if not exist
-        if not os.path.isdir(os.path.join(options.analysis_config, c.name)):
-            os.makedirs(os.path.join(options.analysis_config, c.name))
+        out_name = options.analysis_config.replace(".yaml", "").replace(".yml", "")
+        if not os.path.isdir(os.path.join(out_name, c.name)):
+            os.makedirs(os.path.join(out_name, c.name))
         for v in variables:
 
             # check if last plot
@@ -66,19 +73,34 @@ def main(options, conf, reader):
             # mc map
             mc_map = {s: reader.get_histogram(s, c, var) for s in samples}
 
+            # save histograms to root file
+            if c.save_to_file:
+                utils.save_to_file(out_file_name, c, var, None, mc_map)
+
             # canvas
-            canv = utils.make_canvas_mc_ratio(mc_map[samples[0]], var, c, ratio_title=options.ratio_title, x=800, y=800)
+            yaxis_label = "Entries"
+            if not options.normalize:
+                yaxis_label = "Normalized Entries"
+            canv = utils.make_canvas_mc_ratio(mc_map[samples[0]], var, c, ratio_title=options.ratio_title, x=800, y=800, events=yaxis_label)
 
             # configure histograms
             canv.configure_histograms(mc_map, options.normalize)
 
             # top pad
+            errors = []
             canv.pad1.cd()
             for s in samples:
+                fcolor = mc_map[s].GetLineColor()
+                gr_mc_stat_err, _ = utils.make_stat_err(mc_map[s])
+                gr_mc_stat_err.SetLineColor(fcolor)
+                gr_mc_stat_err.SetFillColorAlpha(fcolor, 0.25)
+                gr_mc_stat_err.SetFillStyle(1001)
+                errors += [gr_mc_stat_err]
+                gr_mc_stat_err.Draw("e2")
                 mc_map[s].Draw("hist same")
 
             # make legend
-            canv.make_legend(mc_map, samples)
+            canv.make_legend(mc_map, samples, print_yields=False)
 
             # set maximum after creating legend
             canv.set_maximum([mc_map[s] for s in samples], var, mc_map[samples[0]])
@@ -88,15 +110,38 @@ def main(options, conf, reader):
 
             # ratio histograms
             ratios = []
-            for i in range(0, len(samples), 2):
+            for i in range(0, len(samples)):
                 h = mc_map[samples[i]].Clone(f"{mc_map[samples[i]].GetName()}_ratio")
-                h.Divide(mc_map[samples[i + 1]])
+                h.Divide(mc_map[samples[0]])
                 ratios += [h]
+                fcolor = mc_map[samples[i]].GetLineColor()
+                gr_mc_stat_err, _ = utils.make_stat_err(h)
+                gr_mc_stat_err.SetLineColor(fcolor)
+                gr_mc_stat_err.SetFillColorAlpha(fcolor, 0.25)
+                gr_mc_stat_err.SetFillStyle(1001)
+                errors += [gr_mc_stat_err]
+                gr_mc_stat_err.Draw("e2")
                 h.Draw("hist same")
+            # for i in range(0, len(samples), 2):
+            #     h = mc_map[samples[i]].Clone(f"{mc_map[samples[i]].GetName()}_ratio")
+            #     h.Divide(mc_map[samples[i + 1]])
+            #     ratios += [h]
+            #     fcolor = mc_map[samples[i]].GetLineColor()
+            #     gr_mc_stat_err, _ = utils.make_stat_err(h)
+            #     gr_mc_stat_err.SetLineColor(fcolor)
+            #     gr_mc_stat_err.SetFillColorAlpha(fcolor, 0.25)
+            #     gr_mc_stat_err.SetFillStyle(1001)
+            #     errors += [gr_mc_stat_err]
+            #     gr_mc_stat_err.Draw("e2")
+            #     h.Draw("hist same")
 
             # Print out
-            canv.print_all(options.analysis_config, c.name, v, multipage_pdf=True, first_plot=first_plot, last_plot=last_plot, as_png=options.stage_out)
+            canv.print_all(out_name, c.name, v, multipage_pdf=True, first_plot=first_plot, last_plot=last_plot, as_png=options.stage_out)
             first_plot = False
+
+        # close output file
+        if c.save_to_file:
+            out_file.Close()
 
 
 if __name__ == "__main__":
@@ -132,19 +177,28 @@ if __name__ == "__main__":
     # parse input arguments
     options, args = parser.parse_args()
 
+    # analysis configs
+    config = options.analysis_config
+
     # output name
-    out_name = options.analysis_config
+    out_name = config.replace(".yaml", "").replace(".yml", "")
     if options.suffix:
         out_name = out_name.split("/")
-        out_name[0] += "_" + options.suffix
-        out_name = "/".join(out_name)
+        if out_name[0] != ".":
+            out_name[0] += "_" + options.suffix
+            out_name = "/".join(out_name)
+        else:
+            out_name[1] += "_" + options.suffix
+            out_name = "/".join(out_name)
+
+    # config object
+    conf = globalConfig.GlobalConfig(config, out_name)
 
     # make output folder if not exist
     if not os.path.isdir(out_name):
         os.makedirs(out_name)
 
     # read inputs
-    conf = globalConfig.GlobalConfig(options.analysis_config, out_name)
     reader = inputDataReader.InputDataReader(conf)
 
     # do the plotting

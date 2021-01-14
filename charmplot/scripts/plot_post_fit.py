@@ -9,7 +9,6 @@ import math
 import os
 import ROOT
 import sys
-import re
 
 # ATLAS Style
 dirname = os.path.join(os.path.dirname(__file__), "../../atlasrootstyle")
@@ -139,19 +138,19 @@ def main(options, conf):
             h_sum = None
             for channel in plot['+']:
                 if 'MockMC' in sample.shortName:
-                    btag = re.findall("([012]tag)", channel.name)[0]
+                    # btag = re.findall("([012]tag)", channel.name)[0]
                     h_temp = files[channel].Get(f"h_SymmBkg_postFit")
                 else:
                     if "SS" in channel.name:
                         h_temp = files[channel].Get(f"h_{sample.shortName}_SS_postFit")
                         if "MatrixMethod" in sample.shortName:
-                            h_temp_couter = files[channel].Get(f"h_{sample.shortName}_GHOST_SS_postFit")
+                            h_temp_couter = files[channel].Get(f"h_{sample.shortName}_CounterTerm_SS_postFit")
                             if h_temp_couter:
                                 h_temp.Add(h_temp_couter)
                     else:
                         h_temp = files[channel].Get(f"h_{sample.shortName}_postFit")
                         if "MatrixMethod" in sample.shortName:
-                            h_temp_couter = files[channel].Get(f"h_{sample.shortName}_GHOST_postFit")
+                            h_temp_couter = files[channel].Get(f"h_{sample.shortName}_CounterTerm_postFit")
                             if h_temp_couter:
                                 h_temp.Add(h_temp_couter)
                 if h_temp:
@@ -161,12 +160,12 @@ def main(options, conf):
                         h_sum.Add(h_temp)
             for channel in plot['-']:
                 if 'MockMC' in sample.shortName:
-                    btag = re.findall("([012]tag)", channel.name)[0]
+                    # btag = re.findall("([012]tag)", channel.name)[0]
                     h_temp = files[channel].Get(f"h_SymmBkg_postFit")
                 else:
                     h_temp = files[channel].Get(f"h_{sample.shortName}_SS_postFit")
                     if "MatrixMethod" in sample.shortName:
-                        h_temp_couter = files[channel].Get(f"h_{sample.shortName}_GHOST_SS_postFit")
+                        h_temp_couter = files[channel].Get(f"h_{sample.shortName}_CounterTerm_SS_postFit")
                         if h_temp_couter:
                             h_temp.Add(h_temp_couter)
                 if h_temp:

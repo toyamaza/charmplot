@@ -328,7 +328,7 @@ class Canvas2(CanvasBase):
             self.proxy_up.SetMaximum(math.pow(10, math.log10(self.max_val) * self.maximum_scale_factor +
                                               (1 - self.maximum_scale_factor) * math.log10(self.proxy_up.GetMinimum())))
 
-    def make_legend(self, data, mc_tot=None, mc_map=[], samples=[], print_yields=False, draw_option="f", show_error=True, data_name=None):
+    def make_legend(self, data, mc_tot=None, mc_map=[], samples=[], print_yields=False, draw_option="f", show_error=True, data_name=None, leg_offset=0.0):
         # temp entry for sys unc
         temp_err = ROOT.TGraphErrors()
         temp_err.SetLineColor(ROOT.kBlack)
@@ -344,7 +344,7 @@ class Canvas2(CanvasBase):
             self.n_entries += 1
         if mc_tot:
             self.n_entries += 1
-        self.legx_x1 = 0.60
+        self.legx_x1 = 0.60 + leg_offset
         if not print_yields:
             self.legx_x1 += 0.10
         self.leg_y2 = 1 - 1.8 * self.text_height_small / (1 - self.y_split)
@@ -446,12 +446,14 @@ class CanvasMCRatio(Canvas2):
         self.ratio_title = ratio_title
         self.ratio_range = ratio_range
 
-    def make_legend(self, mc_map, samples, print_yields = True):
+    def make_legend(self, mc_map, samples, print_yields=True, leg_offset=0.0):
         self.n_entries = len(samples)
-        self.legx_x1 = 0.50
+        self.legx_x1 = 0.50 + leg_offset
         self.leg_y2 = 1 - 1.8 * self.text_height_small / (1 - self.y_split)
         self.leg_y1 = self.leg_y2 - self.n_entries * self.text_height_small / (1 - self.y_split)
-        leg = ROOT.TLegend(0.50, self.leg_y1, 0.9, self.leg_y2)
+        if not print_yields:
+            self.legx_x1 += 0.10
+        leg = ROOT.TLegend(self.legx_x1, self.leg_y1, 0.9, self.leg_y2)
         leg.SetBorderSize(0)
         leg.SetFillColor(0)
         leg.SetFillStyle(0)
@@ -488,11 +490,11 @@ class CanvasMCRatio(Canvas2):
         for label in self.channel.label:
             self.text(f"{label}")
 
-    def construct(self, h):
+    def construct(self, h, events):
         # proxy histogram to control the upper axis
         self.pad1.cd()
         self.proxy_up = self.make_proxy_histogram(h, "up")
-        self.set_axis_title(self.proxy_up, events="Entries")
+        self.set_axis_title(self.proxy_up, events=events)
         self.set_axis_text_size(self.proxy_up, no_x_axis=(self.y_split > 0))
         self.set_x_range(self.proxy_up)
 
