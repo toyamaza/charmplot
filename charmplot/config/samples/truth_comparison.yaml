@@ -1,0 +1,38 @@
+colorScheme: gemstone_hues
+
+MG_Wjets_emu_Matched:
+  add:
+    - MG_Wjets_light_emu
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_bjets_emu
+  subtract:
+  lineColor: "10004"
+  legendLabel: "MG W+#it{D}"
+  shortName: MG_Wjets_emu_Matched
+
+MG_Wjets_emu_Rest:
+  add:
+    - MG_Wjets_light_emu
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_bjets_emu
+  subtract:
+  lineColor: "14004"
+  legendLabel: "MG W+jets"
+  shortName: MG_Wjets_emu_Rest
+
+Ph_Wjets_emu_Matched:
+  add:
+    - Ph_Wjets_emu
+  subtract:
+  lineColor: "10001"
+  legendLabel: "Ph W+#it{D}"
+  shortName: Ph_Wjets_emu_Matched
+
+
+Ph_Wjets_emu_Rest:
+  add:
+    - Ph_Wjets_emu
+  subtract:
+  lineColor: "14001"
+  legendLabel: "Ph W+jets"
+  shortName: Ph_Wjets_emu_Rest

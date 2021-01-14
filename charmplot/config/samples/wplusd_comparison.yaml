@@ -1,0 +1,65 @@
+colorScheme: gemstone_hues
+
+MG_Wjets_emu_Rest_el_minus:
+  add:
+    - MG_Wjets_light_emu
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_bjets_emu
+  subtract:
+  lineColor: "10001"
+  legendLabel: "MG W+jets e-"
+  shortName: MG_Wjets_emu_Rest
+
+MG_Wjets_emu_Rest_el_plus:
+  add:
+    - MG_Wjets_light_emu
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_bjets_emu
+  subtract:
+  lineColor: "10004"
+  legendLabel: "MG W+jets e+"
+  shortName: MG_Wjets_emu_Rest
+
+MG_Wjets_emu_Rest_mu_minus:
+  add:
+    - MG_Wjets_light_emu
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_bjets_emu
+  subtract:
+  lineColor: "14001"
+  legendLabel: "MG W+jets #mu-"
+  shortName: MG_Wjets_emu_Rest
+
+MG_Wjets_emu_Rest_mu_plus:
+  add:
+    - MG_Wjets_light_emu
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_bjets_emu
+  subtract:
+  lineColor: "14004"
+  legendLabel: "MG W+jets #mu+"
+  shortName: MG_Wjets_emu_Rest
+
+Wjets_light_emu_Rest:
+  add:
+    - MG_Wjets_light_emu
+  subtract:
+  lineColor: "10001"
+  legendLabel: "MG W+u"
+  shortName: Wjets_light_emu_Rest
+
+Wjets_cjets_emu_Rest:
+  add:
+    - MG_Wjets_cjets_emu
+  subtract:
+  lineColor: "14001"
+  legendLabel: "MG W+c"
+  shortName: Wjets_cjets_emu_Rest
+
+Wjets_bjets_emu_Rest:
+  add:
+    - MG_Wjets_bjets_emu
+  subtract:
+  lineColor: "12001"
+  legendLabel: "MG W+b"
+  shortName: Wjets_bjets_emu_Rest
