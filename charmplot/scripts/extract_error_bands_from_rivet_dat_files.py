@@ -37,6 +37,7 @@ samples_dict = {
     "PDF14600": sample.Sample('PDF14600', None, **{'add': [], 'subtract': [], 'legendLabel': 'CT18ANLO', 'lineColor': 'ROOT.kGreen+3'}),
     "LOMG": sample.Sample('LOMG', None, **{'add': [], 'subtract': [], 'legendLabel': 'LO MG', 'lineColor': 'ROOT.kRed'}),
     "MGFxFx": sample.Sample('MGFxFx', None, **{'add': [], 'subtract': [], 'legendLabel': 'MG FxFx', 'lineColor': 'ROOT.kRed'}),
+    "Sherpa2210": sample.Sample('Sherpa2210', None, **{'add': [], 'subtract': [], 'legendLabel': 'Sherpa 2.2.10', 'lineColor': 'ROOT.kBlue'}),
 }
 
 # label dict
@@ -65,7 +66,7 @@ def process_file(f, name):
     at_variation = False
     save_histo = False
     for line in f:
-        if "BEGIN HISTO1D" in line and ("_VarBand" in line or "LOMG" in line or ("MGFxFx" in line and "[" not in line)):
+        if "BEGIN HISTO1D" in line and ("_VarBand" in line or "LOMG" in line or ("MGFxFx" in line and "[" not in line) or ("Sherpa2210[MUR1_MUF1_PDF30320]" in line)):
             logging.info(f"{line}")
             at_variation = True
             if "_VarBand" in line:
@@ -74,6 +75,8 @@ def process_file(f, name):
                 variation = "LOMG"
             elif "MGFxFx" in line:
                 variation = "MGFxFx"
+            elif "Sherpa2210" in line:
+                variation = "Sherpa2210"
             x_low = []
             x_high = []
             y = []
@@ -125,7 +128,7 @@ def main(options):
             var = variable.Variable(v, **{"label": label_dict[v], "unit": ("GeV" if v in ["meson_pt", "lep_pt"] else "")})
 
             # channel
-            chan = channel.Channel(c, ["mg5aMC@NL W+D", c], "", [], [])
+            chan = channel.Channel(c, ["W+D", c], "", [], [])
 
             # samples
             samples = [samples_dict[x] for x in histograms.keys()]
@@ -135,7 +138,7 @@ def main(options):
 
             # canvas
             yaxis_label = f"d#sigma / d{label_dict[v]} [pb]"
-            canv = utils.make_canvas_mc_ratio(mc_map[samples[0]], var, chan, "Ratio", x=800, y=800, ratio_range=[0.81, 1.79], events=yaxis_label)
+            canv = utils.make_canvas_mc_ratio(mc_map[samples[0]], var, chan, "Ratio", x=800, y=800, ratio_range=[0.51, 1.49], events=yaxis_label)
 
             # configure histograms
             canv.configure_histograms(mc_map, True)
