@@ -28,13 +28,13 @@ root.addHandler(handler)
 # proxy samples
 samples_dict = {
     "PDF260000": sample.Sample('PDF260000', None, **{'add': [], 'subtract': [], 'legendLabel': 'NNPDF30_nlo_as_0118', 'lineColor': 'ROOT.kBlack'}),
+    "PDF261000": sample.Sample('PDF261000', None, **{'add': [], 'subtract': [], 'legendLabel': 'NNPDF30_nnlo_as_0118', 'lineColor': 'ROOT.kGreen+4'}),
+    "PDF303600": sample.Sample('PDF303600', None, **{'add': [], 'subtract': [], 'legendLabel': 'NNPDF31_nnlo_as_0118', 'lineColor': 'ROOT.kGreen+2'}),
+    "PDF25200": sample.Sample('PDF25200', None, **{'add': [], 'subtract': [], 'legendLabel': 'MMHT2014nlo68clas118', 'lineColor': 'ROOT.kGreen+0'}),
+    "PDF65060": sample.Sample('PDF65060', None, **{'add': [], 'subtract': [], 'legendLabel': 'ATLAS-epWZ16-EIG', 'lineColor': 'ROOT.kYellow+4'}),
+    "PDF14400": sample.Sample('PDF14400', None, **{'add': [], 'subtract': [], 'legendLabel': 'CT18NLO', 'lineColor': 'ROOT.kYellow+2'}),
+    "PDF14600": sample.Sample('PDF14600', None, **{'add': [], 'subtract': [], 'legendLabel': 'CT18ANLO', 'lineColor': 'ROOT.kYellow+0'}),
     "QCD": sample.Sample('QCD', None, **{'add': [], 'subtract': [], 'legendLabel': 'QCDScale', 'lineColor': 'ROOT.kBlue'}),
-    # "PDF261000": sample.Sample('PDF261000', None, **{'add': [], 'subtract': [], 'legendLabel': 'NNPDF30_nnlo_as_0118', 'lineColor': 'ROOT.kBlue'}),
-    # "PDF303600": sample.Sample('PDF303600', None, **{'add': [], 'subtract': [], 'legendLabel': 'NNPDF31_nnlo_as_0118', 'lineColor': 'ROOT.kBlue+3'}),
-    # "PDF25200": sample.Sample('PDF25200', None, **{'add': [], 'subtract': [], 'legendLabel': 'MMHT2014nlo68clas118', 'lineColor': 'ROOT.kViolet'}),
-    # "PDF65060": sample.Sample('PDF65060', None, **{'add': [], 'subtract': [], 'legendLabel': 'ATLAS-epWZ16-EIG', 'lineColor': 'ROOT.kGray+2'}),
-    # "PDF14400": sample.Sample('PDF14400', None, **{'add': [], 'subtract': [], 'legendLabel': 'CT18NLO', 'lineColor': 'ROOT.kGreen'}),
-    # "PDF14600": sample.Sample('PDF14600', None, **{'add': [], 'subtract': [], 'legendLabel': 'CT18ANLO', 'lineColor': 'ROOT.kGreen+3'}),
     "LOMG": sample.Sample('LOMG', None, **{'add': [], 'subtract': [], 'legendLabel': 'LO MG', 'lineColor': 'ROOT.kRed'}),
     # "MGFxFx": sample.Sample('MGFxFx', None, **{'add': [], 'subtract': [], 'legendLabel': 'MG FxFx', 'lineColor': 'ROOT.kRed'}),
     # "Sherpa2210": sample.Sample('Sherpa2210', None, **{'add': [], 'subtract': [], 'legendLabel': 'Sherpa 2.2.10', 'lineColor': 'ROOT.kBlue'}),
@@ -54,10 +54,18 @@ def create_histogram(variation, x_low, x_high, y, y_up, y_dn, name):
     x_bins_array = array.array('d', x_bins)
     h = ROOT.TH1D(f"{name}_{variation}", f"{name}_{variation}", len(x_bins) - 1, x_bins_array)
     logging.info(f"created histogram {h}, filling entries now")
+    integral = 0
+    one_up = 0
+    one_dn = 0
     for i in range(h.GetNbinsX()):
+        bin_width = h.GetBinWidth(i + 1)
+        integral += bin_width * y[i]
+        one_up += bin_width * y_up[i]
+        one_dn += bin_width * y_dn[i]
         err = (y_up[i] + y_dn[i]) / 2.
         h.SetBinContent(i + 1, y[i])
         h.SetBinError(i + 1, err)
+    utils.eprint(f"variation {variation}: {integral:.3f} + {one_up:.3f} - {one_dn:.3f}")
     return h
 
 
@@ -147,7 +155,7 @@ def main(options):
 
             # canvas
             yaxis_label = f"d#sigma / d{label_dict[v]} [pb]"
-            canv = utils.make_canvas_mc_ratio(mc_map[samples[0]], var, chan, "Ratio", x=800, y=800, ratio_range=[0.51, 1.49], events=yaxis_label)
+            canv = utils.make_canvas_mc_ratio(mc_map[samples[0]], var, chan, "Ratio", x=800, y=800, ratio_range=[0.31, 1.69], events=yaxis_label)
 
             # configure histograms
             canv.configure_histograms(mc_map, True)
@@ -161,9 +169,10 @@ def main(options):
                 fcolor = mc_map[s].GetLineColor()
                 gr_mc_stat_err, _ = utils.make_stat_err(mc_map[s])
                 gr_mc_stat_err.SetLineColor(fcolor)
-                gr_mc_stat_err.SetFillColorAlpha(fcolor, 0.25)
+                gr_mc_stat_err.SetFillColorAlpha(fcolor, 0.75)
                 gr_mc_stat_err.SetFillStyle(1001)
                 errors += [gr_mc_stat_err]
+                # if "PDF260000" in s.name or "QCD" in s.name:
                 gr_mc_stat_err.Draw("e2")
                 mc_map[s].Draw("hist same")
 
@@ -191,6 +200,7 @@ def main(options):
                 gr_mc_stat_err.SetFillColorAlpha(fcolor, 0.25)
                 gr_mc_stat_err.SetFillStyle(1001)
                 errors += [gr_mc_stat_err]
+                # if "PDF260000" in h.GetName() or "QCD" in h.GetName():
                 gr_mc_stat_err.Draw("e2")
                 h.Draw("hist same")
 
@@ -198,22 +208,46 @@ def main(options):
             h_lomg = mc_map[samples_dict["LOMG"]]
             h_nominal = mc_map[samples_dict["PDF260000"]].Clone(mc_map[samples_dict["PDF260000"]].GetName() + "_NOMINAL")
             h_pdf = mc_map[samples_dict["PDF260000"]].Clone(mc_map[samples_dict["PDF260000"]].GetName() + "_PDF")
-            h_qcd = mc_map[samples_dict["QCD"]].Clone(mc_map[samples_dict["QCD"]].GetName() + "_QCD")
+            h_qcd = mc_map[samples_dict["QCD"]].Clone(mc_map[samples_dict["QCD"]].GetName() + "_RATIO")
+            h_PDF261000 = mc_map[samples_dict["PDF261000"]].Clone(mc_map[samples_dict["PDF261000"]].GetName() + "_RATIO")
+            h_PDF303600 = mc_map[samples_dict["PDF303600"]].Clone(mc_map[samples_dict["PDF303600"]].GetName() + "_RATIO")
+            h_PDF25200 = mc_map[samples_dict["PDF25200"]].Clone(mc_map[samples_dict["PDF25200"]].GetName() + "_RATIO")
+            h_PDF65060 = mc_map[samples_dict["PDF65060"]].Clone(mc_map[samples_dict["PDF65060"]].GetName() + "_RATIO")
+            h_PDF14400 = mc_map[samples_dict["PDF14400"]].Clone(mc_map[samples_dict["PDF14400"]].GetName() + "_RATIO")
+            h_PDF14600 = mc_map[samples_dict["PDF14600"]].Clone(mc_map[samples_dict["PDF14600"]].GetName() + "_RATIO")
             for i in range(0, h_nominal.GetNbinsX() + 2):
                 h_pdf.SetBinContent(i, h_pdf.GetBinContent(i) + h_pdf.GetBinError(i))
                 h_qcd.SetBinContent(i, h_qcd.GetBinContent(i) + h_qcd.GetBinError(i))
                 h_nominal.SetBinError(i, 0)
                 h_pdf.SetBinError(i, 0)
                 h_qcd.SetBinError(i, 0)
+                h_PDF261000.SetBinError(i, 0)
+                h_PDF303600.SetBinError(i, 0)
+                h_PDF25200.SetBinError(i, 0)
+                h_PDF65060.SetBinError(i, 0)
+                h_PDF14400.SetBinError(i, 0)
+                h_PDF14600.SetBinError(i, 0)
             h_nominal.Divide(h_lomg)
             h_pdf.Divide(h_lomg)
             h_qcd.Divide(h_lomg)
+            h_PDF261000.Divide(h_lomg)
+            h_PDF303600.Divide(h_lomg)
+            h_PDF25200.Divide(h_lomg)
+            h_PDF65060.Divide(h_lomg)
+            h_PDF14400.Divide(h_lomg)
+            h_PDF14600.Divide(h_lomg)
 
             # save to file
             f = ROOT.TFile(os.path.join(options.output, "output.root"), "UPDATE")
             h_nominal.Write()
             h_pdf.Write()
             h_qcd.Write()
+            h_PDF261000.Write()
+            h_PDF303600.Write()
+            h_PDF25200.Write()
+            h_PDF65060.Write()
+            h_PDF14400.Write()
+            h_PDF14600.Write()
             f.Close()
 
             # Print out
