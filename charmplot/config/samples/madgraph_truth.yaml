@@ -142,13 +142,22 @@ Wjets_emu_Rest:
   legendLabel: "W+jets"
   shortName: Wjets_emu_Rest
 
+Wjets_bujets_emu_Rest_fit:
+  add:
+    - MG_Wjets_light_emu
+  subtract:
+  fillColor: "10001"
+  legendLabel: "W+jets + u/b"
+  shortName: Wjets_bujets_emu_Rest
+  fit: "pol0"
+
 Wjets_bujets_emu_Rest:
   add:
     - MG_Wjets_light_emu
   subtract:
-  fillColor: "10002"
+  fillColor: "10001"
   legendLabel: "W+jets + u/b"
-  shortName: Wjets_emu_Rest
+  shortName: Wjets_bujets_emu_Rest
 
 Wjets_light_emu_Rest:
   add:
@@ -156,15 +165,15 @@ Wjets_light_emu_Rest:
   subtract:
   fillColor: "10002"
   legendLabel: "W+jets + u"
-  shortName: Wjets_emu_Rest
+  shortName: Wjets_light_emu_Rest
 
 Wjets_cjets_emu_Rest:
   add:
     - MG_Wjets_cjets_emu
   subtract:
-  fillColor: "10001"
+  fillColor: "10002"
   legendLabel: "W+jets + c"
-  shortName: Wjets_emu_Rest
+  shortName: Wjets_cjets_emu_Rest
 
 Wjets_bjets_emu_Rest:
   add:
@@ -172,7 +181,7 @@ Wjets_bjets_emu_Rest:
   subtract:
   fillColor: "10003"
   legendLabel: "W+jets + b"
-  shortName: Wjets_emu_Rest
+  shortName: Wjets_bjets_emu_Rest
 
 Top_Matched:
   add:

@@ -59,7 +59,8 @@ class WDFitSamples:
     samples = [
         ['MockMC', proxies.MockMC()],
         ['Wjets_emu_Matched', proxies.Matched(os_minus_ss_fit_configuration=True)],
-        ['Wjets_emu_Rest', proxies.Rest(os_minus_ss_fit_configuration=True)],
+        ['Wjets_cjets_emu_Rest', proxies.Rest(os_minus_ss_fit_configuration=True)],
+        ['Wjets_bujets_emu_Rest_fit', proxies.Rest(os_minus_ss_fit_configuration=True)],
         ['Top_Matched', proxies.Matched(os_minus_ss_fit_configuration=True)],
         ['Top_Rest', proxies.Rest(os_minus_ss_fit_configuration=True)],
         ['Wjets_emu_NoMatch', proxies.NoMatch(os_minus_ss_fit_configuration=True)],
@@ -76,7 +77,8 @@ class WDTruthSamples:
 
     samples = [
         ['Wjets_emu_Matched', proxies.Matched()],
-        ['Wjets_emu_Rest', proxies.Rest()],
+        ['Wjets_cjets_emu_Rest', proxies.Rest()],
+        ['Wjets_bujets_emu_Rest', proxies.Rest()],
         ['Top_Matched', proxies.Matched()],
         ['Top_Rest', proxies.Rest()],
         ['Wjets_emu_NoMatch', proxies.NoMatch()],
@@ -170,6 +172,7 @@ class ChannelGenerator:
             'lumi': '+'.join(lumi),
             'extra_rebin': extra_rebin,
             'force_positive': self.force_positive,
+            'save_to_file': True,
             'samples': [],
         }
         self.config['channels'][channel_name] = channel

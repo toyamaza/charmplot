@@ -122,6 +122,8 @@ class InputDataReader(object):
                     h_denom = h.Clone("%s_%s_%s" % (sample.name, channel.name, variable.name))
                 else:
                     h_denom.Add(h, weight)
+        if sample.fit and h_total:
+            h_total = utils.fit_histogram(h_total, sample.fit)
         if force_positive and h_total:
             if 'MatrixMethod' not in sample.name:
                 utils.set_to_positive(h_total)

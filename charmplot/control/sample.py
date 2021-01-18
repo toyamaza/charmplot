@@ -16,6 +16,7 @@ class Sample(object):
     statError = True
     scaleMC = None
     makeGhostSample = False
+    fit = ""
 
     def __init__(self, name, color_scheme=None, **kwargs):
         # sample name
@@ -68,6 +69,9 @@ class Sample(object):
 
         if 'makeGhostSample' in kwargs:
             self.makeGhostSample = bool(kwargs.pop('makeGhostSample'))
+
+        if 'fit' in kwargs:
+            self.fit = str(kwargs.pop('fit'))
 
     def set_color_scheme(self, scheme):
         self.color_scheme = scheme

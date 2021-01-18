@@ -300,6 +300,17 @@ def set_to_positive(h):
             # h.SetBinError(i, 1e-5)
 
 
+def fit_histogram(h, fit):
+    func = ROOT.TF1(f"{h.GetName()}_fit", fit)
+    h.Fit(func, "0")
+    print(func)
+    for i in range(1, h.GetNbinsX() + 1):
+        h.SetBinContent(i, func.Integral(h.GetBinLowEdge(i), h.GetBinLowEdge(i) + h.GetBinWidth(i)) / h.GetBinWidth(i))
+        h.SetBinError(i, 0)
+    logging.info(f"Fit Chi2 prob {ROOT.TMath.Prob(func.GetChisquare(), func.GetNDF())}")
+    return h
+
+
 def set_errors_to_zero(h):
     for i in range(0, h.GetNbinsX() + 2):
         h.SetBinError(i, 0.)
