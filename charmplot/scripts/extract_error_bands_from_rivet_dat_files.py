@@ -28,16 +28,16 @@ root.addHandler(handler)
 # proxy samples
 samples_dict = {
     "PDF260000": sample.Sample('PDF260000', None, **{'add': [], 'subtract': [], 'legendLabel': 'NNPDF30_nlo_as_0118', 'lineColor': 'ROOT.kBlack'}),
-    "QCD": sample.Sample('QCD', None, **{'add': [], 'subtract': [], 'legendLabel': 'QCDScale', 'lineColor': 'ROOT.kRed'}),
-    "PDF261000": sample.Sample('PDF261000', None, **{'add': [], 'subtract': [], 'legendLabel': 'NNPDF30_nnlo_as_0118', 'lineColor': 'ROOT.kBlue'}),
-    "PDF303600": sample.Sample('PDF303600', None, **{'add': [], 'subtract': [], 'legendLabel': 'NNPDF31_nnlo_as_0118', 'lineColor': 'ROOT.kBlue+3'}),
-    "PDF25200": sample.Sample('PDF25200', None, **{'add': [], 'subtract': [], 'legendLabel': 'MMHT2014nlo68clas118', 'lineColor': 'ROOT.kViolet'}),
-    "PDF65060": sample.Sample('PDF65060', None, **{'add': [], 'subtract': [], 'legendLabel': 'ATLAS-epWZ16-EIG', 'lineColor': 'ROOT.kGray+2'}),
-    "PDF14400": sample.Sample('PDF14400', None, **{'add': [], 'subtract': [], 'legendLabel': 'CT18NLO', 'lineColor': 'ROOT.kGreen'}),
-    "PDF14600": sample.Sample('PDF14600', None, **{'add': [], 'subtract': [], 'legendLabel': 'CT18ANLO', 'lineColor': 'ROOT.kGreen+3'}),
+    "QCD": sample.Sample('QCD', None, **{'add': [], 'subtract': [], 'legendLabel': 'QCDScale', 'lineColor': 'ROOT.kBlue'}),
+    # "PDF261000": sample.Sample('PDF261000', None, **{'add': [], 'subtract': [], 'legendLabel': 'NNPDF30_nnlo_as_0118', 'lineColor': 'ROOT.kBlue'}),
+    # "PDF303600": sample.Sample('PDF303600', None, **{'add': [], 'subtract': [], 'legendLabel': 'NNPDF31_nnlo_as_0118', 'lineColor': 'ROOT.kBlue+3'}),
+    # "PDF25200": sample.Sample('PDF25200', None, **{'add': [], 'subtract': [], 'legendLabel': 'MMHT2014nlo68clas118', 'lineColor': 'ROOT.kViolet'}),
+    # "PDF65060": sample.Sample('PDF65060', None, **{'add': [], 'subtract': [], 'legendLabel': 'ATLAS-epWZ16-EIG', 'lineColor': 'ROOT.kGray+2'}),
+    # "PDF14400": sample.Sample('PDF14400', None, **{'add': [], 'subtract': [], 'legendLabel': 'CT18NLO', 'lineColor': 'ROOT.kGreen'}),
+    # "PDF14600": sample.Sample('PDF14600', None, **{'add': [], 'subtract': [], 'legendLabel': 'CT18ANLO', 'lineColor': 'ROOT.kGreen+3'}),
     "LOMG": sample.Sample('LOMG', None, **{'add': [], 'subtract': [], 'legendLabel': 'LO MG', 'lineColor': 'ROOT.kRed'}),
-    "MGFxFx": sample.Sample('MGFxFx', None, **{'add': [], 'subtract': [], 'legendLabel': 'MG FxFx', 'lineColor': 'ROOT.kRed'}),
-    "Sherpa2210": sample.Sample('Sherpa2210', None, **{'add': [], 'subtract': [], 'legendLabel': 'Sherpa 2.2.10', 'lineColor': 'ROOT.kBlue'}),
+    # "MGFxFx": sample.Sample('MGFxFx', None, **{'add': [], 'subtract': [], 'legendLabel': 'MG FxFx', 'lineColor': 'ROOT.kRed'}),
+    # "Sherpa2210": sample.Sample('Sherpa2210', None, **{'add': [], 'subtract': [], 'legendLabel': 'Sherpa 2.2.10', 'lineColor': 'ROOT.kBlue'}),
 }
 
 # label dict
@@ -66,7 +66,7 @@ def process_file(f, name):
     at_variation = False
     save_histo = False
     for line in f:
-        if "BEGIN HISTO1D" in line and ("_VarBand" in line or "LOMG" in line or ("MGFxFx" in line and "[" not in line) or ("Sherpa2210[MUR1_MUF1_PDF30320]" in line)):
+        if "BEGIN HISTO1D" in line and ("_VarBand" in line or "LOMG" in line or ("MGFxFx" in line and "[" not in line) or ("Sherpa2210[MUR1_MUF1_PDF30320]" in line)):  # noqa: E501
             logging.info(f"{line}")
             at_variation = True
             if "_VarBand" in line:
@@ -103,6 +103,10 @@ def process_file(f, name):
 
 def main(options):
 
+    # save to file
+    f = ROOT.TFile(os.path.join(options.output, "output.root"), "RECREATE")
+    f.Close()
+
     for c in options.channels.split(","):
 
         # make output folder if not exist
@@ -124,6 +128,11 @@ def main(options):
             histograms = process_file(f, f"{c}_{v}")
             print(histograms)
 
+            # normalize to unity if requested
+            if options.normalize:
+                for h in histograms.values():
+                    h.Scale(1. / h.GetSum())
+
             # var
             var = variable.Variable(v, **{"label": label_dict[v], "unit": ("GeV" if v in ["meson_pt", "lep_pt"] else "")})
 
@@ -131,10 +140,10 @@ def main(options):
             chan = channel.Channel(c, ["W+D", c], "", [], [])
 
             # samples
-            samples = [samples_dict[x] for x in histograms.keys()]
+            samples = [samples_dict[x] for x in histograms.keys() if x in samples_dict]
 
             # mc map
-            mc_map = {samples_dict[var]: histograms[var] for var in histograms}
+            mc_map = {samples_dict[x]: histograms[x] for x in histograms if x in samples_dict}
 
             # canvas
             yaxis_label = f"d#sigma / d{label_dict[v]} [pb]"
@@ -169,9 +178,12 @@ def main(options):
 
             # ratio histograms
             ratios = []
+            denominator = mc_map[samples[0]].Clone(f"{mc_map[samples[0]].GetName()}_denominator")
+            for i in range(0, denominator.GetNbinsX() + 2):
+                denominator.SetBinError(i, 0)
             for i in range(0, len(samples)):
                 h = mc_map[samples[i]].Clone(f"{mc_map[samples[i]].GetName()}_ratio")
-                h.Divide(mc_map[samples[0]])
+                h.Divide(denominator)
                 ratios += [h]
                 fcolor = mc_map[samples[i]].GetLineColor()
                 gr_mc_stat_err, _ = utils.make_stat_err(h)
@@ -181,6 +193,28 @@ def main(options):
                 errors += [gr_mc_stat_err]
                 gr_mc_stat_err.Draw("e2")
                 h.Draw("hist same")
+
+            # save output
+            h_lomg = mc_map[samples_dict["LOMG"]]
+            h_nominal = mc_map[samples_dict["PDF260000"]].Clone(mc_map[samples_dict["PDF260000"]].GetName() + "_NOMINAL")
+            h_pdf = mc_map[samples_dict["PDF260000"]].Clone(mc_map[samples_dict["PDF260000"]].GetName() + "_PDF")
+            h_qcd = mc_map[samples_dict["QCD"]].Clone(mc_map[samples_dict["QCD"]].GetName() + "_QCD")
+            for i in range(0, h_nominal.GetNbinsX() + 2):
+                h_pdf.SetBinContent(i, h_pdf.GetBinContent(i) + h_pdf.GetBinError(i))
+                h_qcd.SetBinContent(i, h_qcd.GetBinContent(i) + h_qcd.GetBinError(i))
+                h_nominal.SetBinError(i, 0)
+                h_pdf.SetBinError(i, 0)
+                h_qcd.SetBinError(i, 0)
+            h_nominal.Divide(h_lomg)
+            h_pdf.Divide(h_lomg)
+            h_qcd.Divide(h_lomg)
+
+            # save to file
+            f = ROOT.TFile(os.path.join(options.output, "output.root"), "UPDATE")
+            h_nominal.Write()
+            h_pdf.Write()
+            h_qcd.Write()
+            f.Close()
 
             # Print out
             canv.print_all(options.output, c, v, multipage_pdf=True, first_plot=first_plot, last_plot=last_plot, as_png=False)
@@ -207,6 +241,9 @@ if __name__ == "__main__":
     parser.add_option('-v', '--vars',
                       action="store", dest="vars",
                       help="run over a subset of variables (comma separated)")
+    parser.add_option('-n', '--normalize',
+                      action="store_true", dest="normalize",
+                      help="normalize to unity")
 
     # parse input arguments
     options, args = parser.parse_args()
