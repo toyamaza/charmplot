@@ -55,7 +55,7 @@ def main(options):
                 'ttbar_theory_choice',
                 'ttbar_theory_qcd',
                 'ttbar_theory_alt_samples',
-                'wjets_theory_alt_samples',
+                # 'wjets_theory_alt_samples',
             ]
 
         # Base config
