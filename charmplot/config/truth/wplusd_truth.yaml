@@ -1,7 +1,6 @@
+---
 variablesConf: charmed_wjets_truth
-
 samplesConf: wjets_madgraph_truth
-
 channels:
   el_minus_Dplus_fid:
     regions:
@@ -11,9 +10,8 @@ channels:
       - WPlusD_SS | el_minus_Dplus_SS_fid
       - WPlusD_OS_minus_SS | el_minus_Dplus_OS-SS_fid
     label:
-      - 'Fiducial W+D'
+      - Fiducial W+D
       - 'e^{-} D^{+}#rightarrowK#pi#pi'
-
   el_plus_Dplus_fid:
     regions:
       - el_plus_Dplus_OS_fid
@@ -22,9 +20,8 @@ channels:
       - WPlusD_SS | el_plus_Dplus_SS_fid
       - WPlusD_OS_minus_SS | el_plus_Dplus_OS-SS_fid
     label:
-      - 'Fiducial W+D'
+      - Fiducial W+D
       - 'e^{+} D^{-}#rightarrowK#pi#pi'
-
   mu_minus_Dplus_fid:
     regions:
       - mu_minus_Dplus_OS_fid
@@ -33,9 +30,8 @@ channels:
       - WPlusD_SS | mu_minus_Dplus_SS_fid
       - WPlusD_OS_minus_SS | mu_minus_Dplus_OS-SS_fid
     label:
-      - 'Fiducial W+D'
+      - Fiducial W+D
       - '#mu^{-} D^{+}#rightarrowK#pi#pi'
-
   mu_plus_Dplus_fid:
     regions:
       - mu_plus_Dplus_OS_fid
@@ -44,181 +40,365 @@ channels:
       - WPlusD_SS | mu_plus_Dplus_SS_fid
       - WPlusD_OS_minus_SS | mu_plus_Dplus_OS-SS_fid
     label:
-      - 'Fiducial W+D'
+      - Fiducial W+D
       - '#mu^{+} D^{-}#rightarrowK#pi#pi'
-
-  el_minus_Dplus_fid:
+  el_minus_Dplus_fid_Kpipi:
+    regions:
+      - el_minus_Dplus_OS_fid_Kpipi
+    samples:
+      - WPlusD_OS
+      - WPlusD_SS | el_minus_Dplus_SS_fid_Kpipi
+      - WPlusD_OS_minus_SS | el_minus_Dplus_OS-SS_fid_Kpipi
+    label:
+      - Fiducial W+D (D#toKpipi)
+      - 'e^{-} D^{+}#rightarrowK#pi#pi'
+  el_plus_Dplus_fid_Kpipi:
+    regions:
+      - el_plus_Dplus_OS_fid_Kpipi
+    samples:
+      - WPlusD_OS
+      - WPlusD_SS | el_plus_Dplus_SS_fid_Kpipi
+      - WPlusD_OS_minus_SS | el_plus_Dplus_OS-SS_fid_Kpipi
+    label:
+      - Fiducial W+D (D#toKpipi)
+      - 'e^{+} D^{-}#rightarrowK#pi#pi'
+  mu_minus_Dplus_fid_Kpipi:
+    regions:
+      - mu_minus_Dplus_OS_fid_Kpipi
+    samples:
+      - WPlusD_OS
+      - WPlusD_SS | mu_minus_Dplus_SS_fid_Kpipi
+      - WPlusD_OS_minus_SS | mu_minus_Dplus_OS-SS_fid_Kpipi
+    label:
+      - Fiducial W+D (D#toKpipi)
+      - '#mu^{-} D^{+}#rightarrowK#pi#pi'
+  mu_plus_Dplus_fid_Kpipi:
+    regions:
+      - mu_plus_Dplus_OS_fid_Kpipi
+    samples:
+      - WPlusD_OS
+      - WPlusD_SS | mu_plus_Dplus_SS_fid_Kpipi
+      - WPlusD_OS_minus_SS | mu_plus_Dplus_OS-SS_fid_Kpipi
+    label:
+      - Fiducial W+D (D#toKpipi)
+      - '#mu^{+} D^{-}#rightarrowK#pi#pi'
+  el_minus_Dstar_fid:
+    regions:
+      - el_minus_Dstar_OS_fid
+    samples:
+      - WPlusD_OS
+      - WPlusD_SS | el_minus_Dstar_SS_fid
+      - WPlusD_OS_minus_SS | el_minus_Dstar_OS-SS_fid
+    label:
+      - Fiducial W+D
+      - 'e^{-} D^{+}#rightarrowK#pi#pi'
+  el_plus_Dstar_fid:
+    regions:
+      - el_plus_Dstar_OS_fid
+    samples:
+      - WPlusD_OS
+      - WPlusD_SS | el_plus_Dstar_SS_fid
+      - WPlusD_OS_minus_SS | el_plus_Dstar_OS-SS_fid
+    label:
+      - Fiducial W+D
+      - 'e^{+} D^{-}#rightarrowK#pi#pi'
+  mu_minus_Dstar_fid:
+    regions:
+      - mu_minus_Dstar_OS_fid
+    samples:
+      - WPlusD_OS
+      - WPlusD_SS | mu_minus_Dstar_SS_fid
+      - WPlusD_OS_minus_SS | mu_minus_Dstar_OS-SS_fid
+    label:
+      - Fiducial W+D
+      - '#mu^{-} D^{+}#rightarrowK#pi#pi'
+  mu_plus_Dstar_fid:
+    regions:
+      - mu_plus_Dstar_OS_fid
+    samples:
+      - WPlusD_OS
+      - WPlusD_SS | mu_plus_Dstar_SS_fid
+      - WPlusD_OS_minus_SS | mu_plus_Dstar_OS-SS_fid
+    label:
+      - Fiducial W+D
+      - '#mu^{+} D^{-}#rightarrowK#pi#pi'
+  el_minus_Dstar_fid_Kpipi:
+    regions:
+      - el_minus_Dstar_OS_fid_Kpipi
+    samples:
+      - WPlusD_OS
+      - WPlusD_SS | el_minus_Dstar_SS_fid_Kpipi
+      - WPlusD_OS_minus_SS | el_minus_Dstar_OS-SS_fid_Kpipi
+    label:
+      - Fiducial W+D (D*#toKpipi)
+      - 'e^{-} D^{+}#rightarrowK#pi#pi'
+  el_plus_Dstar_fid_Kpipi:
+    regions:
+      - el_plus_Dstar_OS_fid_Kpipi
+    samples:
+      - WPlusD_OS
+      - WPlusD_SS | el_plus_Dstar_SS_fid_Kpipi
+      - WPlusD_OS_minus_SS | el_plus_Dstar_OS-SS_fid_Kpipi
+    label:
+      - Fiducial W+D (D*#toKpipi)
+      - 'e^{+} D^{-}#rightarrowK#pi#pi'
+  mu_minus_Dstar_fid_Kpipi:
+    regions:
+      - mu_minus_Dstar_OS_fid_Kpipi
+    samples:
+      - WPlusD_OS
+      - WPlusD_SS | mu_minus_Dstar_SS_fid_Kpipi
+      - WPlusD_OS_minus_SS | mu_minus_Dstar_OS-SS_fid_Kpipi
+    label:
+      - Fiducial W+D (D*#toKpipi)
+      - '#mu^{-} D^{+}#rightarrowK#pi#pi'
+  mu_plus_Dstar_fid_Kpipi:
+    regions:
+      - mu_plus_Dstar_OS_fid_Kpipi
+    samples:
+      - WPlusD_OS
+      - WPlusD_SS | mu_plus_Dstar_SS_fid_Kpipi
+      - WPlusD_OS_minus_SS | mu_plus_Dstar_OS-SS_fid_Kpipi
+    label:
+      - Fiducial W+D (D*#toKpipi)
+      - '#mu^{+} D^{-}#rightarrowK#pi#pi'
+  el_minus_Dstar_fid_Kpipipi0:
+    regions:
+      - el_minus_Dstar_OS_fid_Kpipipi0
+    samples:
+      - WPlusD_OS
+      - WPlusD_SS | el_minus_Dstar_SS_fid_Kpipipi0
+      - WPlusD_OS_minus_SS | el_minus_Dstar_OS-SS_fid_Kpipipi0
+    label:
+      - Fiducial W+D (D*#toKpipipi0)
+      - 'e^{-} D^{+}#rightarrowK#pi#pi'
+  el_plus_Dstar_fid_Kpipipi0:
+    regions:
+      - el_plus_Dstar_OS_fid_Kpipipi0
+    samples:
+      - WPlusD_OS
+      - WPlusD_SS | el_plus_Dstar_SS_fid_Kpipipi0
+      - WPlusD_OS_minus_SS | el_plus_Dstar_OS-SS_fid_Kpipipi0
+    label:
+      - Fiducial W+D (D*#toKpipipi0)
+      - 'e^{+} D^{-}#rightarrowK#pi#pi'
+  mu_minus_Dstar_fid_Kpipipi0:
+    regions:
+      - mu_minus_Dstar_OS_fid_Kpipipi0
+    samples:
+      - WPlusD_OS
+      - WPlusD_SS | mu_minus_Dstar_SS_fid_Kpipipi0
+      - WPlusD_OS_minus_SS | mu_minus_Dstar_OS-SS_fid_Kpipipi0
+    label:
+      - Fiducial W+D (D*#toKpipipi0)
+      - '#mu^{-} D^{+}#rightarrowK#pi#pi'
+  mu_plus_Dstar_fid_Kpipipi0:
+    regions:
+      - mu_plus_Dstar_OS_fid_Kpipipi0
+    samples:
+      - WPlusD_OS
+      - WPlusD_SS | mu_plus_Dstar_SS_fid_Kpipipi0
+      - WPlusD_OS_minus_SS | mu_plus_Dstar_OS-SS_fid_Kpipipi0
+    label:
+      - Fiducial W+D (D*#toKpipipi0)
+      - '#mu^{+} D^{-}#rightarrowK#pi#pi'
+  el_minus_Dplus_OS_fid:
     regions:
       - el_minus_Dplus_OS_fid
-    samples:
-      - WPlusD_OS
-      - WPlusD_SS | el_minus_Dplus_SS_fid
-      - WPlusD_OS_minus_SS | el_minus_Dplus_OS-SS_fid
-    label:
-      - 'Fiducial W+D'
-      - 'e^{-} D^{+}#rightarrowK#pi#pi'
-
-  el_plus_Dplus_fid:
-    regions:
-      - el_plus_Dplus_OS_fid
-    samples:
-      - WPlusD_OS
-      - WPlusD_SS | el_plus_Dplus_SS_fid
-      - WPlusD_OS_minus_SS | el_plus_Dplus_OS-SS_fid
-    label:
-      - 'Fiducial W+D'
-      - 'e^{+} D^{-}#rightarrowK#pi#pi'
-
-  mu_minus_Dplus_fid:
-    regions:
-      - mu_minus_Dplus_OS_fid
-    samples:
-      - WPlusD_OS
-      - WPlusD_SS | mu_minus_Dplus_SS_fid
-      - WPlusD_OS_minus_SS | mu_minus_Dplus_OS-SS_fid
-    label:
-      - 'Fiducial W+D'
-      - '#mu^{-} D^{+}#rightarrowK#pi#pi'
-
-  mu_plus_Dplus_fid:
-    regions:
-      - mu_plus_Dplus_OS_fid
-    samples:
-      - WPlusD_OS
-      - WPlusD_SS | mu_plus_Dplus_SS_fid
-      - WPlusD_OS_minus_SS | mu_plus_Dplus_OS-SS_fid
-    label:
-      - 'Fiducial W+D'
-      - '#mu^{+} D^{-}#rightarrowK#pi#pi'
-
-  el_minus_Dplus:
-    regions:
-      - el_minus_Dplus_OS
-    samples:
-      - WPlusD_OS
-      - WPlusD_SS | el_minus_Dplus_SS
-      - WPlusD_OS_minus_SS | el_minus_Dplus_OS-SS
-    label:
-      - 'Inclusive W+D'
-      - 'e^{-} D^{+}#rightarrowK#pi#pi'
-
-  el_plus_Dplus:
-    regions:
-      - el_plus_Dplus_OS
-    samples:
-      - WPlusD_OS
-      - WPlusD_SS | el_plus_Dplus_SS
-      - WPlusD_OS_minus_SS | el_plus_Dplus_OS-SS
-    label:
-      - 'Inclusive W+D'
-      - 'e^{+} D^{-}#rightarrowK#pi#pi'
-
-  mu_minus_Dplus:
-    regions:
-      - mu_minus_Dplus_OS
-    samples:
-      - WPlusD_OS
-      - WPlusD_SS | mu_minus_Dplus_SS
-      - WPlusD_OS_minus_SS | mu_minus_Dplus_OS-SS
-    label:
-      - 'Inclusive W+D'
-      - '#mu^{-} D^{+}#rightarrowK#pi#pi'
-
-  mu_plus_Dplus:
-    regions:
-      - mu_plus_Dplus_OS
-    samples:
-      - WPlusD_OS
-      - WPlusD_SS | mu_plus_Dplus_SS
-      - WPlusD_OS_minus_SS | mu_plus_Dplus_OS-SS
-    label:
-      - 'Inclusive W+D'
-      - '#mu^{+} D^{-}#rightarrowK#pi#pi'
-
+    make_plots: false
   el_minus_Dplus_SS_fid:
     regions:
       - el_minus_Dplus_SS_fid
-    make_plots: False
-
+    make_plots: false
   el_minus_Dplus_OS-SS_fid:
     regions:
       - el_minus_Dplus_OS_fid
-      - -el_minus_Dplus_SS_fid
-    make_plots: False
-
+      - '-el_minus_Dplus_SS_fid'
+    make_plots: false
   el_plus_Dplus_SS_fid:
     regions:
       - el_plus_Dplus_SS_fid
-    make_plots: False
-
+    make_plots: false
   el_plus_Dplus_OS-SS_fid:
     regions:
       - el_plus_Dplus_OS_fid
-      - -el_plus_Dplus_SS_fid
-    make_plots: False
-
+      - '-el_plus_Dplus_SS_fid'
+    make_plots: false
   mu_minus_Dplus_SS_fid:
     regions:
       - mu_minus_Dplus_SS_fid
-    make_plots: False
-
+    make_plots: false
   mu_minus_Dplus_OS-SS_fid:
     regions:
       - mu_minus_Dplus_OS_fid
-      - -mu_minus_Dplus_SS_fid
-    make_plots: False
-
+      - '-mu_minus_Dplus_SS_fid'
+    make_plots: false
   mu_plus_Dplus_SS_fid:
     regions:
       - mu_plus_Dplus_SS_fid
-    make_plots: False
-
+    make_plots: false
   mu_plus_Dplus_OS-SS_fid:
     regions:
       - mu_plus_Dplus_OS_fid
-      - -mu_plus_Dplus_SS_fid
-    make_plots: False
-
-  el_minus_Dplus_SS:
+      - '-mu_plus_Dplus_SS_fid'
+    make_plots: false
+  el_minus_Dplus_OS_fid_Kpipi:
     regions:
-      - el_minus_Dplus_SS
-    make_plots: False
-
-  el_minus_Dplus_OS-SS:
+      - el_minus_Dplus_OS_fid_Kpipi
+    make_plots: false
+  el_minus_Dplus_SS_fid_Kpipi:
     regions:
-      - el_minus_Dplus_OS
-      - -el_minus_Dplus_SS
-    make_plots: False
-
-  el_plus_Dplus_SS:
+      - el_minus_Dplus_SS_fid_Kpipi
+    make_plots: false
+  el_minus_Dplus_OS-SS_fid_Kpipi:
     regions:
-      - el_plus_Dplus_SS
-    make_plots: False
-
-  el_plus_Dplus_OS-SS:
+      - el_minus_Dplus_OS_fid_Kpipi
+      - '-el_minus_Dplus_SS_fid_Kpipi'
+    make_plots: false
+  el_plus_Dplus_SS_fid_Kpipi:
     regions:
-      - el_plus_Dplus_OS
-      - -el_plus_Dplus_SS
-    make_plots: False
-
-  mu_minus_Dplus_SS:
+      - el_plus_Dplus_SS_fid_Kpipi
+    make_plots: false
+  el_plus_Dplus_OS-SS_fid_Kpipi:
     regions:
-      - mu_minus_Dplus_SS
-    make_plots: False
-
-  mu_minus_Dplus_OS-SS:
+      - el_plus_Dplus_OS_fid_Kpipi
+      - '-el_plus_Dplus_SS_fid_Kpipi'
+    make_plots: false
+  mu_minus_Dplus_SS_fid_Kpipi:
     regions:
-      - mu_minus_Dplus_OS
-      - -mu_minus_Dplus_SS
-    make_plots: False
-
-  mu_plus_Dplus_SS:
+      - mu_minus_Dplus_SS_fid_Kpipi
+    make_plots: false
+  mu_minus_Dplus_OS-SS_fid_Kpipi:
     regions:
-      - mu_plus_Dplus_SS
-    make_plots: False
-
-  mu_plus_Dplus_OS-SS:
+      - mu_minus_Dplus_OS_fid_Kpipi
+      - '-mu_minus_Dplus_SS_fid_Kpipi'
+    make_plots: false
+  mu_plus_Dplus_SS_fid_Kpipi:
     regions:
-      - mu_plus_Dplus_OS
-      - -mu_plus_Dplus_SS
-    make_plots: False
+      - mu_plus_Dplus_SS_fid_Kpipi
+    make_plots: false
+  mu_plus_Dplus_OS-SS_fid_Kpipi:
+    regions:
+      - mu_plus_Dplus_OS_fid_Kpipi
+      - '-mu_plus_Dplus_SS_fid_Kpipi'
+    make_plots: false
+  el_minus_Dstar_OS_fid:
+    regions:
+      - el_minus_Dstar_OS_fid
+    make_plots: false
+  el_minus_Dstar_SS_fid:
+    regions:
+      - el_minus_Dstar_SS_fid
+    make_plots: false
+  el_minus_Dstar_OS-SS_fid:
+    regions:
+      - el_minus_Dstar_OS_fid
+      - '-el_minus_Dstar_SS_fid'
+    make_plots: false
+  el_plus_Dstar_SS_fid:
+    regions:
+      - el_plus_Dstar_SS_fid
+    make_plots: false
+  el_plus_Dstar_OS-SS_fid:
+    regions:
+      - el_plus_Dstar_OS_fid
+      - '-el_plus_Dstar_SS_fid'
+    make_plots: false
+  mu_minus_Dstar_SS_fid:
+    regions:
+      - mu_minus_Dstar_SS_fid
+    make_plots: false
+  mu_minus_Dstar_OS-SS_fid:
+    regions:
+      - mu_minus_Dstar_OS_fid
+      - '-mu_minus_Dstar_SS_fid'
+    make_plots: false
+  mu_plus_Dstar_SS_fid:
+    regions:
+      - mu_plus_Dstar_SS_fid
+    make_plots: false
+  mu_plus_Dstar_OS-SS_fid:
+    regions:
+      - mu_plus_Dstar_OS_fid
+      - '-mu_plus_Dstar_SS_fid'
+    make_plots: false
+  el_minus_Dstar_OS_fid_Kpipi:
+    regions:
+      - el_minus_Dstar_OS_fid_Kpipi
+    make_plots: false
+  el_minus_Dstar_SS_fid_Kpipi:
+    regions:
+      - el_minus_Dstar_SS_fid_Kpipi
+    make_plots: false
+  el_minus_Dstar_OS-SS_fid_Kpipi:
+    regions:
+      - el_minus_Dstar_OS_fid_Kpipi
+      - '-el_minus_Dstar_SS_fid_Kpipi'
+    make_plots: false
+  el_plus_Dstar_SS_fid_Kpipi:
+    regions:
+      - el_plus_Dstar_SS_fid_Kpipi
+    make_plots: false
+  el_plus_Dstar_OS-SS_fid_Kpipi:
+    regions:
+      - el_plus_Dstar_OS_fid_Kpipi
+      - '-el_plus_Dstar_SS_fid_Kpipi'
+    make_plots: false
+  mu_minus_Dstar_SS_fid_Kpipi:
+    regions:
+      - mu_minus_Dstar_SS_fid_Kpipi
+    make_plots: false
+  mu_minus_Dstar_OS-SS_fid_Kpipi:
+    regions:
+      - mu_minus_Dstar_OS_fid_Kpipi
+      - '-mu_minus_Dstar_SS_fid_Kpipi'
+    make_plots: false
+  mu_plus_Dstar_SS_fid_Kpipi:
+    regions:
+      - mu_plus_Dstar_SS_fid_Kpipi
+    make_plots: false
+  mu_plus_Dstar_OS-SS_fid_Kpipi:
+    regions:
+      - mu_plus_Dstar_OS_fid_Kpipi
+      - '-mu_plus_Dstar_SS_fid_Kpipi'
+    make_plots: false
+  el_minus_Dstar_OS_fid_Kpipipi0:
+    regions:
+      - el_minus_Dstar_OS_fid_Kpipipi0
+    make_plots: false
+  el_minus_Dstar_SS_fid_Kpipipi0:
+    regions:
+      - el_minus_Dstar_SS_fid_Kpipipi0
+    make_plots: false
+  el_minus_Dstar_OS-SS_fid_Kpipipi0:
+    regions:
+      - el_minus_Dstar_OS_fid_Kpipipi0
+      - '-el_minus_Dstar_SS_fid_Kpipipi0'
+    make_plots: false
+  el_plus_Dstar_SS_fid_Kpipipi0:
+    regions:
+      - el_plus_Dstar_SS_fid_Kpipipi0
+    make_plots: false
+  el_plus_Dstar_OS-SS_fid_Kpipipi0:
+    regions:
+      - el_plus_Dstar_OS_fid_Kpipipi0
+      - '-el_plus_Dstar_SS_fid_Kpipipi0'
+    make_plots: false
+  mu_minus_Dstar_SS_fid_Kpipipi0:
+    regions:
+      - mu_minus_Dstar_SS_fid_Kpipipi0
+    make_plots: false
+  mu_minus_Dstar_OS-SS_fid_Kpipipi0:
+    regions:
+      - mu_minus_Dstar_OS_fid_Kpipipi0
+      - '-mu_minus_Dstar_SS_fid_Kpipipi0'
+    make_plots: false
+  mu_plus_Dstar_SS_fid_Kpipipi0:
+    regions:
+      - mu_plus_Dstar_SS_fid_Kpipipi0
+    make_plots: false
+  mu_plus_Dstar_OS-SS_fid_Kpipipi0:
+    regions:
+      - mu_plus_Dstar_OS_fid_Kpipipi0
+      - '-mu_plus_Dstar_SS_fid_Kpipipi0'
+    make_plots: false
