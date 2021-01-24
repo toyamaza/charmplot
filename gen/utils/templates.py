@@ -214,20 +214,20 @@ class ChannelGenerator:
             btag = flatten(self.btags)
         btag_massaged = [btag] if type(btag) != list else btag
         if sign:
-            regions = [f'{format(y)}{format(l)}{format(c)}SR_{format(b)}{self.decay_mode}_{sign}'
+            regions = [f'{format(y)}{format(lep)}{format(c)}SR_{format(b)}{self.decay_mode}_{sign}'
                        for y in (self.years if not year else [year])
-                       for l in (self.leptons if not lepton else [lepton])
+                       for lep in (self.leptons if not lepton else [lepton])
                        for c in (self.charges if not charge else [charge])
                        for b in (self.btags if not btag else btag_massaged)]
         else:
-            regions = [f'{format(y)}{format(l)}{format(c)}SR_{format(b)}{self.decay_mode}_OS'
+            regions = [f'{format(y)}{format(lep)}{format(c)}SR_{format(b)}{self.decay_mode}_OS'
                        for y in (self.years if not year else [year])
-                       for l in (self.leptons if not lepton else [lepton])
+                       for lep in (self.leptons if not lepton else [lepton])
                        for c in (self.charges if not charge else [charge])
                        for b in (self.btags if not btag else btag_massaged)] + \
-                [f'-{format(y)}{format(l)}{format(c)}SR_{format(b)}{self.decay_mode}_SS'
+                [f'-{format(y)}{format(lep)}{format(c)}SR_{format(b)}{self.decay_mode}_SS'
                  for y in (self.years if not year else [year])
-                 for l in (self.leptons if not lepton else [lepton])
+                 for lep in (self.leptons if not lepton else [lepton])
                  for c in (self.charges if not charge else [charge])
                  for b in (self.btags if not btag else btag_massaged)]
         return regions
