@@ -52,9 +52,18 @@ Wjets_cjets_emu_Rest:
   add:
     - MG_Wjets_cjets_emu
   subtract:
-  lineColor: "14001"
+  lineColor: "10002"
   legendLabel: "MG W+c"
   shortName: Wjets_cjets_emu_Rest
+
+Wjets_bujets_emu_Rest:
+  add:
+    - MG_Wjets_light_emu
+    - MG_Wjets_bjets_emu
+  subtract:
+  lineColor: "12002"
+  legendLabel: "MG W+b/u"
+  shortName: Wjets_bujets_emu_Rest
 
 Wjets_bjets_emu_Rest:
   add:
