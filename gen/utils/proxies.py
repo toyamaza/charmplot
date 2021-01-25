@@ -83,13 +83,6 @@ class Matched(ProxyChannel):
     def get_regions(self, regions):
         return self.format([reg + "_Matched" for reg in regions])
 
-# class Matched(ProxyChannel):
-#     name = 'Matched'
-
-#     def get_regions(self, regions):
-#         return self.format([reg + "_Matched" for reg in regions] +
-#                            [reg + "_MatchedFid" for reg in regions])
-
 
 class MatchedFid(ProxyChannel):
     name = 'MatchedFid'
