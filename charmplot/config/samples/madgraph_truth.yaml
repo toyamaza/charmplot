@@ -145,6 +145,7 @@ Wjets_emu_Rest:
 Wjets_bujets_emu_Rest_fit:
   add:
     - MG_Wjets_light_emu
+    - MG_Wjets_bjets_emu
   subtract:
   fillColor: "10001"
   legendLabel: "W+jets + u/b"
@@ -154,6 +155,7 @@ Wjets_bujets_emu_Rest_fit:
 Wjets_bujets_emu_Rest:
   add:
     - MG_Wjets_light_emu
+    - MG_Wjets_bjets_emu
   subtract:
   fillColor: "10001"
   legendLabel: "W+jets + u/b"
