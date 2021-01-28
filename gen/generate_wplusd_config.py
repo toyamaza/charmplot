@@ -39,7 +39,7 @@ def main(options):
 
         # TODO: make configurable?
         signs = ['OS', 'SS']
-        years = ['2017', '2018']
+        years = ['2015', '2016A-B', '2016C-L', '2017', '2018']
         leptons = ['el', 'mu']
         charges = ['plus', 'minus']
         btags = ['0tag', ['1tag', '2tag']]
@@ -98,6 +98,8 @@ def main(options):
             # OS-SS plots
             if make_os_minus_ss:
                 channelGenerator.make_channel(years, extra_rebin=extra_rebin, os_only=os_only)
+                for year in years:
+                    channelGenerator.make_channel([year], year=year, extra_rebin=extra_rebin, os_only=os_only)
                 for btag in btags:
                     channelGenerator.make_channel(years, btag=btag, extra_rebin=extra_rebin * (2 if btag != '0tag' else 1), os_only=os_only)
                 for lepton in leptons:
