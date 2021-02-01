@@ -319,8 +319,6 @@ def process_channel(options, conf, c):
         # mc stat error
         if trex_mc_stat_err and trex_mc_stat_err_only:
             gr_mc_stat_err, gr_mc_stat_err_only = trex_mc_stat_err, trex_mc_stat_err_only
-            if c.name not in ["OS-SS_2018_el_2tag_SR_Dplus", "OS-SS_2018_mu_2tag_SR_Dplus"]:
-                canv.set_ratio_range(0.89, 1.11, override=True)
         else:
             gr_mc_stat_err, gr_mc_stat_err_only = utils.make_stat_err(h_mc_tot)
 
