@@ -21,6 +21,7 @@ class Variable(object):
     xbins = None
     name_override = None
     per_unit = False
+    dstar_tail_rebin = False
 
     def __init__(self, name, **kwargs):
         self.name = name
