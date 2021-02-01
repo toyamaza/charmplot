@@ -72,3 +72,37 @@ Wjets_bjets_emu_Rest:
   lineColor: "12001"
   legendLabel: "MG W+b"
   shortName: Wjets_bjets_emu_Rest
+
+Wjets_bujets_emu_Rest_SR:
+  add:
+    - MG_Wjets_light_emu
+    - MG_Wjets_bjets_emu
+  subtract:
+  lineColor: "13002"
+  legendLabel: "W+b/u"
+  shortName: Wjets_bujets_emu_Rest_SR
+
+Wjets_bujets_emu_Rest_LooseSR:
+  add:
+    - MG_Wjets_light_emu
+    - MG_Wjets_bjets_emu
+  subtract:
+  lineColor: "13003"
+  legendLabel: "W+b/u Loose"
+  shortName: Wjets_bujets_emu_Rest_LooseSR
+
+Wjets_cjets_emu_Rest_SR:
+  add:
+    - MG_Wjets_cjets_emu
+  subtract:
+  lineColor: "10002"
+  legendLabel: "W+c"
+  shortName: Wjets_cjets_emu_Rest_SR
+
+Wjets_cjets_emu_Rest_LooseSR:
+  add:
+    - MG_Wjets_cjets_emu
+  subtract:
+  lineColor: "10003"
+  legendLabel: "W+c Loose"
+  shortName: Wjets_cjets_emu_Rest_LooseSR

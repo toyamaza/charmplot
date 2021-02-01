@@ -33,6 +33,8 @@ def main(options):
             samples = templates.WDComparisonSamples().get()
         elif options.samples.lower() == 'flavor_comparison':
             samples = templates.WDFlavourComparison().get()
+        elif options.samples.lower() == 'background_comparison':
+            samples = templates.WDBackgroundComparison().get()
         else:
             print(f"ERROR: Unknown samples type {options.samples}")
             sys.exit(1)

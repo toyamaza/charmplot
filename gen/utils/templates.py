@@ -60,7 +60,7 @@ class WDFitSamples:
         ['MockMC', proxies.MockMC()],
         ['Wjets_emu_Matched', proxies.Matched(os_minus_ss_fit_configuration=True)],
         ['Wjets_cjets_emu_Rest', proxies.Rest(os_minus_ss_fit_configuration=True)],
-        ['Wjets_bujets_emu_Rest_fit', proxies.Rest(os_minus_ss_fit_configuration=True)],
+        ['Wjets_bujets_emu_Rest', proxies.Rest(os_minus_ss_fit_configuration=True)],
         ['Top_Matched', proxies.Matched(os_minus_ss_fit_configuration=True)],
         ['Top_Rest', proxies.Rest(os_minus_ss_fit_configuration=True)],
         ['Wjets_emu_NoMatch', proxies.NoMatch(os_minus_ss_fit_configuration=True)],
@@ -139,6 +139,18 @@ class WDFlavourComparison:
         ['MG_Wjets_light_Rest', proxies.Rest()],
         ['MG_Wjets_cjets_Rest', proxies.Rest()],
         ['MG_Wjets_bjets_Rest', proxies.Rest()],
+    ]
+
+    def get(self):
+        return self.samples
+
+class WDBackgroundComparison:
+
+    samples = [
+        # ['Wjets_bujets_emu_Rest_SR', proxies.Rest()],
+        ['Wjets_cjets_emu_Rest_SR', proxies.Rest()],
+        # ['Wjets_bujets_emu_Rest_LooseSR', proxies.Rest(loose_sr=True, name="Loose")],
+        ['Wjets_cjets_emu_Rest_LooseSR', proxies.Rest(loose_sr=True, name="Loose")],
     ]
 
     def get(self):

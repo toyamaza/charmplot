@@ -123,13 +123,14 @@ class NoMatch(ProxyChannel):
 class Rest(ProxyChannel):
     name = 'Rest'
 
-    def __init__(self, os_minus_ss_fit_configuration: bool = False, allowed_regions: list = [], name: str = ""):
+    def __init__(self, os_minus_ss_fit_configuration: bool = False, allowed_regions: list = [], name: str = "", loose_sr: bool = False):
         super().__init__(os_minus_ss_fit_configuration)
         self.allowed_regions = allowed_regions
         if name:
             if not name.startswith("_"):
                 name = "_" + name
             self.name += name
+        self.loose_sr = loose_sr
 
     def get_regions(self, regions):
         out = []
@@ -149,4 +150,10 @@ class Rest(ProxyChannel):
                 anti_sign = ""
             out += [f"{anti_sign}{reg}_Matched"]
             out += [f"{anti_sign}{reg}_Other"]
-        return self.format(regs + out)
+        if not self.loose_sr:
+            return self.format(regs + out)
+        else:
+            antiSR = []
+            for reg in regs + out:
+                antiSR += [reg.replace("_SR", "_Anti_SR")]
+            return self.format(antiSR + regs + out)

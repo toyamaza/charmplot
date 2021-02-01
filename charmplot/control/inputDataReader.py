@@ -77,7 +77,7 @@ class InputDataReader(object):
                 quot.SetBinError(i, 0.0)
         return quot
 
-    def get_histogram(self, sample, channel, variable, force_positive=False, sys=None):
+    def get_histogram(self, sample, channel, variable, force_positive=False, sys=None, suffix=None):
         h_total = None
         h_denom = None
         # scale factors for this channel
@@ -133,6 +133,9 @@ class InputDataReader(object):
                 h_total.SetBinError(i, 0)
         if h_denom:
             h_total = self.eff_divide(h_total, h_denom)
+        if suffix:
+            h_total.SetName(f"{h_total.GetName()}_{suffix}")
+            h_total.SetTitle(f"{h_total.GetName()}_{suffix}")
         return h_total
 
     def find_variables(self, sample, channel):

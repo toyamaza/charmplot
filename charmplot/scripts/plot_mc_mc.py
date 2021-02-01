@@ -3,6 +3,7 @@ from charmplot.common import utils
 from charmplot.common import www
 from charmplot.control import globalConfig
 from charmplot.control import inputDataReader
+from copy import deepcopy
 import logging
 import os
 import ROOT
@@ -25,6 +26,14 @@ root.addHandler(handler)
 
 
 def main(options, conf, reader):
+
+    # extra channel
+    cextra = conf.get_channel("OS-SS_0tag_Dplus")
+    sextra = []
+    for s in cextra.samples:
+        if "Loose" in conf.get_sample(s).name:
+            sextra += [deepcopy(conf.get_sample(s))]
+            sextra[-1].lineColor = ROOT.kRed
 
     # loop through all channels and variables
     for c in conf.channels:
@@ -52,7 +61,7 @@ def main(options, conf, reader):
         if not c.samples:
             logging.critical(f"no samples given for channel {c}")
             sys.exit(1)
-        samples = [conf.get_sample(s) for s in c.samples]
+        samples = [conf.get_sample(s) for s in c.samples if "Loose" not in s]
         logging.info(f"making plots for channel {c} with samples {samples}")
 
         # list of variables
@@ -72,6 +81,9 @@ def main(options, conf, reader):
 
             # mc map
             mc_map = {s: reader.get_histogram(s, c, var) for s in samples}
+            mc_map_extra = {s: reader.get_histogram(s, cextra, var, suffix=c.name) for s in sextra}
+            mc_map.update(mc_map_extra)
+            samples = sextra + samples
 
             # save histograms to root file
             if c.save_to_file:
@@ -81,7 +93,7 @@ def main(options, conf, reader):
             yaxis_label = "Entries"
             if not options.normalize:
                 yaxis_label = "Normalized Entries"
-            canv = utils.make_canvas_mc_ratio(mc_map[samples[0]], var, c, ratio_title=options.ratio_title, x=800, y=800, events=yaxis_label)
+            canv = utils.make_canvas_mc_ratio(mc_map[samples[0]], var, c, ratio_title=options.ratio_title, x=800, y=800, events=yaxis_label, ratio_range=[0.61, 1.39])
 
             # configure histograms
             canv.configure_histograms(mc_map, options.normalize)
@@ -100,7 +112,7 @@ def main(options, conf, reader):
                 mc_map[s].Draw("hist same")
 
             # make legend
-            canv.make_legend(mc_map, samples, print_yields=False)
+            canv.make_legend(mc_map, samples, print_yields=True)
 
             # set maximum after creating legend
             canv.set_maximum([mc_map[s] for s in samples], var, mc_map[samples[0]])
@@ -110,9 +122,16 @@ def main(options, conf, reader):
 
             # ratio histograms
             ratios = []
+            denominator = mc_map[samples[0]].Clone(f"{mc_map[samples[0]].GetName()}_denominator")
+            for i in range(0, denominator.GetNbinsX() + 2):
+                denominator.SetBinError(i, 0)
             for i in range(0, len(samples)):
                 h = mc_map[samples[i]].Clone(f"{mc_map[samples[i]].GetName()}_ratio")
-                h.Divide(mc_map[samples[0]])
+                if "Loose" not in samples[i].shortName:
+                    chi2 = h.Chi2Test(denominator, "WW")
+                    canv.add_text(f"#chi^{2} prob: {chi2:.2f}")
+                    canv.pad2.cd()
+                h.Divide(denominator)
                 ratios += [h]
                 fcolor = mc_map[samples[i]].GetLineColor()
                 gr_mc_stat_err, _ = utils.make_stat_err(h)

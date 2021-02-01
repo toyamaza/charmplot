@@ -177,6 +177,16 @@ class Canvas2(CanvasBase):
         # print fit results
         self.fit_results()
 
+    def add_text(self, text):
+        self.canv.cd()
+        line = ROOT.TLatex()
+        line.SetTextFont(43)
+        line.SetTextSize(28)
+        if not hasattr(self, "additioanl_text_pos_y"):
+            self.additioanl_text_pos_y = self.leg_y2 - self.text_height
+        self.additioanl_text_pos_y -= self.text_height
+        line.DrawLatex(0.60, self.additioanl_text_pos_y, text)
+
     def text(self, text):
         self.canv.cd()
         line = ROOT.TLatex()
