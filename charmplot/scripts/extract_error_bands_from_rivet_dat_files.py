@@ -34,10 +34,12 @@ samples_dict = {
     "PDF65060": sample.Sample('PDF65060', None, **{'add': [], 'subtract': [], 'legendLabel': 'ATLAS-epWZ16-EIG', 'lineColor': 'ROOT.kYellow+4'}),
     "PDF14400": sample.Sample('PDF14400', None, **{'add': [], 'subtract': [], 'legendLabel': 'CT18NLO', 'lineColor': 'ROOT.kYellow+2'}),
     "PDF14600": sample.Sample('PDF14600', None, **{'add': [], 'subtract': [], 'legendLabel': 'CT18ANLO', 'lineColor': 'ROOT.kYellow+0'}),
-    "QCD": sample.Sample('QCD', None, **{'add': [], 'subtract': [], 'legendLabel': 'QCDScale', 'lineColor': 'ROOT.kBlue'}),
+    "PDF13000": sample.Sample('PDF13000', None, **{'add': [], 'subtract': [], 'legendLabel': 'CT14', 'lineColor': 'ROOT.kYellow+2'}),
+    # "QCD": sample.Sample('QCD', None, **{'add': [], 'subtract': [], 'legendLabel': 'QCDScale', 'lineColor': 'ROOT.kBlue'}),
+    "MGFxFx": sample.Sample('MGFxFx', None, **{'add': [], 'subtract': [], 'legendLabel': 'MG FxFx', 'lineColor': 'ROOT.kGreen+2'}),
+    "Sherpa2210": sample.Sample('Sherpa2210', None, **{'add': [], 'subtract': [], 'legendLabel': 'Sherpa 2.2.10', 'lineColor': 'ROOT.kBlue'}),
+    "Powheg": sample.Sample('Powheg', None, **{'add': [], 'subtract': [], 'legendLabel': 'LO Powheg', 'lineColor': 'ROOT.kMagenta'}),
     "LOMG": sample.Sample('LOMG', None, **{'add': [], 'subtract': [], 'legendLabel': 'LO MG', 'lineColor': 'ROOT.kRed'}),
-    # "MGFxFx": sample.Sample('MGFxFx', None, **{'add': [], 'subtract': [], 'legendLabel': 'MG FxFx', 'lineColor': 'ROOT.kRed'}),
-    # "Sherpa2210": sample.Sample('Sherpa2210', None, **{'add': [], 'subtract': [], 'legendLabel': 'Sherpa 2.2.10', 'lineColor': 'ROOT.kBlue'}),
 }
 
 # label dict
@@ -74,7 +76,7 @@ def process_file(f, name):
     at_variation = False
     save_histo = False
     for line in f:
-        if "BEGIN HISTO1D" in line and ("_VarBand" in line or "LOMG" in line or ("MGFxFx" in line and "[" not in line) or ("Sherpa2210[MUR1_MUF1_PDF30320]" in line)):  # noqa: E501
+        if "BEGIN HISTO1D" in line and ("_VarBand" in line or "LOMG" in line or "Powheg" in line or ("MGFxFx" in line and "[" not in line) or ("Sherpa2210[MUR1_MUF1_PDF30320]" in line)):  # noqa: E501
             logging.info(f"{line}")
             at_variation = True
             if "_VarBand" in line:
@@ -85,6 +87,8 @@ def process_file(f, name):
                 variation = "MGFxFx"
             elif "Sherpa2210" in line:
                 variation = "Sherpa2210"
+            elif "Powheg" in line:
+                variation = "Powheg"
             x_low = []
             x_high = []
             y = []
@@ -155,7 +159,7 @@ def main(options):
 
             # canvas
             yaxis_label = f"d#sigma / d{label_dict[v]} [pb]"
-            canv = utils.make_canvas_mc_ratio(mc_map[samples[0]], var, chan, "Ratio", x=800, y=800, ratio_range=[0.31, 1.69], events=yaxis_label)
+            canv = utils.make_canvas_mc_ratio(mc_map[samples[0]], var, chan, "Ratio", x=800, y=800, ratio_range=[0.51, 1.49], events=yaxis_label)
 
             # configure histograms
             canv.configure_histograms(mc_map, True)
@@ -204,51 +208,51 @@ def main(options):
                 gr_mc_stat_err.Draw("e2")
                 h.Draw("hist same")
 
-            # save output
-            h_lomg = mc_map[samples_dict["LOMG"]]
-            h_nominal = mc_map[samples_dict["PDF260000"]].Clone(mc_map[samples_dict["PDF260000"]].GetName() + "_NOMINAL")
-            h_pdf = mc_map[samples_dict["PDF260000"]].Clone(mc_map[samples_dict["PDF260000"]].GetName() + "_PDF")
-            h_qcd = mc_map[samples_dict["QCD"]].Clone(mc_map[samples_dict["QCD"]].GetName() + "_RATIO")
-            h_PDF261000 = mc_map[samples_dict["PDF261000"]].Clone(mc_map[samples_dict["PDF261000"]].GetName() + "_RATIO")
-            h_PDF303600 = mc_map[samples_dict["PDF303600"]].Clone(mc_map[samples_dict["PDF303600"]].GetName() + "_RATIO")
-            h_PDF25200 = mc_map[samples_dict["PDF25200"]].Clone(mc_map[samples_dict["PDF25200"]].GetName() + "_RATIO")
-            h_PDF65060 = mc_map[samples_dict["PDF65060"]].Clone(mc_map[samples_dict["PDF65060"]].GetName() + "_RATIO")
-            h_PDF14400 = mc_map[samples_dict["PDF14400"]].Clone(mc_map[samples_dict["PDF14400"]].GetName() + "_RATIO")
-            h_PDF14600 = mc_map[samples_dict["PDF14600"]].Clone(mc_map[samples_dict["PDF14600"]].GetName() + "_RATIO")
-            for i in range(0, h_nominal.GetNbinsX() + 2):
-                h_pdf.SetBinContent(i, h_pdf.GetBinContent(i) + h_pdf.GetBinError(i))
-                h_qcd.SetBinContent(i, h_qcd.GetBinContent(i) + h_qcd.GetBinError(i))
-                h_nominal.SetBinError(i, 0)
-                h_pdf.SetBinError(i, 0)
-                h_qcd.SetBinError(i, 0)
-                h_PDF261000.SetBinError(i, 0)
-                h_PDF303600.SetBinError(i, 0)
-                h_PDF25200.SetBinError(i, 0)
-                h_PDF65060.SetBinError(i, 0)
-                h_PDF14400.SetBinError(i, 0)
-                h_PDF14600.SetBinError(i, 0)
-            h_nominal.Divide(h_lomg)
-            h_pdf.Divide(h_lomg)
-            h_qcd.Divide(h_lomg)
-            h_PDF261000.Divide(h_lomg)
-            h_PDF303600.Divide(h_lomg)
-            h_PDF25200.Divide(h_lomg)
-            h_PDF65060.Divide(h_lomg)
-            h_PDF14400.Divide(h_lomg)
-            h_PDF14600.Divide(h_lomg)
+            # # save output
+            # h_lomg = mc_map[samples_dict["LOMG"]]
+            # h_nominal = mc_map[samples_dict["PDF260000"]].Clone(mc_map[samples_dict["PDF260000"]].GetName() + "_NOMINAL")
+            # h_pdf = mc_map[samples_dict["PDF260000"]].Clone(mc_map[samples_dict["PDF260000"]].GetName() + "_PDF")
+            # h_qcd = mc_map[samples_dict["QCD"]].Clone(mc_map[samples_dict["QCD"]].GetName() + "_RATIO")
+            # h_PDF261000 = mc_map[samples_dict["PDF261000"]].Clone(mc_map[samples_dict["PDF261000"]].GetName() + "_RATIO")
+            # h_PDF303600 = mc_map[samples_dict["PDF303600"]].Clone(mc_map[samples_dict["PDF303600"]].GetName() + "_RATIO")
+            # h_PDF25200 = mc_map[samples_dict["PDF25200"]].Clone(mc_map[samples_dict["PDF25200"]].GetName() + "_RATIO")
+            # h_PDF65060 = mc_map[samples_dict["PDF65060"]].Clone(mc_map[samples_dict["PDF65060"]].GetName() + "_RATIO")
+            # h_PDF14400 = mc_map[samples_dict["PDF14400"]].Clone(mc_map[samples_dict["PDF14400"]].GetName() + "_RATIO")
+            # h_PDF14600 = mc_map[samples_dict["PDF14600"]].Clone(mc_map[samples_dict["PDF14600"]].GetName() + "_RATIO")
+            # for i in range(0, h_nominal.GetNbinsX() + 2):
+            #     h_pdf.SetBinContent(i, h_pdf.GetBinContent(i) + h_pdf.GetBinError(i))
+            #     h_qcd.SetBinContent(i, h_qcd.GetBinContent(i) + h_qcd.GetBinError(i))
+            #     h_nominal.SetBinError(i, 0)
+            #     h_pdf.SetBinError(i, 0)
+            #     h_qcd.SetBinError(i, 0)
+            #     h_PDF261000.SetBinError(i, 0)
+            #     h_PDF303600.SetBinError(i, 0)
+            #     h_PDF25200.SetBinError(i, 0)
+            #     h_PDF65060.SetBinError(i, 0)
+            #     h_PDF14400.SetBinError(i, 0)
+            #     h_PDF14600.SetBinError(i, 0)
+            # h_nominal.Divide(h_lomg)
+            # h_pdf.Divide(h_lomg)
+            # h_qcd.Divide(h_lomg)
+            # h_PDF261000.Divide(h_lomg)
+            # h_PDF303600.Divide(h_lomg)
+            # h_PDF25200.Divide(h_lomg)
+            # h_PDF65060.Divide(h_lomg)
+            # h_PDF14400.Divide(h_lomg)
+            # h_PDF14600.Divide(h_lomg)
 
-            # save to file
-            f = ROOT.TFile(os.path.join(options.output, "output.root"), "UPDATE")
-            h_nominal.Write()
-            h_pdf.Write()
-            h_qcd.Write()
-            h_PDF261000.Write()
-            h_PDF303600.Write()
-            h_PDF25200.Write()
-            h_PDF65060.Write()
-            h_PDF14400.Write()
-            h_PDF14600.Write()
-            f.Close()
+            # # save to file
+            # f = ROOT.TFile(os.path.join(options.output, "output.root"), "UPDATE")
+            # h_nominal.Write()
+            # h_pdf.Write()
+            # h_qcd.Write()
+            # h_PDF261000.Write()
+            # h_PDF303600.Write()
+            # h_PDF25200.Write()
+            # h_PDF65060.Write()
+            # h_PDF14400.Write()
+            # h_PDF14600.Write()
+            # f.Close()
 
             # Print out
             canv.print_all(options.output, c, v, multipage_pdf=True, first_plot=first_plot, last_plot=last_plot, as_png=False)

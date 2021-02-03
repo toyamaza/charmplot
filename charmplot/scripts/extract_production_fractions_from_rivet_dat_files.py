@@ -28,7 +28,8 @@ root.addHandler(handler)
 # proxy samples
 samples_dict = {
     # "PDF260000": sample.Sample('PDF260000', None, **{'add': [], 'subtract': [], 'legendLabel': 'NNPDF30_nlo_as_0118', 'lineColor': 'ROOT.kBlack'}),
-    "LOMG": sample.Sample('LOMG', None, **{'add': [], 'subtract': [], 'legendLabel': 'LO MG', 'lineColor': 'ROOT.kRed'}),
+    # "LOMG": sample.Sample('LOMG', None, **{'add': [], 'subtract': [], 'legendLabel': 'LO MG', 'lineColor': 'ROOT.kRed'}),
+    "Sherpa2210": sample.Sample('Sherpa2210', None, **{'add': [], 'subtract': [], 'legendLabel': 'Sherpa 2.2.10', 'lineColor': 'ROOT.kBlue'}),
 }
 
 # label dict
