@@ -338,6 +338,7 @@ def main(options, conf):
 
         # Print out
         canv.print(f"{conf.out_name}/{chan.name}_{var.name}.pdf")
+        canv.print(f"{conf.out_name}/{chan.name}_{var.name}.png")
 
         logging.info(f"finished processing channel {channel.name}")
 
