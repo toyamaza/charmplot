@@ -14,6 +14,9 @@ class Variable(object):
     make_plots = True
     allow_rebin = True
     rebin = 1
+    do_overflow = True
+    do_underflow = True
+    dstar_tail_rebin = False
 
     def __init__(self, name, **kwargs):
         self.name = name

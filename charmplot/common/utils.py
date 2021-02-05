@@ -323,7 +323,7 @@ def set_errors_to_zero(h):
         h.SetBinError(i, 0.)
 
 
-def set_under_over_flow(h: ROOT.TH1, x_range: list):
+def set_under_over_flow(h: ROOT.TH1, x_range: list, do_overflow: bool, do_underflow: bool):
     N = h.GetNbinsX()
     width = h.GetBinWidth(1)
     if not x_range:
@@ -349,10 +349,12 @@ def set_under_over_flow(h: ROOT.TH1, x_range: list):
         h.SetBinContent(i, 0)
         h.SetBinError(i, 0)
 
-    h.SetBinContent(x_range_bins[0], val0 + val1)
-    h.SetBinError(x_range_bins[0], (err0.value**2 + err1.value**2)**(0.5))
-    h.SetBinContent(x_range_bins[1], valN + valN1)
-    h.SetBinError(x_range_bins[1], (errN.value**2 + errN1.value**2)**(0.5))
+    if(do_underflow):
+        h.SetBinContent(x_range_bins[0], val0 + val1)
+        h.SetBinError(x_range_bins[0], (err0.value**2 + err1.value**2)**(0.5))
+    if(do_overflow):
+        h.SetBinContent(x_range_bins[1], valN + valN1)
+        h.SetBinError(x_range_bins[1], (errN.value**2 + errN1.value**2)**(0.5))
 
     j = 1
     for i in range(x_range_bins[0], x_range_bins[1] + 1):
@@ -368,10 +370,23 @@ def set_under_over_flow(h: ROOT.TH1, x_range: list):
 
 def rebin_histogram(h: ROOT.TH1, v: variable.Variable, extra_rebin: int = 1):
     rebin = v.rebin
-    if rebin and v.allow_rebin:
+    if rebin and v.allow_rebin and not v.dstar_tail_rebin:
         h.Rebin(int(rebin * extra_rebin))
-    if v.allow_rebin:
-        return set_under_over_flow(h, v.x_range)
+        if v.allow_rebin:
+            return set_under_over_flow(h, v.x_range, v.do_overflow, v.do_underflow)
+        else:
+            return h
+    elif rebin and v.allow_rebin and v.dstar_tail_rebin and v.name == "Dmeson_mdiff":
+        if extra_rebin < 1.5:
+            x_var_list = [135.,140.,141.,142.,143.,144.,145.,146.,147.,148.,149.,150.,153.,156.,159.,162.,165.,168.,171.,174.,177., 180.]
+            x_var = array.array ( 'd' , x_var_list)
+            h_out = h.Rebin(len(x_var_list) - 1, "h_out", x_var)
+            return h_out
+        elif extra_rebin > 1.5:
+            x_var_list = [140.,142.,144.,146.,148.,150.,156.,162.,168.,174.,180.]
+            x_var = array.array ( 'd' , x_var_list)
+            h_out = h.Rebin(len(x_var_list) - 1, "h_out", x_var)
+            return h_out
     else:
         return h
 
