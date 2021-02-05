@@ -250,6 +250,11 @@ def process_channel(options, conf, c):
             h_data, trex_mc_tot, trex_mc_stat_err, trex_mc_stat_err_only = utils.read_trex_input(c, var, mc_map, trex_post_fit_histograms)
             c.label += ["post-fit"]
 
+        # replace samples
+        for replace_sample, replace_channel in c.replacement_samples.items():
+            logging.info(f"replacing sample {replace_sample} with channel {replace_channel}")
+            utils.replace_sample(conf, mc_map, reader, c, var, replace_sample, replace_channel, mc_map_sys if systematics else None)
+
         # save histograms to root file
         if c.save_to_file:
             utils.save_to_file(out_file_name, c, var, h_data, mc_map)

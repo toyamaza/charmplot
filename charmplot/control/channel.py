@@ -19,6 +19,7 @@ class Channel(object):
     divide = []
     samples = []
     trex_subtraction = {}
+    replacement_samples = {}
 
     def __init__(self, name, label, lumi, add, subtract=[], divide = [], samples=[]):
         self.name = name
@@ -81,6 +82,9 @@ class Channel(object):
 
     def set_trex_subtraction(self, trex_subtraction):
         self.trex_subtraction = trex_subtraction
+
+    def set_replacement_samples(self, replacement_samples):
+        self.replacement_samples = replacement_samples
 
     def get_all(self):
         return self.add + self.subtract

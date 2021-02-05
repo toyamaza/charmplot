@@ -297,10 +297,13 @@ def get_maximum(h, x1, x2):
     return out
 
 
-def set_to_positive(h):
+def set_to_positive(h, sys=""):
     for i in range(0, h.GetNbinsX() + 2):
         if h.GetBinContent(i) <= 0:
-            h.SetBinContent(i, 1e-5)
+            if not sys:
+                h.SetBinContent(i, 1e-5)
+            else:
+                h.SetBinContent(i, 1e-6)
             # h.SetBinError(i, 1e-5)
 
 
@@ -783,6 +786,44 @@ def scale_multijet_histogram(data: ROOT.TH1, mc_map: MC_Map, fit_range: list):
         else:
             integral_qcd = h.Integral(bin1, bin2)
     return (integral_data - integral_ewk) / integral_qcd
+
+
+def average_content(h, i):
+    val = 0
+    N = 0
+    if i > 1:
+        val += h.GetBinContent(i - 1)
+        N += 1
+    if i < h.GetNbinsX():
+        val += h.GetBinContent(i + 1)
+        N += 1
+    return val / N
+
+
+def replace_sample(conf: globalConfig.GlobalConfig, mc_map: MC_Map, reader: inputDataReader.InputDataReader,
+                   c: channel.Channel, var: variable.Variable, sample: str, channel: str, mc_map_sys: Dict[str, MC_Map] = None):
+    channel_replacement = conf.get_channel(channel)
+    sample_replacement = [conf.get_sample(s) for s in channel_replacement.samples if conf.get_sample(s).shortName == sample]
+    sample_current = [conf.get_sample(s) for s in c.samples if conf.get_sample(s).shortName == sample]
+    assert len(sample_replacement) == 1 and len(sample_current) == 1
+    h_replacement = reader.get_histogram(sample_replacement[0], channel_replacement, var, channel_replacement.force_positive)
+    h_current = mc_map[sample_current[0]]
+    h_current = h_current.Clone(f"{h_current.GetName()}_temp_clone")
+    h_replacement.Scale(h_current.Integral(0, h_current.GetNbinsX() + 1) / h_replacement.Integral(0, h_replacement.GetNbinsX() + 1))
+    mc_map[sample_current[0]] = h_replacement
+    if mc_map_sys:
+        for group, systematics in mc_map_sys.items():
+            for _, map_sys in systematics.items():
+                h_sys_replaced = map_sys[sample_current[0]].Clone(f"{map_sys[sample_current[0]].GetName()}_replaced")
+                h_sys_replaced.Add(h_current, -1)
+                h_sys_replaced.Divide(h_current)
+                # fix for very large sys errors due to forcing negative bin contents to zero
+                for i in range(0, h_current.GetNbinsX() + 2):
+                    if h_current.GetBinContent(i) <= 1e-3:
+                        h_sys_replaced.SetBinContent(i, average_content(h_sys_replaced, i))
+                h_sys_replaced.Multiply(h_replacement)
+                h_sys_replaced.Add(h_replacement)
+                map_sys[sample_current[0]] = h_sys_replaced
 
 
 def make_canvas(h: ROOT.TH1, v: variable.Variable, c: channel.Channel,

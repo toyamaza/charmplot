@@ -159,7 +159,8 @@ class WDBackgroundComparison:
 
 class ChannelGenerator:
 
-    def __init__(self, config, samples, decay_mode, signs, years, leptons, charges, btags, process_string, sample_config, force_positive=False):
+    def __init__(self, config, samples, decay_mode, signs, years, leptons, charges,
+                 btags, process_string, sample_config, force_positive=False, replacement_samples={}):
         self.config = config
         self.samples = samples
         self.decay_mode = decay_mode
@@ -171,6 +172,9 @@ class ChannelGenerator:
         self.process_string = process_string
         self.sample_config = sample_config
         self.force_positive = force_positive
+        self.replacement_samples = replacement_samples
+        if type(self.years) == list and len(self.years) == 0:
+            self.years = ['']
 
     def get_config(self):
         return self.config
@@ -187,6 +191,8 @@ class ChannelGenerator:
             'save_to_file': True,
             'samples': [],
         }
+        if type(btag) == str and btag == '0tag' and sign == 'OS':
+            channel['replacement_samples'] = self.replacement_samples
         self.config['channels'][channel_name] = channel
 
         # print out

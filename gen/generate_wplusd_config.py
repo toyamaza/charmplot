@@ -27,6 +27,8 @@ def main(options):
             samples = templates.WDFlavourSamples().get()
         elif options.samples.lower() == 'fit':
             samples = templates.WDFitSamples().get()
+            if options.replacement_samples:
+                samples_loose = templates.WDFitSamples(loose_sr=True).get()
         elif options.samples.lower() == 'truth_comparison':
             samples = templates.WDTruthComparisonSamples().get()
         elif options.samples.lower() == 'wplusd_comparison':
@@ -41,10 +43,20 @@ def main(options):
 
         # TODO: make configurable?
         signs = ['OS', 'SS']
-        years = ['2015', '2016A-B', '2016C-L', '2017', '2018']
+        lumi = ['2015', '2016A-B', '2016C-L', '2017', '2018']
+        years = []
         leptons = ['el', 'mu']
         charges = ['plus', 'minus']
         btags = ['0tag', ['1tag', '2tag']]
+
+        # replace samples to increase mc stats
+        if options.replacement_samples:
+            replacement_samples = {
+                'Wjets_cjets_emu_Rest': 'OS_0tag_Dplus',
+                'Wjets_bujets_emu_Rest': 'OS_0tag_Dplus',
+            }
+        else:
+            replacement_samples = {}
 
         # systematics
         systematics = []
@@ -76,42 +88,54 @@ def main(options):
                                                       btags=btags,
                                                       process_string=process_string,
                                                       sample_config=sample_config,
-                                                      force_positive=force_positive)
+                                                      force_positive=force_positive,
+                                                      replacement_samples=replacement_samples)
 
         # OS/SS plots
         if make_os_ss:
             for sign in signs:
                 if not options.fit_only:
-                    channelGenerator.make_channel(years, sign=sign, extra_rebin=extra_rebin, os_only=os_only)
-                    for btag in btags:
-                        channelGenerator.make_channel(years, sign=sign, btag=btag, extra_rebin=extra_rebin * (2 if btag != '0tag' else 1), os_only=os_only)
+                    channelGenerator.make_channel(lumi, sign=sign, extra_rebin=extra_rebin, os_only=os_only)
+                for btag in btags:
+                    if options.replacement_samples and sign == 'OS' and btag == '0tag':
+                        channelGenerator.samples = samples_loose
+                        channelGenerator.make_channel(lumi, sign=sign, btag=btag,
+                                                      extra_rebin=extra_rebin * (2 if btag != '0tag' else 1), os_only=os_only)
+                        channelGenerator.samples = samples
+                    elif options.samples.lower() != 'fit':
+                        channelGenerator.make_channel(lumi, sign=sign, btag=btag,
+                                                      extra_rebin=extra_rebin * (2 if btag != '0tag' else 1), os_only=os_only)
                 for lepton in leptons:
                     if not options.fit_only:
-                        channelGenerator.make_channel(years, sign=sign, lepton=lepton, extra_rebin=extra_rebin, os_only=os_only)
+                        channelGenerator.make_channel(lumi, sign=sign, lepton=lepton, extra_rebin=extra_rebin,
+                                                      os_only=os_only)
                     for btag in btags:
                         if not options.fit_only:
-                            channelGenerator.make_channel(years, sign=sign, btag=btag, lepton=lepton, extra_rebin=extra_rebin *
+                            channelGenerator.make_channel(lumi, sign=sign, btag=btag, lepton=lepton, extra_rebin=extra_rebin *
                                                           (2 if btag != '0tag' else 1), os_only=os_only)
                         for charge in charges:
-                            channelGenerator.make_channel(years, sign=sign, btag=btag, lepton=lepton, charge=charge,
+                            channelGenerator.make_channel(lumi, sign=sign, btag=btag, lepton=lepton, charge=charge,
                                                           extra_rebin=extra_rebin * (2 if btag != '0tag' else 1), os_only=os_only)
 
         if not options.fit_only:
             # OS-SS plots
             if make_os_minus_ss:
-                channelGenerator.make_channel(years, extra_rebin=extra_rebin, os_only=os_only)
+                channelGenerator.make_channel(lumi, extra_rebin=extra_rebin, os_only=os_only)
                 for year in years:
                     channelGenerator.make_channel([year], year=year, extra_rebin=extra_rebin, os_only=os_only)
                 for btag in btags:
-                    channelGenerator.make_channel(years, btag=btag, extra_rebin=extra_rebin * (2 if btag != '0tag' else 1), os_only=os_only)
+                    channelGenerator.make_channel(lumi, btag=btag, extra_rebin=extra_rebin * (2 if btag != '0tag' else 1),
+                                                  os_only=os_only)
                 for lepton in leptons:
-                    channelGenerator.make_channel(years, lepton=lepton, extra_rebin=extra_rebin, os_only=os_only)
+                    channelGenerator.make_channel(lumi, lepton=lepton, extra_rebin=extra_rebin, os_only=os_only)
                     for charge in charges:
-                        channelGenerator.make_channel(years, lepton=lepton, charge=charge, extra_rebin=extra_rebin, os_only=os_only)
+                        channelGenerator.make_channel(lumi, lepton=lepton, charge=charge, extra_rebin=extra_rebin,
+                                                      os_only=os_only)
                     for btag in btags:
-                        channelGenerator.make_channel(years, btag=btag, lepton=lepton, extra_rebin=extra_rebin * (2 if btag != '0tag' else 1), os_only=os_only)
+                        channelGenerator.make_channel(lumi, btag=btag, lepton=lepton,
+                                                      extra_rebin=extra_rebin * (2 if btag != '0tag' else 1), os_only=os_only)
                         for charge in charges:
-                            channelGenerator.make_channel(years, btag=btag, lepton=lepton, charge=charge,
+                            channelGenerator.make_channel(lumi, btag=btag, lepton=lepton, charge=charge,
                                                           extra_rebin=extra_rebin * (2 if btag != '0tag' else 1), os_only=os_only)
 
         with open(f'{options.analysis_config}_{sample_config}.yaml', 'w') as outfile:
@@ -151,6 +175,9 @@ if __name__ == "__main__":
     parser.add_option('--sys',
                       action="store_true", dest="systematics",
                       help="add systematics")
+    parser.add_option('--replacement-samples',
+                      action="store_true", dest="replacement_samples",
+                      help="replace samples")
 
     # parse input arguments
     options, args = parser.parse_args()

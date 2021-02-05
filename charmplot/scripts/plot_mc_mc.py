@@ -95,7 +95,8 @@ def main(options, conf, reader):
             yaxis_label = "Entries"
             if not options.normalize:
                 yaxis_label = "Normalized Entries"
-            canv = utils.make_canvas_mc_ratio(mc_map[samples[0]], var, c, ratio_title=options.ratio_title, x=800, y=800, events=yaxis_label, ratio_range=[0.61, 1.39])
+            canv = utils.make_canvas_mc_ratio(mc_map[samples[0]], var, c, ratio_title=options.ratio_title, x=800, y=800,
+                                              events=yaxis_label, ratio_range=[0.61, 1.39])
 
             # configure histograms
             canv.configure_histograms(mc_map, options.normalize)

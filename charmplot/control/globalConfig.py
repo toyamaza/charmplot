@@ -188,6 +188,8 @@ class GlobalConfig(object):
                 chan.set_force_positive(val['force_positive'])
             if 'trex_subtraction' in val:
                 chan.set_trex_subtraction(val['trex_subtraction'])
+            if 'replacement_samples' in val:
+                chan.set_replacement_samples(val['replacement_samples'])
 
         # add channels
         self.channels += channels

@@ -126,7 +126,7 @@ class InputDataReader(object):
             h_total = utils.fit_histogram(h_total, sample.fit)
         if force_positive and h_total:
             if 'MatrixMethod' not in sample.name:
-                utils.set_to_positive(h_total)
+                utils.set_to_positive(h_total, sys)
         if not sample.statError:
             logger.info(f"Set stat error of {sample} to zero.")
             for i in range(0, h_total.GetNbinsX() + 2):
