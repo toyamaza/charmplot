@@ -44,7 +44,8 @@ def main(options):
         # TODO: make configurable?
         signs = ['OS', 'SS']
         lumi = ['2015', '2016A-B', '2016C-L', '2017', '2018']
-        years = []
+        # years = ['2015', '2016A-B', '2016C-L', '2017', '2018'] ## to be used with 'split_by_period'
+        years = [] ## to be used without 'split_by_period' option in charmpp
         leptons = ['el', 'mu']
         charges = ['plus', 'minus']
         btags = ['0tag', ['1tag', '2tag']]
