@@ -76,8 +76,18 @@ Wjets_emu_Matched:
     - MG_Wjets_bjets_emu
   subtract:
   fillColor: "10004"
-  legendLabel: "W+#it{D}"
+  legendLabel: "W+#it{D}(K#pi#pi)"
   shortName: Wjets_emu_Matched
+
+Wjets_emu_411MisMatched:
+  add:
+    - MG_Wjets_light_emu
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_bjets_emu
+  subtract:
+  fillColor: "16000"
+  legendLabel: "W+#it{D}(other)"
+  shortName: Wjets_emu_411MisMatched
 
 Wjets_emu_MatchedFid:
   add:

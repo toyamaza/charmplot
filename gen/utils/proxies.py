@@ -84,6 +84,19 @@ class Matched(ProxyChannel):
         return self.format([reg + "_Matched" for reg in regions])
 
 
+class MisMatched(ProxyChannel):
+    name = 'MisMatched'
+
+    def __init__(self, os_minus_ss_fit_configuration: bool = False, pdgId: int = 0):
+        super().__init__(os_minus_ss_fit_configuration)
+        self.pdgId = pdgId
+        if self.pdgId != 0:
+            self.name = f"{self.pdgId}{self.name}"
+
+    def get_regions(self, regions):
+        return self.format([reg + f"_{self.name}" for reg in regions])
+
+
 class MatchedFid(ProxyChannel):
     name = 'MatchedFid'
 
@@ -117,6 +130,7 @@ class Rest(ProxyChannel):
                 name = "_" + name
             self.name += name
         self.loose_sr = loose_sr
+        self.exclude_mismatched = exclude_mismatched
 
     def get_regions(self, regions):
         out = []
@@ -136,6 +150,8 @@ class Rest(ProxyChannel):
                 anti_sign = ""
             out += [f"{anti_sign}{reg}_Matched"]
             out += [f"{anti_sign}{reg}_Other"]
+            if self.exclude_mismatched:
+                out += [f"{anti_sign}{reg}_411MisMatched"]
         if not self.loose_sr:
             return self.format(regs + out)
         else:

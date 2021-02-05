@@ -56,18 +56,20 @@ class DataMCConfig:
 
 class WDFitSamples:
 
-    samples = [
-        ['MockMC', proxies.MockMC()],
-        ['Wjets_emu_Matched', proxies.Matched(os_minus_ss_fit_configuration=True)],
-        ['Wjets_cjets_emu_Rest', proxies.Rest(os_minus_ss_fit_configuration=True)],
-        ['Wjets_bujets_emu_Rest', proxies.Rest(os_minus_ss_fit_configuration=True)],
-        ['Top_Matched', proxies.Matched(os_minus_ss_fit_configuration=True)],
-        ['Top_Rest', proxies.Rest(os_minus_ss_fit_configuration=True)],
-        ['Wjets_emu_NoMatch', proxies.NoMatch(os_minus_ss_fit_configuration=True)],
-        ['Other', proxies.PlainChannel(os_minus_ss_fit_configuration=True)],
-        ['Zjets_emu', proxies.PlainChannel(os_minus_ss_fit_configuration=True)],
-        ['Multijet_MatrixMethod', proxies.MatrixMethod(os_minus_ss_fit_configuration=True)]
-    ]
+    def __init__(self, loose_sr=False):
+        self.loose_sr = loose_sr
+        self.samples = [
+            ['MockMC', proxies.MockMC()],
+            ['Wjets_emu_Matched', proxies.Matched(os_minus_ss_fit_configuration=True)],
+            ['Wjets_cjets_emu_Rest', proxies.Rest(os_minus_ss_fit_configuration=True, loose_sr=self.loose_sr, name=("Loose" if self.loose_sr else ""))],
+            ['Wjets_bujets_emu_Rest', proxies.Rest(os_minus_ss_fit_configuration=True, loose_sr=self.loose_sr, name=("Loose" if self.loose_sr else ""))],
+            ['Top_Matched', proxies.Matched(os_minus_ss_fit_configuration=True)],
+            ['Top_Rest', proxies.Rest(os_minus_ss_fit_configuration=True)],
+            ['Wjets_emu_NoMatch', proxies.NoMatch(os_minus_ss_fit_configuration=True)],
+            ['Other', proxies.PlainChannel(os_minus_ss_fit_configuration=True)],
+            ['Zjets_emu', proxies.PlainChannel(os_minus_ss_fit_configuration=True)],
+            ['Multijet_MatrixMethod', proxies.MatrixMethod(os_minus_ss_fit_configuration=True)]
+        ]
 
     def get(self):
         return self.samples
@@ -79,6 +81,9 @@ class WDTruthSamples:
         ['Wjets_emu_Matched', proxies.Matched()],
         ['Wjets_cjets_emu_Rest', proxies.Rest()],
         ['Wjets_bujets_emu_Rest', proxies.Rest()],
+        # ['Wjets_emu_411MisMatched', proxies.MisMatched(pdgId=411)],
+        # ['Wjets_cjets_emu_Rest', proxies.Rest(exclude_mismatched=True, name="NoMismatched")],
+        # ['Wjets_bujets_emu_Rest', proxies.Rest(exclude_mismatched=True, name="NoMismatched")],
         ['Top_Matched', proxies.Matched()],
         ['Top_Rest', proxies.Rest()],
         ['Wjets_emu_NoMatch', proxies.NoMatch()],
@@ -144,12 +149,13 @@ class WDFlavourComparison:
     def get(self):
         return self.samples
 
+
 class WDBackgroundComparison:
 
     samples = [
-        # ['Wjets_bujets_emu_Rest_SR', proxies.Rest()],
+        ['Wjets_bujets_emu_Rest_SR', proxies.Rest()],
+        ['Wjets_bujets_emu_Rest_LooseSR', proxies.Rest(loose_sr=True, name="Loose")],
         ['Wjets_cjets_emu_Rest_SR', proxies.Rest()],
-        # ['Wjets_bujets_emu_Rest_LooseSR', proxies.Rest(loose_sr=True, name="Loose")],
         ['Wjets_cjets_emu_Rest_LooseSR', proxies.Rest(loose_sr=True, name="Loose")],
     ]
 
