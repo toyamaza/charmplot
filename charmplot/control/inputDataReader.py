@@ -53,8 +53,6 @@ class InputDataReader(object):
         else:
             h = h.Clone(f"{h.GetName()}_{f.GetName().replace('.root', '')}_{channel.name}")
         h_new = utils.rebin_histogram(h, variable, extra_rebin)
-        if v.dstar_tail_rebin:
-            h_new = rebin_dstar_tail(h_new, v)
         logger.info(f"Got histogram {h_new}")
 
         # scale histogram
