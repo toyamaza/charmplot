@@ -29,6 +29,10 @@ D_phi:
   rebin: 2
   ratio_range: [0.5, 1.49]
 
+D_pt_eta:
+  make_plots: False
+  allow_rebin: False
+
 met_met:
   label: MET
   unit: GeV
