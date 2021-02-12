@@ -352,7 +352,7 @@ def process_channel(options, conf, c):
         hs.Draw("same hist")
         h_mc_tot.Draw("same hist")
         gr_mc_tot_err.Draw("e2")
-        gr_mc_stat_err.Draw("e2")
+        # gr_mc_stat_err.Draw("e2")
         h_data.Draw("same pe")
 
         # make legend
@@ -381,7 +381,7 @@ def process_channel(options, conf, c):
         canv.pad2.cd()
         if not c.qcd_template:
             gr_mc_tot_err_only.Draw("le2")
-            gr_mc_stat_err_only.Draw("le2")
+            # gr_mc_stat_err_only.Draw("le2")
             h_ratio.Draw("same pe")
         else:
             h_qcd_frac, h_qcd_frac_err = utils.get_fraction_histogram(mc_map[conf.get_sample(c.qcd_template)], h_data)
