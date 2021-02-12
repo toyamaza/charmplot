@@ -649,8 +649,10 @@ def combine_error_multiple(asym_list):
         gr.SetPoint(i, x, y)
         gr.SetPointError(i, err_x_dn, err_x_up, err_y_dn, err_y_up)
 
-    gr.SetFillColor(ROOT.kBlue - 4)
-    gr.SetFillStyle(3345)
+    gr.SetFillColor(ROOT.kGray + 3)
+    gr.SetFillStyle(3354)
+    # gr.SetFillColor(ROOT.kBlue - 4)
+    # gr.SetFillStyle(3345)
     return gr
 
 
