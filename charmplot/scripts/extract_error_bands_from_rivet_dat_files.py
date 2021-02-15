@@ -27,19 +27,23 @@ root.addHandler(handler)
 
 # proxy samples
 samples_dict = {
-    "PDF260000": sample.Sample('PDF260000', None, **{'add': [], 'subtract': [], 'legendLabel': 'NNPDF30_nlo_as_0118', 'lineColor': 'ROOT.kBlack'}),
-    "PDF261000": sample.Sample('PDF261000', None, **{'add': [], 'subtract': [], 'legendLabel': 'NNPDF30_nnlo_as_0118', 'lineColor': 'ROOT.kGreen+4'}),
-    "PDF303600": sample.Sample('PDF303600', None, **{'add': [], 'subtract': [], 'legendLabel': 'NNPDF31_nnlo_as_0118', 'lineColor': 'ROOT.kGreen+2'}),
-    "PDF25200": sample.Sample('PDF25200', None, **{'add': [], 'subtract': [], 'legendLabel': 'MMHT2014nlo68clas118', 'lineColor': 'ROOT.kGreen+0'}),
-    "PDF65060": sample.Sample('PDF65060', None, **{'add': [], 'subtract': [], 'legendLabel': 'ATLAS-epWZ16-EIG', 'lineColor': 'ROOT.kYellow+4'}),
-    "PDF14400": sample.Sample('PDF14400', None, **{'add': [], 'subtract': [], 'legendLabel': 'CT18NLO', 'lineColor': 'ROOT.kYellow+2'}),
-    "PDF14600": sample.Sample('PDF14600', None, **{'add': [], 'subtract': [], 'legendLabel': 'CT18ANLO', 'lineColor': 'ROOT.kYellow+0'}),
-    "PDF13000": sample.Sample('PDF13000', None, **{'add': [], 'subtract': [], 'legendLabel': 'CT14', 'lineColor': 'ROOT.kYellow+2'}),
+    # "PDF260000": sample.Sample('PDF260000', None, **{'add': [], 'subtract': [], 'legendLabel': 'NNPDF30_nlo_as_0118', 'lineColor': 'ROOT.kBlack'}),
+    # "PDF261000": sample.Sample('PDF261000', None, **{'add': [], 'subtract': [], 'legendLabel': 'NNPDF30_nnlo_as_0118', 'lineColor': 'ROOT.kGreen+4'}),
+    # "PDF303600": sample.Sample('PDF303600', None, **{'add': [], 'subtract': [], 'legendLabel': 'NNPDF31_nnlo_as_0118', 'lineColor': 'ROOT.kGreen+2'}),
+    # "PDF25200": sample.Sample('PDF25200', None, **{'add': [], 'subtract': [], 'legendLabel': 'MMHT2014nlo68clas118', 'lineColor': 'ROOT.kGreen+0'}),
+    # "PDF65060": sample.Sample('PDF65060', None, **{'add': [], 'subtract': [], 'legendLabel': 'ATLAS-epWZ16-EIG', 'lineColor': 'ROOT.kYellow+4'}),
+    # "PDF14400": sample.Sample('PDF14400', None, **{'add': [], 'subtract': [], 'legendLabel': 'CT18NLO', 'lineColor': 'ROOT.kYellow+2'}),
+    # "PDF14600": sample.Sample('PDF14600', None, **{'add': [], 'subtract': [], 'legendLabel': 'CT18ANLO', 'lineColor': 'ROOT.kYellow+0'}),
+    # "PDF13000": sample.Sample('PDF13000', None, **{'add': [], 'subtract': [], 'legendLabel': 'CT14', 'lineColor': 'ROOT.kYellow+2'}),
     # "QCD": sample.Sample('QCD', None, **{'add': [], 'subtract': [], 'legendLabel': 'QCDScale', 'lineColor': 'ROOT.kBlue'}),
-    "MGFxFx": sample.Sample('MGFxFx', None, **{'add': [], 'subtract': [], 'legendLabel': 'MG FxFx', 'lineColor': 'ROOT.kGreen+2'}),
-    "Sherpa2210": sample.Sample('Sherpa2210', None, **{'add': [], 'subtract': [], 'legendLabel': 'Sherpa 2.2.10', 'lineColor': 'ROOT.kBlue'}),
-    "Powheg": sample.Sample('Powheg', None, **{'add': [], 'subtract': [], 'legendLabel': 'LO Powheg', 'lineColor': 'ROOT.kMagenta'}),
-    "LOMG": sample.Sample('LOMG', None, **{'add': [], 'subtract': [], 'legendLabel': 'LO MG', 'lineColor': 'ROOT.kRed'}),
+    # "MGFxFx": sample.Sample('MGFxFx', None, **{'add': [], 'subtract': [], 'legendLabel': 'MG FxFx', 'lineColor': 'ROOT.kGreen+2'}),
+    # "Sherpa2210": sample.Sample('Sherpa2210', None, **{'add': [], 'subtract': [], 'legendLabel': 'Sherpa 2.2.10', 'lineColor': 'ROOT.kBlue'}),
+    # "Powheg": sample.Sample('Powheg', None, **{'add': [], 'subtract': [], 'legendLabel': 'LO Powheg', 'lineColor': 'ROOT.kMagenta'}),
+    # "LOMG": sample.Sample('LOMG', None, **{'add': [], 'subtract': [], 'legendLabel': 'LO MG', 'lineColor': 'ROOT.kRed'}),
+    "MuPlus": sample.Sample('MuPlus', None, **{'add': [], 'subtract': [], 'legendLabel': 'NLO MG (mu+)', 'lineColor': 'ROOT.kBlue-4'}),
+    "MuMinus": sample.Sample('MuMinus', None, **{'add': [], 'subtract': [], 'legendLabel': 'NLO MG (mu-)', 'lineColor': 'ROOT.kRed-4'}),
+    "MuPlusDiag": sample.Sample('MuPlusDiag', None, **{'add': [], 'subtract': [], 'legendLabel': 'NLO MG CKM (mu+)', 'lineColor': 'ROOT.kBlue+2'}),
+    "MuMinusDiag": sample.Sample('MuMinusDiag', None, **{'add': [], 'subtract': [], 'legendLabel': 'NLO MG CKM (mu-)', 'lineColor': 'ROOT.kRed+2'}),
 }
 
 # label dict
@@ -173,7 +177,7 @@ def main(options):
                 fcolor = mc_map[s].GetLineColor()
                 gr_mc_stat_err, _ = utils.make_stat_err(mc_map[s])
                 gr_mc_stat_err.SetLineColor(fcolor)
-                gr_mc_stat_err.SetFillColorAlpha(fcolor, 0.75)
+                gr_mc_stat_err.SetFillColorAlpha(fcolor, 0.25)
                 gr_mc_stat_err.SetFillStyle(1001)
                 errors += [gr_mc_stat_err]
                 # if "PDF260000" in s.name or "QCD" in s.name:
