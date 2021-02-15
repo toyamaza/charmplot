@@ -46,7 +46,7 @@ def main(options, conf, reader):
                 continue
 
         # skip channels
-        if not c.make_plots and not c.save_to_file:
+        if not c.make_plots:
             continue
 
         # output root file
@@ -96,7 +96,7 @@ def main(options, conf, reader):
             if not options.normalize:
                 yaxis_label = "Normalized Entries"
             canv = utils.make_canvas_mc_ratio(mc_map[samples[0]], var, c, ratio_title=options.ratio_title, x=800, y=800,
-                                              events=yaxis_label, ratio_range=[0.61, 1.39])
+                                              events=yaxis_label, ratio_range=[0.01, 1.99])
 
             # configure histograms
             canv.configure_histograms(mc_map, options.normalize)
@@ -115,7 +115,7 @@ def main(options, conf, reader):
                 mc_map[s].Draw("hist same")
 
             # make legend
-            canv.make_legend(mc_map, samples, print_yields=True)
+            canv.make_legend(mc_map, samples, print_yields=False)
 
             # set maximum after creating legend
             canv.set_maximum([mc_map[s] for s in samples], var, mc_map[samples[0]])
@@ -145,6 +145,15 @@ def main(options, conf, reader):
                 errors += [gr_mc_stat_err]
                 gr_mc_stat_err.Draw("e2")
                 h.Draw("hist same")
+                if c.save_to_file:
+                    out_file = ROOT.TFile(out_file_name, "UPDATE")
+                    out_file.cd()
+                    h.Write(f"{samples[i].shortName}_{c.name}_{var.name}_ratio")
+                    if var.name == "Dplus_pt":
+                        func = ROOT.TF1(f"{samples[i].shortName}_{c.name}_{var.name}_ratio_func", "pol5", 8, 98)
+                        h.Fit(func, "0WR")
+                        func.Write()
+                    out_file.Close()
             # for i in range(0, len(samples), 2):
             #     h = mc_map[samples[i]].Clone(f"{mc_map[samples[i]].GetName()}_ratio")
             #     h.Divide(mc_map[samples[i + 1]])
