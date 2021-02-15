@@ -196,7 +196,7 @@ Dmeson_Lxy:
   label: 'D^{#pm} L_{xy}'
   unit: 'mm'
   rebin: 1
-  x_range: [20., 30.]
+  x_range: [0.0, 30]
   ratio_range: [0.5, 1.49]
 
 Dmeson_Lxy_in_SB:
