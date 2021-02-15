@@ -85,9 +85,59 @@ Wjets_emu_411MisMatched:
     - MG_Wjets_cjets_emu
     - MG_Wjets_bjets_emu
   subtract:
-  fillColor: "16000"
+  fillColor: "10002"
   legendLabel: "W+#it{D}(other)"
   shortName: Wjets_emu_411MisMatched
+
+Wjets_emu_431MisMatched:
+  add:
+    - MG_Wjets_light_emu
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_bjets_emu
+  subtract:
+  fillColor: "10001"
+  legendLabel: "W+#it{D}s"
+  shortName: Wjets_emu_431MisMatched
+
+Wjets_emu_BaryonMisMatched:
+  add:
+    - MG_Wjets_light_emu
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_bjets_emu
+  subtract:
+  fillColor: "19000"
+  legendLabel: "W+Baryon"
+  shortName: Wjets_emu_BaryonMisMatched
+
+Wjets_emu_Rest:
+  add:
+    - MG_Wjets_light_emu
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_bjets_emu
+  subtract:
+  fillColor: "21000"
+  legendLabel: "W+jets"
+  shortName: Wjets_emu_Rest
+
+Wjets_emu_413MisMatched:
+  add:
+    - MG_Wjets_light_emu
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_bjets_emu
+  subtract:
+  fillColor: "11004"
+  legendLabel: "W+#it{D}*"
+  shortName: Wjets_emu_413MisMatched
+
+Wjets_emu_421MisMatched:
+  add:
+    - MG_Wjets_light_emu
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_bjets_emu
+  subtract:
+  fillColor: "11002"
+  legendLabel: "W+#it{D}0"
+  shortName: Wjets_emu_421MisMatched
 
 Wjets_emu_MatchedFid:
   add:
@@ -98,6 +148,16 @@ Wjets_emu_MatchedFid:
   fillColor: "10004"
   legendLabel: "W+#it{D_{fid}}"
   shortName: Wjets_emu_MatchedFid
+
+Wjets_emu_MatchedNoFid:
+  add:
+    - MG_Wjets_light_emu
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_bjets_emu
+  subtract:
+  fillColor: "13005"
+  legendLabel: "W+#it{D_{nofid}}"
+  shortName: Wjets_emu_MatchedNoFid
 
 Wjets_emu_MatchedNoFid:
   add:
@@ -141,16 +201,6 @@ Wjets_emu_NoMatch:
   fillColor: "10000"
   legendLabel: "No Match"
   shortName: Wjets_emu_NoMatch
-
-Wjets_emu_Rest:
-  add:
-    - MG_Wjets_light_emu
-    - MG_Wjets_cjets_emu
-    - MG_Wjets_bjets_emu
-  subtract:
-  fillColor: "10001"
-  legendLabel: "W+jets"
-  shortName: Wjets_emu_Rest
 
 Wjets_bujets_emu_Rest_fit:
   add:
@@ -398,6 +448,19 @@ Other:
   fillColor: "15000"
   legendLabel: Other
   shortName: Other
+
+DibosonZjetsTau:
+  add:
+    - Diboson
+    - MG_Zjets_light_emu
+    - MG_Zjets_cjets_emu
+    - MG_Zjets_bjets_emu
+    - MG_Zjets_tau
+    - MG_Wjets_tau
+  subtract:
+  fillColor: "15000"
+  legendLabel: Other
+  shortName: DibosonZjetsTau
 
 Multijet:
   add: data

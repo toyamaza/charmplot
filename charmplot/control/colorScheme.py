@@ -84,5 +84,10 @@ def gemstone_hues():
         ROOT.TColor(15004, *RGB("#623394"), "15004"),
         ROOT.TColor(15005, *RGB("#3f1472"), "15005"),
         ROOT.TColor(16000, *RGB("#dfff4f"), "16000"),  # Odd colors
+        ROOT.TColor(17000, *RGB("#68FF00"), "17000"),
+        ROOT.TColor(18000, *RGB("#13F4EF"), "18000"),
+        ROOT.TColor(19000, *RGB("#FF005C"), "19000"),
+        ROOT.TColor(20000, *RGB("#006FFF"), "20000"),
+        ROOT.TColor(21000, *RGB("#232b2b"), "21000"),
     ]
     return scheme
