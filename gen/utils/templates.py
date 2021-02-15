@@ -24,6 +24,7 @@ label_dict = {
     'truth_comparison': 'LO MG vs. LO Powheg',
     'wplusd_comparison': 'MadGraph LO',
     'flavor_comparison': 'MadGraph LO',
+    'spg_comparison': 'MadGraph LO vs. SPG',
 }
 
 
@@ -47,7 +48,7 @@ class DataMCConfig:
             'samplesConf': self.sample_config,
             'channels': {},
         }
-        if self.sample_config not in ['truth_comparison', 'wplusd_comparison']:
+        if self.sample_config not in ['truth_comparison', 'wplusd_comparison', 'spg_comparison']:
             out['data'] = 'Data'
         if self.systematics:
             out['systematics'] = self.systematics
@@ -61,8 +62,8 @@ class WDFitSamples:
         self.samples = [
             ['MockMC', proxies.MockMC()],
             ['Wjets_emu_Matched', proxies.Matched(os_minus_ss_fit_configuration=True)],
-            ['Wjets_cjets_emu_Rest', proxies.Rest(os_minus_ss_fit_configuration=True, loose_sr=self.loose_sr, name=("Loose" if self.loose_sr else ""))],
-            ['Wjets_bujets_emu_Rest', proxies.Rest(os_minus_ss_fit_configuration=True, loose_sr=self.loose_sr, name=("Loose" if self.loose_sr else ""))],
+            ['Wjets_cjets_emu_Rest', proxies.Rest(os_minus_ss_fit_configuration=True, loose_sr=self.loose_sr)],
+            ['Wjets_bujets_emu_Rest', proxies.Rest(os_minus_ss_fit_configuration=True, loose_sr=self.loose_sr)],
             ['Top_Matched', proxies.Matched(os_minus_ss_fit_configuration=True)],
             ['Top_Rest', proxies.Rest(os_minus_ss_fit_configuration=True)],
             ['Wjets_emu_NoMatch', proxies.NoMatch(os_minus_ss_fit_configuration=True)],
@@ -75,21 +76,42 @@ class WDFitSamples:
         return self.samples
 
 
+class WDTruthSamplesNew:
+
+    def __init__(self, os_minus_ss_fit_configuration=False, loose_sr=False):
+        self.os_minus_ss_fit_configuration = os_minus_ss_fit_configuration
+        self.loose_sr = loose_sr
+        self.samples = []
+        if self.os_minus_ss_fit_configuration:
+            self.samples += [['MockMC', proxies.MockMC()]]
+        self.samples += [
+            ['Wjets_emu_Matched', proxies.Matched(os_minus_ss_fit_configuration=self.os_minus_ss_fit_configuration)],
+            ['Wjets_emu_411MisMatched', proxies.MisMatched(
+                os_minus_ss_fit_configuration=self.os_minus_ss_fit_configuration, loose_sr=self.loose_sr, pdgId="411")],
+            ['Wjets_emu_Charm', proxies.MatchedCharm(os_minus_ss_fit_configuration=self.os_minus_ss_fit_configuration, loose_sr=self.loose_sr)],
+            ['Wjets_emu_Rest', proxies.NoMatchBackground(os_minus_ss_fit_configuration=self.os_minus_ss_fit_configuration, loose_sr=self.loose_sr)],
+            ['Top_Matched', proxies.Matched(os_minus_ss_fit_configuration=self.os_minus_ss_fit_configuration)],
+            ['Top_Rest', proxies.Rest(os_minus_ss_fit_configuration=self.os_minus_ss_fit_configuration, include_other=True, name="WithOther")],
+            ['DibosonZjetsTau', proxies.PlainChannel(os_minus_ss_fit_configuration=self.os_minus_ss_fit_configuration)],
+            ['Multijet_MatrixMethod', proxies.MatrixMethod(os_minus_ss_fit_configuration=self.os_minus_ss_fit_configuration)],
+        ]
+
+    def get(self):
+        return self.samples
+
+
 class WDTruthSamples:
 
     samples = [
         ['Wjets_emu_Matched', proxies.Matched()],
         ['Wjets_cjets_emu_Rest', proxies.Rest()],
         ['Wjets_bujets_emu_Rest', proxies.Rest()],
-        # ['Wjets_emu_411MisMatched', proxies.MisMatched(pdgId=411)],
-        # ['Wjets_cjets_emu_Rest', proxies.Rest(exclude_mismatched=True, name="NoMismatched")],
-        # ['Wjets_bujets_emu_Rest', proxies.Rest(exclude_mismatched=True, name="NoMismatched")],
         ['Top_Matched', proxies.Matched()],
         ['Top_Rest', proxies.Rest()],
         ['Wjets_emu_NoMatch', proxies.NoMatch()],
         ['Other'],
         ['Zjets_emu'],
-        ['Multijet_MatrixMethod', proxies.MatrixMethod()]
+        ['Multijet_MatrixMethod', proxies.MatrixMethod()],
     ]
 
     def get(self):
@@ -115,10 +137,13 @@ class WDFlavourSamples:
 class WDTruthComparisonSamples:
 
     samples = [
-        ['MG_Wjets_emu_Matched', proxies.Matched()],
-        ['Ph_Wjets_emu_Matched', proxies.Matched()],
-        ['MG_Wjets_emu_Rest', proxies.Rest()],
-        ['Ph_Wjets_emu_Rest', proxies.Rest()],
+        # ['Wjets_emu_Matched', proxies.GenericChannel(region="Matched")],
+        ['Wjets_emu_Matched_OS-SS', proxies.GenericChannel(region="Matched", name="MatchedOS-SS", os_minus_ss_fit_configuration=True)],
+        ['ForcedDecay_DPlus_Matched', proxies.GenericChannel(name="MatchedForcedDecay", regions_override=["inclusive_Dplus_per_D_Matched"])],
+        # ['SPG_DMinus_Matched', proxies.GenericChannel(name="MatchedSPG", regions_override=["inclusive_Dplus_per_D_Matched"])],
+        # ['Wjets_emu_411MisMatched', proxies.GenericChannel(region="411MisMatched")],
+        # ['Wjets_emu_411MisMatched_OS-SS', proxies.GenericChannel(region="411MisMatched", name="411MisMatchedOS-SS", os_minus_ss_fit_configuration=True)],
+        # ['SPG_DMinus_411MisMatched', proxies.GenericChannel(name="411MisMatchedSPG", regions_override=["inclusive_Dplus_per_D_411MisMatched"])],
     ]
 
     def get(self):

@@ -3,9 +3,6 @@ import gen.utils.templates as templates
 import sys
 import yaml
 
-# process string
-process_string = 'W#rightarrowl#nu+D, D#rightarrowK#pi#pi'
-
 
 def main(options):
 
@@ -22,7 +19,9 @@ def main(options):
 
         # sample type
         if options.samples.lower() == 'truth':
-            samples = templates.WDTruthSamples().get()
+            samples = templates.WDTruthSamples(os_minus_ss_fit_configuration=options.fit_only).get()
+            if options.replacement_samples:
+                samples_loose = templates.WDTruthSamples(loose_sr=True, os_minus_ss_fit_configuration=options.fit_only).get()
         elif options.samples.lower() == 'flavor' or options.samples.lower() == 'flavour':
             samples = templates.WDFlavourSamples().get()
         elif options.samples.lower() == 'fit':
@@ -53,8 +52,9 @@ def main(options):
         # replace samples to increase mc stats
         if options.replacement_samples:
             replacement_samples = {
-                'Wjets_cjets_emu_Rest': 'OS_0tag_Dplus',
-                'Wjets_bujets_emu_Rest': 'OS_0tag_Dplus',
+                'Wjets_emu_411MisMatched': 'OS_0tag_Dplus',
+                'Wjets_emu_Charm': 'OS_0tag_Dplus',
+                'Wjets_emu_Rest': 'OS_0tag_Dplus',
             }
         else:
             replacement_samples = {}
@@ -87,7 +87,7 @@ def main(options):
                                                       leptons=leptons,
                                                       charges=charges,
                                                       btags=btags,
-                                                      process_string=process_string,
+                                                      process_string=options.process_string,
                                                       sample_config=sample_config,
                                                       force_positive=force_positive,
                                                       replacement_samples=replacement_samples)
@@ -179,6 +179,9 @@ if __name__ == "__main__":
     parser.add_option('--replacement-samples',
                       action="store_true", dest="replacement_samples",
                       help="replace samples")
+    parser.add_option('--process-string',
+                      action="store", dest="process_string",
+                      default="W#rightarrowl#nu+D, D#rightarrowK#pi#pi")
 
     # parse input arguments
     options, args = parser.parse_args()

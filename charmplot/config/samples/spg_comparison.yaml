@@ -1,0 +1,67 @@
+colorScheme: gemstone_hues
+
+Wjets_emu_Matched:
+  add:
+    - MG_Wjets_light_emu
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_bjets_emu
+  subtract:
+  lineColor: "11004"
+  legendLabel: "W+#it{D}(#it{K}#pi#pi) OS"
+  shortName: Wjets_emu_Matched
+
+Wjets_emu_Matched_OS-SS:
+  add:
+    - MG_Wjets_light_emu
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_bjets_emu
+  subtract:
+  lineColor: "10004"
+  legendLabel: "W+#it{D}(#it{K}#pi#pi) OS-SS"
+  shortName: Wjets_emu_Matched_OS-SS
+
+Wjets_emu_411MisMatched:
+  add:
+    - MG_Wjets_light_emu
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_bjets_emu
+  subtract:
+  lineColor: "11002"
+  legendLabel: "W+#it{D}(other) OS"
+  shortName: Wjets_emu_411MisMatched
+
+Wjets_emu_411MisMatched_OS-SS:
+  add:
+    - MG_Wjets_light_emu
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_bjets_emu
+  subtract:
+  lineColor: "10002"
+  legendLabel: "W+#it{D}(other) OS-SS"
+  shortName: Wjets_emu_411MisMatched_OS-SS
+
+SPG_DMinus_Matched:
+  add:
+    - DMinus_5Sept.SingleParticleGun.999914.default
+  subtract:
+  lineColor: "14004"
+  legendLabel: "#it{D}(#it{K}#pi#pi) SPG"
+  shortName: SPG_DMinus_Matched
+
+
+SPG_DMinus_411MisMatched:
+  add:
+    - DMinus_5Sept.SingleParticleGun.999914.default
+  subtract:
+  lineColor: "14002"
+  legendLabel: "#it{D}(other) SPG"
+  shortName: SPG_DMinus_411MisMatched
+
+ForcedDecay_DPlus_Matched:
+  add:
+    - ATLAS-R2-2016-01-00-01_FTFP.ForcedDecay.999964
+  subtract:
+  lineColor: "14004"
+  legendLabel: "#it{D}^{+}(#it{K}#pi#pi) Forced"
+  shortName: ForcedDecay_DPlus_Matched
+
