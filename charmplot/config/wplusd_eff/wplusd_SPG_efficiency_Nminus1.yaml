@@ -3,83 +3,108 @@ variablesConf: charmed_wjets_eff
 samplesConf: SPG_truth_Nminus1
 
 channels:
-  inclusive_wplusd:
+  _wplusd:
     samples:
-      - Wjets_emu_Matched_Charm0 | inclusive_wplusd_Matched0
-      #- Wjets_emu_Matched_Charm1 | inclusive_wplusd_Matched1
-      #- Wjets_emu_Matched_Charm3 | inclusive_wplusd_Matched3
-      - Wjets_emu_Matched_Charm4 | inclusive_wplusd_Matched4
-      #- Wjets_emu_Matched_Charm6 | inclusive_wplusd_Matched6
-      #- Wjets_emu_Matched_Charm7 | inclusive_wplusd_Matched7
-      #- Wjets_emu_Matched_Charm8 | inclusive_wplusd_Matched8
-      - Wjets_emu_Matched_Charm_noCuts | inclusive_wplusd_Matched_noCuts
+      - Wjets_emu_Matched_Charm0 | _wplusd_Matched0
+      #- Wjets_emu_Matched_Charm0_loose | _wplusd_Matched0
+      #- Wjets_emu_Matched_Charm1 | _wplusd_Matched1
+      #- Wjets_emu_Matched_Charm3 | _wplusd_Matched3
+      #- Wjets_emu_Matched_Charm4 | _wplusd_Matched4
+      #- Wjets_emu_Matched_Charm6 | _wplusd_Matched6
+      #- Wjets_emu_Matched_Charm7 | _wplusd_Matched7
+      #- Wjets_emu_Matched_Charm8 | _wplusd_Matched_ortho
+      - Wjets_emu_Matched_Charm_noCuts | _wplusd_Matched_noCuts
+      #- Wjets_emu_Matched_Charm_MG_noCuts | _wplusd_Matched_noCuts
+      #- Wjets_emu_Matched_Charm_noCuts_old | _wplusd_Matched_noCuts
+      #- Wjets_emu_Matched_Charm_noCuts_loose | _wplusd_Matched_noCuts
     regions:
-      - inclusive_SR_recoMatch_truth_Dplus_RM0
-      - /inclusive_SR_truth_Dplus_RM
+      - _recoMatch_truth_Dplus_RM0
+      - /_truth_Dplus_RM
     label:
       - "W#rightarrowl#nu+D, D#rightarrowK#pi#pi, Eff"
       - "MadGraph"
     lumi: "2018"
     save_to_file: True
 
-  inclusive_wplusd_Matched0:
+  _wplusd_Matched0:
     regions:
-      - inclusive_SR_recoMatch_truth_Dplus_RM0
-      - /inclusive_SR_truth_Dplus_RM
+      - _recoMatch_truth_Dplus_RM0
+      - /_truth_Dplus_RM
     make_plots: False
 
-  inclusive_wplusd_Matched1:
+  _wplusd_Matched1:
     regions:
-      - inclusive_SR_recoMatch_truth_Dplus_RM1
-      - inclusive_SR_recoMatch_truth_Dplus_RM0
-      - /inclusive_SR_truth_Dplus_RM
+      - _recoMatch_truth_Dplus_RM1
+      - _recoMatch_truth_Dplus_RM0
+      - /_truth_Dplus_RM
     make_plots: False
 
-  inclusive_wplusd_Matched3:
+  _wplusd_Matched3:
     regions:
-      - inclusive_SR_recoMatch_truth_Dplus_RM3
-      - inclusive_SR_recoMatch_truth_Dplus_RM0
-      - /inclusive_SR_truth_Dplus_RM
+      - _recoMatch_truth_Dplus_RM3
+      - _recoMatch_truth_Dplus_RM0
+      - /_truth_Dplus_RM
     make_plots: False
 
-  inclusive_wplusd_Matched4:
+  _wplusd_Matched4:
     regions:
-      - inclusive_SR_recoMatch_truth_Dplus_RM4
-      - inclusive_SR_recoMatch_truth_Dplus_RM0
-      - /inclusive_SR_truth_Dplus_RM
+      - _recoMatch_truth_Dplus_RM4
+      - _recoMatch_truth_Dplus_RM0
+      - /_truth_Dplus_RM
     make_plots: False
 
-  inclusive_wplusd_Matched6:
+  _wplusd_Matched6:
     regions:
-      - inclusive_SR_recoMatch_truth_Dplus_RM6
-      - inclusive_SR_recoMatch_truth_Dplus_RM0
-      - /inclusive_SR_truth_Dplus_RM
+      - _recoMatch_truth_Dplus_RM6
+      - _recoMatch_truth_Dplus_RM0
+      - /_truth_Dplus_RM
     make_plots: False
 
-  inclusive_wplusd_Matched7:
+  _wplusd_Matched7:
     regions:
-      - inclusive_SR_recoMatch_truth_Dplus_RM7
-      - inclusive_SR_recoMatch_truth_Dplus_RM0
-      - /inclusive_SR_truth_Dplus_RM
+      - _recoMatch_truth_Dplus_RM7
+      - _recoMatch_truth_Dplus_RM0
+      - /_truth_Dplus_RM
     make_plots: False
 
-  inclusive_wplusd_Matched8:
+  _wplusd_Matched8:
     regions:
-      - inclusive_SR_recoMatch_truth_Dplus_RM8
-      - inclusive_SR_recoMatch_truth_Dplus_RM0
-      - /inclusive_SR_truth_Dplus_RM
+      - _recoMatch_truth_Dplus_RM8
+      - _recoMatch_truth_Dplus_RM0
+      - /_truth_Dplus_RM
     make_plots: False
     
-  inclusive_wplusd_Matched_noCuts:
+  _wplusd_Matched_noCuts:
     regions:
-      - inclusive_SR_recoMatch_truth_Dplus_RM0
-      - inclusive_SR_recoMatch_truth_Dplus_RM1
-      - inclusive_SR_recoMatch_truth_Dplus_RM3
-      - inclusive_SR_recoMatch_truth_Dplus_RM4
-      - inclusive_SR_recoMatch_truth_Dplus_RM6
-      - inclusive_SR_recoMatch_truth_Dplus_RM7
-      - inclusive_SR_recoMatch_truth_Dplus_RM8
-      - inclusive_SR_recoMatch_truth_Dplus_RM999
-      - /inclusive_SR_truth_Dplus_RM
+      - _recoMatch_truth_Dplus_RM0
+      - _recoMatch_truth_Dplus_RM1
+      - _recoMatch_truth_Dplus_RM2
+      - _recoMatch_truth_Dplus_RM3
+      - _recoMatch_truth_Dplus_RM4
+      - _recoMatch_truth_Dplus_RM6
+      - _recoMatch_truth_Dplus_RM7
+      - _recoMatch_truth_Dplus_RM8
+      - _recoMatch_truth_Dplus_RM10
+      - _recoMatch_truth_Dplus_RM13
+      - _recoMatch_truth_Dplus_RM999
+      - /_truth_Dplus_RM
+    make_plots: False
+
+  _wplusd_Matched_ortho:
+    regions:
+      #- _truth_Dplus_RM
+      #- -_recoMatch_truth_Dplus_RM0
+      #- -_recoMatch_truth_Dplus_RM1
+      #- -_recoMatch_truth_Dplus_RM2
+      #- -_recoMatch_truth_Dplus_RM3
+      #- -_recoMatch_truth_Dplus_RM4
+      #- -_recoMatch_truth_Dplus_RM6
+      #- -_recoMatch_truth_Dplus_RM7
+      #- -_recoMatch_truth_Dplus_RM8
+      #- -_recoMatch_truth_Dplus_RM10
+      #- -_recoMatch_truth_Dplus_RM14
+      #- -_recoMatch_truth_Dplus_RM12
+      #- -_recoMatch_truth_Dplus_RM999
+      - _truth_Dplus_RM
     make_plots: False
     

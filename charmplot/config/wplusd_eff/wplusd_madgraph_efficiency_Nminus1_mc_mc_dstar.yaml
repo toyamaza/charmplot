@@ -1,0 +1,44 @@
+variablesConf: charmed_wjets_eff
+
+samplesConf: madgraph_truth_eff_Nminus1_mc_mc_dstar
+
+channels:
+  2018_wplusd:
+    samples:
+      - Wjets_emu_Matched_Charm0 | 2018_wplusd_Matched0
+      - Wjets_emu_Matched_Charm999 | 2018_wplusd_Matched999
+    regions:
+      - inclusive_SR_recoMatch_truth_DstarKPi_RM0
+      - /inclusive_SR_truth_DstarKPi_RM
+    label: 'W#rightarrowl#nu+D, D#rightarrowK#pi#pi, Eff'
+    lumi: '2018'
+
+  2018_wplusd_Matched0:
+    regions:
+      - inclusive_SR_recoMatch_truth_DstarKPi_RM0
+      - inclusive_SR_recoMatch_truth_DstarKPi_RM1
+      - inclusive_SR_recoMatch_truth_DstarKPi_RM2
+      - inclusive_SR_recoMatch_truth_DstarKPi_RM3
+      - inclusive_SR_recoMatch_truth_DstarKPi_RM4
+      - inclusive_SR_recoMatch_truth_DstarKPi_RM5
+      - inclusive_SR_recoMatch_truth_DstarKPi_RM6
+      - inclusive_SR_recoMatch_truth_DstarKPi_RM7
+      - inclusive_SR_recoMatch_truth_DstarKPi_RM10
+      - inclusive_SR_recoMatch_truth_DstarKPi_RM999
+      - /inclusive_SR_truth_DstarKPi_RM
+    make_plots: False
+
+  2018_wplusd_Matched999:
+    regions:
+      - inclusive_SR_recoMatch_truth_DstarKPi_RM0
+      - inclusive_SR_recoMatch_truth_DstarKPi_RM1
+      - inclusive_SR_recoMatch_truth_DstarKPi_RM2
+      - inclusive_SR_recoMatch_truth_DstarKPi_RM3
+      - inclusive_SR_recoMatch_truth_DstarKPi_RM4
+      - inclusive_SR_recoMatch_truth_DstarKPi_RM5
+      - inclusive_SR_recoMatch_truth_DstarKPi_RM6
+      - inclusive_SR_recoMatch_truth_DstarKPi_RM7
+      - inclusive_SR_recoMatch_truth_DstarKPi_RM10
+      - inclusive_SR_recoMatch_truth_DstarKPi_RM999
+      - /inclusive_SR_truth_DstarKPi_RM
+    make_plots: False

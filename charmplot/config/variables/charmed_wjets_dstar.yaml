@@ -3,7 +3,7 @@ Dmeson_m:
   unit: 'GeV'
   rebin: 10
   ratio_range: [0.5, 1.49]
-
+  
 Dmeson_pt:
   label: 'D* p_{T}'
   unit: 'GeV'
@@ -24,6 +24,12 @@ Dmeson_mdiff:
   do_overflow: False
   do_underflow: False
   dstar_tail_rebin: True
+
+Dmeson_mdiff_impact_sig:
+  label: 'm(D*-D^{0}) (w/o ImpSig)'
+  unit: 'MeV'
+  rebin: 10
+  ratio_range: [0.5,1.49]
 
 Dmeson_phi:
   label: 'D* #phi'
@@ -235,3 +241,55 @@ nbjets:
 N_Dplus:
   label: N_{D^{+}}
   ratio_range: [0.0, 1.99]
+
+#Cut scan repetitions
+Dmeson_mdiff0:
+  label: 'm(D*-D^{0})'
+  unit: 'MeV'
+  rebin: 10
+  ratio_range: [0.5,1.49]
+Dmeson_mdiff1:
+  label: 'm(D*-D^{0})'
+  unit: 'MeV'
+  rebin: 10
+  ratio_range: [0.5,1.49]
+Dmeson_mdiff2:
+  label: 'm(D*-D^{0})'
+  unit: 'MeV'
+  rebin: 10
+  ratio_range: [0.5,1.49]
+Dmeson_mdiff3:
+  label: 'm(D*-D^{0})'
+  unit: 'MeV'
+  rebin: 10
+  ratio_range: [0.5,1.49]
+Dmeson_mdiff4:
+  label: 'm(D*-D^{0})'
+  unit: 'MeV'
+  rebin: 10
+  ratio_range: [0.5,1.49]
+Dmeson_mdiff5:
+  label: 'm(D*-D^{0})'
+  unit: 'MeV'
+  rebin: 10
+  ratio_range: [0.5,1.49]
+Dmeson_mdiff6:
+  label: 'm(D*-D^{0})'
+  unit: 'MeV'
+  rebin: 10
+  ratio_range: [0.5,1.49]
+Dmeson_mdiff7:
+  label: 'm(D*-D^{0})'
+  unit: 'MeV'
+  rebin: 10
+  ratio_range: [0.5,1.49]
+Dmeson_mdiff8:
+  label: 'm(D*-D^{0})'
+  unit: 'MeV'
+  rebin: 10
+  ratio_range: [0.5,1.49]
+Dmeson_mdiff9:
+  label: 'm(D*-D^{0})'
+  unit: 'MeV'
+  rebin: 10
+  ratio_range: [0.5,1.49]

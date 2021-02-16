@@ -1,344 +1,351 @@
 Dmeson_m:
-  label: 'D^{#pm} m'
+  label: 'D_{s} m'
+  unit: 'GeV'
+  rebin: 20
+  x_range: [1.6, 2.3]
+  ratio_range: [0.5, 1.49]
+
+Dmeson_m_impact_sig:
+  label: 'D_{s} m (w/o Imp Sig)'
   unit: 'GeV'
   rebin: 20
   ratio_range: [0.5, 1.49]
 
 Dmeson_m0:
-  label: 'D^{#pm} m0'
+  label: 'D_{s} m0'
   unit: 'GeV'
   rebin: 10
   ratio_range: [0.5, 1.49]
 
 Dmeson_m1:
-  label: 'D^{#pm} m1'
+  label: 'D_{s} m1'
   unit: 'GeV'
   rebin: 10
   ratio_range: [0.5, 1.49]
 
 Dmeson_m2:
-  label: 'D^{#pm} m2'
+  label: 'D_{s} m2'
   unit: 'GeV'
   rebin: 10
   ratio_range: [0.5, 1.49]
 
 Dmeson_m3:
-  label: 'D^{#pm} m3'
+  label: 'D_{s} m3'
   unit: 'GeV'
   rebin: 10
   ratio_range: [0.5, 1.49]
 
 Dmeson_m4:
-  label: 'D^{#pm} m4'
+  label: 'D_{s} m4'
   unit: 'GeV'
   rebin: 10
   ratio_range: [0.5, 1.49]
 
 Dmeson_m5:
-  label: 'D^{#pm} m5'
+  label: 'D_{s} m5'
   unit: 'GeV'
   rebin: 10
   ratio_range: [0.5, 1.49]
 
 Dmeson_m6:
-  label: 'D^{#pm} m6'
+  label: 'D_{s} m6'
   unit: 'GeV'
   rebin: 10
   ratio_range: [0.5, 1.49]
 
 Dmeson_m7:
-  label: 'D^{#pm} m7'
+  label: 'D_{s} m7'
   unit: 'GeV'
   rebin: 10
   ratio_range: [0.5, 1.49]
 
 Dmeson_m8:
-  label: 'D^{#pm} m8'
+  label: 'D_{s} m8'
   unit: 'GeV'
   rebin: 10
   ratio_range: [0.5, 1.49]
 
 Dmeson_m9:
-  label: 'D^{#pm} m9'
+  label: 'D_{s} m9'
   unit: 'GeV'
   rebin: 10
   ratio_range: [0.5, 1.49]
 
 Dmeson_pt:
-  label: 'D^{#pm} p_{T}'
+  label: 'D_{s} p_{T}'
   unit: 'GeV'
   rebin: 2
   ratio_range: [0.5, 1.49]
 
 Dmeson_pt0:
-  label: 'D^{#pm} p_{T}0'
+  label: 'D_{s} p_{T}0'
   unit: 'GeV'
   rebin: 2
   ratio_range: [0.5, 1.49]
 
 Dmeson_pt1:
-  label: 'D^{#pm} p_{T}1'
+  label: 'D_{s} p_{T}1'
   unit: 'GeV'
   rebin: 2
   ratio_range: [0.5, 1.49]
 
 Dmeson_pt2:
-  label: 'D^{#pm} p_{T}2'
+  label: 'D_{s} p_{T}2'
   unit: 'GeV'
   rebin: 2
   ratio_range: [0.5, 1.49]
 
 Dmeson_pt3:
-  label: 'D^{#pm} p_{T}3'
+  label: 'D_{s} p_{T}3'
   unit: 'GeV'
   rebin: 2
   ratio_range: [0.5, 1.49]
 
 Dmeson_pt4:
-  label: 'D^{#pm} p_{T}4'
+  label: 'D_{s} p_{T}4'
   unit: 'GeV'
   rebin: 2
   ratio_range: [0.5, 1.49]
 
 Dmeson_pt5:
-  label: 'D^{#pm} p_{T}5'
+  label: 'D_{s} p_{T}5'
   unit: 'GeV'
   rebin: 2
   ratio_range: [0.5, 1.49]
 
 Dmeson_pt6:
-  label: 'D^{#pm} p_{T}6'
+  label: 'D_{s} p_{T}6'
   unit: 'GeV'
   rebin: 2
   ratio_range: [0.5, 1.49]
 
 Dmeson_pt7:
-  label: 'D^{#pm} p_{T}7'
+  label: 'D_{s} p_{T}7'
   unit: 'GeV'
   rebin: 2
   ratio_range: [0.5, 1.49]
 
 Dmeson_pt8:
-  label: 'D^{#pm} p_{T}8'
+  label: 'D_{s} p_{T}8'
   unit: 'GeV'
   rebin: 2
   ratio_range: [0.5, 1.49]
 
 Dmeson_pt9:
-  label: 'D^{#pm} p_{T}9'
+  label: 'D_{s} p_{T}9'
   unit: 'GeV'
   rebin: 2
   ratio_range: [0.5, 1.49]
 
 Dmeson_eta:
-  label: 'D^{#pm} #eta'
+  label: 'D_{s} #eta'
   rebin: 2
   ratio_range: [0.5, 1.49]
 
 Dmeson_eta0:
-  label: 'D^{#pm} #eta0'
+  label: 'D_{s} #eta0'
   rebin: 2
   ratio_range: [0.5, 1.49]
 
 Dmeson_eta1:
-  label: 'D^{#pm} #eta1'
+  label: 'D_{s} #eta1'
   rebin: 2
   ratio_range: [0.5, 1.49]
 
 Dmeson_eta2:
-  label: 'D^{#pm} #eta2'
+  label: 'D_{s} #eta2'
   rebin: 2
   ratio_range: [0.5, 1.49]
 
 Dmeson_eta3:
-  label: 'D^{#pm} #eta3'
+  label: 'D_{s} #eta3'
   rebin: 2
   ratio_range: [0.5, 1.49]
 
 Dmeson_eta4:
-  label: 'D^{#pm} #eta4'
+  label: 'D_{s} #eta4'
   rebin: 2
   ratio_range: [0.5, 1.49]
 
 Dmeson_eta5:
-  label: 'D^{#pm} #eta5'
+  label: 'D_{s} #eta5'
   rebin: 2
   ratio_range: [0.5, 1.49]
 
 Dmeson_eta6:
-  label: 'D^{#pm} #eta6'
+  label: 'D_{s} #eta6'
   rebin: 2
   ratio_range: [0.5, 1.49]
 
 Dmeson_eta7:
-  label: 'D^{#pm} #eta7'
+  label: 'D_{s} #eta7'
   rebin: 2
   ratio_range: [0.5, 1.49]
 
 Dmeson_eta8:
-  label: 'D^{#pm} #eta8'
+  label: 'D_{s} #eta8'
   rebin: 2
   ratio_range: [0.5, 1.49]
 
 Dmeson_eta9:
-  label: 'D^{#pm} #eta9'
+  label: 'D_{s} #eta9'
   rebin: 2
   ratio_range: [0.5, 1.49]
 
 Dmeson_phi:
-  label: 'D^{#pm} #phi'
+  label: 'D_{s} #phi'
   rebin: 2
   ratio_range: [0.5, 1.49]
 
 Dmeson_Lxy:
-  label: 'D^{#pm} L_{xy}'
+  label: 'D_{s} L_{xy}'
   unit: 'mm'
-  rebin: 1
-  x_range: [0.75, 3]
+  rebin: 5
+  x_range: [0, 30]
   ratio_range: [0.5, 1.49]
 
 Dmeson_Lxy0:
-  label: 'D^{#pm} L_{xy}0'
+  label: 'D_{s} L_{xy}0'
   unit: 'mm'
   rebin: 1
   x_range: [0.75, 3]
   ratio_range: [0.5, 1.49]
 
 Dmeson_Lxy1:
-  label: 'D^{#pm} L_{xy}1'
+  label: 'D_{s} L_{xy}1'
   unit: 'mm'
   rebin: 1
   x_range: [0.75, 3]
   ratio_range: [0.5, 1.49]
 
 Dmeson_Lxy2:
-  label: 'D^{#pm} L_{xy}2'
+  label: 'D_{s} L_{xy}2'
   unit: 'mm'
   rebin: 1
   x_range: [0.75, 3]
   ratio_range: [0.5, 1.49]
 
 Dmeson_Lxy3:
-  label: 'D^{#pm} L_{xy}3'
+  label: 'D_{s} L_{xy}3'
   unit: 'mm'
   rebin: 1
   x_range: [0.75, 3]
   ratio_range: [0.5, 1.49]
 
 Dmeson_Lxy4:
-  label: 'D^{#pm} L_{xy}4'
+  label: 'D_{s} L_{xy}4'
   unit: 'mm'
   rebin: 1
   x_range: [0.75, 3]
   ratio_range: [0.5, 1.49]
 
 Dmeson_cTau:
-  label: 'D^{#pm} c#tau'
+  label: 'D_{s} c#tau'
   rebin: 2
   ratio_range: [0.5, 1.49]
 
 Dmeson_chi2:
-  label: 'D^{#pm} #chi^{2}'
+  label: 'D_{s} #chi^{2}'
   rebin: 2
   ratio_range: [0.5, 1.49]
 
 Dmeson_chi20:
-  label: 'D^{#pm} #chi^{2} 0'
+  label: 'D_{s} #chi^{2} 0'
   rebin: 2
   ratio_range: [0.5, 1.49]
 
 Dmeson_chi21:
-  label: 'D^{#pm} #chi^{2} 1'
+  label: 'D_{s} #chi^{2} 1'
   rebin: 2
   ratio_range: [0.5, 1.49]
 
 Dmeson_chi22:
-  label: 'D^{#pm} #chi^{2} 2'
+  label: 'D_{s} #chi^{2} 2'
   rebin: 2
   ratio_range: [0.5, 1.49]
 
 Dmeson_chi23:
-  label: 'D^{#pm} #chi^{2} 3'
+  label: 'D_{s} #chi^{2} 3'
   rebin: 2
   ratio_range: [0.5, 1.49]
 
 Dmeson_chi24:
-  label: 'D^{#pm} #chi^{2} 4'
+  label: 'D_{s} #chi^{2} 4'
   rebin: 2
   ratio_range: [0.5, 1.49]
 
 Dmeson_chi25:
-  label: 'D^{#pm} #chi^{2} 5'
+  label: 'D_{s} #chi^{2} 5'
   rebin: 2
   ratio_range: [0.5, 1.49]
 
 Dmeson_chi26:
-  label: 'D^{#pm} #chi^{2} 6'
+  label: 'D_{s} #chi^{2} 6'
   rebin: 2
   ratio_range: [0.5, 1.49]
 
 Dmeson_chi27:
-  label: 'D^{#pm} #chi^{2} 7'
+  label: 'D_{s} #chi^{2} 7'
   rebin: 2
   ratio_range: [0.5, 1.49]
 
 Dmeson_chi28:
-  label: 'D^{#pm} #chi^{2} 8'
+  label: 'D_{s} #chi^{2} 8'
   rebin: 2
   ratio_range: [0.5, 1.49]
 
 Dmeson_chi29:
-  label: 'D^{#pm} #chi^{2} 9'
+  label: 'D_{s} #chi^{2} 9'
   rebin: 2
   ratio_range: [0.5, 1.49]
 
 Dmeson_cosThetaStar:
-  label: 'D^{#pm} cos#theta*'
+  label: 'D_{s} cos#theta*'
   rebin: 2
   ratio_range: [0.5, 1.49]
 
 Dmeson_cosThetaStar0:
-  label: 'D^{#pm} cos#theta* 0'
+  label: 'D_{s} cos#theta* 0'
   rebin: 2
   ratio_range: [0.5, 1.49]
 
 Dmeson_cosThetaStar1:
-  label: 'D^{#pm} cos#theta* 1'
+  label: 'D_{s} cos#theta* 1'
   rebin: 2
   ratio_range: [0.5, 1.49]
 
 Dmeson_cosThetaStar2:
-  label: 'D^{#pm} cos#theta* 2'
+  label: 'D_{s} cos#theta* 2'
   rebin: 2
   ratio_range: [0.5, 1.49]
 
 Dmeson_cosThetaStar3:
-  label: 'D^{#pm} cos#theta* 3'
+  label: 'D_{s} cos#theta* 3'
   rebin: 2
   ratio_range: [0.5, 1.49]
 
 Dmeson_cosThetaStar4:
-  label: 'D^{#pm} cos#theta* 5'
+  label: 'D_{s} cos#theta* 5'
   rebin: 2
   ratio_range: [0.5, 1.49]
 
 Dmeson_cosThetaStar6:
-  label: 'D^{#pm} cos#theta* 6'
+  label: 'D_{s} cos#theta* 6'
   rebin: 2
   ratio_range: [0.5, 1.49]
 
 Dmeson_cosThetaStar7:
-  label: 'D^{#pm} cos#theta* 7'
+  label: 'D_{s} cos#theta* 7'
   rebin: 2
   ratio_range: [0.5, 1.49]
 
 Dmeson_cosThetaStar8:
-  label: 'D^{#pm} cos#theta* 8'
+  label: 'D_{s} cos#theta* 8'
   rebin: 2
   ratio_range: [0.5, 1.49]
 
 Dmeson_cosThetaStar9:
-  label: 'D^{#pm} cos#theta* 9'
+  label: 'D_{s} cos#theta* 9'
   rebin: 2
   ratio_range: [0.5, 1.49]
 
@@ -369,13 +376,13 @@ lep_eta:
   ratio_range: [0.5, 1.49]
 
 Dmeson_d0:
-  label: 'D^{#pm} d_{0}'
+  label: 'D_{s} d_{0}'
   unit: '#mum'
   rebin: 2
   ratio_range: [0.5, 1.49]
 
 Dmeson_dRlep:
-  label: '#DeltaR(D^{#pm}, lep)'
+  label: '#DeltaR(D_{s}, lep)'
   rebin: 1
   ratio_range: [0.5, 1.49]
 
@@ -461,92 +468,92 @@ lep_ptvarcone30_TightTTVA_pt1000:
   rebin: 2
 
 Dmeson_dPhilep:
-  label: '#Delta#phi(D^{#pm}, lep)'
+  label: '#Delta#phi(D_{s}, lep)'
   rebin: 2
   ratio_range: [0.5, 1.49]
 
 Dmeson_dEtalep:
-  label: '#Delta#eta(D^{#pm}, lep)'
+  label: '#Delta#eta(D_{s}, lep)'
   rebin: 2
   ratio_range: [0.5, 1.49]
 
 Dmeson_SVr:
-  label: 'D^{#pm} SVr'
+  label: 'D_{s} SVr'
   unit: 'mm'
   rebin: 10
   ratio_range: [0.5, 1.49]
 
 Dmeson_ptcone40_pt:
-  label: 'D^{#pm} ptcone40/p_{T}'
+  label: 'D_{s} ptcone40/p_{T}'
   rebin: 2
   ratio_range: [0.5, 1.49]
 
 Dmeson_ptcone40_pt0:
-  label: 'D^{#pm} ptcone40/p_{T} 0'
+  label: 'D_{s} ptcone40/p_{T} 0'
   rebin: 2
   ratio_range: [0.5, 1.49]
 
 Dmeson_ptcone40_pt1:
-  label: 'D^{#pm} ptcone40/p_{T} 1'
+  label: 'D_{s} ptcone40/p_{T} 1'
   rebin: 2
   ratio_range: [0.5, 1.49]
 
 Dmeson_ptcone40_pt2:
-  label: 'D^{#pm} ptcone40/p_{T} 2'
+  label: 'D_{s} ptcone40/p_{T} 2'
   rebin: 2
   ratio_range: [0.5, 1.49]
 
 Dmeson_ptcone40_pt3:
-  label: 'D^{#pm} ptcone40/p_{T} 3'
+  label: 'D_{s} ptcone40/p_{T} 3'
   rebin: 2
   ratio_range: [0.5, 1.49]
 
 Dmeson_ptcone40_pt4:
-  label: 'D^{#pm} ptcone40/p_{T} 4'
+  label: 'D_{s} ptcone40/p_{T} 4'
   rebin: 2
   ratio_range: [0.5, 1.49]
 
 Dmeson_ptcone40_pt5:
-  label: 'D^{#pm} ptcone40/p_{T} 5'
+  label: 'D_{s} ptcone40/p_{T} 5'
   rebin: 2
   ratio_range: [0.5, 1.49]
 
 Dmeson_ptcone40_pt6:
-  label: 'D^{#pm} ptcone40/p_{T} 6'
+  label: 'D_{s} ptcone40/p_{T} 6'
   rebin: 2
   ratio_range: [0.5, 1.49]
 
 Dmeson_ptcone40_pt7:
-  label: 'D^{#pm} ptcone40/p_{T} 7'
+  label: 'D_{s} ptcone40/p_{T} 7'
   rebin: 2
   ratio_range: [0.5, 1.49]
 
 Dmeson_ptcone40_pt8:
-  label: 'D^{#pm} ptcone40/p_{T} 8'
+  label: 'D_{s} ptcone40/p_{T} 8'
   rebin: 2
   ratio_range: [0.5, 1.49]
 
 Dmeson_ptcone40_pt9:
-  label: 'D^{#pm} ptcone40/p_{T} 9'
+  label: 'D_{s} ptcone40/p_{T} 9'
   rebin: 2
   ratio_range: [0.5, 1.49]
 
 Dmeson_DsMin:
-  label: 'D^{#pm} Ds veto'
+  label: 'D^{#pm} veto'
   unit: 'GeV'
   rebin: 1
   x_range: [0,0.1]
   ratio_range: [0.5, 1.49]
 
 Dmeson_m_DstarMin:
-  label: 'D^{#pm} D* veto'
+  label: 'D_{s} D* veto'
   unit: 'GeV'
   rebin: 2
   x_range: [-1,1000000]
   ratio_range: [0.5, 1.49]
 
 Dmeson_max_trackZ0PV:
-  label: 'D^{#pm} max z_{0}sin#theta_{PV}'
+  label: 'D_{s} max z_{0}sin#theta_{PV}'
   unit: 'mm'
   rebin: 2
   ratio_range: [0.5, 1.49]
@@ -556,19 +563,19 @@ Dmeson_dRlep:
   ratio_range: [0.5, 1.49]
 
 Dmeson_max_trackZ0:
-  label: 'D^{#pm} max z_{0}sin#theta'
+  label: 'D_{s} max z_{0}sin#theta'
   unit: 'mm'
   rebin: 2
   ratio_range: [0.5, 1.49]
 
 Dmeson_min_trackPt:
-  label: 'D^{#pm} min p_{T}(tracks)'
+  label: 'D_{s} min p_{T}(tracks)'
   unit: 'MeV'
   rebin: 2
   ratio_range: [0.5, 1.49]
 
 Dmeson_max_trackdR:
-  label: 'D^{#pm} max #DeltaR(tracks)'
+  label: 'D_{s} max #DeltaR(tracks)'
   rebin: 2
   ratio_range: [0.5, 1.49]
 
@@ -588,73 +595,73 @@ pileup:
   allow_rebin: False
 
 Dmeson_m_Lxy:
-  label: 'D^{#pm} m'
+  label: 'D_{s} m (no Lxy)'
   unit: 'GeV'
   rebin: 10
   ratio_range: [0.5, 1.49]
 
 Dmeson_m_Lxy0:
-  label: 'D^{#pm} m'
+  label: 'D_{s} m'
   unit: 'GeV'
   rebin: 10
   ratio_range: [0.5, 1.49]
 
 Dmeson_m_Lxy1:
-  label: 'D^{#pm} m'
+  label: 'D_{s} m'
   unit: 'GeV'
   rebin: 10
   ratio_range: [0.5, 1.49]
 
 Dmeson_m_Lxy2:
-  label: 'D^{#pm} m'
+  label: 'D_{s} m'
   unit: 'GeV'
   rebin: 10
   ratio_range: [0.5, 1.49]
 
 Dmeson_m_Lxy3:
-  label: 'D^{#pm} m'
+  label: 'D_{s} m'
   unit: 'GeV'
   rebin: 10
   ratio_range: [0.5, 1.49]
 
 Dmeson_m_Lxy4:
-  label: 'D^{#pm} m'
+  label: 'D_{s} m'
   unit: 'GeV'
   rebin: 10
   ratio_range: [0.5, 1.49]
 
 Dmeson_m_ptcone40_pt:
-  label: 'D^{#pm} m (Isolation)'
+  label: 'D_{s} m (Isolation)'
   unit: 'GeV'
   rebin: 10
   ratio_range: [0.5, 1.49]
 
 Dmeson_m_DsMin:
-  label: 'D^{#pm} m (Ds min)'
+  label: 'D_{s} m (Ds min)'
   unit: 'GeV'
   rebin: 10
   ratio_range: [0.5, 1.49]
 
 Dmeson_m_DstarMin:
-  label: 'D^{#pm} (D* min) m'
+  label: 'D_{s} (D* min) m'
   unit: 'GeV'
   rebin: 10
   ratio_range: [0.5, 1.49]
 
 Dmeson_m_chi2:
-  label: 'D^{#pm} m (chi2)'
+  label: 'D_{s} m (chi2)'
   unit: 'GeV'
   rebin: 10
   ratio_range: [0.5, 1.49]
 
 Dmeson_m_dRlep:
-  label: 'D^{#pm} m (dR lep)'
+  label: 'D_{s} m (dR lep)'
   unit: 'GeV'
   rebin: 10
   ratio_range: [0.5, 1.49]
 
 Dmeson_m_cosThetaStar:
-  label: 'D^{#pm} m (cosThetaStar)'
+  label: 'D_{s} m (cosThetaStar)'
   unit: 'GeV'
   rebin: 10
   ratio_range: [0.5, 1.49]

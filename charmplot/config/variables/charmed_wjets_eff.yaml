@@ -1,23 +1,70 @@
 D_pt0:
-  label: 'D^{#pm} p_{T}'
+  label: 'D p_{T}'
   unit: 'GeV'
   rebin: 8
-  #x_range: [0,100]
-  ratio_range: [0.5, 1.49]
+  x_range: [0,150]
+  ratio_range: [0.7, 1.2]
 
 D_eta0:
-  label: 'D^{#pm} #eta'
+  label: 'D #eta'
   rebin: 2
   ratio_range: [0.5, 1.49]
 
 D_MinTrackPt0:
-  label: 'D^{#pm} Min Track p_{T}'
+  label: 'D Min Track p_{T}'
   unit: 'GeV'
-  rebin: 2
+  rebin: 8
   ratio_range: [0.5, 1.49]
 
 D_Lxy0:
-  label: 'D^{#pm} Lxy'
+  label: 'D Lxy'
   unit: 'mm'
   rebin: 2
+  x_range: [0,5]
   ratio_range: [0.5, 1.49]
+
+D_MinTrackDR0:
+  label: 'Track Min #DeltaR'
+  unit: ''
+  rebin: 2
+  ratio_range: [0.5, 1.49]
+
+D_MinTrackDEta0:
+  label: 'Track Min #Delta#eta'
+  unit: ''
+  rebin: 4
+  ratio_range: [0.5, 1.49]
+
+D_MinTrackDPhi0:
+  label: 'Track Min #Delta#phi'
+  unit: ''
+  rebin: 4
+  ratio_range: [0.5, 1.49]
+
+D_phiMass0:
+  allow_rebin: False
+  
+D_pt0_x_MinTrackPt0:
+  make_plots: False
+  allow_rebin: False
+
+D_pt0_x_eta0:
+  make_plots: False
+  allow_rebin: False
+
+D_pt0_x_MinTrackDR0:
+  make_plots: False
+  allow_rebin: False
+
+
+D_pt0_x_MaxTrackEta0:
+  make_plots: False
+  allow_rebin: False
+
+D_pt0_x_MinTrackDEta0:
+  make_plots: False
+  allow_rebin: False
+
+D_pt0_x_MinTrackDPhi0:
+  make_plots: False
+  allow_rebin: False

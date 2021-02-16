@@ -15,7 +15,7 @@ channels:
       - Other
       - Zjets_emu
     regions:
-      - 2018_el_SR_Dplus_OS_pt_bin1
+      - 2018_el_SR_Dplus_OS_pt_bin0
     label:
       - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, OS"
       - "MadGraph"
@@ -32,7 +32,7 @@ channels:
       - Other
       - Zjets_emu
     regions:
-      - 2018_el_SR_Dplus_SS_pt_bin1
+      - 2018_el_SR_Dplus_SS_pt_bin0
     label:
       - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, SS"
       - "MadGraph"
@@ -49,8 +49,8 @@ channels:
       - Other
       - Zjets_emu
     regions:
-      - 2018_el_SR_Dplus_OS_pt_bin1
-      - -2018_el_SR_Dplus_SS_pt_bin1
+      - 2018_el_SR_Dplus_OS_pt_bin0
+      - -2018_el_SR_Dplus_SS_pt_bin0
     label:
       - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, OS-SS"
       - "MadGraph"
@@ -67,7 +67,7 @@ channels:
       - Other
       - Zjets_emu
     regions:
-      - 2018_mu_SR_Dplus_OS_pt_bin1
+      - 2018_mu_SR_Dplus_OS_pt_bin0
     label:
       - "W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, OS"
       - "MadGraph"
@@ -84,7 +84,7 @@ channels:
       - Other
       - Zjets_emu
     regions:
-      - 2018_mu_SR_Dplus_SS_pt_bin1
+      - 2018_mu_SR_Dplus_SS_pt_bin0
     label:
       - "W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, SS"
       - "MadGraph"
@@ -101,8 +101,8 @@ channels:
       - Other
       - Zjets_emu
     regions:
-      - 2018_mu_SR_Dplus_OS_pt_bin1
-      - -2018_mu_SR_Dplus_SS_pt_bin1
+      - 2018_mu_SR_Dplus_OS_pt_bin0
+      - -2018_mu_SR_Dplus_SS_pt_bin0
     label:
       - "W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, OS-SS"
       - "MadGraph"
@@ -111,112 +111,112 @@ channels:
 
   2018_el_wplusd_OS_Matched:
     regions:
-      - 2018_el_SR_Dplus_OS_Matched_pt_bin1
+      - 2018_el_SR_Dplus_OS_Matched_pt_bin0
     make_plots: False
 
   2018_el_wplusd_SS_Matched:
     regions:
-      - 2018_el_SR_Dplus_SS_Matched_pt_bin1
+      - 2018_el_SR_Dplus_SS_Matched_pt_bin0
     make_plots: False
 
   2018_el_wplusd_OS-SS_Matched:
     regions:
-      - 2018_el_SR_Dplus_OS_Matched_pt_bin1
-      - -2018_el_SR_Dplus_SS_Matched_pt_bin1
+      - 2018_el_SR_Dplus_OS_Matched_pt_bin0
+      - -2018_el_SR_Dplus_SS_Matched_pt_bin0
     make_plots: False
 
   2018_el_wplusd_OS_NoMatch:
     regions:
-      - 2018_el_SR_Dplus_OS_Other_pt_bin1
+      - 2018_el_SR_Dplus_OS_Other_pt_bin0
     make_plots: False
 
   2018_el_wplusd_SS_NoMatch:
     regions:
-      - 2018_el_SR_Dplus_SS_Other_pt_bin1
+      - 2018_el_SR_Dplus_SS_Other_pt_bin0
     make_plots: False
 
   2018_el_wplusd_OS-SS_NoMatch:
     regions:
-      - 2018_el_SR_Dplus_OS_Other_pt_bin1
-      - -2018_el_SR_Dplus_SS_Other_pt_bin1
+      - 2018_el_SR_Dplus_OS_Other_pt_bin0
+      - -2018_el_SR_Dplus_SS_Other_pt_bin0
     make_plots: False
 
   2018_el_wplusd_OS_Rest:
     regions:
-      - 2018_el_SR_Dplus_OS_pt_bin1
-      - -2018_el_SR_Dplus_OS_Matched_pt_bin1
-      - -2018_el_SR_Dplus_OS_Other_pt_bin1
+      - 2018_el_SR_Dplus_OS_pt_bin0
+      - -2018_el_SR_Dplus_OS_Matched_pt_bin0
+      - -2018_el_SR_Dplus_OS_Other_pt_bin0
     make_plots: False
 
   2018_el_wplusd_SS_Rest:
     regions:
-      - 2018_el_SR_Dplus_SS_pt_bin1
-      - -2018_el_SR_Dplus_SS_Matched_pt_bin1
-      - -2018_el_SR_Dplus_SS_Other_pt_bin1
+      - 2018_el_SR_Dplus_SS_pt_bin0
+      - -2018_el_SR_Dplus_SS_Matched_pt_bin0
+      - -2018_el_SR_Dplus_SS_Other_pt_bin0
     make_plots: False
 
   2018_el_wplusd_OS-SS_Rest:
     regions:
-      - 2018_el_SR_Dplus_OS_pt_bin1
-      - -2018_el_SR_Dplus_OS_Matched_pt_bin1
-      - -2018_el_SR_Dplus_OS_Other_pt_bin1
-      - -2018_el_SR_Dplus_SS_pt_bin1
-      - 2018_el_SR_Dplus_SS_Matched_pt_bin1
-      - 2018_el_SR_Dplus_SS_Other_pt_bin1
+      - 2018_el_SR_Dplus_OS_pt_bin0
+      - -2018_el_SR_Dplus_OS_Matched_pt_bin0
+      - -2018_el_SR_Dplus_OS_Other_pt_bin0
+      - -2018_el_SR_Dplus_SS_pt_bin0
+      - 2018_el_SR_Dplus_SS_Matched_pt_bin0
+      - 2018_el_SR_Dplus_SS_Other_pt_bin0
     make_plots: False
 
   2018_mu_wplusd_OS_Matched:
     regions:
-      - 2018_mu_SR_Dplus_OS_Matched_pt_bin1
+      - 2018_mu_SR_Dplus_OS_Matched_pt_bin0
     make_plots: False
 
   2018_mu_wplusd_SS_Matched:
     regions:
-      - 2018_mu_SR_Dplus_SS_Matched_pt_bin1
+      - 2018_mu_SR_Dplus_SS_Matched_pt_bin0
     make_plots: False
 
   2018_mu_wplusd_OS-SS_Matched:
     regions:
-      - 2018_mu_SR_Dplus_OS_Matched_pt_bin1
-      - -2018_mu_SR_Dplus_SS_Matched_pt_bin1
+      - 2018_mu_SR_Dplus_OS_Matched_pt_bin0
+      - -2018_mu_SR_Dplus_SS_Matched_pt_bin0
     make_plots: False
 
   2018_mu_wplusd_OS_NoMatch:
     regions:
-      - 2018_mu_SR_Dplus_OS_Other_pt_bin1
+      - 2018_mu_SR_Dplus_OS_Other_pt_bin0
     make_plots: False
 
   2018_mu_wplusd_SS_NoMatch:
     regions:
-      - 2018_mu_SR_Dplus_SS_Other_pt_bin1
+      - 2018_mu_SR_Dplus_SS_Other_pt_bin0
     make_plots: False
 
   2018_mu_wplusd_OS-SS_NoMatch:
     regions:
-      - 2018_mu_SR_Dplus_OS_Other_pt_bin1
-      - -2018_mu_SR_Dplus_SS_Other_pt_bin1
+      - 2018_mu_SR_Dplus_OS_Other_pt_bin0
+      - -2018_mu_SR_Dplus_SS_Other_pt_bin0
     make_plots: False
 
   2018_mu_wplusd_OS_Rest:
     regions:
-      - 2018_mu_SR_Dplus_OS_pt_bin1
-      - -2018_mu_SR_Dplus_OS_Matched_pt_bin1
-      - -2018_mu_SR_Dplus_OS_Other_pt_bin1
+      - 2018_mu_SR_Dplus_OS_pt_bin0
+      - -2018_mu_SR_Dplus_OS_Matched_pt_bin0
+      - -2018_mu_SR_Dplus_OS_Other_pt_bin0
     make_plots: False
 
   2018_mu_wplusd_SS_Rest:
     regions:
-      - 2018_mu_SR_Dplus_SS_pt_bin1
-      - -2018_mu_SR_Dplus_SS_Matched_pt_bin1
-      - -2018_mu_SR_Dplus_SS_Other_pt_bin1
+      - 2018_mu_SR_Dplus_SS_pt_bin0
+      - -2018_mu_SR_Dplus_SS_Matched_pt_bin0
+      - -2018_mu_SR_Dplus_SS_Other_pt_bin0
     make_plots: False
 
   2018_mu_wplusd_OS-SS_Rest:
     regions:
-      - 2018_mu_SR_Dplus_OS
-      - -2018_mu_SR_Dplus_OS_Matched_pt_bin1
-      - -2018_mu_SR_Dplus_OS_Other_pt_bin1
-      - -2018_mu_SR_Dplus_SS_pt_bin1
-      - 2018_mu_SR_Dplus_SS_Matched_pt_bin1
-      - 2018_mu_SR_Dplus_SS_Other_pt_bin1
+      - 2018_mu_SR_Dplus_OS_pt_bin0
+      - -2018_mu_SR_Dplus_OS_Matched_pt_bin0
+      - -2018_mu_SR_Dplus_OS_Other_pt_bin0
+      - -2018_mu_SR_Dplus_SS_pt_bin0
+      - 2018_mu_SR_Dplus_SS_Matched_pt_bin0
+      - 2018_mu_SR_Dplus_SS_Other_pt_bin0
     make_plots: False

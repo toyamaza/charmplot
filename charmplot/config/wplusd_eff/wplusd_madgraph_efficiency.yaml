@@ -7,7 +7,7 @@ channels:
     samples:
       - Wjets_emu_Matched_Charm | 2018_wplusd_Matched
       - Top_Matched | 2018_wplusd_Matched
-      - SPG_Matched | inclusive_wplusd_Matched
+      - SPG_Matched | 2018_wplusd_Matched
     regions:
       - inclusive_SR_recoMatch_truth_Dplus_RM0
       - /inclusive_SR_truth_Dplus_RM
@@ -20,11 +20,12 @@ channels:
   2018_wplusd_Matched:
     regions:
       - inclusive_SR_recoMatch_truth_Dplus_RM0
-      - /inclusive_SR_truth_Dplus_RM
-    make_plots: False
-
-  inclusive_wplusd_Matched:
-    regions:
-      - inclusive_SR_recoMatch_truth_Dplus_RM0
+      - inclusive_SR_recoMatch_truth_Dplus_RM1
+      - inclusive_SR_recoMatch_truth_Dplus_RM2
+      - inclusive_SR_recoMatch_truth_Dplus_RM3
+      - inclusive_SR_recoMatch_truth_Dplus_RM4
+      - inclusive_SR_recoMatch_truth_Dplus_RM6
+      - inclusive_SR_recoMatch_truth_Dplus_RM7
+      - inclusive_SR_recoMatch_truth_Dplus_RM8
       - /inclusive_SR_truth_Dplus_RM
     make_plots: False

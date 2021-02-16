@@ -1,0 +1,39 @@
+variablesConf: charmed_wjets_ds
+
+samplesConf: madgraph_truth
+
+channels:
+  inclusive_wplusd:
+    samples:
+      - SPG_Matched_Ds | 2018_l_wplusd_Matched
+      - SPG_411MisMatched_Ds | 2018_l_wplusd_411MisMatched
+      #- SPG_Other_Ds | 2018_l_wplusd_Other
+      #- SPG_431MisMatched_Ds | 2018_l_wplusd_431MisMatched
+    regions:
+      - inclusive_SR_Ds
+    label:
+      - "D#rightarrowKK#pi, OS"
+      - "MadGraph, SPG"
+    lumi: "n/a"
+    save_to_file: True
+
+  2018_l_wplusd_Matched:
+    regions:
+      - inclusive_SR_Ds_Matched
+    make_plots: false
+  
+  2018_l_wplusd_411MisMatched:
+    regions:
+      - inclusive_SR_Ds_411MisMatched
+    make_plots: false
+
+  2018_l_wplusd_Other:
+    regions:
+      - inclusive_SR_Ds_Other
+    make_plots: false
+  
+  2018_l_wplusd_431MisMatched:
+    regions:
+      - inclusive_SR_Ds_431MisMatched
+    make_plots: false
+  

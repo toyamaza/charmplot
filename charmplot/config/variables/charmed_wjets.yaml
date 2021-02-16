@@ -1,9 +1,10 @@
 Dmeson_m:
   label: 'D^{#pm} m'
   unit: 'GeV'
-  rebin: 2
+  rebin: 1
   x_range: [1.7, 2.2]
   ratio_range: [0.5, 1.49]
+
 
 Dmeson_m0:
   label: 'D^{#pm} m0'
@@ -68,7 +69,7 @@ Dmeson_m9:
 Dmeson_pt:
   label: 'D^{#pm} p_{T}'
   unit: 'GeV'
-  rebin: 2
+  rebin: 1
   ratio_range: [0.5, 1.49]
 
 Dmeson_pt0:
@@ -195,7 +196,21 @@ Dmeson_Lxy:
   label: 'D^{#pm} L_{xy}'
   unit: 'mm'
   rebin: 1
-  x_range: [0.75, 3]
+  x_range: [20., 30.]
+  ratio_range: [0.5, 1.49]
+
+Dmeson_Lxy_in_SB:
+  label: 'D^{#pm} L_{xy}'
+  unit: 'mm'
+  rebin: 1
+  x_range: [20., 30.]
+  ratio_range: [0.5, 1.49]
+
+Dmeson_Lxy_out_SB:
+  label: 'D^{#pm} L_{xy}'
+  unit: 'mm'
+  rebin: 1
+  x_range: [20., 30.]
   ratio_range: [0.5, 1.49]
 
 Dmeson_Lxy0:
@@ -235,7 +250,19 @@ Dmeson_Lxy4:
 
 Dmeson_impactSig:
   label: 'D^{#pm} 3D Impact Significance'
-  rebin: 2
+  rebin: 1
+  x_range: [0.0, 10.0]
+  ratio_range: [0.5, 1.49]
+
+Dmeson_impactSig_in_SB:
+  label: 'D^{#pm} 3D Impact Significance'
+  rebin: 1
+  x_range: [0.0, 10.0]
+  ratio_range: [0.5, 1.49]
+
+Dmeson_impactSig_out_SB:
+  label: 'D^{#pm} 3D Impact Significance'
+  rebin: 1
   x_range: [0.0, 10.0]
   ratio_range: [0.5, 1.49]
 
@@ -251,7 +278,17 @@ Dmeson_cTau:
 
 Dmeson_chi2:
   label: 'D^{#pm} #chi^{2}'
-  rebin: 2
+  rebin: 4
+  ratio_range: [0.5, 1.49]
+
+Dmeson_chi2_in_SB:
+  label: 'D^{#pm} #chi^{2}'
+  rebin: 4
+  ratio_range: [0.5, 1.49]
+
+Dmeson_chi2_out_SB:
+  label: 'D^{#pm} #chi^{2}'
+  rebin: 4
   ratio_range: [0.5, 1.49]
 
 Dmeson_chi20:
@@ -489,7 +526,17 @@ Dmeson_SVr:
 
 Dmeson_ptcone40_pt:
   label: 'D^{#pm} ptcone40/p_{T}'
-  rebin: 2
+  rebin: 1
+  ratio_range: [0.5, 1.49]
+
+Dmeson_ptcone40_pt_in_SB:
+  label: 'D^{#pm} ptcone40/p_{T}'
+  rebin: 1
+  ratio_range: [0.5, 1.49]
+
+Dmeson_ptcone40_pt_out_SB:
+  label: 'D^{#pm} ptcone40/p_{T}'
+  rebin: 1
   ratio_range: [0.5, 1.49]
 
 Dmeson_ptcone40_pt0:
@@ -593,10 +640,18 @@ pileup:
   ratio_range: [0.5, 1.49]
   allow_rebin: False
 
-Dmeson_m_Lxy:
-  label: 'D^{#pm} m'
+Dmeson_m_impact_sig:
+  label: 'D^{#pm} m (w/o imp sig)'
   unit: 'GeV'
-  rebin: 10
+  x_range:  [1.7, 2.2]
+  rebin: 5
+  ratio_range: [0.5, 1.49]
+
+Dmeson_m_Lxy:
+  label: 'D^{#pm} m (w/o Lxy)'
+  unit: 'GeV'
+  rebin: 5
+  x_range:  [1.7, 2.2]
   ratio_range: [0.5, 1.49]
 
 Dmeson_m_Lxy0:
@@ -632,7 +687,8 @@ Dmeson_m_Lxy4:
 Dmeson_m_ptcone40_pt:
   label: 'D^{#pm} m (Isolation)'
   unit: 'GeV'
-  rebin: 10
+  rebin: 5
+  x_range: [1.7, 2.2]
   ratio_range: [0.5, 1.49]
 
 Dmeson_m_DsMin:
@@ -650,7 +706,8 @@ Dmeson_m_DstarMin:
 Dmeson_m_chi2:
   label: 'D^{#pm} m (chi2)'
   unit: 'GeV'
-  rebin: 10
+  rebin: 5
+  x_range:  [1.7, 2.2]
   ratio_range: [0.5, 1.49]
 
 Dmeson_m_dRlep:
@@ -667,60 +724,70 @@ Dmeson_m_cosThetaStar:
 
 Dmeson_chi2_x_m0:
   make_plots: False
+  allow_rebin: False
 #  label: 'D^{#pm} #chi^{2} 0'
 #  rebin: 2
 #  ratio_range: [0.5, 1.49]
 
 Dmeson_chi2_x_m1:
   make_plots: False
+  allow_rebin: False
 #  label: 'D^{#pm} #chi^{2} 1'
 #  rebin: 2
 #  ratio_range: [0.5, 1.49]
 
 Dmeson_chi2_x_m2:
   make_plots: False
+  allow_rebin: False
 #  label: 'D^{#pm} #chi^{2} 2'
 #  rebin: 2
 #  ratio_range: [0.5, 1.49]
 
 Dmeson_chi2_x_m3:
   make_plots: False
+  allow_rebin: False
 #  label: 'D^{#pm} #chi^{2} 3'
 #  rebin: 2
 #  ratio_range: [0.5, 1.49]
 
 Dmeson_chi2_x_m4:
   make_plots: False
+  allow_rebin: False
 #  label: 'D^{#pm} #chi^{2} 4'
 #  rebin: 2
 #  ratio_range: [0.5, 1.49]
 
 Dmeson_chi2_x_m5:
   make_plots: False
+  allow_rebin: False
 #  label: 'D^{#pm} #chi^{2} 5'
 #  rebin: 2
 #  ratio_range: [0.5, 1.49]
 
 Dmeson_chi2_x_m6:
   make_plots: False
+  allow_rebin: False
 #  label: 'D^{#pm} #chi^{2} 6'
 #  rebin: 2
 #  ratio_range: [0.5, 1.49]
 
 Dmeson_chi2_x_m7:
   make_plots: False
+  allow_rebin: False
 #  label: 'D^{#pm} #chi^{2} 7'
 #  rebin: 2
 #  ratio_range: [0.5, 1.49]
 
 Dmeson_chi2_x_m8:
   make_plots: False
+  allow_rebin: False
 #  label: 'D^{#pm} #chi^{2} 8'
 #  rebin: 2
 #  ratio_range: [0.5, 1.49]
 
 Dmeson_chi2_x_m9:
   make_plots: False
+  allow_rebin: False
 #  label: 'D^{#pm} #chi^{2} 9'
 #  rebin: 2
 #  ratio_range: [0.5, 1.49]
