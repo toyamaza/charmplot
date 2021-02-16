@@ -69,9 +69,8 @@ def main(options, conf, reader):
         variables = utils.get_variables(options, conf, reader, c, samples[0])
 
         # make channel folder if not exist
-        out_name = options.analysis_config.replace(".yaml", "").replace(".yml", "")
-        if not os.path.isdir(os.path.join(out_name, c.name)):
-            os.makedirs(os.path.join(out_name, c.name))
+        if not os.path.isdir(os.path.join(conf.out_name, c.name)):
+            os.makedirs(os.path.join(conf.out_name, c.name))
         for v in variables:
 
             # check if last plot
@@ -87,10 +86,6 @@ def main(options, conf, reader):
                 mc_map.update(mc_map_extra)
                 samples = sextra + samples
 
-            # save histograms to root file
-            if c.save_to_file:
-                utils.save_to_file(out_file_name, c, var, None, mc_map)
-
             # canvas
             yaxis_label = "Entries"
             if not options.normalize:
@@ -100,6 +95,10 @@ def main(options, conf, reader):
 
             # configure histograms
             canv.configure_histograms(mc_map, options.normalize)
+
+            # save histograms to root file
+            if c.save_to_file:
+                utils.save_to_file(out_file_name, c, var, None, mc_map)
 
             # top pad
             errors = []
@@ -149,7 +148,7 @@ def main(options, conf, reader):
                     out_file = ROOT.TFile(out_file_name, "UPDATE")
                     out_file.cd()
                     h.Write(f"{samples[i].shortName}_{c.name}_{var.name}_ratio")
-                    if var.name == "Dplus_pt":
+                    if var.name == "Dmeson_pt":
                         func = ROOT.TF1(f"{samples[i].shortName}_{c.name}_{var.name}_ratio_func", "pol5", 8, 98)
                         h.Fit(func, "0WR")
                         func.Write()
@@ -168,7 +167,7 @@ def main(options, conf, reader):
             #     h.Draw("hist same")
 
             # Print out
-            canv.print_all(out_name, c.name, v, multipage_pdf=True, first_plot=first_plot, last_plot=last_plot, as_png=options.stage_out)
+            canv.print_all(conf.out_name, c.name, v, multipage_pdf=True, first_plot=first_plot, last_plot=last_plot, as_png=options.stage_out)
             first_plot = False
 
         # close output file
