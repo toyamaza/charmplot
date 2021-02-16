@@ -1,6 +1,6 @@
 variablesConf: charmed_wjets_ds
 
-samplesConf: madgraph_truth
+samplesConf: powheg_truth
 
 data: Data
 
@@ -18,8 +18,8 @@ channels:
       - 2018_el_SR_Ds_OS
       - 2018_mu_SR_Ds_OS
     label:
-      - "W#rightarrowl#nu+D_s, D_s#rightarrowKK#pi, OS"
-      - "MadGraph"
+      - "W#rightarrowl#nu+D, D#rightarrowKK#pi, OS"
+      - "Powheg"
     lumi: "2018"
     save_to_file: True
 
@@ -37,7 +37,7 @@ channels:
       - 2018_mu_SR_Ds_SS
     label:
       - "W#rightarrowl#nu+D, D#rightarrowKK#pi, SS"
-      - "MadGraph"
+      - "Powheg"
     lumi: "2018"
     save_to_file: True
 
@@ -57,7 +57,7 @@ channels:
       - -2018_mu_SR_Ds_SS
     label:
       - "W#rightarrowl#nu+D, D#rightarrowKK#pi, OS-SS"
-      - "MadGraph"
+      - "Powheg"
     lumi: "2018"
     save_to_file: True
 
@@ -136,4 +136,3 @@ channels:
       - 2018_el_SR_Ds_SS_Other
       - 2018_mu_SR_Ds_SS_Other
     make_plots: False
-

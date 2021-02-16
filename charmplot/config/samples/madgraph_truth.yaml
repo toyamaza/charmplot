@@ -508,11 +508,3 @@ Wjets_emu_Matched_Charm:
   fillColor: "10002"
   legendLabel: "Matched #it{D}"
   shortName: Wjets_emu_Matched
-
-SPG_Matched:
-  add:
-    - "D_CharmAnalysis.999914.DMinus"
-  subtract:
-  fillColor: "11000"
-  legendLabel: "SPG"
-  shortName: SPG_Matched

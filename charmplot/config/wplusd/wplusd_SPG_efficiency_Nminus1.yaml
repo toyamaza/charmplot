@@ -5,11 +5,11 @@ samplesConf: SPG_truth_Nminus1
 channels:
   inclusive_wplusd:
     samples:
-      - Wjets_emu_Matched_Charm0 | inclusive_wplusd_Matched0
+      #- Wjets_emu_Matched_Charm0 | inclusive_wplusd_Matched0
       #- Wjets_emu_Matched_Charm1 | inclusive_wplusd_Matched1
       #- Wjets_emu_Matched_Charm3 | inclusive_wplusd_Matched3
-      - Wjets_emu_Matched_Charm4 | inclusive_wplusd_Matched4
-      - Wjets_emu_Matched_Charm6 | inclusive_wplusd_Matched6
+      #- Wjets_emu_Matched_Charm4 | inclusive_wplusd_Matched4
+      #- Wjets_emu_Matched_Charm6 | inclusive_wplusd_Matched6
       #- Wjets_emu_Matched_Charm7 | inclusive_wplusd_Matched7
       #- Wjets_emu_Matched_Charm8 | inclusive_wplusd_Matched8
       - Wjets_emu_Matched_Charm_noCuts | inclusive_wplusd_Matched_noCuts
@@ -79,6 +79,7 @@ channels:
       - inclusive_SR_recoMatch_truth_Dplus_RM6
       - inclusive_SR_recoMatch_truth_Dplus_RM7
       - inclusive_SR_recoMatch_truth_Dplus_RM8
+      - inclusive_SR_recoMatch_truth_Dplus_RM14
       - inclusive_SR_recoMatch_truth_Dplus_RM999
       - /inclusive_SR_truth_Dplus_RM
     make_plots: False

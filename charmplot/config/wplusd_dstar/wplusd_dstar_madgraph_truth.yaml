@@ -15,9 +15,9 @@ channels:
       - Other
       - Zjets_emu
     regions:
-      - OS_2018_el_SR_DstarKPi
+      - 2018_el_SR_DstarKPi_OS
     label:
-      - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, OS"
+      - "W#rightarrowe#nu+D*, D*#rightarrow(K#pi)#pi, OS"
       - "MadGraph"
     lumi: "2018"
     save_to_file: True
@@ -32,7 +32,7 @@ channels:
       - Other
       - Zjets_emu
     regions:
-      - SS_2018_el_SR_DstarKPi
+      - 2018_el_SR_DstarKPi_SS
     label:
       - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, SS"
       - "MadGraph"
@@ -49,8 +49,8 @@ channels:
       - Other
       - Zjets_emu
     regions:
-      - OS_2018_el_SR_DstarKPi
-      - -SS_2018_el_SR_DstarKPi
+      - 2018_el_SR_DstarKPi_OS
+      - -2018_el_SR_DstarKPi_SS
     label:
       - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, OS-SS"
       - "MadGraph"
@@ -67,7 +67,7 @@ channels:
       - Other
       - Zjets_emu
     regions:
-      - OS_2018_mu_SR_DstarKPi
+      - 2018_mu_SR_DstarKPi_OS
     label:
       - "W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, OS"
       - "MadGraph"
@@ -84,7 +84,7 @@ channels:
       - Other
       - Zjets_emu
     regions:
-      - SS_2018_mu_SR_DstarKPi
+      - 2018_mu_SR_DstarKPi_SS
     label:
       - "W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, SS"
       - "MadGraph"
@@ -101,8 +101,8 @@ channels:
       - Other
       - Zjets_emu
     regions:
-      - OS_2018_mu_SR_DstarKPi
-      - -SS_2018_mu_SR_DstarKPi
+      - 2018_mu_SR_DstarKPi_OS
+      - -2018_mu_SR_DstarKPi_SS
     label:
       - "W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, OS-SS"
       - "MadGraph"
@@ -111,112 +111,112 @@ channels:
 
   2018_el_wplusd_OS_Matched:
     regions:
-      - OS_2018_el_SR_DstarKPi_Matched
+      - 2018_el_SR_DstarKPi_OS_Matched
     make_plots: False
 
   2018_el_wplusd_SS_Matched:
     regions:
-      - SS_2018_el_SR_DstarKPi_Matched
+      - 2018_el_SR_DstarKPi_SS_Matched
     make_plots: False
 
   2018_el_wplusd_OS-SS_Matched:
     regions:
-      - OS_2018_el_SR_DstarKPi_Matched
-      - -SS_2018_el_SR_DstarKPi_Matched
+      - 2018_el_SR_DstarKPi_OS_Matched
+      - -2018_el_SR_DstarKPi_SS_Matched
     make_plots: False
 
   2018_el_wplusd_OS_NoMatch:
     regions:
-      - OS_2018_el_SR_DstarKPi_Other
+      - 2018_el_SR_DstarKPi_OS_Other
     make_plots: False
 
   2018_el_wplusd_SS_NoMatch:
     regions:
-      - SS_2018_el_SR_DstarKPi_Other
+      - 2018_el_SR_DstarKPi_SS_Other
     make_plots: False
 
   2018_el_wplusd_OS-SS_NoMatch:
     regions:
-      - OS_2018_el_SR_DstarKPi_Other
-      - -SS_2018_el_SR_DstarKPi_Other
+      - 2018_el_SR_DstarKPi_OS_Other
+      - -2018_el_SR_DstarKPi_SS_Other
     make_plots: False
 
   2018_el_wplusd_OS_Rest:
     regions:
-      - OS_2018_el_SR_DstarKPi
-      - -OS_2018_el_SR_DstarKPi_Matched
-      - -OS_2018_el_SR_DstarKPi_Other
+      - 2018_el_SR_DstarKPi_OS
+      - -2018_el_SR_DstarKPi_OS_Matched
+      - -2018_el_SR_DstarKPi_OS_Other
     make_plots: False
 
   2018_el_wplusd_SS_Rest:
     regions:
-      - SS_2018_el_SR_DstarKPi
-      - -SS_2018_el_SR_DstarKPi_Matched
-      - -SS_2018_el_SR_DstarKPi_Other
+      - 2018_el_SR_DstarKPi_SS
+      - -2018_el_SR_DstarKPi_SS_Matched
+      - -2018_el_SR_DstarKPi_SS_Other
     make_plots: False
 
   2018_el_wplusd_OS-SS_Rest:
     regions:
-      - OS_2018_el_SR_DstarKPi
-      - -OS_2018_el_SR_DstarKPi_Matched
-      - -OS_2018_el_SR_DstarKPi_Other
-      - -SS_2018_el_SR_DstarKPi
-      - SS_2018_el_SR_DstarKPi_Matched
-      - SS_2018_el_SR_DstarKPi_Other
+      - 2018_el_SR_DstarKPi_OS
+      - -2018_el_SR_DstarKPi_OS_Matched
+      - -2018_el_SR_DstarKPi_OS_Other
+      - -2018_el_SR_DstarKPi_SS
+      - 2018_el_SR_DstarKPi_SS_Matched
+      - 2018_el_SR_DstarKPi_SS_Other
     make_plots: False
 
   2018_mu_wplusd_OS_Matched:
     regions:
-      - OS_2018_mu_SR_DstarKPi_Matched
+      - 2018_mu_SR_DstarKPi_OS_Matched
     make_plots: False
 
   2018_mu_wplusd_SS_Matched:
     regions:
-      - SS_2018_mu_SR_DstarKPi_Matched
+      - 2018_mu_SR_DstarKPi_SS_Matched
     make_plots: False
 
   2018_mu_wplusd_OS-SS_Matched:
     regions:
-      - OS_2018_mu_SR_DstarKPi_Matched
-      - -SS_2018_mu_SR_DstarKPi_Matched
+      - 2018_mu_SR_DstarKPi_OS_Matched
+      - -2018_mu_SR_DstarKPi_SS_Matched
     make_plots: False
 
   2018_mu_wplusd_OS_NoMatch:
     regions:
-      - OS_2018_mu_SR_DstarKPi_Other
+      - 2018_mu_SR_DstarKPi_OS_Other
     make_plots: False
 
   2018_mu_wplusd_SS_NoMatch:
     regions:
-      - SS_2018_mu_SR_DstarKPi_Other
+      - 2018_mu_SR_DstarKPi_SS_Other
     make_plots: False
 
   2018_mu_wplusd_OS-SS_NoMatch:
     regions:
-      - OS_2018_mu_SR_DstarKPi_Other
-      - -SS_2018_mu_SR_DstarKPi_Other
+      - 2018_mu_SR_DstarKPi_OS_Other
+      - -2018_mu_SR_DstarKPi_SS_Other
     make_plots: False
 
   2018_mu_wplusd_OS_Rest:
     regions:
-      - OS_2018_mu_SR_DstarKPi
-      - -OS_2018_mu_SR_DstarKPi_Matched
-      - -OS_2018_mu_SR_DstarKPi_Other
+      - 2018_mu_SR_DstarKPi_OS
+      - -2018_mu_SR_DstarKPi_OS_Matched
+      - -2018_mu_SR_DstarKPi_OS_Other
     make_plots: False
 
   2018_mu_wplusd_SS_Rest:
     regions:
-      - SS_2018_mu_SR_DstarKPi
-      - -SS_2018_mu_SR_DstarKPi_Matched
-      - -SS_2018_mu_SR_DstarKPi_Other
+      - 2018_mu_SR_DstarKPi_SS
+      - -2018_mu_SR_DstarKPi_SS_Matched
+      - -2018_mu_SR_DstarKPi_SS_Other
     make_plots: False
 
   2018_mu_wplusd_OS-SS_Rest:
     regions:
-      - OS_2018_mu_SR_DstarKPi
-      - -OS_2018_mu_SR_DstarKPi_Matched
-      - -OS_2018_mu_SR_DstarKPi_Other
-      - -SS_2018_mu_SR_DstarKPi
-      - SS_2018_mu_SR_DstarKPi_Matched
-      - SS_2018_mu_SR_DstarKPi_Other
+      - 2018_mu_SR_DstarKPi_OS
+      - -2018_mu_SR_DstarKPi_OS_Matched
+      - -2018_mu_SR_DstarKPi_OS_Other
+      - -2018_mu_SR_DstarKPi_SS
+      - 2018_mu_SR_DstarKPi_SS_Matched
+      - 2018_mu_SR_DstarKPi_SS_Other
     make_plots: False

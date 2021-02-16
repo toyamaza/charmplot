@@ -1,0 +1,147 @@
+colorScheme: gemstone_hues
+
+Wjets_emu_Matched_Charm0:
+  add:
+    - "D_CharmAnalysis.999951.DsForcedPhiPi4Oct_01"
+  subtract:
+  fillColor: "10001"
+  legendLabel: "AllCuts TP Ds"
+  shortName: Wjets_emu_Matched
+
+Wjets_emu_Matched_Charm0_Dplus:
+  add:
+    - "D_CharmAnalysis.999914"
+  subtract:
+  fillColor: "10003"
+  legendLabel: "AllCuts TP D+"
+  shortName: Wjets_emu_Matched
+
+Wjets_emu_Matched_Charm1:
+  add:
+    - "D_CharmAnalysis.999951.DsForcedPhiPi4Oct_01"
+  subtract:
+  fillColor: "10003"
+  legendLabel: "#Chi^{2}"
+  shortName: Wjets_emu_Matched
+
+Wjets_emu_Matched_Charm3:
+  add:
+    - "D_CharmAnalysis.999951.DsForcedPhiPi4Oct_01"
+  subtract:
+  fillColor: "10005"
+  legendLabel: "Track #DeltaR"
+  shortName: Wjets_emu_Matched
+
+Wjets_emu_Matched_Charm4:
+  add:
+    - "D_CharmAnalysis.999951.DsForcedPhiPi4Oct_01"
+  subtract:
+  fillColor: "12001"
+  legendLabel: "L_{xy}"
+  shortName: Wjets_emu_Matched
+
+Wjets_emu_Matched_Charm6:
+  add:
+    - "D_CharmAnalysis.999951.DsForcedPhiPi4Oct_01"
+  subtract:
+  fillColor: "12002"
+  legendLabel: "cos(#theta*)"
+  shortName: Wjets_emu_Matched
+
+Wjets_emu_Matched_Charm7:
+  add:
+    - "D_CharmAnalysis.999951.DsForcedPhiPi4Oct_01"
+  subtract:
+  fillColor: "12003"
+  legendLabel: "D* rej"
+  shortName: Wjets_emu_Matched
+
+Wjets_emu_Matched_Charm8:
+  add:
+    - "D_CharmAnalysis.999951.DsForcedPhiPi4Oct_01"
+  subtract:
+  fillColor: "12005"
+  legendLabel: "D_s rej"
+  shortName: Wjets_emu_Matched
+
+Wjets_emu_Matched_Charm_noCuts:
+  add:
+    - "D_CharmAnalysis.999951.DsForcedPhiPi4Oct_01"
+  subtract:
+  fillColor: "13000"
+  legendLabel: "no Cuts TP Ds"
+  shortName: Wjets_emu_Matched
+
+Wjets_emu_Matched_Charm_noCuts_loose:
+  add:
+    - "D_CharmAnalysis.999951.DsForcedPhiPi4Oct_01.loose"
+  subtract:
+  fillColor: "13003"
+  legendLabel: "no Cuts loose"
+  shortName: Wjets_emu_Matched
+
+colorScheme: gemstone_hues
+
+Wjets_emu_Matched_Charm0_loose:
+  add:
+    - "D_CharmAnalysis.999912.loose.DsMinus.tree"
+  subtract:
+  fillColor: "10002"
+  legendLabel: "AllCuts Loose"
+  shortName: Wjets_emu_Matched
+
+Wjets_emu_Matched_Charm1_loose:
+  add:
+    - "D_CharmAnalysis.999912.loose.DsMinus.tree"
+  subtract:
+  fillColor: "10003"
+  legendLabel: "#Chi^{2}"
+  shortName: Wjets_emu_Matched
+
+Wjets_emu_Matched_Charm3_loose:
+  add:
+    - "D_CharmAnalysis.999912.loose.DsMinus.tree"
+  subtract:
+  fillColor: "10005"
+  legendLabel: "Track #DeltaR"
+  shortName: Wjets_emu_Matched
+
+Wjets_emu_Matched_Charm4_loose:
+  add:
+    - "D_CharmAnalysis.999912.loose.DsMinus.tree"
+  subtract:
+  fillColor: "12001"
+  legendLabel: "L_{xy}"
+  shortName: Wjets_emu_Matched
+
+Wjets_emu_Matched_Charm6_loose:
+  add:
+    - "D_CharmAnalysis.999912.loose.DsMinus.tree"
+  subtract:
+  fillColor: "12002"
+  legendLabel: "cos(#theta*)"
+  shortName: Wjets_emu_Matched
+
+Wjets_emu_Matched_Charm7_loose:
+  add:
+    - "D_CharmAnalysis.999912.loose.DsMinus.tree"
+  subtract:
+  fillColor: "12003"
+  legendLabel: "D* rej"
+  shortName: Wjets_emu_Matched
+
+Wjets_emu_Matched_Charm8_loose:
+  add:
+    - "D_CharmAnalysis.999912.loose.DsMinus.tree"
+  subtract:
+  fillColor: "12005"
+  legendLabel: "D_s rej"
+  shortName: Wjets_emu_Matched
+
+#Wjets_emu_Matched_Charm_noCuts_loose:
+#  add:
+#    - "D_CharmAnalysis.999912.loose.DsMinus.tree"
+#  subtract:
+#  fillColor: "14000"
+#  legendLabel: "no cuts Loose"
+#  shortName: Wjets_emu_Matched

@@ -2,10 +2,20 @@ colorScheme: gemstone_hues
 
 Wjets_emu_Matched_Charm0:
   add:
-    - "D_CharmAnalysis.999914.DMinus"
+    - "D_CharmAnalysis.999934.DMinus23Sept"
   subtract:
   fillColor: "10001"
-  legendLabel: "AllCuts"
+  lineColor: "10001"
+  legendLabel: "AllCuts TP"
+  shortName: Wjets_emu_Matched
+
+Wjets_emu_Matched_Charm0_loose:
+  add:
+    - "D_CharmAnalysis.999914.loose.DMinus"
+  subtract:
+  fillColor: "12002"
+  #lineColor: "12002"
+  legendLabel: "AllCuts Loose"
   shortName: Wjets_emu_Matched
 
 Wjets_emu_Matched_Charm1:
@@ -13,6 +23,7 @@ Wjets_emu_Matched_Charm1:
     - "D_CharmAnalysis.999914.DMinus"
   subtract:
   fillColor: "10003"
+  lineColor: "10003"
   legendLabel: "#Chi^{2}"
   shortName: Wjets_emu_Matched
 
@@ -58,8 +69,40 @@ Wjets_emu_Matched_Charm8:
 
 Wjets_emu_Matched_Charm_noCuts:
   add:
-    - "D_CharmAnalysis.999914.DMinus"
+    #- "D_CharmAnalysis.999924.DMinusForced_01"
+    - "D_CharmAnalysis.999934.DMinus23Sept"
   subtract:
-  fillColor: "13000"
-  legendLabel: "no cuts"
+  fillColor: "12000"
+  lineColor: "12000"
+  legendLabel: "no cuts TP"
+  shortName: Wjets_emu_Matched
+
+Wjets_emu_Matched_Charm_noCuts_old:
+  add:
+    - "D_CharmAnalysis.999914.DMinus.old"
+  subtract:
+  fillColor: "12004"
+  #lineColor: "12004"
+  legendLabel: "no cuts TP (forced)"
+  shortName: Wjets_emu_Matched
+
+Wjets_emu_Matched_Charm_noCuts_loose:
+  add:
+    - "D_CharmAnalysis.999914.DMinus.loose"
+  subtract:
+  fillColor: "13001"
+  #lineColor: "13001"
+  legendLabel: "no cuts Loose"
+  shortName: Wjets_emu_Matched
+
+Wjets_emu_Matched_Charm_MG_noCuts:
+  add:
+    - MG_Wjets_cjets_emu
+  #  - MG_Wjets_bjets_emu
+#    - Top_ttbar
+#    - Top_single_top
+#    - Top_ttx
+  subtract:
+  fillColor: "10002"
+  legendLabel: "MG Wjets"
   shortName: Wjets_emu_Matched

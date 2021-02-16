@@ -65,3 +65,61 @@ ForcedDecay_DPlus_Matched:
   legendLabel: "#it{D}^{+}(#it{K}#pi#pi) Forced"
   shortName: ForcedDecay_DPlus_Matched
 
+SPG_Matched:
+  add:
+    - "D_CharmAnalysis.999914.DMinus"
+  subtract:
+  fillColor: "11000"
+  legendLabel: "SPG"
+  shortName: SPG_Matched
+
+SPG_Matched_Ds:
+  add:
+    - "D_CharmAnalysis.999912.DsMinus.tree"
+  subtract:
+  fillColor: "12000"
+  legendLabel: "Matched"
+  shortName: SPG_Matched
+
+SPG_Matched_Dstar:
+  add:
+    - "D_CharmAnalysis.999918.DstarMinusToDZeroPiMinus"
+  subtract:
+  fillColor: "12000"
+  legendLabel: "Matched"
+  shortName: SPG_Matched
+
+SPG_Matched_Ds20:
+  add:
+    - "D_CharmAnalysis.999912.DsMinus.tree"
+  subtract:
+  fillColor: "11000"
+  legendLabel: "Matched"
+  shortName: SPG_Matched
+
+
+SPG_Other_Ds:
+  add:
+    - "D_CharmAnalysis.999912.DsMinus.tree"
+  subtract:
+  fillColor: "11002"
+  legendLabel: "Other"
+  shortName: SPG_Other
+
+SPG_431MisMatched_Ds:
+  add:
+    - "D_CharmAnalysis.999912.DsMinus.tree"
+  subtract:
+  fillColor: "11004"
+  legendLabel: "MisMatched"
+  shortName: SPG_MisMatched
+
+SPG_411MisMatched_Ds:
+  add:
+    - "D_CharmAnalysis.999914.DMinus.tree"
+  subtract:
+  fillColor: "11004"
+  legendLabel: "D+ MisMatched"
+  shortName: SPG_MisMatched
+
+

@@ -70,8 +70,10 @@ class InputDataReader(object):
         for i in range(h_num.GetNbinsX()):
             k = h_num.GetBinContent(i)
             n = h_den.GetBinContent(i)
-            print(str(k) + ", " + str(n))
-            if n > 0:
+            if n > 0 and n > k:
+                print("error bits")
+                print(str(k) + ", " + str(n))
+                print(pow(k * (n - k) / (n**3), .5))
                 quot.SetBinError(i, pow(k * (n - k) / (n**3), .5))
             else:
                 quot.SetBinError(i, 0.0)

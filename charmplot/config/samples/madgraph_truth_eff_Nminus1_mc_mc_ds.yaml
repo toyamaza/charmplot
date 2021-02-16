@@ -1,0 +1,23 @@
+colorScheme: gemstone_hues
+
+Wjets_emu_Matched_Charm0:
+  add:
+    - "D_CharmAnalysis.999912.DsMinus.tree"
+    #- "MG_Wjets_cjets_emu"
+    #- "MG_Wjets_bjets_emu"
+  subtract:
+  lineColor: "10001"
+  fillColor: "0"
+  legendLabel: "All cuts applied"
+  shortName: Wjets_emu_Matched
+
+Wjets_emu_Matched_Charm999:
+  add:
+    - "D_CharmAnalysis.999912.DsMinus.tree"
+    #- "MG_Wjets_cjets_emu"
+    #- "MG_Wjets_bjets_emu"
+  subtract:
+  lineColor: "13000"
+  fillColor: "0"
+  legendLabel: "No cuts applied"
+  shortName: Wjets_emu_Matched

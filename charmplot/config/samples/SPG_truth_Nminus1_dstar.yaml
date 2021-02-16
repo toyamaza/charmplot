@@ -2,26 +2,25 @@ colorScheme: gemstone_hues
 
 Wjets_emu_Matched_Charm0:
   add:
-    - "MG_Wjets_cjets_emu"
-    - "MG_Wjets_bjets_emu"
+    - "D_CharmAnalysis.999918.DstarMinus"
   subtract:
   fillColor: "10001"
-  legendLabel: "Failed Ath Reco TP"
+  lineColor: "10001"
+  legendLabel: "AllCuts TP"
   shortName: Wjets_emu_Matched
 
 Wjets_emu_Matched_Charm0_loose:
   add:
-    - "MG_Wjets_cjets_emu_loose"
-    - "MG_Wjets_bjets_emu_loose"
+    - "D_CharmAnalysis.999918.loose.DstarMinus"
   subtract:
-  fillColor: "10003"
-  legendLabel: "Failed Ath Reco Loose"
+  fillColor: "12002"
+  lineColor: "12002"
+  legendLabel: "AllCuts Loose"
   shortName: Wjets_emu_Matched
 
 Wjets_emu_Matched_Charm1:
   add:
-    - "MG_Wjets_cjets_emu"
-    - "MG_Wjets_bjets_emu"
+    - "D_CharmAnalysis.999918.DstarMinus"
   subtract:
   fillColor: "10003"
   legendLabel: "#Chi^{2}"
@@ -29,8 +28,7 @@ Wjets_emu_Matched_Charm1:
 
 Wjets_emu_Matched_Charm3:
   add:
-    - "MG_Wjets_cjets_emu"
-    - "MG_Wjets_bjets_emu"
+    - "D_CharmAnalysis.999918.DstarMinus"
   subtract:
   fillColor: "10005"
   legendLabel: "Track #DeltaR"
@@ -38,24 +36,15 @@ Wjets_emu_Matched_Charm3:
 
 Wjets_emu_Matched_Charm4:
   add:
-    - "MG_Wjets_cjets_emu"
-    - "MG_Wjets_bjets_emu"
-  subtract:Wjets_emu_Matched_Charm999:
-  add:
-    - "MG_Wjets_cjets_emu"
-    - "MG_Wjets_bjets_emu"
+    - "D_CharmAnalysis.999918.DstarMinus"
   subtract:
-  fillColor: "13000"
-  legendLabel: "Passed Ath Reco"
-  shortName: Wjets_emu_Matched
   fillColor: "12001"
   legendLabel: "L_{xy}"
   shortName: Wjets_emu_Matched
 
 Wjets_emu_Matched_Charm6:
   add:
-    - "MG_Wjets_cjets_emu"
-    - "MG_Wjets_bjets_emu"
+    - "D_CharmAnalysis.999918.DstarMinus"
   subtract:
   fillColor: "12002"
   legendLabel: "cos(#theta*)"
@@ -63,8 +52,7 @@ Wjets_emu_Matched_Charm6:
 
 Wjets_emu_Matched_Charm7:
   add:
-    - "MG_Wjets_cjets_emu"
-    - "MG_Wjets_bjets_emu"
+    - "D_CharmAnalysis.999918.DstarMinus"
   subtract:
   fillColor: "12003"
   legendLabel: "D* rej"
@@ -72,27 +60,26 @@ Wjets_emu_Matched_Charm7:
 
 Wjets_emu_Matched_Charm8:
   add:
-    - "MG_Wjets_cjets_emu"
-    - "MG_Wjets_bjets_emu"
+    - "D_CharmAnalysis.999918.DstarMinus"
   subtract:
   fillColor: "12005"
   legendLabel: "D_s rej"
   shortName: Wjets_emu_Matched
 
-Wjets_emu_Matched_Charm999:
+Wjets_emu_Matched_Charm_noCuts:
   add:
-    - "MG_Wjets_cjets_emu"
-    - "MG_Wjets_bjets_emu"
+    - "D_CharmAnalysis.999918.DstarMinus"
   subtract:
-  fillColor: "13000"
-  legendLabel: "Eff Ath Reco TP"
+  fillColor: "12000"
+  lineColor: "12000"
+  legendLabel: "no cuts TP"
   shortName: Wjets_emu_Matched
 
-Wjets_emu_Matched_Charm999_loose:
+Wjets_emu_Matched_Charm_noCuts_loose:
   add:
-    - "MG_Wjets_cjets_emu_loose"
-    - "MG_Wjets_bjets_emu_loose"
+    - "D_CharmAnalysis.999918.loose.DstarMinus"
   subtract:
-  fillColor: "13002"
-  legendLabel: "Eff Ath Reco Loose"
+  fillColor: "13001"
+  lineColor: "13001"
+  legendLabel: "no cuts Loose"
   shortName: Wjets_emu_Matched

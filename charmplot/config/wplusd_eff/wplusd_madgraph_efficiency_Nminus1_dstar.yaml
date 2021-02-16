@@ -1,0 +1,114 @@
+variablesConf: charmed_wjets_eff
+
+samplesConf: madgraph_truth_eff_Nminus1
+
+channels:
+  2018_wplusd:
+    samples:
+#      - Wjets_emu_Matched_Charm0 | 2018_wplusd_Matched0
+#      - Wjets_emu_Matched_Charm1 | 2018_wplusd_Matched1
+#      - Wjets_emu_Matched_Charm3 | 2018_wplusd_Matched3
+#      - Wjets_emu_Matched_Charm4 | 2018_wplusd_Matched4
+#      - Wjets_emu_Matched_Charm6 | 2018_wplusd_Matched6
+#      - Wjets_emu_Matched_Charm7 | 2018_wplusd_Matched7
+#      - Wjets_emu_Matched_Charm8 | 2018_wplusd_Matched8
+      - Wjets_emu_Matched_Charm999 | 2018_wplusd_Matched999
+#      - Wjets_emu_Matched_Charm0 | 2018_wplusd_Matched999_orth
+#      - Top_Matched0 | 2018_wplusd_Matched0
+#      - Top_Matched1 | 2018_wplusd_Matched1
+#      - Top_Matched3 | 2018_wplusd_Matched3
+#      - Top_Matched4 | 2018_wplusd_Matched4
+#      - Top_Matched6 | 2018_wplusd_Matched6
+#      - Top_Matched7 | 2018_wplusd_Matched7
+#      - Top_Matched8 | 2018_wplusd_Matched8
+#      - Top_Matched999 | 2018_wplusd_Matched999
+    regions:
+      - inclusive_SR_recoMatch_truth_DstarKPi_RM0
+      - /inclusive_SR_truth_DstarKPi_RM
+    label:
+      - "W#rightarrowl#nu+D, D#rightarrowK#pi#pi, Eff"
+      - "MadGraph"
+    lumi: "2018"
+    save_to_file: True
+
+  2018_wplusd_Matched0:
+    regions:
+      - inclusive_SR_recoMatch_truth_DstarKPi_RM6
+      - /inclusive_SR_truth_DstarKPi_RM
+    make_plots: False
+
+  2018_wplusd_Matched1:
+    regions:
+      - inclusive_SR_recoMatch_truth_DstarKPi_RM1
+      - inclusive_SR_recoMatch_truth_DstarKPi_RM0
+      - /inclusive_SR_truth_DstarKPi_RM
+    make_plots: False
+
+  2018_wplusd_Matched3:
+    regions:
+      - inclusive_SR_recoMatch_truth_DstarKPi_RM3
+      - inclusive_SR_recoMatch_truth_DstarKPi_RM0
+      - /inclusive_SR_truth_DstarKPi_RM
+    make_plots: False
+
+  2018_wplusd_Matched4:
+    regions:
+      - inclusive_SR_recoMatch_truth_DstarKPi_RM4
+      - inclusive_SR_recoMatch_truth_DstarKPi_RM0
+      - /inclusive_SR_truth_DstarKPi_RM
+    make_plots: False
+
+  2018_wplusd_Matched6:
+    regions:
+      - inclusive_SR_recoMatch_truth_DstarKPi_RM6
+      - inclusive_SR_recoMatch_truth_DstarKPi_RM0
+      - /inclusive_SR_truth_DstarKPi_RM
+    make_plots: False
+
+  2018_wplusd_Matched7:
+    regions:
+      - inclusive_SR_recoMatch_truth_DstarKPi_RM7
+      - inclusive_SR_recoMatch_truth_DstarKPi_RM0
+      - /inclusive_SR_truth_DstarKPi_RM
+    make_plots: False
+
+  2018_wplusd_Matched8:
+    regions:
+      - inclusive_SR_recoMatch_truth_DstarKPi_RM8
+      - inclusive_SR_recoMatch_truth_DstarKPi_RM0
+      - /inclusive_SR_truth_DstarKPi_RM
+    make_plots: False
+
+  2018_wplusd_Matched999:
+    regions:
+      - inclusive_SR_recoMatch_truth_DstarKPi_RM0
+      - inclusive_SR_recoMatch_truth_DstarKPi_RM1
+      - inclusive_SR_recoMatch_truth_DstarKPi_RM2
+      - inclusive_SR_recoMatch_truth_DstarKPi_RM3
+      - inclusive_SR_recoMatch_truth_DstarKPi_RM4
+      - inclusive_SR_recoMatch_truth_DstarKPi_RM5
+      - inclusive_SR_recoMatch_truth_DstarKPi_RM6
+      - inclusive_SR_recoMatch_truth_DstarKPi_RM7
+      - inclusive_SR_recoMatch_truth_DstarKPi_RM10
+      - inclusive_SR_recoMatch_truth_DstarKPi_RM14
+      - inclusive_SR_recoMatch_truth_DstarKPi_RM999
+      - -inclusive_SR_recoMatch_truth_DstarKPi_RM10
+      - /inclusive_SR_truth_DstarKPi_RM
+    make_plots: False
+
+  2018_wplusd_Matched999_orth:
+    regions:
+      - inclusive_SR_truth_DstarKPi_RM
+      - -inclusive_SR_recoMatch_truth_DstarKPi_RM0
+      - -inclusive_SR_recoMatch_truth_DstarKPi_RM1
+      - -inclusive_SR_recoMatch_truth_DstarKPi_RM2
+      - -inclusive_SR_recoMatch_truth_DstarKPi_RM3
+      - -inclusive_SR_recoMatch_truth_DstarKPi_RM4
+      - -inclusive_SR_recoMatch_truth_DstarKPi_RM5
+      - -inclusive_SR_recoMatch_truth_DstarKPi_RM6
+      - -inclusive_SR_recoMatch_truth_DstarKPi_RM7
+      - -inclusive_SR_recoMatch_truth_DstarKPi_RM10
+      - -inclusive_SR_recoMatch_truth_DstarKPi_RM14
+      - -inclusive_SR_recoMatch_truth_DstarKPi_RM999
+    make_plots: False
+
