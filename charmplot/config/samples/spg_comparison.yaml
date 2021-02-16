@@ -40,30 +40,21 @@ Wjets_emu_411MisMatched_OS-SS:
   legendLabel: "W+#it{D}(other) OS-SS"
   shortName: Wjets_emu_411MisMatched_OS-SS
 
-SPG_DMinus_Matched:
+SPG_DPlus_Matched:
   add:
-    - DMinus_5Sept.SingleParticleGun.999914.default
+    - SPG_Dplus
   subtract:
   lineColor: "14004"
   legendLabel: "#it{D}(#it{K}#pi#pi) SPG"
-  shortName: SPG_DMinus_Matched
+  shortName: SPG_DPlus_Matched
 
-
-SPG_DMinus_411MisMatched:
+SPG_DPlus_411MisMatched:
   add:
-    - DMinus_5Sept.SingleParticleGun.999914.default
+    - SPG_Dplus
   subtract:
   lineColor: "14002"
   legendLabel: "#it{D}(other) SPG"
-  shortName: SPG_DMinus_411MisMatched
-
-ForcedDecay_DPlus_Matched:
-  add:
-    - ATLAS-R2-2016-01-00-01_FTFP.ForcedDecay.999964
-  subtract:
-  lineColor: "14004"
-  legendLabel: "#it{D}^{+}(#it{K}#pi#pi) Forced"
-  shortName: ForcedDecay_DPlus_Matched
+  shortName: SPG_DPlus_411MisMatched
 
 SPG_Matched:
   add:
@@ -121,5 +112,4 @@ SPG_411MisMatched_Ds:
   fillColor: "11004"
   legendLabel: "D+ MisMatched"
   shortName: SPG_MisMatched
-
 
