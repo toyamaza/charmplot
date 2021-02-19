@@ -37,24 +37,26 @@ def SB_function(x, p):
 if __name__ == "__main__":
 
     # picking which cut to look at
-    #var_in = ""
+    var_in = "9"
 
 
     data = ["Data"] # what does this do again..?
-    D_file = ROOT.TFile.Open("/global/homes/b/bowjun/minbias_charmpp/Data3/MinBias.data.root") # CHANGE TO REAL FILE PATH
+    D_file = ROOT.TFile.Open("/global/homes/b/bowjun/minbias_charmpp/scans/Dpt2/data/MinBias.data.root") # CHANGE TO REAL FILE PATH
 
     mc = ["Monte Carlo"]
-    MC_file = ROOT.TFile.Open("/global/homes/b/bowjun/minbias_charmpp/MCtests/Jan26/DminusKpipi.MinBias.9100011.default.root")
+    MC_file = ROOT.TFile.Open("/global/homes/b/bowjun/minbias_charmpp/scans/Dpt2/mc/DminusKpipi.MinBias.9100011.default.root")
 
 
     data_sum = ROOT.TH1D()
     data_sum.Sumw2()
-    data_sum = D_file.Get("inclusive_Dplus_per_D__Dmeson_m").Clone("data_sum")
+    data_sum = D_file.Get("inclusive_Dplus_per_D__Dmeson_m" + var_in).Clone("data_sum")
+    #rebin 2 for no scan, 20 for cutscan
     data_sum.Rebin(2)
 
     mc_sum = ROOT.TH1D()
     mc_sum.Sumw2()
-    mc_sum = MC_file.Get("inclusive_Dplus_per_D__Dmeson_m").Clone("mc_sum")
+    mc_sum = MC_file.Get("inclusive_Dplus_per_D__Dmeson_m" + var_in).Clone("mc_sum")
+    #rebin 2 for no scan, 20 for cutscan
     mc_sum.Rebin(2)
 
 
@@ -62,7 +64,9 @@ if __name__ == "__main__":
     # fit to region between UB and LB using SB function
     # Call fitting function to get integral and uncertainty
     bkg_fn_fit = ROOT.TF1("bkg_fn_fit", SB_function, 1.7, 2.2, 3)
-    # bkg_fn_fit.SetParLimits(0, 50, 100)
+    # bkg_fn_fit.SetParLimits(0, 2000, 3000)
+    # bkg_fn_fit.SetParLimits(1, -3000, -2000)
+    # bkg_fn_fit.SetParLimits(2, 400, 500)
     data_sum.Fit(bkg_fn_fit, "L")
     data_bkg_fn = ROOT.TF1("data_bkg_fn", "pol2", 1.7, 2.2)
     data_bkg_fn.SetParameters(bkg_fn_fit.GetParameters())
@@ -90,12 +94,14 @@ if __name__ == "__main__":
 
 
     mc_bkg_fn_fit = ROOT.TF1("mc_fn_fit", SB_function, 1.7, 2.0, 3)
-    # mc_bkg_fn_fit.SetParLimits(???)
+    # mc_bkg_fn_fit.SetParLimits(0, -3000, -2000)
+    # mc_bkg_fn_fit.SetParLimits(1, 2000, 3000)
+    # mc_bkg_fn_fit.SetParLimits(2, -800, -700)
     mc_sum.Fit(mc_bkg_fn_fit, "L")
     mc_bkg_fn = ROOT.TF1("mc_bkg_fn", "pol2", 1.7, 2.0)
     mc_bkg_fn.SetParameters(mc_bkg_fn_fit.GetParameters())    
 
-    B_mc = mc_bkg_fn.Integral(LB, UB) / data_sum.GetBinWidth(1)
+    B_mc = mc_bkg_fn.Integral(LB, UB) / mc_sum.GetBinWidth(1)
     B_mc_error = ROOT.Double()
     B_mc_error = mc_bkg_fn.IntegralError(LB, UB) / mc_sum.GetBinWidth(1)
     # B_prob = data_bkg_fn.GetProb()
@@ -114,7 +120,7 @@ if __name__ == "__main__":
     # data signal error
     IntSig_mc = ROOT.Double()
     mc_signal_error = ROOT.Double()
-    IntSig_mc = mc_sum.IntegralAndError(data_sum.GetXaxis().FindBin(LB) + 1, data_sum.GetXaxis().FindBin(UB) - 1, mc_signal_error)
+    IntSig_mc = mc_sum.IntegralAndError(mc_sum.GetXaxis().FindBin(LB) + 1, mc_sum.GetXaxis().FindBin(UB) - 1, mc_signal_error)
     mc_signal_error_Z = mc_signal_error * SF_init
     print("MC Signal Error: " + str(mc_signal_error_Z))
     print()
@@ -143,7 +149,7 @@ if __name__ == "__main__":
     mc_bkg_fn.SetLineColor(2)
     mc_bkg_fn.Draw("same")
     mc_canv.Draw()
-    mc_canv.Print("mc_test.pdf")
+    mc_canv.Print("mc_pT_8GeV.pdf")
 
 
     d_canv = ROOT.TCanvas("d_canv", "plot", 800, 600)
@@ -164,7 +170,7 @@ if __name__ == "__main__":
     # bkg_fn_fit.SetLineColor(3)
     # bkg_fn_fit.Draw("same")
     d_canv.Draw()
-    d_canv.Print("d_test.pdf")   
+    d_canv.Print("d_pT_8GeV.pdf")
 
 
 
