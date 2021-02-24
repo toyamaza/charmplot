@@ -136,15 +136,16 @@ class WDFlavourSamples:
 
 class WDTruthComparisonSamples:
 
-    samples = [
-        # ['Wjets_emu_Matched', proxies.GenericChannel(region="Matched")],
-        ['Wjets_emu_Matched_OS-SS', proxies.GenericChannel(region="Matched", name="MatchedOS-SS", os_minus_ss_fit_configuration=True)],
-        ['ForcedDecay_DPlus_Matched', proxies.GenericChannel(name="MatchedForcedDecay", regions_override=["inclusive_Dplus_per_D_Matched"])],
-        # ['SPG_DMinus_Matched', proxies.GenericChannel(name="MatchedSPG", regions_override=["inclusive_Dplus_per_D_Matched"])],
-        # ['Wjets_emu_411MisMatched', proxies.GenericChannel(region="411MisMatched")],
-        # ['Wjets_emu_411MisMatched_OS-SS', proxies.GenericChannel(region="411MisMatched", name="411MisMatchedOS-SS", os_minus_ss_fit_configuration=True)],
-        # ['SPG_DMinus_411MisMatched', proxies.GenericChannel(name="411MisMatchedSPG", regions_override=["inclusive_Dplus_per_D_411MisMatched"])],
-    ]
+    samples = {
+        'Matched': [
+            ['Wjets_emu_Matched_OS-SS', proxies.GenericChannel(region="Matched", name="MatchedOS-SS", os_minus_ss_fit_configuration=True)],
+            ['SPG_DPlus_Matched', proxies.GenericChannel(name="MatchedSPG", regions_override=["inclusive_Dplus_per_D_Matched", "-inclusive_Dplus_per_antiD_Matched"])],
+        ],
+        '411MisMatched': [
+            ['Wjets_emu_411MisMatched_OS-SS', proxies.GenericChannel(region="411MisMatched", name="411MisMatchedOS-SS", os_minus_ss_fit_configuration=True)],
+            ['SPG_DPlus_411MisMatched', proxies.GenericChannel(name="411MisMatchedSPG", regions_override=["inclusive_Dplus_per_D_411MisMatched", "-inclusive_Dplus_per_antiD_411MisMatched"])],
+        ],
+    }
 
     def get(self):
         return self.samples
@@ -193,7 +194,6 @@ class ChannelGenerator:
     def __init__(self, config, samples, decay_mode, signs, years, leptons, charges,
                  btags, process_string, sample_config, force_positive=False, replacement_samples={}):
         self.config = config
-        self.samples = samples
         self.decay_mode = decay_mode
         self.signs = signs
         self.years = years
@@ -204,6 +204,10 @@ class ChannelGenerator:
         self.sample_config = sample_config
         self.force_positive = force_positive
         self.replacement_samples = replacement_samples
+        if type(samples) == dict:
+            self.samples = samples
+        else:
+            self.samples = {'': samples}
         if type(self.years) == list and len(self.years) == 0:
             self.years = ['']
 
@@ -211,50 +215,53 @@ class ChannelGenerator:
         return self.config
 
     def make_channel(self, lumi, sign='', year='', lepton='', charge='', btag='', extra_rebin=1, os_only=False):
-        channel_name = self.generate_channel_name(sign=sign, year=year, lepton=lepton, charge=charge, btag=btag)
-        regions = self.generate_channel_regions(sign=sign, year=year, lepton=lepton, charge=charge, btag=btag)
-        channel = {
-            'regions': regions,
-            'label': self.generate_channel_labels(sign=sign, lepton=lepton, charge=charge, btag=btag),
-            'lumi': '+'.join(lumi),
-            'extra_rebin': extra_rebin,
-            'force_positive': self.force_positive,
-            'save_to_file': True,
-            'samples': [],
-        }
-        if type(btag) == str and btag == '0tag' and sign == 'OS':
-            channel['replacement_samples'] = self.replacement_samples
-        self.config['channels'][channel_name] = channel
+        for suffix, samples in self.samples.items():
+            channel_name = self.generate_channel_name(sign=sign, year=year, lepton=lepton, charge=charge, btag=btag, suffix=suffix)
+            regions = self.generate_channel_regions(sign=sign, year=year, lepton=lepton, charge=charge, btag=btag)
+            channel = {
+                'regions': regions,
+                'label': self.generate_channel_labels(sign=sign, lepton=lepton, charge=charge, btag=btag),
+                'lumi': '+'.join(lumi),
+                'extra_rebin': extra_rebin,
+                'force_positive': self.force_positive,
+                'save_to_file': True,
+                'samples': [],
+            }
+            if type(btag) == str and btag == '0tag' and sign == 'OS':
+                channel['replacement_samples'] = self.replacement_samples
+            self.config['channels'][channel_name] = channel
 
-        # print out
-        print(f'Generated channel {channel_name} with {len(regions)} regions')
-        for reg in regions:
-            print(f'  {reg}')
+            # print out
+            print(f'Generated channel {channel_name} with {len(regions)} regions')
+            for reg in regions:
+                print(f'  {reg}')
 
-        # add samples
-        for sample in self.samples:
-            if 'MockMC' not in sample[0] and os_only and 'SS' in channel_name:
-                continue
-            if len(sample) == 1:
-                channel['samples'] += [sample[0]]
-            else:
-                # generate proxy channel
-                proxy = sample[1]
-                proxy_channel_name = channel_name + "_" + proxy.get_name()
-                proxy_channel = {
-                    'make_plots': False,
-                    'regions': proxy.get_regions(regions),
-                }
-                self.config['channels'][proxy_channel_name] = proxy_channel
-                channel['samples'] += [f'{sample[0]} | {proxy_channel_name}']
+            # add samples
+            for sample in samples:
+                if 'MockMC' not in sample[0] and os_only and 'SS' in channel_name:
+                    continue
+                if len(sample) == 1:
+                    channel['samples'] += [sample[0]]
+                else:
+                    # generate proxy channel
+                    proxy = sample[1]
+                    proxy_channel_name = channel_name + "_" + proxy.get_name()
+                    proxy_channel = {
+                        'make_plots': False,
+                        'regions': proxy.get_regions(regions),
+                    }
+                    self.config['channels'][proxy_channel_name] = proxy_channel
+                    channel['samples'] += [f'{sample[0]} | {proxy_channel_name}']
 
-    def generate_channel_name(self, sign='', year='', lepton='', charge='', btag=''):
+    def generate_channel_name(self, sign='', year='', lepton='', charge='', btag='', suffix=''):
         if sign:
             sign = f'{sign}_'
         else:
             sign = 'OS-SS_'
+        if suffix:
+            suffix = f'_{suffix}'
         btag_massaged = [btag] if type(btag) != list else btag
-        name = f'{sign}{format(year)}{format(lepton)}{format(charge)}{format(btag_massaged[0])}{self.decay_mode}'
+        name = f'{sign}{format(year)}{format(lepton)}{format(charge)}{format(btag_massaged[0])}{self.decay_mode}{suffix}'
         return name
 
     def generate_channel_regions(self, sign='', year='', lepton='', charge='', btag=''):
