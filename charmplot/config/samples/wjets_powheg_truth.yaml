@@ -1,0 +1,41 @@
+colorScheme: gemstone_hues
+
+Wplus:
+  add:
+    - Ph_Wjets_emu
+  subtract:
+  lineColor: "ROOT.kBlue"
+  legendLabel: "W^{+} + jets"
+  shortName: Wplus
+
+Wminus:
+  add:
+    - Ph_Wjets_emu
+  subtract:
+  lineColor: "ROOT.kRed"
+  legendLabel: "W^{-} + jets"
+  shortName: Wminus
+
+WPlusD_OS:
+  add:
+    - Ph_Wjets_emu
+  subtract:
+  lineColor: "ROOT.kBlue"
+  legendLabel: "W + D (OS)"
+  shortName: WPlusD_OS
+
+WPlusD_SS:
+  add:
+    - Ph_Wjets_emu
+  subtract:
+  lineColor: "ROOT.kGreen"
+  legendLabel: "W + D (SS)"
+  shortName: WPlusD_SS
+
+WPlusD_OS_minus_SS:
+  add:
+    - Ph_Wjets_emu
+  subtract:
+  lineColor: "ROOT.kRed"
+  legendLabel: "W + D (OS-SS)"
+  shortName: WPlusD_OSSS
