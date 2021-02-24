@@ -122,6 +122,7 @@ def process_channel(options, conf, c):
 
     # list of variables
     variables = utils.get_variables(options, conf, reader, c)
+    assert len(variables) > 0
 
     # mass fit
     if c.mass_fit:
