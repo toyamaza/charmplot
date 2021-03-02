@@ -35,22 +35,6 @@ channel_names = {
     "mu_plus_Ds": "W(#mu^{+}#nu)+Ds^{-}",
 }
 
-# samples_dict = {
-#     "mu_plus_Dplus_LOMG": sample.Sample('mu_plus_Dplus_LOMG', None, **{'add': [], 'subtract': [], 'legendLabel': 'LO MG W+', 'lineColor': 'ROOT.kBlue'}),
-#     "mu_minus_Dplus_LOMG": sample.Sample('mu_minus_Dplus_LOMG', None, **{'add': [], 'subtract': [], 'legendLabel': 'LO MG W-', 'lineColor': 'ROOT.kBlue'}),
-#     "mu_plus_Dplus_LOMG_pass_w": sample.Sample('mu_plus_Dplus_LOMG_pass_w', None, **{'add': [], 'subtract': [], 'legendLabel': 'LO MG W+', 'lineColor': 'ROOT.kBlue'}),
-#     "mu_minus_Dplus_LOMG_pass_w": sample.Sample('mu_minus_Dplus_LOMG_pass_w', None, **{'add': [], 'subtract': [], 'legendLabel': 'LO MG W-', 'lineColor': 'ROOT.kBlue'}),
-#     "mu_plus_Dplus_MGFxFx": sample.Sample('mu_plus_Dplus_MGFxFx', None, **{'add': [], 'subtract': [], 'legendLabel': 'MG FxFx W+', 'lineColor': 'ROOT.kRed'}),
-#     "mu_minus_Dplus_MGFxFx": sample.Sample('mu_minus_Dplus_MGFxFx', None, **{'add': [], 'subtract': [], 'legendLabel': 'MG FxFx W-', 'lineColor': 'ROOT.kRed'}),
-#     "mu_plus_Dplus_MGFxFx_pass_w": sample.Sample('mu_plus_Dplus_MGFxFx_pass_w', None, **{'add': [], 'subtract': [], 'legendLabel': 'MG FxFx W+', 'lineColor': 'ROOT.kRed'}),
-#     "mu_minus_Dplus_MGFxFx_pass_w": sample.Sample('mu_minus_Dplus_MGFxFx_pass_w', None, **{'add': [], 'subtract': [], 'legendLabel': 'MG FxFx W-', 'lineColor': 'ROOT.kRed'}),
-#     "mu_plus_Dplus_Sherpa2210": sample.Sample('mu_plus_Dplus_Sherpa2210', None, **{'add': [], 'subtract': [], 'legendLabel': 'Sherpa2.2.10 W+', 'lineColor': 'ROOT.kGreen+2'}),
-#     "mu_minus_Dplus_Sherpa2210": sample.Sample('mu_minus_Dplus_Sherpa2210', None, **{'add': [], 'subtract': [], 'legendLabel': 'Sherpa2.2.10 W-', 'lineColor': 'ROOT.kGreen+2'}),
-#     "mu_plus_Dplus_Sherpa2210_pass_w": sample.Sample('mu_plus_Dplus_Sherpa2210_pass_w', None, **{'add': [], 'subtract': [], 'legendLabel': 'Sherpa2.2.10 W+', 'lineColor': 'ROOT.kGreen+2'}),
-#     "mu_minus_Dplus_Sherpa2210_pass_w": sample.Sample('mu_minus_Dplus_Sherpa2210_pass_w', None, **{'add': [], 'subtract': [], 'legendLabel': 'Sherpa2.2.10 W-', 'lineColor': 'ROOT.kGreen+2'}),
-# }
-
-
 # proxy samples
 samples_dict = {}
 for sampl, color in zip(["LOMG", "MGFxFx", "Sherpa2210"], ["ROOT.kBlue", "ROOT.kRed", "ROOT.kGreen+2"]):
