@@ -149,7 +149,7 @@ class InputDataReader(object):
                         else:
                             variables[var_name] += 1
             for var in variables:
-                if variables[var] == len(channel.get_all()):
+                if variables[var] > 0:
                     all_vars.add(var)
         return all_vars
 
