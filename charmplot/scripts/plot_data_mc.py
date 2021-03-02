@@ -100,7 +100,7 @@ def process_channel(options, conf, c):
     samples = utils.get_samples(conf, c)
 
     # trex output
-    if options.trex:
+    if options.trex and c.make_plots:
         for s in samples + [conf.get_data()]:
             sample_file_name = os.path.join(trex_folder, f"{s.shortName}_tmp_{c.name}.root")
             logging.info(f"created file for trex input {sample_file_name}")
