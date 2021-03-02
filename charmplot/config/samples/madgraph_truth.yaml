@@ -115,9 +115,19 @@ Wjets_emu_Rest:
     - MG_Wjets_cjets_emu
     - MG_Wjets_bjets_emu
   subtract:
-  fillColor: "21000"
+  fillColor: "11002"
   legendLabel: "W+jets"
   shortName: Wjets_emu_Rest
+
+Wjets_emu_MisMatched:
+  add:
+    - MG_Wjets_light_emu
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_bjets_emu
+  subtract:
+  fillColor: "11004"
+  legendLabel: "W+c^{mis-match}"
+  shortName: Wjets_emu_MisMatched
 
 Wjets_emu_413MisMatched:
   add:
@@ -175,8 +185,9 @@ Wjets_emu_Charm:
     - MG_Wjets_cjets_emu
     - MG_Wjets_bjets_emu
   subtract:
+  # fillColor: "16000"
   fillColor: "10001"
-  legendLabel: "W+Charm"
+  legendLabel: "W+c^{match}"
   shortName: Wjets_emu_Charm
 
 Wjets_emu_HardMisMatched:
@@ -508,3 +519,53 @@ Wjets_emu_Matched_Charm:
   fillColor: "10002"
   legendLabel: "Matched #it{D}"
   shortName: Wjets_emu_Matched
+
+SPG_DPlus_Matched:
+  add:
+    - SPG_Dplus
+  subtract:
+  lineColor: "14004"
+  legendLabel: "#it{D}(#it{K}#pi#pi) SPG"
+  shortName: SPG_DPlus_Matched
+
+SPG_DPlus_411MisMatched:
+  add:
+    - SPG_Dplus
+  subtract:
+  lineColor: "14004"
+  legendLabel: "#it{D}(other) SPG"
+  shortName: SPG_DPlus_411MisMatched
+
+SPG_DPlus_431MisMatched:
+  add:
+    - SPG_Ds
+  subtract:
+  lineColor: "14004"
+  legendLabel: "#it{D}_{S} SPG"
+  shortName: SPG_DPlus_431MisMatched
+
+SPG_DPlus_421MisMatched:
+  add:
+    - SPG_D0
+  subtract:
+  lineColor: "14004"
+  legendLabel: "#it{D}0/#it{D}* SPG"
+  shortName: SPG_DPlus_421MisMatched
+
+SPG_DPlus_BaryonMisMatched:
+  add:
+    - SPG_Baryon
+  subtract:
+  lineColor: "14004"
+  legendLabel: "Baryon SPG"
+  shortName: SPG_DPlus_BaryonMisMatched
+
+SPG_DPlus_CharmMisMatched:
+  add:
+    - SPG_Ds
+    - SPG_D0
+    - SPG_Baryon
+  subtract:
+  lineColor: "14004"
+  legendLabel: "Charm SPG"
+  shortName: SPG_DPlus_CharmMisMatched

@@ -1,7 +1,7 @@
 Dmeson_m:
   label: 'D^{#pm} m'
   unit: 'GeV'
-  rebin: 1
+  rebin: 2
   x_range: [1.7, 2.2]
   ratio_range: [0.5, 1.49]
 
@@ -134,7 +134,7 @@ Dmeson_pt9:
 
 Dmeson_eta:
   label: 'D^{#pm} #eta'
-  rebin: 2
+  rebin: 5
   ratio_range: [0.5, 1.49]
 
 Dmeson_eta0:
@@ -195,7 +195,7 @@ Dmeson_phi:
 Dmeson_Lxy:
   label: 'D^{#pm} L_{xy}'
   unit: 'mm'
-  rebin: 1
+  rebin: 5
   x_range: [0.0, 30]
   ratio_range: [0.5, 1.49]
 
@@ -421,7 +421,8 @@ lep_eta:
 Dmeson_d0:
   label: 'D^{#pm} d_{0}'
   unit: '#mum'
-  rebin: 2
+  rebin: 1
+  x_range: [-200, 200]
   ratio_range: [0.5, 1.49]
 
 Dmeson_dRlep:
