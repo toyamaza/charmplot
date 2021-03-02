@@ -7,6 +7,7 @@ from charmplot.control import tools
 import logging
 import math
 import os
+import re
 import ROOT
 import sys
 
@@ -138,8 +139,10 @@ def main(options, conf):
             h_sum = None
             for channel in plot['+']:
                 if 'MockMC' in sample.shortName:
-                    # btag = re.findall("([012]tag)", channel.name)[0]
                     h_temp = files[channel].Get(f"h_SymmBkg_postFit")
+                    if not h_temp:
+                        btag = re.findall("([012]tag)", channel.name)[0]
+                        h_temp = files[channel].Get(f"h_SymmBkg_{btag}_postFit")
                 else:
                     if "SS" in channel.name:
                         h_temp = files[channel].Get(f"h_{sample.shortName}_SS_postFit")
@@ -160,8 +163,10 @@ def main(options, conf):
                         h_sum.Add(h_temp)
             for channel in plot['-']:
                 if 'MockMC' in sample.shortName:
-                    # btag = re.findall("([012]tag)", channel.name)[0]
                     h_temp = files[channel].Get(f"h_SymmBkg_postFit")
+                    if not h_temp:
+                        btag = re.findall("([012]tag)", channel.name)[0]
+                        h_temp = files[channel].Get(f"h_SymmBkg_{btag}_postFit")
                 else:
                     h_temp = files[channel].Get(f"h_{sample.shortName}_SS_postFit")
                     if "MatrixMethod" in sample.shortName:
