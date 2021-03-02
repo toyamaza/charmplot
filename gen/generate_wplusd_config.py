@@ -15,27 +15,25 @@ def main(options):
         make_os_ss = True
         make_os_minus_ss = not options.fit_only
         os_only = options.fit_only
-        force_positive = options.samples.lower() == 'fit'
+        force_positive = options.fit_only
 
         # sample type
         if options.samples.lower() == 'truth':
-            samples = templates.WDTruthSamples(os_minus_ss_fit_configuration=options.fit_only).get()
+            samples = templates.WDTruthSamplesNew(os_minus_ss_fit_configuration=options.fit_only)
             if options.replacement_samples:
-                samples_loose = templates.WDTruthSamples(loose_sr=True, os_minus_ss_fit_configuration=options.fit_only).get()
+                samples_spg = templates.SPGSamples()
         elif options.samples.lower() == 'flavor' or options.samples.lower() == 'flavour':
-            samples = templates.WDFlavourSamples().get()
+            samples = templates.WDFlavourSamples()
         elif options.samples.lower() == 'fit':
-            samples = templates.WDFitSamples().get()
-            if options.replacement_samples:
-                samples_loose = templates.WDFitSamples(loose_sr=True).get()
+            samples = templates.WDFitSamples()
         elif options.samples.lower() == 'truth_comparison':
-            samples = templates.WDTruthComparisonSamples().get()
+            samples = templates.WDTruthComparisonSamples()
         elif options.samples.lower() == 'wplusd_comparison':
-            samples = templates.WDComparisonSamples().get()
+            samples = templates.WDComparisonSamples()
         elif options.samples.lower() == 'flavor_comparison':
-            samples = templates.WDFlavourComparison().get()
+            samples = templates.WDFlavourComparison()
         elif options.samples.lower() == 'background_comparison':
-            samples = templates.WDBackgroundComparison().get()
+            samples = templates.WDBackgroundComparison()
         else:
             print(f"ERROR: Unknown samples type {options.samples}")
             sys.exit(1)
@@ -44,17 +42,18 @@ def main(options):
         signs = ['OS', 'SS']
         lumi = ['2015', '2016A-B', '2016C-L', '2017', '2018']
         # years = ['2015', '2016A-B', '2016C-L', '2017', '2018'] ## to be used with 'split_by_period'
-        years = [] ## to be used without 'split_by_period' option in charmpp
+        years = []  # to be used without 'split_by_period' option in charmpp
         leptons = ['el', 'mu']
-        charges = ['plus', 'minus']
+        charges = ['minus', 'plus']
+        # charges = ['']
         btags = ['0tag', ['1tag', '2tag']]
 
         # replace samples to increase mc stats
         if options.replacement_samples:
             replacement_samples = {
-                'Wjets_emu_411MisMatched': 'OS_0tag_Dplus',
-                'Wjets_emu_Charm': 'OS_0tag_Dplus',
-                'Wjets_emu_Rest': 'OS_0tag_Dplus',
+                'Wjets_emu_Matched': 'OS-SS_SPG_Matched',
+                'Wjets_emu_411MisMatched': 'OS-SS_SPG_411MisMatched',
+                'Wjets_emu_Charm': 'OS-SS_SPG_CharmMisMatched',
             }
         else:
             replacement_samples = {}
@@ -92,20 +91,31 @@ def main(options):
                                                       force_positive=force_positive,
                                                       replacement_samples=replacement_samples)
 
+        # Helper object to generate channels
+        if options.replacement_samples:
+            channelGeneratorSPG = templates.ChannelGenerator(config=config,
+                                                            samples=samples_spg,
+                                                            make_plots=False,
+                                                            decay_mode="SPG",
+                                                            process_string="SPG",
+                                                            signs=["OS", "SS"],
+                                                            years=years,
+                                                            leptons=leptons,
+                                                            charges=["minus"],
+                                                            btags="")
+
+        # SPG samples
+        if options.replacement_samples:
+            channelGeneratorSPG.make_channel(lumi, extra_rebin=extra_rebin)
+
         # OS/SS plots
         if make_os_ss:
             for sign in signs:
                 if not options.fit_only:
                     channelGenerator.make_channel(lumi, sign=sign, extra_rebin=extra_rebin, os_only=os_only)
                 for btag in btags:
-                    if options.replacement_samples and sign == 'OS' and btag == '0tag':
-                        channelGenerator.samples = samples_loose
-                        channelGenerator.make_channel(lumi, sign=sign, btag=btag,
-                                                      extra_rebin=extra_rebin * (2 if btag != '0tag' else 1), os_only=os_only)
-                        channelGenerator.samples = samples
-                    elif options.samples.lower() != 'fit':
-                        channelGenerator.make_channel(lumi, sign=sign, btag=btag,
-                                                      extra_rebin=extra_rebin * (2 if btag != '0tag' else 1), os_only=os_only)
+                    channelGenerator.make_channel(lumi, sign=sign, btag=btag,
+                                                    extra_rebin=extra_rebin * (2 if btag != '0tag' else 1), os_only=os_only)
                 for lepton in leptons:
                     if not options.fit_only:
                         channelGenerator.make_channel(lumi, sign=sign, lepton=lepton, extra_rebin=extra_rebin,
@@ -138,6 +148,10 @@ def main(options):
                         for charge in charges:
                             channelGenerator.make_channel(lumi, btag=btag, lepton=lepton, charge=charge,
                                                           extra_rebin=extra_rebin * (2 if btag != '0tag' else 1), os_only=os_only)
+
+        # add channels
+        if options.replacement_samples:
+            channelGenerator.get_config()['channels'].update(channelGeneratorSPG.get_config()['channels'])
 
         with open(f'{options.analysis_config}_{sample_config}.yaml', 'w') as outfile:
             yaml.dump(channelGenerator.get_config(), outfile, default_flow_style=False)

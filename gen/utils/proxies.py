@@ -106,7 +106,10 @@ class GenericChannel(ProxyChannel):
     def get_regions(self, regions):
         if self.regions_override:
             return self.format(self.regions_override)
-        return self.format([f"{reg}_{self.region}" for reg in regions])
+        if type(self.region) == str:
+            return self.format([f"{reg}_{self.region}" for reg in regions])
+        else:
+            return self.format([f"{reg1}_{reg2}" for reg1 in regions for reg2 in self.region])
 
 
 class MisMatched(ProxyChannel):
@@ -169,12 +172,12 @@ class MatchedCharm(ProxyChannel):
             self.name += "_Loose"
 
     def get_regions(self, regions):
-        return self.format([reg + "_MisMatched" for reg in regions] +
-                           [reg + "_MatchedNoFid" for reg in regions] +
-                           [reg + "_431MisMatched" for reg in regions] +
+        return self.format([reg + "_431MisMatched" for reg in regions] +
                            [reg + "_413MisMatched" for reg in regions] +
                            [reg + "_421MisMatched" for reg in regions] +
                            [reg + "_BaryonMisMatched" for reg in regions])
+# [reg + "_MisMatched" for reg in regions] +
+#                            [reg + "_MatchedNoFid" for reg in regions] +
 
 
 class MatchedDplus(ProxyChannel):
