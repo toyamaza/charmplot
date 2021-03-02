@@ -114,10 +114,27 @@ def main(options, conf, reader):
                 mc_map[s].Draw("hist same")
 
             # make legend
-            canv.make_legend(mc_map, samples, print_yields=False)
+            canv.make_legend(mc_map, samples, print_yields=True)
 
             # set maximum after creating legend
             canv.set_maximum([mc_map[s] for s in samples], var, mc_map[samples[0]])
+
+            # find minimum
+            if options.nology:
+                min_negative = {}
+                for s in samples:
+                    if s not in mc_map:
+                        continue
+                    h = mc_map[s]
+                    for i in range(1, h.GetNbinsX() + 1):
+                        if h.GetBinContent(i) < 0:
+                            if i not in min_negative:
+                                min_negative[i] = 0
+                            min_negative[i] += h.GetBinContent(i)
+                if min_negative.values():
+                    min_negative = min(min_negative.values())
+                    canv.proxy_up.SetMinimum(min_negative)
+                    canv.proxy_up.SetMaximum(max(abs(min_negative), canv.proxy_up.GetMaximum()))
 
             # bottom pad
             canv.pad2.cd()
@@ -167,7 +184,7 @@ def main(options, conf, reader):
             #     h.Draw("hist same")
 
             # Print out
-            canv.print_all(conf.out_name, c.name, v, multipage_pdf=True, first_plot=first_plot, last_plot=last_plot, as_png=options.stage_out)
+            canv.print_all(conf.out_name, c.name, v, multipage_pdf=True, first_plot=first_plot, last_plot=last_plot, as_png=options.stage_out, logy=(not options.nology))
             first_plot = False
 
         # close output file
@@ -207,6 +224,9 @@ if __name__ == "__main__":
     parser.add_option('--stage-out',
                       action="store_true", dest="stage_out",
                       help="copy plots to the www folder")
+    parser.add_option('--nology',
+                      action="store_true", dest="nology",
+                      help="no log-y plots")
 
     # parse input arguments
     options, args = parser.parse_args()

@@ -130,7 +130,7 @@ class Canvas2(CanvasBase):
 
     def __init__(self, c: channel.Channel, v: variable.Variable, x: float, y: float,
                  y_split: float = 0.35, fit: likelihoodFit.LikelihoodFit = None,
-                 scale_factors: dict = None, suffix: str = "", sys: str = ""):
+                 suffix: str = "", sys: str = ""):
         super(Canvas2, self).__init__(c, v, x, y, suffix, sys)
 
         # upper/lower canvas split
@@ -140,7 +140,6 @@ class Canvas2(CanvasBase):
 
         # fit results
         self.fit = fit
-        self.scale_factors = scale_factors
 
         # upper pad
         self.pad1 = ROOT.TPad(self.name + "_1", "", 0., self.y_split, 1., 1.)
@@ -212,11 +211,6 @@ class Canvas2(CanvasBase):
                 if 'Multijet' in s or s in self.fit.fixed:
                     continue
                 self.text(f"#mu({s}) = {r[0]:.3f}")
-        elif self.scale_factors and self.channel.print_scale_factors:
-            for sf in self.scale_factors:
-                if "QCD" in sf:
-                    continue
-                self.text(f"{sf} = {self.scale_factors[sf][0]:.3f}")
 
     def print_all(self, output, channel, var, multipage_pdf=False, first_plot=False, last_plot=False, as_png=False, logy=True):
         self.pad1.cd()
@@ -494,7 +488,7 @@ class CanvasMCRatio(Canvas2):
                 h.SetLineColor(s.lineColor)
                 h.SetLineWidth(2)
             if not normalize:
-                h.Scale(1. / h.GetSum())
+                h.Scale((h.GetSum() / abs(h.GetSum())) / h.GetSum())
 
     def set_atlas_label(self):
         # ATLAS label

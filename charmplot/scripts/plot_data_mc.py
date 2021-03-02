@@ -264,11 +264,8 @@ def process_channel(options, conf, c):
         if not c.make_plots or not var.make_plots:
             continue
 
-        # scale factors for this channel (only for dispaly)
-        scale_factors = utils.read_scale_factors(c.scale_factors)
-
         # canvas
-        canv = utils.make_canvas(h_data, var, c, x=800, y=800, fit=fit, scale_factors=scale_factors)
+        canv = utils.make_canvas(h_data, var, c, x=800, y=800, fit=fit)
 
         # configure histograms
         canv.configure_histograms(mc_map, h_data, style = conf.style)

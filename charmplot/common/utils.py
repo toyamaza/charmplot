@@ -273,10 +273,13 @@ def get_variables(options, conf, reader, channel, sample=None):
         test_sample = sample
     else:
         test_sample = conf.data
-    for v in reader.find_variables(test_sample, channel):
-        if picked_variables and v not in picked_variables:
-            continue
-        variables += [v]
+    if channel.make_plots:
+        for v in reader.find_variables(test_sample, channel):
+            if picked_variables and v not in picked_variables:
+                continue
+            variables += [v]
+    else:
+        variables = picked_variables
 
     out = []
     for v in variables_conf:
@@ -349,10 +352,10 @@ def set_under_over_flow(h: ROOT.TH1, x_range: list, do_overflow: bool, do_underf
         h.SetBinContent(i, 0)
         h.SetBinError(i, 0)
 
-    if(do_underflow):
+    if do_underflow:
         h.SetBinContent(x_range_bins[0], val0 + val1)
         h.SetBinError(x_range_bins[0], (err0.value**2 + err1.value**2)**(0.5))
-    if(do_overflow):
+    if do_overflow:
         h.SetBinContent(x_range_bins[1], valN + valN1)
         h.SetBinError(x_range_bins[1], (errN.value**2 + errN1.value**2)**(0.5))
 
@@ -378,13 +381,13 @@ def rebin_histogram(h: ROOT.TH1, v: variable.Variable, extra_rebin: int = 1):
             return h
     elif rebin and v.allow_rebin and v.dstar_tail_rebin and v.name == "Dmeson_mdiff":
         if extra_rebin < 1.5:
-            x_var_list = [135.,140.,141.,142.,143.,144.,145.,146.,147.,148.,149.,150.,153.,156.,159.,162.,165.,168.,171.,174.,177., 180.]
-            x_var = array.array ( 'd' , x_var_list)
+            x_var_list = [135., 140., 141., 142., 143., 144., 145., 146., 147., 148., 149., 150., 153., 156., 159., 162., 165., 168., 171., 174., 177., 180.]
+            x_var = array.array('d', x_var_list)
             h_out = h.Rebin(len(x_var_list) - 1, "h_out", x_var)
             return h_out
         elif extra_rebin > 1.5:
-            x_var_list = [140.,142.,144.,146.,148.,150.,156.,162.,168.,174.,180.]
-            x_var = array.array ( 'd' , x_var_list)
+            x_var_list = [140., 142., 144., 146., 148., 150., 156., 162., 168., 174., 180.]
+            x_var = array.array('d', x_var_list)
             h_out = h.Rebin(len(x_var_list) - 1, "h_out", x_var)
             return h_out
     else:
@@ -773,23 +776,6 @@ def likelihood_fit(conf: globalConfig.GlobalConfig, reader: inputDataReader.Inpu
         return None
 
 
-def read_scale_factors(scale_factor_confing: dict):
-    if not scale_factor_confing or 'input_file' not in scale_factor_confing:
-        return None
-    files = scale_factor_confing['input_file']
-    if type(files) != list:
-        files = [files]
-    data = {}
-    for path in files:
-        if not os.path.isfile(path):
-            logger.warning(f"scale factor file not found: {path}")
-            sys.exit(1)
-        with open(path, 'r') as json_file:
-            logger.debug(f"scale factor file successfully opened: {path}")
-            data.update(json.load(json_file))
-    return data
-
-
 def scale_multijet_histogram(data: ROOT.TH1, mc_map: MC_Map, fit_range: list):
     bin1 = data.FindBin(fit_range[0])
     bin2 = data.FindBin(fit_range[1])
@@ -820,18 +806,24 @@ def average_content(h, i):
 def replace_sample(conf: globalConfig.GlobalConfig, mc_map: MC_Map, reader: inputDataReader.InputDataReader,
                    c: channel.Channel, var: variable.Variable, sample: str, channel: str, mc_map_sys: Dict[str, MC_Map] = None):
     channel_replacement = conf.get_channel(channel)
-    sample_replacement = [conf.get_sample(s) for s in channel_replacement.samples if conf.get_sample(s).shortName == sample]
+    assert len(channel_replacement.samples) == 1
+    sample_replacement = conf.get_sample(channel_replacement.samples[0])
     sample_current = [conf.get_sample(s) for s in c.samples if conf.get_sample(s).shortName == sample]
-    assert len(sample_replacement) == 1 and len(sample_current) == 1
-    h_replacement = reader.get_histogram(sample_replacement[0], channel_replacement, var, channel_replacement.force_positive)
-    h_current = mc_map[sample_current[0]]
+    print(sample_current)
+    assert len(sample_current) == 1
+    sample_current = sample_current[0]
+    h_replacement = reader.get_histogram(sample_replacement, channel_replacement, var, channel_replacement.force_positive)
+    h_current = mc_map[sample_current]
     h_current = h_current.Clone(f"{h_current.GetName()}_temp_clone")
     h_replacement.Scale(h_current.Integral(0, h_current.GetNbinsX() + 1) / h_replacement.Integral(0, h_replacement.GetNbinsX() + 1))
-    mc_map[sample_current[0]] = h_replacement
+    if h_replacement.GetNbinsX() > h_current.GetNbinsX():
+        logging.warning(f"Replacement sample has more bins. Rebinning {h_replacement.GetNbinsX()} -> {h_current.GetNbinsX()}")
+        h_replacement.Rebin(int(h_replacement.GetNbinsX() / h_current.GetNbinsX()))
+    mc_map[sample_current] = h_replacement
     if mc_map_sys:
         for group, systematics in mc_map_sys.items():
             for _, map_sys in systematics.items():
-                h_sys_replaced = map_sys[sample_current[0]].Clone(f"{map_sys[sample_current[0]].GetName()}_replaced")
+                h_sys_replaced = map_sys[sample_current].Clone(f"{map_sys[sample_current].GetName()}_replaced")
                 h_sys_replaced.Add(h_current, -1)
                 h_sys_replaced.Divide(h_current)
                 # fix for very large sys errors due to forcing negative bin contents to zero
@@ -840,7 +832,7 @@ def replace_sample(conf: globalConfig.GlobalConfig, mc_map: MC_Map, reader: inpu
                         h_sys_replaced.SetBinContent(i, average_content(h_sys_replaced, i))
                 h_sys_replaced.Multiply(h_replacement)
                 h_sys_replaced.Add(h_replacement)
-                map_sys[sample_current[0]] = h_sys_replaced
+                map_sys[sample_current] = h_sys_replaced
 
 
 def make_canvas(h: ROOT.TH1, v: variable.Variable, c: channel.Channel,

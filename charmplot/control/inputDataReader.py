@@ -41,28 +41,15 @@ class InputDataReader(object):
         logger.info(f"Got histogram {h_new}")
 
         # scale histogram
-        scale_factors = utils.read_scale_factors(self.channel_scale_factors)
-        self.scale_histogram(h_new, sample, c, scale_factors)
+        if self.channel_scale_factors and f.GetName().replace(".root", "") in self.channel_scale_factors:
+            key = f.GetName().replace(".root", "")
+            logging.info(f"Scaling histogram by {self.channel_scale_factors[key]}")
+            h_new.Scale(self.channel_scale_factors[key])
 
         # scaling from MC config
         if sample.scaleMC and 'data' not in f.GetName():
             h_new.Scale(sample.scaleMC)
         return h_new
-
-    def scale_histogram(self, h, sample, channel, scale_factors):
-        # scale histogram if given input scale factors
-        if scale_factors:
-            sf = [1., 0.]
-            logger.info(f"s.shortName: {sample.shortName} {channel}")
-            for s in self.channel_scale_factors['scale_factors']:
-                sample_channel = s.split(" | ")
-                if len(sample_channel) == 2 and sample_channel[1] not in channel:
-                    continue
-                if sample.shortName == sample_channel[0]:
-                    if self.channel_scale_factors['scale_factors'][s] in scale_factors.keys():
-                        sf = scale_factors[self.channel_scale_factors['scale_factors'][s]]
-            h.Scale(sf[0])
-            logger.info(f"Scaling histogram {sample.name} in {channel} by {sf[0]}")
 
     def eff_divide(self, h_num, h_den):
         quot = h_num.Clone()
