@@ -68,6 +68,9 @@ def main(options, conf, reader):
         # list of variables
         variables = utils.get_variables(options, conf, reader, c, samples[0])
 
+        # systematics
+        systematics = conf.get_systematics()
+
         # make channel folder if not exist
         if not os.path.isdir(os.path.join(conf.out_name, c.name)):
             os.makedirs(os.path.join(conf.out_name, c.name))
@@ -85,6 +88,29 @@ def main(options, conf, reader):
                 mc_map_extra = {s: reader.get_histogram(s, cextra, var, suffix=c.name) for s in sextra}
                 mc_map.update(mc_map_extra)
                 samples = sextra + samples
+
+            # mc map sys
+            mc_map_sys = utils.read_sys_histograms(conf, reader, c, var, samples, None, systematics, mc_map)
+
+            # systematics error bands
+            gr_mc_sys_err_map = {sample: [] for sample in mc_map}
+            gr_mc_sys_err_only_map = {sample: [] for sample in mc_map}
+            if systematics:
+                for sample, nominal in mc_map.items():
+                    for group in systematics:
+                        group_histos = []
+                        for syst in mc_map_sys[group]:
+                            group_histos += [mc_map_sys[group][syst][sample]]
+                        sys_type = systematics[group]['type']
+                        if sys_type in ['updown', 'alt_sample', 'overall']:
+                            gr_mc_sys_err, gr_mc_sys_err_only = utils.make_sys_err(nominal, group_histos)
+                        elif sys_type == 'minmax':
+                            gr_mc_sys_err, gr_mc_sys_err_only = utils.make_minmax_err(nominal, group_histos)
+                        else:
+                            print(sys_type, " ", len(group_histos))
+                            gr_mc_sys_err, gr_mc_sys_err_only = utils.make_pdf_err(nominal, group_histos, sys_type)
+                        gr_mc_sys_err_map[sample] += [gr_mc_sys_err]
+                        gr_mc_sys_err_only_map[sample] += [gr_mc_sys_err_only]
 
             # canvas
             yaxis_label = "Entries"
@@ -106,11 +132,14 @@ def main(options, conf, reader):
             for s in samples:
                 fcolor = mc_map[s].GetLineColor()
                 gr_mc_stat_err, _ = utils.make_stat_err(mc_map[s])
+                gr_mc_tot_err = utils.combine_error_multiple([gr_mc_stat_err] + gr_mc_sys_err_map[s])
+                gr_mc_tot_err.SetLineColor(fcolor)
+                gr_mc_tot_err.SetFillColorAlpha(fcolor, 0.25)
+                gr_mc_tot_err.SetFillStyle(1001)
                 gr_mc_stat_err.SetLineColor(fcolor)
-                gr_mc_stat_err.SetFillColorAlpha(fcolor, 0.25)
-                gr_mc_stat_err.SetFillStyle(1001)
-                errors += [gr_mc_stat_err]
-                gr_mc_stat_err.Draw("e2")
+                errors += [gr_mc_tot_err, gr_mc_stat_err]
+                gr_mc_tot_err.Draw("e2")
+                gr_mc_stat_err.Draw("e0")
                 mc_map[s].Draw("hist same")
 
             # make legend
@@ -154,12 +183,28 @@ def main(options, conf, reader):
                 h.Divide(denominator)
                 ratios += [h]
                 fcolor = mc_map[samples[i]].GetLineColor()
+                temp_err = []
+                for err in gr_mc_sys_err_map[samples[i]]:
+                    temp_err += [err.Clone(f"{err.GetName()}_temp")]
+                    for x in range(1, denominator.GetNbinsX() + 1):
+                        y = denominator.GetBinContent(x)
+                        if y != 0:
+                            temp_err[-1].GetY()[x] /= y
+                            temp_err[-1].GetEYhigh()[x] /= y
+                            temp_err[-1].GetEYlow()[x] /= y
+                        else:
+                            temp_err[-1].GetY()[x] = 0
+                            temp_err[-1].GetEYhigh()[x] = 0
+                            temp_err[-1].GetEYlow()[x] = 0
                 gr_mc_stat_err, _ = utils.make_stat_err(h)
+                gr_mc_tot_err = utils.combine_error_multiple([gr_mc_stat_err] + temp_err)
                 gr_mc_stat_err.SetLineColor(fcolor)
-                gr_mc_stat_err.SetFillColorAlpha(fcolor, 0.25)
-                gr_mc_stat_err.SetFillStyle(1001)
-                errors += [gr_mc_stat_err]
-                gr_mc_stat_err.Draw("e2")
+                gr_mc_tot_err.SetLineColor(fcolor)
+                gr_mc_tot_err.SetFillColorAlpha(fcolor, 0.25)
+                gr_mc_tot_err.SetFillStyle(1001)
+                errors += [gr_mc_tot_err, gr_mc_stat_err]
+                gr_mc_tot_err.Draw("e2")
+                gr_mc_stat_err.Draw("e0")
                 h.Draw("hist same")
                 if c.save_to_file:
                     out_file = ROOT.TFile(out_file_name, "UPDATE")

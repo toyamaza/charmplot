@@ -184,58 +184,7 @@ def process_channel(options, conf, c):
 
         # systematics histograms
         if systematics:
-            mc_map_sys = {}
-            for group in systematics:
-                variations = systematics[group].get('variations')
-                affecting = systematics[group].get('affecting')
-                sys_type = systematics[group].get('type')
-                if sys_type not in ['alt_sample', 'overall']:
-                    mc_map_sys[group] = {syst: utils.read_samples(conf, reader, c, var, samples, fit,
-                                                                  force_positive=c.force_positive, sys=syst,
-                                                                  affecting=affecting, fallback=mc_map) for syst in variations}
-                elif sys_type == 'alt_sample':
-                    # load files for alternative samples
-                    for syst in variations:
-                        sample = conf.construct_sample(syst)
-                        if not sample:
-                            logging.error(f"sample not found for variation {syst}!")
-                        conf.add_sample(sample)
-                        reader.read_input_file(sample)
-                    # start with nominal for all samples
-                    mc_map_sys[group] = {syst: utils.read_samples(conf, reader, c, var, samples, fit,
-                                                                  force_positive=c.force_positive, sys=syst,
-                                                                  affecting=[''], fallback=mc_map) for syst in variations}
-                    # replace affected with alternative samples
-                    for syst in variations:
-                        for s in affecting:
-                            sample = next((x for x in samples if x.shortName == s), None)
-                            if not sample:
-                                continue
-                            sample_sys = conf.get_sample(syst)
-                            sample_sys.channel = sample.channel
-                            h_sys = reader.get_histogram(sample_sys, c, var, c.force_positive)
-                            if h_sys:
-                                mc_map_sys[group][syst][sample] = h_sys
-                elif sys_type == 'overall':
-                    # start with nominal for all samples
-                    mc_map_sys[group] = {syst: utils.read_samples(conf, reader, c, var, samples, fit,
-                                                                  force_positive=c.force_positive, sys=syst,
-                                                                  affecting=[''], fallback=mc_map) for syst in variations}
-                    for syst in variations:
-                        for s in affecting:
-                            sample = next((x for x in samples if x.shortName == s), None)
-                            if not sample:
-                                continue
-                            h_nominal = mc_map[sample]
-                            if not h_nominal:
-                                continue
-                            h_sys = h_nominal.Clone(f"{h_nominal.GetName()}_{syst}")
-                            size = systematics[group].get('size')
-                            if "1up" in syst:
-                                h_sys.Scale(1 + size)
-                            elif "1dn" in syst:
-                                h_sys.Scale(1 - size)
-                            mc_map_sys[group][syst][sample] = h_sys
+            mc_map_sys = utils.read_sys_histograms(conf, reader, c, var, samples, fit, systematics, mc_map)
 
         # trex post-fit
         trex_mc_tot = None
