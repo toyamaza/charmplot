@@ -25,6 +25,10 @@ formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(messag
 handler.setFormatter(formatter)
 root.addHandler(handler)
 
+# samples
+SAMPLES = ["LOMG", "MGFxFx", "Sherpa2210"]
+COLORS = ["ROOT.kBlue", "ROOT.kRed", "ROOT.kGreen+2"]
+
 # channel name
 channel_names = {
     "mu_minus_Dplus": "W(#mu^{-}#nu)+D^{+}",
@@ -33,11 +37,22 @@ channel_names = {
     "mu_plus_Dstar": "W(#mu^{+}#nu)+D*^{-}",
     "mu_minus_Ds": "W(#mu^{-}#nu)+Ds^{+}",
     "mu_plus_Ds": "W(#mu^{+}#nu)+Ds^{-}",
+    "mu_minus_LambdaC": "W(#mu^{-}#nu)+#Lambda_{C}^{+}",
+    "mu_plus_LambdaC": "W(#mu^{+}#nu)+#Lambda_{C}^{-}",
+    "mu_minus_OmegaC": "W(#mu^{-}#nu)+#Omega_{C}^{+}",
+    "mu_plus_OmegaC": "W(#mu^{+}#nu)+#Omega_{C}^{-}",
+    "mu_minus_XiCplus": "W(#mu^{-}#nu)+#Xi_{C}^{+}",
+    "mu_plus_XiCplus": "W(#mu^{+}#nu)+#Xi_{C}^{-}",
+    "mu_minus_XiCzero": "W(#mu^{-}#nu)+#Xi_{C}0",
+    "mu_plus_XiCzero": "W(#mu^{+}#nu)+#Xi_{C}0",
+
+    "mu_minus_mesons": "W(#mu^{-}#nu)+c-meson^{+}",
+    "mu_plus_mesons": "W(#mu^{+}#nu)+c-meson^{-}",
 }
 
 # proxy samples
 samples_dict = {}
-for sampl, color in zip(["LOMG", "MGFxFx", "Sherpa2210"], ["ROOT.kBlue", "ROOT.kRed", "ROOT.kGreen+2"]):
+for sampl, color in zip(SAMPLES, COLORS):
     for channl in channel_names:
         for pass_w in [True, False]:
             name = f"{channl}_{sampl}"
@@ -91,14 +106,14 @@ variables = {
     # }),
 }
 
-def add_histograms(histograms, c, var, pass_w = True):
+def add_histograms(histograms, c, var, pass_w = True, normalize = True):
     if pass_w:
         file_name = os.path.join(options.input, f"{c}_{var.name}_pass_w.dat")
     else:
         file_name = os.path.join(options.input, f"{c}_{var.name}.dat")
     f = open(file_name, "r")
     logging.info(f"Succesfully opened file {file_name} as {f}")
-    histograms.update(process_file(f, c, var, pass_w))
+    histograms.update(process_file(f, c, var, pass_w, normalize))
     f.close()
 
 
@@ -123,7 +138,7 @@ def create_histogram(variation, x_low, x_high, y, y_up, y_dn, name):
     return h
 
 
-def process_file(f, c, var, pass_w):
+def process_file(f, c, var, pass_w, normalize):
     histograms = {}
     at_histogram = False
     save_histo = False
@@ -144,7 +159,7 @@ def process_file(f, c, var, pass_w):
         elif "END HISTO1D" in line:
             if at_histogram:
                 if not ("[" in variation and "]" in variation):
-                    h = create_histogram(variation, x_low, x_high, y, y_up, y_dn, f"{c}_{var.name}")
+                    h = create_histogram(variation, x_low, x_high, y, y_up, y_dn, f"{c}_{var.name}{'_pass_w' if pass_w else ''}{'_normalized' if normalize else ''}")
                     utils.rebin_histogram(h, var)
                     histograms[f"{c}_{variation}{'_pass_w' if pass_w else ''}"] = h
             at_histogram = False
@@ -196,9 +211,9 @@ def main(options):
                         subchannels = c.split(":")[1].split(",")
                         files = {}
                         for subchannel in subchannels:
-                            add_histograms(histograms, subchannel, var, pass_w)
+                            add_histograms(histograms, subchannel, var, pass_w, normalize)
                     else:
-                        add_histograms(histograms, c, var, pass_w)
+                        add_histograms(histograms, c, var, pass_w, normalize)
 
                     # normalize to unity if requested
                     if normalize:
@@ -210,10 +225,23 @@ def main(options):
                     chan = channel.Channel(channel_name, [channel_names[channel_name]], "", [], [])
 
                     # samples
-                    samples = [samples_dict[x] for x in histograms.keys() if x in samples_dict]
+                    if ":" not in c:
+                        samples = [samples_dict[x] for x in histograms.keys() if x in samples_dict]
+                        mc_map = {samples_dict[x]: histograms[x] for x in histograms if x in samples_dict}
+                    else:
+                        samples = []
+                        mc_map = {}
 
-                    # mc map
-                    mc_map = {samples_dict[x]: histograms[x] for x in histograms if x in samples_dict}
+                        for sampl in SAMPLES:
+                            h_sum = None
+                            for h in [x for x in histograms if sampl in x]:
+                                if not h_sum:
+                                    h_sum = histograms[h].Clone(f"{histograms[h].GetName()}_{channel_name}")
+                                else:
+                                    h_sum.Add(histograms[h])
+                            s = samples_dict[f"{channel_name}_{sampl}{'_pass_w' if pass_w else ''}"]
+                            samples += [s]
+                            mc_map[s] = h_sum
 
                     # canvas
                     yaxis_label = f"d#sigma / d{var.label} [pb]"
@@ -266,7 +294,7 @@ def main(options):
                         h.Draw("hist same")
                     
                     # ratio range
-                    if normalize:
+                    if normalize and ("Xi" not in c) and ("Lambda" not in c) and ("Omega" not in c):
                         canv.proxy_dn.SetMaximum(1.19)
                         canv.proxy_dn.SetMinimum(0.81)
 
@@ -292,7 +320,8 @@ if __name__ == "__main__":
                       default="rivet_plots")
     parser.add_option('-c', '--channels',
                       action="store", dest="channels",
-                      default="mu_minus_Dplus;mu_plus_Dplus;mu_minus_Dstar;mu_plus_Dstar;mu_minus_Ds;mu_plus_Ds",
+                      default="mu_minus_mesons:mu_minus_Dplus,mu_minus_Dstar,mu_minus_Ds",
+                    #   default="mu_minus_Dplus;mu_plus_Dplus;mu_minus_Dstar;mu_plus_Dstar;mu_minus_Ds;mu_plus_Ds;mu_minus_LambdaC;mu_plus_LambdaC;mu_minus_OmegaC;mu_plus_OmegaC;mu_minus_XiCplus;mu_plus_XiCplus;mu_minus_XiCzero;mu_plus_XiCzero;mu_minus_mesons:mu_minus_Dplus,mu_minus_Dstar,mu_minus_Ds",
                       help="run over a subset of channels")
     parser.add_option('-v', '--vars',
                       action="store", dest="vars",
