@@ -1,0 +1,542 @@
+colorScheme: gemstone_hues
+
+variablesConf: charmed_wjets
+
+samplesConf: madgraph
+
+data: Data
+
+channels:
+  Tight_el_SR_0tag_Dplus:
+    regions:
+      - Tight_el_SR_0tag_Dplus_OS
+      - Tight_el_SR_0tag_Dplus_SS
+    samples:
+      - Multijet
+      - Wjets_light_emu
+      - Wjets_bjets_emu
+      - Wjets_cjets_emu
+      - Wjets_tau
+      - Zjets_emu
+      - Zjets_tau
+      - Top
+      - Diboson
+    label:
+      - "el OS+SS Tight 0-tag"
+      - "mT > 60, MET > 30"
+      - "MadGraph"
+    lumi: "2015+2016+2017+2018"
+    qcd_template: Multijet
+    save_to_file: True
+
+  Tight_el_SR_1tag_Dplus:
+    regions:
+      - Tight_el_SR_1tag_Dplus_OS
+      - Tight_el_SR_2tag_Dplus_OS
+      - Tight_el_SR_1tag_Dplus_SS
+      - Tight_el_SR_2tag_Dplus_SS
+    samples:
+      - Multijet
+      - Wjets_light_emu
+      - Wjets_bjets_emu
+      - Wjets_cjets_emu
+      - Wjets_tau
+      - Zjets_emu
+      - Zjets_tau
+      - Top
+      - Diboson
+    label:
+      - "el OS+SS Tight 1-tag"
+      - "mT > 60, MET > 30"
+      - "MadGraph"
+    lumi: "2015+2016+2017+2018"
+    qcd_template: Multijet
+    save_to_file: True
+
+  Tight_mu_SR_0tag_Dplus:
+    regions:
+      - Tight_mu_SR_0tag_Dplus_OS
+      - Tight_mu_SR_0tag_Dplus_SS
+    samples:
+      - Multijet
+      - Wjets_light_emu
+      - Wjets_bjets_emu
+      - Wjets_cjets_emu
+      - Wjets_tau
+      - Zjets_emu
+      - Zjets_tau
+      - Top
+      - Diboson
+    label:
+      - "mu OS+SS Tight 0-tag"
+      - "mT > 60, MET > 30"
+      - "MadGraph"
+    lumi: "2015+2016+2017+2018"
+    qcd_template: Multijet
+    save_to_file: True
+
+  Tight_mu_SR_1tag_Dplus:
+    regions:
+      - Tight_mu_SR_1tag_Dplus_OS
+      - Tight_mu_SR_2tag_Dplus_OS
+      - Tight_mu_SR_1tag_Dplus_SS
+      - Tight_mu_SR_2tag_Dplus_SS
+    samples:
+      - Multijet
+      - Wjets_light_emu
+      - Wjets_bjets_emu
+      - Wjets_cjets_emu
+      - Wjets_tau
+      - Zjets_emu
+      - Zjets_tau
+      - Top
+      - Diboson
+    label:
+      - "mu OS+SS Tight 1-tag"
+      - "mT > 60, MET > 30"
+      - "MadGraph"
+    lumi: "2015+2016+2017+2018"
+    qcd_template: Multijet
+    save_to_file: True
+
+  AntiTight_el_SR_0tag_Dplus:
+    regions:
+      - AntiTight_el_SR_0tag_Dplus_OS
+      - AntiTight_el_SR_0tag_Dplus_SS
+    samples:
+      - Multijet
+      - Wjets_light_emu
+      - Wjets_bjets_emu
+      - Wjets_cjets_emu
+      - Wjets_tau
+      - Zjets_emu
+      - Zjets_tau
+      - Top
+      - Diboson
+    label:
+      - "el OS+SS AntiTight 0-tag"
+      - "mT > 60, MET > 30"
+      - "MadGraph"
+    lumi: "2015+2016+2017+2018"
+    qcd_template: Multijet
+    save_to_file: True
+
+  AntiTight_el_SR_1tag_Dplus:
+    regions:
+      - AntiTight_el_SR_1tag_Dplus_OS
+      - AntiTight_el_SR_2tag_Dplus_OS
+      - AntiTight_el_SR_1tag_Dplus_SS
+      - AntiTight_el_SR_2tag_Dplus_SS
+    samples:
+      - Multijet
+      - Wjets_light_emu
+      - Wjets_bjets_emu
+      - Wjets_cjets_emu
+      - Wjets_tau
+      - Zjets_emu
+      - Zjets_tau
+      - Top
+      - Diboson
+    label:
+      - "el OS+SS AntiTight 1-tag"
+      - "mT > 60, MET > 30"
+      - "MadGraph"
+    lumi: "2015+2016+2017+2018"
+    qcd_template: Multijet
+    save_to_file: True
+
+  AntiTight_mu_SR_0tag_Dplus:
+    regions:
+      - AntiTight_mu_SR_0tag_Dplus_OS
+      - AntiTight_mu_SR_0tag_Dplus_SS
+    samples:
+      - Multijet
+      - Wjets_light_emu
+      - Wjets_bjets_emu
+      - Wjets_cjets_emu
+      - Wjets_tau
+      - Zjets_emu
+      - Zjets_tau
+      - Top
+      - Diboson
+    label:
+      - "mu OS+SS AntiTight 0-tag"
+      - "mT > 60, MET > 30"
+      - "MadGraph"
+    lumi: "2015+2016+2017+2018"
+    qcd_template: Multijet
+    save_to_file: True
+
+  AntiTight_mu_SR_1tag_Dplus:
+    regions:
+      - AntiTight_mu_SR_1tag_Dplus_OS
+      - AntiTight_mu_SR_2tag_Dplus_OS
+      - AntiTight_mu_SR_1tag_Dplus_SS
+      - AntiTight_mu_SR_2tag_Dplus_SS
+    samples:
+      - Multijet
+      - Wjets_light_emu
+      - Wjets_bjets_emu
+      - Wjets_cjets_emu
+      - Wjets_tau
+      - Zjets_emu
+      - Zjets_tau
+      - Top
+      - Diboson
+    label:
+      - "mu OS+SS AntiTight 1-tag"
+      - "mT > 60, MET > 30"
+      - "MadGraph"
+    lumi: "2015+2016+2017+2018"
+    qcd_template: Multijet
+    save_to_file: True
+
+
+
+
+  Tight_el_SR_0tag_Dplus_OS:
+    regions:
+      - Tight_el_SR_0tag_Dplus_OS
+    samples:
+      - Multijet
+      - Wjets_light_emu
+      - Wjets_bjets_emu
+      - Wjets_cjets_emu
+      - Wjets_tau
+      - Zjets_emu
+      - Zjets_tau
+      - Top
+      - Diboson
+    label:
+      - "el OS Tight 0-tag"
+      - "mT > 60, MET > 30"
+      - "MadGraph"
+    lumi: "2015+2016+2017+2018"
+    qcd_template: Multijet
+    save_to_file: True
+
+  Tight_el_SR_1tag_Dplus_OS:
+    regions:
+      - Tight_el_SR_1tag_Dplus_OS
+      - Tight_el_SR_2tag_Dplus_OS
+    samples:
+      - Multijet
+      - Wjets_light_emu
+      - Wjets_bjets_emu
+      - Wjets_cjets_emu
+      - Wjets_tau
+      - Zjets_emu
+      - Zjets_tau
+      - Top
+      - Diboson
+    label:
+      - "el OS Tight 1-tag"
+      - "mT > 60, MET > 30"
+      - "MadGraph"
+    lumi: "2015+2016+2017+2018"
+    qcd_template: Multijet
+    save_to_file: True
+
+  Tight_mu_SR_0tag_Dplus_OS:
+    regions:
+      - Tight_mu_SR_0tag_Dplus_OS
+    samples:
+      - Multijet
+      - Wjets_light_emu
+      - Wjets_bjets_emu
+      - Wjets_cjets_emu
+      - Wjets_tau
+      - Zjets_emu
+      - Zjets_tau
+      - Top
+      - Diboson
+    label:
+      - "mu OS Tight 0-tag"
+      - "mT > 60, MET > 30"
+      - "MadGraph"
+    lumi: "2015+2016+2017+2018"
+    qcd_template: Multijet
+    save_to_file: True
+
+  Tight_mu_SR_1tag_Dplus_OS:
+    regions:
+      - Tight_mu_SR_1tag_Dplus_OS
+      - Tight_mu_SR_2tag_Dplus_OS
+    samples:
+      - Multijet
+      - Wjets_light_emu
+      - Wjets_bjets_emu
+      - Wjets_cjets_emu
+      - Wjets_tau
+      - Zjets_emu
+      - Zjets_tau
+      - Top
+      - Diboson
+    label:
+      - "mu OS Tight 1-tag"
+      - "mT > 60, MET > 30"
+      - "MadGraph"
+    lumi: "2015+2016+2017+2018"
+    qcd_template: Multijet
+    save_to_file: True
+
+  AntiTight_el_SR_0tag_Dplus_OS:
+    regions:
+      - AntiTight_el_SR_0tag_Dplus_OS
+    samples:
+      - Multijet
+      - Wjets_light_emu
+      - Wjets_bjets_emu
+      - Wjets_cjets_emu
+      - Wjets_tau
+      - Zjets_emu
+      - Zjets_tau
+      - Top
+      - Diboson
+    label:
+      - "el OS AntiTight 0-tag"
+      - "mT > 60, MET > 30"
+      - "MadGraph"
+    lumi: "2015+2016+2017+2018"
+    qcd_template: Multijet
+    save_to_file: True
+
+  AntiTight_el_SR_1tag_Dplus_OS:
+    regions:
+      - AntiTight_el_SR_1tag_Dplus_OS
+      - AntiTight_el_SR_2tag_Dplus_OS
+    samples:
+      - Multijet
+      - Wjets_light_emu
+      - Wjets_bjets_emu
+      - Wjets_cjets_emu
+      - Wjets_tau
+      - Zjets_emu
+      - Zjets_tau
+      - Top
+      - Diboson
+    label:
+      - "el OS AntiTight 1-tag"
+      - "mT > 60, MET > 30"
+      - "MadGraph"
+    lumi: "2015+2016+2017+2018"
+    qcd_template: Multijet
+    save_to_file: True
+
+  AntiTight_mu_SR_0tag_Dplus_OS:
+    regions:
+      - AntiTight_mu_SR_0tag_Dplus_OS
+    samples:
+      - Multijet
+      - Wjets_light_emu
+      - Wjets_bjets_emu
+      - Wjets_cjets_emu
+      - Wjets_tau
+      - Zjets_emu
+      - Zjets_tau
+      - Top
+      - Diboson
+    label:
+      - "mu OS AntiTight 0-tag"
+      - "mT > 60, MET > 30"
+      - "MadGraph"
+    lumi: "2015+2016+2017+2018"
+    qcd_template: Multijet
+    save_to_file: True
+
+  AntiTight_mu_SR_1tag_Dplus_OS:
+    regions:
+      - AntiTight_mu_SR_1tag_Dplus_OS
+      - AntiTight_mu_SR_2tag_Dplus_OS
+    samples:
+      - Multijet
+      - Wjets_light_emu
+      - Wjets_bjets_emu
+      - Wjets_cjets_emu
+      - Wjets_tau
+      - Zjets_emu
+      - Zjets_tau
+      - Top
+      - Diboson
+    label:
+      - "mu OS AntiTight 1-tag"
+      - "mT > 60, MET > 30"
+      - "MadGraph"
+    lumi: "2015+2016+2017+2018"
+    qcd_template: Multijet
+    save_to_file: True
+
+
+
+  Tight_el_SR_0tag_Dplus_SS:
+    regions:
+      - Tight_el_SR_0tag_Dplus_SS
+    samples:
+      - Multijet
+      - Wjets_light_emu
+      - Wjets_bjets_emu
+      - Wjets_cjets_emu
+      - Wjets_tau
+      - Zjets_emu
+      - Zjets_tau
+      - Top
+      - Diboson
+    label:
+      - "el SS Tight 0-tag"
+      - "mT > 60, MET > 30"
+      - "MadGraph"
+    lumi: "2015+2016+2017+2018"
+    qcd_template: Multijet
+    save_to_file: True
+
+  Tight_el_SR_1tag_Dplus_SS:
+    regions:
+      - Tight_el_SR_1tag_Dplus_SS
+      - Tight_el_SR_2tag_Dplus_SS
+    samples:
+      - Multijet
+      - Wjets_light_emu
+      - Wjets_bjets_emu
+      - Wjets_cjets_emu
+      - Wjets_tau
+      - Zjets_emu
+      - Zjets_tau
+      - Top
+      - Diboson
+    label:
+      - "el SS Tight 1-tag"
+      - "mT > 60, MET > 30"
+      - "MadGraph"
+    lumi: "2015+2016+2017+2018"
+    qcd_template: Multijet
+    save_to_file: True
+
+  Tight_mu_SR_0tag_Dplus_SS:
+    regions:
+      - Tight_mu_SR_0tag_Dplus_SS
+    samples:
+      - Multijet
+      - Wjets_light_emu
+      - Wjets_bjets_emu
+      - Wjets_cjets_emu
+      - Wjets_tau
+      - Zjets_emu
+      - Zjets_tau
+      - Top
+      - Diboson
+    label:
+      - "mu SS Tight 0-tag"
+      - "mT > 60, MET > 30"
+      - "MadGraph"
+    lumi: "2015+2016+2017+2018"
+    qcd_template: Multijet
+    save_to_file: True
+
+  Tight_mu_SR_1tag_Dplus_SS:
+    regions:
+      - Tight_mu_SR_1tag_Dplus_SS
+      - Tight_mu_SR_2tag_Dplus_SS
+    samples:
+      - Multijet
+      - Wjets_light_emu
+      - Wjets_bjets_emu
+      - Wjets_cjets_emu
+      - Wjets_tau
+      - Zjets_emu
+      - Zjets_tau
+      - Top
+      - Diboson
+    label:
+      - "mu SS Tight 1-tag"
+      - "mT > 60, MET > 30"
+      - "MadGraph"
+    lumi: "2015+2016+2017+2018"
+    qcd_template: Multijet
+    save_to_file: True
+
+  AntiTight_el_SR_0tag_Dplus_SS:
+    regions:
+      - AntiTight_el_SR_0tag_Dplus_SS
+    samples:
+      - Multijet
+      - Wjets_light_emu
+      - Wjets_bjets_emu
+      - Wjets_cjets_emu
+      - Wjets_tau
+      - Zjets_emu
+      - Zjets_tau
+      - Top
+      - Diboson
+    label:
+      - "el SS AntiTight 0-tag"
+      - "mT > 60, MET > 30"
+      - "MadGraph"
+    lumi: "2015+2016+2017+2018"
+    qcd_template: Multijet
+    save_to_file: True
+
+  AntiTight_el_SR_1tag_Dplus_SS:
+    regions:
+      - AntiTight_el_SR_1tag_Dplus_SS
+      - AntiTight_el_SR_2tag_Dplus_SS
+    samples:
+      - Multijet
+      - Wjets_light_emu
+      - Wjets_bjets_emu
+      - Wjets_cjets_emu
+      - Wjets_tau
+      - Zjets_emu
+      - Zjets_tau
+      - Top
+      - Diboson
+    label:
+      - "el SS AntiTight 1-tag"
+      - "mT > 60, MET > 30"
+      - "MadGraph"
+    lumi: "2015+2016+2017+2018"
+    qcd_template: Multijet
+    save_to_file: True
+
+  AntiTight_mu_SR_0tag_Dplus_SS:
+    regions:
+      - AntiTight_mu_SR_0tag_Dplus_SS
+    samples:
+      - Multijet
+      - Wjets_light_emu
+      - Wjets_bjets_emu
+      - Wjets_cjets_emu
+      - Wjets_tau
+      - Zjets_emu
+      - Zjets_tau
+      - Top
+      - Diboson
+    label:
+      - "mu SS AntiTight 0-tag"
+      - "mT > 60, MET > 30"
+      - "MadGraph"
+    lumi: "2015+2016+2017+2018"
+    qcd_template: Multijet
+    save_to_file: True
+
+  AntiTight_mu_SR_1tag_Dplus_SS:
+    regions:
+      - AntiTight_mu_SR_1tag_Dplus_SS
+      - AntiTight_mu_SR_2tag_Dplus_SS
+    samples:
+      - Multijet
+      - Wjets_light_emu
+      - Wjets_bjets_emu
+      - Wjets_cjets_emu
+      - Wjets_tau
+      - Zjets_emu
+      - Zjets_tau
+      - Top
+      - Diboson
+    label:
+      - "mu SS AntiTight 1-tag"
+      - "mT > 60, MET > 30"
+      - "MadGraph"
+    lumi: "2015+2016+2017+2018"
+    qcd_template: Multijet
+    save_to_file: True
+
