@@ -102,10 +102,6 @@ pytest==5.3.4
 python-dateutil==2.8.1
 python-magic==0.4.15
 python-utils==2.4.0
-python3-nersc-customs==0.2.0
-python3-nersc-modster==0.3.0
-python3-nersc-sitecustomize==0.2.0
-python3-nerscjson==0.9
 pytz==2020.1
 PyYAML==5.3
 pyzmq==18.1.1
@@ -113,7 +109,6 @@ ray==1.0.1.post1
 redis==3.3.11
 requests==2.21.0
 rsa==4.6
-rucio-clients==1.21.10.post1
 s3transfer==0.2.1
 Send2Trash==1.5.0
 setproctitle==1.1.10
