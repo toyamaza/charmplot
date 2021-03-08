@@ -229,7 +229,8 @@ def main(options, conf, reader):
             #     h.Draw("hist same")
 
             # Print out
-            canv.print_all(conf.out_name, c.name, v, multipage_pdf=True, first_plot=first_plot, last_plot=last_plot, as_png=options.stage_out, logy=(not options.nology))
+            canv.print_all(conf.out_name, c.name, v, multipage_pdf=True, first_plot=first_plot,
+                           last_plot=last_plot, as_png=options.stage_out, logy=(not options.nology))
             first_plot = False
 
         # close output file
