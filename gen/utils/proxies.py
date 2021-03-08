@@ -57,18 +57,41 @@ class PlainChannel(ProxyChannel):
 class MockMC(ProxyChannel):
     name = 'MockMC'
 
+    def __init__(self, os_minus_ss_fit_configuration: bool = False, loose_sr: bool = False, subtract_mj: bool = False):
+        super().__init__(os_minus_ss_fit_configuration=os_minus_ss_fit_configuration, loose_sr=loose_sr)
+        self.subtract_mj = subtract_mj
+
     def get_regions(self, regions):
         out = []
         for reg in regions:
+            sign = ""
+            anti_sign = "-"
+            if reg.startswith("-"):
+                reg = reg[1:]
+                sign = "-"
+                anti_sign = ""
             if "_OS" in reg:
-                out += [reg.replace("_OS", "_SS")]
+                reg_SS = reg.replace("_OS", "_SS")
+                out += [reg_SS]
+                if self.subtract_mj:
+                    out += [f"{anti_sign}AntiTight_{reg_SS}"]
+                    out += [f"{sign}Tight_{reg_SS}"]
             else:
                 out += [reg]
+                if self.subtract_mj:
+                    out += [f"{anti_sign}AntiTight_{reg}"]
+                    out += [f"{sign}Tight_{reg}"]
         return self.format(out)
 
 
 class MatrixMethod(ProxyChannel):
     name = 'MatrixMethod'
+
+    def __init__(self, os_minus_ss_fit_configuration: bool = False, loose_sr: bool = False, fake_factor: bool = False):
+        super().__init__(os_minus_ss_fit_configuration=os_minus_ss_fit_configuration, loose_sr=loose_sr)
+        self.fake_factor = fake_factor
+        if self.fake_factor:
+            self.name = 'FakeFactor'
 
     def get_regions(self, regions):
         out = []
@@ -80,7 +103,8 @@ class MatrixMethod(ProxyChannel):
                 sign = "-"
                 anti_sign = ""
             out += [f"{sign}AntiTight_{reg}"]
-            out += [f"{anti_sign}Tight_{reg}"]
+            if not self.fake_factor:
+                out += [f"{anti_sign}Tight_{reg}"]
         return self.format(out)
 
 
