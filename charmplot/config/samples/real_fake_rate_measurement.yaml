@@ -112,3 +112,100 @@ MG_Multijet_Dn:
   shortName: MG_Multijet
   scaleMC: 0.9
 
+#samples conf for special fake rate measurement
+MC_Comb:
+  add:
+    - MG_all
+  subtract:
+  lineColor: "11004"
+  legendLabel: 'W + D All'
+
+MG_Wjets_emu_0tag_Dplus:
+  add:
+    - MG_Wjets_light_emu
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_bjets_emu
+  subtract:
+  lineColor: "10004"
+  legendLabel: 'MG W + D^{+}, 0tag'
+
+MG_Wjets_emu_0tag_Dstar:
+  add:
+    - MG_Wjets_light_emu
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_bjets_emu
+  subtract:
+  lineColor: "10002"
+  legendLabel: 'MG W + D*, 0tag'
+
+Top_ttbar_0tag_Dplus:
+  add: Top_ttbar
+  subtract:
+  lineColor: "12001"
+  legendLabel: 't#bar{t} + D^{+}, 0tag'
+
+Top_ttbar_0tag_Dstar:
+  add: Top_ttbar
+  subtract:
+  lineColor: "12003"
+  legendLabel: 't#bar{t} + D*, 0tag'
+
+MG_Wjets_emu_1tag_Dplus:
+  add:
+    - MG_Wjets_light_emu
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_bjets_emu
+  subtract:
+  lineColor: "10005"
+  legendLabel: 'MG W + D^{+}, 1tag'
+
+MG_Wjets_emu_1tag_Dstar:
+  add:
+    - MG_Wjets_light_emu
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_bjets_emu
+  subtract:
+  lineColor: "10003"
+  legendLabel: 'MG W + D*, 1tag'
+
+Top_ttbar_1tag_Dplus:
+  add: Top_ttbar
+  subtract:
+  lineColor: "12002"
+  legendLabel: 't#bar{t} + D^{+}, 1tag'
+
+Top_ttbar_1tag_Dstar:
+  add: Top_ttbar
+  subtract:
+  lineColor: "12004"
+  legendLabel: 't#bar{t} + D*, 1tag'
+
+MG_Wjets_emu_0tag:
+  add:
+    - MG_Wjets_light_emu
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_bjets_emu
+  subtract:
+  lineColor: "10004"
+  legendLabel: 'MG W + D, 0tag'
+
+MG_Wjets_emu_1tag:
+  add:
+    - MG_Wjets_light_emu
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_bjets_emu
+  subtract:
+  lineColor: "10002"
+  legendLabel: 'MG W + D, 1tag'
+
+Top_ttbar_0tag:
+  add: Top_ttbar
+  subtract:
+  lineColor: "12001"
+  legendLabel: 't#bar{t} + D, 0tag'
+
+Top_ttbar_1tag:
+  add: Top_ttbar
+  subtract:
+  lineColor: "12003"
+  legendLabel: 't#bar{t} + D, 1tag'
