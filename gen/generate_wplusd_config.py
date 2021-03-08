@@ -34,6 +34,8 @@ def main(options):
             samples = templates.WDFlavourComparison()
         elif options.samples.lower() == 'background_comparison':
             samples = templates.WDBackgroundComparison()
+        elif options.samples.lower() == 'multijet_comparison':
+            samples = templates.MultiJetComparison()
         else:
             print(f"ERROR: Unknown samples type {options.samples}")
             sys.exit(1)
@@ -113,9 +115,9 @@ def main(options):
             for sign in signs:
                 if not options.fit_only:
                     channelGenerator.make_channel(lumi, sign=sign, extra_rebin=extra_rebin, os_only=os_only)
-                for btag in btags:
-                    channelGenerator.make_channel(lumi, sign=sign, btag=btag,
-                                                    extra_rebin=extra_rebin * (2 if btag != '0tag' else 1), os_only=os_only)
+                    for btag in btags:
+                        channelGenerator.make_channel(lumi, sign=sign, btag=btag,
+                                                      extra_rebin=extra_rebin * (2 if btag != '0tag' else 1), os_only=os_only)
                 for lepton in leptons:
                     if not options.fit_only:
                         channelGenerator.make_channel(lumi, sign=sign, lepton=lepton, extra_rebin=extra_rebin,
