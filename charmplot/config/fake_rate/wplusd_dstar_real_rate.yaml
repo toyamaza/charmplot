@@ -10,6 +10,7 @@ channels:
       - Tight_2018_el_SR_0tag_Dstar
     samples:
       - MG_Wjets_emu
+      - Sh_Wjets_emu
       - Top_ttbar
     label:
       - "el Tight"
@@ -23,6 +24,7 @@ channels:
       - Tight_2018_el_SR_2tag_Dstar
     samples:
       - MG_Wjets_emu
+      - Sh_Wjets_emu
       - Top_ttbar
     label:
       - "el Tight"
@@ -35,6 +37,7 @@ channels:
       - Tight_2018_mu_SR_0tag_Dstar
     samples:
       - MG_Wjets_emu
+      - Sh_Wjets_emu
       - Top_ttbar
     label:
       - "mu Tight"
@@ -48,6 +51,7 @@ channels:
       - Tight_2018_mu_SR_2tag_Dstar
     samples:
       - MG_Wjets_emu
+      - Sh_Wjets_emu
       - Top_ttbar
     label:
       - "mu Tight"
@@ -60,6 +64,7 @@ channels:
       - AntiTight_2018_el_SR_0tag_Dstar
     samples:
       - MG_Wjets_emu
+      - Sh_Wjets_emu
       - Top_ttbar
     label:
       - "el AntiTight"
@@ -73,6 +78,7 @@ channels:
       - AntiTight_2018_el_SR_2tag_Dstar
     samples:
       - MG_Wjets_emu
+      - Sh_Wjets_emu
       - Top_ttbar
     label:
       - "el AntiTight"
@@ -85,6 +91,7 @@ channels:
       - AntiTight_2018_mu_SR_0tag_Dstar
     samples:
       - MG_Wjets_emu
+      - Sh_Wjets_emu
       - Top_ttbar
     label:
       - "mu AntiTight"
@@ -97,6 +104,7 @@ channels:
       - AntiTight_2018_mu_SR_2tag_Dstar
     samples:
       - MG_Wjets_emu
+      - Sh_Wjets_emu
       - Top_ttbar
     label:
       - "mu AntiTight"
@@ -109,6 +117,7 @@ channels:
       - Tight_2017_el_SR_0tag_Dstar
     samples:
       - MG_Wjets_emu
+      - Sh_Wjets_emu
       - Top_ttbar
     label:
       - "el Tight"
@@ -122,6 +131,7 @@ channels:
       - Tight_2017_el_SR_2tag_Dstar
     samples:
       - MG_Wjets_emu
+      - Sh_Wjets_emu
       - Top_ttbar
     label:
       - "el Tight"
@@ -134,6 +144,7 @@ channels:
       - Tight_2017_mu_SR_0tag_Dstar
     samples:
       - MG_Wjets_emu
+      - Sh_Wjets_emu
       - Top_ttbar
     label:
       - "mu Tight"
@@ -147,6 +158,7 @@ channels:
       - Tight_2017_mu_SR_2tag_Dstar
     samples:
       - MG_Wjets_emu
+      - Sh_Wjets_emu
       - Top_ttbar
     label:
       - "mu Tight"
@@ -159,6 +171,7 @@ channels:
       - AntiTight_2017_el_SR_0tag_Dstar
     samples:
       - MG_Wjets_emu
+      - Sh_Wjets_emu
       - Top_ttbar
     label:
       - "el AntiTight"
@@ -172,6 +185,7 @@ channels:
       - AntiTight_2017_el_SR_2tag_Dstar
     samples:
       - MG_Wjets_emu
+      - Sh_Wjets_emu
       - Top_ttbar
     label:
       - "el AntiTight"
@@ -184,6 +198,7 @@ channels:
       - AntiTight_2017_mu_SR_0tag_Dstar
     samples:
       - MG_Wjets_emu
+      - Sh_Wjets_emu
       - Top_ttbar
     label:
       - "mu AntiTight"
@@ -196,6 +211,7 @@ channels:
       - AntiTight_2017_mu_SR_2tag_Dstar
     samples:
       - MG_Wjets_emu
+      - Sh_Wjets_emu
       - Top_ttbar
     label:
       - "mu AntiTight"
@@ -209,6 +225,7 @@ channels:
       - Tight_2017_el_SR_0tag_Dstar
     samples:
       - MG_Wjets_emu
+      - Sh_Wjets_emu
       - Top_ttbar
     label:
       - "el Tight"
@@ -224,6 +241,7 @@ channels:
       - Tight_2017_el_SR_2tag_Dstar
     samples:
       - MG_Wjets_emu
+      - Sh_Wjets_emu
       - Top_ttbar
     label:
       - "el Tight"
@@ -237,6 +255,7 @@ channels:
       - Tight_2017_mu_SR_0tag_Dstar
     samples:
       - MG_Wjets_emu
+      - Sh_Wjets_emu
       - Top_ttbar
     label:
       - "mu Tight"
@@ -252,6 +271,7 @@ channels:
       - Tight_2017_mu_SR_2tag_Dstar
     samples:
       - MG_Wjets_emu
+      - Sh_Wjets_emu
       - Top_ttbar
     label:
       - "mu Tight"
@@ -265,6 +285,7 @@ channels:
       - AntiTight_2017_el_SR_0tag_Dstar
     samples:
       - MG_Wjets_emu
+      - Sh_Wjets_emu
       - Top_ttbar
     label:
       - "el AntiTight"
@@ -280,6 +301,7 @@ channels:
       - AntiTight_2017_el_SR_2tag_Dstar
     samples:
       - MG_Wjets_emu
+      - Sh_Wjets_emu
       - Top_ttbar
     label:
       - "el AntiTight"
@@ -293,6 +315,7 @@ channels:
       - AntiTight_2017_mu_SR_0tag_Dstar
     samples:
       - MG_Wjets_emu
+      - Sh_Wjets_emu
       - Top_ttbar
     label:
       - "mu AntiTight"
@@ -307,6 +330,7 @@ channels:
       - AntiTight_2017_mu_SR_2tag_Dstar
     samples:
       - MG_Wjets_emu
+      - Sh_Wjets_emu
       - Top_ttbar
     label:
       - "mu AntiTight"
