@@ -5,9 +5,9 @@ variablesConf: inclusive_wjets
 samplesConf: real_fake_rate_measurement
 
 channels:
-  Tight_2018_el_SR_0tag_Dplus:
+  Tight_2018_el_SR_0tag_Dstar:
     regions:
-      - Tight_2018_el_SR_0tag_Dplus
+      - Tight_2018_el_SR_0tag_Dstar
     samples:
       - MG_Wjets_emu
       - Sh_Wjets_emu
@@ -18,10 +18,10 @@ channels:
     lumi: "2018"
     save_to_file: True
 
-  Tight_2018_el_SR_1tag_Dplus:
+  Tight_2018_el_SR_1tag_Dstar:
     regions:
-      - Tight_2018_el_SR_1tag_Dplus
-      - Tight_2018_el_SR_2tag_Dplus
+      - Tight_2018_el_SR_1tag_Dstar
+      - Tight_2018_el_SR_2tag_Dstar
     samples:
       - MG_Wjets_emu
       - Sh_Wjets_emu
@@ -32,9 +32,9 @@ channels:
     lumi: "2018"
     save_to_file: True
 
-  Tight_2018_mu_SR_0tag_Dplus:
+  Tight_2018_mu_SR_0tag_Dstar:
     regions:
-      - Tight_2018_mu_SR_0tag_Dplus
+      - Tight_2018_mu_SR_0tag_Dstar
     samples:
       - MG_Wjets_emu
       - Sh_Wjets_emu
@@ -45,10 +45,10 @@ channels:
     lumi: "2018"
     save_to_file: True
 
-  Tight_2018_mu_SR_1tag_Dplus:
+  Tight_2018_mu_SR_1tag_Dstar:
     regions:
-      - Tight_2018_mu_SR_1tag_Dplus
-      - Tight_2018_mu_SR_2tag_Dplus
+      - Tight_2018_mu_SR_1tag_Dstar
+      - Tight_2018_mu_SR_2tag_Dstar
     samples:
       - MG_Wjets_emu
       - Sh_Wjets_emu
@@ -59,9 +59,9 @@ channels:
     lumi: "2018"
     save_to_file: True
 
-  AntiTight_2018_el_SR_0tag_Dplus:
+  AntiTight_2018_el_SR_0tag_Dstar:
     regions:
-      - AntiTight_2018_el_SR_0tag_Dplus
+      - AntiTight_2018_el_SR_0tag_Dstar
     samples:
       - MG_Wjets_emu
       - Sh_Wjets_emu
@@ -72,10 +72,10 @@ channels:
     lumi: "2018"
     save_to_file: True
 
-  AntiTight_2018_el_SR_1tag_Dplus:
+  AntiTight_2018_el_SR_1tag_Dstar:
     regions:
-      - AntiTight_2018_el_SR_1tag_Dplus
-      - AntiTight_2018_el_SR_2tag_Dplus
+      - AntiTight_2018_el_SR_1tag_Dstar
+      - AntiTight_2018_el_SR_2tag_Dstar
     samples:
       - MG_Wjets_emu
       - Sh_Wjets_emu
@@ -86,9 +86,9 @@ channels:
     lumi: "2018"
     save_to_file: True
 
-  AntiTight_2018_mu_SR_0tag_Dplus:
+  AntiTight_2018_mu_SR_0tag_Dstar:
     regions:
-      - AntiTight_2018_mu_SR_0tag_Dplus
+      - AntiTight_2018_mu_SR_0tag_Dstar
     samples:
       - MG_Wjets_emu
       - Sh_Wjets_emu
@@ -98,10 +98,10 @@ channels:
     lumi: "2018"
     save_to_file: True
 
-  AntiTight_2018_mu_SR_1tag_Dplus:
+  AntiTight_2018_mu_SR_1tag_Dstar:
     regions:
-      - AntiTight_2018_mu_SR_1tag_Dplus
-      - AntiTight_2018_mu_SR_2tag_Dplus
+      - AntiTight_2018_mu_SR_1tag_Dstar
+      - AntiTight_2018_mu_SR_2tag_Dstar
     samples:
       - MG_Wjets_emu
       - Sh_Wjets_emu
@@ -112,9 +112,9 @@ channels:
     lumi: "2018"
     save_to_file: True
 
-  Tight_2017_el_SR_0tag_Dplus:
+  Tight_2017_el_SR_0tag_Dstar:
     regions:
-      - Tight_2017_el_SR_0tag_Dplus
+      - Tight_2017_el_SR_0tag_Dstar
     samples:
       - MG_Wjets_emu
       - Sh_Wjets_emu
@@ -125,10 +125,10 @@ channels:
     lumi: "2017"
     save_to_file: True
 
-  Tight_2017_el_SR_1tag_Dplus:
+  Tight_2017_el_SR_1tag_Dstar:
     regions:
-      - Tight_2017_el_SR_1tag_Dplus
-      - Tight_2017_el_SR_2tag_Dplus
+      - Tight_2017_el_SR_1tag_Dstar
+      - Tight_2017_el_SR_2tag_Dstar
     samples:
       - MG_Wjets_emu
       - Sh_Wjets_emu
@@ -139,9 +139,9 @@ channels:
     lumi: "2017"
     save_to_file: True
 
-  Tight_2017_mu_SR_0tag_Dplus:
+  Tight_2017_mu_SR_0tag_Dstar:
     regions:
-      - Tight_2017_mu_SR_0tag_Dplus
+      - Tight_2017_mu_SR_0tag_Dstar
     samples:
       - MG_Wjets_emu
       - Sh_Wjets_emu
@@ -152,10 +152,10 @@ channels:
     lumi: "2017"
     save_to_file: True
 
-  Tight_2017_mu_SR_1tag_Dplus:
+  Tight_2017_mu_SR_1tag_Dstar:
     regions:
-      - Tight_2017_mu_SR_1tag_Dplus
-      - Tight_2017_mu_SR_2tag_Dplus
+      - Tight_2017_mu_SR_1tag_Dstar
+      - Tight_2017_mu_SR_2tag_Dstar
     samples:
       - MG_Wjets_emu
       - Sh_Wjets_emu
@@ -166,9 +166,9 @@ channels:
     lumi: "2017"
     save_to_file: True
 
-  AntiTight_2017_el_SR_0tag_Dplus:
+  AntiTight_2017_el_SR_0tag_Dstar:
     regions:
-      - AntiTight_2017_el_SR_0tag_Dplus
+      - AntiTight_2017_el_SR_0tag_Dstar
     samples:
       - MG_Wjets_emu
       - Sh_Wjets_emu
@@ -179,10 +179,10 @@ channels:
     lumi: "2017"
     save_to_file: True
 
-  AntiTight_2017_el_SR_1tag_Dplus:
+  AntiTight_2017_el_SR_1tag_Dstar:
     regions:
-      - AntiTight_2017_el_SR_1tag_Dplus
-      - AntiTight_2017_el_SR_2tag_Dplus
+      - AntiTight_2017_el_SR_1tag_Dstar
+      - AntiTight_2017_el_SR_2tag_Dstar
     samples:
       - MG_Wjets_emu
       - Sh_Wjets_emu
@@ -193,9 +193,9 @@ channels:
     lumi: "2017"
     save_to_file: True
 
-  AntiTight_2017_mu_SR_0tag_Dplus:
+  AntiTight_2017_mu_SR_0tag_Dstar:
     regions:
-      - AntiTight_2017_mu_SR_0tag_Dplus
+      - AntiTight_2017_mu_SR_0tag_Dstar
     samples:
       - MG_Wjets_emu
       - Sh_Wjets_emu
@@ -205,10 +205,10 @@ channels:
     lumi: "2017"
     save_to_file: True
 
-  AntiTight_2017_mu_SR_1tag_Dplus:
+  AntiTight_2017_mu_SR_1tag_Dstar:
     regions:
-      - AntiTight_2017_mu_SR_1tag_Dplus
-      - AntiTight_2017_mu_SR_2tag_Dplus
+      - AntiTight_2017_mu_SR_1tag_Dstar
+      - AntiTight_2017_mu_SR_2tag_Dstar
     samples:
       - MG_Wjets_emu
       - Sh_Wjets_emu
@@ -219,10 +219,10 @@ channels:
     lumi: "2017"
     save_to_file: True
 
-  Tight_el_SR_0tag_Dplus:
+  Tight_el_SR_0tag_Dstar:
     regions:
-      - Tight_2018_el_SR_0tag_Dplus
-      - Tight_2017_el_SR_0tag_Dplus
+      - Tight_2018_el_SR_0tag_Dstar
+      - Tight_2017_el_SR_0tag_Dstar
     samples:
       - MG_Wjets_emu
       - Sh_Wjets_emu
@@ -233,12 +233,12 @@ channels:
     lumi: "2017+2018"
     save_to_file: True
 
-  Tight_el_SR_1tag_Dplus:
+  Tight_el_SR_1tag_Dstar:
     regions:
-      - Tight_2018_el_SR_1tag_Dplus
-      - Tight_2018_el_SR_2tag_Dplus
-      - Tight_2017_el_SR_1tag_Dplus
-      - Tight_2017_el_SR_2tag_Dplus
+      - Tight_2018_el_SR_1tag_Dstar
+      - Tight_2018_el_SR_2tag_Dstar
+      - Tight_2017_el_SR_1tag_Dstar
+      - Tight_2017_el_SR_2tag_Dstar
     samples:
       - MG_Wjets_emu
       - Sh_Wjets_emu
@@ -249,10 +249,10 @@ channels:
     lumi: "2017+2018"
     save_to_file: True
 
-  Tight_mu_SR_0tag_Dplus:
+  Tight_mu_SR_0tag_Dstar:
     regions:
-      - Tight_2018_mu_SR_0tag_Dplus
-      - Tight_2017_mu_SR_0tag_Dplus
+      - Tight_2018_mu_SR_0tag_Dstar
+      - Tight_2017_mu_SR_0tag_Dstar
     samples:
       - MG_Wjets_emu
       - Sh_Wjets_emu
@@ -263,12 +263,12 @@ channels:
     lumi: "2017+2018"
     save_to_file: True
 
-  Tight_mu_SR_1tag_Dplus:
+  Tight_mu_SR_1tag_Dstar:
     regions:
-      - Tight_2018_mu_SR_1tag_Dplus
-      - Tight_2018_mu_SR_2tag_Dplus
-      - Tight_2017_mu_SR_1tag_Dplus
-      - Tight_2017_mu_SR_2tag_Dplus
+      - Tight_2018_mu_SR_1tag_Dstar
+      - Tight_2018_mu_SR_2tag_Dstar
+      - Tight_2017_mu_SR_1tag_Dstar
+      - Tight_2017_mu_SR_2tag_Dstar
     samples:
       - MG_Wjets_emu
       - Sh_Wjets_emu
@@ -279,10 +279,10 @@ channels:
     lumi: "2017+2018"
     save_to_file: True
 
-  AntiTight_el_SR_0tag_Dplus:
+  AntiTight_el_SR_0tag_Dstar:
     regions:
-      - AntiTight_2018_el_SR_0tag_Dplus
-      - AntiTight_2017_el_SR_0tag_Dplus
+      - AntiTight_2018_el_SR_0tag_Dstar
+      - AntiTight_2017_el_SR_0tag_Dstar
     samples:
       - MG_Wjets_emu
       - Sh_Wjets_emu
@@ -293,12 +293,12 @@ channels:
     lumi: "2017+2018"
     save_to_file: True
 
-  AntiTight_el_SR_1tag_Dplus:
+  AntiTight_el_SR_1tag_Dstar:
     regions:
-      - AntiTight_2018_el_SR_1tag_Dplus
-      - AntiTight_2018_el_SR_2tag_Dplus
-      - AntiTight_2017_el_SR_1tag_Dplus
-      - AntiTight_2017_el_SR_2tag_Dplus
+      - AntiTight_2018_el_SR_1tag_Dstar
+      - AntiTight_2018_el_SR_2tag_Dstar
+      - AntiTight_2017_el_SR_1tag_Dstar
+      - AntiTight_2017_el_SR_2tag_Dstar
     samples:
       - MG_Wjets_emu
       - Sh_Wjets_emu
@@ -309,10 +309,10 @@ channels:
     lumi: "2017+2018"
     save_to_file: True
 
-  AntiTight_mu_SR_0tag_Dplus:
+  AntiTight_mu_SR_0tag_Dstar:
     regions:
-      - AntiTight_2018_mu_SR_0tag_Dplus
-      - AntiTight_2017_mu_SR_0tag_Dplus
+      - AntiTight_2018_mu_SR_0tag_Dstar
+      - AntiTight_2017_mu_SR_0tag_Dstar
     samples:
       - MG_Wjets_emu
       - Sh_Wjets_emu
@@ -322,12 +322,12 @@ channels:
     lumi: "2017+2018"
     save_to_file: True
 
-  AntiTight_mu_SR_1tag_Dplus:
+  AntiTight_mu_SR_1tag_Dstar:
     regions:
-      - AntiTight_2018_mu_SR_1tag_Dplus
-      - AntiTight_2018_mu_SR_2tag_Dplus
-      - AntiTight_2017_mu_SR_1tag_Dplus
-      - AntiTight_2017_mu_SR_2tag_Dplus
+      - AntiTight_2018_mu_SR_1tag_Dstar
+      - AntiTight_2018_mu_SR_2tag_Dstar
+      - AntiTight_2017_mu_SR_1tag_Dstar
+      - AntiTight_2017_mu_SR_2tag_Dstar
     samples:
       - MG_Wjets_emu
       - Sh_Wjets_emu

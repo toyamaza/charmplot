@@ -211,6 +211,7 @@ def main(conf, options, args):
             canv.make_legend(None, None, mc_map, mc_map.keys(), draw_option="pe")
             hs.Draw("same nostack")
             canv.print(os.path.join(plots_folder, f"{options.output}_{channel_name}_{y}.pdf"))
+            canv.print(os.path.join(plots_folder, f"{options.output}_{channel_name}_{y}.png"))
 
     # close out file
     out.Close()

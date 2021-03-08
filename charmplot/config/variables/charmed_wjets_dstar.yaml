@@ -30,6 +30,9 @@ Dmeson_mdiff_impact_sig:
   unit: 'MeV'
   rebin: 10
   ratio_range: [0.5,1.49]
+  do_overflow: False
+  do_underflow: False
+  dstar_tail_rebin: True
 
 Dmeson_phi:
   label: 'D* #phi'
