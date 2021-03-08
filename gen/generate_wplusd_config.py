@@ -96,15 +96,15 @@ def main(options):
         # Helper object to generate channels
         if options.replacement_samples:
             channelGeneratorSPG = templates.ChannelGenerator(config=config,
-                                                            samples=samples_spg,
-                                                            make_plots=False,
-                                                            decay_mode="SPG",
-                                                            process_string="SPG",
-                                                            signs=["OS", "SS"],
-                                                            years=years,
-                                                            leptons=leptons,
-                                                            charges=["minus"],
-                                                            btags="")
+                                                             samples=samples_spg,
+                                                             make_plots=False,
+                                                             decay_mode="SPG",
+                                                             process_string="SPG",
+                                                             signs=["OS", "SS"],
+                                                             years=years,
+                                                             leptons=leptons,
+                                                             charges=["minus"],
+                                                             btags="")
 
         # SPG samples
         if options.replacement_samples:
