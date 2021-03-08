@@ -153,27 +153,35 @@ class WDTruthComparisonSamples:
     samples = {
         'Matched': [
             ['Wjets_emu_Matched_OS-SS', proxies.GenericChannel(region="Matched", name="MatchedOS-SS", os_minus_ss_fit_configuration=True)],
-            ['SPG_DPlus_Matched', proxies.GenericChannel(name="MatchedSPG", regions_override=["inclusive_Dplus_per_D_Matched", "-inclusive_Dplus_per_antiD_Matched"])],
+            ['SPG_DPlus_Matched', proxies.GenericChannel(name="MatchedSPG", regions_override=[
+                                                         "inclusive_Dplus_per_D_Matched", "-inclusive_Dplus_per_antiD_Matched"])],
         ],
         '411MisMatched': [
             ['Wjets_emu_411MisMatched_OS-SS', proxies.GenericChannel(region="411MisMatched", name="411MisMatchedOS-SS", os_minus_ss_fit_configuration=True)],
-            ['SPG_DPlus_411MisMatched', proxies.GenericChannel(name="411MisMatchedSPG", regions_override=["inclusive_Dplus_per_D_411MisMatched", "-inclusive_Dplus_per_antiD_411MisMatched"])],
+            ['SPG_DPlus_411MisMatched', proxies.GenericChannel(name="411MisMatchedSPG", regions_override=[
+                                                               "inclusive_Dplus_per_D_411MisMatched", "-inclusive_Dplus_per_antiD_411MisMatched"])],
         ],
         '431MisMatched': [
             ['Wjets_emu_431MisMatched_OS-SS', proxies.GenericChannel(region="431MisMatched", name="431MisMatchedOS-SS", os_minus_ss_fit_configuration=True)],
-            ['SPG_DPlus_431MisMatched', proxies.GenericChannel(name="431MisMatchedSPG", regions_override=["inclusive_Dplus_per_D", "-inclusive_Dplus_per_antiD"])],
+            ['SPG_DPlus_431MisMatched', proxies.GenericChannel(name="431MisMatchedSPG", regions_override=[
+                                                               "inclusive_Dplus_per_D", "-inclusive_Dplus_per_antiD"])],
         ],
         '421MisMatched': [
-            ['Wjets_emu_421MisMatched_OS-SS', proxies.GenericChannel(region=["421MisMatched", "413MisMatched"], name="421MisMatchedOS-SS", os_minus_ss_fit_configuration=True)],
-            ['SPG_DPlus_421MisMatched', proxies.GenericChannel(name="421MisMatchedSPG", regions_override=["inclusive_Dplus_per_D", "-inclusive_Dplus_per_antiD"])],
+            ['Wjets_emu_421MisMatched_OS-SS', proxies.GenericChannel(region=["421MisMatched", "413MisMatched"],
+                                                                     name="421MisMatchedOS-SS", os_minus_ss_fit_configuration=True)],
+            ['SPG_DPlus_421MisMatched', proxies.GenericChannel(name="421MisMatchedSPG", regions_override=[
+                                                               "inclusive_Dplus_per_D", "-inclusive_Dplus_per_antiD"])],
         ],
         'BaryonMisMatched': [
-            ['Wjets_emu_BaryonMisMatched_OS-SS', proxies.GenericChannel(region="BaryonMisMatched", name="BaryonMisMatchedOS-SS", os_minus_ss_fit_configuration=True)],
-            ['SPG_DPlus_BaryonMisMatched', proxies.GenericChannel(name="BaryonMisMatchedSPG", regions_override=["inclusive_Dplus_per_D", "-inclusive_Dplus_per_antiD"])],
+            ['Wjets_emu_BaryonMisMatched_OS-SS', proxies.GenericChannel(region="BaryonMisMatched",
+                                                                        name="BaryonMisMatchedOS-SS", os_minus_ss_fit_configuration=True)],
+            ['SPG_DPlus_BaryonMisMatched', proxies.GenericChannel(name="BaryonMisMatchedSPG", regions_override=[
+                                                                  "inclusive_Dplus_per_D", "-inclusive_Dplus_per_antiD"])],
         ],
         'CharmMisMatched': [
             ['Wjets_emu_CharmMisMatched_OS-SS', proxies.MatchedCharm(os_minus_ss_fit_configuration=True)],
-            ['SPG_DPlus_CharmMisMatched', proxies.GenericChannel(name="CharmMisMatchedSPG", regions_override=["inclusive_Dplus_per_D", "-inclusive_Dplus_per_antiD"])],
+            ['SPG_DPlus_CharmMisMatched', proxies.GenericChannel(name="CharmMisMatchedSPG", regions_override=[
+                                                                 "inclusive_Dplus_per_D", "-inclusive_Dplus_per_antiD"])],
         ],
     }
 
@@ -191,13 +199,16 @@ class SPGSamples:
 
     samples = {
         'Matched': [
-            ['SPG_DPlus_Matched', proxies.GenericChannel(name="MatchedSPG", regions_override=["inclusive_Dplus_per_D_Matched", "-inclusive_Dplus_per_antiD_Matched"])],
+            ['SPG_DPlus_Matched', proxies.GenericChannel(name="MatchedSPG", regions_override=[
+                                                         "inclusive_Dplus_per_D_Matched", "-inclusive_Dplus_per_antiD_Matched"])],
         ],
         '411MisMatched': [
-            ['SPG_DPlus_411MisMatched', proxies.GenericChannel(name="411MisMatchedSPG", regions_override=["inclusive_Dplus_per_D_411MisMatched", "-inclusive_Dplus_per_antiD_411MisMatched"])],
+            ['SPG_DPlus_411MisMatched', proxies.GenericChannel(name="411MisMatchedSPG", regions_override=[
+                                                               "inclusive_Dplus_per_D_411MisMatched", "-inclusive_Dplus_per_antiD_411MisMatched"])],
         ],
         'CharmMisMatched': [
-            ['SPG_DPlus_CharmMisMatched', proxies.GenericChannel(name="CharmMisMatchedSPG", regions_override=["inclusive_Dplus_per_D", "-inclusive_Dplus_per_antiD"])],
+            ['SPG_DPlus_CharmMisMatched', proxies.GenericChannel(name="CharmMisMatchedSPG", regions_override=[
+                                                                 "inclusive_Dplus_per_D", "-inclusive_Dplus_per_antiD"])],
         ],
     }
 
@@ -209,6 +220,7 @@ class SPGSamples:
 
     def get(self):
         return self.samples
+
 
 class WDComparisonSamples:
 
@@ -252,35 +264,35 @@ class ChannelGenerator:
 
     def __init__(self, config, samples, signs, years, leptons, charges,
                  btags, sample_config="", decay_mode="", process_string="",
-                 force_positive = False, replacement_samples = {}, make_plots=True):
-        self.config=config
-        self.decay_mode=decay_mode
-        self.signs=signs
-        self.years=years
-        self.leptons=leptons
-        self.charges=charges
-        self.btags=btags
-        self.process_string=process_string
-        self.sample_config=sample_config
-        self.force_positive=force_positive
-        self.replacement_samples=replacement_samples
-        self.template=samples
-        self.make_plots=make_plots
+                 force_positive=False, replacement_samples={}, make_plots=True):
+        self.config = config
+        self.decay_mode = decay_mode
+        self.signs = signs
+        self.years = years
+        self.leptons = leptons
+        self.charges = charges
+        self.btags = btags
+        self.process_string = process_string
+        self.sample_config = sample_config
+        self.force_positive = force_positive
+        self.replacement_samples = replacement_samples
+        self.template = samples
+        self.make_plots = make_plots
         if type(samples.get()) == dict:
-            self.samples=samples.get()
+            self.samples = samples.get()
         else:
-            self.samples={'': samples.get()}
+            self.samples = {'': samples.get()}
         if type(self.years) == list and len(self.years) == 0:
-            self.years=['']
+            self.years = ['']
 
     def get_config(self):
         return self.config
 
-    def make_channel(self, lumi, sign = '', year = '', lepton = '', charge = '', btag = '', extra_rebin = 1, os_only = False):
+    def make_channel(self, lumi, sign='', year='', lepton='', charge='', btag='', extra_rebin=1, os_only=False):
         for suffix, samples in self.samples.items():
-            channel_name=self.generate_channel_name(sign = sign, year = year, lepton = lepton, charge = charge, btag = btag, suffix = suffix)
-            regions=self.generate_channel_regions(sign = sign, year = year, lepton = lepton, charge = charge, btag = btag)
-            channel={
+            channel_name = self.generate_channel_name(sign=sign, year=year, lepton=lepton, charge=charge, btag=btag, suffix=suffix)
+            regions = self.generate_channel_regions(sign=sign, year=year, lepton=lepton, charge=charge, btag=btag)
+            channel = {
                 'regions': regions,
                 'label': self.generate_channel_labels(sign=sign, lepton=lepton, charge=charge, btag=btag),
                 'lumi': '+'.join(lumi),
