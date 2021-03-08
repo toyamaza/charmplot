@@ -1,13 +1,6 @@
 #!/usr/bin/env python
-from charmplot.common import utils
-from charmplot.common import www
-from charmplot.control import globalConfig
-from charmplot.control import inputDataReader
-from copy import deepcopy
-import logging
 import os
 import ROOT
-import sys
 
 # ATLAS Style
 dirname = os.path.join(os.path.dirname(__file__), "../atlasrootstyle")
@@ -54,9 +47,9 @@ for name in ['Wjets_emu_Matched_OS-SS_OS_0tag_Dplus_Dmeson_m', 'ForcedDecay_DPlu
 
     # Do the fit
     result = sig.fitTo(dh, ROOT.RooFit.Minimizer("Minuit2", "Migrad"),
-                        ROOT.RooFit.SumW2Error(ROOT.kTRUE),
-                        ROOT.RooFit.Save(),
-                        ROOT.RooFit.PrintLevel(1))
+                       ROOT.RooFit.SumW2Error(ROOT.kTRUE),
+                       ROOT.RooFit.Save(),
+                       ROOT.RooFit.PrintLevel(1))
 
     s_component = ROOT.RooArgSet(sig)
     frame = x.frame(ROOT.RooFit.Title("Fit D+ mass"))

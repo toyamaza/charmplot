@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-from ctypes import c_double
 import os
 import ROOT
 

@@ -106,7 +106,8 @@ variables = {
     # }),
 }
 
-def add_histograms(histograms, c, var, pass_w = True, normalize = True):
+
+def add_histograms(histograms, c, var, pass_w=True, normalize=True):
     if pass_w:
         file_name = os.path.join(options.input, f"{c}_{var.name}_pass_w.dat")
     else:
@@ -159,7 +160,8 @@ def process_file(f, c, var, pass_w, normalize):
         elif "END HISTO1D" in line:
             if at_histogram:
                 if not ("[" in variation and "]" in variation):
-                    h = create_histogram(variation, x_low, x_high, y, y_up, y_dn, f"{c}_{var.name}{'_pass_w' if pass_w else ''}{'_normalized' if normalize else ''}")
+                    h = create_histogram(variation, x_low, x_high, y, y_up, y_dn,
+                                         f"{c}_{var.name}{'_pass_w' if pass_w else ''}{'_normalized' if normalize else ''}")
                     utils.rebin_histogram(h, var)
                     histograms[f"{c}_{variation}{'_pass_w' if pass_w else ''}"] = h
             at_histogram = False
@@ -209,7 +211,6 @@ def main(options):
                     # check if sub-channels
                     if ":" in c:
                         subchannels = c.split(":")[1].split(",")
-                        files = {}
                         for subchannel in subchannels:
                             add_histograms(histograms, subchannel, var, pass_w, normalize)
                     else:
@@ -292,7 +293,7 @@ def main(options):
                         errors += [gr_mc_stat_err]
                         gr_mc_stat_err.Draw("e2")
                         h.Draw("hist same")
-                    
+
                     # ratio range
                     if normalize and ("Xi" not in c) and ("Lambda" not in c) and ("Omega" not in c):
                         canv.proxy_dn.SetMaximum(1.19)
@@ -321,7 +322,7 @@ if __name__ == "__main__":
     parser.add_option('-c', '--channels',
                       action="store", dest="channels",
                       default="mu_minus_mesons:mu_minus_Dplus,mu_minus_Dstar,mu_minus_Ds",
-                    #   default="mu_minus_Dplus;mu_plus_Dplus;mu_minus_Dstar;mu_plus_Dstar;mu_minus_Ds;mu_plus_Ds;mu_minus_LambdaC;mu_plus_LambdaC;mu_minus_OmegaC;mu_plus_OmegaC;mu_minus_XiCplus;mu_plus_XiCplus;mu_minus_XiCzero;mu_plus_XiCzero;mu_minus_mesons:mu_minus_Dplus,mu_minus_Dstar,mu_minus_Ds",
+                      #   default="mu_minus_Dplus;mu_plus_Dplus;mu_minus_Dstar;mu_plus_Dstar;mu_minus_Ds;mu_plus_Ds;mu_minus_LambdaC;mu_plus_LambdaC;mu_minus_OmegaC;mu_plus_OmegaC;mu_minus_XiCplus;mu_plus_XiCplus;mu_minus_XiCzero;mu_plus_XiCzero;mu_minus_mesons:mu_minus_Dplus,mu_minus_Dstar,mu_minus_Ds",
                       help="run over a subset of channels")
     parser.add_option('-v', '--vars',
                       action="store", dest="vars",
