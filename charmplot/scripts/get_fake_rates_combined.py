@@ -34,7 +34,7 @@ ROOT.gStyle.SetErrorX(0.5)
 
 
 def make_fake_rate_histogram_2D(h, histograms, ybins, xbins):
-   
+
     for i in range(1, histograms[1].GetNbinsX() + 1):
         xbins += [histograms[1].GetBinLowEdge(i)]
     xbins += [histograms[1].GetBinLowEdge(len(xbins) + 1)]
@@ -50,44 +50,46 @@ def make_fake_rate_histogram_2D(h, histograms, ybins, xbins):
 
     return hout
 
+
 def make_fake_rate_histogram_2D_TEff(eff, xbins, ybins, name, tag_index):
 
     graphs = []
     for i in range(len(eff)):
-        graphs+=[eff[i][tag_index].CreateGraph()]
+        graphs += [eff[i][tag_index].CreateGraph()]
 
     hout = ROOT.TH2D(name + "_final", "", len(xbins) - 1, array('d', xbins), len(ybins) - 1, array('d', ybins))
-   
-    for i in range(0, len(ybins)-1):
-        #if graphs[i].GetN() < 1:
+
+    for i in range(0, len(ybins) - 1):
+        # if graphs[i].GetN() < 1:
         #    print(i, ybins[i])
-        for j in range(0, len(xbins)-1):
+        for j in range(0, len(xbins) - 1):
             if graphs[i].GetN() < 1:
-                hout.SetBinContent(j+1, i+1, 0 )
+                hout.SetBinContent(j + 1, i + 1, 0)
             else:
-                hout.SetBinContent(j+1, i+1, graphs[i].GetY()[j] )
-                hout.SetBinError(j+1, i+1, 0.5*(graphs[i].GetErrorYhigh(j)+graphs[i].GetErrorYlow(j)))
-        hout.SetBinContent(0, i+1, hout.GetBinContent(1, i+1))
-        hout.SetBinContent(hout.GetNbinsX()+1, i+1, hout.GetBinContent(hout.GetNbinsX(), i+1) )
-        hout.SetBinError(0, i+1, hout.GetBinError(1, i+1))
-        hout.SetBinError(hout.GetNbinsX()+1, i+1, hout.GetBinError(hout.GetNbinsX(), i+1))
+                hout.SetBinContent(j + 1, i + 1, graphs[i].GetY()[j])
+                hout.SetBinError(j + 1, i + 1, 0.5 * (graphs[i].GetErrorYhigh(j) + graphs[i].GetErrorYlow(j)))
+        hout.SetBinContent(0, i + 1, hout.GetBinContent(1, i + 1))
+        hout.SetBinContent(hout.GetNbinsX() + 1, i + 1, hout.GetBinContent(hout.GetNbinsX(), i + 1))
+        hout.SetBinError(0, i + 1, hout.GetBinError(1, i + 1))
+        hout.SetBinError(hout.GetNbinsX() + 1, i + 1, hout.GetBinError(hout.GetNbinsX(), i + 1))
 
-    for j in range(0, len(xbins)-1):
-        hout.SetBinContent(j+1, 0,  hout.GetBinContent(j+1, 1))
-        hout.SetBinContent(j+1, hout.GetNbinsY()+1, hout.GetBinContent(j+1, hout.GetNbinsY()) )
-        hout.SetBinError(j+1, 0, hout.GetBinError(j+1, 1))
-        hout.SetBinError(j+1, hout.GetNbinsY()+1, hout.GetBinError(j+1, hout.GetNbinsY()))
+    for j in range(0, len(xbins) - 1):
+        hout.SetBinContent(j + 1, 0, hout.GetBinContent(j + 1, 1))
+        hout.SetBinContent(j + 1, hout.GetNbinsY() + 1, hout.GetBinContent(j + 1, hout.GetNbinsY()))
+        hout.SetBinError(j + 1, 0, hout.GetBinError(j + 1, 1))
+        hout.SetBinError(j + 1, hout.GetNbinsY() + 1, hout.GetBinError(j + 1, hout.GetNbinsY()))
 
-    hout.SetBinContent(0, 0,  hout.GetBinContent(1, 1))
-    hout.SetBinContent(0, hout.GetNbinsY()+1, hout.GetBinContent(1, hout.GetNbinsY()) )
+    hout.SetBinContent(0, 0, hout.GetBinContent(1, 1))
+    hout.SetBinContent(0, hout.GetNbinsY() + 1, hout.GetBinContent(1, hout.GetNbinsY()))
     hout.SetBinError(0, 0, hout.GetBinError(1, 1))
-    hout.SetBinError(0, hout.GetNbinsY()+1, hout.GetBinError(1, hout.GetNbinsY()))
-    hout.SetBinContent(hout.GetNbinsX()+1, 0,  hout.GetBinContent(hout.GetNbinsX(), 1))
-    hout.SetBinContent(hout.GetNbinsX()+1, hout.GetNbinsY()+1, hout.GetBinContent(hout.GetNbinsX(), hout.GetNbinsY()))
-    hout.SetBinError(hout.GetNbinsX()+1, 0, hout.GetBinError(hout.GetNbinsX(), 1))
-    hout.SetBinError(hout.GetNbinsX()+1, hout.GetNbinsY()+1, hout.GetBinError(hout.GetNbinsX(), hout.GetNbinsY()))
+    hout.SetBinError(0, hout.GetNbinsY() + 1, hout.GetBinError(1, hout.GetNbinsY()))
+    hout.SetBinContent(hout.GetNbinsX() + 1, 0, hout.GetBinContent(hout.GetNbinsX(), 1))
+    hout.SetBinContent(hout.GetNbinsX() + 1, hout.GetNbinsY() + 1, hout.GetBinContent(hout.GetNbinsX(), hout.GetNbinsY()))
+    hout.SetBinError(hout.GetNbinsX() + 1, 0, hout.GetBinError(hout.GetNbinsX(), 1))
+    hout.SetBinError(hout.GetNbinsX() + 1, hout.GetNbinsY() + 1, hout.GetBinError(hout.GetNbinsX(), hout.GetNbinsY()))
 
     return hout
+
 
 def make_fake_rate_histograms(h, x_range):
     bin_width = h.GetBinWidth(1)
@@ -118,6 +120,7 @@ def make_fake_rate_histograms(h, x_range):
 
     return h_F, h_f
 
+
 def get_div_graphs(eff_main, eff_list):
     den = ROOT.TGraphAsymmErrors()
     den = eff_main.CreateGraph()
@@ -129,12 +132,13 @@ def get_div_graphs(eff_main, eff_list):
         quotient = ROOT.TGraphAsymmErrors(den.GetN())
         if num.GetN() > 1:
             for i in range(den.GetN()):
-                quotient.SetPoint(i,den.GetX()[i], num.GetY()[i]/den.GetY()[i])
-                quotient.SetPointError(i,den.GetErrorXlow(i), den.GetErrorXhigh(i), num.GetErrorYlow(i)/num.GetY()[i], num.GetErrorYhigh(i)/num.GetY()[i])
+                quotient.SetPoint(i, den.GetX()[i], num.GetY()[i] / den.GetY()[i])
+                quotient.SetPointError(i, den.GetErrorXlow(i), den.GetErrorXhigh(i), num.GetErrorYlow(i) / num.GetY()[i], num.GetErrorYhigh(i) / num.GetY()[i])
             quotient.SetMarkerColor(num.GetMarkerColor())
             quotient.SetLineColor(num.GetLineColor())
         out_graphs += [quotient]
     return out_graphs
+
 
 def set_range(h, x_range):
     bin1 = 1
@@ -165,13 +169,12 @@ def main(conf, options, args):
 
     # channels
     channels = options.channels.split(",")
-    
+
     # d species
     dspecies = options.dspecies.split(",")
 
     # split tags
     tags = options.tags.split(",")
-
 
     # out plots
     plots_folder = os.path.join(os.path.dirname(options.input), f"{options.output}")
@@ -188,7 +191,7 @@ def main(conf, options, args):
 
         # to capture things once per channel
         once_per_channel = True
-        
+
         # channel name
         channel_name = c.split(":")[0]
 
@@ -198,7 +201,7 @@ def main(conf, options, args):
         # fake rate map
         fake_rate_map_hists = {}
         fake_rate_map = {}
-        #Tefficiencies to skip for weight reasons
+        # Tefficiencies to skip for weight reasons
         fake_rate_map_skip = {}
         eta_range = {}
 
@@ -223,7 +226,6 @@ def main(conf, options, args):
                     fake_rate.Write()
 
                     # store fake factor histograms for later
-                    histograms = {}
                     histograms_f = {}
                     effs = {}
 
@@ -233,7 +235,7 @@ def main(conf, options, args):
                             fake_rate_map[y] = {}
                             fake_rate_map_hists[y] = {}
                             fake_rate_map_skip[y] = {}
-                        
+
                         # eta edge
                         eta = [fake_rate.GetYaxis().GetBinLowEdge(y), fake_rate.GetYaxis().GetBinLowEdge(y) + fake_rate.GetYaxis().GetBinWidth(y)]
                         eta_range[y] = eta
@@ -252,13 +254,12 @@ def main(conf, options, args):
                         tmp_out.Divide(projX_den)
                         eff = ROOT.TEfficiency(projX_num, projX_den)
                         fake_rate_map[y][f"{s}_{t}_{d}"] = eff
-                        #skip Tefficiency that fail construction for stats reasons
+                        # skip Tefficiency that fail construction for stats reasons
                         if eff.CheckConsistency(projX_num, projX_den):
                             fake_rate_map_skip[y][f"{s}_{t}_{d}"] = False
                         else:
                             fake_rate_map_skip[y][f"{s}_{t}_{d}"] = True
                         print("after")
-
 
                         # write to file
                         h_F.Write(h_F.GetName())
@@ -284,7 +285,7 @@ def main(conf, options, args):
                     h_f_2D.Write()
 
         # plot fake rates
-        
+
         eff_sums = []
         for y in fake_rate_map:
 
@@ -292,17 +293,16 @@ def main(conf, options, args):
             mc_map = {}
 
             # make stack
-            hs = ROOT.THStack()
             fake_rate_map_comb = {}
-            
+
             eff_sums_tmp = []
 
             for t in tags:
                 first_sample = True
-                #eff_sum = ROOT.TEfficiency()
+                # eff_sum = ROOT.TEfficiency()
                 for s in samples:
                     first_d_species = True
-                    #eff_tmp = ROOT.TEfficiency()
+                    # eff_tmp = ROOT.TEfficiency()
                     for d in dspecies:
                         if fake_rate_map_skip[y][f"{s}_{t}_{d}"]:
                             continue
@@ -318,18 +318,18 @@ def main(conf, options, args):
                     fake_rate_map_comb[f"{s}_{t}"].SetMarkerColor(sample_config.lineColor)
                     fake_rate_map_comb[f"{s}_{t}"].SetLineColor(sample_config.lineColor)
                     mc_map[sample_config] = fake_rate_map_comb[f"{s}_{t}"]
-                    
-                    #Prepping sum for output
+
+                    # Prepping sum for output
                     if first_sample:
                         eff_sum = eff_tmp.Clone(f"{s}_{t}_Comb")
                         first_sample = False
                     else:
                         eff_sum.Add(eff_tmp)
-                #for all tags, summing efficiences
+                # for all tags, summing efficiences
                 eff_sums_tmp += [eff_sum]
-            #add all tags into eta list to be exported
+            # add all tags into eta list to be exported
             eff_sums += [eff_sums_tmp]
-            
+
             sample_config = conf.get_sample("MC_Comb")
             eff_sum.SetMarkerColor(sample_config.lineColor)
             eff_sum.SetLineColor(sample_config.lineColor)
@@ -347,25 +347,24 @@ def main(conf, options, args):
             canv.proxy_up.SetMinimum(y_range[0])
             canv.proxy_up.SetMaximum(y_range[1])
             canv.make_legend(None, None, mc_map, mc_map.keys(), draw_option="pe")
-            
+
             eff_list = []
             for s in samples:
                 for t in tags:
                     fake_rate_map_comb[f"{s}_{t}"].Draw("same")
-                    eff_list+=[fake_rate_map_comb[f"{s}_{t}"]]
+                    eff_list += [fake_rate_map_comb[f"{s}_{t}"]]
             eff_sum.Draw("same")
-            #Draw 2nd pane
+            # Draw 2nd pane
             canv.pad2.cd()
             canv.set_ratio_range(.95, 1.05, override=True)
             canv.proxy_dn.GetYaxis().SetTitle("Sample/Comb")
-            h_ratios = []
-            
+
             graph_list = get_div_graphs(eff_sum, eff_list)
             for gr in graph_list:
                 gr.Draw("psame")
-                    #h_ratio = utils.make_ratio(fake_rate_map_hists[y][f"{s}_{t}_{d}"], fake_rate_map_hists[y][f"{samples[0]}_{dspecies[0]}"]).Clone()
-                    #h_ratios += [h_ratio]
-                    #h_ratio.Draw("same")
+                # h_ratio = utils.make_ratio(fake_rate_map_hists[y][f"{s}_{t}_{d}"], fake_rate_map_hists[y][f"{samples[0]}_{dspecies[0]}"]).Clone()
+                # h_ratios += [h_ratio]
+                # h_ratio.Draw("same")
 
             canv.print(os.path.join(plots_folder, f"{options.output}_{channel_name}_{y}.pdf"))
             canv.print(os.path.join(plots_folder, f"{options.output}_{channel_name}_{y}.png"))
@@ -373,8 +372,6 @@ def main(conf, options, args):
         for t, i in zip(tags, range(len(tags))):
             hf_2D_eff = make_fake_rate_histogram_2D_TEff(eff_sums, xbins_pt_chan, ybins_eta_chan, f"Fake_Rate_{channel_name}_{t}", i)
             hf_2D_eff.Write()
-
-
 
     # close out file
     out.Close()
