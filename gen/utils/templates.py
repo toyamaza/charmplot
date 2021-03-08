@@ -25,6 +25,7 @@ label_dict = {
     'wplusd_comparison': 'MadGraph LO',
     'flavor_comparison': 'MadGraph LO',
     'spg_comparison': 'MadGraph LO vs. SPG',
+    'multijet_comparison': 'Matrix Method vs Fake Factor',
 }
 
 
@@ -48,7 +49,7 @@ class DataMCConfig:
             'samplesConf': self.sample_config,
             'channels': {},
         }
-        if self.sample_config not in ['truth_comparison', 'wplusd_comparison', 'spg_comparison']:
+        if self.sample_config not in ['truth_comparison', 'wplusd_comparison', 'spg_comparison', 'multijet_comparison']:
             out['data'] = 'Data'
         if self.systematics:
             out['systematics'] = self.systematics
@@ -83,7 +84,7 @@ class WDTruthSamplesNew:
         self.loose_sr = loose_sr
         self.samples = []
         if self.os_minus_ss_fit_configuration:
-            self.samples += [['MockMC', proxies.MockMC()]]
+            self.samples += [['MockMC', proxies.MockMC(subtract_mj=False)]]
         self.samples += [
             ['Wjets_emu_Matched', proxies.Matched(os_minus_ss_fit_configuration=self.os_minus_ss_fit_configuration)],
             ['Wjets_emu_411MisMatched', proxies.MisMatched(
@@ -95,8 +96,19 @@ class WDTruthSamplesNew:
             ['Top_Matched', proxies.Matched(os_minus_ss_fit_configuration=self.os_minus_ss_fit_configuration)],
             ['Top_Rest', proxies.Rest(os_minus_ss_fit_configuration=self.os_minus_ss_fit_configuration, include_other=True, name="WithOther")],
             ['DibosonZjetsTau', proxies.PlainChannel(os_minus_ss_fit_configuration=self.os_minus_ss_fit_configuration)],
-            ['Multijet_MatrixMethod', proxies.MatrixMethod(os_minus_ss_fit_configuration=self.os_minus_ss_fit_configuration)],
+            ['Multijet_MatrixMethod', proxies.MatrixMethod(fake_factor=False)],
         ]
+
+    def get(self):
+        return self.samples
+
+
+class MultiJetComparison:
+
+    samples = [
+        ['Multijet_MatrixMethod', proxies.MatrixMethod(fake_factor=False)],
+        ['Multijet_MatrixMethod_FF', proxies.MatrixMethod(fake_factor=True)],
+    ]
 
     def get(self):
         return self.samples
@@ -296,7 +308,7 @@ class ChannelGenerator:
 
             # add samples
             for sample in samples:
-                if 'MockMC' not in sample[0] and os_only and 'SS' in channel_name:
+                if sample[1].os_minus_ss_fit_configuration and 'SS' in channel_name:
                     continue
                 if len(sample) == 1:
                     channel['samples'] += [sample[0]]
