@@ -10,7 +10,6 @@ from copy import deepcopy
 from ctypes import c_double
 from typing import Dict, List, Union
 import array
-import json
 import lhapdf
 import logging
 import numpy as np
