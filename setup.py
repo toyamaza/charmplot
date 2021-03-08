@@ -21,7 +21,6 @@ setup(name='charmplot',
           'charmplot/scripts/plot_mc.py',
           'charmplot/scripts/plot_post_fit.py',
           'gen/generate_wplusd_config.py',
-          'hfroofit/scripts/likelihood_fit.py',
       ],
       install_requires=[
           'PyYAML',
