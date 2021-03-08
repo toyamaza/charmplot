@@ -1,0 +1,12 @@
+image: "python:3.7"
+
+before_script:
+  - python --version
+
+stages:
+  - Static Analysis
+
+flake8:
+  stage: Static Analysis
+  script:
+  - flake8
