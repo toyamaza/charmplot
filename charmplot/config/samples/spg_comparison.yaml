@@ -85,7 +85,7 @@ SPG_DPlus_Matched:
     - SPG_Dplus
   subtract:
   lineColor: "14004"
-  legendLabel: "#it{D}(#it{K}#pi#pi) SPG"
+  legendLabel: "#it{D}(#it{K}#pi#pi) SPG^{+}"
   shortName: SPG_DPlus_Matched
 
 SPG_DPlus_411MisMatched:
@@ -93,7 +93,7 @@ SPG_DPlus_411MisMatched:
     - SPG_Dplus
   subtract:
   lineColor: "14004"
-  legendLabel: "#it{D}(other) SPG"
+  legendLabel: "#it{D}(other) SPG^{+}"
   shortName: SPG_DPlus_411MisMatched
 
 SPG_DPlus_431MisMatched:
@@ -101,7 +101,7 @@ SPG_DPlus_431MisMatched:
     - SPG_Ds
   subtract:
   lineColor: "14004"
-  legendLabel: "#it{D}_{S} SPG"
+  legendLabel: "#it{D}_{S} SPG^{+}"
   shortName: SPG_DPlus_431MisMatched
 
 SPG_DPlus_421MisMatched:
@@ -109,7 +109,7 @@ SPG_DPlus_421MisMatched:
     - SPG_D0
   subtract:
   lineColor: "14004"
-  legendLabel: "#it{D}0/#it{D}* SPG"
+  legendLabel: "#it{D}0/#it{D}* SPG^{+}"
   shortName: SPG_DPlus_421MisMatched
 
 SPG_DPlus_BaryonMisMatched:
@@ -117,7 +117,7 @@ SPG_DPlus_BaryonMisMatched:
     - SPG_Baryon
   subtract:
   lineColor: "14004"
-  legendLabel: "Baryon SPG"
+  legendLabel: "Baryon SPG^{+}"
   shortName: SPG_DPlus_BaryonMisMatched
 
 SPG_DPlus_CharmMisMatched:
@@ -127,8 +127,116 @@ SPG_DPlus_CharmMisMatched:
     - SPG_Baryon
   subtract:
   lineColor: "14004"
-  legendLabel: "Charm SPG"
+  legendLabel: "Charm SPG^{+}"
   shortName: SPG_DPlus_CharmMisMatched
+
+SPG_DMinus_Matched:
+  add:
+    - SPG_Dminus
+  subtract:
+  lineColor: "11004"
+  legendLabel: "#it{D}(#it{K}#pi#pi) SPG^{-}"
+  shortName: SPG_DMinus_Matched
+
+SPG_DMinus_411MisMatched:
+  add:
+    - SPG_Dminus
+  subtract:
+  lineColor: "11004"
+  legendLabel: "#it{D}(other) SPG^{-}"
+  shortName: SPG_DMinus_411MisMatched
+
+SPG_DMinus_431MisMatched:
+  add:
+    - SPG_Dsminus
+  subtract:
+  lineColor: "11004"
+  legendLabel: "#it{D}_{S} SPG^{-}"
+  shortName: SPG_DMinus_431MisMatched
+
+SPG_DMinus_421MisMatched:
+  add:
+    - SPG_D0bar
+  subtract:
+  lineColor: "11004"
+  legendLabel: "#it{D}0/#it{D}* SPG^{-}"
+  shortName: SPG_DMinus_421MisMatched
+
+SPG_DMinus_BaryonMisMatched:
+  add:
+    - SPG_Baryonbar
+  subtract:
+  lineColor: "11004"
+  legendLabel: "Anti-Baryon SPG^{-}"
+  shortName: SPG_DMinus_BaryonMisMatched
+
+SPG_DMinus_CharmMisMatched:
+  add:
+    - SPG_Ds
+    - SPG_D0
+    - SPG_Baryon
+  subtract:
+  lineColor: "11004"
+  legendLabel: "Charm SPG^{-}"
+  shortName: SPG_DMinus_CharmMisMatched
+
+SPG_Matched:
+  add:
+    - SPG_Dplus
+    - SPG_Dminus
+  subtract:
+  lineColor: "21000"
+  legendLabel: "#it{D}(#it{K}#pi#pi) SPG"
+  shortName: SPG_Matched
+
+SPG_411MisMatched:
+  add:
+    - SPG_Dminus
+    - SPG_Dplus
+  subtract:
+  lineColor: "21000"
+  legendLabel: "#it{D}(other) SPG"
+  shortName: SPG_411MisMatched
+
+SPG_431MisMatched:
+  add:
+    - SPG_Ds
+    - SPG_Dsminus
+  subtract:
+  lineColor: "21000"
+  legendLabel: "#it{D}_{S} SPG"
+  shortName: SPG_431MisMatched
+
+SPG_421MisMatched:
+  add:
+    - SPG_D0
+    - SPG_D0bar
+  subtract:
+  lineColor: "21000"
+  legendLabel: "#it{D}0/#it{D}* SPG"
+  shortName: SPG_421MisMatched
+
+SPG_BaryonMisMatched:
+  add:
+    - SPG_Baryon
+    - SPG_Baryonbar
+  subtract:
+  lineColor: "21000"
+  legendLabel: "Anti-Baryon SPG"
+  shortName: SPG_BaryonMisMatched
+
+SPG_CharmMisMatched:
+  add:
+    - SPG_Ds
+    - SPG_D0
+    - SPG_Baryon
+    - SPG_Dsminus
+    - SPG_D0bar
+    - SPG_Baryonbar
+  subtract:
+  lineColor: "21000"
+  legendLabel: "Charm SPG"
+  shortName: SPG_CharmMisMatched
 
 SPG_Matched_Ds:
   add:

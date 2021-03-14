@@ -2,6 +2,7 @@ type: NNPDF30_nlo_as_0118
 affecting:
   - Top_Matched
   - Top_Rest
+  - Top
 variations:
   - GEN_PDF_260000
   - GEN_PDF_260001

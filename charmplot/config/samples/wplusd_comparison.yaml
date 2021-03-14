@@ -106,3 +106,19 @@ Wjets_cjets_emu_Rest_LooseSR:
   lineColor: "10003"
   legendLabel: "W+c Loose"
   shortName: Wjets_cjets_emu_Rest_LooseSR
+
+Multijet_MatrixMethod:
+  add: data
+  subtract:
+  lineColor: "14003"
+  legendLabel: "Multijet MM"
+  shortName: Multijet_MatrixMethod
+
+Multijet_MatrixMethod_FF:
+  add:
+    - data_FF
+    - MC
+  subtract:
+  lineColor: "10003"
+  legendLabel: "Multijet FF"
+  shortName: Multijet_MatrixMethod_FF

@@ -76,7 +76,8 @@ Wjets_emu_Matched:
     - MG_Wjets_bjets_emu
   subtract:
   fillColor: "10004"
-  legendLabel: "W+#it{D}(K#pi#pi)"
+  legendLabel: "W+#it{D}(#it{K}#pi#pi)"
+  # legendLabel: "W+#it{D}"
   shortName: Wjets_emu_Matched
 
 Wjets_emu_411MisMatched:
@@ -498,7 +499,25 @@ Multijet_MatrixMethod:
   fillColor: "14003"
   legendLabel: Multijet
   shortName: Multijet_MatrixMethod
+  # makeGhostSample: True
+
+Multijet_MatrixMethod_Offset:
+  add: data
+  subtract:
+  fillColor: "14003"
+  legendLabel: Multijet
+  shortName: Multijet_MatrixMethod_Offset
   makeGhostSample: True
+
+Multijet_MatrixMethod_FF:
+  add:
+    - data_FF
+    - MC
+  subtract:
+  fillColor: "14003"
+  legendLabel: "Multijet"
+  shortName: Multijet_MatrixMethod
+  # makeGhostSample: True
 
 MockMC:
   add: data
@@ -520,52 +539,60 @@ Wjets_emu_Matched_Charm:
   legendLabel: "Matched #it{D}"
   shortName: Wjets_emu_Matched
 
-SPG_DPlus_Matched:
+SPG_Matched:
   add:
     - SPG_Dplus
+    - SPG_Dminus
   subtract:
-  lineColor: "14004"
+  lineColor: "21000"
   legendLabel: "#it{D}(#it{K}#pi#pi) SPG"
-  shortName: SPG_DPlus_Matched
+  shortName: SPG_Matched
 
-SPG_DPlus_411MisMatched:
+SPG_411MisMatched:
   add:
+    - SPG_Dminus
     - SPG_Dplus
   subtract:
-  lineColor: "14004"
+  lineColor: "21000"
   legendLabel: "#it{D}(other) SPG"
-  shortName: SPG_DPlus_411MisMatched
+  shortName: SPG_411MisMatched
 
-SPG_DPlus_431MisMatched:
+SPG_431MisMatched:
   add:
     - SPG_Ds
+    - SPG_Dsminus
   subtract:
-  lineColor: "14004"
+  lineColor: "21000"
   legendLabel: "#it{D}_{S} SPG"
-  shortName: SPG_DPlus_431MisMatched
+  shortName: SPG_431MisMatched
 
-SPG_DPlus_421MisMatched:
+SPG_421MisMatched:
   add:
     - SPG_D0
+    - SPG_D0bar
   subtract:
-  lineColor: "14004"
+  lineColor: "21000"
   legendLabel: "#it{D}0/#it{D}* SPG"
-  shortName: SPG_DPlus_421MisMatched
+  shortName: SPG_421MisMatched
 
-SPG_DPlus_BaryonMisMatched:
+SPG_BaryonMisMatched:
   add:
     - SPG_Baryon
+    - SPG_Baryonbar
   subtract:
-  lineColor: "14004"
-  legendLabel: "Baryon SPG"
-  shortName: SPG_DPlus_BaryonMisMatched
+  lineColor: "21000"
+  legendLabel: "Anti-Baryon SPG"
+  shortName: SPG_BaryonMisMatched
 
-SPG_DPlus_CharmMisMatched:
+SPG_CharmMisMatched:
   add:
     - SPG_Ds
     - SPG_D0
     - SPG_Baryon
+    - SPG_Dsminus
+    - SPG_D0bar
+    - SPG_Baryonbar
   subtract:
-  lineColor: "14004"
+  lineColor: "21000"
   legendLabel: "Charm SPG"
-  shortName: SPG_DPlus_CharmMisMatched
+  shortName: SPG_CharmMisMatched

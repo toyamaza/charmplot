@@ -2,6 +2,7 @@ type: alt_sample
 affecting:
   - Top_Matched
   - Top_Rest
+  - Top
 variations:
   - Top_HS
   - Top_Shower

@@ -2,6 +2,7 @@ type: overall
 size: 0.4
 affecting:
   - Multijet_MatrixMethod
+  - Multijet_MatrixMethod_Offset
 variations:
   - MM_NON_CLOSURE__1up
   - MM_NON_CLOSURE__1dn

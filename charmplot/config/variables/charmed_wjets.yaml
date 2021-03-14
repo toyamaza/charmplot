@@ -812,6 +812,15 @@ lep_dR_bjet:
   label: '#Delta({b}-jet}, lep)'
   ratio_range: [0.5, 1.49]
 
+lep_dR_Dmeson:
+  label: '#Delta(lep, D_{loose})'
+  ratio_range: [0.5, 1.49]
+
+lep_newflowisol_over_pt:
+  label: 'lepton (ptvarcone30_TightTTVA_pt500 + 0.4 neflowisol20) / p_{T}'
+  rebin: 2
+  ratio_range: [0.5, 1.49]
+
 njets:
   label: N_{jet}
   ratio_range: [0.5, 1.49]

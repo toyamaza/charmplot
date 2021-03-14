@@ -1,13 +1,16 @@
 type: updown
 affecting:
   - Multijet_MatrixMethod
+  - Multijet_MatrixMethod_Offset
+  - Multijet_MatrixMethod_FF
+  - Multijet_MatrixMethod_Tight
+  - Multijet_MatrixMethod_AntiTight
 variations:
   - MM_REAL_RATE_STAT__1up
   - MM_REAL_RATE_STAT__1down
-  - MM_REAL_RATE__Wjets_Sherpa
-  - MM_REAL_RATE__Wjets_MadGraph
+  # - MM_REAL_RATE_SPECIES_DECAY__1up
+  # - MM_REAL_RATE_SPECIES_DECAY__1down
   - MM_FAKE_RATE_STAT__1up
   - MM_FAKE_RATE_STAT__1down
-  - MM_FAKE_RATE__Wjets_Sherpa
   - MM_FAKE_RATE__Wjets_MadGraph_Up
   - MM_FAKE_RATE__Wjets_MadGraph_Dn
