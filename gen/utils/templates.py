@@ -26,6 +26,7 @@ label_dict = {
     'flavor_comparison': 'MadGraph LO',
     'spg_comparison': 'MadGraph LO vs. SPG',
     'multijet_comparison': 'Matrix Method vs Fake Factor',
+    'multijet_composition': 'Matrix Method',
 }
 
 
@@ -49,7 +50,7 @@ class DataMCConfig:
             'samplesConf': self.sample_config,
             'channels': {},
         }
-        if self.sample_config not in ['truth_comparison', 'wplusd_comparison', 'spg_comparison', 'multijet_comparison']:
+        if self.sample_config not in ['truth_comparison', 'wplusd_comparison', 'spg_comparison', 'multijet_comparison', 'multijet_composition']:
             out['data'] = 'Data'
         if self.systematics:
             out['systematics'] = self.systematics
@@ -108,6 +109,18 @@ class MultiJetComparison:
     samples = [
         ['Multijet_MatrixMethod', proxies.MatrixMethod(fake_factor=False)],
         ['Multijet_MatrixMethod_FF', proxies.MatrixMethod(fake_factor=True)],
+    ]
+
+    def get(self):
+        return self.samples
+
+
+class MultiJetComposition:
+
+    samples = [
+        ['Multijet_MatrixMethod_AntiTight', proxies.MatrixMethod(loose_only=True)],
+        ['Multijet_MatrixMethod_Tight', proxies.MatrixMethod(tight_only=True)],
+        ['Multijet_MatrixMethod', proxies.MatrixMethod()],
     ]
 
     def get(self):

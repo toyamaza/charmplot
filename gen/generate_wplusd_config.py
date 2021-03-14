@@ -36,6 +36,8 @@ def main(options):
             samples = templates.WDBackgroundComparison()
         elif options.samples.lower() == 'multijet_comparison':
             samples = templates.MultiJetComparison()
+        elif options.samples.lower() == 'multijet_composition':
+            samples = templates.MultiJetComposition()
         else:
             print(f"ERROR: Unknown samples type {options.samples}")
             sys.exit(1)
