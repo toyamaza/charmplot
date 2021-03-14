@@ -1,0 +1,22 @@
+colorScheme: gemstone_hues
+
+Multijet_MatrixMethod:
+  add: data
+  subtract:
+  lineColor: "14003"
+  legendLabel: "Multijet MM"
+  shortName: Multijet_MatrixMethod
+
+Multijet_MatrixMethod_Tight:
+  add: data
+  subtract:
+  lineColor: "11004"
+  legendLabel: "MM Tight"
+  shortName: Multijet_MatrixMethod_Tight
+
+Multijet_MatrixMethod_AntiTight:
+  add: data
+  subtract:
+  lineColor: "10004"
+  legendLabel: "MM AntiTight"
+  shortName: Multijet_MatrixMethod_AntiTight
