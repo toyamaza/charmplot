@@ -34,9 +34,9 @@ class InputDataReader(object):
             logger.warning(f"Histogram {h_name} not found for sample {sample}!")
             return None
         if sys:
-            h = h.Clone(f"{h.GetName()}_{sys}_{f.GetName().replace('.root', '')}")
+            h = h.Clone(f"{h.GetName()}_{sys}_{f.GetName().replace('.root', '')}_{channel.name}")
         else:
-            h = h.Clone(f"{h.GetName()}_{f.GetName().replace('.root', '')}")
+            h = h.Clone(f"{h.GetName()}_{f.GetName().replace('.root', '')}_{channel.name}")
         h_new = utils.rebin_histogram(h, variable, extra_rebin)
         logger.info(f"Got histogram {h_new}")
 
