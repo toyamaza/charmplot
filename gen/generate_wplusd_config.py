@@ -20,7 +20,8 @@ def main(options):
         # sample type
         if options.samples.lower() == 'truth':
             if options.fit_only:
-                samples = templates.WDTruthSamplesNew(os_minus_ss_fit_configuration=(options.fit_type == "OS-SS"), OS_and_SS_fit=(options.fit_type == "OS/SS"), MockMC=True)
+                samples = templates.WDTruthSamplesNew(os_minus_ss_fit_configuration=(options.fit_type == "OS-SS"),
+                                                      OS_and_SS_fit=(options.fit_type == "OS/SS"), MockMC=True)
             else:
                 samples = templates.WDTruthSamplesNew(OS_and_SS_fit=(options.fit_type == "OS/SS"), MockMC=False)
             if options.replacement_samples:
