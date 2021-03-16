@@ -499,7 +499,6 @@ Multijet_MatrixMethod:
   fillColor: "14003"
   legendLabel: Multijet
   shortName: Multijet_MatrixMethod
-  # makeGhostSample: True
 
 Multijet_MatrixMethod_Offset:
   add: data
@@ -517,7 +516,6 @@ Multijet_MatrixMethod_FF:
   fillColor: "14003"
   legendLabel: "Multijet"
   shortName: Multijet_MatrixMethod
-  # makeGhostSample: True
 
 MockMC:
   add: data
@@ -526,14 +524,19 @@ MockMC:
   legendLabel: "Ch. Symm."
   shortName: MockMC
   statError: True
-  
+
+MockMC_minus_MC:
+  add: data
+  subtract: MC
+  fillColor: "13001"
+  legendLabel: "Ch. Symm."
+  shortName: MockMC
+  statError: True
+
 Wjets_emu_Matched_Charm:
   add:
     - MG_Wjets_cjets_emu
     - MG_Wjets_bjets_emu
-#    - Top_ttbar
-#    - Top_single_top
-#    - Top_ttx
   subtract:
   fillColor: "10002"
   legendLabel: "Matched #it{D}"
