@@ -338,10 +338,12 @@ def main(options, conf):
             canv.proxy_up.SetMinimum(min_negative)
 
         # bottom pad
+        ROOT.gPad.RedrawAxis()
         canv.pad2.cd()
         g_mc_tot_err_only.Draw("le2")
         gr_ratio.Draw("pe0")
         canv.set_ratio_range(0.71, 1.29, override=True)
+        ROOT.gPad.RedrawAxis()
 
         # Print out
         canv.print(f"{conf.out_name}/{chan.name}_{var.name}.pdf")
