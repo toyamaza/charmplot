@@ -129,7 +129,7 @@ def main(options, conf):
                     samples.append(sample)
 
         # put MockMC last
-        if len(plot['-']):
+        if len(plot['-']) and 'MockMC' in samples[0].shortName:
             samples += [samples.pop(0)]
             sample_names += [sample_names.pop(0)]
 
@@ -145,7 +145,8 @@ def main(options, conf):
                         h_temp = files[channel].Get(f"h_SymmBkg_{btag}_postFit")
                 else:
                     if "SS" in channel.name:
-                        h_temp = files[channel].Get(f"h_{sample.shortName}_SS_postFit")
+                        h_temp = files[channel].Get(f"h_{sample.shortName}_postFit")
+                        # h_temp = files[channel].Get(f"h_{sample.shortName}_SS_postFit")
                         if "MatrixMethod" in sample.shortName:
                             h_temp_couter = files[channel].Get(f"h_{sample.shortName}_CounterTerm_SS_postFit")
                             if h_temp_couter:
@@ -168,7 +169,8 @@ def main(options, conf):
                         btag = re.findall("([012]tag)", channel.name)[0]
                         h_temp = files[channel].Get(f"h_SymmBkg_{btag}_postFit")
                 else:
-                    h_temp = files[channel].Get(f"h_{sample.shortName}_SS_postFit")
+                    h_temp = files[channel].Get(f"h_{sample.shortName}_postFit")
+                    # h_temp = files[channel].Get(f"h_{sample.shortName}_SS_postFit")
                     if "MatrixMethod" in sample.shortName:
                         h_temp_couter = files[channel].Get(f"h_{sample.shortName}_CounterTerm_SS_postFit")
                         if h_temp_couter:
