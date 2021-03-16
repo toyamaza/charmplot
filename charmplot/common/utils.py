@@ -267,15 +267,11 @@ def read_samples(conf: globalConfig.GlobalConfig, reader: inputDataReader.InputD
                  sys: str = None, affecting: list = None, fallback: MC_Map = None) -> MC_Map:
     mc_map = {}
     for s in samples:
-        # if s.shortName == "MockMC":
-        #     if not sys:
-        #         continue
-        #     else:
-        #         h_nominal = fallback[s]
-        #         h = h_nominal.Clone(f"{h_nominal.GetName()}_{sys}")
-        #         mc_map[s] = h
-        #         continue
-        # fallback to nominal if sys does not affect the sample
+        if sys and "MockMC" in s.shortName:
+            # h_nominal = fallback[s]
+            # h = h_nominal.Clone(f"{h_nominal.GetName()}_{sys}")
+            # mc_map[s] = h
+            continue
         if sys and fallback and affecting:
             if s.shortName not in affecting:
                 logging.info(f"Fallback to nominal histogram for {s.shortName} and sys {sys}")
