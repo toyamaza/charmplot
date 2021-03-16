@@ -15,11 +15,14 @@ def main(options):
         make_os_ss = True
         make_os_minus_ss = not options.fit_only
         os_only = options.fit_only
-        force_positive = options.fit_only
+        force_positive = options.fit_only or (options.fit_type == "OS/SS")
 
         # sample type
         if options.samples.lower() == 'truth':
-            samples = templates.WDTruthSamplesNew(os_minus_ss_fit_configuration=options.fit_only)
+            if options.fit_only:
+                samples = templates.WDTruthSamplesNew(os_minus_ss_fit_configuration=(options.fit_type == "OS-SS"), OS_and_SS_fit=(options.fit_type == "OS/SS"), MockMC=True)
+            else:
+                samples = templates.WDTruthSamplesNew(OS_and_SS_fit=(options.fit_type == "OS/SS"), MockMC=False)
             if options.replacement_samples:
                 samples_spg = templates.SPGSamples()
         elif options.samples.lower() == 'flavor' or options.samples.lower() == 'flavour':
@@ -148,16 +151,17 @@ def main(options):
                                                       os_only=os_only)
                     for btag in btags:
                         channelGenerator.make_channel(lumi, btag=btag, lepton=lepton,
-                                                      extra_rebin=extra_rebin * (2 if btag != '0tag' else 1), os_only=os_only)
+                                                      extra_rebin=extra_rebin * (40 if btag != '0tag' else 1), os_only=os_only)
                         for charge in charges:
                             channelGenerator.make_channel(lumi, btag=btag, lepton=lepton, charge=charge,
-                                                          extra_rebin=extra_rebin * (2 if btag != '0tag' else 1), os_only=os_only)
+                                                          extra_rebin=extra_rebin * (40 if btag != '0tag' else 1), os_only=os_only)
 
         # add channels
         if options.replacement_samples:
             channelGenerator.get_config()['channels'].update(channelGeneratorSPG.get_config()['channels'])
 
-        with open(f'{options.analysis_config}_{sample_config}.yaml', 'w') as outfile:
+        out_name = f'{options.analysis_config}_{sample_config}{"_OSSS" if options.fit_type == "OS/SS" else ""}.yaml'
+        with open(out_name, 'w') as outfile:
             yaml.dump(channelGenerator.get_config(), outfile, default_flow_style=False)
 
 
@@ -191,6 +195,10 @@ if __name__ == "__main__":
     parser.add_option('--fit-only',
                       action="store_true", dest="fit_only",
                       help="only regions necessaty for the fit")
+    parser.add_option('--fit-type',
+                      action="store", dest="fit_type",
+                      help="fit type (e.g. OS/SS or OS-SS)",
+                      default="OS-SS")
     parser.add_option('--sys',
                       action="store_true", dest="systematics",
                       help="add systematics")

@@ -80,11 +80,13 @@ class WDFitSamples:
 
 class WDTruthSamplesNew:
 
-    def __init__(self, os_minus_ss_fit_configuration=False, loose_sr=False):
+    def __init__(self, os_minus_ss_fit_configuration=False, loose_sr=False, OS_and_SS_fit=False, MockMC=True):
         self.os_minus_ss_fit_configuration = os_minus_ss_fit_configuration
         self.loose_sr = loose_sr
+        self.OS_and_SS_fit = OS_and_SS_fit
+        self.MockMC = MockMC
         self.samples = []
-        if self.os_minus_ss_fit_configuration:
+        if self.os_minus_ss_fit_configuration and self.MockMC:
             self.samples += [['MockMC', proxies.MockMC(subtract_mj=False)]]
         self.samples += [
             ['Wjets_emu_Matched', proxies.Matched(os_minus_ss_fit_configuration=self.os_minus_ss_fit_configuration)],
@@ -94,11 +96,15 @@ class WDTruthSamplesNew:
             ['Wjets_emu_MisMatched', proxies.GenericChannel(
                 name="MisMatched", os_minus_ss_fit_configuration=self.os_minus_ss_fit_configuration, region=["MisMatched", "MatchedNoFid"])],
             ['Wjets_emu_Rest', proxies.NoMatchBackground(os_minus_ss_fit_configuration=self.os_minus_ss_fit_configuration, loose_sr=self.loose_sr)],
-            ['Top_Matched', proxies.Matched(os_minus_ss_fit_configuration=self.os_minus_ss_fit_configuration)],
-            ['Top_Rest', proxies.Rest(os_minus_ss_fit_configuration=self.os_minus_ss_fit_configuration, include_other=True, name="WithOther")],
+            ['Top', proxies.PlainChannel(os_minus_ss_fit_configuration=self.os_minus_ss_fit_configuration)],
             ['DibosonZjetsTau', proxies.PlainChannel(os_minus_ss_fit_configuration=self.os_minus_ss_fit_configuration)],
-            ['Multijet_MatrixMethod', proxies.MatrixMethod(fake_factor=False)],
         ]
+        if self.os_minus_ss_fit_configuration:
+            self.samples += [['Multijet_MatrixMethod_Offset', proxies.MatrixMethod(os_minus_ss_fit_configuration=True, fake_factor=False)]]
+        if self.OS_and_SS_fit and not self.os_minus_ss_fit_configuration:
+            self.samples += [['Multijet_MatrixMethod', proxies.MatrixMethod(fake_factor=False)]]
+            if self.MockMC:
+                self.samples += [['MockMC_minus_MC', proxies.MockMC(subtract_mj=True)]]
 
     def get(self):
         return self.samples
@@ -331,7 +337,7 @@ class ChannelGenerator:
                 'save_to_file': True,
                 'samples': [],
             }
-            if sign == 'OS':
+            if sign == 'OS' and btag == '0tag':
                 channel['replacement_samples'] = self.replacement_samples
             self.config['channels'][channel_name] = channel
 
