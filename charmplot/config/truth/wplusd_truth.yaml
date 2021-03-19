@@ -2,6 +2,48 @@
 variablesConf: charmed_wjets_truth
 samplesConf: wjets_madgraph_truth
 channels:
+
+  el_minus_Dplus:
+    regions:
+      - el_minus_Dplus_OS
+    samples:
+      - WPlusD_OS
+      - WPlusD_SS | el_minus_Dplus_SS
+      - WPlusD_OS_minus_SS | el_minus_Dplus_OS-SS
+    label:
+      - Fiducial W+D
+      - 'e^{-} D^{+}#rightarrowK#pi#pi'
+  el_plus_Dplus:
+    regions:
+      - el_plus_Dplus_OS
+    samples:
+      - WPlusD_OS
+      - WPlusD_SS | el_plus_Dplus_SS
+      - WPlusD_OS_minus_SS | el_plus_Dplus_OS-SS
+    label:
+      - Fiducial W+D
+      - 'e^{+} D^{-}#rightarrowK#pi#pi'
+  mu_minus_Dplus:
+    regions:
+      - mu_minus_Dplus_OS
+    samples:
+      - WPlusD_OS
+      - WPlusD_SS | mu_minus_Dplus_SS
+      - WPlusD_OS_minus_SS | mu_minus_Dplus_OS-SS
+    label:
+      - Fiducial W+D
+      - '#mu^{-} D^{+}#rightarrowK#pi#pi'
+  mu_plus_Dplus:
+    regions:
+      - mu_plus_Dplus_OS
+    samples:
+      - WPlusD_OS
+      - WPlusD_SS | mu_plus_Dplus_SS
+      - WPlusD_OS_minus_SS | mu_plus_Dplus_OS-SS
+    label:
+      - Fiducial W+D
+      - '#mu^{+} D^{-}#rightarrowK#pi#pi'
+
   el_minus_Dplus_fid:
     regions:
       - el_minus_Dplus_OS_fid
@@ -42,6 +84,7 @@ channels:
     label:
       - Fiducial W+D
       - '#mu^{+} D^{-}#rightarrowK#pi#pi'
+
   el_minus_Dplus_fid_Kpipi:
     regions:
       - el_minus_Dplus_OS_fid_Kpipi
@@ -82,6 +125,7 @@ channels:
     label:
       - Fiducial W+D (D#toKpipi)
       - '#mu^{+} D^{-}#rightarrowK#pi#pi'
+
   el_minus_Dstar_fid:
     regions:
       - el_minus_Dstar_OS_fid
@@ -122,6 +166,7 @@ channels:
     label:
       - Fiducial W+D
       - '#mu^{+} D^{-}#rightarrowK#pi#pi'
+
   el_minus_Dstar_fid_Kpipi:
     regions:
       - el_minus_Dstar_OS_fid_Kpipi
@@ -162,6 +207,7 @@ channels:
     label:
       - Fiducial W+D (D*#toKpipi)
       - '#mu^{+} D^{-}#rightarrowK#pi#pi'
+
   el_minus_Dstar_fid_Kpipipi0:
     regions:
       - el_minus_Dstar_OS_fid_Kpipipi0
@@ -202,6 +248,47 @@ channels:
     label:
       - Fiducial W+D (D*#toKpipipi0)
       - '#mu^{+} D^{-}#rightarrowK#pi#pi'
+
+  el_minus_Dplus_OS:
+    regions:
+      - el_minus_Dplus_OS
+    make_plots: false
+  el_minus_Dplus_SS:
+    regions:
+      - el_minus_Dplus_SS
+    make_plots: false
+  el_minus_Dplus_OS-SS:
+    regions:
+      - el_minus_Dplus_OS
+      - '-el_minus_Dplus_SS'
+    make_plots: false
+  el_plus_Dplus_SS:
+    regions:
+      - el_plus_Dplus_SS
+    make_plots: false
+  el_plus_Dplus_OS-SS:
+    regions:
+      - el_plus_Dplus_OS
+      - '-el_plus_Dplus_SS'
+    make_plots: false
+  mu_minus_Dplus_SS:
+    regions:
+      - mu_minus_Dplus_SS
+    make_plots: false
+  mu_minus_Dplus_OS-SS:
+    regions:
+      - mu_minus_Dplus_OS
+      - '-mu_minus_Dplus_SS'
+    make_plots: false
+  mu_plus_Dplus_SS:
+    regions:
+      - mu_plus_Dplus_SS
+    make_plots: false
+  mu_plus_Dplus_OS-SS:
+    regions:
+      - mu_plus_Dplus_OS
+      - '-mu_plus_Dplus_SS'
+    make_plots: false
   el_minus_Dplus_OS_fid:
     regions:
       - el_minus_Dplus_OS_fid
@@ -242,6 +329,7 @@ channels:
       - mu_plus_Dplus_OS_fid
       - '-mu_plus_Dplus_SS_fid'
     make_plots: false
+
   el_minus_Dplus_OS_fid_Kpipi:
     regions:
       - el_minus_Dplus_OS_fid_Kpipi

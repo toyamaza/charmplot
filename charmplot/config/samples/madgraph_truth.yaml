@@ -77,7 +77,6 @@ Wjets_emu_Matched:
   subtract:
   fillColor: "10004"
   legendLabel: "W+#it{D}(#it{K}#pi#pi)"
-  # legendLabel: "W+#it{D}"
   shortName: Wjets_emu_Matched
 
 Wjets_emu_411MisMatched:

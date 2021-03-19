@@ -261,10 +261,10 @@ class SPGSamples:
 class WDComparisonSamples:
 
     samples = [
-        ['MG_Wjets_emu_Rest_el_minus', proxies.Rest(allowed_regions=["el_minus"], name="el_minus")],
-        ['MG_Wjets_emu_Rest_el_plus', proxies.Rest(allowed_regions=["el_plus"], name="el_plus")],
-        ['MG_Wjets_emu_Rest_mu_minus', proxies.Rest(allowed_regions=["mu_minus"], name="mu_minus")],
-        ['MG_Wjets_emu_Rest_mu_plus', proxies.Rest(allowed_regions=["mu_plus"], name="mu_plus")],
+        ['STDM13_Wjets_emu_Matched', proxies.Matched()],
+        ['STDM13_Wjets_emu_411MisMatched', proxies.MisMatched(pdgId="411")],
+        ['FTAG4_Wjets_emu_Matched', proxies.Matched()],
+        ['FTAG4_Wjets_emu_411MisMatched', proxies.MisMatched(pdgId="411")],
     ]
 
     def get(self):

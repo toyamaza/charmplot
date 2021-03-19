@@ -122,3 +122,43 @@ Multijet_MatrixMethod_FF:
   lineColor: "10003"
   legendLabel: "Multijet FF"
   shortName: Multijet_MatrixMethod_FF
+
+STDM13_Wjets_emu_Matched:
+  add:
+    - STDM13_MG_Wjets_light_emu
+    - STDM13_MG_Wjets_cjets_emu
+    - STDM13_MG_Wjets_bjets_emu
+  subtract:
+  lineColor: "10004"
+  legendLabel: "STDM13 W+#it{D}(#it{K}#pi#pi)"
+  shortName: STDM13_Wjets_emu_Matched
+
+STDM13_Wjets_emu_411MisMatched:
+  add:
+    - STDM13_MG_Wjets_light_emu
+    - STDM13_MG_Wjets_cjets_emu
+    - STDM13_MG_Wjets_bjets_emu
+  subtract:
+  lineColor: "10002"
+  legendLabel: "STDM13 W+#it{D}(other)"
+  shortName: STDM13_Wjets_emu_411MisMatched
+
+FTAG4_Wjets_emu_Matched:
+  add:
+    - FTAG4_MG_Wjets_light_emu
+    - FTAG4_MG_Wjets_cjets_emu
+    - FTAG4_MG_Wjets_bjets_emu
+  subtract:
+  lineColor: "14004"
+  legendLabel: "FTAG4 W+#it{D}(#it{K}#pi#pi)"
+  shortName: FTAG4_Wjets_emu_Matched
+
+FTAG4_Wjets_emu_411MisMatched:
+  add:
+    - FTAG4_MG_Wjets_light_emu
+    - FTAG4_MG_Wjets_cjets_emu
+    - FTAG4_MG_Wjets_bjets_emu
+  subtract:
+  lineColor: "14002"
+  legendLabel: "FTAG4 W+#it{D}(other)"
+  shortName: FTAG4_Wjets_emu_411MisMatched
