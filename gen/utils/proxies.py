@@ -140,9 +140,10 @@ class GenericChannel(ProxyChannel):
 
     def get_regions(self, regions):
         if self.regions_override:
-            return self.format(self.regions_override)
+            regions = self.regions_override
         if type(self.region) == str:
-            return self.format([f"{reg}_{self.region}" for reg in regions])
+            region = f"_{self.region}" if self.region else ""
+            return self.format([f"{reg}{region}" for reg in regions])
         else:
             return self.format([f"{reg1}_{reg2}" for reg1 in regions for reg2 in self.region])
 
@@ -188,12 +189,15 @@ class NoMatch(ProxyChannel):
 class NoMatchBackground(ProxyChannel):
     name = 'NoMatchBackground'
 
-    def __init__(self, os_minus_ss_fit_configuration: bool = False, loose_sr: bool = False):
+    def __init__(self, os_minus_ss_fit_configuration: bool = False, loose_sr: bool = False, regions_override: bool = False):
         super().__init__(os_minus_ss_fit_configuration=os_minus_ss_fit_configuration, loose_sr=loose_sr)
+        self.regions_override = regions_override
         if loose_sr:
             self.name += "_Loose"
 
     def get_regions(self, regions):
+        if self.regions_override:
+            regions = self.regions_override
         return self.format([reg + "_Other" for reg in regions] +
                            [reg + "_HardMisMatched" for reg in regions])
 

@@ -15,7 +15,8 @@ def main(options):
         make_os_ss = True
         make_os_minus_ss = not options.fit_only
         os_only = options.fit_only
-        force_positive = options.fit_only or (options.fit_type == "OS/SS")
+        force_positive = False
+        # force_positive = options.fit_only or (options.fit_type == "OS/SS")
 
         # sample type
         if options.samples.lower() == 'truth':
@@ -55,6 +56,9 @@ def main(options):
         charges = ['minus', 'plus']
         # charges = ['']
         btags = ['0tag', ['1tag', '2tag']]
+        # btags = ['0tag', '1tag']
+        ptbins = ['']
+        # ptbins = ['pt_bin1', 'pt_bin2', 'pt_bin3', 'pt_bin4', 'pt_bin5']
 
         # replace samples to increase mc stats
         if options.replacement_samples:
@@ -62,6 +66,8 @@ def main(options):
                 'Wjets_emu_Matched': 'OS-SS_SPG_Matched',
                 'Wjets_emu_411MisMatched': 'OS-SS_SPG_411MisMatched',
                 'Wjets_emu_Charm': 'OS-SS_SPG_CharmMisMatched',
+                'Wjets_emu_Rest': 'OS-SS_SPG_NoCharmBkg',
+                'Wjets_emu_MisMatched': 'OS-SS_SPG_MisMatchBkg',
             }
         else:
             replacement_samples = {}
@@ -72,11 +78,11 @@ def main(options):
             systematics = [
                 'experimental',
                 'matrix_method',
-                'matrix_method_non_closure',
-                'ttbar_theory_pdf',
-                'ttbar_theory_choice',
-                'ttbar_theory_qcd',
+                'proxy_norm',
                 'ttbar_theory_alt_samples',
+                'ttbar_theory_choice',
+                'ttbar_theory_pdf',
+                'ttbar_theory_qcd',
                 'wjets_theory',
             ]
 
@@ -94,23 +100,28 @@ def main(options):
                                                       leptons=leptons,
                                                       charges=charges,
                                                       btags=btags,
+                                                      ptbins=ptbins,
                                                       process_string=options.process_string,
                                                       sample_config=sample_config,
                                                       force_positive=force_positive,
-                                                      replacement_samples=replacement_samples)
+                                                      replacement_samples=replacement_samples,
+                                                      os_minus_ss_fit_configuration=(options.fit_type == "OS-SS"))
 
         # Helper object to generate channels
         if options.replacement_samples:
             channelGeneratorSPG = templates.ChannelGenerator(config=config,
                                                              samples=samples_spg,
                                                              make_plots=False,
+                                                             save_to_file=False,
+                                                             force_positive=force_positive,
                                                              decay_mode="SPG",
                                                              process_string="SPG",
                                                              signs=["OS", "SS"],
                                                              years=years,
                                                              leptons=leptons,
-                                                             charges=["minus"],
-                                                             btags="")
+                                                             charges=[""],
+                                                             btags="",
+                                                             ptbins=ptbins)
 
         # SPG samples
         if options.replacement_samples:
