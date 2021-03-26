@@ -19,6 +19,11 @@ D_pt:
   x_range: [0, 150]
   ratio_range: [0.5, 1.49]
 
+D_differential_pt:
+  label: "D^{#pm} p_{T}"
+  unit: "GeV"
+  allow_rebin: False
+
 D_eta:
   label: "D^{#pm} #eta"
   rebin: 2
@@ -58,3 +63,8 @@ lep_eta:
   label: "lepton #eta"
   rebin: 4
   ratio_range: [0.5, 1.49]
+
+D_differential_pt:
+  label: "D^{#pm} p_{T}"
+  make_plots: False
+  allow_rebin: False

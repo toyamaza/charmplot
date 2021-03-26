@@ -1,0 +1,30 @@
+colorScheme: gemstone_hues
+
+MG_Wjets:
+  add:
+    - MG_Wjets_bjets_emu
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_light_emu
+  subtract:
+  lineColor: "10004"
+  legendLabel: "MG W+#it{D}"
+  shortName: MG_Wjets
+
+Powheg_Wjets:
+  add:
+    - Ph_Wjets_emu
+  subtract:
+  lineColor: "14004"
+  legendLabel: "Powheg W+#it{D}"
+  shortName: Ph_Wjets_emu
+
+Sherpa_Wjets:
+  add:
+    - Sh_Wjets_bjets_emu
+    - Sh_Wjets_cjets_emu
+    - Sh_Wjets_light_emu
+    - Sh_Wjets_highpt_emu
+  subtract:
+  lineColor: "12004"
+  legendLabel: "Sherpa2.2.1 W+#it{D}"
+  shortName: Sherpa_Wjets

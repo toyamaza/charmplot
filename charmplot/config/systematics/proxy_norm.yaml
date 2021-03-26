@@ -1,0 +1,14 @@
+type: overall
+size: 0.01
+affecting:
+  - DibosonZjetsTau
+  - Multijet_MatrixMethod
+  - Top
+  - Wjets_emu_411MisMatched
+  - Wjets_emu_Charm
+  - Wjets_emu_Matched
+  - Wjets_emu_MisMatched
+  - Wjets_emu_Rest
+variations:
+  - PROXY_NORM__1up
+  - PROXY_NORM__1dn

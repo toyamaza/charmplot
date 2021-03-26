@@ -69,7 +69,7 @@ Dmeson_m9:
 Dmeson_pt:
   label: 'D^{#pm} p_{T}'
   unit: 'GeV'
-  rebin: 1
+  rebin: 2
   ratio_range: [0.5, 1.49]
 
 Dmeson_pt0:
@@ -838,3 +838,17 @@ lep_pt_eta:
 lep_pt_calo_eta:
   make_plots: False
   allow_rebin: False
+
+Dmeson_transfer_matrix:
+  make_plots: False
+  allow_rebin: False
+
+Dmeson_differential_pt:
+  make_plots: False
+  allow_rebin: False
+
+truth_Dmeson_pt:
+  label: 'D^{truth} p_{T}'
+  unit: 'GeV'
+  rebin: 1
+  ratio_range: [0.5, 1.49]

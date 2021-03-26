@@ -88,6 +88,7 @@ Wjets_emu_411MisMatched:
   fillColor: "10002"
   legendLabel: "W+#it{D}(other)"
   shortName: Wjets_emu_411MisMatched
+  makeGhostSample: True
 
 Wjets_emu_431MisMatched:
   add:
@@ -118,6 +119,7 @@ Wjets_emu_Rest:
   fillColor: "11002"
   legendLabel: "W+jets"
   shortName: Wjets_emu_Rest
+  makeGhostSample: True
 
 Wjets_emu_MisMatched:
   add:
@@ -128,6 +130,7 @@ Wjets_emu_MisMatched:
   fillColor: "11004"
   legendLabel: "W+c^{mis-match}"
   shortName: Wjets_emu_MisMatched
+  makeGhostSample: True
 
 Wjets_emu_413MisMatched:
   add:
@@ -189,6 +192,7 @@ Wjets_emu_Charm:
   fillColor: "10001"
   legendLabel: "W+c^{match}"
   shortName: Wjets_emu_Charm
+  makeGhostSample: True
 
 Wjets_emu_HardMisMatched:
   add:
@@ -199,6 +203,7 @@ Wjets_emu_HardMisMatched:
   fillColor: "10000"
   legendLabel: "W+Light"
   shortName: Wjets_emu_Charm
+  makeGhostSample: True
 
 Wjets_emu_NoMatch:
   add:
@@ -394,6 +399,7 @@ Top:
   fillColor: "12001"
   legendLabel: Top
   shortName: Top
+  makeGhostSample: True
 
 Top_HS:
   add:
@@ -472,6 +478,7 @@ DibosonZjetsTau:
   fillColor: "15000"
   legendLabel: Other
   shortName: DibosonZjetsTau
+  makeGhostSample: True
 
 Multijet:
   add: data
@@ -498,6 +505,7 @@ Multijet_MatrixMethod:
   fillColor: "14003"
   legendLabel: Multijet
   shortName: Multijet_MatrixMethod
+  makeGhostSample: True
 
 Multijet_MatrixMethod_Offset:
   add: data
@@ -598,3 +606,23 @@ SPG_CharmMisMatched:
   lineColor: "21000"
   legendLabel: "Charm SPG"
   shortName: SPG_CharmMisMatched
+
+Wjets_emu_Rest_Loose_OS-SS:
+  add:
+    - MG_Wjets_light_emu
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_bjets_emu
+  subtract:
+  lineColor: "21000"
+  legendLabel: "Loose W+jets OS-SS"
+  shortName: Wjets_emu_Rest_Loose_OS-SS
+
+Wjets_emu_MisMatched_Loose_OS-SS:
+  add:
+    - MG_Wjets_light_emu
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_bjets_emu
+  subtract:
+  lineColor: "21000"
+  legendLabel: "Loose W+c^{mis-match} OS-SS"
+  shortName: Wjets_emu_MisMatched_Loose_OS-SS

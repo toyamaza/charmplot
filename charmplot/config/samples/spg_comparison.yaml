@@ -30,6 +30,46 @@ Wjets_emu_Matched_OS-SS:
   legendLabel: "W+#it{D}(#it{K}#pi#pi) OS-SS"
   shortName: Wjets_emu_Matched_OS-SS
 
+Wjets_emu_Rest_OS-SS:
+  add:
+    - MG_Wjets_light_emu
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_bjets_emu
+  subtract:
+  lineColor: "11002"
+  legendLabel: "W+jets OS-SS"
+  shortName: Wjets_emu_Rest_OS-SS
+
+Wjets_emu_Rest_Loose_OS-SS:
+  add:
+    - MG_Wjets_light_emu
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_bjets_emu
+  subtract:
+  lineColor: "21000"
+  legendLabel: "Loose W+jets OS-SS"
+  shortName: Wjets_emu_Rest_Loose_OS-SS
+
+Wjets_emu_MisMatched_OS-SS:
+  add:
+    - MG_Wjets_light_emu
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_bjets_emu
+  subtract:
+  lineColor: "11004"
+  legendLabel: "W+c^{mis-match} OS-SS"
+  shortName: Wjets_emu_MisMatched_OS-SS
+
+Wjets_emu_MisMatched_Loose_OS-SS:
+  add:
+    - MG_Wjets_light_emu
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_bjets_emu
+  subtract:
+  lineColor: "21000"
+  legendLabel: "Loose W+c^{mis-match} OS-SS"
+  shortName: Wjets_emu_MisMatched_Loose_OS-SS
+
 Wjets_emu_411MisMatched_OS-SS:
   add:
     - MG_Wjets_light_emu
@@ -222,7 +262,7 @@ SPG_BaryonMisMatched:
     - SPG_Baryonbar
   subtract:
   lineColor: "21000"
-  legendLabel: "Anti-Baryon SPG"
+  legendLabel: "Baryon SPG"
   shortName: SPG_BaryonMisMatched
 
 SPG_CharmMisMatched:

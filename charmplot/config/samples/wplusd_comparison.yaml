@@ -123,11 +123,40 @@ Multijet_MatrixMethod_FF:
   legendLabel: "Multijet FF"
   shortName: Multijet_MatrixMethod_FF
 
+MG_Wjets_emu_Matched:
+  add:
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_bjets_emu
+    - MG_Wjets_light_emu
+  subtract:
+  lineColor: "10004"
+  legendLabel: "MG W+#it{D}"
+  shortName: MG_Wjets_emu_Matched
+
+Powheg_Wjets_emu_Matched:
+  add:
+    - Ph_Wjets_emu
+  subtract:
+  lineColor: "14004"
+  legendLabel: "Powheg W+#it{D}"
+  shortName: Powheg_Wjets_emu_Matched
+
+Sherpa_Wjets_emu_Matched:
+  add:
+    - Sh_Wjets_cjets_emu
+    - Sh_Wjets_bjets_emu
+    - Sh_Wjets_light_emu
+    - Sh_Wjets_highpt_emu
+  subtract:
+  lineColor: "12004"
+  legendLabel: "Sherpa2.2.1 W+#it{D}"
+  shortName: Sherpa_Wjets_emu_Matched
+
 STDM13_Wjets_emu_Matched:
   add:
-    - STDM13_MG_Wjets_light_emu
     - STDM13_MG_Wjets_cjets_emu
     - STDM13_MG_Wjets_bjets_emu
+    - STDM13_MG_Wjets_light_emu
   subtract:
   lineColor: "10004"
   legendLabel: "STDM13 W+#it{D}(#it{K}#pi#pi)"
