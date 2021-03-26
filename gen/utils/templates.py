@@ -312,7 +312,7 @@ class ChannelGenerator:
         return self.config
 
     def make_channel(self, lumi, sign='', year='', lepton='', charge='', btag='', extra_rebin=1, os_only=False):
-        for ptbin in self.ptbins + ["inc"]:
+        for ptbin in self.ptbins:
             for suffix, samples in self.samples.items():
                 channel_name = self.generate_channel_name(sign=sign, year=year, lepton=lepton, charge=charge, btag=btag, suffix=suffix)
                 if ptbin:

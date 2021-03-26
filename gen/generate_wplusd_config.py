@@ -58,7 +58,7 @@ def main(options):
         btags = ['0tag', ['1tag', '2tag']]
         # btags = ['0tag', '1tag']
         ptbins = ['']
-        # ptbins = ['pt_bin1', 'pt_bin2', 'pt_bin3', 'pt_bin4', 'pt_bin5']
+        # ptbins = ['pt_bin1', 'pt_bin2', 'pt_bin3', 'pt_bin4', 'pt_bin5', 'inc']
 
         # replace samples to increase mc stats
         if options.replacement_samples:
