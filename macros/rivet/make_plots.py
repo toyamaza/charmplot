@@ -26,8 +26,8 @@ handler.setFormatter(formatter)
 root.addHandler(handler)
 
 # samples
-SAMPLES = ["LOMG", "MGFxFx", "Sherpa2210"]
-COLORS = ["ROOT.kBlue", "ROOT.kRed", "ROOT.kGreen+2"]
+SAMPLES = ["LOMG", "NLOMG", "MGFxFx", "Sherpa2210"]
+COLORS = ["ROOT.kBlack", "ROOT.kBlue", "ROOT.kRed", "ROOT.kGreen+2"]
 
 # channel name
 channel_names = {
@@ -48,6 +48,8 @@ channel_names = {
 
     "mu_minus_mesons": "W(#mu^{-}#nu)+c-meson^{+}",
     "mu_plus_mesons": "W(#mu^{+}#nu)+c-meson^{-}",
+
+    "mu_Dplus": "W(#mu#nu)+D",
 }
 
 # proxy samples
@@ -73,9 +75,10 @@ variables = {
     "D_pt": variable.Variable("D_pt", **{
         "label": "p_{T}(D^{#pm})",
         "unit": "GeV",
-        "x_range": [0, 80],
+        "x_range": [8, 98],
         "ratio_range": [0.89, 1.11],
-        "rebin": 5,
+        "bins": [8, 12, 20, 40, 80, 98],
+        "logx": True,
     }),
     # "lep_eta": variable.Variable("lep_eta", **{
     #     "label": "#eta(lep)",
@@ -163,6 +166,14 @@ def process_file(f, c, var, pass_w, normalize):
                     h = create_histogram(variation, x_low, x_high, y, y_up, y_dn,
                                          f"{c}_{var.name}{'_pass_w' if pass_w else ''}{'_normalized' if normalize else ''}")
                     utils.rebin_histogram(h, var)
+                    if var.bins:
+                        h = h.Rebin(len(var.bins) - 1, f"{h.GetName()}_rebin", array.array('d', var.bins))
+                        varN = h.GetBinContent(len(var.bins) - 1)
+                        varN1 = h.GetBinContent(len(var.bins))
+                        errN = h.GetBinError(len(var.bins) - 1)
+                        errN1 = h.GetBinError(len(var.bins))
+                        h.SetBinContent(len(var.bins) - 1, varN + varN1)
+                        h.SetBinError(len(var.bins) - 1, (errN**2 + errN1**2)**(0.5))
                     histograms[f"{c}_{variation}{'_pass_w' if pass_w else ''}"] = h
             at_histogram = False
             save_histo = False
@@ -216,11 +227,6 @@ def main(options):
                     else:
                         add_histograms(histograms, c, var, pass_w, normalize)
 
-                    # normalize to unity if requested
-                    if normalize:
-                        for h in histograms.values():
-                            h.Scale(1. / h.GetSum())
-
                     # channel
                     channel_name = c.split(":")[0]
                     chan = channel.Channel(channel_name, [channel_names[channel_name]], "", [], [])
@@ -244,6 +250,11 @@ def main(options):
                             samples += [s]
                             mc_map[s] = h_sum
 
+                    # normalize to unity if requested
+                    if normalize:
+                        for s in mc_map:
+                            mc_map[s].Scale(1. / mc_map[s].GetSum())
+
                     # canvas
                     yaxis_label = f"d#sigma / d{var.label} [pb]"
                     if normalize:
@@ -253,8 +264,14 @@ def main(options):
                     # configure histograms
                     canv.configure_histograms(mc_map, True)
 
+                    # logx
+                    if var.logx:
+                        canv.pad1.SetLogx()
+                        canv.pad2.SetLogx()
+                        canv.proxy_dn.GetXaxis().SetMoreLogLabels()
+                        canv.proxy_dn.GetXaxis().SetLabelOffset(-0.03)
+
                     # top pad
-                    canv.pad1.cd()
                     errors = []
                     canv.pad1.cd()
                     for s in samples:
@@ -321,8 +338,8 @@ if __name__ == "__main__":
                       default="rivet_plots")
     parser.add_option('-c', '--channels',
                       action="store", dest="channels",
-                      default="mu_minus_mesons:mu_minus_Dplus,mu_minus_Dstar,mu_minus_Ds",
-                      #   default="mu_minus_Dplus;mu_plus_Dplus;mu_minus_Dstar;mu_plus_Dstar;mu_minus_Ds;mu_plus_Ds;mu_minus_LambdaC;mu_plus_LambdaC;mu_minus_OmegaC;mu_plus_OmegaC;mu_minus_XiCplus;mu_plus_XiCplus;mu_minus_XiCzero;mu_plus_XiCzero;mu_minus_mesons:mu_minus_Dplus,mu_minus_Dstar,mu_minus_Ds",
+                      #   default="mu_Dplus:mu_minus_Dplus,mu_plus_Dplus",
+                      default="mu_minus_Dplus;mu_plus_Dplus;mu_minus_Dstar;mu_plus_Dstar;mu_minus_Ds;mu_plus_Ds;mu_minus_LambdaC;mu_plus_LambdaC;mu_minus_OmegaC;mu_plus_OmegaC;mu_minus_XiCplus;mu_plus_XiCplus;mu_minus_XiCzero;mu_plus_XiCzero;mu_minus_mesons:mu_minus_Dplus,mu_minus_Dstar,mu_minus_Ds",  # noqa: E501
                       help="run over a subset of channels")
     parser.add_option('-v', '--vars',
                       action="store", dest="vars",

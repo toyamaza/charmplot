@@ -6,25 +6,45 @@ import ROOT
 dirname = os.path.join(os.path.dirname(__file__), "../atlasrootstyle")
 ROOT.gROOT.SetBatch(True)
 ROOT.gROOT.LoadMacro(os.path.join(dirname, "AtlasStyle.C"))
+ROOT.gROOT.LoadMacro(os.path.join(dirname, "AtlasLabels.C"))
+ROOT.gROOT.LoadMacro(os.path.join(dirname, "AtlasUtils.C"))
 ROOT.SetAtlasStyle()
 
 # Include custom PDFs
 ROOT.gROOT.LoadMacro(os.path.join(os.path.dirname(__file__), "RooTwoSidedCBShape.cc"))
 
 # Get the histogram
-f = ROOT.TFile("wplusd_spg_comparison_norw/histograms_OS_0tag_Dplus.root", "READ")
+f = ROOT.TFile("/global/cscratch1/sd/mmuskinj/charmpp/v8/spg_dplus/wplusd_spg_comparison_mass/histograms.root", "READ")
 
 # Make output folder
 if not os.path.isdir("fits"):
     os.makedirs("fits")
 
-for name in ['Wjets_emu_Matched_OS-SS_OS_0tag_Dplus_Dmeson_m', 'ForcedDecay_DPlus_Matched_OS_0tag_Dplus_Dmeson_m']:
+# histogram names
+names = [
+    "SPG_Matched_OS_0tag_Dplus_Matched_inc_Dmeson_m",
+    "SPG_Matched_OS_0tag_Dplus_Matched_pt_bin1_Dmeson_m",
+    "SPG_Matched_OS_0tag_Dplus_Matched_pt_bin2_Dmeson_m",
+    "SPG_Matched_OS_0tag_Dplus_Matched_pt_bin3_Dmeson_m",
+    "SPG_Matched_OS_0tag_Dplus_Matched_pt_bin4_Dmeson_m",
+    "SPG_Matched_OS_0tag_Dplus_Matched_pt_bin5_Dmeson_m",
+    "Wjets_emu_Matched_OS-SS_OS_0tag_Dplus_Matched_inc_Dmeson_m",
+    "Wjets_emu_Matched_OS-SS_OS_0tag_Dplus_Matched_pt_bin1_Dmeson_m",
+    "Wjets_emu_Matched_OS-SS_OS_0tag_Dplus_Matched_pt_bin2_Dmeson_m",
+    "Wjets_emu_Matched_OS-SS_OS_0tag_Dplus_Matched_pt_bin3_Dmeson_m",
+    "Wjets_emu_Matched_OS-SS_OS_0tag_Dplus_Matched_pt_bin4_Dmeson_m",
+    "Wjets_emu_Matched_OS-SS_OS_0tag_Dplus_Matched_pt_bin5_Dmeson_m",
+]
+
+for name in names:
 
     # print
     print(f"\n\nXXX {name} XXX\n\n")
 
     # Get the histogram
-    h = f.Get(name)
+    h_tmp = f.Get(name)
+    h = h_tmp.Clone(f"{h_tmp.GetName()}_clone")
+    h.Scale(100. / h.GetSumOfWeights())
 
     # Observable, i.e. the invariant mass
     x = ROOT.RooRealVar("x", "m(D^{+})", 1.7, 2.15, "GeV")
@@ -34,15 +54,18 @@ for name in ['Wjets_emu_Matched_OS-SS_OS_0tag_Dplus_Dmeson_m', 'ForcedDecay_DPlu
     # Create a binned dataset that imports contents of TH1 and associates its contents to observable 'x'
     dh = ROOT.RooDataHist("dh", "dh", x_arg_list, ROOT.RooFit.Import(h))
 
-    # Mean, Sigma parameters
-    mean = ROOT.RooRealVar("mean", "mean", 1.869, 1.869, 1.869)
-    sigma = ROOT.RooRealVar("sigma", "sigma", 0.02, 0.0, 1.0)
-
     # Signal
-    nLo = ROOT.RooRealVar("nLo", "nLo", 1, 0, 50)
-    nHi = ROOT.RooRealVar("nHi", "nHi", 1, 0, 50)
-    aLo = ROOT.RooRealVar("aLo", "aLo", 1, 0, 50)
-    aHi = ROOT.RooRealVar("aHi", "aHi", 1, 0, 50)
+    if "pt_bin5" not in name:
+        mean = ROOT.RooRealVar("mean", "mean", 1.870, 1.870, 1.870)
+        aLo = ROOT.RooRealVar("aLo", "aLo", 1.4, 1.4, 1.4)
+        aHi = ROOT.RooRealVar("aHi", "aHi", 1.4, 1.4, 1.4)
+    else:
+        mean = ROOT.RooRealVar("mean", "mean", 1.873, 1.873, 1.873)
+        aLo = ROOT.RooRealVar("aLo", "aLo", 1.35, 1.3, 1.3)
+        aHi = ROOT.RooRealVar("aHi", "aHi", 1.35, 1.3, 1.3)
+    sigma = ROOT.RooRealVar("sigma", "sigma", 0.02, 0.0, 0.05)
+    nLo = ROOT.RooRealVar("nLo", "nLo", 1, 0, 100)
+    nHi = ROOT.RooRealVar("nHi", "nHi", 1, 0, 100)
     sig = ROOT.RooTwoSidedCBShape("signal", "signal", x, mean, sigma, aLo, nLo, aHi, nHi)
 
     # Do the fit
@@ -62,10 +85,24 @@ for name in ['Wjets_emu_Matched_OS-SS_OS_0tag_Dplus_Dmeson_m', 'ForcedDecay_DPlu
         ROOT.kRed), ROOT.RooFit.LineStyle(ROOT.kDashed), ROOT.RooFit.Name("s"))
 
     # canvas
-    c = ROOT.TCanvas("c", "c", 800, 600)
+    c = ROOT.TCanvas(name, name, 800, 600)
     frame.Draw()
+    frame.SetMaximum(20)
+
+    # pint text
+    ROOT.ATLASLabel(0.17, 0.90, "Internal", 1)
+    ROOT.myText(0.17, 0.9 - 1 * 0.06, 1, "#sqrt{s} = 13 TeV")
+    ROOT.myText(0.17, 0.9 - 2 * 0.06, 1, "W#rightarrowl#nu+D, D#rightarrowK#pi#pi")
+    ROOT.myText(0.17, 0.9 - 3 * 0.06, 1, (name.split("_Dmeson_m")[0]).split("Matched_")[-1])
+    ROOT.myText(0.68, 0.9 - 0 * 0.06, 1, f"mean: {mean.getVal():.4f}")
+    ROOT.myText(0.68, 0.9 - 1 * 0.06, 1, f"sigma: {sigma.getVal():.4f}")
+    ROOT.myText(0.68, 0.9 - 2 * 0.06, 1, f"nLo: {nLo.getVal():.4f}")
+    ROOT.myText(0.68, 0.9 - 3 * 0.06, 1, f"nHi: {nHi.getVal():.4f}")
+    ROOT.myText(0.68, 0.9 - 4 * 0.06, 1, f"aLo: {aLo.getVal():.4f}")
+    ROOT.myText(0.68, 0.9 - 5 * 0.06, 1, f"aHi: {aHi.getVal():.4f}")
+
     c.Print(f"fits/{name}.pdf")
-    frame.SetMaximum(1)
-    frame.SetMinimum(1e-5)
+    frame.SetMaximum(1000)
+    frame.SetMinimum(1e-3)
     c.SetLogy()
     c.Print(f"fits/{name}_LOG.pdf")
