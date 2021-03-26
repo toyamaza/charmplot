@@ -17,6 +17,8 @@ class Variable(object):
     do_overflow = True
     do_underflow = True
     dstar_tail_rebin = False
+    bins = None
+    logx = False
 
     def __init__(self, name, **kwargs):
         self.name = name

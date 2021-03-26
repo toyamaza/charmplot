@@ -7,7 +7,7 @@ class Channel(object):
     mass_fit = None
     scale_factors = None
     make_plots = True
-    save_to_file = False
+    save_to_file = True
     print_scale_factors = True
     force_positive = False
     extra_rebin = 1

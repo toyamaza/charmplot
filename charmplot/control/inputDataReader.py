@@ -114,7 +114,8 @@ class InputDataReader(object):
         if sample.fit and h_total:
             h_total = utils.fit_histogram(h_total, sample.fit)
         if force_positive and h_total:
-            if 'MatrixMethod' not in sample.name:
+            # if 'MatrixMethod' not in sample.name:
+            if not sample.makeGhostSample:
                 utils.set_to_positive(h_total, sys)
         if not sample.statError:
             logger.info(f"Set stat error of {sample} to zero.")
