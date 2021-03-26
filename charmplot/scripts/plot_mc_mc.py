@@ -4,6 +4,7 @@ from charmplot.common import www
 from charmplot.control import globalConfig
 from charmplot.control import inputDataReader
 from copy import deepcopy
+from multiprocessing import Pool
 import logging
 import os
 import ROOT
@@ -51,7 +52,7 @@ def main(options, conf, reader):
 
         # output root file
         if c.save_to_file:
-            out_file_name = os.path.join(conf.out_name, f"histograms_{c.name}.root")
+            out_file_name = os.path.join(conf.out_name, f"histograms_tmp_{c.name}.root")
             out_file = ROOT.TFile(out_file_name, "RECREATE")
             out_file.Close()
 
@@ -70,6 +71,9 @@ def main(options, conf, reader):
 
         # list of variables
         variables = utils.get_variables(options, conf, reader, c, samples[0])
+
+        # have one variable?
+        assert len(variables) > 0, c.name
 
         # systematics
         systematics = conf.get_systematics()
@@ -115,25 +119,43 @@ def main(options, conf, reader):
                         gr_mc_sys_err_map[sample] += [gr_mc_sys_err]
                         gr_mc_sys_err_only_map[sample] += [gr_mc_sys_err_only]
 
-            # canvas
-            yaxis_label = "Entries"
-            if not options.normalize:
-                yaxis_label = "Normalized Entries"
-            canv = utils.make_canvas_mc_ratio(mc_map[samples[0]], var, c, ratio_title=options.ratio_title, x=800, y=800,
-                                              events=yaxis_label, ratio_range=[0.01, 1.99])
-
-            # configure histograms
-            canv.configure_histograms(mc_map, options.normalize)
+            # replace samples
+            for replace_sample, replace_channel in c.replacement_samples.items():
+                logging.info(f"replacing sample {replace_sample} with channel {replace_channel}")
+                utils.replace_sample(conf, mc_map, reader, c, var, replace_sample, replace_channel, mc_map_sys if systematics else None)
 
             # save histograms to root file
             if c.save_to_file:
                 utils.save_to_file(out_file_name, c, var, None, mc_map)
 
+            # skip
+            if not var.make_plots:
+                continue
+
+            # canvas
+            yaxis_label = "Entries"
+            if not options.normalize:
+                yaxis_label = "Normalized Entries"
+
+            # ratio range
+            ratio_range = [0.01, 1.99]
+            if options.show_rel_error:
+                ratio_range = [1e-4, 90]
+            canv = utils.make_canvas_mc_ratio(mc_map[samples[0]], var, c, ratio_title=options.ratio_title, x=800, y=800,
+                                              events=yaxis_label, ratio_range=ratio_range)
+
+            # configure histograms
+            canv.configure_histograms(mc_map, options.normalize)
+
             # top pad
             errors = []
             canv.pad1.cd()
             for s in samples:
-                fcolor = mc_map[s].GetLineColor()
+                if mc_map[s].GetLineColor() > 1:
+                    fcolor = mc_map[s].GetLineColor()
+                else:
+                    fcolor = s.fillColor
+                    mc_map[s].SetLineColor(fcolor)
                 gr_mc_stat_err, _ = utils.make_stat_err(mc_map[s])
                 gr_mc_tot_err = utils.combine_error_multiple([gr_mc_stat_err] + gr_mc_sys_err_map[s])
                 gr_mc_tot_err.SetLineColor(fcolor)
@@ -170,22 +192,38 @@ def main(options, conf, reader):
 
             # bottom pad
             canv.pad2.cd()
+            if options.show_rel_error:
+                canv.pad2.SetLogy()
 
             # ratio histograms
             ratios = []
-            denominator = mc_map[samples[0]].Clone(f"{mc_map[samples[0]].GetName()}_denominator")
-            for i in range(0, denominator.GetNbinsX() + 2):
-                denominator.SetBinError(i, 0)
+            if not options.show_rel_error:
+                denominator = mc_map[samples[0]].Clone(f"{mc_map[samples[0]].GetName()}_denominator")
+                for i in range(0, denominator.GetNbinsX() + 2):
+                    denominator.SetBinError(i, 0)
             for i in range(0, len(samples)):
                 h = mc_map[samples[i]].Clone(f"{mc_map[samples[i]].GetName()}_ratio")
+
+                if options.show_rel_error:
+                    denominator = mc_map[samples[i]].Clone(f"{mc_map[samples[i]].GetName()}_denominator")
+                    for j in range(0, denominator.GetNbinsX() + 2):
+                        denominator.SetBinContent(j, abs(mc_map[samples[0]].GetBinContent(j)))
+                        denominator.SetBinError(j, 0)
+                        h.SetBinContent(j, h.GetBinError(j))
+                        h.SetBinError(j, 0)
+
                 if options.extra_channel:
                     if "Loose" not in samples[i].shortName:
                         chi2 = h.Chi2Test(denominator, "WW")
                         canv.add_text(f"#chi^{2} prob: {chi2:.2f}")
                         canv.pad2.cd()
+
                 h.Divide(denominator)
                 ratios += [h]
-                fcolor = mc_map[samples[i]].GetLineColor()
+                if mc_map[samples[i]].GetLineColor() > 1:
+                    fcolor = mc_map[samples[i]].GetLineColor()
+                else:
+                    fcolor = s.fillColor
                 temp_err = []
                 for err in gr_mc_sys_err_map[samples[i]]:
                     temp_err += [err.Clone(f"{err.GetName()}_temp")]
@@ -206,8 +244,9 @@ def main(options, conf, reader):
                 gr_mc_tot_err.SetFillColorAlpha(fcolor, 0.25)
                 gr_mc_tot_err.SetFillStyle(1001)
                 errors += [gr_mc_tot_err, gr_mc_stat_err]
-                gr_mc_tot_err.Draw("e2")
-                gr_mc_stat_err.Draw("e0")
+                if not options.show_rel_error:
+                    gr_mc_tot_err.Draw("e2")
+                    gr_mc_stat_err.Draw("e0")
                 h.Draw("hist same")
                 if c.save_to_file:
                     out_file = ROOT.TFile(out_file_name, "UPDATE")
@@ -276,6 +315,8 @@ if __name__ == "__main__":
     parser.add_option('--nology',
                       action="store_true", dest="nology",
                       help="no log-y plots")
+    parser.add_option('--show-rel-error',
+                      action="store_true", dest="show_rel_error")
 
     # parse input arguments
     options, args = parser.parse_args()
@@ -306,6 +347,22 @@ if __name__ == "__main__":
 
     # do the plotting
     main(options, conf, reader)
+
+    # merge regular output
+    out_files = []
+    out_folder = os.path.join(conf.out_name)
+    files_exist = False
+    for r, d, f in os.walk(out_folder):
+        for file in f:
+            if '.root' in file and '_tmp_' in file:
+                out_files += [os.path.join(out_folder, file)]
+                files_exist = True
+    if files_exist:
+        jobs = [[os.path.join(out_folder, f"histograms.root")] + out_files]
+        p = Pool(1)
+        for i, _ in enumerate(p.imap_unordered(utils.hadd_wrapper, jobs)):
+            print("done processing hadd job %s/%s" % (i + 1, len(jobs)))
+        os.system(f"rm {out_folder}/*_tmp_*")
 
     # stage-out to the www folder
     if options.stage_out:

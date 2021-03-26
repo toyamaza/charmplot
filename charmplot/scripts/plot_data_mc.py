@@ -7,7 +7,6 @@ from multiprocessing import Pool
 import logging
 import os
 import ROOT
-import subprocess
 import sys
 import time
 
@@ -27,13 +26,6 @@ handler.setFormatter(formatter)
 root.addHandler(handler)
 
 
-def hadd_wrapper(args):
-    p = subprocess.Popen(["hadd"] + ["-f"] + args,
-                         stderr=subprocess.STDOUT)
-    p.communicate()
-    return
-
-
 def read_trex_input(trex_folder):
     trex_histograms = {}
     for subdir, dirs, files in os.walk(os.path.join(trex_folder, "Histograms")):
@@ -50,26 +42,16 @@ def make_trex_folder(trex_folder):
         os.makedirs(trex_folder)
 
 
-def mass_fit(conf, reader, c, samples):
-    fit_var = conf.get_var(c.mass_fit["var"])
-    h_data = reader.get_histogram(conf.get_data(), c, fit_var)
-    mc_map = {}
-    for s in samples:
-        mc_map[s] = reader.get_histogram(s, c, fit_var)
-    hs = utils.make_stack(samples, mc_map)
-    h_mc_tot = utils.make_mc_tot(hs, f"{c}_{fit_var.name}_mc_tot")
-    # fit data
-    utils.mass_fit(conf, h_data, c, "Data")
-    # fit MC
-    utils.mass_fit(conf, h_mc_tot, c, "MC")
-
-
 def wrapper(args,):
     options, conf, c = args
     process_channel(options, conf, c)
 
 
 def process_channel(options, conf, c):
+
+    # continue if proxy channel
+    if not (c.save_to_file or c.make_plots):
+        return
 
     logging.info(f"start processing channel {c.name}")
 
@@ -124,10 +106,6 @@ def process_channel(options, conf, c):
     variables = utils.get_variables(options, conf, reader, c)
     assert len(variables) > 0
 
-    # mass fit
-    if c.mass_fit:
-        mass_fit(conf, reader, c, samples)
-
     # systematics
     systematics = conf.get_systematics()
 
@@ -152,35 +130,6 @@ def process_channel(options, conf, c):
         mc_map = utils.read_samples(conf, reader, c, var, samples, fit, force_positive=c.force_positive)
         if not mc_map:
             continue
-
-        # # MockMC
-        # MockMC_sample = None
-        # for sample in samples:
-        #     if sample.shortName == "MockMC":
-        #         MockMC_sample = sample
-        # if MockMC_sample:
-        #     if "SS" in c.name:
-        #         MockMC_data = h_data
-        #         MockMC_samples = mc_map
-        #     else:
-        #         channel_SS = conf.get_channel(c.name.replace("OS", "SS"))
-        #         samples_SS = utils.get_samples(conf, channel_SS)
-        #         logging.info(f"Getting MockMC from channel {channel_SS.name}")
-        #         MockMC_data = reader.get_histogram(conf.get_data(), channel_SS, var)
-        #         MockMC_samples = utils.read_samples(conf, reader, channel_SS, var, samples_SS, fit, force_positive=channel_SS.force_positive)
-
-        #     # construct it
-        #     MockMC_histogram = MockMC_data.Clone(f"{h_data.GetName()}_MockMC")
-        #     for sample in MockMC_samples:
-        #         if MockMC_samples[sample]:
-        #             for i in range(0, MockMC_histogram.GetNbinsX() + 2):
-        #                 MockMC_histogram.SetBinContent(i, MockMC_histogram.GetBinContent(i) - MockMC_samples[sample].GetBinContent(i))
-
-        #     # set errors to zero
-        #     # utils.set_errors_to_zero(MockMC_histogram)
-
-        #     # Add to map
-        #     mc_map[MockMC_sample] = MockMC_histogram
 
         # systematics histograms
         if systematics:
@@ -217,7 +166,7 @@ def process_channel(options, conf, c):
         canv = utils.make_canvas(h_data, var, c, x=800, y=800, fit=fit)
 
         # configure histograms
-        canv.configure_histograms(mc_map, h_data, style = conf.style)
+        canv.configure_histograms(mc_map, h_data, style=conf.style)
 
         # save histograms to root file
         if options.trex:
@@ -462,7 +411,7 @@ if __name__ == "__main__":
         jobs = [[os.path.join(trex_folder, f"{sample}.root")] + samples[sample] for sample in samples]
         print(jobs)
         p = Pool(1)
-        for i, _ in enumerate(p.imap_unordered(hadd_wrapper, jobs)):
+        for i, _ in enumerate(p.imap_unordered(utils.hadd_wrapper, jobs)):
             print("done processing hadd job %s/%s" % (i + 1, len(jobs)))
         os.system(f"rm {trex_folder}/*_tmp_*")
 
@@ -478,7 +427,7 @@ if __name__ == "__main__":
     if files_exist:
         jobs = [[os.path.join(out_folder, f"histograms.root")] + out_files]
         p = Pool(1)
-        for i, _ in enumerate(p.imap_unordered(hadd_wrapper, jobs)):
+        for i, _ in enumerate(p.imap_unordered(utils.hadd_wrapper, jobs)):
             print("done processing hadd job %s/%s" % (i + 1, len(jobs)))
         os.system(f"rm {out_folder}/*_tmp_*")
 

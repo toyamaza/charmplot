@@ -15,11 +15,19 @@ import logging
 import numpy as np
 import os
 import ROOT
+import subprocess
 import sys
 
 MC_Map = Dict[sample.Sample, ROOT.TH1]
 
 logger = logging.getLogger(__name__)
+
+
+def hadd_wrapper(args):
+    p = subprocess.Popen(["hadd"] + ["-f"] + args,
+                         stderr=subprocess.STDOUT)
+    p.communicate()
+    return
 
 
 def eprint(*args, **kwargs):
@@ -223,8 +231,8 @@ def save_to_trex_file(trex_folder: str, channel: channel.Channel, var: variable.
             out_file = ROOT.TFile(trex_histograms[s.shortName], "UPDATE")
             out_file.cd()
             h_offset = mc_map[s].Clone(f"{mc_map[s].GetName()}_OFFSET")
-            for i in range(0, h_offset.GetNbinsX() + 2):
-                h_offset.SetBinContent(i, h_offset.GetBinContent(i) + 10000.)
+            # for i in range(0, h_offset.GetNbinsX() + 2):
+            #     h_offset.SetBinContent(i, h_offset.GetBinContent(i) + 10000.)
             h_offset.Write(out_name)
             out_file.Close()
         else:
@@ -268,9 +276,9 @@ def read_samples(conf: globalConfig.GlobalConfig, reader: inputDataReader.InputD
     mc_map = {}
     for s in samples:
         if sys and "MockMC" in s.shortName:
-            # h_nominal = fallback[s]
-            # h = h_nominal.Clone(f"{h_nominal.GetName()}_{sys}")
-            # mc_map[s] = h
+            h_nominal = fallback[s]
+            h = h_nominal.Clone(f"{h_nominal.GetName()}_{sys}")
+            mc_map[s] = h
             continue
         if sys and fallback and affecting:
             if s.shortName not in affecting:
@@ -317,28 +325,23 @@ def get_lumi(lumi_string):
 def get_variables(options, conf, reader, channel, sample=None):
     variables_conf = conf.get_variable_names()
     variables = []
-    picked_variables = []
     if options.vars:
-        picked_variables = options.vars.split(",")
-    if sample:
-        test_sample = sample
+        variables = options.vars.split(",")
     else:
-        test_sample = conf.data
-    if channel.make_plots:
-        for v in reader.find_variables(test_sample, channel):
-            if picked_variables and v not in picked_variables:
-                continue
-            variables += [v]
-    else:
-        variables = picked_variables
+        if sample:
+            test_sample = sample
+        else:
+            test_sample = conf.data
+        if channel.make_plots:
+            for v in reader.find_variables(test_sample, channel):
+                variables += [v]
 
     out = []
     for v in variables_conf:
         if v in variables:
             out += [v]
-            variables.remove(v)
 
-    return out + variables
+    return out
 
 
 def get_maximum(h, x1, x2):
@@ -872,16 +875,20 @@ def replace_sample(conf: globalConfig.GlobalConfig, mc_map: MC_Map, reader: inpu
         h_replacement.Rebin(int(h_replacement.GetNbinsX() / h_current.GetNbinsX()))
     mc_map[sample_current] = h_replacement
     if mc_map_sys:
+        # smooth any bins with very low bin content in the nominal histogram
+        for i in range(0, h_current.GetNbinsX() + 2):
+            if abs(h_current.GetBinContent(i)) < 1e-3:
+                h_current.SetBinContent(i, average_content(h_current, i))
         for group, systematics in mc_map_sys.items():
             for _, map_sys in systematics.items():
                 h_sys_replaced = map_sys[sample_current].Clone(f"{map_sys[sample_current].GetName()}_replaced")
                 h_sys_replaced.Add(h_current, -1)
-                h_sys_replaced.Divide(h_current)
-                # fix for very large sys errors due to forcing negative bin contents to zero
-                for i in range(0, h_current.GetNbinsX() + 2):
-                    if h_current.GetBinContent(i) <= 1e-3:
-                        h_sys_replaced.SetBinContent(i, average_content(h_sys_replaced, i))
-                h_sys_replaced.Multiply(h_replacement)
+                # h_sys_replaced.Divide(h_current)
+                # # fix for very large sys errors due to forcing negative bin contents to zero
+                # for i in range(0, h_current.GetNbinsX() + 2):
+                #     if abs(h_current.GetBinContent(i)) < 1e-3:
+                #         h_sys_replaced.SetBinContent(i, average_content(h_sys_replaced, i))
+                # h_sys_replaced.Multiply(h_replacement)
                 h_sys_replaced.Add(h_replacement)
                 map_sys[sample_current] = h_sys_replaced
 

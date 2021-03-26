@@ -70,7 +70,6 @@ def main(options, conf):
     for channel_OS in channels:
         if "OS_" not in channel_OS.name:
             continue
-        print(channel_OS.name)
         for channel_SS in channels:
             if channel_SS.name == channel_OS.name.replace("OS_", "SS_"):
                 OS_minus_SS_plots += [{'+': [channel_OS], '-': [channel_SS]}]
@@ -110,7 +109,7 @@ def main(options, conf):
             if len(plot['+']) > 1 and "tag" in label:
                 label = label.split(",")[0]
             labels += [label]
-        labels += ['post-fit']
+        labels[-1] += ', post-fit'
         chan = Channel(channel_name, labels, channel_temp.lumi, [], [])
 
         # read files
@@ -147,16 +146,15 @@ def main(options, conf):
                     if "SS" in channel.name:
                         h_temp = files[channel].Get(f"h_{sample.shortName}_postFit")
                         # h_temp = files[channel].Get(f"h_{sample.shortName}_SS_postFit")
-                        if "MatrixMethod" in sample.shortName:
-                            h_temp_couter = files[channel].Get(f"h_{sample.shortName}_CounterTerm_SS_postFit")
-                            if h_temp_couter:
-                                h_temp.Add(h_temp_couter)
+                        h_temp_couter = files[channel].Get(f"h_{sample.shortName}_CounterTerm_SS_postFit")
+                        if h_temp_couter:
+                            h_temp.Add(h_temp_couter)
                     else:
                         h_temp = files[channel].Get(f"h_{sample.shortName}_postFit")
-                        if "MatrixMethod" in sample.shortName:
-                            h_temp_couter = files[channel].Get(f"h_{sample.shortName}_CounterTerm_postFit")
-                            if h_temp_couter:
-                                h_temp.Add(h_temp_couter)
+                        h_temp_couter = files[channel].Get(f"h_{sample.shortName}_CounterTerm_postFit")
+                        if h_temp_couter:
+                            print("subtractign the counter term: ", h_temp_couter)
+                            h_temp.Add(h_temp_couter)
                 if h_temp:
                     if h_sum is None:
                         h_sum = h_temp.Clone(f"{h_temp.GetName()}_{chan.name}")
@@ -171,10 +169,10 @@ def main(options, conf):
                 else:
                     h_temp = files[channel].Get(f"h_{sample.shortName}_postFit")
                     # h_temp = files[channel].Get(f"h_{sample.shortName}_SS_postFit")
-                    if "MatrixMethod" in sample.shortName:
-                        h_temp_couter = files[channel].Get(f"h_{sample.shortName}_CounterTerm_SS_postFit")
-                        if h_temp_couter:
-                            h_temp.Add(h_temp_couter)
+                    h_temp_couter = files[channel].Get(f"h_{sample.shortName}_CounterTerm_SS_postFit")
+                    if h_temp_couter:
+                        print("subtractign the counter term: ", h_temp_couter)
+                        h_temp.Add(h_temp_couter)
                 if h_temp:
                     if h_sum is None:
                         h_sum = h_temp.Clone(f"{h_temp.GetName()}_{chan.name}")
@@ -342,7 +340,7 @@ def main(options, conf):
         canv.pad2.cd()
         g_mc_tot_err_only.Draw("le2")
         gr_ratio.Draw("pe0")
-        canv.set_ratio_range(0.71, 1.29, override=True)
+        canv.set_ratio_range(0.51, 1.49, override=True)
         ROOT.gPad.RedrawAxis()
 
         # Print out
