@@ -26,8 +26,8 @@ handler.setFormatter(formatter)
 root.addHandler(handler)
 
 # samples
-SAMPLES = ["LOMG", "NLOMG", "MGFxFx", "Sherpa2210"]
-COLORS = ["ROOT.kBlack", "ROOT.kBlue", "ROOT.kRed", "ROOT.kGreen+2"]
+SAMPLES = ["LOMG", "NLOMG[_VarBand]", "QCDScale[_VarBand]", "MGFxFx", "Sherpa2210"]
+COLORS = ["ROOT.kBlue", "ROOT.kBlack", "ROOT.kRed", "ROOT.kYellow+2", "ROOT.kGreen+2"]
 
 # channel name
 channel_names = {
@@ -60,7 +60,8 @@ for sampl, color in zip(SAMPLES, COLORS):
             name = f"{channl}_{sampl}"
             if pass_w:
                 name += "_pass_w"
-            samples_dict[name] = sample.Sample(name, None, **{'add': [], 'subtract': [], 'legendLabel': sampl, 'lineColor': color})
+            legendName = sampl.split("[_VarBand]")[0]
+            samples_dict[name] = sample.Sample(name, None, **{'add': [], 'subtract': [], 'legendLabel': legendName, 'lineColor': color})
 
 print(samples_dict)
 
@@ -162,7 +163,8 @@ def process_file(f, c, var, pass_w, normalize):
             save_histo = True
         elif "END HISTO1D" in line:
             if at_histogram:
-                if not ("[" in variation and "]" in variation):
+                # if not ("[" in variation and "]" in variation):
+                if variation in SAMPLES:
                     h = create_histogram(variation, x_low, x_high, y, y_up, y_dn,
                                          f"{c}_{var.name}{'_pass_w' if pass_w else ''}{'_normalized' if normalize else ''}")
                     utils.rebin_histogram(h, var)
@@ -291,6 +293,7 @@ def main(options):
                     canv.set_maximum([mc_map[s] for s in samples], var, mc_map[samples[0]])
 
                     # bottom pad
+                    ROOT.gPad.RedrawAxis()
                     canv.pad2.cd()
 
                     # ratio histograms
@@ -317,6 +320,7 @@ def main(options):
                         canv.proxy_dn.SetMinimum(0.81)
 
                     # Print out
+                    ROOT.gPad.RedrawAxis()
                     canv.print_all(options.output, channel_name + ("_pass_w" if pass_w else "") + ("_norm" if normalize else ""),
                                    v, multipage_pdf=True, first_plot=first_plot, last_plot=last_plot, as_png=False)
                     first_plot = False
