@@ -343,7 +343,10 @@ class ChannelGenerator:
                 # pt bins for SPG samples
                 if 'replacement_samples' in channel:
                     for k, v in channel['replacement_samples'].items():
-                        channel['replacement_samples'][k] = f"{v}_{ptbin}"
+                        if ptbin:
+                            channel['replacement_samples'][k] = f"{v}_{ptbin}"
+                        else:
+                            channel['replacement_samples'][k] = f"{v}"
 
                 # add to config
                 self.config['channels'][channel_name] = channel

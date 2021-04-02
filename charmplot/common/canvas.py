@@ -7,6 +7,7 @@ from ctypes import c_double
 from typing import Dict
 import logging
 import math
+import os
 import ROOT
 import sys
 
@@ -213,6 +214,10 @@ class Canvas2(CanvasBase):
                 self.text(f"#mu({s}) = {r[0]:.3f}")
 
     def print_all(self, output, channel, var, multipage_pdf=False, first_plot=False, last_plot=False, as_png=False, logy=True):
+        # make the channel dir
+        if not os.path.isdir(f"{output}/{channel}"):
+            os.makedirs(f"{output}/{channel}")
+
         self.pad1.cd()
         ROOT.gPad.RedrawAxis()
         if self.pad2:

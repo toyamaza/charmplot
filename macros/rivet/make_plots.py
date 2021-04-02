@@ -50,6 +50,11 @@ channel_names = {
     "mu_plus_mesons": "W(#mu^{+}#nu)+c-meson^{-}",
 
     "mu_Dplus": "W(#mu#nu)+D",
+    "mu_Dstar": "W(#mu#nu)+D*",
+    "mu_Dzero": "W(#mu#nu)+D0",
+    "mu_Ds": "W(#mu#nu)+Ds",
+    "mu_Dmeson": "W(#mu#nu)+Dmeson",
+    "mu_Baryon": "W(#mu#nu)+Baryon",
 }
 
 # proxy samples
@@ -243,7 +248,7 @@ def main(options):
 
                         for sampl in SAMPLES:
                             h_sum = None
-                            for h in [x for x in histograms if sampl in x]:
+                            for h in [x for x in histograms if f"_{sampl}" in x]:
                                 if not h_sum:
                                     h_sum = histograms[h].Clone(f"{histograms[h].GetName()}_{channel_name}")
                                 else:
@@ -296,6 +301,10 @@ def main(options):
                     ROOT.gPad.RedrawAxis()
                     canv.pad2.cd()
 
+                    # output file
+                    f = ROOT.TFile(os.path.join(options.output, "output.root"), "UPDATE")
+                    f.cd()
+
                     # ratio histograms
                     ratios = []
                     denominator = mc_map[samples[0]].Clone(f"{mc_map[samples[0]].GetName()}_denominator")
@@ -304,6 +313,8 @@ def main(options):
                     for i in range(0, len(samples)):
                         h = mc_map[samples[i]].Clone(f"{mc_map[samples[i]].GetName()}_ratio")
                         h.Divide(denominator)
+                        if normalize and not pass_w:
+                            h.Write(f"{channel_name}_{samples[i].name}")
                         ratios += [h]
                         fcolor = mc_map[samples[i]].GetLineColor()
                         gr_mc_stat_err, _ = utils.make_stat_err(h)
@@ -315,7 +326,7 @@ def main(options):
                         h.Draw("hist same")
 
                     # ratio range
-                    if normalize and ("Xi" not in c) and ("Lambda" not in c) and ("Omega" not in c):
+                    if normalize:
                         canv.proxy_dn.SetMaximum(1.19)
                         canv.proxy_dn.SetMinimum(0.81)
 
@@ -324,6 +335,9 @@ def main(options):
                     canv.print_all(options.output, channel_name + ("_pass_w" if pass_w else "") + ("_norm" if normalize else ""),
                                    v, multipage_pdf=True, first_plot=first_plot, last_plot=last_plot, as_png=False)
                     first_plot = False
+
+                    # close file
+                    f.Close()
 
 
 if __name__ == "__main__":
@@ -342,8 +356,7 @@ if __name__ == "__main__":
                       default="rivet_plots")
     parser.add_option('-c', '--channels',
                       action="store", dest="channels",
-                      #   default="mu_Dplus:mu_minus_Dplus,mu_plus_Dplus",
-                      default="mu_minus_Dplus;mu_plus_Dplus;mu_minus_Dstar;mu_plus_Dstar;mu_minus_Ds;mu_plus_Ds;mu_minus_LambdaC;mu_plus_LambdaC;mu_minus_OmegaC;mu_plus_OmegaC;mu_minus_XiCplus;mu_plus_XiCplus;mu_minus_XiCzero;mu_plus_XiCzero;mu_minus_mesons:mu_minus_Dplus,mu_minus_Dstar,mu_minus_Ds",  # noqa: E501
+                      default="mu_Dmeson:mu_minus_Dplus,mu_plus_Dplus,mu_minus_Dzero,mu_plus_Dzero,mu_minus_Ds,mu_plus_Ds;mu_Dplus:mu_minus_Dplus,mu_plus_Dplus;mu_Dstar:mu_minus_Dstar,mu_plus_Dstar;mu_Dzero:mu_minus_Dzero,mu_plus_Dzero;mu_Ds:mu_minus_Ds,mu_plus_Ds;mu_Baryon:mu_minus_LambdaC,mu_plus_LambdaC,mu_minus_OmegaC,mu_plus_OmegaC,mu_minus_XiCplus,mu_plus_XiCplus,mu_minus_XiCzero,mu_plus_XiCzero",  # noqa: E501
                       help="run over a subset of channels")
     parser.add_option('-v', '--vars',
                       action="store", dest="vars",
