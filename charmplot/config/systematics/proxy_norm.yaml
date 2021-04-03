@@ -9,6 +9,7 @@ affecting:
   - Wjets_emu_Matched
   - Wjets_emu_MisMatched
   - Wjets_emu_Rest
+  - Wjets_Rest
 variations:
   - PROXY_NORM__1up
   - PROXY_NORM__1dn
