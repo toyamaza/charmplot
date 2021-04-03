@@ -8,6 +8,21 @@ from charmplot.common import utils
 logger = logging.getLogger(__name__)
 
 
+def skip_truth_channel(sample, c, input_file):
+    if sample.ignoreTruthMatching:
+        truth_channel = False
+        if not (c.endswith("OS") or c.endswith("SS")):
+            truth_channel = True
+            logging.info(f"Truth channel detected: {c}")
+        if truth_channel and input_file in sample.ignoreTruthMatching:
+            logging.info(f"Skipping for file: {input_file}")
+            return True
+        if not truth_channel and input_file not in sample.ignoreTruthMatching:
+            logging.info(f"Skipping for file: {input_file}")
+            return True
+    return False
+
+
 class InputDataReader(object):
 
     # one input file for each sample
@@ -73,8 +88,8 @@ class InputDataReader(object):
         self.channel_scale_factors = channel.scale_factors
         extra_rebin = channel.extra_rebin
         if sample.channel:
-            logging.info(f"Using channel {sample.channel} for sample {sample.name}")
             channel = self.config.get_channel(sample.channel)
+            logging.info(f"Using channel {channel.name} for sample {sample.name}")
         for input_file in sample.get_all():
             if input_file in sample.add:
                 weight = 1.
@@ -86,6 +101,8 @@ class InputDataReader(object):
             f = self.input_files[input_file]
             for c in channel.add:
                 logger.info(f"channel.add: {c} {sample.shortName}")
+                if skip_truth_channel(sample, c, input_file):
+                    continue
                 h = self.get_histogram_from_file(f, channel, sample, variable, c, extra_rebin, sys)
                 if not h:
                     continue
@@ -95,6 +112,8 @@ class InputDataReader(object):
                     h_total.Add(h, weight)
             for c in channel.subtract:
                 logger.info(f"channel.subtract: {c} {sample.shortName}")
+                if skip_truth_channel(sample, c, input_file):
+                    continue
                 h = self.get_histogram_from_file(f, channel, sample, variable, c, extra_rebin, sys)
                 if not h:
                     continue
@@ -104,6 +123,8 @@ class InputDataReader(object):
             for c in channel.divide:
                 print("Division occurs")
                 logger.info(f"channel.divide: {c} {sample.shortName}")
+                if skip_truth_channel(sample, c, input_file):
+                    continue
                 h = self.get_histogram_from_file(f, channel, sample, variable, c, extra_rebin)
                 if not h:
                     continue

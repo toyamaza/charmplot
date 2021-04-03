@@ -66,7 +66,7 @@ def main(options):
                 'Wjets_emu_Matched': 'OS-SS_SPG_Matched',
                 'Wjets_emu_411MisMatched': 'OS-SS_SPG_411MisMatched',
                 'Wjets_emu_Charm': 'OS-SS_SPG_CharmMisMatched',
-                'Wjets_emu_Rest': 'OS-SS_SPG_NoCharmBkg',
+                'Wjets_Rest': 'OS-SS_SPG_NoCharmBkg',
                 'Wjets_emu_MisMatched': 'OS-SS_SPG_MisMatchBkg',
             }
         else:

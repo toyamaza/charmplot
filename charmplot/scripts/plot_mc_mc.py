@@ -61,7 +61,7 @@ def main(options, conf, reader):
 
         # samples
         if not c.samples:
-            logging.critical(f"no samples given for channel {c}")
+            logging.critical(f"no samples given for channel {c.name}")
             sys.exit(1)
         if options.extra_channel:
             samples = [conf.get_sample(s) for s in c.samples if "Loose" not in s]

@@ -189,17 +189,20 @@ class NoMatch(ProxyChannel):
 class NoMatchBackground(ProxyChannel):
     name = 'NoMatchBackground'
 
-    def __init__(self, os_minus_ss_fit_configuration: bool = False, loose_sr: bool = False, regions_override: bool = False):
+    def __init__(self, os_minus_ss_fit_configuration: bool = False, loose_sr: bool = False, regions_override: bool = False, add_no_truth_match: bool = False):
         super().__init__(os_minus_ss_fit_configuration=os_minus_ss_fit_configuration, loose_sr=loose_sr)
         self.regions_override = regions_override
+        self.add_no_truth_match = add_no_truth_match
         if loose_sr:
             self.name += "_Loose"
 
     def get_regions(self, regions):
         if self.regions_override:
             regions = self.regions_override
-        return self.format([reg + "_Other" for reg in regions] +
-                           [reg + "_HardMisMatched" for reg in regions])
+        out = [reg + "_Other" for reg in regions] + [reg + "_HardMisMatched" for reg in regions]
+        if self.add_no_truth_match:
+            out += regions
+        return self.format(out)
 
 
 class MatchedCharm(ProxyChannel):

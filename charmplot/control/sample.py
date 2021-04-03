@@ -17,6 +17,7 @@ class Sample(object):
     scaleMC = None
     makeGhostSample = False
     fit = ""
+    ignoreTruthMatching = []
 
     def __init__(self, name, color_scheme=None, **kwargs):
         # sample name
@@ -72,6 +73,9 @@ class Sample(object):
 
         if 'fit' in kwargs:
             self.fit = str(kwargs.pop('fit'))
+
+        if 'ignoreTruthMatching' in kwargs:
+            self.ignoreTruthMatching = str(kwargs.pop('ignoreTruthMatching'))
 
     def set_color_scheme(self, scheme):
         self.color_scheme = scheme

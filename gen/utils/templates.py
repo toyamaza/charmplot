@@ -95,7 +95,7 @@ class WDTruthSamplesNew:
             ['Wjets_emu_Charm', proxies.MatchedCharm(os_minus_ss_fit_configuration=self.os_minus_ss_fit_configuration, loose_sr=self.loose_sr)],
             ['Wjets_emu_MisMatched', proxies.GenericChannel(
                 name="MisMatched", os_minus_ss_fit_configuration=self.os_minus_ss_fit_configuration, region=["MisMatched", "MatchedNoFid"])],
-            ['Wjets_emu_Rest', proxies.NoMatchBackground(os_minus_ss_fit_configuration=self.os_minus_ss_fit_configuration, loose_sr=self.loose_sr)],
+            ['Wjets_Rest', proxies.NoMatchBackground(os_minus_ss_fit_configuration=self.os_minus_ss_fit_configuration, add_no_truth_match=True, loose_sr=self.loose_sr)],
             ['Top', proxies.PlainChannel(os_minus_ss_fit_configuration=self.os_minus_ss_fit_configuration)],
             ['DibosonZjetsTau', proxies.PlainChannel(os_minus_ss_fit_configuration=self.os_minus_ss_fit_configuration)],
         ]
@@ -195,8 +195,8 @@ class WDTruthComparisonSamples:
             ['SPG_CharmMisMatched', proxies.GenericChannel(name="CharmMisMatchedInclusiveSPG", regions_override=["inclusive_Dplus_OS", "-inclusive_Dplus_SS"])],
         ],
         'NoCharmBkg': [
-            ['Wjets_emu_Rest_OS-SS', proxies.NoMatchBackground(os_minus_ss_fit_configuration=True)],
-            ['Wjets_emu_Rest_Loose_OS-SS', proxies.NoMatchBackground(os_minus_ss_fit_configuration=True, loose_sr=True, regions_override=[
+            ['Wjets_Rest_OS-SS', proxies.NoMatchBackground(os_minus_ss_fit_configuration=True, add_no_truth_match=True)],
+            ['Wjets_Rest_Loose_OS-SS', proxies.NoMatchBackground(os_minus_ss_fit_configuration=True, add_no_truth_match=True, loose_sr=True, regions_override=[
                                                                      "el_minus_SR_0tag_Dplus_OS", "el_plus_SR_0tag_Dplus_OS", "mu_minus_SR_0tag_Dplus_OS", "mu_plus_SR_0tag_Dplus_OS"])],  # noqa: E501
         ],
         'MisMatchBkg': [
@@ -224,7 +224,7 @@ class SPGSamples:
             ['SPG_CharmMisMatched', proxies.GenericChannel(name="CharmMisMatchedSPG", regions_override=["inclusive_Dplus_OS", "-inclusive_Dplus_SS"])],
         ],
         'NoCharmBkg': [
-            ['Wjets_emu_Rest_Loose_OS-SS', proxies.NoMatchBackground(loose_sr=True, regions_override=[
+            ['Wjets_Rest_Loose_OS-SS', proxies.NoMatchBackground(loose_sr=True, regions_override=[
                 "el_minus_SR_0tag_Dplus_OS", "el_plus_SR_0tag_Dplus_OS", "mu_minus_SR_0tag_Dplus_OS", "mu_plus_SR_0tag_Dplus_OS",
                 "-el_minus_SR_0tag_Dplus_SS", "-el_plus_SR_0tag_Dplus_SS", "-mu_minus_SR_0tag_Dplus_SS", "-mu_plus_SR_0tag_Dplus_SS"])],
         ],
