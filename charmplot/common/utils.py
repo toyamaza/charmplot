@@ -880,12 +880,12 @@ def replace_sample(conf: globalConfig.GlobalConfig, mc_map: MC_Map, reader: inpu
             if abs(h_current.GetBinContent(i)) < 1e-3:
                 h_current.SetBinContent(i, average_content(h_current, i))
         for group, systematics in mc_map_sys.items():
-            for sys, map_sys in systematics.items():
+            for syst, map_sys in systematics.items():
                 h_sys_replaced = map_sys[sample_current].Clone(f"{map_sys[sample_current].GetName()}_replaced")
                 h_sys_replaced.Add(h_current, -1)
 
                 # use relative uncertaitny instead of absolute in these cases
-                if "PROXY_NORM" in sys:
+                if "PROXY_NORM" in syst:
                     h_sys_replaced.Divide(h_current)
                     h_sys_replaced.Multiply(h_replacement)
 
