@@ -366,7 +366,7 @@ class ChannelGenerator:
 
                 # add samples
                 for sample in samples:
-                    if sample[1].os_minus_ss_fit_configuration and 'SS' in channel_name:
+                    if len(sample) > 1 and sample[1].os_minus_ss_fit_configuration and 'SS' in channel_name:
                         continue
                     if len(sample) == 1:
                         channel['samples'] += [sample[0]]
