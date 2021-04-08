@@ -3,6 +3,7 @@ import gen.utils.templates as templates
 import sys
 import yaml
 
+#
 
 def main(options):
 
@@ -62,12 +63,17 @@ def main(options):
 
         # replace samples to increase mc stats
         if options.replacement_samples:
+#             replacement_samples = {
+#                 'Wjets_emu_Matched': 'OS-SS_SPG_Matched',
+#                 'Wjets_emu_411MisMatched': 'OS-SS_SPG_411MisMatched',
+#                 'Wjets_emu_Charm': 'OS-SS_SPG_CharmMisMatched',
+#                 'Wjets_emu_Rest': 'OS-SS_SPG_NoCharmBkg',
+#                 'Wjets_emu_MisMatched': 'OS-SS_SPG_MisMatchBkg',
+#             }
+            #For Satellite
             replacement_samples = {
                 'Wjets_emu_Matched': 'OS-SS_SPG_Matched',
-                'Wjets_emu_411MisMatched': 'OS-SS_SPG_411MisMatched',
-                'Wjets_emu_Charm': 'OS-SS_SPG_CharmMisMatched',
-                'Wjets_Rest': 'OS-SS_SPG_NoCharmBkg',
-                'Wjets_emu_MisMatched': 'OS-SS_SPG_MisMatchBkg',
+                'Wjets_emu_413MisMatched': 'OS-SS_SPG_413MisMatched',
             }
         else:
             replacement_samples = {}
@@ -87,7 +93,7 @@ def main(options):
             ]
 
         # Base config
-        config = templates.DataMCConfig(variables='charmed_wjets',
+        config = templates.DataMCConfig(variables='charmed_wjets_dstarPi0',
                                         sample_config=sample_config,
                                         systematics=systematics).to_dict()
 

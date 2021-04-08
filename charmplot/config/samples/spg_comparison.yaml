@@ -86,6 +86,16 @@ Wjets_emu_411MisMatched_OS-SS:
   legendLabel: "W+#it{D}(other) OS-SS"
   shortName: Wjets_emu_411MisMatched_OS-SS
 
+Wjets_emu_413MisMatched_OS-SS:
+  add:
+#     - MG_Wjets_light_emu
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_bjets_emu
+  subtract:
+  lineColor: "10004"
+  legendLabel: "W+#it{D}(other) OS-SS"
+  shortName: Wjets_emu_413MisMatched_OS-SS
+
 Wjets_emu_431MisMatched_OS-SS:
   add:
     - MG_Wjets_light_emu
@@ -333,3 +343,20 @@ SPG_411MisMatched_Ds:
   legendLabel: "D+ MisMatched"
   shortName: SPG_MisMatched
 
+SPG_DStar_Matched:
+  add:
+    - SPG_D0
+    - SPG_D0bar
+  subtract:
+  lineColor: "14004"
+  legendLabel: "#it{D*}(Matched) SPG"
+  shortName: SPG_DStar_Matched
+
+SPG_DStar_413MisMatched:
+  add:
+    - SPG_D0
+    - SPG_D0bar
+  subtract:
+  lineColor: "14004"
+  legendLabel: "#it{D*}(MisMatched) SPG"
+  shortName: SPG_DStar_413MisMatched

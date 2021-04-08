@@ -22,7 +22,9 @@ Dmeson_eta:
 Dmeson_mdiff:
   label: 'm(D*-D^{0})'
   unit: 'MeV'
-  rebin: 50
+  rebin: 5
+  do_underflow: False
+  do_overflow: False
   x_range: [140, 180]
   ratio_range: [0.5,1.49]
 

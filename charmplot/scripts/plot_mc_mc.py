@@ -151,6 +151,7 @@ def main(options, conf, reader):
             errors = []
             canv.pad1.cd()
             for s in samples:
+                print(mc_map[s])
                 if mc_map[s].GetLineColor() > 1:
                     fcolor = mc_map[s].GetLineColor()
                 else:
