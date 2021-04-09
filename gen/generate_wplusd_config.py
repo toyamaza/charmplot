@@ -87,7 +87,7 @@ def main(options):
             ]
 
         # Base config
-        config = templates.DataMCConfig(variables='charmed_wjets',
+        config = templates.DataMCConfig(variables=options.variables,
                                         sample_config=sample_config,
                                         systematics=systematics).to_dict()
 
@@ -200,6 +200,10 @@ if __name__ == "__main__":
                       action="store", dest="extra_rebin",
                       help="extra rebin",
                       default=1)
+    parser.add_option('-v', '--variables',
+                      action="store", dest="variables",
+                      help="the varaibels config (e.g. charmed_wjets, charmed_wjets_dstarPi0)",
+                      default="charmed_wjets")
     parser.add_option('--samples-config',
                       action="store", dest="samples_config",
                       help="different sample configurations (madgraph_truth,sherpa_truth,sherpa2210_truth,madgraph_fxfx_truth)",
