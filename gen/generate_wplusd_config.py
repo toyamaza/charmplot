@@ -64,11 +64,15 @@ def main(options):
         if options.replacement_samples:
             replacement_samples = {
                 'Wjets_emu_Matched': 'OS-SS_SPG_Matched',
-                'Wjets_emu_411MisMatched': 'OS-SS_SPG_411MisMatched',
-                'Wjets_emu_Charm': 'OS-SS_SPG_CharmMisMatched',
-                'Wjets_Rest': 'OS-SS_SPG_NoCharmBkg',
-                'Wjets_emu_MisMatched': 'OS-SS_SPG_MisMatchBkg',
+                'Wjets_emu_413MisMatched': 'OS-SS_SPG_413MisMatched',
             }
+#             replacement_samples = {
+#                 'Wjets_emu_Matched': 'OS-SS_SPG_Matched',
+#                 'Wjets_emu_411MisMatched': 'OS-SS_SPG_411MisMatched',
+#                 'Wjets_emu_Charm': 'OS-SS_SPG_CharmMisMatched',
+#                 'Wjets_Rest': 'OS-SS_SPG_NoCharmBkg',
+#                 'Wjets_emu_MisMatched': 'OS-SS_SPG_MisMatchBkg',
+#             }
         else:
             replacement_samples = {}
 
@@ -223,7 +227,7 @@ if __name__ == "__main__":
                       help="replace samples")
     parser.add_option('--process-string',
                       action="store", dest="process_string",
-                      default="W#rightarrowl#nu+D, D#rightarrowK#pi#pi")
+                      default="W#rightarrowl#nu+D, D#rightarrowK#pi#pi#pi^0")
 
     # parse input arguments
     options, args = parser.parse_args()

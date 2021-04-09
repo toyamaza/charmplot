@@ -178,7 +178,6 @@ class WDFlavourSamples:
 
 
 class WDTruthComparisonSamples:
-
     samples = {
         'Matched': [
             ['Wjets_emu_Matched_OS-SS', proxies.GenericChannel(region="Matched", name="MatchedOS-SS", os_minus_ss_fit_configuration=True)],
