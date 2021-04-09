@@ -80,21 +80,31 @@ class WDFitSamples:
 
 class WDTruthSamplesNew:
 
-    def __init__(self, os_minus_ss_fit_configuration=False, loose_sr=False, OS_and_SS_fit=False, MockMC=True):
+    def __init__(self, os_minus_ss_fit_configuration=False, loose_sr=False, OS_and_SS_fit=False, MockMC=True, decayMode="Dplus"):
         self.os_minus_ss_fit_configuration = os_minus_ss_fit_configuration
         self.loose_sr = loose_sr
         self.OS_and_SS_fit = OS_and_SS_fit
         self.MockMC = MockMC
+        self.decayMode = decayMode
         self.samples = []
         if self.os_minus_ss_fit_configuration and self.MockMC:
             self.samples += [['MockMC', proxies.MockMC(subtract_mj=False)]]
         self.samples += [
             ['Wjets_emu_Matched', proxies.Matched(os_minus_ss_fit_configuration=self.os_minus_ss_fit_configuration)],
-            ['Wjets_emu_411MisMatched', proxies.MisMatched(
-                os_minus_ss_fit_configuration=self.os_minus_ss_fit_configuration, loose_sr=self.loose_sr, pdgId="411")],
-            ['Wjets_emu_Charm', proxies.MatchedCharm(os_minus_ss_fit_configuration=self.os_minus_ss_fit_configuration, loose_sr=self.loose_sr)],
-            ['Wjets_emu_MisMatched', proxies.GenericChannel(
-                name="MisMatched", os_minus_ss_fit_configuration=self.os_minus_ss_fit_configuration, region=["MisMatched", "MatchedNoFid"])],
+        ]
+        if self.decayMode == "Dplus":
+            self.samples += [
+                ['Wjets_emu_411MisMatched', proxies.MisMatched(
+                    os_minus_ss_fit_configuration=self.os_minus_ss_fit_configuration, loose_sr=self.loose_sr, pdgId="411")],
+            ]
+        elif self.decayMode == "DstarKPiPi0":
+            self.samples += [
+                ['Wjets_emu_413MisMatched', proxies.MisMatched(
+                    os_minus_ss_fit_configuration=self.os_minus_ss_fit_configuration, loose_sr=self.loose_sr, pdgId="413")],
+            ]
+        self.samples += [
+            ['Wjets_emu_Charm', proxies.MatchedCharm(os_minus_ss_fit_configuration=self.os_minus_ss_fit_configuration, loose_sr=self.loose_sr, decayMode=self.decayMode)],
+            ['Wjets_emu_MisMatched', proxies.GenericChannel(name="MisMatched", os_minus_ss_fit_configuration=self.os_minus_ss_fit_configuration, region=["MisMatched", "MatchedNoFid"])],  # noqa: E501
             ['Wjets_Rest', proxies.NoMatchBackground(os_minus_ss_fit_configuration=self.os_minus_ss_fit_configuration, add_no_truth_match=True, loose_sr=self.loose_sr)],  # noqa: E501
             ['Top', proxies.PlainChannel(os_minus_ss_fit_configuration=self.os_minus_ss_fit_configuration)],
             ['DibosonZjetsTau', proxies.PlainChannel(os_minus_ss_fit_configuration=self.os_minus_ss_fit_configuration)],

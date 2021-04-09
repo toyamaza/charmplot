@@ -208,19 +208,23 @@ class NoMatchBackground(ProxyChannel):
 class MatchedCharm(ProxyChannel):
     name = 'MatchedCharm'
 
-    def __init__(self, os_minus_ss_fit_configuration: bool = False, loose_sr: bool = False):
+    def __init__(self, os_minus_ss_fit_configuration: bool = False, loose_sr: bool = False, decayMode: str = "Dplus"):
         super().__init__(os_minus_ss_fit_configuration=os_minus_ss_fit_configuration, loose_sr=loose_sr)
+        self.decayMode = decayMode
         if loose_sr:
             self.name += "_Loose"
 
     def get_regions(self, regions):
-        return self.format([reg + "_431MisMatched" for reg in regions] +
-                           [reg + "_413MisMatched" for reg in regions] +
-                           [reg + "_421MisMatched" for reg in regions] +
-                           [reg + "_BaryonMisMatched" for reg in regions])
-# [reg + "_MisMatched" for reg in regions] +
-#                            [reg + "_MatchedNoFid" for reg in regions] +
-
+        if self.decayMode == "Dplus":
+            return self.format([reg + "_431MisMatched" for reg in regions] +
+                               [reg + "_413MisMatched" for reg in regions] +
+                               [reg + "_421MisMatched" for reg in regions] +
+                               [reg + "_BaryonMisMatched" for reg in regions])
+        elif self.decayMode == "DstarKPiPi0":
+            return self.format([reg + "_431MisMatched" for reg in regions] +
+                               [reg + "_411MisMatched" for reg in regions] +
+                               [reg + "_421MisMatched" for reg in regions] +
+                               [reg + "_BaryonMisMatched" for reg in regions])
 
 class MatchedDplus(ProxyChannel):
     name = 'MatchedDplus'
