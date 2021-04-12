@@ -150,6 +150,7 @@ def process_channel(options, conf, c):
             c.label += ["post-fit"]
 
         # replace samples
+        print(c.replacement_samples.items())
         for replace_sample, replace_channel in c.replacement_samples.items():
             logging.info(f"replacing sample {replace_sample} with channel {replace_channel}")
             utils.replace_sample(conf, mc_map, reader, c, var, replace_sample, replace_channel, mc_map_sys if systematics else None)

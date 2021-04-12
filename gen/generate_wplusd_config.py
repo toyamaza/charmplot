@@ -227,7 +227,7 @@ if __name__ == "__main__":
                       help="replace samples")
     parser.add_option('--process-string',
                       action="store", dest="process_string",
-                      default="W#rightarrowl#nu+D, D#rightarrowK#pi#pi#pi^0")
+                      default="W#rightarrowl#nu+D, D#rightarrowK#pi#pi#pi^{0}")
 
     # parse input arguments
     options, args = parser.parse_args()
