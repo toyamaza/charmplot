@@ -218,7 +218,7 @@ if __name__ == "__main__":
     parser.add_option('--fit-type',
                       action="store", dest="fit_type",
                       help="fit type (e.g. OS/SS or OS-SS)",
-                      default="OS-SS")
+                      default="")
     parser.add_option('--sys',
                       action="store_true", dest="systematics",
                       help="add systematics")
