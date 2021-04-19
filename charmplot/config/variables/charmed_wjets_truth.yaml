@@ -68,3 +68,12 @@ D_differential_pt:
   label: "D^{#pm} p_{T}"
   make_plots: False
   allow_rebin: False
+
+N_Dplus:
+  label: "N(D^{#pm})"
+
+dR_min_Dplus:
+  label: "#DeltaR^{min}(D^{#pm})"
+
+dR_min_OS_Dplus:
+  label: "#DeltaR^{min}_{OS}(D^{#pm})"

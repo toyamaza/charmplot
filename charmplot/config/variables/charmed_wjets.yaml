@@ -631,6 +631,16 @@ N_Dplus:
   ratio_range: [0.0, 1.99]
   allow_rebin: False
 
+N_Dstar:
+  label: N_{D^*}
+  ratio_range: [0.0, 1.99]
+  allow_rebin: False
+
+min_dR:
+  label: "#DeltaR(D)_{min}"
+  ratio_range: [0.0, 1.99]
+  rebin: 4
+
 run_number:
   label: 'run number'
   ratio_range: [0.5, 1.49]
