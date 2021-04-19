@@ -34,6 +34,7 @@ def get_err_hist(f, par, variation, default):
     if h_temp:
         h_err = h_temp.Clone(f"{h_temp.GetName()}_err_{variation}")
     else:
+        logging.warning(f"Histogram not found for variation {par}_{variation} in file {os.path.basename(f.GetName())}. Using {default} instead.")
         h_mc_default = f.Get(default)
         if h_mc_default:
             h_err = h_mc_default.Clone(f"{h_mc_default.GetName()}_err_{variation}")
@@ -54,6 +55,7 @@ def main(options, conf):
     for file in os.listdir(trex_histogram_folder):
         if file.endswith("postFit.root"):
             channel_name = file.replace("_postFit.root", "")
+            logging.info(f"Searching for channel {channel_name}...")
             channel = conf.get_channel(channel_name)
             if not channel:
                 logging.error(f"Channel not found for string {channel_name}")
@@ -67,9 +69,12 @@ def main(options, conf):
     OS_minus_SS_total = {'+': [], '-': []}
     for channel in channels:
         individual_plots += [{'+': [channel], '-': []}]
+        logging.info(f"Added channel {channel.name}..")
     for channel_OS in channels:
         if "OS_" not in channel_OS.name:
             continue
+        # if "1tag" not in channel_OS.name:
+        #     continue
         for channel_SS in channels:
             if channel_SS.name == channel_OS.name.replace("OS_", "SS_"):
                 OS_minus_SS_plots += [{'+': [channel_OS], '-': [channel_SS]}]
@@ -91,6 +96,7 @@ def main(options, conf):
 
     # plots = individual_plots + OS_minus_SS_plots + [OS_minus_SS_total]
     plots = individual_plots + OS_minus_SS_plots
+    # plots = OS_minus_SS_plots
 
     subtract_manually = True
 
@@ -236,30 +242,35 @@ def main(options, conf):
         for par in corr_parameters:
             h_mc_tot_Up = None
             h_mc_tot_Dn = None
+            print (f"{par} {h_mc_tot.GetSumOfWeights()}")
             for channel in plot['+']:
                 h_temp_up = get_err_hist(files[channel], par, "Up", "h_tot_postFit")
                 h_temp_dn = get_err_hist(files[channel], par, "Down", "h_tot_postFit")
                 if h_temp_up:
+                    # print (f"plus up {h_temp_up.GetSumOfWeights()}")
                     if not h_mc_tot_Up:
                         h_mc_tot_Up = h_temp_up.Clone(f"{h_temp_up.GetName()}_{chan.name}_err_up")
                     else:
                         h_mc_tot_Up.Add(h_temp_up)
                 if h_temp_dn:
+                    # print (f"plus dn {h_temp_dn.GetSumOfWeights()}")
                     if not h_mc_tot_Dn:
                         h_mc_tot_Dn = h_temp_dn.Clone(f"{h_temp_dn.GetName()}_{chan.name}_err_dn")
                     else:
                         h_mc_tot_Dn.Add(h_temp_dn)
-            if not subtract_manually:
+            if subtract_manually:
                 for channel in plot['-']:
                     h_temp_up = get_err_hist(files[channel], par, "Up", "h_tot_postFit")
                     h_temp_dn = get_err_hist(files[channel], par, "Down", "h_tot_postFit")
                     if h_temp_up:
+                        # print (f"minus up {h_temp_up.GetSumOfWeights()}")
                         if not h_mc_tot_Up:
                             h_mc_tot_Up = h_temp_up.Clone(f"{h_temp_up.GetName()}_{chan.name}_err_up")
                             h_mc_tot_Up.Scale(-1.)
                         else:
                             h_mc_tot_Up.Add(h_temp_up, -1)
                     if h_temp_dn:
+                        # print (f"minus dn {h_temp_dn.GetSumOfWeights()}")
                         if not h_mc_tot_Dn:
                             h_mc_tot_Dn = h_temp_dn.Clone(f"{h_temp_dn.GetName()}_{chan.name}_err_dn")
                             h_mc_tot_Dn.Scale(-1)
@@ -281,18 +292,32 @@ def main(options, conf):
                 for j in range(i):
                     if h_mc_tot_err_histograms_Up[i] and h_mc_tot_err_histograms_Up[j] and h_mc_tot_err_histograms_Dn[i] and h_mc_tot_err_histograms_Dn[j]:
                         corr = corr_correlation_rows[i][j]
-                        err_i = (h_mc_tot_err_histograms_Up[i].GetBinContent(x) - h_mc_tot_err_histograms_Dn[i].GetBinContent(x)) / 2.
-                        err_j = (h_mc_tot_err_histograms_Up[j].GetBinContent(x) - h_mc_tot_err_histograms_Dn[j].GetBinContent(x)) / 2.
-                        err = err_i * err_j * corr * 2
-                        g_mc_tot_err.GetEYlow()[x] += err
-                        g_mc_tot_err.GetEYhigh()[x] += err
+                        # err_i = (h_mc_tot_err_histograms_Up[i].GetBinContent(x) - h_mc_tot_err_histograms_Dn[i].GetBinContent(x)) / 2.
+                        # err_j = (h_mc_tot_err_histograms_Up[j].GetBinContent(x) - h_mc_tot_err_histograms_Dn[j].GetBinContent(x)) / 2.
+                        # err = err_i * err_j * corr * 2
+                        # g_mc_tot_err.GetEYlow()[x] += err
+                        # g_mc_tot_err.GetEYhigh()[x] += err
+                        err_up_i = h_mc_tot_err_histograms_Up[i].GetBinContent(x)
+                        err_dn_i = h_mc_tot_err_histograms_Dn[i].GetBinContent(x)
+                        err_up_j = h_mc_tot_err_histograms_Up[j].GetBinContent(x)
+                        err_dn_j = h_mc_tot_err_histograms_Dn[j].GetBinContent(x)
+                        err_up = err_up_i * err_up_j * corr * 2
+                        err_dn = err_dn_i * err_dn_j * corr * 2
+                        g_mc_tot_err.GetEYlow()[x] += err_up
+                        g_mc_tot_err.GetEYhigh()[x] += err_dn
             # diagonal
             for i in range(n_pars):
                 if h_mc_tot_err_histograms_Up[i] and h_mc_tot_err_histograms_Dn[i]:
                     err_i = (h_mc_tot_err_histograms_Up[i].GetBinContent(x) - h_mc_tot_err_histograms_Dn[i].GetBinContent(x)) / 2.
-                    err = err_i * err_i
-                    g_mc_tot_err.GetEYlow()[x] += err
-                    g_mc_tot_err.GetEYhigh()[x] += err
+                    # err = err_i * err_i
+                    # g_mc_tot_err.GetEYlow()[x] += err
+                    # g_mc_tot_err.GetEYhigh()[x] += err
+                    err_up_i = h_mc_tot_err_histograms_Up[i].GetBinContent(x)
+                    err_dn_i = h_mc_tot_err_histograms_Dn[i].GetBinContent(x)
+                    err_up = err_up_i * err_up_i
+                    err_dn = err_dn_i * err_dn_i
+                    g_mc_tot_err.GetEYlow()[x] += err_up
+                    g_mc_tot_err.GetEYhigh()[x] += err_dn
 
             # final
             g_mc_tot_err.GetEYhigh()[x] = math.sqrt(g_mc_tot_err.GetEYhigh()[x])
