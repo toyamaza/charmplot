@@ -55,8 +55,7 @@ def main(options):
         leptons = ['el', 'mu']
         charges = ['minus', 'plus']
         # charges = ['']
-        btags = ['0tag', ['1tag', '2tag']]
-        # btags = ['0tag', '1tag']
+        btags = ['0tag', '1tag']
         ptbins = ['']
         # ptbins = ['pt_bin1', 'pt_bin2', 'pt_bin3', 'pt_bin4', 'pt_bin5', 'inc']
 
