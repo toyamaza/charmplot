@@ -1,0 +1,61 @@
+colorScheme: gemstone_hues
+
+variablesConf: charmed_wjets
+
+samplesConf: madgraph
+
+data: Data
+
+systematics:
+  - matrix_method
+
+channels:
+  SR_0tag_Dplus:
+    regions:
+      - el_SR_0tag_Dplus
+      - mu_SR_0tag_Dplus
+    samples:
+      - Wjets
+      - Zjets
+      - Top
+      - Diboson
+      - Multijet_MatrixMethod | MatrixMethod_SR_0tag_Dplus
+    label:
+      - "D+ SR Selection"
+      - "LO MadGraph"
+    lumi: "2018"
+    save_to_file: True
+
+  SR_0tag_Dstar:
+    regions:
+      - el_SR_0tag_Dstar
+      - mu_SR_0tag_Dstar
+    samples:
+      - Wjets
+      - Zjets
+      - Top
+      - Diboson
+      - Multijet_MatrixMethod | MatrixMethod_SR_0tag_Dstar
+    label:
+      - "D* SR Selection"
+      - "LO MadGraph"
+    lumi: "2018"
+    save_to_file: True
+
+  MatrixMethod_SR_0tag_Dplus:
+    regions:
+      - AntiTight_el_SR_0tag_Dplus
+      - AntiTight_mu_SR_0tag_Dplus
+      - -Tight_el_SR_0tag_Dplus
+      - -Tight_mu_SR_0tag_Dplus
+    make_plots: False
+    save_to_file: False
+
+  MatrixMethod_SR_0tag_Dstar:
+    regions:
+      - AntiTight_el_SR_0tag_Dstar
+      - AntiTight_mu_SR_0tag_Dstar
+      - -Tight_el_SR_0tag_Dstar
+      - -Tight_mu_SR_0tag_Dstar
+    make_plots: False
+    save_to_file: False
