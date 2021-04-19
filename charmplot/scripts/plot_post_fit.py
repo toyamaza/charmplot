@@ -242,7 +242,7 @@ def main(options, conf):
         for par in corr_parameters:
             h_mc_tot_Up = None
             h_mc_tot_Dn = None
-            print (f"{par} {h_mc_tot.GetSumOfWeights()}")
+            print(f"{par} {h_mc_tot.GetSumOfWeights()}")
             for channel in plot['+']:
                 h_temp_up = get_err_hist(files[channel], par, "Up", "h_tot_postFit")
                 h_temp_dn = get_err_hist(files[channel], par, "Down", "h_tot_postFit")
@@ -308,7 +308,7 @@ def main(options, conf):
             # diagonal
             for i in range(n_pars):
                 if h_mc_tot_err_histograms_Up[i] and h_mc_tot_err_histograms_Dn[i]:
-                    err_i = (h_mc_tot_err_histograms_Up[i].GetBinContent(x) - h_mc_tot_err_histograms_Dn[i].GetBinContent(x)) / 2.
+                    # err_i = (h_mc_tot_err_histograms_Up[i].GetBinContent(x) - h_mc_tot_err_histograms_Dn[i].GetBinContent(x)) / 2.
                     # err = err_i * err_i
                     # g_mc_tot_err.GetEYlow()[x] += err
                     # g_mc_tot_err.GetEYhigh()[x] += err
