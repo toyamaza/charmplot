@@ -4,8 +4,8 @@ import sys
 import yaml
 
 # process string
-# process_string = 'W#rightarrowl#nu+D, D#rightarrowK#pi#pi'
-process_string = 'W#rightarrowl#nu+D, D#rightarrowK#pi#pi^{0}'
+process_string = 'W#rightarrowl#nu+D, D#rightarrowK#pi#pi'
+
 
 def main(options):
 
@@ -61,7 +61,7 @@ def main(options):
             ]
 
         # Base config
-        config = templates.DataMCConfig(variables='charmed_wjets_dstarPi0',
+        config = templates.DataMCConfig(variables='charmed_wjets',
                                         sample_config=sample_config,
                                         systematics=systematics).to_dict()
 
