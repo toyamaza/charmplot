@@ -249,7 +249,7 @@ def main(options, conf):
                         h_mc_tot_Dn = h_temp_dn.Clone(f"{h_temp_dn.GetName()}_{chan.name}_err_dn")
                     else:
                         h_mc_tot_Dn.Add(h_temp_dn)
-            if not subtract_manually:
+            if subtract_manually:
                 for channel in plot['-']:
                     h_temp_up = get_err_hist(files[channel], par, "Up", "h_tot_postFit")
                     h_temp_dn = get_err_hist(files[channel], par, "Down", "h_tot_postFit")
@@ -363,7 +363,7 @@ if __name__ == "__main__":
     parser.add_option('-v', '--var',
                       action="store", dest="var",
                       help="fitted variable",
-                      default="Dmeson_m")
+                      default="Dmeson_mdiff")
     parser.add_option('--suffix',
                       action="store", dest="suffix",
                       help="suffix for the output name")

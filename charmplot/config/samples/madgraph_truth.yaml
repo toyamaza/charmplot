@@ -76,7 +76,7 @@ Wjets_emu_Matched:
     - MG_Wjets_bjets_emu
   subtract:
   fillColor: "10004"
-  legendLabel: "W+#it{D}(#it{K}#pi#pi#pi^{0})"
+  legendLabel: "W+#it{D*}(#it{K}#pi#pi#pi^{0})"
   shortName: Wjets_emu_Matched
 
 Wjets_emu_411MisMatched:
@@ -153,7 +153,7 @@ Wjets_emu_413MisMatched:
     - MG_Wjets_bjets_emu
   subtract:
   fillColor: "11004"
-  legendLabel: "W+#it{D}* (other)"
+  legendLabel: "W+#it{D}*(other)"
   shortName: Wjets_emu_413MisMatched
 
 Wjets_emu_421MisMatched:
@@ -571,14 +571,14 @@ Wjets_emu_Matched_Charm:
 #   legendLabel: "#it{D}(#it{K}#pi#pi) SPG"
 #   shortName: SPG_Matched
 
-# SPG_411MisMatched:
-#   add:
-#     - SPG_Dminus
-#     - SPG_Dplus
-#   subtract:
-#   lineColor: "21000"
-#   legendLabel: "#it{D}(other) SPG"
-#   shortName: SPG_411MisMatched
+SPG_411MisMatched:
+  add:
+    - SPG_Dminus
+    - SPG_Dplus
+  subtract:
+  lineColor: "21000"
+  legendLabel: "#it{D}(other) SPG"
+  shortName: SPG_411MisMatched
 
 SPG_431MisMatched:
   add:
@@ -643,20 +643,20 @@ Wjets_emu_MisMatched_Loose_OS-SS:
   legendLabel: "Loose W+c^{mis-match} OS-SS"
   shortName: Wjets_emu_MisMatched_Loose_OS-SS
 
-SPG_Matched:
+SPG_DStar_Matched:
   add:
     - SPG_D0
     - SPG_D0bar
   subtract:
   lineColor: "14004"
   legendLabel: "#it{D}(#it{K}#pi#pi) SPG^{+}"
-  shortName: SPG_Matched
+  shortName: SPG_DStar_Matched
 
-SPG_413MisMatched:
+SPG_DStar_413MisMatched:
   add:
     - SPG_D0
     - SPG_D0bar
   subtract:
   lineColor: "14004"
   legendLabel: "#it{D}(other) SPG^{+}"
-  shortName: SPG_413MisMatched
+  shortName: SPG_DStar_413MisMatched

@@ -93,7 +93,7 @@ def read_sys_histograms(conf, reader, c, var, samples, fit, systematics, mc_map)
                     sample = next((x for x in samples if x.shortName == s), None)
                     if not sample:
                         continue
-                    if not sample in mc_map:
+                    if sample not in mc_map:
                         continue
                     h_nominal = mc_map[sample]
                     if not h_nominal:
