@@ -343,10 +343,10 @@ class ChannelGenerator:
 
                 # SPG samples
                 if self.os_minus_ss_fit_configuration:
-                    if sign == 'OS' and btag == '0tag':
+                    if sign == 'OS' and btag != '1tag':
                         channel['replacement_samples'] = {k: v for k, v in self.replacement_samples.items()}
                 else:
-                    if sign == '' and btag == '0tag':
+                    if sign == '' and btag != '1tag':
                         channel['replacement_samples'] = {k: v for k, v in self.replacement_samples.items()}
 
                 # pt bins for SPG samples
