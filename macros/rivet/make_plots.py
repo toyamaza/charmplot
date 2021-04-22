@@ -26,8 +26,8 @@ handler.setFormatter(formatter)
 root.addHandler(handler)
 
 # samples
-SAMPLES = ["LOMG", "NLOMG[_VarBand]", "QCDScale[_VarBand]", "MGFxFx", "Sherpa2210"]
-COLORS = ["ROOT.kBlue", "ROOT.kBlack", "ROOT.kRed", "ROOT.kYellow+2", "ROOT.kGreen+2"]
+SAMPLES = ["LOMG", "NLOMG[_VarBand]", "QCDScale[_VarBand]", "MGFxFx", "MGFxFxReshower", "Sherpa2210"]
+COLORS = ["ROOT.kBlue", "ROOT.kBlack", "ROOT.kRed", "ROOT.kYellow+2", "ROOT.kBlack", "ROOT.kGreen+2"]
 
 # channel name
 channel_names = {
@@ -56,19 +56,6 @@ channel_names = {
     "mu_Dmeson": "W(#mu#nu)+Dmeson",
     "mu_Baryon": "W(#mu#nu)+Baryon",
 }
-
-# proxy samples
-samples_dict = {}
-for sampl, color in zip(SAMPLES, COLORS):
-    for channl in channel_names:
-        for pass_w in [True, False]:
-            name = f"{channl}_{sampl}"
-            if pass_w:
-                name += "_pass_w"
-            legendName = sampl.split("[_VarBand]")[0]
-            samples_dict[name] = sample.Sample(name, None, **{'add': [], 'subtract': [], 'legendLabel': legendName, 'lineColor': color})
-
-print(samples_dict)
 
 # variables to plot
 variables = {
@@ -196,6 +183,21 @@ def process_file(f, c, var, pass_w, normalize):
 
 def main(options):
 
+    # proxy samples
+    samples_dict = {}
+    for sampl, color in zip(SAMPLES, COLORS):
+        if sampl not in options.samples.split(","):
+            continue
+        for channl in channel_names:
+            for pass_w in [True, False]:
+                name = f"{channl}_{sampl}"
+                if pass_w:
+                    name += "_pass_w"
+                legendName = sampl.split("[_VarBand]")[0]
+                samples_dict[name] = sample.Sample(name, None, **{'add': [], 'subtract': [], 'legendLabel': legendName, 'lineColor': color})
+
+    print(samples_dict)
+
     # save to file
     f = ROOT.TFile(os.path.join(options.output, "output.root"), "RECREATE")
     f.Close()
@@ -247,15 +249,19 @@ def main(options):
                         mc_map = {}
 
                         for sampl in SAMPLES:
+                            if sampl not in options.samples.split(","):
+                                continue
                             h_sum = None
-                            for h in [x for x in histograms if f"_{sampl}" in x]:
+                            for h in [x for x in histograms if x.replace('_pass_w', '').replace('_normalized', '').endswith(sampl)]:
+                                print(h)
                                 if not h_sum:
                                     h_sum = histograms[h].Clone(f"{histograms[h].GetName()}_{channel_name}")
                                 else:
                                     h_sum.Add(histograms[h])
                             s = samples_dict[f"{channel_name}_{sampl}{'_pass_w' if pass_w else ''}"]
                             samples += [s]
-                            mc_map[s] = h_sum
+                            if h_sum:
+                                mc_map[s] = h_sum
 
                     # normalize to unity if requested
                     if normalize:
@@ -266,7 +272,14 @@ def main(options):
                     yaxis_label = f"d#sigma / d{var.label} [pb]"
                     if normalize:
                         yaxis_label = "Normalized Entries"
-                    canv = utils.make_canvas_mc_ratio(mc_map[samples[0]], var, chan, "Ratio", x=800, y=800, events=yaxis_label)
+
+                    # first available histo
+                    for s in samples:
+                        if s in mc_map and mc_map[s]:
+                            h0 = mc_map[s]
+                            break
+
+                    canv = utils.make_canvas_mc_ratio(h0, var, chan, "Ratio", x=800, y=800, events=yaxis_label)
 
                     # configure histograms
                     canv.configure_histograms(mc_map, True)
@@ -358,6 +371,10 @@ if __name__ == "__main__":
                       action="store", dest="channels",
                       default="mu_Dmeson:mu_minus_Dplus,mu_plus_Dplus,mu_minus_Dzero,mu_plus_Dzero,mu_minus_Ds,mu_plus_Ds;mu_Dplus:mu_minus_Dplus,mu_plus_Dplus;mu_Dstar:mu_minus_Dstar,mu_plus_Dstar;mu_Dzero:mu_minus_Dzero,mu_plus_Dzero;mu_Ds:mu_minus_Ds,mu_plus_Ds;mu_Baryon:mu_minus_LambdaC,mu_plus_LambdaC,mu_minus_OmegaC,mu_plus_OmegaC,mu_minus_XiCplus,mu_plus_XiCplus,mu_minus_XiCzero,mu_plus_XiCzero",
                       help="run over a subset of channels")
+    parser.add_option('-s', '--samples',
+                      action="store", dest="samples",
+                      default="LOMG,NLOMG[_VarBand],QCDScale[_VarBand],MGFxFx,MGFxFxReshower,Sherpa2210",
+                      help="the samples to run over")
     parser.add_option('-v', '--vars',
                       action="store", dest="vars",
                       help="run over a subset of variables (comma separated)")
