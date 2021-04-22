@@ -298,8 +298,8 @@ def main(options):
                         fcolor = mc_map[s].GetLineColor()
                         gr_mc_stat_err, _ = utils.make_stat_err(mc_map[s])
                         gr_mc_stat_err.SetLineColor(fcolor)
-                        gr_mc_stat_err.SetFillColorAlpha(fcolor, 0.25)
-                        gr_mc_stat_err.SetFillStyle(1001)
+                        # gr_mc_stat_err.SetFillColorAlpha(fcolor, 0.25)
+                        gr_mc_stat_err.SetFillStyle(3345)
                         errors += [gr_mc_stat_err]
                         gr_mc_stat_err.Draw("e2")
                         mc_map[s].Draw("hist same")
@@ -332,8 +332,8 @@ def main(options):
                         fcolor = mc_map[samples[i]].GetLineColor()
                         gr_mc_stat_err, _ = utils.make_stat_err(h)
                         gr_mc_stat_err.SetLineColor(fcolor)
-                        gr_mc_stat_err.SetFillColorAlpha(fcolor, 0.25)
-                        gr_mc_stat_err.SetFillStyle(1001)
+                        # gr_mc_stat_err.SetFillColorAlpha(fcolor, 0.25)
+                        gr_mc_stat_err.SetFillStyle(3345)
                         errors += [gr_mc_stat_err]
                         gr_mc_stat_err.Draw("e2")
                         h.Draw("hist same")
