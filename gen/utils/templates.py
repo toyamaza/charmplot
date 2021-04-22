@@ -103,9 +103,9 @@ class WDTruthSamplesNew:
                     os_minus_ss_fit_configuration=self.os_minus_ss_fit_configuration, loose_sr=self.loose_sr, pdgId="413")],
             ]
         self.samples += [
-            ['Wjets_emu_Charm', proxies.MatchedCharm(os_minus_ss_fit_configuration=self.os_minus_ss_fit_configuration, loose_sr=self.loose_sr, decayMode=self.decayMode)],  # noqa: E501
-            ['Wjets_emu_MisMatched', proxies.GenericChannel(name="MisMatched", os_minus_ss_fit_configuration=self.os_minus_ss_fit_configuration, region=["MisMatched", "MatchedNoFid"])],  # noqa: E501
-            ['Wjets_Rest', proxies.NoMatchBackground(os_minus_ss_fit_configuration=self.os_minus_ss_fit_configuration, add_no_truth_match=True, loose_sr=self.loose_sr)],  # noqa: E501
+            ['Wjets_emu_Charm', proxies.MatchedCharm(os_minus_ss_fit_configuration=self.os_minus_ss_fit_configuration, loose_sr=self.loose_sr, decayMode=self.decayMode)],
+            ['Wjets_emu_MisMatched', proxies.GenericChannel(name="MisMatched", os_minus_ss_fit_configuration=self.os_minus_ss_fit_configuration, region=["MisMatched", "MatchedNoFid"])],
+            ['Wjets_Rest', proxies.NoMatchBackground(os_minus_ss_fit_configuration=self.os_minus_ss_fit_configuration, add_no_truth_match=True, loose_sr=self.loose_sr)],
             ['Top', proxies.PlainChannel(os_minus_ss_fit_configuration=self.os_minus_ss_fit_configuration)],
             ['DibosonZjetsTau', proxies.PlainChannel(os_minus_ss_fit_configuration=self.os_minus_ss_fit_configuration)],
         ]
@@ -198,15 +198,15 @@ class WDTruthComparisonSamples:
             ['Wjets_emu_411MisMatched_OS-SS', proxies.GenericChannel(region="411MisMatched", name="411MisMatchedOS-SS", os_minus_ss_fit_configuration=True)],
             # ['Wjets_emu_411MisMatched_OS', proxies.GenericChannel(region="411MisMatched", name="411MisMatchedOS")],
             # ['Wjets_emu_411MisMatched_SS', proxies.GenericChannel(region="411MisMatched", name="411MisMatchedSS", os_minus_ss_fit_configuration=True, ss_only=True)],
-            ['SPG_411MisMatched', proxies.GenericChannel(name="411MisMatchedInclusiveSPG", regions_override=["inclusive_Dplus_OS_411MisMatched", "-inclusive_Dplus_SS_411MisMatched"])],  # noqa: E501
+            ['SPG_411MisMatched', proxies.GenericChannel(name="411MisMatchedInclusiveSPG", regions_override=["inclusive_Dplus_OS_411MisMatched", "-inclusive_Dplus_SS_411MisMatched"])],
         ],
         '411MisMatched_OppositeSign': [
             ['Wjets_emu_411MisMatched_OS', proxies.GenericChannel(region="411MisMatched", name="411MisMatchedOS")],
-            ['SPG_411MisMatched', proxies.GenericChannel(name="411MisMatchedInclusiveSPG", regions_override=["inclusive_Dplus_OS_411MisMatched", "-inclusive_Dplus_SS_411MisMatched"])],  # noqa: E501
+            ['SPG_411MisMatched', proxies.GenericChannel(name="411MisMatchedInclusiveSPG", regions_override=["inclusive_Dplus_OS_411MisMatched", "-inclusive_Dplus_SS_411MisMatched"])],
         ],
         '411MisMatched_SameSign': [
             ['Wjets_emu_411MisMatched_SS', proxies.GenericChannel(region="411MisMatched", name="411MisMatchedSS", os_minus_ss_fit_configuration=True, ss_only=True)],
-            ['SPG_411MisMatched', proxies.GenericChannel(name="411MisMatchedInclusiveSPG", regions_override=["inclusive_Dplus_OS_411MisMatched", "-inclusive_Dplus_SS_411MisMatched"])],  # noqa: E501
+            ['SPG_411MisMatched', proxies.GenericChannel(name="411MisMatchedInclusiveSPG", regions_override=["inclusive_Dplus_OS_411MisMatched", "-inclusive_Dplus_SS_411MisMatched"])],
         ],
         '431MisMatched': [
             ['Wjets_emu_431MisMatched_OS-SS', proxies.GenericChannel(region="431MisMatched", name="431MisMatchedOS-SS", os_minus_ss_fit_configuration=True)],
@@ -225,7 +225,7 @@ class WDTruthComparisonSamples:
             # ['SPG_431MisMatched', proxies.GenericChannel(name="431MisMatchedInclusiveSPG", regions_override=["inclusive_Dplus_OS", "-inclusive_Dplus_SS"])],
         ],
         '421MisMatched': [
-            ['Wjets_emu_421MisMatched_OS-SS', proxies.GenericChannel(region=["421MisMatched", "413MisMatched"], name="421MisMatchedOS-SS", os_minus_ss_fit_configuration=True)],  # noqa: E501
+            ['Wjets_emu_421MisMatched_OS-SS', proxies.GenericChannel(region=["421MisMatched", "413MisMatched"], name="421MisMatchedOS-SS", os_minus_ss_fit_configuration=True)],
             # ['Wjets_emu_421MisMatched_OS', proxies.GenericChannel(region=["421MisMatched", "413MisMatched"], name="421MisMatchedOS")],
             # ['Wjets_emu_421MisMatched_SS', proxies.GenericChannel(region=["421MisMatched", "413MisMatched"], name="421MisMatchedSS", os_minus_ss_fit_configuration=True, ss_only=True)],
             ['SPG_421MisMatched', proxies.GenericChannel(name="421MisMatchedInclusiveSPG", regions_override=["inclusive_Dplus_OS", "-inclusive_Dplus_SS"])],
@@ -239,20 +239,20 @@ class WDTruthComparisonSamples:
             ['SPG_421MisMatched', proxies.GenericChannel(name="421MisMatchedInclusiveSPG", regions_override=["inclusive_Dplus_SS"])],
         ],
         'BaryonMisMatched': [
-            ['Wjets_emu_BaryonMisMatched_OS-SS', proxies.GenericChannel(region="BaryonMisMatched", name="BaryonMisMatchedOS-SS", os_minus_ss_fit_configuration=True)],  # noqa: E501
+            ['Wjets_emu_BaryonMisMatched_OS-SS', proxies.GenericChannel(region="BaryonMisMatched", name="BaryonMisMatchedOS-SS", os_minus_ss_fit_configuration=True)],
             # ['Wjets_emu_BaryonMisMatched_OS', proxies.GenericChannel(region="BaryonMisMatched", name="BaryonMisMatchedOS")],
             # ['Wjets_emu_BaryonMisMatched_SS', proxies.GenericChannel(region="BaryonMisMatched", name="BaryonMisMatchedSS", os_minus_ss_fit_configuration=True, ss_only=True)],
-            ['SPG_BaryonMisMatched', proxies.GenericChannel(name="BaryonMisMatchedInclusiveSPG", regions_override=["inclusive_Dplus_OS", "-inclusive_Dplus_SS"])],  # noqa: E501
+            ['SPG_BaryonMisMatched', proxies.GenericChannel(name="BaryonMisMatchedInclusiveSPG", regions_override=["inclusive_Dplus_OS", "-inclusive_Dplus_SS"])],
         ],
         'BaryonMisMatched_OppositeSign': [
             ['Wjets_emu_BaryonMisMatched_OS', proxies.GenericChannel(region="BaryonMisMatched", name="BaryonMisMatchedOS")],
             ['SPG_BaryonMisMatched', proxies.GenericChannel(name="BaryonMisMatchedInclusiveSPG", regions_override=["inclusive_Dplus_OS"])],
-            # ['SPG_BaryonMisMatched', proxies.GenericChannel(name="BaryonMisMatchedInclusiveSPG", regions_override=["inclusive_Dplus_OS", "-inclusive_Dplus_SS"])],  # noqa: E501
+            # ['SPG_BaryonMisMatched', proxies.GenericChannel(name="BaryonMisMatchedInclusiveSPG", regions_override=["inclusive_Dplus_OS", "-inclusive_Dplus_SS"])],
         ],
         'BaryonMisMatched_SameSign': [
             ['Wjets_emu_BaryonMisMatched_SS', proxies.GenericChannel(region="BaryonMisMatched", name="BaryonMisMatchedSS", os_minus_ss_fit_configuration=True, ss_only=True)],
             ['SPG_BaryonMisMatched', proxies.GenericChannel(name="BaryonMisMatchedInclusiveSPG", regions_override=["inclusive_Dplus_SS"])],
-            # ['SPG_BaryonMisMatched', proxies.GenericChannel(name="BaryonMisMatchedInclusiveSPG", regions_override=["inclusive_Dplus_OS", "-inclusive_Dplus_SS"])],  # noqa: E501
+            # ['SPG_BaryonMisMatched', proxies.GenericChannel(name="BaryonMisMatchedInclusiveSPG", regions_override=["inclusive_Dplus_OS", "-inclusive_Dplus_SS"])],
         ],
         'CharmMisMatched': [
             ['Wjets_emu_CharmMisMatched_OS-SS', proxies.MatchedCharm(os_minus_ss_fit_configuration=True, name="CharmMisMatched_OS-SS")],
@@ -271,12 +271,12 @@ class WDTruthComparisonSamples:
         # 'NoCharmBkg': [
         #     ['Wjets_Rest_OS-SS', proxies.NoMatchBackground(os_minus_ss_fit_configuration=True, add_no_truth_match=True)],
         #     ['Wjets_Rest_Loose_OS-SS', proxies.NoMatchBackground(os_minus_ss_fit_configuration=True, add_no_truth_match=True, loose_sr=True, regions_override=[
-        #                                                              "el_minus_SR_0tag_Dplus_OS", "el_plus_SR_0tag_Dplus_OS", "mu_minus_SR_0tag_Dplus_OS", "mu_plus_SR_0tag_Dplus_OS"])],  # noqa: E501
+        #                                                              "el_minus_SR_0tag_Dplus_OS", "el_plus_SR_0tag_Dplus_OS", "mu_minus_SR_0tag_Dplus_OS", "mu_plus_SR_0tag_Dplus_OS"])],
         # ],
         # 'MisMatchBkg': [
-        #     ['Wjets_emu_MisMatched_OS-SS', proxies.GenericChannel(name="MisMatched", os_minus_ss_fit_configuration=True, region=["MisMatched", "MatchedNoFid"])],  # noqa: E501
-        #     ['Wjets_emu_MisMatched_Loose_OS-SS', proxies.GenericChannel(name="MisMatchedLoose", os_minus_ss_fit_configuration=True, region=["MisMatched", "MatchedNoFid"], regions_override=[  # noqa: E501
-        #                                                                 "el_minus_SR_0tag_Dplus_OS", "el_plus_SR_0tag_Dplus_OS", "mu_minus_SR_0tag_Dplus_OS", "mu_plus_SR_0tag_Dplus_OS"])],  # noqa: E501
+        #     ['Wjets_emu_MisMatched_OS-SS', proxies.GenericChannel(name="MisMatched", os_minus_ss_fit_configuration=True, region=["MisMatched", "MatchedNoFid"])],
+        #     ['Wjets_emu_MisMatched_Loose_OS-SS', proxies.GenericChannel(name="MisMatchedLoose", os_minus_ss_fit_configuration=True, region=["MisMatched", "MatchedNoFid"], regions_override=[
+        #                                                                 "el_minus_SR_0tag_Dplus_OS", "el_plus_SR_0tag_Dplus_OS", "mu_minus_SR_0tag_Dplus_OS", "mu_plus_SR_0tag_Dplus_OS"])],
         # ],
     }
 

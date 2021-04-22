@@ -153,7 +153,7 @@ def process_file(f, c, var, pass_w, normalize):
     at_histogram = False
     save_histo = False
     for line in f:
-        if "BEGIN HISTO1D" in line:  # noqa: E501
+        if "BEGIN HISTO1D" in line:
             logging.info(f"{line}")
             variation = re.findall("BEGIN HISTO1D /(.+)", line)  # noqa: W605
             at_histogram = True
@@ -356,7 +356,7 @@ if __name__ == "__main__":
                       default="rivet_plots")
     parser.add_option('-c', '--channels',
                       action="store", dest="channels",
-                      default="mu_Dmeson:mu_minus_Dplus,mu_plus_Dplus,mu_minus_Dzero,mu_plus_Dzero,mu_minus_Ds,mu_plus_Ds;mu_Dplus:mu_minus_Dplus,mu_plus_Dplus;mu_Dstar:mu_minus_Dstar,mu_plus_Dstar;mu_Dzero:mu_minus_Dzero,mu_plus_Dzero;mu_Ds:mu_minus_Ds,mu_plus_Ds;mu_Baryon:mu_minus_LambdaC,mu_plus_LambdaC,mu_minus_OmegaC,mu_plus_OmegaC,mu_minus_XiCplus,mu_plus_XiCplus,mu_minus_XiCzero,mu_plus_XiCzero",  # noqa: E501
+                      default="mu_Dmeson:mu_minus_Dplus,mu_plus_Dplus,mu_minus_Dzero,mu_plus_Dzero,mu_minus_Ds,mu_plus_Ds;mu_Dplus:mu_minus_Dplus,mu_plus_Dplus;mu_Dstar:mu_minus_Dstar,mu_plus_Dstar;mu_Dzero:mu_minus_Dzero,mu_plus_Dzero;mu_Ds:mu_minus_Ds,mu_plus_Ds;mu_Baryon:mu_minus_LambdaC,mu_plus_LambdaC,mu_minus_OmegaC,mu_plus_OmegaC,mu_minus_XiCplus,mu_plus_XiCplus,mu_minus_XiCzero,mu_plus_XiCzero",
                       help="run over a subset of channels")
     parser.add_option('-v', '--vars',
                       action="store", dest="vars",

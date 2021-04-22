@@ -81,7 +81,7 @@ def process_file(f, name):
     at_variation = False
     save_histo = False
     for line in f:
-        if "BEGIN HISTO1D" in line and ("_VarBand" in line or "LOMG" in line or ("MGFxFx" in line and "[" not in line) or ("Sherpa2210[MUR1_MUF1_PDF30320]" in line)):  # noqa: E501
+        if "BEGIN HISTO1D" in line and ("_VarBand" in line or "LOMG" in line or ("MGFxFx" in line and "[" not in line) or ("Sherpa2210[MUR1_MUF1_PDF30320]" in line)):
             logging.info(f"{line}")
             at_variation = True
             if "_VarBand" in line:
