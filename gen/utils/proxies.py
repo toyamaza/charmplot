@@ -5,9 +5,10 @@ import abc
 class ProxyChannel:
     os_minus_ss_fit_configuration = False
 
-    def __init__(self, os_minus_ss_fit_configuration: bool = False, loose_sr: bool = False):
+    def __init__(self, os_minus_ss_fit_configuration: bool = False, loose_sr: bool = False, ss_only: bool = False):
         self.os_minus_ss_fit_configuration = os_minus_ss_fit_configuration
         self.loose_sr = loose_sr
+        self.ss_only = ss_only
 
     def format(self, regions):
         out = []
@@ -15,17 +16,22 @@ class ProxyChannel:
             out = regions
         else:
             for reg in regions:
-                out += [reg]
                 anti_sign = "-"
+                sign = ""
                 reg_nosign = reg
                 if reg.startswith("-"):
                     anti_sign = ""
+                    sign = "-"
                     reg_nosign = reg[1:]
                 if "_OS" in reg_nosign:
                     reg_nosign = reg_nosign.replace("_OS", "_SS")
                 else:
                     reg_nosign = reg_nosign.replace("_SS", "_OS")
-                out += [f"{anti_sign}{reg_nosign}"]
+                if not self.ss_only:
+                    out += [reg]
+                    out += [f"{anti_sign}{reg_nosign}"]
+                else:
+                    out += [f"{sign}{reg_nosign}"]
         if not self.loose_sr:
             return out
         else:
@@ -129,8 +135,8 @@ class Matched(ProxyChannel):
 class GenericChannel(ProxyChannel):
     name = ""
 
-    def __init__(self, os_minus_ss_fit_configuration: bool = False, loose_sr: bool = False, region: str = "", name: str = "", regions_override: list = []):
-        super().__init__(os_minus_ss_fit_configuration=os_minus_ss_fit_configuration, loose_sr=loose_sr)
+    def __init__(self, os_minus_ss_fit_configuration: bool = False, loose_sr: bool = False, ss_only: bool = False, region: str = "", name: str = "", regions_override: list = []):
+        super().__init__(os_minus_ss_fit_configuration=os_minus_ss_fit_configuration, loose_sr=loose_sr, ss_only=ss_only)
         self.region = region
         self.regions_override = regions_override
         if name == "":
@@ -208,9 +214,11 @@ class NoMatchBackground(ProxyChannel):
 class MatchedCharm(ProxyChannel):
     name = 'MatchedCharm'
 
-    def __init__(self, os_minus_ss_fit_configuration: bool = False, loose_sr: bool = False, decayMode: str = "Dplus"):
-        super().__init__(os_minus_ss_fit_configuration=os_minus_ss_fit_configuration, loose_sr=loose_sr)
+    def __init__(self, os_minus_ss_fit_configuration: bool = False, loose_sr: bool = False, ss_only: bool = False, decayMode: str = "Dplus", name: str = ""):
+        super().__init__(os_minus_ss_fit_configuration=os_minus_ss_fit_configuration, loose_sr=loose_sr, ss_only=ss_only)
         self.decayMode = decayMode
+        if name:
+            self.name = name
         if loose_sr:
             self.name += "_Loose"
 

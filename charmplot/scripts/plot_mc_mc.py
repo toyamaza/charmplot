@@ -168,7 +168,7 @@ def main(options, conf, reader):
                 mc_map[s].Draw("hist same")
 
             # make legend
-            canv.make_legend(mc_map, samples, print_yields=True)
+            canv.make_legend(mc_map, samples, print_yields=options.normalize)
 
             # set maximum after creating legend
             canv.set_maximum([mc_map[s] for s in samples], var, mc_map[samples[0]])
@@ -201,8 +201,12 @@ def main(options, conf, reader):
                 denominator = mc_map[samples[0]].Clone(f"{mc_map[samples[0]].GetName()}_denominator")
                 for i in range(0, denominator.GetNbinsX() + 2):
                     denominator.SetBinError(i, 0)
+                    denominator.SetBinContent(i, abs(mc_map[samples[0]].GetBinContent(i)))
+
             for i in range(0, len(samples)):
                 h = mc_map[samples[i]].Clone(f"{mc_map[samples[i]].GetName()}_ratio")
+                for j in range(0, denominator.GetNbinsX() + 2):
+                    h.SetBinContent(j, abs(h.GetBinContent(j)))
 
                 if options.show_rel_error:
                     denominator = mc_map[samples[i]].Clone(f"{mc_map[samples[i]].GetName()}_denominator")
