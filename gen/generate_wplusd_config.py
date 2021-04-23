@@ -135,41 +135,44 @@ def main(options):
             for sign in signs:
                 if not options.fit_only:
                     channelGenerator.make_channel(lumi, sign=sign, extra_rebin=extra_rebin, os_only=os_only)
-                    for btag in btags:
-                        channelGenerator.make_channel(lumi, sign=sign, btag=btag,
-                                                      extra_rebin=extra_rebin * (btag_bin if btag != '0tag' else 1), os_only=os_only)
-                for lepton in leptons:
-                    if not options.fit_only:
-                        channelGenerator.make_channel(lumi, sign=sign, lepton=lepton, extra_rebin=extra_rebin,
-                                                      os_only=os_only)
-                    for btag in btags:
-                        if not options.fit_only:
-                            channelGenerator.make_channel(lumi, sign=sign, btag=btag, lepton=lepton, extra_rebin=extra_rebin *
-                                                          (btag_bin if btag != '0tag' else 1), os_only=os_only)
-                        for charge in charges:
-                            channelGenerator.make_channel(lumi, sign=sign, btag=btag, lepton=lepton, charge=charge,
+                    if not options.inclusive_only:
+                        for btag in btags:
+                            channelGenerator.make_channel(lumi, sign=sign, btag=btag,
                                                           extra_rebin=extra_rebin * (btag_bin if btag != '0tag' else 1), os_only=os_only)
+                if not options.inclusive_only:
+                    for lepton in leptons:
+                        if not options.fit_only:
+                            channelGenerator.make_channel(lumi, sign=sign, lepton=lepton, extra_rebin=extra_rebin,
+                                                          os_only=os_only)
+                        for btag in btags:
+                            if not options.fit_only:
+                                channelGenerator.make_channel(lumi, sign=sign, btag=btag, lepton=lepton, extra_rebin=extra_rebin *
+                                                              (btag_bin if btag != '0tag' else 1), os_only=os_only)
+                            for charge in charges:
+                                channelGenerator.make_channel(lumi, sign=sign, btag=btag, lepton=lepton, charge=charge,
+                                                              extra_rebin=extra_rebin * (btag_bin if btag != '0tag' else 1), os_only=os_only)
 
+        # OS-SS plots
         if not options.fit_only:
-            # OS-SS plots
             if make_os_minus_ss:
                 channelGenerator.make_channel(lumi, extra_rebin=extra_rebin, os_only=os_only)
-                for year in years:
-                    channelGenerator.make_channel([year], year=year, extra_rebin=extra_rebin, os_only=os_only)
-                for btag in btags:
-                    channelGenerator.make_channel(lumi, btag=btag, extra_rebin=extra_rebin * (btag_bin if btag != '0tag' else 1),
-                                                  os_only=os_only)
-                for lepton in leptons:
-                    channelGenerator.make_channel(lumi, lepton=lepton, extra_rebin=extra_rebin, os_only=os_only)
-                    for charge in charges:
-                        channelGenerator.make_channel(lumi, lepton=lepton, charge=charge, extra_rebin=extra_rebin,
-                                                      os_only=os_only)
+                if not options.inclusive_only:
+                    for year in years:
+                        channelGenerator.make_channel([year], year=year, extra_rebin=extra_rebin, os_only=os_only)
                     for btag in btags:
-                        channelGenerator.make_channel(lumi, btag=btag, lepton=lepton,
-                                                      extra_rebin=extra_rebin * (btag_bin if btag != '0tag' else 1), os_only=os_only)
+                        channelGenerator.make_channel(lumi, btag=btag, extra_rebin=extra_rebin * (btag_bin if btag != '0tag' else 1),
+                                                      os_only=os_only)
+                    for lepton in leptons:
+                        channelGenerator.make_channel(lumi, lepton=lepton, extra_rebin=extra_rebin, os_only=os_only)
                         for charge in charges:
-                            channelGenerator.make_channel(lumi, btag=btag, lepton=lepton, charge=charge,
+                            channelGenerator.make_channel(lumi, lepton=lepton, charge=charge, extra_rebin=extra_rebin,
+                                                          os_only=os_only)
+                        for btag in btags:
+                            channelGenerator.make_channel(lumi, btag=btag, lepton=lepton,
                                                           extra_rebin=extra_rebin * (btag_bin if btag != '0tag' else 1), os_only=os_only)
+                            for charge in charges:
+                                channelGenerator.make_channel(lumi, btag=btag, lepton=lepton, charge=charge,
+                                                              extra_rebin=extra_rebin * (btag_bin if btag != '0tag' else 1), os_only=os_only)
 
         # add channels
         if options.replacement_samples:
@@ -218,6 +221,9 @@ if __name__ == "__main__":
                       action="store", dest="fit_type",
                       help="fit type (e.g. OS/SS or OS-SS)",
                       default="")
+    parser.add_option('--inclusive-only',
+                      action="store_true", dest="inclusive_only",
+                      help="only inclusive regions (i.e. not split in charge / b-tag / etc..)")
     parser.add_option('--sys',
                       action="store_true", dest="systematics",
                       help="add systematics")
