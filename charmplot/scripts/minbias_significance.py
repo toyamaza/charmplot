@@ -45,7 +45,7 @@ if __name__ == "__main__":
     var_in = "0"
 
 
-    data = ["Data"] # what does this do again..?
+    data = ["Data"]
     D_file = ROOT.TFile.Open("/global/homes/b/bowjun/minbias_charmpp/scans/multi_DpT/Lxy8_dR0.9/data/MinBias.data.root") # CHANGE TO REAL FILE PATH
 
     mc = ["Monte Carlo"]
