@@ -65,6 +65,7 @@ if __name__ == "__main__":
     #rebin 2 for 20 MeV bins
     mc_sum.Rebin(2)
 
+
     # line between first and last bin = slope*(x[0] - 1.7) + (data_sum.GetBinContent(1))
 
     slope_data = ((data_sum.GetBinContent(data_sum.GetNbinsX()))-(data_sum.GetBinContent(1)))/((data_sum.GetXaxis().GetBinUpEdge(data_sum.GetNbinsX()))-(data_sum.GetXaxis().GetBinLowEdge(1)))
@@ -147,8 +148,6 @@ if __name__ == "__main__":
     print("Scale factor: " + str(SF))
 
 
-
-
     Z = (S_mc * SF_init) / ((sqrtB_data * sqrtB_data) + (sqrtS_mc * sqrtS_mc))**0.5
     print ("\nZ = " + str(Z))
     print ()
@@ -168,7 +167,7 @@ if __name__ == "__main__":
     mc_bkg_fn.Draw("same")
     mc_canv.Draw()
     
-    # To generate the output plots:
+    # To generate the output plots CHANGE FOR CUTS BEING EVALUATED:
     mc_canv.Print("mc_Lxy8_dR0.9_DpT3.0_final.png")
 
 
@@ -196,5 +195,5 @@ if __name__ == "__main__":
     ROOT.myText(0.20, 0.82, 1, "#sqrt{s} = 13 TeV, 1.637 nb^{-1}")
     ROOT.myText(0.20, 0.76, 1, "D#rightarrowK#pi#pi")
     
-    # To generate the output plots:
+    # To generate the output plots CHANGE FOR CUTS BEING EVALUATED:
     d_canv.Print("d_Lxy8_dR0.9_DpT3.0_final.png")
