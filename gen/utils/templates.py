@@ -105,9 +105,9 @@ class WDTruthSamplesNew:
         self.samples += [
             ['Wjets_emu_Charm', proxies.MatchedCharm(os_minus_ss_fit_configuration=self.os_minus_ss_fit_configuration, loose_sr=self.loose_sr, decayMode=self.decayMode)],
             ['Wjets_emu_MisMatched', proxies.GenericChannel(name="MisMatched", os_minus_ss_fit_configuration=self.os_minus_ss_fit_configuration, region=["MisMatched", "MatchedNoFid"])],
-            ['Wjets_Rest', proxies.NoMatchBackground(os_minus_ss_fit_configuration=self.os_minus_ss_fit_configuration, add_no_truth_match=True, loose_sr=self.loose_sr)],
+            ['Wjets_emu_Rest', proxies.NoMatchBackground(os_minus_ss_fit_configuration=self.os_minus_ss_fit_configuration, loose_sr=self.loose_sr)],
             ['Top', proxies.PlainChannel(os_minus_ss_fit_configuration=self.os_minus_ss_fit_configuration)],
-            ['DibosonZjetsTau', proxies.PlainChannel(os_minus_ss_fit_configuration=self.os_minus_ss_fit_configuration)],
+            ['DibosonVjetsTau', proxies.PlainChannel(os_minus_ss_fit_configuration=self.os_minus_ss_fit_configuration)],
         ]
         if self.os_minus_ss_fit_configuration:
             self.samples += [['Multijet_MatrixMethod', proxies.MatrixMethod(os_minus_ss_fit_configuration=True, fake_factor=False)]]
