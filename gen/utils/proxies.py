@@ -56,6 +56,11 @@ class ProxyChannel:
 class PlainChannel(ProxyChannel):
     name = 'Plain'
 
+    def __init__(self, os_minus_ss_fit_configuration: bool = False, loose_sr: bool = False, ss_only: bool = False, name: str = ""):
+        super().__init__(os_minus_ss_fit_configuration=os_minus_ss_fit_configuration, loose_sr=loose_sr, ss_only=ss_only)
+        if name != "":
+            self.name = name
+
     def get_regions(self, regions):
         return self.format(regions)
 
@@ -147,9 +152,9 @@ class SPGChannel(ProxyChannel):
         has_OS = False
         has_SS = False
         for reg in regions:
-            if reg.endswith("_OS"):
+            if "_OS" in reg:
                 has_OS = True
-            elif reg.endswith("_SS"):
+            if "_SS" in reg:
                 has_SS = True
         if not self.always_subtract and (has_OS and not has_SS):
             return self.regions_OS
@@ -164,7 +169,8 @@ class SPGChannel(ProxyChannel):
 class GenericChannel(ProxyChannel):
     name = ""
 
-    def __init__(self, os_minus_ss_fit_configuration: bool = False, loose_sr: bool = False, ss_only: bool = False, region: str = "", name: str = "", regions_override: list = []):
+    def __init__(self, os_minus_ss_fit_configuration: bool = False, loose_sr: bool = False, ss_only: bool = False, region: str = "", name: str = "",
+                 regions_override: list = [], regions_OS: list = [], regions_SS: list = []):
         super().__init__(os_minus_ss_fit_configuration=os_minus_ss_fit_configuration, loose_sr=loose_sr, ss_only=ss_only)
         self.region = region
         self.regions_override = regions_override
@@ -172,10 +178,26 @@ class GenericChannel(ProxyChannel):
             self.name = region
         else:
             self.name = name
+        self.regions_OS = regions_OS
+        self.regions_SS = regions_SS
 
     def get_regions(self, regions):
         if self.regions_override:
             regions = self.regions_override
+        elif self.regions_OS or self.regions_SS:
+            has_OS = False
+            has_SS = False
+            for reg in regions:
+                if "_OS" in reg:
+                    has_OS = True
+                if "_SS" in reg:
+                    has_SS = True
+            if has_OS and not has_SS:
+                regions = self.regions_OS
+            elif has_SS and not has_OS:
+                regions = self.regions_SS
+            elif has_OS and has_SS:
+                regions = self.regions_OS + [f"-{x}" for x in self.regions_SS]
         if type(self.region) == str:
             region = f"_{self.region}" if self.region else ""
             return self.format([f"{reg}{region}" for reg in regions])

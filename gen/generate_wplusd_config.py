@@ -27,6 +27,8 @@ def main(options):
                 samples = templates.WDTruthSamplesNew(OS_and_SS_fit=(options.fit_type == "OS/SS"), MockMC=False, decayMode=options.decay_mode)
             if options.replacement_samples:
                 samples_spg = templates.SPGSamples()
+        elif options.samples.lower() == 'truth_old':
+            samples = templates.WDTruthSamples()
         elif options.samples.lower() == 'flavor' or options.samples.lower() == 'flavour':
             samples = templates.WDFlavourSamples()
         elif options.samples.lower() == 'fit':
@@ -50,14 +52,12 @@ def main(options):
         # TODO: make configurable?
         signs = ['OS', 'SS']
         lumi = ['2015', '2016A-B', '2016C-L', '2017', '2018']
-        # years = ['2015', '2016A-B', '2016C-L', '2017', '2018'] ## to be used with 'split_by_period'
         years = []  # to be used without 'split_by_period' option in charmpp
         leptons = ['el', 'mu']
         charges = ['minus', 'plus']
-        # charges = ['']
         btags = ['0tag', '1tag']
         ptbins = ['']
-        # ptbins = ['pt_bin1', 'pt_bin2', 'pt_bin3', 'pt_bin4', 'pt_bin5', 'inc']
+        # ptbins = ['pt_bin1', 'pt_bin2', 'pt_bin3', 'pt_bin4', 'pt_bin5', '']
 
         # binning for the 1-tag region
         # use '40' for 1 bin for D+
