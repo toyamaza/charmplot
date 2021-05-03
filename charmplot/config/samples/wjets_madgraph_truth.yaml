@@ -59,3 +59,11 @@ WPlusD_OS_minus_SS:
   lineColor: "ROOT.kRed"
   legendLabel: "W + D (OS-SS)"
   shortName: WPlusD_OSSS
+
+MGFxFx_Wjets_Reshowered:
+  add:
+    - MGFxFx_Wjets_Reshowered
+  subtract:
+  lineColor: "ROOT.kGreen+4"
+  legendLabel: "Reshowered (OS-SS)"
+  shortName: MGFxFx_Wjets_Reshowered
