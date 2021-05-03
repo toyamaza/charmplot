@@ -46,7 +46,7 @@ class InputDataReader(object):
         if not h:
             h = f.Get(h_name)
         if not h:
-            logger.warning(f"Histogram {h_name} not found for sample {sample}!")
+            logger.warning(f"Histogram {h_name} not found for sample {sample.name} in file {f.GetName()}!")
             return None
         if sys:
             h = h.Clone(f"{h.GetName()}_{sys}_{f.GetName().replace('.root', '')}_{channel.name}")
@@ -82,6 +82,7 @@ class InputDataReader(object):
         return quot
 
     def get_histogram(self, sample, channel, variable, force_positive=False, sys=None, suffix=None):
+        logging.info(f":::get_histogram::: {sample.name} {channel.name}")
         h_total = None
         h_denom = None
         # scale factors for this channel
@@ -147,6 +148,7 @@ class InputDataReader(object):
         if suffix:
             h_total.SetName(f"{h_total.GetName()}_{suffix}")
             h_total.SetTitle(f"{h_total.GetName()}_{suffix}")
+        logging.info(f":::END get_histogram::: {sample.name} {channel.name} {h_total}")
         return h_total
 
     def find_variables(self, sample, channel):
