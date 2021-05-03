@@ -79,3 +79,35 @@ Multijet_MatrixMethod_Loose:
   lineColor: "21000"
   legendLabel: Loose MJ
   shortName: Multijet_MatrixMethod_Loose
+
+Wjets_emu_Rest_PostProc:
+  add:
+    - inclusive_bkg
+  subtract:
+  lineColor: "21000"
+  legendLabel: "Loose W+jets"
+  shortName: Wjets_emu_Rest_PostProc
+
+Wjets_emu_MisMatched_PostProc:
+  add:
+    - inclusive_bkg
+  subtract:
+  lineColor: "21000"
+  legendLabel: "Loose W+c^{mis-match}"
+  shortName: Wjets_emu_MisMatched_PostProc
+
+DibosonVjetsTau_PostProc:
+  add:
+    - inclusive_bkg
+  subtract:
+  lineColor: "21000"
+  legendLabel: Loose Other
+  shortName: DibosonVjetsTau_Loose
+
+MultiJet_PostProc:
+  add:
+    - inclusive_bkg
+  subtract:
+  lineColor: "21000"
+  legendLabel: Loose MJ
+  shortName: MultiJet_PostProc

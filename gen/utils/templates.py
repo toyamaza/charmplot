@@ -218,31 +218,21 @@ class SPGComparison:
 class BKGComparison:
 
     samples = {
-        'NoCharmBkg': [
+        'Wjets_emu_Rest': [
             ['Wjets_emu_Rest', proxies.NoMatchBackground()],
-            ['Wjets_emu_Rest_Loose', proxies.GenericChannel(name="HardMisMatchLoose", loose_sr=True, region=["HardMisMatched", "Other"],
-                                                            regions_OS=["el_minus_SR_0tag_Dplus_OS", "el_plus_SR_0tag_Dplus_OS", "mu_minus_SR_0tag_Dplus_OS", "mu_plus_SR_0tag_Dplus_OS"],
-                                                            regions_SS=["el_minus_SR_0tag_Dplus_SS", "el_plus_SR_0tag_Dplus_SS", "mu_minus_SR_0tag_Dplus_SS", "mu_plus_SR_0tag_Dplus_SS"])],
+            ['Wjets_emu_Rest_PostProc', proxies.GenericChannel(name="Wjets_emu_Rest", regions_OS=["Wjets_emu_Rest_OS"], regions_SS=["Wjets_emu_Rest_SS"])],
         ],
-        'MisMatchBkg': [
+        'Wjets_emu_MisMatched': [
             ['Wjets_emu_MisMatched', proxies.GenericChannel(name="MisMatched", region=["MisMatched", "MatchedNoFid"])],
-            ['Wjets_emu_MisMatched_Loose', proxies.GenericChannel(name="MisMatchedLoose", loose_sr=True, region=["MisMatched"],
-                                                                  regions_OS=["el_minus_SR_0tag_Dplus_OS", "el_plus_SR_0tag_Dplus_OS", "mu_minus_SR_0tag_Dplus_OS", "mu_plus_SR_0tag_Dplus_OS"],
-                                                                  regions_SS=["el_minus_SR_0tag_Dplus_SS", "el_plus_SR_0tag_Dplus_SS", "mu_minus_SR_0tag_Dplus_SS", "mu_plus_SR_0tag_Dplus_SS"])],
+            ['Wjets_emu_MisMatched_PostProc', proxies.GenericChannel(name="Wjets_emu_MisMatched", regions_OS=["Wjets_emu_MisMatched_OS"], regions_SS=["Wjets_emu_MisMatched_SS"])],
         ],
-        'DibosonVjetsTauBkg': [
+        'Other': [
             ['DibosonVjetsTau', proxies.PlainChannel()],
-            ['DibosonVjetsTau_Loose', proxies.GenericChannel(name="OtherLoose", loose_sr=True,
-                                                             regions_OS=["el_minus_SR_0tag_Dplus_OS", "el_plus_SR_0tag_Dplus_OS", "mu_minus_SR_0tag_Dplus_OS", "mu_plus_SR_0tag_Dplus_OS"],
-                                                             regions_SS=["el_minus_SR_0tag_Dplus_SS", "el_plus_SR_0tag_Dplus_SS", "mu_minus_SR_0tag_Dplus_SS", "mu_plus_SR_0tag_Dplus_SS"])],
+            ['DibosonVjetsTau_PostProc', proxies.GenericChannel(name="Other", regions_OS=["Other_OS"], regions_SS=["Other_SS"])],
         ],
-        'MultiJetBkg': [
+        'MultiJet': [
             ['Multijet_MatrixMethod', proxies.MatrixMethod()],
-            ['Multijet_MatrixMethod_Loose', proxies.GenericChannel(name="MJLoose", loose_sr=True,
-                                                                   regions_OS=["Tight_el_minus_SR_0tag_Dplus_OS", "Tight_el_plus_SR_0tag_Dplus_OS", "Tight_mu_minus_SR_0tag_Dplus_OS", "Tight_mu_plus_SR_0tag_Dplus_OS",
-                                                                               "AntiTight_el_minus_SR_0tag_Dplus_OS", "AntiTight_el_plus_SR_0tag_Dplus_OS", "AntiTight_mu_minus_SR_0tag_Dplus_OS", "AntiTight_mu_plus_SR_0tag_Dplus_OS"],
-                                                                   regions_SS=["Tight_el_minus_SR_0tag_Dplus_SS", "Tight_el_plus_SR_0tag_Dplus_SS", "Tight_mu_minus_SR_0tag_Dplus_SS", "Tight_mu_plus_SR_0tag_Dplus_SS",
-                                                                               "AntiTight_el_minus_SR_0tag_Dplus_SS", "AntiTight_el_plus_SR_0tag_Dplus_SS", "AntiTight_mu_minus_SR_0tag_Dplus_SS", "AntiTight_mu_plus_SR_0tag_Dplus_SS"])],
+            ['MultiJet_PostProc', proxies.GenericChannel(name="MultiJet", regions_OS=["MultiJet_OS"], regions_SS=["MultiJet_SS"])],
         ],
     }
 
