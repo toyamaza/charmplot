@@ -33,8 +33,10 @@ def main(options):
             samples = templates.WDFlavourSamples()
         elif options.samples.lower() == 'fit':
             samples = templates.WDFitSamples()
-        elif options.samples.lower() == 'truth_comparison':
-            samples = templates.WDTruthComparisonSamples()
+        elif options.samples.lower() == 'spg_comparison':
+            samples = templates.SPGComparison()
+        elif options.samples.lower() == 'bkg_comparison':
+            samples = templates.BKGComparison()
         elif options.samples.lower() == 'wplusd_comparison':
             samples = templates.WDComparisonSamples()
         elif options.samples.lower() == 'flavor_comparison':

@@ -25,6 +25,7 @@ label_dict = {
     'wplusd_comparison': 'MadGraph LO',
     'flavor_comparison': 'MadGraph LO',
     'spg_comparison': 'MadGraph LO vs. SPG',
+    'bkg_comparison': 'SR vs. Loose Inclusive',
     'multijet_comparison': 'Matrix Method vs Fake Factor',
     'multijet_composition': 'Matrix Method',
 }
@@ -50,7 +51,7 @@ class DataMCConfig:
             'samplesConf': self.sample_config,
             'channels': {},
         }
-        if self.sample_config not in ['truth_comparison', 'wplusd_comparison', 'spg_comparison', 'multijet_comparison', 'multijet_composition']:
+        if self.sample_config not in ['truth_comparison', 'wplusd_comparison', 'spg_comparison', 'bkg_comparison', 'multijet_comparison', 'multijet_composition']:
             out['data'] = 'Data'
         if self.systematics:
             out['systematics'] = self.systematics
@@ -177,16 +178,18 @@ class WDFlavourSamples:
         return self.samples
 
 
-class WDTruthComparisonSamples:
+class SPGComparison:
 
     samples = {
         'Matched': [
             ['Wjets_emu_Matched', proxies.GenericChannel(region="Matched", name="Matched")],
-            ['SPG_Matched', proxies.SPGChannel(name="MatchedInclusiveSPG", regions_OS=["inclusive_Dplus_OS_Matched"], regions_SS=["inclusive_Dplus_SS_Matched"], always_subtract=True)],
+            ['SPG_Matched', proxies.SPGChannel(name="MatchedInclusiveSPG", regions_OS=["inclusive_Dplus_OS_Matched"],
+                                               regions_SS=["inclusive_Dplus_SS_Matched"], always_subtract=True)],
         ],
         '411MisMatched': [
             ['Wjets_emu_411MisMatched', proxies.GenericChannel(region="411MisMatched", name="411MisMatched")],
-            ['SPG_411MisMatched', proxies.SPGChannel(name="411MisMatchedInclusiveSPG", regions_OS=["inclusive_Dplus_OS_411MisMatched"], regions_SS=["inclusive_Dplus_SS_411MisMatched"], always_subtract=True)],
+            ['SPG_411MisMatched', proxies.SPGChannel(name="411MisMatchedInclusiveSPG", regions_OS=["inclusive_Dplus_OS_411MisMatched"], regions_SS=[
+                                                     "inclusive_Dplus_SS_411MisMatched"], always_subtract=True)],
         ],
         '431MisMatched': [
             ['Wjets_emu_431MisMatched', proxies.GenericChannel(region="431MisMatched", name="431MisMatched")],
@@ -198,24 +201,49 @@ class WDTruthComparisonSamples:
         ],
         'BaryonMisMatched': [
             ['Wjets_emu_BaryonMisMatched', proxies.GenericChannel(region="BaryonMisMatched", name="BaryonMisMatched")],
-            ['SPG_BaryonMisMatched', proxies.SPGChannel(name="BaryonMisMatchedInclusiveSPG", regions_OS=["inclusive_Dplus_OS"], regions_SS=["inclusive_Dplus_SS"])],
+            ['SPG_BaryonMisMatched', proxies.SPGChannel(name="BaryonMisMatchedInclusiveSPG", regions_OS=[
+                                                        "inclusive_Dplus_OS"], regions_SS=["inclusive_Dplus_SS"])],
         ],
         'CharmMisMatched': [
             ['Wjets_emu_CharmMisMatched', proxies.MatchedCharm(name="CharmMisMatched")],
-            ['SPG_CharmMisMatched', proxies.SPGChannel(name="CharmMisMatchedInclusiveSPG", regions_OS=["inclusive_Dplus_OS"], regions_SS=["inclusive_Dplus_SS"])],
+            ['SPG_CharmMisMatched', proxies.SPGChannel(name="CharmMisMatchedInclusiveSPG", regions_OS=[
+                                                       "inclusive_Dplus_OS"], regions_SS=["inclusive_Dplus_SS"])],
         ],
-        # 'NoCharmBkg': [
-        #     ['Wjets_emu_Rest', proxies.NoMatchBackground()],
-        #     ['Wjets_emu_Rest_Loose', proxies.GenericChannel(name="HardMisMatchLoose", loose_sr=True, region=["HardMisMatched", "Other"],
-        #                                                     regions_OS = ["el_minus_SR_0tag_Dplus_OS", "el_plus_SR_0tag_Dplus_OS", "mu_minus_SR_0tag_Dplus_OS", "mu_plus_SR_0tag_Dplus_OS"],
-        #                                                     regions_SS = ["el_minus_SR_0tag_Dplus_SS", "el_plus_SR_0tag_Dplus_SS", "mu_minus_SR_0tag_Dplus_SS", "mu_plus_SR_0tag_Dplus_SS"])],
-        # ],
-        # 'MisMatchBkg': [
-        #     ['Wjets_emu_MisMatched', proxies.GenericChannel(name="MisMatched", region=["MisMatched", "MatchedNoFid"])],
-        #     ['Wjets_emu_MisMatched_Loose', proxies.GenericChannel(name="MisMatchedLoose", loose_sr=True, region=["MisMatched", "MatchedNoFid"],
-        #                                                           regions_OS = ["el_minus_SR_0tag_Dplus_OS", "el_plus_SR_0tag_Dplus_OS", "mu_minus_SR_0tag_Dplus_OS", "mu_plus_SR_0tag_Dplus_OS"],
-        #                                                           regions_SS = ["el_minus_SR_0tag_Dplus_SS", "el_plus_SR_0tag_Dplus_SS", "mu_minus_SR_0tag_Dplus_SS", "mu_plus_SR_0tag_Dplus_SS"])],
-        # ],
+    }
+
+    def get(self):
+        return self.samples
+
+
+class BKGComparison:
+
+    samples = {
+        'NoCharmBkg': [
+            ['Wjets_emu_Rest', proxies.NoMatchBackground()],
+            ['Wjets_emu_Rest_Loose', proxies.GenericChannel(name="HardMisMatchLoose", loose_sr=True, region=["HardMisMatched", "Other"],
+                                                            regions_OS=["el_minus_SR_0tag_Dplus_OS", "el_plus_SR_0tag_Dplus_OS", "mu_minus_SR_0tag_Dplus_OS", "mu_plus_SR_0tag_Dplus_OS"],
+                                                            regions_SS=["el_minus_SR_0tag_Dplus_SS", "el_plus_SR_0tag_Dplus_SS", "mu_minus_SR_0tag_Dplus_SS", "mu_plus_SR_0tag_Dplus_SS"])],
+        ],
+        'MisMatchBkg': [
+            ['Wjets_emu_MisMatched', proxies.GenericChannel(name="MisMatched", region=["MisMatched", "MatchedNoFid"])],
+            ['Wjets_emu_MisMatched_Loose', proxies.GenericChannel(name="MisMatchedLoose", loose_sr=True, region=["MisMatched"],
+                                                                  regions_OS=["el_minus_SR_0tag_Dplus_OS", "el_plus_SR_0tag_Dplus_OS", "mu_minus_SR_0tag_Dplus_OS", "mu_plus_SR_0tag_Dplus_OS"],
+                                                                  regions_SS=["el_minus_SR_0tag_Dplus_SS", "el_plus_SR_0tag_Dplus_SS", "mu_minus_SR_0tag_Dplus_SS", "mu_plus_SR_0tag_Dplus_SS"])],
+        ],
+        'DibosonVjetsTauBkg': [
+            ['DibosonVjetsTau', proxies.PlainChannel()],
+            ['DibosonVjetsTau_Loose', proxies.GenericChannel(name="OtherLoose", loose_sr=True,
+                                                             regions_OS=["el_minus_SR_0tag_Dplus_OS", "el_plus_SR_0tag_Dplus_OS", "mu_minus_SR_0tag_Dplus_OS", "mu_plus_SR_0tag_Dplus_OS"],
+                                                             regions_SS=["el_minus_SR_0tag_Dplus_SS", "el_plus_SR_0tag_Dplus_SS", "mu_minus_SR_0tag_Dplus_SS", "mu_plus_SR_0tag_Dplus_SS"])],
+        ],
+        'MultiJetBkg': [
+            ['Multijet_MatrixMethod', proxies.MatrixMethod()],
+            ['Multijet_MatrixMethod_Loose', proxies.GenericChannel(name="MJLoose", loose_sr=True,
+                                                                   regions_OS=["Tight_el_minus_SR_0tag_Dplus_OS", "Tight_el_plus_SR_0tag_Dplus_OS", "Tight_mu_minus_SR_0tag_Dplus_OS", "Tight_mu_plus_SR_0tag_Dplus_OS",
+                                                                               "AntiTight_el_minus_SR_0tag_Dplus_OS", "AntiTight_el_plus_SR_0tag_Dplus_OS", "AntiTight_mu_minus_SR_0tag_Dplus_OS", "AntiTight_mu_plus_SR_0tag_Dplus_OS"],
+                                                                   regions_SS=["Tight_el_minus_SR_0tag_Dplus_SS", "Tight_el_plus_SR_0tag_Dplus_SS", "Tight_mu_minus_SR_0tag_Dplus_SS", "Tight_mu_plus_SR_0tag_Dplus_SS",
+                                                                               "AntiTight_el_minus_SR_0tag_Dplus_SS", "AntiTight_el_plus_SR_0tag_Dplus_SS", "AntiTight_mu_minus_SR_0tag_Dplus_SS", "AntiTight_mu_plus_SR_0tag_Dplus_SS"])],
+        ],
     }
 
     def get(self):
