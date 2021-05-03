@@ -159,8 +159,9 @@ def main(options, conf, reader):
                 gr_mc_stat_err, _ = utils.make_stat_err(mc_map[s])
                 gr_mc_tot_err = utils.combine_error_multiple([gr_mc_stat_err] + gr_mc_sys_err_map[s])
                 gr_mc_tot_err.SetLineColor(fcolor)
-                gr_mc_tot_err.SetFillColorAlpha(fcolor, 0.25)
-                gr_mc_tot_err.SetFillStyle(1001)
+                # gr_mc_tot_err.SetFillColorAlpha(fcolor, 0.25)
+                gr_mc_tot_err.SetFillColor(fcolor)
+                gr_mc_tot_err.SetFillStyle(3345)
                 gr_mc_stat_err.SetLineColor(fcolor)
                 errors += [gr_mc_tot_err, gr_mc_stat_err]
                 gr_mc_tot_err.Draw("e2")
@@ -245,8 +246,9 @@ def main(options, conf, reader):
                 gr_mc_tot_err = utils.combine_error_multiple([gr_mc_stat_err] + temp_err)
                 gr_mc_stat_err.SetLineColor(fcolor)
                 gr_mc_tot_err.SetLineColor(fcolor)
-                gr_mc_tot_err.SetFillColorAlpha(fcolor, 0.25)
-                gr_mc_tot_err.SetFillStyle(1001)
+                # gr_mc_tot_err.SetFillColorAlpha(fcolor, 0.25)
+                gr_mc_tot_err.SetFillColor(fcolor)
+                gr_mc_tot_err.SetFillStyle(3345)
                 errors += [gr_mc_tot_err, gr_mc_stat_err]
                 if not options.show_rel_error:
                     gr_mc_tot_err.Draw("e2")
@@ -268,8 +270,8 @@ def main(options, conf, reader):
             #     fcolor = mc_map[samples[i]].GetLineColor()
             #     gr_mc_stat_err, _ = utils.make_stat_err(h)
             #     gr_mc_stat_err.SetLineColor(fcolor)
-            #     gr_mc_stat_err.SetFillColorAlpha(fcolor, 0.25)
-            #     gr_mc_stat_err.SetFillStyle(1001)
+            #   # gr_mc_stat_err.SetFillColorAlpha(fcolor, 0.25)
+            #     gr_mc_stat_err.SetFillStyle(3345)
             #     errors += [gr_mc_stat_err]
             #     gr_mc_stat_err.Draw("e2")
             #     h.Draw("hist same")
