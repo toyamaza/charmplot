@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-import re
 import ROOT
 
 # file names
@@ -59,7 +58,7 @@ for bkg, props in backgrounds.items():
                     for r in props["regions"]:
                         h_name = f"{c}_{charge}{('_' + r if r else '')}{('_' + ptbin if ptbin else '')}__{var}"
                         print(f"reading histogram {h_name} from file {f}...")
-                        if not "matrix_method" in props:
+                        if "matrix_method" not in props:
                             h_temp = f.Get(h_name)
                         else:
                             h_temp = None
