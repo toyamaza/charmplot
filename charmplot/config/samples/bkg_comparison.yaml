@@ -1,0 +1,81 @@
+colorScheme: gemstone_hues
+
+Wjets_emu_Rest:
+  add:
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_bjets_emu
+    - MG_Wjets_light_emu
+  subtract:
+  fillColor: "11002"
+  legendLabel: "W+jets"
+  shortName: Wjets_emu_Rest
+
+Wjets_emu_Rest_Loose:
+  add:
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_bjets_emu
+    - MG_Wjets_light_emu
+  subtract:
+  lineColor: "21000"
+  legendLabel: "W+jets Loose"
+  shortName: Wjets_emu_Rest_Loose
+
+Wjets_emu_MisMatched:
+  add:
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_bjets_emu
+    - MG_Wjets_light_emu
+  subtract:
+  lineColor: "11004"
+  legendLabel: "W+c^{mis-match}"
+  shortName: Wjets_emu_MisMatched
+
+Wjets_emu_MisMatched_Loose:
+  add:
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_bjets_emu
+    - MG_Wjets_light_emu
+  subtract:
+  lineColor: "21000"
+  legendLabel: "Loose W+c^{mis-match}"
+  shortName: Wjets_emu_MisMatched_Loose
+
+DibosonVjetsTau:
+  add:
+    - Diboson
+    - MG_Zjets_light_emu
+    - MG_Zjets_cjets_emu
+    - MG_Zjets_bjets_emu
+    - MG_Zjets_tau
+    - MG_Wjets_tau
+  subtract:
+  lineColor: "15002"
+  legendLabel: Other
+  shortName: DibosonVjetsTau
+
+DibosonVjetsTau_Loose:
+  add:
+    - Diboson
+    - MG_Zjets_light_emu
+    - MG_Zjets_cjets_emu
+    - MG_Zjets_bjets_emu
+    - MG_Zjets_tau
+    - MG_Wjets_tau
+  subtract:
+  lineColor: "21000"
+  legendLabel: Loose Other
+  shortName: DibosonVjetsTau_Loose
+
+Multijet_MatrixMethod:
+  add: data
+  subtract:
+  lineColor: "14003"
+  legendLabel: MJ
+  shortName: Multijet_MatrixMethod
+
+Multijet_MatrixMethod_Loose:
+  add: data
+  subtract:
+  lineColor: "21000"
+  legendLabel: Loose MJ
+  shortName: Multijet_MatrixMethod_Loose
