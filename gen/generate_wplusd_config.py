@@ -26,7 +26,7 @@ def main(options):
             else:
                 samples = templates.WDTruthSamplesNew(OS_and_SS_fit=(options.fit_type == "OS/SS"), MockMC=False, decayMode=options.decay_mode)
             if options.replacement_samples:
-                samples_spg = templates.SPGSamples()
+                samples_replacement = templates.ReplacementSamples()
         elif options.samples.lower() == 'truth_old':
             samples = templates.WDTruthSamples()
         elif options.samples.lower() == 'flavor' or options.samples.lower() == 'flavour':
@@ -68,11 +68,11 @@ def main(options):
         # replace samples to increase mc stats
         if options.replacement_samples:
             replacement_samples = {
-                'Wjets_emu_Matched': 'OS-SS_SPG_Matched',
-                'Wjets_emu_411MisMatched': 'OS-SS_SPG_411MisMatched',
-                'Wjets_emu_Charm': 'OS-SS_SPG_CharmMisMatched',
-                'Wjets_Rest': 'OS-SS_SPG_NoCharmBkg',
-                'Wjets_emu_MisMatched': 'OS-SS_SPG_MisMatchBkg',
+                'Wjets_emu_Matched': '<charge>_SPG_Matched',
+                'Wjets_emu_411MisMatched': '<charge>_SPG_411MisMatched',
+                'Wjets_emu_Charm': '<charge>_SPG_CharmMisMatched',
+                'Wjets_emu_Rest': '<charge>_SPG_Wjets_emu_Rest',
+                'Wjets_emu_MisMatched': '<charge>_SPG_Wjets_emu_MisMatched',
             }
         else:
             replacement_samples = {}
@@ -114,23 +114,25 @@ def main(options):
 
         # Helper object to generate channels
         if options.replacement_samples:
-            channelGeneratorSPG = templates.ChannelGenerator(config=config,
-                                                             samples=samples_spg,
-                                                             make_plots=False,
-                                                             save_to_file=False,
-                                                             force_positive=force_positive,
-                                                             decay_mode="SPG",
-                                                             process_string="SPG",
-                                                             signs=["OS", "SS"],
-                                                             years=years,
-                                                             leptons=leptons,
-                                                             charges=[""],
-                                                             btags="",
-                                                             ptbins=ptbins)
+            channelGeneratorReplacement = templates.ChannelGenerator(config=config,
+                                                                     samples=samples_replacement,
+                                                                     make_plots=False,
+                                                                     save_to_file=False,
+                                                                     force_positive=force_positive,
+                                                                     decay_mode="SPG",
+                                                                     process_string="SPG",
+                                                                     signs=["OS", "SS"],
+                                                                     years=years,
+                                                                     leptons=leptons,
+                                                                     charges=[""],
+                                                                     btags="",
+                                                                     ptbins=ptbins)
 
-        # SPG samples
+        # replacement samples
         if options.replacement_samples:
-            channelGeneratorSPG.make_channel(lumi, extra_rebin=extra_rebin)
+            channelGeneratorReplacement.make_channel(lumi, extra_rebin=extra_rebin)
+            channelGeneratorReplacement.make_channel(lumi, sign='OS', extra_rebin=extra_rebin)
+            channelGeneratorReplacement.make_channel(lumi, sign='SS', extra_rebin=extra_rebin)
 
         # OS/SS plots
         if make_os_ss:
@@ -178,7 +180,7 @@ def main(options):
 
         # add channels
         if options.replacement_samples:
-            channelGenerator.get_config()['channels'].update(channelGeneratorSPG.get_config()['channels'])
+            channelGenerator.get_config()['channels'].update(channelGeneratorReplacement.get_config()['channels'])
 
         out_name = f'{options.analysis_config}_{sample_config}{"_OSSS" if options.fit_type == "OS/SS" else ""}.yaml'
         with open(out_name, 'w') as outfile:

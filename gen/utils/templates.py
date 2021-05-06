@@ -240,28 +240,26 @@ class BKGComparison:
         return self.samples
 
 
-class SPGSamples:
+class ReplacementSamples:
 
     samples = {
         'Matched': [
-            ['SPG_Matched', proxies.GenericChannel(name="MatchedSPG", regions_override=["inclusive_Dplus_OS_Matched", "-inclusive_Dplus_SS_Matched"])],
+            ['SPG_Matched', proxies.SPGChannel(name="MatchedInclusiveSPG", regions_OS=["inclusive_Dplus_OS_Matched"],
+                                               regions_SS=["inclusive_Dplus_SS_Matched"], always_subtract=True)],
         ],
         '411MisMatched': [
-            ['SPG_411MisMatched', proxies.GenericChannel(name="411MisMatchedSPG", regions_override=[
-                                                         "inclusive_Dplus_OS_411MisMatched", "-inclusive_Dplus_SS_411MisMatched"])],
+            ['SPG_411MisMatched', proxies.SPGChannel(name="411MisMatchedInclusiveSPG", regions_OS=["inclusive_Dplus_OS_411MisMatched"], regions_SS=[
+                                                     "inclusive_Dplus_SS_411MisMatched"], always_subtract=True)],
         ],
         'CharmMisMatched': [
-            ['SPG_CharmMisMatched', proxies.GenericChannel(name="CharmMisMatchedSPG", regions_override=["inclusive_Dplus_OS", "-inclusive_Dplus_SS"])],
+            ['SPG_CharmMisMatched', proxies.SPGChannel(name="CharmMisMatchedInclusiveSPG", regions_OS=[
+                                                       "inclusive_Dplus_OS"], regions_SS=["inclusive_Dplus_SS"])],
         ],
-        'NoCharmBkg': [
-            ['Wjets_Rest_Loose_OS-SS', proxies.NoMatchBackground(loose_sr=True, regions_override=[
-                "el_minus_SR_0tag_Dplus_OS", "el_plus_SR_0tag_Dplus_OS", "mu_minus_SR_0tag_Dplus_OS", "mu_plus_SR_0tag_Dplus_OS",
-                "-el_minus_SR_0tag_Dplus_SS", "-el_plus_SR_0tag_Dplus_SS", "-mu_minus_SR_0tag_Dplus_SS", "-mu_plus_SR_0tag_Dplus_SS"])],
+        'Wjets_emu_Rest': [
+            ['Wjets_emu_Rest_PostProc', proxies.GenericChannel(name="Wjets_emu_Rest", regions_OS=["Wjets_emu_Rest_OS"], regions_SS=["Wjets_emu_Rest_SS"])],
         ],
-        'MisMatchBkg': [
-            ['Wjets_emu_MisMatched_Loose_OS-SS', proxies.GenericChannel(name="MisMatchedLoose", region=["MisMatched", "MatchedNoFid"], regions_override=[
-                "el_minus_SR_0tag_Dplus_OS", "el_plus_SR_0tag_Dplus_OS", "mu_minus_SR_0tag_Dplus_OS", "mu_plus_SR_0tag_Dplus_OS",
-                "-el_minus_SR_0tag_Dplus_SS", "-el_plus_SR_0tag_Dplus_SS", "-mu_minus_SR_0tag_Dplus_SS", "-mu_plus_SR_0tag_Dplus_SS"])],
+        'Wjets_emu_MisMatched': [
+            ['Wjets_emu_MisMatched_PostProc', proxies.GenericChannel(name="Wjets_emu_MisMatched", regions_OS=["Wjets_emu_MisMatched_OS"], regions_SS=["Wjets_emu_MisMatched_SS"])],
         ],
     }
 
@@ -363,12 +361,16 @@ class ChannelGenerator:
                 }
 
                 # SPG samples
-                if self.os_minus_ss_fit_configuration:
-                    if sign == 'OS' and btag != '1tag':
-                        channel['replacement_samples'] = {k: v for k, v in self.replacement_samples.items()}
-                else:
-                    if sign == '' and btag != '1tag':
-                        channel['replacement_samples'] = {k: v for k, v in self.replacement_samples.items()}
+                if btag == '0tag':
+                    if channel_name.startswith("OS-SS"):
+                        replacement_channel_sign = "OS-SS"
+                    elif channel_name.startswith("OS"):
+                        replacement_channel_sign = "OS"
+                    elif channel_name.startswith("SS"):
+                        replacement_channel_sign = "SS"
+                    else:
+                        raise Exception(f"Unrecognised charge in {channel_name}")
+                    channel['replacement_samples'] = {k: v.replace("<charge>", replacement_channel_sign) for k, v in self.replacement_samples.items()}
 
                 # pt bins for SPG samples
                 if 'replacement_samples' in channel:

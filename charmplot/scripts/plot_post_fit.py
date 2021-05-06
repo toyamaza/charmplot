@@ -142,22 +142,34 @@ def main(options, conf):
         mc_map = {}
         for sample in samples:
             h_sum = None
+
+            # positive channels
             for channel in plot['+']:
+
+                # channel charge
+                channel_charge = ""
+                if options.plus_minus_ratio and ('MockMC' in sample.shortName or 'Wjets_emu_Matched' in sample.shortName):
+                    if "minus" in channel.name:
+                        channel_charge = "_minus"
+                    elif "plus" in channel.name:
+                        channel_charge = "_plus"
+
+                # mockMC
                 if 'MockMC' in sample.shortName:
-                    h_temp = files[channel].Get(f"h_SymmBkg_postFit")
+                    h_temp = files[channel].Get(f"h_SymmBkg{channel_charge}_postFit")
                     if not h_temp:
                         btag = re.findall("([012]tag)", channel.name)[0]
-                        h_temp = files[channel].Get(f"h_SymmBkg_{btag}_postFit")
+                        h_temp = files[channel].Get(f"h_SymmBkg{channel_charge}_{btag}_postFit")
                 else:
                     if "SS" in channel.name:
-                        h_temp = files[channel].Get(f"h_{sample.shortName}_postFit")
-                        # h_temp = files[channel].Get(f"h_{sample.shortName}_SS_postFit")
-                        h_temp_couter = files[channel].Get(f"h_{sample.shortName}_CounterTerm_SS_postFit")
+                        h_temp = files[channel].Get(f"h_{sample.shortName}{channel_charge}_postFit")
+                        # h_temp = files[channel].Get(f"h_{sample.shortName}{channel_charge}_SS_postFit")
+                        h_temp_couter = files[channel].Get(f"h_{sample.shortName}{channel_charge}_CounterTerm_SS_postFit")
                         if h_temp_couter:
                             h_temp.Add(h_temp_couter)
                     else:
-                        h_temp = files[channel].Get(f"h_{sample.shortName}_postFit")
-                        h_temp_couter = files[channel].Get(f"h_{sample.shortName}_CounterTerm_postFit")
+                        h_temp = files[channel].Get(f"h_{sample.shortName}{channel_charge}_postFit")
+                        h_temp_couter = files[channel].Get(f"h_{sample.shortName}{channel_charge}_CounterTerm_postFit")
                         if h_temp_couter:
                             print("subtractign the counter term: ", h_temp_couter)
                             h_temp.Add(h_temp_couter)
@@ -166,16 +178,28 @@ def main(options, conf):
                         h_sum = h_temp.Clone(f"{h_temp.GetName()}_{chan.name}")
                     else:
                         h_sum.Add(h_temp)
+
+            # negative channels
             for channel in plot['-']:
+
+                # channel charge
+                channel_charge = ""
+                if options.plus_minus_ratio and ('MockMC' in sample.shortName or 'Wjets_emu_Matched' in sample.shortName):
+                    if "minus" in channel.name:
+                        channel_charge = "_minus"
+                    elif "plus" in channel.name:
+                        channel_charge = "_plus"
+                
+                # mockMC
                 if 'MockMC' in sample.shortName:
-                    h_temp = files[channel].Get(f"h_SymmBkg_postFit")
+                    h_temp = files[channel].Get(f"h_SymmBkg{channel_charge}_postFit")
                     if not h_temp:
                         btag = re.findall("([012]tag)", channel.name)[0]
-                        h_temp = files[channel].Get(f"h_SymmBkg_{btag}_postFit")
+                        h_temp = files[channel].Get(f"h_SymmBkg{channel_charge}_{btag}_postFit")
                 else:
-                    h_temp = files[channel].Get(f"h_{sample.shortName}_postFit")
-                    # h_temp = files[channel].Get(f"h_{sample.shortName}_SS_postFit")
-                    h_temp_couter = files[channel].Get(f"h_{sample.shortName}_CounterTerm_SS_postFit")
+                    h_temp = files[channel].Get(f"h_{sample.shortName}{channel_charge}_postFit")
+                    # h_temp = files[channel].Get(f"h_{sample.shortName}{channel_charge}_SS_postFit")
+                    h_temp_couter = files[channel].Get(f"h_{sample.shortName}{channel_charge}_CounterTerm_SS_postFit")
                     if h_temp_couter:
                         print("subtractign the counter term: ", h_temp_couter)
                         h_temp.Add(h_temp_couter)
@@ -395,6 +419,9 @@ if __name__ == "__main__":
     parser.add_option('--stage-out',
                       action="store_true", dest="stage_out",
                       help="copy plots to the www folder")
+    parser.add_option('--plus-minus-ratio',
+                      action="store_true", dest="plus_minus_ratio",
+                      help="the fit was a combined plus minus fit")
     parser.add_option('--trex-input',
                       action="store", dest="trex_input",
                       help="import post-fit trex plots")
