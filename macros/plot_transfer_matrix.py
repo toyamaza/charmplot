@@ -22,10 +22,12 @@ LUMI_RUN2 = 138965.16
 ROOT.gStyle.SetPaintTextFormat(".2f")
 
 # files
-f = ROOT.TFile("/global/cscratch1/sd/mmuskinj/charmpp/v8/stdm13_matrix_v2/wplusd_fit_wplusd_comparison/histograms.root", "READ")
+# f = ROOT.TFile("/global/cscratch1/sd/mmuskinj/charmpp/v8/stdm13_matrix_v2/wplusd_fit_wplusd_comparison/histograms.root", "READ")
+f = ROOT.TFile("/global/cscratch1/sd/mmuskinj/charmpp/v8/transfer_matrix_reco/wplusd_fit_wplusd_comparison/histograms.root", "READ")
 
 # truth
-f_truth = ROOT.TFile("/global/cscratch1/sd/mmuskinj/charmpp/v8/stdm13_truth_v1/truth/wplusd_truth_analysis/histograms.root", "READ")
+# f_truth = ROOT.TFile("/global/cscratch1/sd/mmuskinj/charmpp/v8/stdm13_truth_v1/truth/wplusd_truth_analysis/histograms.root", "READ")
+f_truth = ROOT.TFile("/global/cscratch1/sd/mmuskinj/charmpp/v8/transfer_matrix/truth/wplusd_truth_analysis/histograms.root", "READ")
 
 # channels
 channels = [
@@ -101,6 +103,7 @@ for c in channels:
     proxy_axis = {}
     fid_eff = {}
     fid_eff_gr = {}
+    fid_eff_inclusive = {}
     for s in samples:
         for i in range(1, nbins + 2):
             h_pt[s].SetBinContent(i, h_pt_tmp[s].GetBinContent(i))
@@ -144,6 +147,14 @@ for c in channels:
         fid_eff_gr[s] = fid_eff[s].CreateGraph()
         fid_eff_gr[s].SetMarkerColor(colors[s])
         fid_eff_gr[s].SetLineColor(colors[s])
+
+        # inclusive efficiency
+        inclusive_num = truth_projection[s].Clone(f"{truth_projection[s].GetName()}_inclusive")
+        inclusive_den = h_pt_truth[s].Clone(f"{h_pt_truth[s].GetName()}_inclusive")
+        inclusive_num.Rebin(inclusive_num.GetNbinsX())
+        inclusive_den.Rebin(inclusive_den.GetNbinsX())
+        fid_eff_inclusive[s] = ROOT.TEfficiency(inclusive_num, inclusive_den)
+        # print(f":: Inclusive Efficiency for {s}-- {fid_eff_inclusive.GetEfficiency(1)} + {fid_eff_inclusive.GetEfficiencyErrorUp(1)} - {fid_eff_inclusive.GetEfficiencyErrorLow(1)}")
 
     f_out.cd()
     for s in samples:
@@ -242,11 +253,14 @@ for c in channels:
     canv4.proxy_dn.GetXaxis().SetLabelOffset(-0.03)
     canv4.pad1.cd()
     canv4.pad1.SetLogx()
-    for s in samples:
+    for j, s in enumerate(samples):
         for i in range(1, nbins + 2):
             proxy_axis[s].SetBinContent(i, fid_eff_gr[s].GetY()[i - 1])
             proxy_axis[s].SetBinError(i, 0)
             proxy_axis[s].Draw("hist text same")
+        eff = fid_eff_inclusive[s].GetEfficiency(1)
+        eff_err = (fid_eff_inclusive[s].GetEfficiencyErrorUp(1) + fid_eff_inclusive[s].GetEfficiencyErrorLow(1)) / 2
+        ROOT.myText(0.18, 0.72 - 0.10 * (j + 1), 1, f"{s}: {eff:1.5f} #pm {eff_err:1.5f} ({100 * eff_err / eff:1.3f}%)")
     _ = [fid_eff_gr[s].Draw("pe") for s in reversed(samples)]
     leg.Draw()
 
