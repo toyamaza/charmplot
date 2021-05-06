@@ -189,7 +189,7 @@ def main(options, conf):
                         channel_charge = "_minus"
                     elif "plus" in channel.name:
                         channel_charge = "_plus"
-                
+
                 # mockMC
                 if 'MockMC' in sample.shortName:
                     h_temp = files[channel].Get(f"h_SymmBkg{channel_charge}_postFit")
