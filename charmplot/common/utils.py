@@ -301,6 +301,11 @@ def read_samples(conf: globalConfig.GlobalConfig, reader: inputDataReader.InputD
             h = h.Clone(f"{h.GetName()}_{sys}")
         mc_map[s] = h
 
+        # fix negative or low value bins in MockMC
+        if "MockMC" in s.shortName:
+            for i in range(1, h.GetNbinsX() + 1):
+                if h.GetBinContent(i) < 100:
+                    h.SetBinContent(i, 100)
         # scale histogram if performed likelihood fit
         if fit:
             h.Scale(fit.result[s.shortName][0])
@@ -860,7 +865,8 @@ def average_content(h, i):
 
 
 def replace_sample(conf: globalConfig.GlobalConfig, mc_map: MC_Map, reader: inputDataReader.InputDataReader,
-                   c: channel.Channel, var: variable.Variable, sample: str, channel: str, mc_map_sys: Dict[str, MC_Map] = None):
+                   c: channel.Channel, var: variable.Variable, sample: str, channel: str, mc_map_sys: Dict[str, MC_Map] = None,
+                   relative_unc: bool = True):
     channel_replacement = conf.get_channel(channel)
     assert len(channel_replacement.samples) == 1
     sample_replacement = conf.get_sample(channel_replacement.samples[0])
@@ -884,10 +890,16 @@ def replace_sample(conf: globalConfig.GlobalConfig, mc_map: MC_Map, reader: inpu
         for group, systematics in mc_map_sys.items():
             for syst, map_sys in systematics.items():
                 h_sys_replaced = map_sys[sample_current].Clone(f"{map_sys[sample_current].GetName()}_replaced")
+                # smooth any bins with very low bin content in the nominal histogram
+                for i in range(0, h_sys_replaced.GetNbinsX() + 2):
+                    if abs(h_sys_replaced.GetBinContent(i)) < 1e-3:
+                        h_sys_replaced.SetBinContent(i, average_content(h_sys_replaced, i))
+
+                # sys - nominal
                 h_sys_replaced.Add(h_current, -1)
 
                 # use relative uncertaitny instead of absolute in these cases
-                if "PROXY_NORM" in syst:
+                if relative_unc or "PROXY_NORM" in syst:
                     h_sys_replaced.Divide(h_current)
                     h_sys_replaced.Multiply(h_replacement)
 
