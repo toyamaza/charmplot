@@ -14,7 +14,7 @@ ROOT.SetAtlasStyle()
 ROOT.gROOT.LoadMacro(os.path.join(os.path.dirname(__file__), "RooTwoSidedCBShape.cc"))
 
 # Get the histogram
-f = ROOT.TFile("/global/cscratch1/sd/mmuskinj/charmpp/v8/spg_dplus/wplusd_spg_comparison_mass/histograms.root", "READ")
+f = ROOT.TFile("/global/cscratch1/sd/mmuskinj/charmpp/v8/differential_fit_4_spg/wplusd_spg_comparison/histograms.root", "READ")
 
 # Make output folder
 if not os.path.isdir("fits"):
@@ -22,18 +22,16 @@ if not os.path.isdir("fits"):
 
 # histogram names
 names = [
-    "SPG_Matched_OS_0tag_Dplus_Matched_inc_Dmeson_m",
-    "SPG_Matched_OS_0tag_Dplus_Matched_pt_bin1_Dmeson_m",
-    "SPG_Matched_OS_0tag_Dplus_Matched_pt_bin2_Dmeson_m",
-    "SPG_Matched_OS_0tag_Dplus_Matched_pt_bin3_Dmeson_m",
-    "SPG_Matched_OS_0tag_Dplus_Matched_pt_bin4_Dmeson_m",
-    "SPG_Matched_OS_0tag_Dplus_Matched_pt_bin5_Dmeson_m",
-    "Wjets_emu_Matched_OS-SS_OS_0tag_Dplus_Matched_inc_Dmeson_m",
-    "Wjets_emu_Matched_OS-SS_OS_0tag_Dplus_Matched_pt_bin1_Dmeson_m",
-    "Wjets_emu_Matched_OS-SS_OS_0tag_Dplus_Matched_pt_bin2_Dmeson_m",
-    "Wjets_emu_Matched_OS-SS_OS_0tag_Dplus_Matched_pt_bin3_Dmeson_m",
-    "Wjets_emu_Matched_OS-SS_OS_0tag_Dplus_Matched_pt_bin4_Dmeson_m",
-    "Wjets_emu_Matched_OS-SS_OS_0tag_Dplus_Matched_pt_bin5_Dmeson_m",
+    "SPG_Matched_truth_pt_bin0_OS-SS_Dplus_Matched_truth_pt_bin0_pt_bin1_Dmeson_m",
+    "SPG_Matched_truth_pt_bin1_OS-SS_Dplus_Matched_truth_pt_bin1_pt_bin2_Dmeson_m",
+    "SPG_Matched_truth_pt_bin2_OS-SS_Dplus_Matched_truth_pt_bin2_pt_bin3_Dmeson_m",
+    "SPG_Matched_truth_pt_bin3_OS-SS_Dplus_Matched_truth_pt_bin3_pt_bin4_Dmeson_m",
+    "SPG_Matched_truth_pt_bin4_OS-SS_Dplus_Matched_truth_pt_bin4_pt_bin5_Dmeson_m",
+    "Wjets_emu_Matched_truth_pt_bin0_OS-SS_Dplus_Matched_truth_pt_bin0_pt_bin1_Dmeson_m",
+    "Wjets_emu_Matched_truth_pt_bin1_OS-SS_Dplus_Matched_truth_pt_bin1_pt_bin2_Dmeson_m",
+    "Wjets_emu_Matched_truth_pt_bin2_OS-SS_Dplus_Matched_truth_pt_bin2_pt_bin3_Dmeson_m",
+    "Wjets_emu_Matched_truth_pt_bin3_OS-SS_Dplus_Matched_truth_pt_bin3_pt_bin4_Dmeson_m",
+    "Wjets_emu_Matched_truth_pt_bin4_OS-SS_Dplus_Matched_truth_pt_bin4_pt_bin5_Dmeson_m",
 ]
 
 for name in names:
@@ -85,21 +83,25 @@ for name in names:
         ROOT.kRed), ROOT.RooFit.LineStyle(ROOT.kDashed), ROOT.RooFit.Name("s"))
 
     # canvas
-    c = ROOT.TCanvas(name, name, 800, 600)
+    c = ROOT.TCanvas(name, name, 1000, 1000)
     frame.Draw()
     frame.SetMaximum(20)
 
     # pint text
     ROOT.ATLASLabel(0.17, 0.90, "Internal", 1)
     ROOT.myText(0.17, 0.9 - 1 * 0.06, 1, "#sqrt{s} = 13 TeV")
-    ROOT.myText(0.17, 0.9 - 2 * 0.06, 1, "W#rightarrowl#nu+D, D#rightarrowK#pi#pi")
+    ROOT.myText(0.17, 0.9 - 2 * 0.06, 1, f"D#rightarrowK#pi#pi {name.split('Matched_')[0]}")
     ROOT.myText(0.17, 0.9 - 3 * 0.06, 1, (name.split("_Dmeson_m")[0]).split("Matched_")[-1])
-    ROOT.myText(0.68, 0.9 - 0 * 0.06, 1, f"mean: {mean.getVal():.4f}")
-    ROOT.myText(0.68, 0.9 - 1 * 0.06, 1, f"sigma: {sigma.getVal():.4f}")
-    ROOT.myText(0.68, 0.9 - 2 * 0.06, 1, f"nLo: {nLo.getVal():.4f}")
+    ROOT.myText(0.68, 0.9 - 0 * 0.06, 1, f"aHi: {aHi.getVal():.4f}")
+    ROOT.myText(0.68, 0.9 - 1 * 0.06, 1, f"aLo: {aLo.getVal():.4f}")
+    ROOT.myText(0.68, 0.9 - 2 * 0.06, 1, f"mean: {mean.getVal():.4f}")
     ROOT.myText(0.68, 0.9 - 3 * 0.06, 1, f"nHi: {nHi.getVal():.4f}")
-    ROOT.myText(0.68, 0.9 - 4 * 0.06, 1, f"aLo: {aLo.getVal():.4f}")
-    ROOT.myText(0.68, 0.9 - 5 * 0.06, 1, f"aHi: {aHi.getVal():.4f}")
+    ROOT.myText(0.68, 0.9 - 4 * 0.06, 1, f"nLo: {nLo.getVal():.4f}")
+    ROOT.myText(0.68, 0.9 - 5 * 0.06, 1, f"sigma: {sigma.getVal():.4f}")
+
+    print(f"---- COPY HERE {name} ----")
+    print(f"{aHi.getVal():.4f}, {aLo.getVal():.4f}, {mean.getVal():.4f}, {nHi.getVal():.4f}, {nLo.getVal():.4f}, {sigma.getVal():.4f}")
+    print(f"---- COPY HERE {name} ----")
 
     c.Print(f"fits/{name}.pdf")
     frame.SetMaximum(1000)

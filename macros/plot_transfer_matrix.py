@@ -41,8 +41,8 @@ channels = [
 # samples
 samples = [
     "MG_Wjets",
-    "Powheg_Wjets",
-    "Sherpa_Wjets",
+    # "Powheg_Wjets",
+    # "Sherpa_Wjets",
 ]
 
 # colors
@@ -99,6 +99,9 @@ for c in channels:
     _ = [truth_projection_tmp[s].Scale(1. / LUMI_RUN2) for s in samples]
     truth_projection = {s: ROOT.TH1D(f"{s}_{c}_truth_projection", f"{s}_{c}_truth_projection", nbins + 1, xbins) for s in samples}
 
+    # calculate fiducial efficiency per bin
+    h_fid_eff = {s: ROOT.TH2D(f"{s}_{c}_fid_eff", f"{s}_{c}_fid_eff", nbins + 1, xbins, nbins + 1, xbins) for s in samples}
+
     # fill
     proxy_axis = {}
     fid_eff = {}
@@ -142,11 +145,30 @@ for c in channels:
         proxy_axis[s].SetMarkerSize(1.4)
         proxy_axis[s].SetMarkerColor(colors[s])
 
+        h_fid_eff[s].GetXaxis().SetTitle("p_{T}^{reco}(D) [GeV]")
+        h_fid_eff[s].GetYaxis().SetTitle("p_{T}^{truth}(D) [GeV]")
+        h_fid_eff[s].SetMarkerSize(1.4)
+
         # calculate fiducial efficiency
         fid_eff[s] = ROOT.TEfficiency(truth_projection[s], h_pt_truth[s])
         fid_eff_gr[s] = fid_eff[s].CreateGraph()
         fid_eff_gr[s].SetMarkerColor(colors[s])
         fid_eff_gr[s].SetLineColor(colors[s])
+
+        # calculate fiducial efficiency per bin
+        for i in range(1, nbins + 2):
+            tmp_den = ROOT.TH1D(f"{h[s].GetName()}_tmp_{i}", f"{h[s].GetName()}_tmp_{i}", 1, 0, 1)
+            tmp_den.SetBinContent(1, LUMI_RUN2 * h_pt_truth[s].GetBinContent(i))
+            tmp_den.SetBinError(1, LUMI_RUN2 * h_pt_truth[s].GetBinError(i))
+            for j in range(1, nbins + 2):
+                tmp_num = ROOT.TH1D(f"{h[s].GetName()}_tmp_{i}_{j}", f"{h[s].GetName()}_tmp_{i}_{j}", 1, 0, 1)
+                tmp_num.SetBinContent(1, h[s].GetBinContent(i, j))
+                tmp_num.SetBinError(1, h[s].GetBinError(i, j))
+                tmp_eff = ROOT.TEfficiency(tmp_num, tmp_den)
+                h_fid_eff[s].SetBinContent(i, j, 100 * tmp_eff.GetEfficiency(1))
+                if tmp_eff.GetEfficiency(1) > 0:
+                    h_fid_eff[s].SetBinError(i, j, 100 * ((tmp_eff.GetEfficiencyErrorUp(1) + tmp_eff.GetEfficiencyErrorLow(1)) / 2) / tmp_eff.GetEfficiency(1))
+                print (f"{i} {j} {tmp_eff.GetEfficiency(1)} {(tmp_eff.GetEfficiencyErrorUp(1) + tmp_eff.GetEfficiencyErrorLow(1)) / 2}")
 
         # inclusive efficiency
         inclusive_num = truth_projection[s].Clone(f"{truth_projection[s].GetName()}_inclusive")
@@ -279,6 +301,28 @@ for c in channels:
     # save
     ROOT.gPad.RedrawAxis()
     canv4.print(f"transfer_matrix/{c}_fid_eff.pdf")
+
+    # -------------------
+    # draw fiducial efficiency per bin
+    # -------------------
+    canv5 = ROOT.TCanvas(f"{c}_matrix", f"{c}_matrix", 1000, 800)
+    canv5.SetRightMargin(0.15)
+    canv5.SetLogy()
+    canv5.SetLogx()
+    h_fid_eff["MG_Wjets"].GetXaxis().SetMoreLogLabels()
+    h_fid_eff["MG_Wjets"].GetYaxis().SetMoreLogLabels()
+    h_fid_eff["MG_Wjets"].Draw("text colz error")
+
+    # ATLAS label
+    ROOT.ATLASLabel(0.18, 0.90, "Internal", 1)
+    ROOT.myText(0.18, 0.84, 1, "#sqrt{s} = 13 TeV")
+    ROOT.myText(0.18, 0.78, 1, "139 fb^{-1}")
+    ROOT.myText(0.46, 0.24, 1, "W#rightarrowl#nu+D, D#rightarrowK#pi#pi")
+    ROOT.myText(0.46, 0.18, 1, c.replace("OS-SS_", ""))
+
+    # save
+    ROOT.gPad.RedrawAxis()
+    canv5.Print(f"transfer_matrix/{c}_fid_eff_per_bin.pdf")
 
 # close file
 f_out.Close()
