@@ -286,6 +286,29 @@ class MatchedCharm(ProxyChannel):
                                [reg + "_BaryonMisMatched" for reg in regions])
 
 
+class MatchedCharmGeom(ProxyChannel):
+    name = 'MatchedCharmGeom'
+
+    def __init__(self, os_minus_ss_fit_configuration: bool = False, loose_sr: bool = False, ss_only: bool = False, decayMode: str = "Dplus", name: str = ""):
+        super().__init__(os_minus_ss_fit_configuration=os_minus_ss_fit_configuration, loose_sr=loose_sr, ss_only=ss_only)
+        self.decayMode = decayMode
+        if name:
+            self.name = name
+        if loose_sr:
+            self.name += "_Loose"
+
+    def get_regions(self, regions):
+        if self.decayMode == "Dplus":
+            return self.format([reg + "_411MisMatchedGeom" for reg in regions] +
+                               [reg + "_431MisMatchedGeom" for reg in regions] +
+                               [reg + "_413MisMatchedGeom" for reg in regions] +
+                               [reg + "_421MisMatchedGeom" for reg in regions] +
+                               [reg + "_4132MisMatchedGeom" for reg in regions] +
+                               [reg + "_4122MisMatchedGeom" for reg in regions] +
+                               [reg + "_4232MisMatchedGeom" for reg in regions] +
+                               [reg + "_BaryonMisMatchedGeom" for reg in regions])
+
+
 class MatchedDplus(ProxyChannel):
     name = 'MatchedDplus'
 

@@ -230,6 +230,18 @@ Wjets_emu_Charm:
   shortName: Wjets_emu_Charm
   makeGhostSample: True
 
+Wjets_emu_CharmGeom:
+  add:
+    - MG_Wjets_light_emu
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_bjets_emu
+  subtract:
+  # fillColor: "16000"
+  fillColor: "10007"
+  legendLabel: "W+c^{match} Geom"
+  shortName: Wjets_emu_Charm
+  makeGhostSample: True
+
 Wjets_emu_HardMisMatched:
   add:
     - MG_Wjets_cjets_emu

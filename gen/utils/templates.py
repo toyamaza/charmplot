@@ -105,6 +105,7 @@ class WDTruthSamplesNew:
             ]
         self.samples += [
             ['Wjets_emu_Charm', proxies.MatchedCharm(os_minus_ss_fit_configuration=self.os_minus_ss_fit_configuration, loose_sr=self.loose_sr, decayMode=self.decayMode)],
+            # ['Wjets_emu_CharmGeom', proxies.MatchedCharmGeom(os_minus_ss_fit_configuration=self.os_minus_ss_fit_configuration, loose_sr=self.loose_sr, decayMode=self.decayMode)],
             ['Wjets_emu_MisMatched', proxies.GenericChannel(name="MisMatched", os_minus_ss_fit_configuration=self.os_minus_ss_fit_configuration, region=["MisMatched", "MatchedNoFid"])],
             ['Wjets_emu_Rest', proxies.NoMatchBackground(os_minus_ss_fit_configuration=self.os_minus_ss_fit_configuration, loose_sr=self.loose_sr)],
             ['Top', proxies.PlainChannel(os_minus_ss_fit_configuration=self.os_minus_ss_fit_configuration)],
