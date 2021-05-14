@@ -79,6 +79,49 @@ Wjets_emu_Matched:
   legendLabel: "W+#it{D}(#it{K}#pi#pi)"
   shortName: Wjets_emu_Matched
 
+Wjets_emu_Matched_truth_pt_bin1:
+  add:
+    - Signal
+  subtract:
+  fillColor: "14000"
+  legendLabel: "W+#it{D} (bin 1)"
+  shortName: Wjets_emu_Matched_truth_pt_bin1
+
+Wjets_emu_Matched_truth_pt_bin2:
+  add:
+    - Signal
+  subtract:
+  fillColor: "14001"
+  legendLabel: "W+#it{D} (bin 2)"
+  shortName: Wjets_emu_Matched_truth_pt_bin2
+
+
+Wjets_emu_Matched_truth_pt_bin3:
+  add:
+    - Signal
+  subtract:
+  fillColor: "14002"
+  legendLabel: "W+#it{D} (bin 3)"
+  shortName: Wjets_emu_Matched_truth_pt_bin3
+
+
+Wjets_emu_Matched_truth_pt_bin4:
+  add:
+    - Signal
+  subtract:
+  fillColor: "14003"
+  legendLabel: "W+#it{D} (bin 4)"
+  shortName: Wjets_emu_Matched_truth_pt_bin4
+
+
+Wjets_emu_Matched_truth_pt_bin5:
+  add:
+    - Signal
+  subtract:
+  fillColor: "14004"
+  legendLabel: "W+#it{D} (bin 5)"
+  shortName: Wjets_emu_Matched_truth_pt_bin5
+
 Wjets_emu_MatchedShared:
   add:
     - MG_Wjets_cjets_emu
@@ -740,3 +783,48 @@ MultiJet_PostProc:
   lineColor: "21000"
   legendLabel: Loose MJ
   shortName: MultiJet_PostProc
+
+SPG_Matched_truth_pt_bin1:
+  add:
+    - SPG_Dplus
+    - SPG_Dminus
+  subtract:
+  lineColor: "21000"
+  legendLabel: "SPG #it{D}(#it{K}#pi#pi) (bin 1)"
+  shortName: SPG_Matched_truth_pt_bin1
+
+SPG_Matched_truth_pt_bin2:
+  add:
+    - SPG_Dplus
+    - SPG_Dminus
+  subtract:
+  lineColor: "21000"
+  legendLabel: "SPG #it{D}(#it{K}#pi#pi) (bin 2)"
+  shortName: SPG_Matched_truth_pt_bin2
+
+SPG_Matched_truth_pt_bin3:
+  add:
+    - SPG_Dplus
+    - SPG_Dminus
+  subtract:
+  lineColor: "21000"
+  legendLabel: "SPG #it{D}(#it{K}#pi#pi) (bin 3)"
+  shortName: SPG_Matched_truth_pt_bin3
+
+SPG_Matched_truth_pt_bin4:
+  add:
+    - SPG_Dplus
+    - SPG_Dminus
+  subtract:
+  lineColor: "21000"
+  legendLabel: "SPG #it{D}(#it{K}#pi#pi) (bin 4)"
+  shortName: SPG_Matched_truth_pt_bin4
+
+SPG_Matched_truth_pt_bin5:
+  add:
+    - SPG_Dplus
+    - SPG_Dminus
+  subtract:
+  lineColor: "21000"
+  legendLabel: "SPG #it{D}(#it{K}#pi#pi) (bin 5)"
+  shortName: SPG_Matched_truth_pt_bin5
