@@ -154,22 +154,32 @@ def main(options, conf):
                     elif "plus" in channel.name:
                         channel_charge = "_plus"
 
+                # pt bin
+                pt_bin = ""
+                if 'MockMC' in sample.shortName or 'Wjets_emu_Matched' in sample.shortName:
+                    pt_bin = "_" + re.findall("(pt_bin[0-9])", channel.name)[0]
+
+                # truth pt bin
+                truth_pt_bin = ""
+                if pt_bin and 'Wjets_emu_Matched' in sample.shortName and "truth_pt" not in sample.shortName:
+                    truth_pt_bin = f"_truth{pt_bin}"
+
                 # mockMC
                 if 'MockMC' in sample.shortName:
-                    h_temp = files[channel].Get(f"h_SymmBkg{channel_charge}_postFit")
+                    h_temp = files[channel].Get(f"h_SymmBkg{channel_charge}{pt_bin}_postFit")
                     if not h_temp:
                         btag = re.findall("([012]tag)", channel.name)[0]
-                        h_temp = files[channel].Get(f"h_SymmBkg{channel_charge}_{btag}_postFit")
+                        h_temp = files[channel].Get(f"h_SymmBkg{channel_charge}_{btag}{pt_bin}_postFit")
                 else:
                     if "SS" in channel.name:
-                        h_temp = files[channel].Get(f"h_{sample.shortName}{channel_charge}_postFit")
+                        h_temp = files[channel].Get(f"h_{sample.shortName}{truth_pt_bin}{channel_charge}_postFit")
                         # h_temp = files[channel].Get(f"h_{sample.shortName}{channel_charge}_SS_postFit")
-                        h_temp_couter = files[channel].Get(f"h_{sample.shortName}{channel_charge}_CounterTerm_SS_postFit")
+                        h_temp_couter = files[channel].Get(f"h_{sample.shortName}{truth_pt_bin}{channel_charge}_CounterTerm_SS_postFit")
                         if h_temp_couter:
                             h_temp.Add(h_temp_couter)
                     else:
-                        h_temp = files[channel].Get(f"h_{sample.shortName}{channel_charge}_postFit")
-                        h_temp_couter = files[channel].Get(f"h_{sample.shortName}{channel_charge}_CounterTerm_postFit")
+                        h_temp = files[channel].Get(f"h_{sample.shortName}{truth_pt_bin}{channel_charge}_postFit")
+                        h_temp_couter = files[channel].Get(f"h_{sample.shortName}{truth_pt_bin}{channel_charge}_CounterTerm_postFit")
                         if h_temp_couter:
                             print("subtractign the counter term: ", h_temp_couter)
                             h_temp.Add(h_temp_couter)
@@ -190,16 +200,26 @@ def main(options, conf):
                     elif "plus" in channel.name:
                         channel_charge = "_plus"
 
+                # pt bin
+                pt_bin = ""
+                if 'MockMC' in sample.shortName or 'Wjets_emu_Matched' in sample.shortName:
+                    pt_bin = "_" + re.findall("(pt_bin[0-9])", channel.name)[0]
+
+                # truth pt bin
+                truth_pt_bin = ""
+                if pt_bin and 'Wjets_emu_Matched' in sample.shortName and "truth_pt" not in sample.shortName:
+                    truth_pt_bin = f"_truth{pt_bin}"
+
                 # mockMC
                 if 'MockMC' in sample.shortName:
-                    h_temp = files[channel].Get(f"h_SymmBkg{channel_charge}_postFit")
+                    h_temp = files[channel].Get(f"h_SymmBkg{channel_charge}{pt_bin}_postFit")
                     if not h_temp:
                         btag = re.findall("([012]tag)", channel.name)[0]
-                        h_temp = files[channel].Get(f"h_SymmBkg{channel_charge}_{btag}_postFit")
+                        h_temp = files[channel].Get(f"h_SymmBkg{channel_charge}_{btag}{pt_bin}_postFit")
                 else:
-                    h_temp = files[channel].Get(f"h_{sample.shortName}{channel_charge}_postFit")
+                    h_temp = files[channel].Get(f"h_{sample.shortName}{truth_pt_bin}{channel_charge}_postFit")
                     # h_temp = files[channel].Get(f"h_{sample.shortName}{channel_charge}_SS_postFit")
-                    h_temp_couter = files[channel].Get(f"h_{sample.shortName}{channel_charge}_CounterTerm_SS_postFit")
+                    h_temp_couter = files[channel].Get(f"h_{sample.shortName}{truth_pt_bin}{channel_charge}_CounterTerm_SS_postFit")
                     if h_temp_couter:
                         print("subtractign the counter term: ", h_temp_couter)
                         h_temp.Add(h_temp_couter)
