@@ -65,71 +65,58 @@ pip install -e <path-to-charmplot>
 Options `-e` triggers the 'develop' mode where changing the files will have an
 immediate effect without re-installing the package.
 
-## Base analysis script
+## Example D+ Plots
 
-Most plotting and fitting is preformed through the main [charm_plot.py](https://gitlab.cern.ch/lbnl/CharmPhysics/charmplot/-/blob/master/charmplot/scripts/charm_plot.py)
-script. The analysis to run is defined with the `-a` command line argument. Input string should match one of the configurations in the
-[config](https://gitlab.cern.ch/lbnl/CharmPhysics/charmplot/-/tree/master/charmplot%2Fconfig) folder. Some examples are given below.
-
-## Examples
-
-First copy the example histograms (made with charmpp) to a folder in your home directory:
-
+Copy the charmpp output in a clean folder:
 ```
-mkdir example
-cd example
-cp /global/cfs/cdirs/atlas/wcharm/example/v4/* .
+mkdir <some_dit>
+cd <some_dir>
+cp /global/cfs/cdirs/atlas/wcharm/charmpp_output/Dplus_2021_05_14/*.root .
 ```
 
-### Basic OS/SS and OS-SS plots
+_NOTE:_ the `--split-signal-samples` option is needed in the examples because the samples were processed with the `bin_in_truth_D_pt: true` option in charmpp. This splits the `Matched` category into `Matched_truth_pt_binX` and the inclusive one is not explicitly saved.
 
-The basic configuration file to run OS/SS and OS-SS plots is [wplusd_powheg.yaml](https://gitlab.cern.ch/lbnl/CharmPhysics/charmplot/-/blob/master/charmplot/config/wplusd_powheg.yaml).
-By inspecting the file we see it has 6 channels defined: 2018_el_wplusd_OS, 2018_el_wplusd_SS, 2018_el_wplusd_OS-SS, 2018_mu_wplusd_OS, 2018_mu_wplusd_SS, 2018_mu_wplusd_OS-SS.
-Plotted variables are controlled through the linked [charmed_wjets.yaml](https://gitlab.cern.ch/lbnl/CharmPhysics/charmplot/-/blob/master/charmplot/config/variables/charmed_wjets.yaml) file.
-Command line argument `-v` instructs the framework to plot only a subset of variables (comma separated). Similarly, `-c` specifies a subset of channels.
-
-To run over example ntuples run the following commands:
+### Basic data / MC plots with truth matching
 
 ```
-charm_plot.py -a wplusd_powheg
+generate_wplusd_config.py -a wplusd -s truth --extra-rebin 2.5 --split-signal-samples
+plot_data_mc.py -a wplusd.yaml -v Dmeson_m --nology
 ```
 
-Inspect the created 'wplusd_powheg' folder. It should have 6 subfolders-- one for each channel, containing all variables.
-
-### Mass fit
-
-Configuration file for the mass fit is [wplusd_mass_fit.yaml](https://gitlab.cern.ch/lbnl/CharmPhysics/charmplot/-/blob/master/charmplot/config/wplusd_mass_fit.yaml).
-By default, it will perform mass fits both for 'Data - Bkg' and 'Signal MC' in OS/SS and OS-SS regions. Background function choice and parameter limits can
-be configured through the configuration file.
-
-To run over example ntuples run the following commands:
+### Basic data / MC plots without truth matching
 
 ```
-charm_plot.py -a wplusd_mass_fit -v Dmeson_m
+generate_wplusd_config.py -a wplusd_flavor -s flavor --extra-rebin 2.5 --split-signal-samples
+plot_data_mc.py -a wplusd_flavor.yaml -v Dmeson_m --nology
 ```
 
-<!-- ### QCD Template fit
-
-An example configuration file for the QCD Template fit is [wplusd_fit/electron_pt.yaml](https://gitlab.cern.ch/lbnl/CharmPhysics/charmplot/-/blob/master/charmplot/config/wplusd_fit/electron_pt.yaml).
-In this case the 'PT Template' fit is performed for the electron channel. Multiple channels are defined in the configuration file:
-
-- 2018_el_wplusd_OS: OS signal region (standard mT, MET, pT, d0 cuts)
-- 2018_el_wplusd_PT_Template_OS: region used to extract the template (no mT cut, inverted MET and d0, relaxed pT)
-- 2018_el_wplusd_PT_Loose_OS: region where the likelihood fit is performed (no mT cut, relaxed pT)
-- 2018_el_wplusd_PT_Fit_OS: same as above, but used to control the likelihood fit
-- 2018_el_wplusd_PT_Extrapolated_OS: OS signal region with extrapolated QCD Multijet background
-- 2018_el_wplusd_PTCut_Template_OS: used only to construct QCD Multijet histograms with a pT cut (used for extrapolation in SR)
-
-To run over example ntuples run the following commands:
+### SPG comparison
 
 ```
-charm_plot.py -a wplusd_fit/electron_pt -v "Dmeson_m,lep_pt,met_met"
-``` -->
+generate_wplusd_config.py -a dplus_spg -s spg_comparison --extra-rebin 2.5 --split-signal-samples
+plot_mc_mc.py -a dplus_spg.yaml -v "Dmeson_m" --nology
+```
 
-## Stage-out plots to a webpage
+### BKG comparison
 
-charm_plot.py contains an option to automatically stage-out plots to a webpage.
-Run charm_plot.py with the `--stage-out` command line argument to trigger this.
+Makes plots with 'Loose Inclusive' background templates and compares them to the SR-like background templates.
 
-https://portal.nersc.gov/project/atlas/wcharm/
+```
+generate_wplusd_config.py -a dplus_bkg -s bkg_comparison --extra-rebin 2.5 --split-signal-samples
+plot_mc_mc.py -a dplus_bkg.yaml -v "Dmeson_m" --nology
+```
 
+### data / MC plots without SPG and Loose Inclusive templates
+
+Add the option `--replacement-samples` to replace some of the signal and background MC templates with SPG and Loose Inclusive templates.
+
+```
+generate_wplusd_config.py -a wplusd -s truth --extra-rebin 2.5 --split-signal-samples --replacement-samples
+plot_data_mc.py -a wplusd.yaml -v Dmeson_m --nology
+```
+
+### Differential bins
+
+Two additional options are used with the `generate_wplusd_config.py` script for differential bins:
+- `--differential-bins`: Create additional plots for the differential pT(D) bins,
+- `--truth-differential-bins`: Split the signal sample into five samples depending on the truth pT(D).
