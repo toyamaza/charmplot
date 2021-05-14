@@ -71,6 +71,7 @@ Wjets_emu_Top_NoMatch:
 
 Wjets_emu_Matched:
   add:
+    # - MG_Wjets_emu
     - MG_Wjets_cjets_emu
     - MG_Wjets_bjets_emu
     - MG_Wjets_light_emu
@@ -81,7 +82,10 @@ Wjets_emu_Matched:
 
 Wjets_emu_Matched_truth_pt_bin1:
   add:
-    - Signal
+    # - MG_Wjets_emu
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_bjets_emu
+    - MG_Wjets_light_emu
   subtract:
   fillColor: "14000"
   legendLabel: "W+#it{D} (bin 1)"
@@ -89,7 +93,10 @@ Wjets_emu_Matched_truth_pt_bin1:
 
 Wjets_emu_Matched_truth_pt_bin2:
   add:
-    - Signal
+    # - MG_Wjets_emu
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_bjets_emu
+    - MG_Wjets_light_emu
   subtract:
   fillColor: "14001"
   legendLabel: "W+#it{D} (bin 2)"
@@ -98,7 +105,10 @@ Wjets_emu_Matched_truth_pt_bin2:
 
 Wjets_emu_Matched_truth_pt_bin3:
   add:
-    - Signal
+    # - MG_Wjets_emu
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_bjets_emu
+    - MG_Wjets_light_emu
   subtract:
   fillColor: "14002"
   legendLabel: "W+#it{D} (bin 3)"
@@ -107,7 +117,10 @@ Wjets_emu_Matched_truth_pt_bin3:
 
 Wjets_emu_Matched_truth_pt_bin4:
   add:
-    - Signal
+    # - MG_Wjets_emu
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_bjets_emu
+    - MG_Wjets_light_emu
   subtract:
   fillColor: "14003"
   legendLabel: "W+#it{D} (bin 4)"
@@ -116,7 +129,10 @@ Wjets_emu_Matched_truth_pt_bin4:
 
 Wjets_emu_Matched_truth_pt_bin5:
   add:
-    - Signal
+    # - MG_Wjets_emu
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_bjets_emu
+    - MG_Wjets_light_emu
   subtract:
   fillColor: "14004"
   legendLabel: "W+#it{D} (bin 5)"
