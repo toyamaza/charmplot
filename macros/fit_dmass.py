@@ -22,16 +22,16 @@ if not os.path.isdir("fits"):
 
 # histogram names
 names = [
-    "SPG_Matched_truth_pt_bin0_OS-SS_Dplus_Matched_truth_pt_bin0_pt_bin1_Dmeson_m",
-    "SPG_Matched_truth_pt_bin1_OS-SS_Dplus_Matched_truth_pt_bin1_pt_bin2_Dmeson_m",
-    "SPG_Matched_truth_pt_bin2_OS-SS_Dplus_Matched_truth_pt_bin2_pt_bin3_Dmeson_m",
-    "SPG_Matched_truth_pt_bin3_OS-SS_Dplus_Matched_truth_pt_bin3_pt_bin4_Dmeson_m",
-    "SPG_Matched_truth_pt_bin4_OS-SS_Dplus_Matched_truth_pt_bin4_pt_bin5_Dmeson_m",
-    "Wjets_emu_Matched_truth_pt_bin0_OS-SS_Dplus_Matched_truth_pt_bin0_pt_bin1_Dmeson_m",
-    "Wjets_emu_Matched_truth_pt_bin1_OS-SS_Dplus_Matched_truth_pt_bin1_pt_bin2_Dmeson_m",
-    "Wjets_emu_Matched_truth_pt_bin2_OS-SS_Dplus_Matched_truth_pt_bin2_pt_bin3_Dmeson_m",
-    "Wjets_emu_Matched_truth_pt_bin3_OS-SS_Dplus_Matched_truth_pt_bin3_pt_bin4_Dmeson_m",
-    "Wjets_emu_Matched_truth_pt_bin4_OS-SS_Dplus_Matched_truth_pt_bin4_pt_bin5_Dmeson_m",
+    "SPG_Matched_truth_pt_bin1_OS-SS_Dplus_Matched_truth_pt_bin1_pt_bin1_Dmeson_m",
+    "SPG_Matched_truth_pt_bin2_OS-SS_Dplus_Matched_truth_pt_bin2_pt_bin2_Dmeson_m",
+    "SPG_Matched_truth_pt_bin3_OS-SS_Dplus_Matched_truth_pt_bin3_pt_bin3_Dmeson_m",
+    "SPG_Matched_truth_pt_bin4_OS-SS_Dplus_Matched_truth_pt_bin4_pt_bin4_Dmeson_m",
+    "SPG_Matched_truth_pt_bin5_OS-SS_Dplus_Matched_truth_pt_bin5_pt_bin5_Dmeson_m",
+    "Wjets_emu_Matched_truth_pt_bin1_OS-SS_Dplus_Matched_truth_pt_bin1_pt_bin1_Dmeson_m",
+    "Wjets_emu_Matched_truth_pt_bin2_OS-SS_Dplus_Matched_truth_pt_bin2_pt_bin2_Dmeson_m",
+    "Wjets_emu_Matched_truth_pt_bin3_OS-SS_Dplus_Matched_truth_pt_bin3_pt_bin3_Dmeson_m",
+    "Wjets_emu_Matched_truth_pt_bin4_OS-SS_Dplus_Matched_truth_pt_bin4_pt_bin4_Dmeson_m",
+    "Wjets_emu_Matched_truth_pt_bin5_OS-SS_Dplus_Matched_truth_pt_bin5_pt_bin5_Dmeson_m",
 ]
 
 for name in names:
