@@ -263,11 +263,12 @@ def save_to_file(out_file_name: str, channel: channel.Channel, var: variable.Var
     if h_data:
         h_data.Write()
     for s in mc_map:
-        out_name = mc_map[s].GetName()
-        if " | " in out_name:
-            out_name_split = out_name.split(" | ")
-            out_name = f"{out_name_split[0]}_{channel.name}_{var.name}"
-        mc_map[s].Write(out_name)
+        if mc_map[s]:
+            out_name = mc_map[s].GetName()
+            if " | " in out_name:
+                out_name_split = out_name.split(" | ")
+                out_name = f"{out_name_split[0]}_{channel.name}_{var.name}"
+            mc_map[s].Write(out_name)
     out_file.Close()
 
 
@@ -364,11 +365,10 @@ def get_maximum(h, x1, x2):
 def set_to_positive(h, sys=""):
     for i in range(0, h.GetNbinsX() + 2):
         if h.GetBinContent(i) <= 0:
-            if not sys:
-                h.SetBinContent(i, 1e-5)
-            else:
-                h.SetBinContent(i, 1e-6)
-            # h.SetBinError(i, 1e-5)
+            # if not sys:
+            h.SetBinContent(i, 1e-5)
+            # else:
+            #     h.SetBinContent(i, 1e-6)
 
 
 def fit_histogram(h, fit):
@@ -875,33 +875,44 @@ def replace_sample(conf: globalConfig.GlobalConfig, mc_map: MC_Map, reader: inpu
     assert len(sample_current) == 1
     sample_current = sample_current[0]
     h_replacement = reader.get_histogram(sample_replacement, channel_replacement, var, channel_replacement.force_positive)
+    if sample_current not in mc_map:
+        logging.warning(f"No histogram for {sample_current.name}.. exiting")
+        return
     h_current = mc_map[sample_current]
     h_current = h_current.Clone(f"{h_current.GetName()}_temp_clone")
     h_replacement.Scale(h_current.Integral(0, h_current.GetNbinsX() + 1) / h_replacement.Integral(0, h_replacement.GetNbinsX() + 1))
     if h_replacement.GetNbinsX() > h_current.GetNbinsX():
         logging.warning(f"Replacement sample has more bins. Rebinning {h_replacement.GetNbinsX()} -> {h_current.GetNbinsX()}")
         h_replacement.Rebin(int(h_replacement.GetNbinsX() / h_current.GetNbinsX()))
+
+    # smooth any bins with very low bin content in the nominal replacement histogram
+    original_norm = h_replacement.GetSumOfWeights()
+    for i in range(0, h_replacement.GetNbinsX() + 2):
+        if abs(h_replacement.GetBinContent(i)) < h_replacement.GetMaximum() / 1000.:
+            h_replacement.SetBinContent(i, 1e-5)
+    h_replacement.Scale(original_norm / h_replacement.GetSumOfWeights())
+
     mc_map[sample_current] = h_replacement
     if mc_map_sys:
-        # smooth any bins with very low bin content in the nominal histogram
-        for i in range(0, h_current.GetNbinsX() + 2):
-            if abs(h_current.GetBinContent(i)) < 1e-3:
-                h_current.SetBinContent(i, average_content(h_current, i))
         for group, systematics in mc_map_sys.items():
             for syst, map_sys in systematics.items():
                 h_sys_replaced = map_sys[sample_current].Clone(f"{map_sys[sample_current].GetName()}_replaced")
-                # smooth any bins with very low bin content in the nominal histogram
-                for i in range(0, h_sys_replaced.GetNbinsX() + 2):
-                    if abs(h_sys_replaced.GetBinContent(i)) < 1e-3:
-                        h_sys_replaced.SetBinContent(i, average_content(h_sys_replaced, i))
 
-                # sys - nominal
-                h_sys_replaced.Add(h_current, -1)
-
-                # use relative uncertaitny instead of absolute in these cases
-                if relative_unc or "PROXY_NORM" in syst:
-                    h_sys_replaced.Divide(h_current)
-                    h_sys_replaced.Multiply(h_replacement)
+                # (sys - nominal) / nominal
+                for i in range(1, h_sys_replaced.GetNbinsX() + 1):
+                    y_sys = h_sys_replaced.GetBinContent(i)
+                    y_nominal = h_current.GetBinContent(i)
+                    if y_nominal > 0:
+                        if y_sys <= 0:
+                            y_sys = 0
+                        y_err = y_sys - y_nominal
+                        y_err_rel = y_err / y_nominal
+                        if (relative_unc or "PROXY_NORM" in syst) and y_err_rel < 1.0:
+                            h_sys_replaced.SetBinContent(i, y_err_rel * h_replacement.GetBinContent(i))
+                        else:
+                            h_sys_replaced.SetBinContent(i, y_err)
+                    else:
+                        h_sys_replaced.SetBinContent(i, 0.0)
 
                 h_sys_replaced.Add(h_replacement)
                 map_sys[sample_current] = h_sys_replaced
