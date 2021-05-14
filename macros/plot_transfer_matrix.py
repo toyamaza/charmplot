@@ -182,7 +182,7 @@ for c in channels:
                 np_truth[j - 1] = LUMI_RUN2 * h_pt_truth[s].GetBinContent(j)
                 if tmp_eff.GetEfficiency(1) > 0:
                     h_fid_eff[s].SetBinError(i, j, 100 * ((tmp_eff.GetEfficiencyErrorUp(1) + tmp_eff.GetEfficiencyErrorLow(1)) / 2) / tmp_eff.GetEfficiency(1))
-                print (f"{i} {j} {tmp_eff.GetEfficiency(1)} {(tmp_eff.GetEfficiencyErrorUp(1) + tmp_eff.GetEfficiencyErrorLow(1)) / 2}")
+                print(f"{i} {j} {tmp_eff.GetEfficiency(1)} {(tmp_eff.GetEfficiencyErrorUp(1) + tmp_eff.GetEfficiencyErrorLow(1)) / 2}")
 
         # inclusive efficiency
         inclusive_num = truth_projection[s].Clone(f"{truth_projection[s].GetName()}_inclusive")
