@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+import abc
 import gen.utils.proxies as proxies
 
 
@@ -12,25 +13,6 @@ def flatten(xs):
     return result
 
 
-label_dict = {
-    'madgraph_truth': 'MadGraph LO',
-    'sherpa_truth': 'Sherpa 2.2.1',
-    'sherpa2210_truth': 'Sherpa 2.2.10',
-    'madgraph_fxfx_truth': 'MadGraph FxFx',
-    'madgraph': 'MadGraph LO',
-    'sherpa': 'Sherpa 2.2.1',
-    'sherpa2210': 'Sherpa 2.2.10',
-    'madgraph_fxfx': 'MadGraph FxFx',
-    'truth_comparison': 'LO MG vs. LO Powheg',
-    'wplusd_comparison': 'MadGraph LO',
-    'flavor_comparison': 'MadGraph LO',
-    'spg_comparison': 'MadGraph LO vs. SPG',
-    'bkg_comparison': 'SR vs. Loose Inclusive',
-    'multijet_comparison': 'Matrix Method vs Fake Factor',
-    'multijet_composition': 'Matrix Method',
-}
-
-
 def format(string):
     if string:
         return f'{string}_'
@@ -40,130 +22,102 @@ def format(string):
 
 class DataMCConfig:
 
-    def __init__(self, variables, sample_config, systematics=[]):
+    def __init__(self, variables, systematics=[]):
         self.variables = variables
-        self.sample_config = sample_config
         self.systematics = systematics
 
     def to_dict(self):
         out = {
             'variablesConf': self.variables,
-            'samplesConf': self.sample_config,
             'channels': {},
         }
-        if self.sample_config not in ['truth_comparison', 'wplusd_comparison', 'spg_comparison', 'bkg_comparison', 'multijet_comparison', 'multijet_composition']:
-            out['data'] = 'Data'
         if self.systematics:
             out['systematics'] = self.systematics
         return out
 
 
-class WDFitSamples:
+class ChannelTemplate:
+    labels = []
+    samplesConf = None
+    data = None
 
-    def __init__(self, loose_sr=False):
-        self.loose_sr = loose_sr
-        self.samples = [
-            ['MockMC', proxies.MockMC()],
-            ['Wjets_emu_Matched', proxies.Matched(os_minus_ss_fit_configuration=True)],
-            ['Wjets_cjets_emu_Rest', proxies.Rest(os_minus_ss_fit_configuration=True, loose_sr=self.loose_sr)],
-            ['Wjets_bujets_emu_Rest', proxies.Rest(os_minus_ss_fit_configuration=True, loose_sr=self.loose_sr)],
-            ['Top_Matched', proxies.Matched(os_minus_ss_fit_configuration=True)],
-            ['Top_Rest', proxies.Rest(os_minus_ss_fit_configuration=True)],
-            ['Wjets_emu_NoMatch', proxies.NoMatch(os_minus_ss_fit_configuration=True)],
-            ['Other', proxies.PlainChannel(os_minus_ss_fit_configuration=True)],
-            ['Zjets_emu', proxies.PlainChannel(os_minus_ss_fit_configuration=True)],
-            ['Multijet_MatrixMethod', proxies.MatrixMethod(os_minus_ss_fit_configuration=True)]
-        ]
-
+    @property
+    @abc.abstractmethod
     def get(self):
-        return self.samples
+        pass
 
 
-class WDTruthSamplesNew:
+class WDTruthSamples(ChannelTemplate):
 
-    def __init__(self, os_minus_ss_fit_configuration=False, loose_sr=False, OS_and_SS_fit=False, MockMC=True, decayMode="Dplus"):
-        self.os_minus_ss_fit_configuration = os_minus_ss_fit_configuration
+    # base class
+    samplesConf = "madgraph_truth"
+    data = "Data"
+
+    # new objects
+    truthSlices = [
+        "Matched_truth_pt_bin1",
+        "Matched_truth_pt_bin2",
+        "Matched_truth_pt_bin3",
+        "Matched_truth_pt_bin4",
+        "Matched_truth_pt_bin5",
+    ]
+
+    def __init__(self, fitType="", loose_sr=False, MockMC=True, decayMode="Dplus", truthDiffBins=False, splitSignalSamples=False):
+        self.os_ss_sub = fitType == "OS-SS"
         self.loose_sr = loose_sr
-        self.OS_and_SS_fit = OS_and_SS_fit
         self.MockMC = MockMC
         self.decayMode = decayMode
+        self.truthDiffBins = truthDiffBins
+        self.splitSignalSamples = splitSignalSamples
         self.samples = []
-        if self.os_minus_ss_fit_configuration and self.MockMC:
+
+        # MockMC at the top in case of OS-SS plots
+        if self.os_ss_sub and self.MockMC:
             self.samples += [['MockMC', proxies.MockMC(subtract_mj=False)]]
-        self.samples += [
-            ['Wjets_emu_Matched', proxies.Matched(os_minus_ss_fit_configuration=self.os_minus_ss_fit_configuration)],
-        ]
+
+        # signal sample
+        if self.truthDiffBins and self.splitSignalSamples:
+            self.samples += [[f'Wjets_emu_{slice}', proxies.Matched(os_ss_sub=self.os_ss_sub, ptbin=i + 1)] for i, slice in enumerate(self.truthSlices)]
+        else:
+            if self.splitSignalSamples:
+                self.samples += [['Wjets_emu_Matched', proxies.GenericChannel(region=self.truthSlices, name="Matched", os_ss_sub=self.os_ss_sub)]]
+            else:
+                self.samples += [['Wjets_emu_Matched', proxies.Matched(os_ss_sub=self.os_ss_sub)]]
+
+        # backgrdound from other than the signal decay modes
         if self.decayMode == "Dplus":
             self.samples += [
-                ['Wjets_emu_411MisMatched', proxies.MisMatched(
-                    os_minus_ss_fit_configuration=self.os_minus_ss_fit_configuration, loose_sr=self.loose_sr, pdgId="411")],
-            ]
+                ['Wjets_emu_411MisMatched', proxies.MisMatched(os_ss_sub=self.os_ss_sub, loose_sr=self.loose_sr, pdgId="411")]]
         elif self.decayMode == "DstarKPiPi0":
             self.samples += [
-                ['Wjets_emu_413MisMatched', proxies.MisMatched(
-                    os_minus_ss_fit_configuration=self.os_minus_ss_fit_configuration, loose_sr=self.loose_sr, pdgId="413")],
-            ]
+                ['Wjets_emu_413MisMatched', proxies.MisMatched(os_ss_sub=self.os_ss_sub, loose_sr=self.loose_sr, pdgId="413")]]
+
+        # other W+jets backgrounds
         self.samples += [
-            ['Wjets_emu_Charm', proxies.MatchedCharm(os_minus_ss_fit_configuration=self.os_minus_ss_fit_configuration, loose_sr=self.loose_sr, decayMode=self.decayMode)],
-            # ['Wjets_emu_CharmGeom', proxies.MatchedCharmGeom(os_minus_ss_fit_configuration=self.os_minus_ss_fit_configuration, loose_sr=self.loose_sr, decayMode=self.decayMode)],
-            ['Wjets_emu_MisMatched', proxies.GenericChannel(name="MisMatched", os_minus_ss_fit_configuration=self.os_minus_ss_fit_configuration, region=["MisMatched", "MatchedNoFid"])],
-            ['Wjets_emu_Rest', proxies.NoMatchBackground(os_minus_ss_fit_configuration=self.os_minus_ss_fit_configuration, loose_sr=self.loose_sr)],
-            ['Top', proxies.PlainChannel(os_minus_ss_fit_configuration=self.os_minus_ss_fit_configuration)],
-            ['DibosonVjetsTau', proxies.PlainChannel(os_minus_ss_fit_configuration=self.os_minus_ss_fit_configuration)],
+            ['Wjets_emu_Charm', proxies.MatchedCharm(os_ss_sub=self.os_ss_sub,
+                                                     loose_sr=self.loose_sr, decayMode=self.decayMode)],
+            # ['Wjets_emu_CharmGeom', proxies.MatchedCharmGeom(os_ss_sub=self.os_ss_sub, loose_sr=self.loose_sr, decayMode=self.decayMode)],
+            ['Wjets_emu_MisMatched', proxies.GenericChannel(name="MisMatched", os_ss_sub=self.os_ss_sub, region=["MisMatched", "MatchedNoFid"])],
+            ['Wjets_emu_Rest', proxies.NoMatchBackground(os_ss_sub=self.os_ss_sub, loose_sr=self.loose_sr)],
+            ['Top', proxies.PlainChannel(os_ss_sub=self.os_ss_sub)],
+            ['DibosonVjetsTau', proxies.PlainChannel(os_ss_sub=self.os_ss_sub)],
         ]
-        if self.os_minus_ss_fit_configuration:
-            self.samples += [['Multijet_MatrixMethod', proxies.MatrixMethod(os_minus_ss_fit_configuration=True, fake_factor=False)]]
-        else:
-            self.samples += [['Multijet_MatrixMethod', proxies.MatrixMethod(fake_factor=False)]]
-            if self.MockMC:
-                self.samples += [['MockMC_minus_MC', proxies.MockMC(subtract_mj=True)]]
+
+        # MultiJet
+        self.samples += [['Multijet_MatrixMethod', proxies.MatrixMethod(os_ss_sub=self.os_ss_sub, fake_factor=False)]]
+
+        # MockMC at the bottom
+        if not self.os_ss_sub and self.MockMC:
+            self.samples += [['MockMC_minus_MC', proxies.MockMC(subtract_mj=True)]]
 
     def get(self):
         return self.samples
 
 
-class MultiJetComparison:
+class WDFlavourSamples(ChannelTemplate):
 
-    samples = [
-        ['Multijet_MatrixMethod', proxies.MatrixMethod(fake_factor=False)],
-        ['Multijet_MatrixMethod_FF', proxies.MatrixMethod(fake_factor=True)],
-    ]
-
-    def get(self):
-        return self.samples
-
-
-class MultiJetComposition:
-
-    samples = [
-        ['Multijet_MatrixMethod_AntiTight', proxies.MatrixMethod(loose_only=True)],
-        ['Multijet_MatrixMethod_Tight', proxies.MatrixMethod(tight_only=True)],
-        ['Multijet_MatrixMethod', proxies.MatrixMethod()],
-    ]
-
-    def get(self):
-        return self.samples
-
-
-class WDTruthSamples:
-
-    samples = [
-        ['Wjets_emu_Matched', proxies.Matched()],
-        ['Wjets_cjets_emu_Rest', proxies.Rest()],
-        ['Wjets_bujets_emu_Rest', proxies.Rest()],
-        ['Top_Matched', proxies.Matched()],
-        ['Top_Rest', proxies.Rest()],
-        ['Wjets_emu_NoMatch', proxies.NoMatch()],
-        ['Other'],
-        ['Zjets_emu'],
-        ['Multijet_MatrixMethod', proxies.MatrixMethod()],
-    ]
-
-    def get(self):
-        return self.samples
-
-
-class WDFlavourSamples:
+    samplesConf = "madgraph"
+    data = "Data"
 
     samples = [
         ['Wjets_cjets_emu'],
@@ -179,44 +133,94 @@ class WDFlavourSamples:
         return self.samples
 
 
-class SPGComparison:
+class SPGComparison(ChannelTemplate):
 
-    samples = {
-        'Matched': [
-            ['Wjets_emu_Matched', proxies.GenericChannel(region="Matched", name="Matched")],
-            ['SPG_Matched', proxies.SPGChannel(name="MatchedInclusiveSPG", regions_OS=["inclusive_Dplus_OS_Matched"],
-                                               regions_SS=["inclusive_Dplus_SS_Matched"], always_subtract=True)],
-        ],
-        '411MisMatched': [
-            ['Wjets_emu_411MisMatched', proxies.GenericChannel(region="411MisMatched", name="411MisMatched")],
-            ['SPG_411MisMatched', proxies.SPGChannel(name="411MisMatchedInclusiveSPG", regions_OS=["inclusive_Dplus_OS_411MisMatched"], regions_SS=[
-                                                     "inclusive_Dplus_SS_411MisMatched"], always_subtract=True)],
-        ],
-        '431MisMatched': [
-            ['Wjets_emu_431MisMatched', proxies.GenericChannel(region="431MisMatched", name="431MisMatched")],
-            ['SPG_431MisMatched', proxies.SPGChannel(name="431MisMatchedInclusiveSPG", regions_OS=["inclusive_Dplus_OS"], regions_SS=["inclusive_Dplus_SS"])],
-        ],
-        '421MisMatched': [
-            ['Wjets_emu_421MisMatched', proxies.GenericChannel(region=["421MisMatched", "413MisMatched"], name="421MisMatched")],
-            ['SPG_421MisMatched', proxies.SPGChannel(name="421MisMatchedInclusiveSPG", regions_OS=["inclusive_Dplus_OS"], regions_SS=["inclusive_Dplus_SS"])],
-        ],
-        'BaryonMisMatched': [
-            ['Wjets_emu_BaryonMisMatched', proxies.GenericChannel(region="BaryonMisMatched", name="BaryonMisMatched")],
-            ['SPG_BaryonMisMatched', proxies.SPGChannel(name="BaryonMisMatchedInclusiveSPG", regions_OS=[
-                                                        "inclusive_Dplus_OS"], regions_SS=["inclusive_Dplus_SS"])],
-        ],
-        'CharmMisMatched': [
-            ['Wjets_emu_CharmMisMatched', proxies.MatchedCharm(name="CharmMisMatched")],
-            ['SPG_CharmMisMatched', proxies.SPGChannel(name="CharmMisMatchedInclusiveSPG", regions_OS=[
-                                                       "inclusive_Dplus_OS"], regions_SS=["inclusive_Dplus_SS"])],
-        ],
-    }
+    # base class
+    samplesConf = "spg_comparison"
+
+    # new objects
+    truthSlices = [
+        "Matched_truth_pt_bin1",
+        "Matched_truth_pt_bin2",
+        "Matched_truth_pt_bin3",
+        "Matched_truth_pt_bin4",
+        "Matched_truth_pt_bin5",
+    ]
+
+    def __init__(self, truthDiffBins=False, splitSignalSamples=False):
+        self.truthDiffBins = truthDiffBins
+        self.splitSignalSamples = splitSignalSamples
+
+        # signal samples
+        if self.splitSignalSamples:
+            self.samples = {
+                'Matched': [
+                    ['Wjets_emu_Matched', proxies.GenericChannel(region=self.truthSlices, name="Matched")],
+                    ['SPG_Matched', proxies.SPGChannel(name="SPG_Matched",
+                                                       regions_OS=[f"inclusive_Dplus_OS_{slice}" for slice in self.truthSlices],
+                                                       regions_SS=[f"inclusive_Dplus_SS_{slice}" for slice in self.truthSlices],
+                                                       always_subtract=True)]]
+            }
+        else:
+            self.samples = {
+                'Matched': [
+                    ['Wjets_emu_Matched', proxies.Matched()],
+                    ['SPG_Matched', proxies.SPGChannel(name="SPG_Matched",
+                                                       regions_OS=[f"inclusive_Dplus_OS_Matched"],
+                                                       regions_SS=[f"inclusive_Dplus_SS_Matched"],
+                                                       always_subtract=True)]]
+            }
+
+        # signal samples in truth differential bins
+        if self.truthDiffBins and self.splitSignalSamples:
+            self.samples.update(
+                {
+                    slice: [
+                        [f'Wjets_emu_{slice}', proxies.GenericChannel(region=slice, name=slice)],
+                        [f'SPG_{slice}', proxies.SPGChannel(name=f"SPG_{slice}",
+                                                            regions_OS=[f"inclusive_Dplus_OS_{slice}"],
+                                                            regions_SS=[f"inclusive_Dplus_SS_{slice}"],
+                                                            always_subtract=True)],
+                    ] for slice in self.truthSlices
+                })
+
+        # backgrounds
+        self.samples.update(
+            {
+                '411MisMatched': [
+                    ['Wjets_emu_411MisMatched', proxies.GenericChannel(region="411MisMatched", name="411MisMatched")],
+                    ['SPG_411MisMatched', proxies.SPGChannel(name="411MisMatchedInclusiveSPG", regions_OS=["inclusive_Dplus_OS_411MisMatched"], regions_SS=[
+                        "inclusive_Dplus_SS_411MisMatched"], always_subtract=True)],
+                ],
+                '431MisMatched': [
+                    ['Wjets_emu_431MisMatched', proxies.GenericChannel(region="431MisMatched", name="431MisMatched")],
+                    ['SPG_431MisMatched', proxies.SPGChannel(name="431MisMatchedInclusiveSPG", regions_OS=[
+                        "inclusive_Dplus_OS"], regions_SS=["inclusive_Dplus_SS"])],
+                ],
+                '421MisMatched': [
+                    ['Wjets_emu_421MisMatched', proxies.GenericChannel(region=["421MisMatched", "413MisMatched"], name="421MisMatched")],
+                    ['SPG_421MisMatched', proxies.SPGChannel(name="421MisMatchedInclusiveSPG", regions_OS=[
+                        "inclusive_Dplus_OS"], regions_SS=["inclusive_Dplus_SS"])],
+                ],
+                'BaryonMisMatched': [
+                    ['Wjets_emu_BaryonMisMatched', proxies.GenericChannel(region="BaryonMisMatched", name="BaryonMisMatched")],
+                    ['SPG_BaryonMisMatched', proxies.SPGChannel(name="BaryonMisMatchedInclusiveSPG", regions_OS=[
+                        "inclusive_Dplus_OS"], regions_SS=["inclusive_Dplus_SS"])],
+                ],
+                'CharmMisMatched': [
+                    ['Wjets_emu_CharmMisMatched', proxies.MatchedCharm(name="CharmMisMatched")],
+                    ['SPG_CharmMisMatched', proxies.SPGChannel(name="CharmMisMatchedInclusiveSPG", regions_OS=[
+                        "inclusive_Dplus_OS"], regions_SS=["inclusive_Dplus_SS"])],
+                ],
+            })
 
     def get(self):
         return self.samples
 
 
-class BKGComparison:
+class BKGComparison(ChannelTemplate):
+
+    samplesConf = "bkg_comparison"
 
     samples = {
         'Wjets_emu_Rest': [
@@ -225,7 +229,8 @@ class BKGComparison:
         ],
         'Wjets_emu_MisMatched': [
             ['Wjets_emu_MisMatched', proxies.GenericChannel(name="MisMatched", region=["MisMatched", "MatchedNoFid"])],
-            ['Wjets_emu_MisMatched_PostProc', proxies.GenericChannel(name="Wjets_emu_MisMatched", regions_OS=["Wjets_emu_MisMatched_OS"], regions_SS=["Wjets_emu_MisMatched_SS"])],
+            ['Wjets_emu_MisMatched_PostProc', proxies.GenericChannel(name="Wjets_emu_MisMatched", regions_OS=[
+                                                                     "Wjets_emu_MisMatched_OS"], regions_SS=["Wjets_emu_MisMatched_SS"])],
         ],
         'Other': [
             ['DibosonVjetsTau', proxies.PlainChannel()],
@@ -241,69 +246,65 @@ class BKGComparison:
         return self.samples
 
 
-class ReplacementSamples:
+class ReplacementSamples(ChannelTemplate):
 
-    samples = {
-        'Matched': [
-            ['SPG_Matched', proxies.SPGChannel(name="MatchedInclusiveSPG", regions_OS=["inclusive_Dplus_OS_Matched"],
-                                               regions_SS=["inclusive_Dplus_SS_Matched"], always_subtract=True)],
-        ],
-        '411MisMatched': [
-            ['SPG_411MisMatched', proxies.SPGChannel(name="411MisMatchedInclusiveSPG", regions_OS=["inclusive_Dplus_OS_411MisMatched"], regions_SS=[
-                                                     "inclusive_Dplus_SS_411MisMatched"], always_subtract=True)],
-        ],
-        'CharmMisMatched': [
-            ['SPG_CharmMisMatched', proxies.SPGChannel(name="CharmMisMatchedInclusiveSPG", regions_OS=[
-                                                       "inclusive_Dplus_OS"], regions_SS=["inclusive_Dplus_SS"])],
-        ],
-        'Wjets_emu_Rest': [
-            ['Wjets_emu_Rest_PostProc', proxies.GenericChannel(name="Wjets_emu_Rest", regions_OS=["Wjets_emu_Rest_OS"], regions_SS=["Wjets_emu_Rest_SS"])],
-        ],
-        'Wjets_emu_MisMatched': [
-            ['Wjets_emu_MisMatched_PostProc', proxies.GenericChannel(name="Wjets_emu_MisMatched", regions_OS=["Wjets_emu_MisMatched_OS"], regions_SS=["Wjets_emu_MisMatched_SS"])],
-        ],
-    }
-
-    def get(self):
-        return self.samples
-
-
-class WDComparisonSamples:
-
-    samples = [
-        ['MG_Wjets_emu_Matched', proxies.Matched()],
-        ['Powheg_Wjets_emu_Matched', proxies.Matched()],
-        ['Sherpa_Wjets_emu_Matched', proxies.Matched()],
-        # ['STDM13_Wjets_emu_Matched', proxies.Matched()],
-        # ['STDM13_Wjets_emu_411MisMatched', proxies.MisMatched(pdgId="411")],
-        # ['FTAG4_Wjets_emu_Matched', proxies.Matched()],
-        # ['FTAG4_Wjets_emu_411MisMatched', proxies.MisMatched(pdgId="411")],
+    truthSlices = [
+        "Matched_truth_pt_bin1",
+        "Matched_truth_pt_bin2",
+        "Matched_truth_pt_bin3",
+        "Matched_truth_pt_bin4",
+        "Matched_truth_pt_bin5",
     ]
 
-    def get(self):
-        return self.samples
+    def __init__(self, truthDiffBins=False, splitSignalSamples=False):
+        self.truthDiffBins = truthDiffBins
+        self.splitSignalSamples = splitSignalSamples
 
+        # signal samples
+        if self.splitSignalSamples:
+            self.samples = {
+                'Matched': [['SPG_Matched', proxies.SPGChannel(name="SPG_Matched",
+                                                               regions_OS=[f"inclusive_Dplus_OS_{slice}" for slice in self.truthSlices],
+                                                               regions_SS=[f"inclusive_Dplus_SS_{slice}" for slice in self.truthSlices],
+                                                               always_subtract=True)]]
+            }
+        else:
+            self.samples = {
+                'Matched': [['SPG_Matched', proxies.SPGChannel(name="SPG_Matched",
+                                                               regions_OS=[f"inclusive_Dplus_OS_Matched"],
+                                                               regions_SS=[f"inclusive_Dplus_SS_Matched"],
+                                                               always_subtract=True)]]
+            }
 
-class WDFlavourComparison:
+        # signal samples in truth differential bins
+        if self.truthDiffBins and self.splitSignalSamples:
+            self.samples.update(
+                {
+                    slice: [[f'SPG_{slice}', proxies.SPGChannel(name=f"SPG_{slice}",
+                                                                regions_OS=[f"inclusive_Dplus_OS_{slice}"],
+                                                                regions_SS=[f"inclusive_Dplus_SS_{slice}"],
+                                                                always_subtract=True)],
+                            ] for slice in self.truthSlices
+                })
 
-    samples = [
-        ['MG_Wjets_light_Rest', proxies.Rest()],
-        ['MG_Wjets_cjets_Rest', proxies.Rest()],
-        ['MG_Wjets_bjets_Rest', proxies.Rest()],
-    ]
-
-    def get(self):
-        return self.samples
-
-
-class WDBackgroundComparison:
-
-    samples = [
-        ['Wjets_bujets_emu_Rest_SR', proxies.Rest()],
-        ['Wjets_bujets_emu_Rest_LooseSR', proxies.Rest(loose_sr=True, name="Loose")],
-        ['Wjets_cjets_emu_Rest_SR', proxies.Rest()],
-        ['Wjets_cjets_emu_Rest_LooseSR', proxies.Rest(loose_sr=True, name="Loose")],
-    ]
+        self.samples.update({
+            '411MisMatched': [
+                ['SPG_411MisMatched', proxies.SPGChannel(name="411MisMatchedInclusiveSPG", regions_OS=["inclusive_Dplus_OS_411MisMatched"], regions_SS=[
+                    "inclusive_Dplus_SS_411MisMatched"], always_subtract=True)],
+            ],
+            'CharmMisMatched': [
+                ['SPG_CharmMisMatched', proxies.SPGChannel(name="CharmMisMatchedInclusiveSPG", regions_OS=[
+                    "inclusive_Dplus_OS"], regions_SS=["inclusive_Dplus_SS"])],
+            ],
+            'Wjets_emu_Rest': [
+                ['Wjets_emu_Rest_PostProc', proxies.GenericChannel(name="Wjets_emu_Rest", regions_OS=[
+                    "Wjets_emu_Rest_OS"], regions_SS=["Wjets_emu_Rest_SS"])],
+            ],
+            'Wjets_emu_MisMatched': [
+                ['Wjets_emu_MisMatched_PostProc', proxies.GenericChannel(name="Wjets_emu_MisMatched", regions_OS=[
+                    "Wjets_emu_MisMatched_OS"], regions_SS=["Wjets_emu_MisMatched_SS"])],
+            ],
+        })
 
     def get(self):
         return self.samples
@@ -313,7 +314,7 @@ class ChannelGenerator:
 
     def __init__(self, config, samples, signs, years, leptons, charges,
                  btags, ptbins=[""], sample_config="", decay_mode="", process_string="",
-                 force_positive=False, replacement_samples={}, os_minus_ss_fit_configuration=False, make_plots=True, save_to_file=True):
+                 force_positive=False, replacement_samples={}, os_ss_sub=False, make_plots=True, save_to_file=True):
         self.config = config
         self.decay_mode = decay_mode
         self.signs = signs
@@ -329,7 +330,7 @@ class ChannelGenerator:
         self.template = samples
         self.make_plots = make_plots
         self.save_to_file = save_to_file
-        self.os_minus_ss_fit_configuration = os_minus_ss_fit_configuration
+        self.os_ss_sub = os_ss_sub
         if type(samples.get()) == dict:
             self.samples = samples.get()
         else:
@@ -338,6 +339,10 @@ class ChannelGenerator:
             self.years = ['']
 
     def get_config(self):
+        if self.template.samplesConf:
+            self.config["samplesConf"] = self.template.samplesConf
+        if self.template.data:
+            self.config["data"] = self.template.data
         return self.config
 
     def make_channel(self, lumi, sign='', year='', lepton='', charge='', btag='', extra_rebin=1, os_only=False):
@@ -399,7 +404,7 @@ class ChannelGenerator:
 
                 # add samples
                 for sample in samples:
-                    if len(sample) > 1 and sample[1].os_minus_ss_fit_configuration and 'SS' in channel_name:
+                    if len(sample) > 1 and sample[1].os_ss_sub and 'SS' in channel_name:
                         continue
                     if len(sample) == 1:
                         channel['samples'] += [sample[0]]
@@ -467,8 +472,8 @@ class ChannelGenerator:
             btag_massaged = [btag] if type(btag) != list else btag
             row2 += f', {"+".join(btag_massaged)}'
         labels += [row2]
-        if self.sample_config:
-            labels += [label_dict[self.sample_config]]
+        if self.template:
+            labels += [x for x in self.template.labels]
         if extra:
             labels += [extra]
         return labels

@@ -6,185 +6,181 @@ import yaml
 
 def main(options):
 
-    for sample_config in options.samples_config.split(","):
+    # additional rebinning
+    extra_rebin = float(options.extra_rebin)
 
-        # TODO: make configurable
-        extra_rebin = float(options.extra_rebin)
-
-        # TODO: make configurable?
-        make_os_ss = True
-        make_os_minus_ss = not options.fit_only
-        os_only = options.fit_only
+    # TODO: make configurable?
+    make_os_ss = True
+    make_os_minus_ss = not options.fit_only
+    os_only = options.fit_only
+    force_positive = True
+    if options.fit_type == "OS-SS":
         force_positive = False
-        # force_positive = options.fit_only or (options.fit_type == "OS/SS")
 
-        # sample type
-        if options.samples.lower() == 'truth':
-            if options.fit_only:
-                samples = templates.WDTruthSamplesNew(os_minus_ss_fit_configuration=(options.fit_type == "OS-SS"),
-                                                      OS_and_SS_fit=(options.fit_type == "OS/SS"), MockMC=True, decayMode=options.decay_mode)
-            else:
-                samples = templates.WDTruthSamplesNew(OS_and_SS_fit=(options.fit_type == "OS/SS"), MockMC=False, decayMode=options.decay_mode)
-            if options.replacement_samples:
-                samples_replacement = templates.ReplacementSamples()
-        elif options.samples.lower() == 'truth_old':
-            samples = templates.WDTruthSamples()
-        elif options.samples.lower() == 'flavor' or options.samples.lower() == 'flavour':
-            samples = templates.WDFlavourSamples()
-        elif options.samples.lower() == 'fit':
-            samples = templates.WDFitSamples()
-        elif options.samples.lower() == 'spg_comparison':
-            samples = templates.SPGComparison()
-        elif options.samples.lower() == 'bkg_comparison':
-            samples = templates.BKGComparison()
-        elif options.samples.lower() == 'wplusd_comparison':
-            samples = templates.WDComparisonSamples()
-        elif options.samples.lower() == 'flavor_comparison':
-            samples = templates.WDFlavourComparison()
-        elif options.samples.lower() == 'background_comparison':
-            samples = templates.WDBackgroundComparison()
-        elif options.samples.lower() == 'multijet_comparison':
-            samples = templates.MultiJetComparison()
-        elif options.samples.lower() == 'multijet_composition':
-            samples = templates.MultiJetComposition()
-        else:
-            print(f"ERROR: Unknown samples type {options.samples}")
-            sys.exit(1)
-
-        # TODO: make configurable?
-        signs = ['OS', 'SS']
-        lumi = ['2015', '2016A-B', '2016C-L', '2017', '2018']
-        years = []  # to be used without 'split_by_period' option in charmpp
-        leptons = ['el', 'mu']
-        charges = ['minus', 'plus']
-        btags = ['0tag', '1tag']
-        ptbins = ['']
-        # ptbins = ['pt_bin1', 'pt_bin2', 'pt_bin3', 'pt_bin4', 'pt_bin5', '']
-
-        # binning for the 1-tag region
-        # use '40' for 1 bin for D+
-        btag_bin = 2
-
-        # replace samples to increase mc stats
+    # sample type
+    if options.samples.lower() == 'truth':
+        samples = templates.WDTruthSamples(fitType=options.fit_type,
+                                           MockMC=options.fit_type != '',
+                                           decayMode=options.decay_mode,
+                                           truthDiffBins=options.truth_differential_bins,
+                                           splitSignalSamples=options.split_signal_samples)
         if options.replacement_samples:
+            samples_replacement = templates.ReplacementSamples(truthDiffBins=options.truth_differential_bins,
+                                                               splitSignalSamples=options.split_signal_samples)
+    elif options.samples.lower() == 'flavor' or options.samples.lower() == 'flavour':
+        samples = templates.WDFlavourSamples()
+    elif options.samples.lower() == 'fit':
+        samples = templates.WDFitSamples()
+    elif options.samples.lower() == 'spg_comparison':
+        samples = templates.SPGComparison(truthDiffBins=options.truth_differential_bins,
+                                          splitSignalSamples=options.split_signal_samples)
+    elif options.samples.lower() == 'bkg_comparison':
+        samples = templates.BKGComparison()
+    else:
+        print(f"ERROR: Unknown samples type {options.samples}")
+        sys.exit(1)
+
+    # TODO: make configurable?
+    signs = ['OS', 'SS']
+    lumi = ['2015', '2016A-B', '2016C-L', '2017', '2018']
+    years = []  # to be used without 'split_by_period' option in charmpp
+    leptons = ['mu', 'el']
+    charges = ['minus', 'plus']
+    btags = ['0tag', '1tag']
+    ptbins = ['']
+    if options.differential_bins:
+        ptbins = ['pt_bin1', 'pt_bin2', 'pt_bin3', 'pt_bin4', 'pt_bin5', '']
+
+    # binning for the 1-tag region
+    # use '40' for 1 bin for D+
+    btag_bin = 40
+
+    # replace samples to increase mc stats
+    replacement_samples = {}
+    if options.replacement_samples:
+        if options.truth_differential_bins:
             replacement_samples = {
-                'Wjets_emu_Matched': '<charge>_SPG_Matched',
-                'Wjets_emu_411MisMatched': '<charge>_SPG_411MisMatched',
-                'Wjets_emu_Charm': '<charge>_SPG_CharmMisMatched',
-                'Wjets_emu_Rest': '<charge>_SPG_Wjets_emu_Rest',
-                'Wjets_emu_MisMatched': '<charge>_SPG_Wjets_emu_MisMatched',
+                'Wjets_emu_Matched_truth_pt_bin1': '<charge>_SPG_Matched_truth_pt_bin1',
+                'Wjets_emu_Matched_truth_pt_bin2': '<charge>_SPG_Matched_truth_pt_bin2',
+                'Wjets_emu_Matched_truth_pt_bin3': '<charge>_SPG_Matched_truth_pt_bin3',
+                'Wjets_emu_Matched_truth_pt_bin4': '<charge>_SPG_Matched_truth_pt_bin4',
+                'Wjets_emu_Matched_truth_pt_bin5': '<charge>_SPG_Matched_truth_pt_bin5',
             }
         else:
-            replacement_samples = {}
+            replacement_samples = {'Wjets_emu_Matched': '<charge>_SPG_Matched'}
+        replacement_samples.update({
+            'Wjets_emu_411MisMatched': '<charge>_SPG_411MisMatched',
+            'Wjets_emu_Charm': '<charge>_SPG_CharmMisMatched',
+            'Wjets_emu_Rest': '<charge>_SPG_Wjets_emu_Rest',
+            'Wjets_emu_MisMatched': '<charge>_SPG_Wjets_emu_MisMatched',
+        })
 
-        # systematics
-        systematics = []
-        if options.systematics:
-            systematics = [
-                'experimental',
-                'matrix_method',
-                'proxy_norm',
-                'ttbar_theory_alt_samples',
-                'ttbar_theory_choice',
-                'ttbar_theory_pdf',
-                'ttbar_theory_qcd',
-                'wjets_theory',
-            ]
+    # systematics
+    systematics = []
+    if options.systematics:
+        systematics = [
+            'experimental',
+            'matrix_method',
+            'ttbar_theory_alt_samples',
+            'ttbar_theory_choice',
+            'ttbar_theory_pdf',
+            'ttbar_theory_qcd',
+            'wjets_theory',
+            # 'proxy_norm',
+        ]
 
-        # Base config
-        config = templates.DataMCConfig(variables=options.variables,
-                                        sample_config=sample_config,
-                                        systematics=systematics).to_dict()
+    # Base config
+    config = templates.DataMCConfig(variables=options.variables,
+                                    systematics=systematics).to_dict()
 
-        # Helper object to generate channels
-        channelGenerator = templates.ChannelGenerator(config=config,
-                                                      samples=samples,
-                                                      decay_mode=options.decay_mode,
-                                                      signs=signs,
-                                                      years=years,
-                                                      leptons=leptons,
-                                                      charges=charges,
-                                                      btags=btags,
-                                                      ptbins=ptbins,
-                                                      process_string=options.process_string,
-                                                      sample_config=sample_config,
-                                                      force_positive=force_positive,
-                                                      replacement_samples=replacement_samples,
-                                                      os_minus_ss_fit_configuration=(options.fit_type == "OS-SS"))
+    # Helper object to generate channels
+    channelGenerator = templates.ChannelGenerator(config=config,
+                                                  samples=samples,
+                                                  decay_mode=options.decay_mode,
+                                                  signs=signs,
+                                                  years=years,
+                                                  leptons=leptons,
+                                                  charges=charges,
+                                                  btags=btags,
+                                                  ptbins=ptbins,
+                                                  process_string=options.process_string,
+                                                  force_positive=force_positive,
+                                                  replacement_samples=replacement_samples,
+                                                  os_ss_sub=(options.fit_type == "OS-SS"))
 
-        # Helper object to generate channels
-        if options.replacement_samples:
-            channelGeneratorReplacement = templates.ChannelGenerator(config=config,
-                                                                     samples=samples_replacement,
-                                                                     make_plots=False,
-                                                                     save_to_file=False,
-                                                                     force_positive=force_positive,
-                                                                     decay_mode="SPG",
-                                                                     process_string="SPG",
-                                                                     signs=["OS", "SS"],
-                                                                     years=years,
-                                                                     leptons=leptons,
-                                                                     charges=[""],
-                                                                     btags="",
-                                                                     ptbins=ptbins)
+    # Helper object to generate channels
+    if options.replacement_samples:
+        channelGeneratorReplacement = templates.ChannelGenerator(config=config,
+                                                                 samples=samples_replacement,
+                                                                 make_plots=False,
+                                                                 save_to_file=False,
+                                                                 force_positive=force_positive,
+                                                                 decay_mode="SPG",
+                                                                 process_string="SPG",
+                                                                 signs=["OS", "SS"],
+                                                                 years=years,
+                                                                 leptons=leptons,
+                                                                 charges=[""],
+                                                                 btags="",
+                                                                 ptbins=ptbins)
 
-        # replacement samples
-        if options.replacement_samples:
-            channelGeneratorReplacement.make_channel(lumi, extra_rebin=extra_rebin)
-            channelGeneratorReplacement.make_channel(lumi, sign='OS', extra_rebin=extra_rebin)
-            channelGeneratorReplacement.make_channel(lumi, sign='SS', extra_rebin=extra_rebin)
+    # replacement samples
+    if options.replacement_samples:
+        channelGeneratorReplacement.make_channel(lumi, extra_rebin=extra_rebin)
+        channelGeneratorReplacement.make_channel(lumi, sign='OS', extra_rebin=extra_rebin)
+        channelGeneratorReplacement.make_channel(lumi, sign='SS', extra_rebin=extra_rebin)
 
-        # OS/SS plots
-        if make_os_ss:
-            for sign in signs:
-                if not options.fit_only:
-                    channelGenerator.make_channel(lumi, sign=sign, extra_rebin=extra_rebin, os_only=os_only)
-                    if not options.inclusive_only:
-                        for btag in btags:
-                            channelGenerator.make_channel(lumi, sign=sign, btag=btag,
-                                                          extra_rebin=extra_rebin * (btag_bin if btag != '0tag' else 1), os_only=os_only)
+    # OS/SS plots
+    if make_os_ss:
+        for sign in signs:
+            if not options.fit_only:
+                channelGenerator.make_channel(lumi, sign=sign, extra_rebin=extra_rebin, os_only=os_only)
                 if not options.inclusive_only:
-                    for lepton in leptons:
-                        if not options.fit_only:
-                            channelGenerator.make_channel(lumi, sign=sign, lepton=lepton, extra_rebin=extra_rebin,
-                                                          os_only=os_only)
-                        for btag in btags:
-                            if not options.fit_only:
-                                channelGenerator.make_channel(lumi, sign=sign, btag=btag, lepton=lepton, extra_rebin=extra_rebin *
-                                                              (btag_bin if btag != '0tag' else 1), os_only=os_only)
-                            for charge in charges:
-                                channelGenerator.make_channel(lumi, sign=sign, btag=btag, lepton=lepton, charge=charge,
-                                                              extra_rebin=extra_rebin * (btag_bin if btag != '0tag' else 1), os_only=os_only)
-
-        # OS-SS plots
-        if not options.fit_only:
-            if make_os_minus_ss:
-                channelGenerator.make_channel(lumi, extra_rebin=extra_rebin, os_only=os_only)
-                if not options.inclusive_only:
-                    for year in years:
-                        channelGenerator.make_channel([year], year=year, extra_rebin=extra_rebin, os_only=os_only)
                     for btag in btags:
-                        channelGenerator.make_channel(lumi, btag=btag, extra_rebin=extra_rebin * (btag_bin if btag != '0tag' else 1),
+                        channelGenerator.make_channel(lumi, sign=sign, btag=btag,
+                                                      extra_rebin=extra_rebin * (btag_bin if btag != '0tag' else 1), os_only=os_only)
+            if not options.inclusive_only:
+                for lepton in leptons:
+                    if not options.fit_only:
+                        channelGenerator.make_channel(lumi, sign=sign, lepton=lepton, extra_rebin=extra_rebin,
                                                       os_only=os_only)
-                    for lepton in leptons:
-                        channelGenerator.make_channel(lumi, lepton=lepton, extra_rebin=extra_rebin, os_only=os_only)
+                    for btag in btags:
+                        if not options.fit_only:
+                            channelGenerator.make_channel(lumi, sign=sign, btag=btag, lepton=lepton, extra_rebin=extra_rebin *
+                                                          (btag_bin if btag != '0tag' else 1), os_only=os_only)
                         for charge in charges:
-                            channelGenerator.make_channel(lumi, lepton=lepton, charge=charge, extra_rebin=extra_rebin,
-                                                          os_only=os_only)
-                        for btag in btags:
-                            channelGenerator.make_channel(lumi, btag=btag, lepton=lepton,
+                            channelGenerator.make_channel(lumi, sign=sign, btag=btag, lepton=lepton, charge=charge,
                                                           extra_rebin=extra_rebin * (btag_bin if btag != '0tag' else 1), os_only=os_only)
-                            for charge in charges:
-                                channelGenerator.make_channel(lumi, btag=btag, lepton=lepton, charge=charge,
-                                                              extra_rebin=extra_rebin * (btag_bin if btag != '0tag' else 1), os_only=os_only)
 
-        # add channels
-        if options.replacement_samples:
-            channelGenerator.get_config()['channels'].update(channelGeneratorReplacement.get_config()['channels'])
+    # OS-SS plots
+    if not options.fit_only:
+        if make_os_minus_ss:
+            channelGenerator.make_channel(lumi, extra_rebin=extra_rebin, os_only=os_only)
+            if not options.inclusive_only:
+                for year in years:
+                    channelGenerator.make_channel([year], year=year, extra_rebin=extra_rebin, os_only=os_only)
+                for btag in btags:
+                    channelGenerator.make_channel(lumi, btag=btag, extra_rebin=extra_rebin * (btag_bin if btag != '0tag' else 1),
+                                                  os_only=os_only)
+                for lepton in leptons:
+                    channelGenerator.make_channel(lumi, lepton=lepton, extra_rebin=extra_rebin, os_only=os_only)
+                    for charge in charges:
+                        channelGenerator.make_channel(lumi, lepton=lepton, charge=charge, extra_rebin=extra_rebin,
+                                                      os_only=os_only)
+                    for btag in btags:
+                        channelGenerator.make_channel(lumi, btag=btag, lepton=lepton,
+                                                      extra_rebin=extra_rebin * (btag_bin if btag != '0tag' else 1), os_only=os_only)
+                        for charge in charges:
+                            channelGenerator.make_channel(lumi, btag=btag, lepton=lepton, charge=charge,
+                                                          extra_rebin=extra_rebin * (btag_bin if btag != '0tag' else 1), os_only=os_only)
 
-        out_name = f'{options.analysis_config}_{sample_config}{"_OSSS" if options.fit_type == "OS/SS" else ""}.yaml'
-        with open(out_name, 'w') as outfile:
-            yaml.dump(channelGenerator.get_config(), outfile, default_flow_style=False)
+    # add channels
+    if options.replacement_samples:
+        channelGenerator.get_config()['channels'].update(channelGeneratorReplacement.get_config()['channels'])
+
+    out_name = f'{options.analysis_config}{"_OSSS" if options.fit_type == "OS/SS" else ""}.yaml'
+    with open(out_name, 'w') as outfile:
+        yaml.dump(channelGenerator.get_config(), outfile, default_flow_style=False)
 
 
 if __name__ == "__main__":
@@ -237,6 +233,15 @@ if __name__ == "__main__":
     parser.add_option('--process-string',
                       action="store", dest="process_string",
                       default="W#rightarrowl#nu+D, D#rightarrowK#pi#pi")
+    parser.add_option('--differential-bins',
+                      action="store_true", dest="differential_bins",
+                      default=False)
+    parser.add_option('--truth-differential-bins',
+                      action="store_true", dest="truth_differential_bins",
+                      default=False)
+    parser.add_option('--split-signal-samples',
+                      action="store_true", dest="split_signal_samples",
+                      default=False)
 
     # parse input arguments
     options, args = parser.parse_args()

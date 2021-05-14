@@ -3,16 +3,16 @@ import abc
 
 
 class ProxyChannel:
-    os_minus_ss_fit_configuration = False
+    os_ss_sub = False
 
-    def __init__(self, os_minus_ss_fit_configuration: bool = False, loose_sr: bool = False, ss_only: bool = False):
-        self.os_minus_ss_fit_configuration = os_minus_ss_fit_configuration
+    def __init__(self, os_ss_sub: bool = False, loose_sr: bool = False, ss_only: bool = False):
+        self.os_ss_sub = os_ss_sub
         self.loose_sr = loose_sr
         self.ss_only = ss_only
 
     def format(self, regions):
         out = []
-        if not self.os_minus_ss_fit_configuration:
+        if not self.os_ss_sub:
             out = regions
         else:
             for reg in regions:
@@ -56,8 +56,8 @@ class ProxyChannel:
 class PlainChannel(ProxyChannel):
     name = 'Plain'
 
-    def __init__(self, os_minus_ss_fit_configuration: bool = False, loose_sr: bool = False, ss_only: bool = False, name: str = ""):
-        super().__init__(os_minus_ss_fit_configuration=os_minus_ss_fit_configuration, loose_sr=loose_sr, ss_only=ss_only)
+    def __init__(self, os_ss_sub: bool = False, loose_sr: bool = False, ss_only: bool = False, name: str = ""):
+        super().__init__(os_ss_sub=os_ss_sub, loose_sr=loose_sr, ss_only=ss_only)
         if name != "":
             self.name = name
 
@@ -68,8 +68,8 @@ class PlainChannel(ProxyChannel):
 class MockMC(ProxyChannel):
     name = 'MockMC'
 
-    def __init__(self, os_minus_ss_fit_configuration: bool = False, loose_sr: bool = False, subtract_mj: bool = False):
-        super().__init__(os_minus_ss_fit_configuration=os_minus_ss_fit_configuration, loose_sr=loose_sr)
+    def __init__(self, os_ss_sub: bool = False, loose_sr: bool = False, subtract_mj: bool = False):
+        super().__init__(os_ss_sub=os_ss_sub, loose_sr=loose_sr)
         self.subtract_mj = subtract_mj
 
     def get_regions(self, regions):
@@ -98,9 +98,9 @@ class MockMC(ProxyChannel):
 class MatrixMethod(ProxyChannel):
     name = 'MatrixMethod'
 
-    def __init__(self, os_minus_ss_fit_configuration: bool = False, loose_sr: bool = False, fake_factor: bool = False,
+    def __init__(self, os_ss_sub: bool = False, loose_sr: bool = False, fake_factor: bool = False,
                  tight_only: bool = False, loose_only: bool = False):
-        super().__init__(os_minus_ss_fit_configuration=os_minus_ss_fit_configuration, loose_sr=loose_sr)
+        super().__init__(os_ss_sub=os_ss_sub, loose_sr=loose_sr)
         self.fake_factor = fake_factor
         self.tight_only = tight_only
         self.loose_only = loose_only
@@ -133,8 +133,14 @@ class MatrixMethod(ProxyChannel):
 class Matched(ProxyChannel):
     name = 'Matched'
 
+    def __init__(self, os_ss_sub: bool = False, loose_sr: bool = False, ptbin: int = -1):
+        super().__init__(os_ss_sub=os_ss_sub, loose_sr=loose_sr)
+        self.ptbin = ptbin
+        if self.ptbin >= 0:
+            self.name += f"_truth_pt_bin{self.ptbin}"
+
     def get_regions(self, regions):
-        return self.format([reg + "_Matched" for reg in regions])
+        return self.format([reg + f"_{self.name}" for reg in regions])
 
 
 class SPGChannel(ProxyChannel):
@@ -169,9 +175,9 @@ class SPGChannel(ProxyChannel):
 class GenericChannel(ProxyChannel):
     name = ""
 
-    def __init__(self, os_minus_ss_fit_configuration: bool = False, loose_sr: bool = False, ss_only: bool = False, region: str = "", name: str = "",
+    def __init__(self, os_ss_sub: bool = False, loose_sr: bool = False, ss_only: bool = False, region: str = "", name: str = "",
                  regions_override: list = [], regions_OS: list = [], regions_SS: list = []):
-        super().__init__(os_minus_ss_fit_configuration=os_minus_ss_fit_configuration, loose_sr=loose_sr, ss_only=ss_only)
+        super().__init__(os_ss_sub=os_ss_sub, loose_sr=loose_sr, ss_only=ss_only)
         self.region = region
         self.regions_override = regions_override
         if name == "":
@@ -209,8 +215,8 @@ class MisMatched(ProxyChannel):
     name = 'MisMatched'
     truth_name = 'MisMatched'
 
-    def __init__(self, os_minus_ss_fit_configuration: bool = False, loose_sr: bool = False, pdgId: str = ""):
-        super().__init__(os_minus_ss_fit_configuration=os_minus_ss_fit_configuration, loose_sr=loose_sr)
+    def __init__(self, os_ss_sub: bool = False, loose_sr: bool = False, pdgId: str = ""):
+        super().__init__(os_ss_sub=os_ss_sub, loose_sr=loose_sr)
         self.pdgId = pdgId
         if self.pdgId != "":
             self.name = f"{self.pdgId}{self.name}"
@@ -222,32 +228,11 @@ class MisMatched(ProxyChannel):
         return self.format([reg + f"_{self.truth_name}" for reg in regions])
 
 
-class MatchedFid(ProxyChannel):
-    name = 'MatchedFid'
-
-    def get_regions(self, regions):
-        return self.format([reg + "_MatchedFid" for reg in regions])
-
-
-class MatchedNoFid(ProxyChannel):
-    name = 'MatchedNoFid'
-
-    def get_regions(self, regions):
-        return self.format([reg + "_MatchedNoFid" for reg in regions])
-
-
-class NoMatch(ProxyChannel):
-    name = 'NoMatch'
-
-    def get_regions(self, regions):
-        return self.format([reg + "_Other" for reg in regions])
-
-
 class NoMatchBackground(ProxyChannel):
     name = 'NoMatchBackground'
 
-    def __init__(self, os_minus_ss_fit_configuration: bool = False, loose_sr: bool = False, regions_override: bool = False, add_no_truth_match: bool = False):
-        super().__init__(os_minus_ss_fit_configuration=os_minus_ss_fit_configuration, loose_sr=loose_sr)
+    def __init__(self, os_ss_sub: bool = False, loose_sr: bool = False, regions_override: bool = False, add_no_truth_match: bool = False):
+        super().__init__(os_ss_sub=os_ss_sub, loose_sr=loose_sr)
         self.regions_override = regions_override
         self.add_no_truth_match = add_no_truth_match
         if loose_sr:
@@ -265,8 +250,8 @@ class NoMatchBackground(ProxyChannel):
 class MatchedCharm(ProxyChannel):
     name = 'MatchedCharm'
 
-    def __init__(self, os_minus_ss_fit_configuration: bool = False, loose_sr: bool = False, ss_only: bool = False, decayMode: str = "Dplus", name: str = ""):
-        super().__init__(os_minus_ss_fit_configuration=os_minus_ss_fit_configuration, loose_sr=loose_sr, ss_only=ss_only)
+    def __init__(self, os_ss_sub: bool = False, loose_sr: bool = False, ss_only: bool = False, decayMode: str = "Dplus", name: str = ""):
+        super().__init__(os_ss_sub=os_ss_sub, loose_sr=loose_sr, ss_only=ss_only)
         self.decayMode = decayMode
         if name:
             self.name = name
@@ -289,8 +274,8 @@ class MatchedCharm(ProxyChannel):
 class MatchedCharmGeom(ProxyChannel):
     name = 'MatchedCharmGeom'
 
-    def __init__(self, os_minus_ss_fit_configuration: bool = False, loose_sr: bool = False, ss_only: bool = False, decayMode: str = "Dplus", name: str = ""):
-        super().__init__(os_minus_ss_fit_configuration=os_minus_ss_fit_configuration, loose_sr=loose_sr, ss_only=ss_only)
+    def __init__(self, os_ss_sub: bool = False, loose_sr: bool = False, ss_only: bool = False, decayMode: str = "Dplus", name: str = ""):
+        super().__init__(os_ss_sub=os_ss_sub, loose_sr=loose_sr, ss_only=ss_only)
         self.decayMode = decayMode
         if name:
             self.name = name
@@ -309,20 +294,12 @@ class MatchedCharmGeom(ProxyChannel):
                                [reg + "_BaryonMisMatchedGeom" for reg in regions])
 
 
-class MatchedDplus(ProxyChannel):
-    name = 'MatchedDplus'
-
-    def get_regions(self, regions):
-        return self.format([reg + "_Matched" for reg in regions] +
-                           [reg + "_411MisMatched" for reg in regions])
-
-
 class Rest(ProxyChannel):
     name = 'Rest'
 
-    def __init__(self, os_minus_ss_fit_configuration: bool = False, loose_sr: bool = False, allowed_regions: list = [],
+    def __init__(self, os_ss_sub: bool = False, loose_sr: bool = False, allowed_regions: list = [],
                  name: str = "", exclude_mismatched: bool = False, include_other: bool = False):
-        super().__init__(os_minus_ss_fit_configuration=os_minus_ss_fit_configuration, loose_sr=loose_sr)
+        super().__init__(os_ss_sub=os_ss_sub, loose_sr=loose_sr)
         self.allowed_regions = allowed_regions
         if name:
             if not name.startswith("_"):
