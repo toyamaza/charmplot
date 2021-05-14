@@ -3,6 +3,7 @@ from array import array
 from charmplot.common import utils
 from charmplot.control import channel
 from charmplot.control import variable
+import numpy as np
 import os
 import ROOT
 
@@ -84,6 +85,7 @@ for c in channels:
     h_tmp = {s: f.Get(f"{s}_emu_Matched_{c}_Dmeson_transfer_matrix") for s in samples}
     nbins = h_tmp["MG_Wjets"].GetNbinsX()
     xbins = array('d', [h_tmp["MG_Wjets"].GetXaxis().GetBinLowEdge(i) for i in range(1, nbins + 3)])
+    xbins[-1] = xbins[-2] + 2 * xbins[-3]
     h = {s: ROOT.TH2D(f"{s}_{c}_transfer_matrix", f"{s}_{c}_transfer_matrix", nbins + 1, xbins, nbins + 1, xbins) for s in samples}
 
     # differential bins
@@ -101,6 +103,11 @@ for c in channels:
 
     # calculate fiducial efficiency per bin
     h_fid_eff = {s: ROOT.TH2D(f"{s}_{c}_fid_eff", f"{s}_{c}_fid_eff", nbins + 1, xbins, nbins + 1, xbins) for s in samples}
+    h_fid_eff_inv = {s: ROOT.TH2D(f"{s}_{c}_fid_eff_inv", f"{s}_{c}_fid_eff_inv", nbins + 1, xbins, nbins + 1, xbins) for s in samples}
+
+    # numpy matrix
+    np_matrix = np.identity(nbins + 1)
+    np_truth = np.ones(nbins + 1)
 
     # fill
     proxy_axis = {}
@@ -137,7 +144,8 @@ for c in channels:
         h_pt_truth[s].SetLineColor(colors[s])
 
         proxy_axis[s] = ROOT.TH1D(f"{s}_{c}_proxy_axis", f"{s}_{c}_proxy_axis", nbins + 1, shifted_bins(xbins, bin_shift[s]))
-        proxy_axis[s].GetXaxis().SetMoreLogLabels()
+        # proxy_axis[s].GetXaxis().SetMoreLogLabels()
+        proxy_axis[s].GetXaxis().SetNoExponent()
         proxy_axis[s].SetLineWidth(0)
         proxy_axis[s].SetLineWidth(0)
         proxy_axis[s].SetMinimum(0.00)
@@ -149,6 +157,10 @@ for c in channels:
         h_fid_eff[s].GetYaxis().SetTitle("p_{T}^{truth}(D) [GeV]")
         h_fid_eff[s].SetMarkerSize(1.4)
 
+        h_fid_eff_inv[s].GetXaxis().SetTitle("p_{T}^{reco}(D) [GeV]")
+        h_fid_eff_inv[s].GetYaxis().SetTitle("p_{T}^{truth}(D) [GeV]")
+        h_fid_eff_inv[s].SetMarkerSize(1.4)
+
         # calculate fiducial efficiency
         fid_eff[s] = ROOT.TEfficiency(truth_projection[s], h_pt_truth[s])
         fid_eff_gr[s] = fid_eff[s].CreateGraph()
@@ -157,15 +169,17 @@ for c in channels:
 
         # calculate fiducial efficiency per bin
         for i in range(1, nbins + 2):
-            tmp_den = ROOT.TH1D(f"{h[s].GetName()}_tmp_{i}", f"{h[s].GetName()}_tmp_{i}", 1, 0, 1)
-            tmp_den.SetBinContent(1, LUMI_RUN2 * h_pt_truth[s].GetBinContent(i))
-            tmp_den.SetBinError(1, LUMI_RUN2 * h_pt_truth[s].GetBinError(i))
             for j in range(1, nbins + 2):
                 tmp_num = ROOT.TH1D(f"{h[s].GetName()}_tmp_{i}_{j}", f"{h[s].GetName()}_tmp_{i}_{j}", 1, 0, 1)
                 tmp_num.SetBinContent(1, h[s].GetBinContent(i, j))
                 tmp_num.SetBinError(1, h[s].GetBinError(i, j))
+                tmp_den = ROOT.TH1D(f"{h[s].GetName()}_tmp_{j}", f"{h[s].GetName()}_tmp_{j}", 1, 0, 1)
+                tmp_den.SetBinContent(1, LUMI_RUN2 * h_pt_truth[s].GetBinContent(j))
+                tmp_den.SetBinError(1, LUMI_RUN2 * h_pt_truth[s].GetBinError(j))
                 tmp_eff = ROOT.TEfficiency(tmp_num, tmp_den)
                 h_fid_eff[s].SetBinContent(i, j, 100 * tmp_eff.GetEfficiency(1))
+                np_matrix[i - 1][j - 1] = tmp_eff.GetEfficiency(1)
+                np_truth[j - 1] = LUMI_RUN2 * h_pt_truth[s].GetBinContent(j)
                 if tmp_eff.GetEfficiency(1) > 0:
                     h_fid_eff[s].SetBinError(i, j, 100 * ((tmp_eff.GetEfficiencyErrorUp(1) + tmp_eff.GetEfficiencyErrorLow(1)) / 2) / tmp_eff.GetEfficiency(1))
                 print (f"{i} {j} {tmp_eff.GetEfficiency(1)} {(tmp_eff.GetEfficiencyErrorUp(1) + tmp_eff.GetEfficiencyErrorLow(1)) / 2}")
@@ -186,6 +200,20 @@ for c in channels:
         fid_eff_gr[s].Write(f"{s}_{c}_fid_eff")
 
     # -------------------
+    # print numpy matrix
+    # -------------------
+    print(c)
+    print(np_matrix)
+    print(np_truth)
+    print(np.dot(np_matrix, np_truth))
+    np_truth_inv = np.linalg.inv(np_matrix)
+    print(np_truth_inv)
+    # fill in the invertex matrix
+    for i in range(1, nbins + 2):
+        for j in range(1, nbins + 2):
+            h_fid_eff_inv[s].SetBinContent(i, j, np_truth_inv[i - 1][j - 1])
+
+    # -------------------
     # draw matrix
     # -------------------
     canv1 = ROOT.TCanvas(f"{c}_matrix", f"{c}_matrix", 1000, 800)
@@ -193,6 +221,7 @@ for c in channels:
     canv1.SetLogy()
     canv1.SetLogx()
     h["MG_Wjets"].GetXaxis().SetMoreLogLabels()
+    h["MG_Wjets"].GetXaxis().SetNoExponent()
     h["MG_Wjets"].GetYaxis().SetMoreLogLabels()
     h["MG_Wjets"].Draw("text colz error")
 
@@ -200,8 +229,8 @@ for c in channels:
     ROOT.ATLASLabel(0.18, 0.90, "Internal", 1)
     ROOT.myText(0.18, 0.84, 1, "#sqrt{s} = 13 TeV")
     ROOT.myText(0.18, 0.78, 1, "139 fb^{-1}")
-    ROOT.myText(0.46, 0.24, 1, "W#rightarrowl#nu+D, D#rightarrowK#pi#pi")
-    ROOT.myText(0.46, 0.18, 1, c.replace("OS-SS_", ""))
+    ROOT.myText(0.50, 0.24, 1, "W#rightarrowl#nu+D, D#rightarrowK#pi#pi")
+    ROOT.myText(0.50, 0.18, 1, c.replace("OS-SS_", ""))
 
     # save
     ROOT.gPad.RedrawAxis()
@@ -230,6 +259,7 @@ for c in channels:
     canv2.SetLogx()
     h_pt["MG_Wjets"].SetMaximum(2 * h_pt["MG_Wjets"].GetMaximum())
     h_pt["MG_Wjets"].GetXaxis().SetMoreLogLabels()
+    h_pt["MG_Wjets"].GetXaxis().SetNoExponent()
     h_pt["MG_Wjets"].Draw("text hist")
     for s in samples[1:]:
         h_pt[s].Draw("hist same")
@@ -252,6 +282,7 @@ for c in channels:
     canv3.SetLogx()
     h_pt_truth["MG_Wjets"].SetMaximum(2 * h_pt_truth["MG_Wjets"].GetMaximum())
     h_pt_truth["MG_Wjets"].GetXaxis().SetMoreLogLabels()
+    h_pt_truth["MG_Wjets"].GetXaxis().SetNoExponent()
     h_pt_truth["MG_Wjets"].Draw("text hist")
     for s in samples[1:]:
         h_pt_truth[s].Draw("hist same")
@@ -272,7 +303,6 @@ for c in channels:
     # -------------------
     ROOT.gStyle.SetPaintTextFormat(".5f")
     canv4 = utils.make_canvas_mc_ratio(proxy_axis[samples[0]], truth_pt, chan, "Ratio", x=800, y=800, events="fiducial efficiency")
-    canv4.proxy_dn.GetXaxis().SetLabelOffset(-0.03)
     canv4.pad1.cd()
     canv4.pad1.SetLogx()
     for j, s in enumerate(samples):
@@ -310,6 +340,7 @@ for c in channels:
     canv5.SetLogy()
     canv5.SetLogx()
     h_fid_eff["MG_Wjets"].GetXaxis().SetMoreLogLabels()
+    h_fid_eff["MG_Wjets"].GetXaxis().SetNoExponent()
     h_fid_eff["MG_Wjets"].GetYaxis().SetMoreLogLabels()
     h_fid_eff["MG_Wjets"].Draw("text colz error")
 
@@ -317,12 +348,35 @@ for c in channels:
     ROOT.ATLASLabel(0.18, 0.90, "Internal", 1)
     ROOT.myText(0.18, 0.84, 1, "#sqrt{s} = 13 TeV")
     ROOT.myText(0.18, 0.78, 1, "139 fb^{-1}")
-    ROOT.myText(0.46, 0.24, 1, "W#rightarrowl#nu+D, D#rightarrowK#pi#pi")
-    ROOT.myText(0.46, 0.18, 1, c.replace("OS-SS_", ""))
+    ROOT.myText(0.50, 0.24, 1, "W#rightarrowl#nu+D, D#rightarrowK#pi#pi")
+    ROOT.myText(0.50, 0.18, 1, c.replace("OS-SS_", ""))
 
     # save
     ROOT.gPad.RedrawAxis()
     canv5.Print(f"transfer_matrix/{c}_fid_eff_per_bin.pdf")
+
+    # -------------------
+    # draw the invertex matrix
+    # -------------------
+    canv6 = ROOT.TCanvas(f"{c}_matrix_inv", f"{c}_matrix_inv", 1000, 800)
+    canv6.SetRightMargin(0.15)
+    canv6.SetLogy()
+    canv6.SetLogx()
+    h_fid_eff_inv["MG_Wjets"].GetXaxis().SetMoreLogLabels()
+    h_fid_eff_inv["MG_Wjets"].GetXaxis().SetNoExponent()
+    h_fid_eff_inv["MG_Wjets"].GetYaxis().SetMoreLogLabels()
+    h_fid_eff_inv["MG_Wjets"].Draw("text colz")
+
+    # ATLAS label
+    # ROOT.ATLASLabel(0.18, 0.90, "Internal", 1)
+    # ROOT.myText(0.18, 0.84, 1, "#sqrt{s} = 13 TeV")
+    # ROOT.myText(0.18, 0.78, 1, "139 fb^{-1}")
+    # ROOT.myText(0.50, 0.24, 1, "W#rightarrowl#nu+D, D#rightarrowK#pi#pi")
+    # ROOT.myText(0.50, 0.18, 1, c.replace("OS-SS_", ""))
+
+    # save
+    ROOT.gPad.RedrawAxis()
+    canv6.Print(f"transfer_matrix/{c}_fid_eff_inv.pdf")
 
 # close file
 f_out.Close()
