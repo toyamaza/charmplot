@@ -193,7 +193,7 @@ def main(options, conf, reader):
 
             for i in range(0, len(samples)):
                 h = mc_map[samples[i]].Clone(f"{mc_map[samples[i]].GetName()}_ratio")
-                for j in range(0, denominator.GetNbinsX() + 2):
+                for j in range(0, h.GetNbinsX() + 2):
                     h.SetBinContent(j, abs(h.GetBinContent(j)))
 
                 if options.show_rel_error:
