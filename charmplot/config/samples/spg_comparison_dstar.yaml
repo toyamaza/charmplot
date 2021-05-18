@@ -1,0 +1,396 @@
+colorScheme: gemstone_hues
+
+Wjets_emu_Matched:
+  add:
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_bjets_emu
+    - MG_Wjets_light_emu
+  subtract:
+  lineColor: "10004"
+  legendLabel: "MG W+#it{D*}(#it{K}#pi#pi)"
+  shortName: Wjets_emu_Matched
+
+Wjets_emu_413MisMatched:
+  add:
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_bjets_emu
+    - MG_Wjets_light_emu
+  subtract:
+  lineColor: "10004"
+  legendLabel: "MG W+#it{D}*(other)"
+  shortName: Wjets_emu_413MisMatched
+
+Wjets_emu_421MisMatched:
+  add:
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_bjets_emu
+    - MG_Wjets_light_emu
+  subtract:
+  lineColor: "10004"
+  legendLabel: "MG W+#it{D}0"
+  shortName: Wjets_emu_421MisMatched
+
+Wjets_emu_431MisMatched:
+  add:
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_bjets_emu
+    - MG_Wjets_light_emu
+  subtract:
+  lineColor: "10004"
+  legendLabel: "MG W+#it{D}_{S}"
+  shortName: Wjets_emu_431MisMatched
+
+Wjets_emu_411MisMatched:
+  add:
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_bjets_emu
+    - MG_Wjets_light_emu
+  subtract:
+  lineColor: "10004"
+  legendLabel: "MG W+#it{D}"
+  shortName: Wjets_emu_411MisMatched
+
+Wjets_emu_BaryonMisMatched:
+  add:
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_bjets_emu
+    - MG_Wjets_light_emu
+  subtract:
+  lineColor: "10004"
+  legendLabel: "MG W+Baryon"
+  shortName: Wjets_emu_BaryonMisMatched
+
+Wjets_emu_CharmMisMatched:
+  add:
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_bjets_emu
+    - MG_Wjets_light_emu
+  subtract:
+  lineColor: "10004"
+  legendLabel: "MG W+Charm"
+  shortName: Wjets_emu_CharmMisMatched
+
+Wjets_emu_Matched_OS-SS:
+  add:
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_bjets_emu
+    - MG_Wjets_light_emu
+  subtract:
+  lineColor: "10004"
+  legendLabel: "W+#it{D*}(#it{K}#pi#pi) OS-SS"
+  shortName: Wjets_emu_Matched_OS-SS
+
+Wjets_emu_Matched_OS:
+  add:
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_bjets_emu
+    - MG_Wjets_light_emu
+  subtract:
+  lineColor: "11004"
+  legendLabel: "W+#it{D*}(#it{K}#pi#pi) OS"
+  shortName: Wjets_emu_Matched_OS
+
+Wjets_emu_Matched_SS:
+  add:
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_bjets_emu
+    - MG_Wjets_light_emu
+  subtract:
+  lineColor: "14004"
+  legendLabel: "W+#it{D*}(#it{K}#pi#pi) SS"
+  shortName: Wjets_emu_Matched_SS
+
+Wjets_Rest_OS-SS:
+  add:
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_bjets_emu
+    - MG_Wjets_light_emu
+    - MG_Wjets_tau
+  subtract:
+  lineColor: "11002"
+  legendLabel: "W+jets OS-SS"
+  ignoreTruthMatching:
+    - MG_Wjets_tau
+  shortName: Wjets_Rest_OS-SS
+
+Wjets_Rest_Loose_OS-SS:
+  add:
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_bjets_emu
+    - MG_Wjets_light_emu
+    - MG_Wjets_tau
+  subtract:
+  lineColor: "21000"
+  legendLabel: "Loose W+jets OS-SS"
+  ignoreTruthMatching:
+    - MG_Wjets_tau
+  shortName: Wjets_Rest_Loose_OS-SS
+
+Wjets_emu_MisMatched_OS-SS:
+  add:
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_bjets_emu
+    - MG_Wjets_light_emu
+  subtract:
+  lineColor: "11004"
+  legendLabel: "W+c^{mis-match} OS-SS"
+  shortName: Wjets_emu_MisMatched_OS-SS
+
+Wjets_emu_MisMatched_Loose_OS-SS:
+  add:
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_bjets_emu
+    - MG_Wjets_light_emu
+  subtract:
+  lineColor: "21000"
+  legendLabel: "Loose W+c^{mis-match} OS-SS"
+  shortName: Wjets_emu_MisMatched_Loose_OS-SS
+
+Wjets_emu_413MisMatched_OS-SS:
+  add:
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_bjets_emu
+    - MG_Wjets_light_emu
+  subtract:
+  lineColor: "10004"
+  legendLabel: "W+#it{D}*(other) OS-SS"
+  shortName: Wjets_emu_413MisMatched_OS-SS
+
+Wjets_emu_413MisMatched_OS:
+  add:
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_bjets_emu
+    - MG_Wjets_light_emu
+  subtract:
+  lineColor: "11004"
+  legendLabel: "W+#it{D}*(other) OS"
+  shortName: Wjets_emu_413MisMatched_OS
+
+Wjets_emu_413MisMatched_SS:
+  add:
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_bjets_emu
+    - MG_Wjets_light_emu
+  subtract:
+  lineColor: "14004"
+  legendLabel: "W+#it{D}*(other) SS"
+  shortName: Wjets_emu_413MisMatched_SS
+
+Wjets_emu_421MisMatched_OS-SS:
+  add:
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_bjets_emu
+    - MG_Wjets_light_emu
+  subtract:
+  lineColor: "10004"
+  legendLabel: "W+#it{D}0 OS-SS"
+  shortName: Wjets_emu_421MisMatched_OS-SS
+
+Wjets_emu_421MisMatched_OS:
+  add:
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_bjets_emu
+    - MG_Wjets_light_emu
+  subtract:
+  lineColor: "11004"
+  legendLabel: "W+#it{D}0 OS"
+  shortName: Wjets_emu_421MisMatched_OS
+
+Wjets_emu_421MisMatched_SS:
+  add:
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_bjets_emu
+    - MG_Wjets_light_emu
+  subtract:
+  lineColor: "14004"
+  legendLabel: "W+#it{D}0 SS"
+  shortName: Wjets_emu_421MisMatched_SS
+
+Wjets_emu_411MisMatched_OS-SS:
+  add:
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_bjets_emu
+    - MG_Wjets_light_emu
+  subtract:
+  lineColor: "10004"
+  legendLabel: "W+#it{D} OS-SS"
+  shortName: Wjets_emu_411MisMatched_OS-SS
+
+Wjets_emu_411MisMatched_OS:
+  add:
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_bjets_emu
+    - MG_Wjets_light_emu
+  subtract:
+  lineColor: "11004"
+  legendLabel: "W+#it{D}(other) OS"
+  shortName: Wjets_emu_411MisMatched_OS
+
+Wjets_emu_411MisMatched_SS:
+  add:
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_bjets_emu
+    - MG_Wjets_light_emu
+  subtract:
+  lineColor: "14004"
+  legendLabel: "W+#it{D} SS"
+  shortName: Wjets_emu_411MisMatched_SS
+
+Wjets_emu_431MisMatched_OS-SS:
+  add:
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_bjets_emu
+    - MG_Wjets_light_emu
+  subtract:
+  lineColor: "10004"
+  legendLabel: "W+#it{D}_{S} OS-SS"
+  shortName: Wjets_emu_431MisMatched_OS-SS
+
+Wjets_emu_431MisMatched_OS:
+  add:
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_bjets_emu
+    - MG_Wjets_light_emu
+  subtract:
+  lineColor: "11004"
+  legendLabel: "W+#it{D}_{S} OS"
+  shortName: Wjets_emu_431MisMatched_OS
+
+Wjets_emu_431MisMatched_SS:
+  add:
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_bjets_emu
+    - MG_Wjets_light_emu
+  subtract:
+  lineColor: "14004"
+  legendLabel: "W+#it{D}_{S} SS"
+  shortName: Wjets_emu_431MisMatched_SS
+
+Wjets_emu_BaryonMisMatched_OS-SS:
+  add:
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_bjets_emu
+    - MG_Wjets_light_emu
+  subtract:
+  lineColor: "10004"
+  legendLabel: "W+Baryon OS-SS"
+  shortName: Wjets_emu_BaryonMisMatched_OS-SS
+
+Wjets_emu_BaryonMisMatched_OS:
+  add:
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_bjets_emu
+    - MG_Wjets_light_emu
+  subtract:
+  lineColor: "11004"
+  legendLabel: "W+Baryon OS"
+  shortName: Wjets_emu_BaryonMisMatched_OS
+
+Wjets_emu_BaryonMisMatched_SS:
+  add:
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_bjets_emu
+    - MG_Wjets_light_emu
+  subtract:
+  lineColor: "14004"
+  legendLabel: "W+Baryon SS"
+  shortName: Wjets_emu_BaryonMisMatched_SS
+
+Wjets_emu_CharmMisMatched_OS-SS:
+  add:
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_bjets_emu
+    - MG_Wjets_light_emu
+  subtract:
+  lineColor: "10004"
+  legendLabel: "W+Charm OS-SS"
+  shortName: Wjets_emu_CharmMisMatched_OS-SS
+
+Wjets_emu_CharmMisMatched_OS:
+  add:
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_bjets_emu
+    - MG_Wjets_light_emu
+  subtract:
+  lineColor: "11004"
+  legendLabel: "W+Charm OS"
+  shortName: Wjets_emu_CharmMisMatched_OS
+
+Wjets_emu_CharmMisMatched_SS:
+  add:
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_bjets_emu
+    - MG_Wjets_light_emu
+  subtract:
+  lineColor: "14004"
+  legendLabel: "W+Charm SS"
+  shortName: Wjets_emu_CharmMisMatched_SS
+
+SPG_Matched:
+  add:
+    - SPG_Dstar_plus
+    - SPG_Dstar_minus
+  subtract:
+  lineColor: "21000"
+  legendLabel: "#it{D*}(#it{K}#pi#pi) SPG"
+  shortName: SPG_Matched
+
+SPG_413MisMatched:
+  add:
+    - SPG_Dstar_plus
+    - SPG_Dstar_minus
+  subtract:
+  lineColor: "21000"
+  legendLabel: "#it{D}* SPG"
+  shortName: SPG_413MisMatched
+
+SPG_421MisMatched:
+  add:
+    - SPG_D0_postProc
+    - SPG_D0bar_postProc
+  subtract:
+  lineColor: "21000"
+  legendLabel: "#it{D}0 SPG"
+  shortName: SPG_421MisMatched
+
+SPG_411MisMatched:
+  add:
+    - SPG_Dminus_postProc
+    - SPG_Dplus_postProc
+  subtract:
+  lineColor: "21000"
+  legendLabel: "#it{D}(other) SPG"
+  shortName: SPG_411MisMatched
+
+SPG_431MisMatched:
+  add:
+    - SPG_Ds_postProc
+    - SPG_Dsminus_postProc
+  subtract:
+  lineColor: "21000"
+  legendLabel: "#it{D}_{S} SPG"
+  shortName: SPG_431MisMatched
+
+SPG_BaryonMisMatched:
+  add:
+    - SPG_Baryon_postProc
+    - SPG_Baryonbar_postProc
+  subtract:
+  lineColor: "21000"
+  legendLabel: "Baryon SPG"
+  shortName: SPG_BaryonMisMatched
+
+SPG_CharmMisMatched:
+  add:
+    - SPG_Dplus_postProc
+    - SPG_Dminus_postProc
+    - SPG_D0_postProc
+    - SPG_D0bar_postProc
+    - SPG_Ds_postProc
+    - SPG_Dsminus_postProc
+    - SPG_Baryon_postProc
+    - SPG_Baryonbar_postProc
+  subtract:
+  lineColor: "21000"
+  legendLabel: "Charm SPG"
+  shortName: SPG_CharmMisMatched
