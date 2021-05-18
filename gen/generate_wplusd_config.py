@@ -60,19 +60,20 @@ def main(options):
     if options.replacement_samples:
         if options.truth_differential_bins:
             replacement_samples = {
-                'Wjets_emu_Matched_truth_pt_bin1': '<charge>_SPG_Matched_truth_pt_bin1',
-                'Wjets_emu_Matched_truth_pt_bin2': '<charge>_SPG_Matched_truth_pt_bin2',
-                'Wjets_emu_Matched_truth_pt_bin3': '<charge>_SPG_Matched_truth_pt_bin3',
-                'Wjets_emu_Matched_truth_pt_bin4': '<charge>_SPG_Matched_truth_pt_bin4',
-                'Wjets_emu_Matched_truth_pt_bin5': '<charge>_SPG_Matched_truth_pt_bin5',
+                'Wjets_emu_Matched_truth_pt_bin1': '<charge>_Replacement_Matched_truth_pt_bin1',
+                'Wjets_emu_Matched_truth_pt_bin2': '<charge>_Replacement_Matched_truth_pt_bin2',
+                'Wjets_emu_Matched_truth_pt_bin3': '<charge>_Replacement_Matched_truth_pt_bin3',
+                'Wjets_emu_Matched_truth_pt_bin4': '<charge>_Replacement_Matched_truth_pt_bin4',
+                'Wjets_emu_Matched_truth_pt_bin5': '<charge>_Replacement_Matched_truth_pt_bin5',
             }
         else:
-            replacement_samples = {'Wjets_emu_Matched': '<charge>_SPG_Matched'}
+            replacement_samples = {'Wjets_emu_Matched': '<charge>_Replacement_Matched'}
         replacement_samples.update({
-            'Wjets_emu_411MisMatched': '<charge>_SPG_411MisMatched',
-            'Wjets_emu_Charm': '<charge>_SPG_CharmMisMatched',
-            'Wjets_emu_Rest': '<charge>_SPG_Wjets_emu_Rest',
-            'Wjets_emu_MisMatched': '<charge>_SPG_Wjets_emu_MisMatched',
+            'Wjets_emu_411MisMatched': '<charge>_Replacement_411MisMatched',
+            'Wjets_emu_Charm': '<charge>_Replacement_CharmMisMatched',
+            'Wjets_emu_Rest': '<charge>_Replacement_Wjets_emu_Rest',
+            'Wjets_emu_MisMatched': '<charge>_Replacement_Wjets_emu_MisMatched',
+            'DibosonVjetsTau': '<charge>_Replacement_DibosonVjetsTau',
         })
 
     # systematics
@@ -115,8 +116,8 @@ def main(options):
                                                                  make_plots=False,
                                                                  save_to_file=False,
                                                                  force_positive=force_positive,
-                                                                 decay_mode="SPG",
-                                                                 process_string="SPG",
+                                                                 decay_mode="Replacement",
+                                                                 process_string="Replacement",
                                                                  signs=["OS", "SS"],
                                                                  years=years,
                                                                  leptons=leptons,
