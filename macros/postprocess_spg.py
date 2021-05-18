@@ -23,7 +23,7 @@ scale_factors = {
 }
 
 # vars
-accepted_vars = ["Dmeson_m", "Dmeson_pt"]
+accepted_vars = ["Dmeson_m", "Dmeson_mdiff", "Dmeson_pt"]
 
 # loop
 for name in names:
@@ -60,7 +60,7 @@ for name in names:
             pt_bin = int(pt_bin[0])
 
             # charge (OS or SS)
-            charge = re.findall("Dplus_([OS]+)", obj_name)[0]
+            charge = re.findall("[Dplustar]+_([OS]+)", obj_name)[0]
 
             # print out
             print(obj_name, pt_bin, charge, flavor, scale_factors[f"{flavor}_{charge}"][pt_bin - 1])

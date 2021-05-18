@@ -33,7 +33,7 @@ def main(options):
         samples = templates.WDFitSamples()
     elif options.samples.lower() == 'spg_comparison':
         samples = templates.SPGComparison(truthDiffBins=options.truth_differential_bins,
-                                          splitSignalSamples=options.split_signal_samples)
+                                          splitSignalSamples=options.split_signal_samples, decay_mode=options.decay_mode)
     elif options.samples.lower() == 'bkg_comparison':
         samples = templates.BKGComparison()
     else:

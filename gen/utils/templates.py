@@ -88,7 +88,7 @@ class WDTruthSamples(ChannelTemplate):
         if self.decayMode == "Dplus":
             self.samples += [
                 ['Wjets_emu_411MisMatched', proxies.MisMatched(os_ss_sub=self.os_ss_sub, loose_sr=self.loose_sr, pdgId="411")]]
-        elif self.decayMode == "DstarKPiPi0":
+        elif self.decayMode in ["DstarKPiPi0", "Dstar"]:
             self.samples += [
                 ['Wjets_emu_413MisMatched', proxies.MisMatched(os_ss_sub=self.os_ss_sub, loose_sr=self.loose_sr, pdgId="413")]]
 
@@ -147,9 +147,13 @@ class SPGComparison(ChannelTemplate):
         "Matched_truth_pt_bin5",
     ]
 
-    def __init__(self, truthDiffBins=False, splitSignalSamples=False):
+    def __init__(self, truthDiffBins=False, splitSignalSamples=False, decay_mode="Dplus"):
         self.truthDiffBins = truthDiffBins
         self.splitSignalSamples = splitSignalSamples
+        self.decay_mode = decay_mode
+
+        if self.decay_mode == "Dstar":
+            self.samplesConf = "spg_comparison_dstar"
 
         # signal samples
         if self.splitSignalSamples:
@@ -184,33 +188,55 @@ class SPGComparison(ChannelTemplate):
                     ] for slice in self.truthSlices
                 })
 
+        if self.decay_mode == "Dplus":
+            self.samples.update(
+                {
+                    '411MisMatched': [
+                        ['Wjets_emu_411MisMatched', proxies.GenericChannel(region="411MisMatched", name="411MisMatched")],
+                        ['SPG_411MisMatched', proxies.SPGChannel(name="411MisMatchedInclusiveSPG", regions_OS=["inclusive_Dplus_OS_411MisMatched"], regions_SS=[
+                            "inclusive_Dplus_SS_411MisMatched"], always_subtract=True)],
+                    ],
+                    '421MisMatched': [
+                        ['Wjets_emu_421MisMatched', proxies.GenericChannel(region=["421MisMatched", "413MisMatched"], name="421MisMatched")],
+                        ['SPG_421MisMatched', proxies.SPGChannel(name="421MisMatchedInclusiveSPG", regions_OS=[
+                            "inclusive_Dplus_OS"], regions_SS=["inclusive_Dplus_SS"])],
+                    ],
+                }
+            )
+        elif self.decay_mode == "Dstar":
+            self.samples.update(
+                {
+                    '411MisMatched': [
+                        ['Wjets_emu_411MisMatched', proxies.GenericChannel(region="411MisMatched", name="411MisMatched")],
+                        ['SPG_411MisMatched', proxies.SPGChannel(name="411MisMatchedInclusiveSPG", regions_OS=["inclusive_Dstar_OS"], regions_SS=["inclusive_Dstar_SS"], always_subtract=True)],
+                    ],
+                    '421MisMatched': [
+                        ['Wjets_emu_421MisMatched', proxies.GenericChannel(region="421MisMatched", name="421MisMatched")],
+                        ['SPG_421MisMatched', proxies.SPGChannel(name="421MisMatchedInclusiveSPG", regions_OS=["inclusive_Dstar_OS"], regions_SS=["inclusive_Dstar_SS"])],
+                    ],
+                    '413MisMatched': [
+                        ['Wjets_emu_413MisMatched', proxies.GenericChannel(region="413MisMatched", name="413MisMatched")],
+                        ['SPG_413MisMatched', proxies.SPGChannel(name="413MisMatchedInclusiveSPG", regions_OS=["inclusive_Dstar_OS_413MisMatched"], regions_SS=["inclusive_Dstar_SS_413MisMatched"])],
+                    ],
+                }
+            )
         # backgrounds
         self.samples.update(
             {
-                '411MisMatched': [
-                    ['Wjets_emu_411MisMatched', proxies.GenericChannel(region="411MisMatched", name="411MisMatched")],
-                    ['SPG_411MisMatched', proxies.SPGChannel(name="411MisMatchedInclusiveSPG", regions_OS=["inclusive_Dplus_OS_411MisMatched"], regions_SS=[
-                        "inclusive_Dplus_SS_411MisMatched"], always_subtract=True)],
-                ],
                 '431MisMatched': [
                     ['Wjets_emu_431MisMatched', proxies.GenericChannel(region="431MisMatched", name="431MisMatched")],
                     ['SPG_431MisMatched', proxies.SPGChannel(name="431MisMatchedInclusiveSPG", regions_OS=[
-                        "inclusive_Dplus_OS"], regions_SS=["inclusive_Dplus_SS"])],
-                ],
-                '421MisMatched': [
-                    ['Wjets_emu_421MisMatched', proxies.GenericChannel(region=["421MisMatched", "413MisMatched"], name="421MisMatched")],
-                    ['SPG_421MisMatched', proxies.SPGChannel(name="421MisMatchedInclusiveSPG", regions_OS=[
-                        "inclusive_Dplus_OS"], regions_SS=["inclusive_Dplus_SS"])],
+                        "inclusive_" + self.decay_mode + "_OS"], regions_SS=["inclusive_" + self.decay_mode + "_SS"])],
                 ],
                 'BaryonMisMatched': [
                     ['Wjets_emu_BaryonMisMatched', proxies.GenericChannel(region="BaryonMisMatched", name="BaryonMisMatched")],
                     ['SPG_BaryonMisMatched', proxies.SPGChannel(name="BaryonMisMatchedInclusiveSPG", regions_OS=[
-                        "inclusive_Dplus_OS"], regions_SS=["inclusive_Dplus_SS"])],
+                        "inclusive_" + self.decay_mode + "_OS"], regions_SS=["inclusive_" + self.decay_mode + "_SS"])],
                 ],
                 'CharmMisMatched': [
                     ['Wjets_emu_CharmMisMatched', proxies.MatchedCharm(name="CharmMisMatched")],
                     ['SPG_CharmMisMatched', proxies.SPGChannel(name="CharmMisMatchedInclusiveSPG", regions_OS=[
-                        "inclusive_Dplus_OS"], regions_SS=["inclusive_Dplus_SS"])],
+                        "inclusive_" + self.decay_mode + "_OS"], regions_SS=["inclusive_" + self.decay_mode + "_SS"])],
                 ],
             })
 

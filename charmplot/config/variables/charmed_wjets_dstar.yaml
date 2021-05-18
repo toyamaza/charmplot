@@ -23,7 +23,7 @@ Dmeson_mdiff:
   ratio_range: [0.5,1.49]
   do_overflow: False
   do_underflow: False
-  dstar_tail_rebin: True
+  dstar_tail_rebin: False
 
 Dmeson_mdiff_impact_sig:
   label: 'm(D*-D^{0}) (w/o ImpSig)'

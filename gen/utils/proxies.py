@@ -264,7 +264,7 @@ class MatchedCharm(ProxyChannel):
                                [reg + "_413MisMatched" for reg in regions] +
                                [reg + "_421MisMatched" for reg in regions] +
                                [reg + "_BaryonMisMatched" for reg in regions])
-        elif self.decayMode == "DstarKPiPi0":
+        elif self.decayMode in ["DstarKPiPi0", "Dstar"]:
             return self.format([reg + "_431MisMatched" for reg in regions] +
                                [reg + "_411MisMatched" for reg in regions] +
                                [reg + "_421MisMatched" for reg in regions] +
