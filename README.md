@@ -69,7 +69,7 @@ immediate effect without re-installing the package.
 
 Copy the charmpp output in a clean folder:
 ```
-mkdir <some_dit>
+mkdir <some_dir>
 cd <some_dir>
 cp /global/cfs/cdirs/atlas/wcharm/charmpp_output/Dplus_2021_05_14/*.root .
 ```
@@ -120,3 +120,27 @@ plot_data_mc.py -a wplusd.yaml -v Dmeson_m --nology
 Two additional options are used with the `generate_wplusd_config.py` script for differential bins:
 - `--differential-bins`: Create additional plots for the differential pT(D) bins,
 - `--truth-differential-bins`: Split the signal sample into five samples depending on the truth pT(D).
+
+## Example D* Plots
+
+Copy the charmpp output in a clean folder:
+```
+mkdir <some_dir>
+cd <some_dir>
+cp /global/cfs/cdirs/atlas/wcharm/charmpp_output/Dstar_2021_05_18/*.root .
+```
+### data / MC plots without SPG and Loose Inclusive templates
+
+Add the option `--replacement-samples` to replace some of the signal and background MC templates with SPG and Loose Inclusive templates.
+
+```
+generate_wplusd_config.py -a wdstar -s truth -d Dstar -v charmed_wjets_dstar --extra-rebin 2.5
+plot_data_mc.py -a wdstar.yaml -v Dmeson_mdiff --nology
+```
+
+### SPG comparison
+
+```
+generate_wplusd_config.py -a wdstar_spg -s spg_comparison -v charmed_wjets_dstar -d Dstar --process-string="W^{#pm}D^{*#mp}"
+plot_mc_mc.py -a wdstar_spg.yaml -v "Dmeson_mdiff" --nology --extra-rebin 2.5
+```
