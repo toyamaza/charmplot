@@ -854,7 +854,11 @@ Dmeson_transfer_matrix:
   allow_rebin: False
 
 Dmeson_differential_pt:
-  make_plots: False
+  make_plots: True
+  allow_rebin: False
+
+Dmeson_truth_differential_pt:
+  make_plots: True
   allow_rebin: False
 
 truth_Dmeson_pt:
