@@ -36,6 +36,8 @@ def main(options):
                                           splitSignalSamples=options.split_signal_samples, decay_mode=options.decay_mode)
     elif options.samples.lower() == 'bkg_comparison':
         samples = templates.BKGComparison()
+    elif options.samples.lower() == 'wplusd_comparison':
+        samples = templates.WDComparisonSamples()
     else:
         print(f"ERROR: Unknown samples type {options.samples}")
         sys.exit(1)

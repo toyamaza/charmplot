@@ -339,6 +339,22 @@ class ReplacementSamples(ChannelTemplate):
         return self.samples
 
 
+class WDComparisonSamples(ChannelTemplate):
+
+    samplesConf = "wplusd_comparison"
+
+    samples = [
+        ['MG_Wjets_emu_Matched', proxies.Matched()],
+        ['Powheg_Wjets_emu_Matched', proxies.Matched()],
+        ['Sherpa_Wjets_emu_Matched', proxies.Matched()],
+        ['MGFxFx_Wjets_emu_Matched', proxies.Matched()],
+        ['Sherpa2210_Wjets_emu_Matched', proxies.Matched()],
+    ]
+
+    def get(self):
+        return self.samples
+
+
 class ChannelGenerator:
 
     def __init__(self, config, samples, signs, years, leptons, charges,
