@@ -458,7 +458,7 @@ def rebin_histogram(h: ROOT.TH1, v: variable.Variable, extra_rebin: int = 1):
 def make_stat_err(h: ROOT.TH1) -> List[Union[ROOT.TGraphErrors, ROOT.TGraphErrors]]:
     gr = ROOT.TGraphAsymmErrors()
     gr_err_only = ROOT.TGraphAsymmErrors()
-    for i in range(0, h.GetNbinsX() + 2):
+    for i in range(1, h.GetNbinsX() + 1):
         x = h.GetBinCenter(i)
         y = h.GetBinContent(i)
         gr.SetPoint(gr.GetN(), x, y)
@@ -479,7 +479,7 @@ def make_stat_err_and_nominal(h: ROOT.TH1) -> List[Union[ROOT.TGraphErrors, ROOT
     gr_val_only = ROOT.TGraphErrors()
     gr = ROOT.TGraphAsymmErrors()
     gr_err_only = ROOT.TGraphAsymmErrors()
-    for i in range(0, h.GetNbinsX() + 2):
+    for i in range(1, h.GetNbinsX() + 1):
         x = h.GetBinCenter(i)
         y = h.GetBinContent(i)
         gr_val_only.SetPoint(gr_val_only.GetN(), x, y)
@@ -501,7 +501,7 @@ def make_stat_err_and_nominal(h: ROOT.TH1) -> List[Union[ROOT.TGraphErrors, ROOT
 def make_sys_err(h: ROOT.TH1, h_sys: List) -> List[Union[ROOT.TGraphErrors, ROOT.TGraphErrors]]:
     gr = ROOT.TGraphAsymmErrors()
     gr_err_only = ROOT.TGraphAsymmErrors()
-    for i in range(0, h.GetNbinsX() + 2):
+    for i in range(1, h.GetNbinsX() + 1):
         x = h.GetBinCenter(i)
         y = h.GetBinContent(i)
         sys = [h_sys.GetBinContent(i) for h_sys in h_sys]
@@ -533,7 +533,7 @@ def make_sys_err(h: ROOT.TH1, h_sys: List) -> List[Union[ROOT.TGraphErrors, ROOT
 def make_empty_error_bands(h: ROOT.TH1) -> List[Union[ROOT.TGraphErrors, ROOT.TGraphErrors]]:
     gr = ROOT.TGraphAsymmErrors()
     gr_err_only = ROOT.TGraphAsymmErrors()
-    for i in range(0, h.GetNbinsX() + 2):
+    for i in range(1, h.GetNbinsX() + 1):
         x = h.GetBinCenter(i)
         y = h.GetBinContent(i)
         gr.SetPoint(gr.GetN(), x, y)
