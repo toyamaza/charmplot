@@ -26,8 +26,8 @@ handler.setFormatter(formatter)
 root.addHandler(handler)
 
 # samples
-SAMPLES = ["LOMG", "NLOMG[_VarBand]", "QCDScale[_VarBand]", "MGFxFx", "MGFxFxReshower", "Sherpa2210"]
-COLORS = ["ROOT.kBlue", "ROOT.kBlack", "ROOT.kRed", "ROOT.kYellow+2", "ROOT.kBlack", "ROOT.kGreen+2"]
+SAMPLES = ["LOMG", "NLOMG[_VarBand]", "QCDScale[_VarBand]", "MGFxFx", "MGFxFxReshower", "Sherpa2210", "Sherpa2211"]
+COLORS = ["ROOT.kBlue", "ROOT.kBlack", "ROOT.kRed", "ROOT.kYellow+2", "ROOT.kBlack", "ROOT.kGreen+2", "ROOT.kViolet"]
 
 # channel name
 channel_names = {
@@ -373,7 +373,7 @@ if __name__ == "__main__":
                       help="run over a subset of channels")
     parser.add_option('-s', '--samples',
                       action="store", dest="samples",
-                      default="LOMG,NLOMG[_VarBand],QCDScale[_VarBand],MGFxFx,MGFxFxReshower,Sherpa2210",
+                      default="LOMG,NLOMG[_VarBand],QCDScale[_VarBand],MGFxFx,MGFxFxReshower,Sherpa2210,Sherpa2211",
                       help="the samples to run over")
     parser.add_option('-v', '--vars',
                       action="store", dest="vars",
