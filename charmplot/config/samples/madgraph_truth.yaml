@@ -157,7 +157,7 @@ Wjets_emu_411MisMatched:
   fillColor: "10002"
   legendLabel: "W+#it{D}(other)"
   shortName: Wjets_emu_411MisMatched
-  makeGhostSample: True
+  # makeGhostSample: True
 
 Wjets_emu_431MisMatched:
   add:
@@ -188,7 +188,7 @@ Wjets_emu_Rest:
   fillColor: "11002"
   legendLabel: "W+jets"
   shortName: Wjets_emu_Rest
-  makeGhostSample: True
+  # makeGhostSample: True
 
 Wjets_emu_Bkg:
   add:
@@ -199,7 +199,7 @@ Wjets_emu_Bkg:
   fillColor: "11004"
   legendLabel: "W+jets Bkg."
   shortName: Wjets_emu_Bkg
-  makeGhostSample: True
+  # makeGhostSample: True
 
 Wjets_emu_BkgShared:
   add:
@@ -210,7 +210,7 @@ Wjets_emu_BkgShared:
   fillColor: "11002"
   legendLabel: "'' Shared"
   shortName: Wjets_emu_BkgShared
-  makeGhostSample: True
+  # makeGhostSample: True
 
 Wjets_Rest:
   add:
@@ -224,7 +224,7 @@ Wjets_Rest:
   shortName: Wjets_Rest
   ignoreTruthMatching:
     - MG_Wjets_tau
-  makeGhostSample: True
+  # makeGhostSample: True
 
 Wjets_emu_MisMatched:
   add:
@@ -235,7 +235,7 @@ Wjets_emu_MisMatched:
   fillColor: "11004"
   legendLabel: "W+c^{mis-match}"
   shortName: Wjets_emu_MisMatched
-  makeGhostSample: True
+  # makeGhostSample: True
 
 Wjets_emu_413MisMatched:
   add:
@@ -287,7 +287,7 @@ Wjets_emu_Charm:
   fillColor: "10001"
   legendLabel: "W+c^{match}"
   shortName: Wjets_emu_Charm
-  makeGhostSample: True
+  # makeGhostSample: True
 
 Wjets_emu_CharmGeom:
   add:
@@ -310,7 +310,7 @@ Wjets_emu_HardMisMatched:
   fillColor: "10000"
   legendLabel: "W+Light"
   shortName: Wjets_emu_Charm
-  makeGhostSample: True
+  # makeGhostSample: True
 
 Wjets_emu_NoMatch:
   add:
@@ -506,7 +506,7 @@ Top:
   fillColor: "12001"
   legendLabel: Top
   shortName: Top
-  makeGhostSample: True
+  # makeGhostSample: True
 
 Top_HS:
   add:
@@ -584,7 +584,7 @@ DibosonZjetsTau:
   fillColor: "15000"
   legendLabel: Other
   shortName: DibosonZjetsTau
-  makeGhostSample: True
+  # makeGhostSample: True
 
 DibosonVjetsTau:
   add:
@@ -598,7 +598,7 @@ DibosonVjetsTau:
   fillColor: "15000"
   legendLabel: Other
   shortName: DibosonVjetsTau
-  makeGhostSample: True
+  # makeGhostSample: True
 
 Multijet:
   add: data
@@ -625,7 +625,7 @@ Multijet_MatrixMethod:
   fillColor: "14003"
   legendLabel: Multijet
   shortName: Multijet_MatrixMethod
-  makeGhostSample: True
+  # makeGhostSample: True
 
 Multijet_MatrixMethod_Offset:
   add: data
@@ -633,7 +633,7 @@ Multijet_MatrixMethod_Offset:
   fillColor: "14003"
   legendLabel: Multijet
   shortName: Multijet_MatrixMethod_Offset
-  makeGhostSample: True
+  # makeGhostSample: True
 
 Multijet_MatrixMethod_FF:
   add:

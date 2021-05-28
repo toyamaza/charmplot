@@ -20,6 +20,8 @@ import sys
 
 MC_Map = Dict[sample.Sample, ROOT.TH1]
 
+MC_Map_Map = Dict[str, Dict[sample.Sample, ROOT.TH1]]
+
 logger = logging.getLogger(__name__)
 
 
@@ -41,6 +43,39 @@ def get_gr_from_hist(h: ROOT.TH1) -> ROOT.TGraphErrors:
         gr.SetPointError(gr.GetN() - 1, 0, h.GetBinError(i))
     gr.SetMarkerSize(1.0)
     return gr
+
+
+def get_hist_from_gr(gr: ROOT.TGraphAsymmErrors, name: str) -> ROOT.TH1:
+    xbins = []
+    N = gr.GetN()
+    for i in range(N):
+        xbins += [gr.GetX()[i] - gr.GetEXlow()[i]]
+    xbins += [gr.GetX()[N - 1] + gr.GetEXhigh()[N - 1]]
+    h = ROOT.TH1D(name, name, N, array.array('d', xbins))
+    h_up = ROOT.TH1D(f"{name}_up", f"{name}_up", N, array.array('d', xbins))
+    h_dn = ROOT.TH1D(f"{name}_dn", f"{name}_dn", N, array.array('d', xbins))
+    h.SetLineColor(gr.GetLineColor())
+    h.SetMarkerColor(gr.GetMarkerColor())
+    h_up.SetLineColor(gr.GetLineColor())
+    h_up.SetMarkerColor(gr.GetMarkerColor())
+    h_dn.SetLineColor(gr.GetLineColor())
+    h_dn.SetMarkerColor(gr.GetMarkerColor())
+    for i in range(1, h.GetNbinsX() + 1):
+        h.SetBinContent(i, gr.GetY()[i - 1])
+        h.SetBinError(i, (gr.GetEYlow()[i - 1] + gr.GetEYhigh()[i - 1]) / 2)
+        h_up.SetBinContent(i, gr.GetY()[i - 1] + gr.GetEYhigh()[i - 1])
+        h_up.SetBinError(i, 0)
+        h_dn.SetBinContent(i, gr.GetY()[i - 1] - gr.GetEYlow()[i - 1])
+        h_dn.SetBinError(i, 0)
+    h.SetBinContent(0, h.GetBinContent(1))
+    h.SetBinError(0, h.GetBinError(1))
+    h.SetBinContent(N + 1, h.GetBinContent(N))
+    h.SetBinError(N + 1, h.GetBinError(N))
+    h_up.SetBinContent(0, h_up.GetBinContent(1))
+    h_up.SetBinContent(N + 1, h_up.GetBinContent(N))
+    h_dn.SetBinContent(0, h_dn.GetBinContent(1))
+    h_dn.SetBinContent(N + 1, h_dn.GetBinContent(N))
+    return h, h_up, h_dn
 
 
 def get_mc_min(mc_map: MC_Map, samples: list):
@@ -224,7 +259,7 @@ def save_to_trex_file(trex_folder: str, channel: channel.Channel, var: variable.
             if not sys:
                 h_ghost = mc_map[s].Clone(f"{mc_map[s].GetName()}_GHOST")
                 # minimum = h_ghost.GetMinimum()
-                for i in range(0, h_ghost.GetNbinsX() + 2):
+                for i in range(1, h_ghost.GetNbinsX() + 1):
                     h_ghost.SetBinContent(i, 10000.)
                     h_ghost.SetBinError(i, 0)
                 out_file = ROOT.TFile(trex_histograms[s.shortName + "_GHOST"], "UPDATE")
@@ -257,7 +292,7 @@ def save_histograms_to_trex_file(trex_folder: str, channel: channel.Channel, var
 
 
 def save_to_file(out_file_name: str, channel: channel.Channel, var: variable.Variable, h_data: ROOT.TH1, mc_map: MC_Map):
-    logging.info(f"Saving histograms to root file for channel {channel}")
+    logging.info(f"Saving histograms to root file for channel {channel.name}")
     out_file = ROOT.TFile(out_file_name, "UPDATE")
     out_file.cd()
     if h_data:
@@ -270,6 +305,18 @@ def save_to_file(out_file_name: str, channel: channel.Channel, var: variable.Var
                 out_name = f"{out_name_split[0]}_{channel.name}_{var.name}"
             mc_map[s].Write(out_name)
     out_file.Close()
+
+
+def save_to_file_sys(out_file_name: str, channel: channel.Channel, var: variable.Variable, mc_map: MC_Map_Map, systematics: List):
+    for syst in systematics:
+        logging.info(f"Saving histograms to root file for channel {channel.name} for sys {syst}")
+        out_file = ROOT.TFile(out_file_name, "UPDATE")
+        out_file.cd()
+        for s in mc_map[syst]:
+            if mc_map[syst][s]:
+                out_name = f"{s.shortName}_{syst}_{channel.name}_{var.name}"
+                mc_map[syst][s].Write(out_name)
+        out_file.Close()
 
 
 def read_samples(conf: globalConfig.GlobalConfig, reader: inputDataReader.InputDataReader,
@@ -363,12 +410,9 @@ def get_maximum(h, x1, x2):
 
 
 def set_to_positive(h, sys=""):
-    for i in range(0, h.GetNbinsX() + 2):
+    for i in range(1, h.GetNbinsX() + 1):
         if h.GetBinContent(i) <= 0:
-            # if not sys:
             h.SetBinContent(i, 1e-5)
-            # else:
-            #     h.SetBinContent(i, 1e-6)
 
 
 def fit_histogram(h, fit):
@@ -383,7 +427,7 @@ def fit_histogram(h, fit):
 
 
 def set_errors_to_zero(h):
-    for i in range(0, h.GetNbinsX() + 2):
+    for i in range(1, h.GetNbinsX() + 1):
         h.SetBinError(i, 0.)
 
 
@@ -548,10 +592,17 @@ def make_pdf_err(h: ROOT.TH1, h_var: List, pdfstring: str, norm: bool = False) -
     if not len(h_var):
         return make_empty_error_bands(h)
 
+    graphs = False
+    if "TGraph" in str(type(h)):
+        graphs = True
+
     pdfset = lhapdf.getPDFSet(pdfstring)
     pdfset.mkPDFs()
-    nBins = h.GetNbinsX()
-    if norm:
+    if graphs:
+        nBins = h.GetN()
+    else:
+        nBins = h.GetNbinsX()
+    if norm and not graphs:
         nom_sum = h_var[0].GetSum()
         for hist in h_var:
             hist.Scale(nom_sum / hist.GetSum())
@@ -561,10 +612,16 @@ def make_pdf_err(h: ROOT.TH1, h_var: List, pdfstring: str, norm: bool = False) -
     exh = ROOT.std.vector("float")(nBins)
     exl = ROOT.std.vector("float")(nBins)
     for a in range(nBins):
-        xval[a] = h.GetBinCenter(a + 1)
-        yval[a] = h.GetBinContent(a + 1)
-        exh[a] = h.GetBinWidth(a + 1) / 2.
-        exl[a] = h.GetBinWidth(a + 1) / 2.
+        if graphs:
+            xval[a] = h.GetX()[a]
+            yval[a] = h.GetY()[a]
+            exh[a] = h.GetEXhigh()[a]
+            exl[a] = h.GetEXlow()[a]
+        else:
+            xval[a] = h.GetBinCenter(a + 1)
+            yval[a] = h.GetBinContent(a + 1)
+            exh[a] = h.GetBinWidth(a + 1) / 2.
+            exl[a] = h.GetBinWidth(a + 1) / 2.
 
     exh = np.asarray(exh)
     exl = np.asarray(exl)
@@ -572,15 +629,13 @@ def make_pdf_err(h: ROOT.TH1, h_var: List, pdfstring: str, norm: bool = False) -
     yval = np.asarray(yval)
     pdfvars = np.zeros((len(h_var), nBins))
     for i in range(len(h_var)):
-        pdfvars[i, :] = np.array([h_var[i].GetBinContent(binNo) for binNo in range(1, nBins + 1)])
+        if graphs:
+            pdfvars[i, :] = np.array([h_var[i].GetY()[binNo] for binNo in range(nBins)])
+        else:
+            pdfvars[i, :] = np.array([h_var[i].GetBinContent(binNo) for binNo in range(1, nBins + 1)])
     pdferrplus = np.array([pdfset.uncertainty(pdfvars[:, i]).errplus for i in range(nBins)])
     pdferrminus = np.array([pdfset.uncertainty(pdfvars[:, i]).errminus for i in range(nBins)])
-    exh = np.hstack((0, exh, 0))
-    exl = np.hstack((0, exl, 0))
-    xval = np.hstack((xval[0], xval, xval[-1]))
-    yval = np.hstack((yval[0], yval, yval[-1]))
-    pdferrplus = np.hstack(([0], pdferrplus, [0]))
-    pdferrminus = np.hstack(([0], pdferrminus, [0]))
+
     with np.errstate(divide='ignore', invalid='ignore'):
         pdfeyh_o = pdferrplus / yval
         pdfeyl_o = pdferrminus / yval
@@ -592,11 +647,11 @@ def make_pdf_err(h: ROOT.TH1, h_var: List, pdfstring: str, norm: bool = False) -
     pdfeyl_o = array.array('d', pdfeyl_o)
     exh = array.array('d', exh)
     exl = array.array('d', exl)
-    unity = array.array('d', np.ones((nBins + 2,)))
+    unity = array.array('d', np.ones((nBins,)))
     xval = array.array('d', xval)
     yval = array.array('d', yval)
-    gr = ROOT.TGraphAsymmErrors(nBins + 2, xval, yval, exl, exh, pdfeyl, pdfeyh)
-    gr_err_only = ROOT.TGraphAsymmErrors(nBins + 2, xval, unity, exl, exh, pdfeyl_o, pdfeyh_o)
+    gr = ROOT.TGraphAsymmErrors(nBins, xval, yval, exl, exh, pdfeyl, pdfeyh)
+    gr_err_only = ROOT.TGraphAsymmErrors(nBins, xval, unity, exl, exh, pdfeyl_o, pdfeyh_o)
     gr.SetFillColor(ROOT.kGray + 3)
     gr.SetFillStyle(3354)
     gr_err_only.SetFillColor(ROOT.kGray + 3)
@@ -609,9 +664,16 @@ def make_minmax_err(h: ROOT.TH1, h_var: List, Norm: bool = False) -> List[Union[
     if not len(h_var):
         return make_empty_error_bands(h)
 
-    nBins = h.GetNbinsX()
+    graphs = False
+    if "TGraph" in str(type(h)):
+        graphs = True
 
-    if Norm:
+    if graphs:
+        nBins = h.GetN()
+    else:
+        nBins = h.GetNbinsX()
+
+    if Norm and not graphs:
         nom_sum = h_var[0].GetSum()
         for hist in h_var:
             hist.Scale(nom_sum / hist.GetSum())
@@ -621,13 +683,20 @@ def make_minmax_err(h: ROOT.TH1, h_var: List, Norm: bool = False) -> List[Union[
     exh = ROOT.std.vector("float")(nBins)
     exl = ROOT.std.vector("float")(nBins)
 
-    eyh = eyl = np.zeros((nBins,))
+    eyh = np.zeros((nBins,))
+    eyl = np.zeros((nBins,))
 
     for a in range(nBins):
-        xval[a] = h.GetBinCenter(a + 1)
-        yval[a] = h.GetBinContent(a + 1)
-        exh[a] = h.GetBinWidth(a + 1) / 2.
-        exl[a] = h.GetBinWidth(a + 1) / 2.
+        if graphs:
+            xval[a] = h.GetX()[a]
+            yval[a] = h.GetY()[a]
+            exh[a] = h.GetEXhigh()[a]
+            exl[a] = h.GetEXlow()[a]
+        else:
+            xval[a] = h.GetBinCenter(a + 1)
+            yval[a] = h.GetBinContent(a + 1)
+            exh[a] = h.GetBinWidth(a + 1) / 2.
+            exl[a] = h.GetBinWidth(a + 1) / 2.
 
     exh = np.asarray(exh)
     exl = np.asarray(exl)
@@ -635,23 +704,19 @@ def make_minmax_err(h: ROOT.TH1, h_var: List, Norm: bool = False) -> List[Union[
     xval = np.asarray(xval)
     yval = np.asarray(yval)
 
-    for i in range(1, h.GetNbinsX() + 1):
+    for i in range(1, nBins + 1):
         bin_list = []
         for hist in h_var:
-            bin_list.append(hist.GetBinContent(i))
+            if graphs:
+                bin_list.append(hist.GetY()[i - 1])
+            else:
+                bin_list.append(hist.GetBinContent(i))
         if len(bin_list) != 0:
             eyh[i - 1] = np.abs(np.max(bin_list) - yval[i - 1])
             eyl[i - 1] = np.abs(np.min(bin_list) - yval[i - 1])
         else:
             eyh[i - 1] = 0
             eyl[i - 1] = 0
-
-    exh = np.hstack((0, exh, 0))
-    exl = np.hstack((0, exl, 0))
-    xval = np.hstack((xval[0], xval, xval[-1]))
-    yval = np.hstack((yval[0], yval, yval[-1]))
-    eyh = np.hstack((0, eyh, 0))
-    eyl = np.hstack((0, eyl, 0))
 
     with np.errstate(divide='ignore', invalid='ignore'):
         eyh_o = eyh / yval
@@ -670,9 +735,9 @@ def make_minmax_err(h: ROOT.TH1, h_var: List, Norm: bool = False) -> List[Union[
 
     xval = array.array('d', xval)
     yval = array.array('d', yval)
-    unity = array.array('d', np.ones((nBins + 2,)))
-    gr = ROOT.TGraphAsymmErrors(nBins + 2, xval, yval, exl, exl, eyl, eyh)
-    gr_err_only = ROOT.TGraphAsymmErrors(nBins + 2, xval, unity, exl, exl, eyl_o, eyh_o)
+    unity = array.array('d', np.ones((nBins,)))
+    gr = ROOT.TGraphAsymmErrors(nBins, xval, yval, exl, exl, eyl, eyh)
+    gr_err_only = ROOT.TGraphAsymmErrors(nBins, xval, unity, exl, exl, eyl_o, eyh_o)
 
     gr.SetFillColor(ROOT.kGray + 3)
     gr.SetFillStyle(3354)
@@ -750,10 +815,10 @@ def make_stack(samples: List, mc_map: MC_Map):
 def sys_graph_to_hists(gr: ROOT.TGraphErrors, nominal: ROOT.TH1, name: str) -> List[Union[ROOT.TH1, ROOT.TH1]]:
     h_up = nominal.Clone(f"{nominal.GetName()}_{name}_up")
     h_dn = nominal.Clone(f"{nominal.GetName()}_{name}_dn")
-    for i in range(0, nominal.GetNbinsX() + 2):
+    for i in range(1, nominal.GetNbinsX() + 1):
         y = nominal.GetBinContent(i)
-        h_up.SetBinContent(i, y + gr.GetEYhigh()[i])
-        h_dn.SetBinContent(i, y - gr.GetEYlow()[i])
+        h_up.SetBinContent(i, y + gr.GetEYhigh()[i - 1])
+        h_dn.SetBinContent(i, y - gr.GetEYlow()[i - 1])
     return h_up, h_dn
 
 
@@ -887,7 +952,7 @@ def replace_sample(conf: globalConfig.GlobalConfig, mc_map: MC_Map, reader: inpu
 
     # smooth any bins with very low bin content in the nominal replacement histogram
     original_norm = h_replacement.GetSumOfWeights()
-    for i in range(0, h_replacement.GetNbinsX() + 2):
+    for i in range(1, h_replacement.GetNbinsX() + 1):
         if abs(h_replacement.GetBinContent(i)) < h_replacement.GetMaximum() / 1000.:
             h_replacement.SetBinContent(i, 1e-5)
     h_replacement.Scale(original_norm / h_replacement.GetSumOfWeights())
