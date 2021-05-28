@@ -161,8 +161,8 @@ class SPGComparison(ChannelTemplate):
                 'Matched': [
                     ['Wjets_emu_Matched', proxies.GenericChannel(region=self.truthSlices, name="Matched")],
                     ['SPG_Matched', proxies.SPGChannel(name="SPG_Matched",
-                                                       regions_OS=[f"inclusive_" + self.decay_mode + "_OS_{slice}" for slice in self.truthSlices],
-                                                       regions_SS=[f"inclusive_" + self.decay_mode + "_SS_{slice}" for slice in self.truthSlices],
+                                                       regions_OS=[f"inclusive_" + self.decay_mode + f"_OS_{slice}" for slice in self.truthSlices],
+                                                       regions_SS=[f"inclusive_" + self.decay_mode + f"_SS_{slice}" for slice in self.truthSlices],
                                                        always_subtract=True)]]
             }
         else:
@@ -182,8 +182,8 @@ class SPGComparison(ChannelTemplate):
                     slice: [
                         [f'Wjets_emu_{slice}', proxies.GenericChannel(region=slice, name=slice)],
                         [f'SPG_{slice}', proxies.SPGChannel(name=f"SPG_{slice}",
-                                                            regions_OS=[f"inclusive_" + self.decay_mode + "_OS_{slice}"],
-                                                            regions_SS=[f"inclusive_" + self.decay_mode + "_SS_{slice}"],
+                                                            regions_OS=[f"inclusive_" + self.decay_mode + f"_OS_{slice}"],
+                                                            regions_SS=[f"inclusive_" + self.decay_mode + f"_SS_{slice}"],
                                                             always_subtract=True)],
                     ] for slice in self.truthSlices
                 })
