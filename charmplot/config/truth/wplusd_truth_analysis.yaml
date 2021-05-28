@@ -1,8 +1,12 @@
 ---
 variablesConf: charmed_wjets_truth
 samplesConf: wplusd_truth
-channels:
+systematics:
+  - sherpa_theory_qcd
+  - sherpa_theory_pdf
+  - sherpa_theory_as
 
+channels:
   OS-SS_Dplus:
     regions:
       - el_minus_Dplus_OS
@@ -13,6 +17,25 @@ channels:
       - -el_plus_Dplus_SS
       - -mu_minus_Dplus_SS
       - -mu_plus_Dplus_SS
+    samples:
+      - MG_Wjets
+      - Powheg_Wjets
+      - Sherpa_Wjets
+      - Sherpa2210_Wjets
+      - MGFxFx_Wjets
+    label:
+      - W#rightarrowl#nu+D, D#rightarrowK#pi#pi
+      - inclusive OS-SS
+  OS-SS_Dplus_Kpipi:
+    regions:
+      - el_minus_Dplus_OS_Kpipi
+      - el_plus_Dplus_OS_Kpipi
+      - mu_minus_Dplus_OS_Kpipi
+      - mu_plus_Dplus_OS_Kpipi
+      - -el_minus_Dplus_SS_Kpipi
+      - -el_plus_Dplus_SS_Kpipi
+      - -mu_minus_Dplus_SS_Kpipi
+      - -mu_plus_Dplus_SS_Kpipi
     samples:
       - MG_Wjets
       - Powheg_Wjets
@@ -48,6 +71,21 @@ channels:
     label:
       - W#rightarrowl#nu+D, D#rightarrowK#pi#pi
       - el_plus OS-SS
+  OS-SS_mu_Dplus:
+    regions:
+      - mu_minus_Dplus_OS
+      - -mu_minus_Dplus_SS
+      - mu_plus_Dplus_OS
+      - -mu_plus_Dplus_SS
+    samples:
+      - MG_Wjets
+      - Powheg_Wjets
+      - Sherpa_Wjets
+      - Sherpa2210_Wjets
+      - MGFxFx_Wjets
+    label:
+      - W#rightarrowl#nu+D, D#rightarrowK#pi#pi
+      - mu OS-SS
   OS-SS_mu_minus_Dplus:
     regions:
       - mu_minus_Dplus_OS
@@ -74,12 +112,12 @@ channels:
     label:
       - W#rightarrowl#nu+D, D#rightarrowK#pi#pi
       - mu_plus OS-SS
-  OS-SS_mu_Dplus:
+  OS-SS_mu_Dplus_Kpipi:
     regions:
-      - mu_minus_Dplus_OS
-      - -mu_minus_Dplus_SS
-      - mu_plus_Dplus_OS
-      - -mu_plus_Dplus_SS
+      - mu_minus_Dplus_OS_Kpipi
+      - -mu_minus_Dplus_SS_Kpipi
+      - mu_plus_Dplus_OS_Kpipi
+      - -mu_plus_Dplus_SS_Kpipi
     samples:
       - MG_Wjets
       - Powheg_Wjets
@@ -89,3 +127,29 @@ channels:
     label:
       - W#rightarrowl#nu+D, D#rightarrowK#pi#pi
       - mu OS-SS
+  OS-SS_mu_minus_Dplus_Kpipi:
+    regions:
+      - mu_minus_Dplus_OS_Kpipi
+      - -mu_minus_Dplus_SS_Kpipi
+    samples:
+      - MG_Wjets
+      - Powheg_Wjets
+      - Sherpa_Wjets
+      - Sherpa2210_Wjets
+      - MGFxFx_Wjets
+    label:
+      - W#rightarrowl#nu+D, D#rightarrowK#pi#pi
+      - mu_minus OS-SS
+  OS-SS_mu_plus_Dplus_Kpipi:
+    regions:
+      - mu_plus_Dplus_OS_Kpipi
+      - -mu_plus_Dplus_SS_Kpipi
+    samples:
+      - MG_Wjets
+      - Powheg_Wjets
+      - Sherpa_Wjets
+      - Sherpa2210_Wjets
+      - MGFxFx_Wjets
+    label:
+      - W#rightarrowl#nu+D, D#rightarrowK#pi#pi
+      - mu_plus OS-SS

@@ -329,8 +329,8 @@ def main(options, conf):
 
         # calculate error bands
         for x in range(1, h_mc_tot.GetNbinsX() + 1):
-            g_mc_tot_err.GetEYlow()[x] = 0.
-            g_mc_tot_err.GetEYhigh()[x] = 0.
+            g_mc_tot_err.GetEYlow()[x - 1] = 0.
+            g_mc_tot_err.GetEYhigh()[x - 1] = 0.
             # off diagonal
             for i in range(n_pars):
                 for j in range(i):
@@ -339,35 +339,35 @@ def main(options, conf):
                         # err_i = (h_mc_tot_err_histograms_Up[i].GetBinContent(x) - h_mc_tot_err_histograms_Dn[i].GetBinContent(x)) / 2.
                         # err_j = (h_mc_tot_err_histograms_Up[j].GetBinContent(x) - h_mc_tot_err_histograms_Dn[j].GetBinContent(x)) / 2.
                         # err = err_i * err_j * corr * 2
-                        # g_mc_tot_err.GetEYlow()[x] += err
-                        # g_mc_tot_err.GetEYhigh()[x] += err
+                        # g_mc_tot_err.GetEYlow()[x - 1] += err
+                        # g_mc_tot_err.GetEYhigh()[x - 1] += err
                         err_up_i = h_mc_tot_err_histograms_Up[i].GetBinContent(x)
                         err_dn_i = h_mc_tot_err_histograms_Dn[i].GetBinContent(x)
                         err_up_j = h_mc_tot_err_histograms_Up[j].GetBinContent(x)
                         err_dn_j = h_mc_tot_err_histograms_Dn[j].GetBinContent(x)
                         err_up = err_up_i * err_up_j * corr * 2
                         err_dn = err_dn_i * err_dn_j * corr * 2
-                        g_mc_tot_err.GetEYlow()[x] += err_up
-                        g_mc_tot_err.GetEYhigh()[x] += err_dn
+                        g_mc_tot_err.GetEYlow()[x - 1] += err_up
+                        g_mc_tot_err.GetEYhigh()[x - 1] += err_dn
             # diagonal
             for i in range(n_pars):
                 if h_mc_tot_err_histograms_Up[i] and h_mc_tot_err_histograms_Dn[i]:
                     # err_i = (h_mc_tot_err_histograms_Up[i].GetBinContent(x) - h_mc_tot_err_histograms_Dn[i].GetBinContent(x)) / 2.
                     # err = err_i * err_i
-                    # g_mc_tot_err.GetEYlow()[x] += err
-                    # g_mc_tot_err.GetEYhigh()[x] += err
+                    # g_mc_tot_err.GetEYlow()[x - 1] += err
+                    # g_mc_tot_err.GetEYhigh()[x - 1] += err
                     err_up_i = h_mc_tot_err_histograms_Up[i].GetBinContent(x)
                     err_dn_i = h_mc_tot_err_histograms_Dn[i].GetBinContent(x)
                     err_up = err_up_i * err_up_i
                     err_dn = err_dn_i * err_dn_i
-                    g_mc_tot_err.GetEYlow()[x] += err_up
-                    g_mc_tot_err.GetEYhigh()[x] += err_dn
+                    g_mc_tot_err.GetEYlow()[x - 1] += err_up
+                    g_mc_tot_err.GetEYhigh()[x - 1] += err_dn
 
             # final
-            g_mc_tot_err.GetEYhigh()[x] = math.sqrt(g_mc_tot_err.GetEYhigh()[x])
-            g_mc_tot_err.GetEYlow()[x] = math.sqrt(g_mc_tot_err.GetEYlow()[x])
-            g_mc_tot_err_only.GetEYhigh()[x] = g_mc_tot_err.GetEYhigh()[x] / h_mc_tot.GetBinContent(x)
-            g_mc_tot_err_only.GetEYlow()[x] = g_mc_tot_err.GetEYlow()[x] / h_mc_tot.GetBinContent(x)
+            g_mc_tot_err.GetEYhigh()[x - 1] = math.sqrt(g_mc_tot_err.GetEYhigh()[x - 1])
+            g_mc_tot_err.GetEYlow()[x - 1] = math.sqrt(g_mc_tot_err.GetEYlow()[x - 1])
+            g_mc_tot_err_only.GetEYhigh()[x - 1] = g_mc_tot_err.GetEYhigh()[x - 1] / h_mc_tot.GetBinContent(x)
+            g_mc_tot_err_only.GetEYlow()[x - 1] = g_mc_tot_err.GetEYlow()[x - 1] / h_mc_tot.GetBinContent(x)
 
         # ratio
         h_ratio = utils.make_ratio(h_data, h_mc_tot)

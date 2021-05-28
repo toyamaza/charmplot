@@ -85,11 +85,12 @@ def process_channel(options, conf, c):
     if options.trex and c.make_plots:
         for s in samples + [conf.get_data()]:
             sample_file_name = os.path.join(trex_folder, f"{s.shortName}_tmp_{c.name}.root")
-            logging.info(f"created file for trex input {sample_file_name}")
+            logging.info(f"creating file for trex input {sample_file_name}")
             if s.shortName not in trex_histograms:
                 sample_out_file = ROOT.TFile(sample_file_name, "RECREATE")
                 trex_histograms[s.shortName] = sample_file_name
                 sample_out_file.Close()
+                logging.info(f"created file for trex input {sample_file_name}")
                 if s.makeGhostSample:
                     sample_file_name_ghost = os.path.join(trex_folder, f"{s.shortName}_GHOST_tmp_{c.name}.root")
                     sample_out_file = ROOT.TFile(sample_file_name_ghost, "RECREATE")

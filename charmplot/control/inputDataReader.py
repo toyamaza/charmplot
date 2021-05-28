@@ -56,8 +56,8 @@ class InputDataReader(object):
         logger.info(f"Got histogram {h_new}")
 
         # scale histogram
-        if self.channel_scale_factors and f.GetName().replace(".root", "") in self.channel_scale_factors:
-            key = f.GetName().replace(".root", "")
+        if self.channel_scale_factors and sample.shortName in self.channel_scale_factors:
+            key = sample.shortName
             logging.info(f"Scaling histogram by {self.channel_scale_factors[key]}")
             h_new.Scale(self.channel_scale_factors[key])
 

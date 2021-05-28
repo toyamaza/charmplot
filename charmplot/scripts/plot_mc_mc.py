@@ -86,6 +86,16 @@ def main(options, conf, reader):
             # mc map sys
             mc_map_sys = utils.read_sys_histograms(conf, reader, c, var, samples, None, systematics, mc_map)
 
+            # save histograms to root file
+            if c.save_to_file:
+                utils.save_to_file(out_file_name, c, var, None, mc_map)
+                for group in systematics:
+                    utils.save_to_file_sys(out_file_name, c, var, mc_map_sys[group], systematics[group]['variations'])
+
+            # skip
+            if not var.make_plots:
+                continue
+
             # systematics error bands
             gr_mc_sys_err_map = {sample: [] for sample in mc_map}
             gr_mc_sys_err_only_map = {sample: [] for sample in mc_map}
@@ -110,14 +120,6 @@ def main(options, conf, reader):
             for replace_sample, replace_channel in c.replacement_samples.items():
                 logging.info(f"replacing sample {replace_sample} with channel {replace_channel}")
                 utils.replace_sample(conf, mc_map, reader, c, var, replace_sample, replace_channel, mc_map_sys if systematics else None)
-
-            # save histograms to root file
-            if c.save_to_file:
-                utils.save_to_file(out_file_name, c, var, None, mc_map)
-
-            # skip
-            if not var.make_plots:
-                continue
 
             # canvas
             yaxis_label = "Entries"
@@ -212,17 +214,17 @@ def main(options, conf, reader):
                     fcolor = s.fillColor
                 temp_err = []
                 for err in gr_mc_sys_err_map[samples[i]]:
-                    temp_err += [err.Clone(f"{err.GetName()}_temp")]
+                    temp_err += [err.Clone()]
                     for x in range(1, denominator.GetNbinsX() + 1):
                         y = denominator.GetBinContent(x)
                         if y != 0:
-                            temp_err[-1].GetY()[x] /= y
-                            temp_err[-1].GetEYhigh()[x] /= y
-                            temp_err[-1].GetEYlow()[x] /= y
+                            temp_err[-1].GetY()[x - 1] /= y
+                            temp_err[-1].GetEYhigh()[x - 1] /= y
+                            temp_err[-1].GetEYlow()[x - 1] /= y
                         else:
-                            temp_err[-1].GetY()[x] = 0
-                            temp_err[-1].GetEYhigh()[x] = 0
-                            temp_err[-1].GetEYlow()[x] = 0
+                            temp_err[-1].GetY()[x - 1] = 0
+                            temp_err[-1].GetEYhigh()[x - 1] = 0
+                            temp_err[-1].GetEYlow()[x - 1] = 0
                 gr_mc_stat_err, _ = utils.make_stat_err(h)
                 gr_mc_tot_err = utils.combine_error_multiple([gr_mc_stat_err] + temp_err)
                 gr_mc_stat_err.SetLineColor(fcolor)
