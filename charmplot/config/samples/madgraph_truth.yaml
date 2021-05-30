@@ -698,8 +698,8 @@ SPG_431MisMatched:
 
 SPG_421MisMatched:
   add:
-    - SPG_D0
-    - SPG_D0bar
+    - SPG_D0_Dstar
+    - SPG_D0_Dstar_bar
   subtract:
   lineColor: "21000"
   legendLabel: "#it{D}0/#it{D}* SPG"
@@ -717,10 +717,10 @@ SPG_BaryonMisMatched:
 SPG_CharmMisMatched:
   add:
     - SPG_Ds_postProc
-    - SPG_D0_postProc
+    - SPG_D0_Dstar_postProc
     - SPG_Baryon_postProc
     - SPG_Dsminus_postProc
-    - SPG_D0bar_postProc
+    - SPG_D0_Dstar_bar_postProc
     - SPG_Baryonbar_postProc
   subtract:
   lineColor: "21000"

@@ -146,98 +146,124 @@ class SPGComparison(ChannelTemplate):
         "Matched_truth_pt_bin5",
     ]
 
-    def __init__(self, truthDiffBins=False, splitSignalSamples=False, decay_mode="Dplus"):
+    def __init__(self, truthDiffBins=False, splitSignalSamples=False, decay_mode="Dplus", signal_only=False, background_only=False):
         self.truthDiffBins = truthDiffBins
         self.splitSignalSamples = splitSignalSamples
         self.decay_mode = decay_mode
+        self.signal_only = signal_only
+        self.background_only = background_only
 
         if self.decay_mode == "Dstar":
             self.samplesConf = "spg_comparison_dstar"
 
-        # signal samples
-        if self.splitSignalSamples:
-            self.samples = {
-                'Matched': [
-                    ['Wjets_emu_Matched', proxies.GenericChannel(region=self.truthSlices, name="Matched")],
-                    ['SPG_Matched', proxies.SPGChannel(name="SPG_Matched",
-                                                       regions_OS=[f"inclusive_" + self.decay_mode + f"_OS_{slice}" for slice in self.truthSlices],
-                                                       regions_SS=[f"inclusive_" + self.decay_mode + f"_SS_{slice}" for slice in self.truthSlices],
-                                                       always_subtract=True)]]
-            }
-        else:
-            self.samples = {
-                'Matched': [
-                    ['Wjets_emu_Matched', proxies.Matched()],
-                    ['SPG_Matched', proxies.SPGChannel(name="SPG_Matched",
-                                                       regions_OS=[f"inclusive_" + self.decay_mode + "_OS_Matched"],
-                                                       regions_SS=[f"inclusive_" + self.decay_mode + "_SS_Matched"],
-                                                       always_subtract=True)]]
-            }
+        self.samples = {}
 
-        # signal samples in truth differential bins
-        if self.truthDiffBins and self.splitSignalSamples:
-            self.samples.update(
-                {
-                    slice: [
-                        [f'Wjets_emu_{slice}', proxies.GenericChannel(region=slice, name=slice)],
-                        [f'SPG_{slice}', proxies.SPGChannel(name=f"SPG_{slice}",
-                                                            regions_OS=[f"inclusive_" + self.decay_mode + f"_OS_{slice}"],
-                                                            regions_SS=[f"inclusive_" + self.decay_mode + f"_SS_{slice}"],
-                                                            always_subtract=True)],
-                    ] for slice in self.truthSlices
-                })
+        # signal samples
+        if not self.background_only:
+            if self.splitSignalSamples:
+                self.samples.update(
+                    {
+                        'Matched': [
+                            ['Wjets_emu_Matched', proxies.GenericChannel(region=self.truthSlices, name="Matched")],
+                            ['SPG_Matched', proxies.SPGChannel(name="SPG_Matched",
+                                                               regions_OS=[f"inclusive_" + self.decay_mode + f"_OS_{slice}" for slice in self.truthSlices],
+                                                               regions_SS=[f"inclusive_" + self.decay_mode + f"_SS_{slice}" for slice in self.truthSlices],
+                                                               always_OS=True)]]
+                    }
+                )
+            else:
+                self.samples.update(
+                    {
+                        'Matched': [
+                            ['Wjets_emu_Matched', proxies.Matched()],
+                            ['SPG_Matched', proxies.SPGChannel(name="SPG_Matched",
+                                                               regions_OS=[f"inclusive_" + self.decay_mode + "_OS_Matched"],
+                                                               regions_SS=[f"inclusive_" + self.decay_mode + "_SS_Matched"],
+                                                               always_OS=True)]]
+                    }
+                )
+
+            # signal samples in truth differential bins
+            if self.truthDiffBins and self.splitSignalSamples:
+                self.samples.update(
+                    {
+                        slice: [
+                            [f'Wjets_emu_{slice}', proxies.GenericChannel(region=slice, name=slice)],
+                            [f'SPG_{slice}', proxies.SPGChannel(name=f"SPG_{slice}",
+                                                                regions_OS=[f"inclusive_" + self.decay_mode + f"_OS_{slice}"],
+                                                                regions_SS=[f"inclusive_" + self.decay_mode + f"_SS_{slice}"],
+                                                                always_OS=True)],
+                        ] for slice in self.truthSlices
+                    })
 
         if self.decay_mode == "Dplus":
-            self.samples.update(
-                {
-                    '411MisMatched': [
-                        ['Wjets_emu_411MisMatched', proxies.GenericChannel(region="411MisMatched", name="411MisMatched")],
-                        ['SPG_411MisMatched', proxies.SPGChannel(name="411MisMatchedInclusiveSPG", regions_OS=["inclusive_Dplus_OS_411MisMatched"], regions_SS=[
-                            "inclusive_Dplus_SS_411MisMatched"], always_subtract=True)],
-                    ],
-                    '421MisMatched': [
-                        ['Wjets_emu_421MisMatched', proxies.GenericChannel(region=["421MisMatched", "413MisMatched"], name="421MisMatched")],
-                        ['SPG_421MisMatched', proxies.SPGChannel(name="421MisMatchedInclusiveSPG", regions_OS=[
-                            "inclusive_Dplus_OS"], regions_SS=["inclusive_Dplus_SS"])],
-                    ],
-                }
-            )
+            if not self.background_only:
+                self.samples.update(
+                    {
+                        '411MisMatched': [
+                            ['Wjets_emu_411MisMatched', proxies.GenericChannel(region="411MisMatched", name="411MisMatched")],
+                            ['SPG_411MisMatched', proxies.SPGChannel(name="411MisMatchedInclusiveSPG", regions_OS=["inclusive_Dplus_OS_411MisMatched"], regions_SS=[
+                                "inclusive_Dplus_SS_411MisMatched"], always_OS=True)],
+                        ],
+                    }
+                )
+            if not self.signal_only:
+                self.samples.update(
+                    {
+                        '421MisMatched': [
+                            ['Wjets_emu_421MisMatched', proxies.GenericChannel(region=["421MisMatched", "413MisMatched"], name="421MisMatched")],
+                            ['SPG_421MisMatched', proxies.SPGChannel(name="421MisMatchedInclusiveSPG", regions_OS=[
+                                "inclusive_Dplus_OS"], regions_SS=["inclusive_Dplus_SS"])],
+                        ],
+                    }
+                )
         elif self.decay_mode == "Dstar":
+            if not self.background_only:
+                self.samples.update(
+                    {
+                        '411MisMatched': [
+                            ['Wjets_emu_411MisMatched', proxies.GenericChannel(region="411MisMatched", name="411MisMatched")],
+                            ['SPG_411MisMatched', proxies.SPGChannel(name="411MisMatchedInclusiveSPG", regions_OS=[
+                                                                     "inclusive_Dstar_OS"], regions_SS=["inclusive_Dstar_SS"], always_OS=True)],
+                        ],
+                        '421MisMatched': [
+                            ['Wjets_emu_421MisMatched', proxies.GenericChannel(region="421MisMatched", name="421MisMatched")],
+                            ['SPG_421MisMatched', proxies.SPGChannel(name="421MisMatchedInclusiveSPG", regions_OS=[
+                                                                     "inclusive_Dstar_OS"], regions_SS=["inclusive_Dstar_SS"])],
+                        ],
+                    }
+                )
+            if not self.signal_only:
+                self.samples.update(
+                    {
+                        '413MisMatched': [
+                            ['Wjets_emu_413MisMatched', proxies.GenericChannel(region="413MisMatched", name="413MisMatched")],
+                            ['SPG_413MisMatched', proxies.SPGChannel(name="413MisMatchedInclusiveSPG", regions_OS=[
+                                                                     "inclusive_Dstar_OS_413MisMatched"], regions_SS=["inclusive_Dstar_SS_413MisMatched"])],
+                        ],
+                    }
+                )
+
+        # backgrounds
+        if not self.signal_only:
             self.samples.update(
                 {
-                    '411MisMatched': [
-                        ['Wjets_emu_411MisMatched', proxies.GenericChannel(region="411MisMatched", name="411MisMatched")],
-                        ['SPG_411MisMatched', proxies.SPGChannel(name="411MisMatchedInclusiveSPG", regions_OS=["inclusive_Dstar_OS"], regions_SS=["inclusive_Dstar_SS"], always_subtract=True)],
+                    '431MisMatched': [
+                        ['Wjets_emu_431MisMatched', proxies.GenericChannel(region="431MisMatched", name="431MisMatched")],
+                        ['SPG_431MisMatched', proxies.SPGChannel(name="431MisMatchedInclusiveSPG", regions_OS=[
+                            "inclusive_" + self.decay_mode + "_OS"], regions_SS=["inclusive_" + self.decay_mode + "_SS"])],
                     ],
-                    '421MisMatched': [
-                        ['Wjets_emu_421MisMatched', proxies.GenericChannel(region="421MisMatched", name="421MisMatched")],
-                        ['SPG_421MisMatched', proxies.SPGChannel(name="421MisMatchedInclusiveSPG", regions_OS=["inclusive_Dstar_OS"], regions_SS=["inclusive_Dstar_SS"])],
+                    'BaryonMisMatched': [
+                        ['Wjets_emu_BaryonMisMatched', proxies.GenericChannel(region="BaryonMisMatched", name="BaryonMisMatched")],
+                        ['SPG_BaryonMisMatched', proxies.SPGChannel(name="BaryonMisMatchedInclusiveSPG", regions_OS=[
+                            "inclusive_" + self.decay_mode + "_OS"], regions_SS=["inclusive_" + self.decay_mode + "_SS"])],
                     ],
-                    '413MisMatched': [
-                        ['Wjets_emu_413MisMatched', proxies.GenericChannel(region="413MisMatched", name="413MisMatched")],
-                        ['SPG_413MisMatched', proxies.SPGChannel(name="413MisMatchedInclusiveSPG", regions_OS=["inclusive_Dstar_OS_413MisMatched"], regions_SS=["inclusive_Dstar_SS_413MisMatched"])],
+                    'CharmMisMatched': [
+                        ['Wjets_emu_CharmMisMatched', proxies.MatchedCharm(name="CharmMisMatched")],
+                        ['SPG_CharmMisMatched', proxies.SPGChannel(name="CharmMisMatchedInclusiveSPG", regions_OS=[
+                            "inclusive_" + self.decay_mode + "_OS"], regions_SS=["inclusive_" + self.decay_mode + "_SS"])],
                     ],
-                }
-            )
-        # backgrounds
-        self.samples.update(
-            {
-                '431MisMatched': [
-                    ['Wjets_emu_431MisMatched', proxies.GenericChannel(region="431MisMatched", name="431MisMatched")],
-                    ['SPG_431MisMatched', proxies.SPGChannel(name="431MisMatchedInclusiveSPG", regions_OS=[
-                        "inclusive_" + self.decay_mode + "_OS"], regions_SS=["inclusive_" + self.decay_mode + "_SS"])],
-                ],
-                'BaryonMisMatched': [
-                    ['Wjets_emu_BaryonMisMatched', proxies.GenericChannel(region="BaryonMisMatched", name="BaryonMisMatched")],
-                    ['SPG_BaryonMisMatched', proxies.SPGChannel(name="BaryonMisMatchedInclusiveSPG", regions_OS=[
-                        "inclusive_" + self.decay_mode + "_OS"], regions_SS=["inclusive_" + self.decay_mode + "_SS"])],
-                ],
-                'CharmMisMatched': [
-                    ['Wjets_emu_CharmMisMatched', proxies.MatchedCharm(name="CharmMisMatched")],
-                    ['SPG_CharmMisMatched', proxies.SPGChannel(name="CharmMisMatchedInclusiveSPG", regions_OS=[
-                        "inclusive_" + self.decay_mode + "_OS"], regions_SS=["inclusive_" + self.decay_mode + "_SS"])],
-                ],
-            })
+                })
 
     def get(self):
         return self.samples
@@ -291,14 +317,14 @@ class ReplacementSamples(ChannelTemplate):
                 'Matched': [['SPG_Matched', proxies.SPGChannel(name="SPG_Matched",
                                                                regions_OS=[f"inclusive_Dplus_OS_{slice}" for slice in self.truthSlices],
                                                                regions_SS=[f"inclusive_Dplus_SS_{slice}" for slice in self.truthSlices],
-                                                               always_subtract=True)]]
+                                                               always_OS=True)]]
             }
         else:
             self.samples = {
                 'Matched': [['SPG_Matched', proxies.SPGChannel(name="SPG_Matched",
                                                                regions_OS=[f"inclusive_Dplus_OS_Matched"],
                                                                regions_SS=[f"inclusive_Dplus_SS_Matched"],
-                                                               always_subtract=True)]]
+                                                               always_OS=True)]]
             }
 
         # signal samples in truth differential bins
@@ -308,14 +334,14 @@ class ReplacementSamples(ChannelTemplate):
                     slice: [[f'SPG_{slice}', proxies.SPGChannel(name=f"SPG_{slice}",
                                                                 regions_OS=[f"inclusive_Dplus_OS_{slice}"],
                                                                 regions_SS=[f"inclusive_Dplus_SS_{slice}"],
-                                                                always_subtract=True)],
+                                                                always_OS=True)],
                             ] for slice in self.truthSlices
                 })
 
         self.samples.update({
             '411MisMatched': [
                 ['SPG_411MisMatched', proxies.SPGChannel(name="411MisMatchedInclusiveSPG", regions_OS=["inclusive_Dplus_OS_411MisMatched"], regions_SS=[
-                    "inclusive_Dplus_SS_411MisMatched"], always_subtract=True)],
+                    "inclusive_Dplus_SS_411MisMatched"], always_OS=True)],
             ],
             'CharmMisMatched': [
                 ['SPG_CharmMisMatched', proxies.SPGChannel(name="CharmMisMatchedInclusiveSPG", regions_OS=[

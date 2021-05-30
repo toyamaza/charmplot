@@ -146,13 +146,13 @@ class Matched(ProxyChannel):
 class SPGChannel(ProxyChannel):
     name = ""
 
-    def __init__(self, name: str = "", regions_OS: list = [], regions_SS: list = [], always_subtract: bool = False):
+    def __init__(self, name: str = "", regions_OS: list = [], regions_SS: list = [], always_OS: bool = False):
         super().__init__()
         assert name != ""
         self.name = name
         self.regions_OS = regions_OS
         self.regions_SS = regions_SS
-        self.always_subtract = always_subtract
+        self.always_OS = always_OS
 
     def get_regions(self, regions):
         has_OS = False
@@ -162,12 +162,14 @@ class SPGChannel(ProxyChannel):
                 has_OS = True
             if "_SS" in reg:
                 has_SS = True
-        if not self.always_subtract and (has_OS and not has_SS):
+        if not self.always_OS and (has_OS and not has_SS):
             return self.regions_OS
-        elif not self.always_subtract and (has_SS and not has_OS):
+        elif not self.always_OS and (has_SS and not has_OS):
             return self.regions_SS
-        elif self.always_subtract or (has_OS and has_SS):
+        elif not self.always_OS and (has_OS and has_SS):
             return self.regions_OS + [f"-{x}" for x in self.regions_SS]
+        elif self.always_OS:
+            return self.regions_OS
         else:
             raise Exception("Invalid regions")
 

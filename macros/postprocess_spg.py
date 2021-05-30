@@ -1,6 +1,8 @@
 #!/usr/bin/env python
+import os
 import re
 import ROOT
+import sys
 
 # file names
 names = [
@@ -8,95 +10,144 @@ names = [
     "SPG_Baryon",
     "SPG_Dsminus",
     "SPG_Ds",
-    "SPG_D0bar",
-    "SPG_D0",
+    "SPG_D0_Dstar_bar",
+    "SPG_D0_Dstar",
 ]
 
-# scale factors
-scale_factors = {
-    "Ds_OS": [0.3599, 0.3046, 0.3313, 0.3989, 0.4803],
-    "Ds_SS": [0.0840, 0.0389, 0.0313, 0.0329, 0.0503],
-    "D0_OS": [0.2725, 0.1940, 0.1782, 0.2045, 0.2620],
-    "D0_SS": [0.1804, 0.1588, 0.1667, 0.1776, 0.1867],
-    "Baryon_OS": [0.3287, 0.2000, 0.2398, 0.2615, 0.3204],
-    "Baryon_SS": [0.1193, 0.0384, 0.0226, 0.0235, 0.0354],
+# name map
+name_map = {
+    "Baryon": "BaryonMisMatched",
+    "Ds": "431MisMatched",
+    "D0_Dstar": "421MisMatched",
 }
 
 # vars
 accepted_vars = ["Dmeson_m", "Dmeson_mdiff", "Dmeson_pt"]
 
-# loop
-for name in names:
-    flavor = name.replace("SPG_", "").replace("bar", "").replace("minus", "")
-    f_in = ROOT.TFile(f"{name}.root", "READ")
-    f_out = ROOT.TFile(f"{name}_postProc.root", "RECREATE")
 
-    # do OS-SS
-    subtract = False
-    if flavor in ["Ds", "Baryon"]:
-        subtract = True
+def main(options, args):
 
-    # construct inclusive histograms from scaled ones
-    inclusive_hists = {}
+    if options.scale_factors and os.path.isfile(options.scale_factors):
+        f_scale_factors = ROOT.TFile(options.scale_factors, "READ")
+        print(f"Got the scale factors file {f_scale_factors}")
+    else:
+        print("No scale factors provided. SPG will not be scaled.")
 
-    # loop through histograms
-    for key in f_in.GetListOfKeys():
+    for name in names:
+        flavor = name.replace("SPG_", "").replace("_bar", "").replace("bar", "").replace("minus", "")
+        f_in = ROOT.TFile(f"{name}.root", "READ")
+        f_out = ROOT.TFile(f"{name}_postProc.root", "RECREATE")
 
-        # TObject name
-        obj_name = key.GetName()
+        # do OS-SS
+        OS_only = False
+        if flavor in ["Ds", "Baryon"]:
+            OS_only = True
 
-        # var
-        var = obj_name.split("__")[-1]
-        if var not in accepted_vars:
-            continue
+        # construct inclusive histograms from scaled ones
+        inclusive_hists = {}
 
-        # pt bin
-        pt_bin = re.findall("pt_bin([0-9])", obj_name)
+        # loop through histograms
+        for key in f_in.GetListOfKeys():
 
-        # if not inclusive
-        if pt_bin:
+            # TObject name
+            obj_name = key.GetName()
 
-            # should be length 1
-            pt_bin = int(pt_bin[0])
+            # var
+            var = obj_name.split("__")[-1]
+            if var not in accepted_vars:
+                continue
 
-            # charge (OS or SS)
-            charge = re.findall("[Dplustar]+_([OS]+)", obj_name)[0]
+            # pt bin
+            pt_bin = re.findall("pt_bin([0-9])", obj_name)
 
-            # print out
-            print(obj_name, pt_bin, charge, flavor, scale_factors[f"{flavor}_{charge}"][pt_bin - 1])
+            # if not inclusive
+            if pt_bin:
 
-            # scale and save
-            if not subtract:
-                h_scaled = f_in.Get(obj_name)
-                h_scaled.Scale(scale_factors[f"{flavor}_{charge}"][pt_bin - 1])
-                f_out.cd()
-                h_scaled.Write(h_scaled.GetName())
-            else:
-                if not (f_in.Get(obj_name.replace("SS", "OS")) and f_in.Get(obj_name.replace("OS", "SS"))):
-                    continue
-                h_OS = f_in.Get(obj_name.replace("SS", "OS")).Clone(f"{obj_name}_OS")
-                h_SS = f_in.Get(obj_name.replace("OS", "SS")).Clone(f"{obj_name}_SS")
-                h_scaled = h_OS.Clone(f"{obj_name}_OS-SS")
-                h_scaled.Add(h_SS, -1.0)
-                print(f"created {h_scaled} from {h_OS} - {h_SS}")
-                h_scaled.Scale(scale_factors[f"{flavor}_{charge}"][pt_bin - 1])
-                f_out.cd()
-                h_scaled.Write(obj_name)
+                # should be length 1
+                pt_bin = int(pt_bin[0])
 
-            # inclusive name
-            inc_name = obj_name.replace(f"_pt_bin{pt_bin}", "")
-            if inc_name not in inclusive_hists:
-                h_inc = h_scaled.Clone(inc_name)
-                inclusive_hists[inc_name] = h_inc
-                print(f"{inc_name} created...")
-            else:
-                inclusive_hists[inc_name].Add(h_scaled)
-                print(f"added {h_scaled} to {inc_name}...")
+                # charge (OS or SS)
+                decay_mode = re.findall("([Dplustar]+)_[OS]+", obj_name)[0]
+                charge = re.findall("[Dplustar]+_([OS]+)", obj_name)[0]
 
-    # save inclusive histograms
-    for name, h in inclusive_hists.items():
-        f_out.cd()
-        h.Write(name)
+                # var for scaling
+                if decay_mode == "Dplus":
+                    scale_var = "Dmeson_m"
+                elif decay_mode == "Dstar":
+                    scale_var = "Dmeson_mdiff"
 
-    f_in.Close()
-    f_out.Close()
+                # print out
+                print(obj_name, pt_bin, charge, flavor)
+
+                # scale factors
+                sf = 1.0
+                if options.scale_factors:
+                    print(f"Getting scale-factors for {flavor}_{charge} in pt_bn{pt_bin}")
+                    name_spg = f"SPG_{name_map[flavor]}_{charge}_{decay_mode}_{name_map[flavor]}_pt_bin{pt_bin}_{scale_var}"
+                    name_mg = f"Wjets_emu_{name_map[flavor]}_{charge}_{decay_mode}_{name_map[flavor]}_pt_bin{pt_bin}_{scale_var}"
+                    h_spg = f_scale_factors.Get(name_spg)
+                    h_mg = f_scale_factors.Get(name_mg)
+                    if not (h_spg and h_mg):
+                        print(f"Unable to retreive histograms {name_spg} and {name_mg} from file {f_scale_factors}! Exiting!")
+                        sys.exit(1)
+                    sf = h_mg.GetSumOfWeights() / h_spg.GetSumOfWeights()
+
+                # scale and save
+                if not OS_only:
+                    h_scaled = f_in.Get(obj_name)
+                    if options.scale_factors:
+                        h_scaled.Scale(sf)
+                    f_out.cd()
+                    h_scaled.Write(h_scaled.GetName())
+                else:
+                    if not (f_in.Get(obj_name.replace("SS", "OS")) and f_in.Get(obj_name.replace("OS", "SS"))):
+                        continue
+                    h_OS = f_in.Get(obj_name.replace("SS", "OS")).Clone(f"{obj_name}_OS")
+                    # h_SS = f_in.Get(obj_name.replace("OS", "SS")).Clone(f"{obj_name}_SS")
+                    h_scaled = h_OS.Clone(f"{obj_name}_OS_only")
+                    # h_scaled.Add(h_SS, -1.0)
+                    print(f"created {h_scaled} from {h_OS}")
+                    if options.scale_factors:
+                        h_scaled.Scale(sf)
+                    f_out.cd()
+                    h_scaled.Write(obj_name)
+
+                # inclusive name
+                inc_name = obj_name.replace(f"_pt_bin{pt_bin}", "")
+                if inc_name not in inclusive_hists:
+                    h_inc = h_scaled.Clone(inc_name)
+                    inclusive_hists[inc_name] = h_inc
+                    print(f"{inc_name} created...")
+                else:
+                    inclusive_hists[inc_name].Add(h_scaled)
+                    print(f"added {h_scaled} to {inc_name}...")
+
+        # save inclusive histograms
+        for name, h in inclusive_hists.items():
+            f_out.cd()
+            h.Write(name)
+
+        f_in.Close()
+        f_out.Close()
+
+        if f_scale_factors:
+            f_scale_factors.Close()
+
+
+if __name__ == "__main__":
+    import optparse
+    parser = optparse.OptionParser()
+
+    # ----------------------------------------------------
+    # arguments
+    # ----------------------------------------------------
+    parser.add_option('-s', '--scale-factors',
+                      action="store", dest="scale_factors",
+                      default="", help="Path to the histograms.root file from the initial spg comparison."
+                      "If empty, no scaling will be performed")
+
+    # parse input arguments
+    options, args = parser.parse_args()
+
+    # run
+    main(options, args)

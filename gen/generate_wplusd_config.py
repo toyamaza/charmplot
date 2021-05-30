@@ -11,7 +11,7 @@ def main(options):
 
     # TODO: make configurable?
     make_os_ss = True
-    make_os_minus_ss = not options.fit_only
+    make_os_minus_ss = not options.fit_only and not options.skip_os_ss
     os_only = options.fit_only
     force_positive = False
     if options.fit_type == "OS-SS":
@@ -33,7 +33,10 @@ def main(options):
         samples = templates.WDFitSamples()
     elif options.samples.lower() == 'spg_comparison':
         samples = templates.SPGComparison(truthDiffBins=options.truth_differential_bins,
-                                          splitSignalSamples=options.split_signal_samples, decay_mode=options.decay_mode)
+                                          splitSignalSamples=options.split_signal_samples,
+                                          decay_mode=options.decay_mode,
+                                          signal_only=options.spg_signal_only,
+                                          background_only=options.spg_background_only)
     elif options.samples.lower() == 'bkg_comparison':
         samples = templates.BKGComparison()
     elif options.samples.lower() == 'wplusd_comparison':
@@ -52,6 +55,12 @@ def main(options):
     ptbins = ['']
     if options.differential_bins:
         ptbins = ['pt_bin1', 'pt_bin2', 'pt_bin3', 'pt_bin4', 'pt_bin5', '']
+
+    # override from CLI
+    if options.btags:
+        btags = options.btags.split(",")
+        if type(btags) != list:
+            btags = [btags]
 
     # binning for the 1-tag region
     # use '40' for 1 bin for D+
@@ -220,6 +229,9 @@ if __name__ == "__main__":
     parser.add_option('--fit-only',
                       action="store_true", dest="fit_only",
                       help="only regions necessaty for the fit")
+    parser.add_option('--skip-os-ss',
+                      action="store_true", dest="skip_os_ss",
+                      default=False, help="don't make OS-SS plots")
     parser.add_option('--fit-type',
                       action="store", dest="fit_type",
                       help="fit type (e.g. OS/SS or OS-SS)",
@@ -245,6 +257,18 @@ if __name__ == "__main__":
     parser.add_option('--split-signal-samples',
                       action="store_true", dest="split_signal_samples",
                       default=False)
+    parser.add_option('--spg-signal-only',
+                      action="store_true", dest="spg_signal_only",
+                      default=False)
+    parser.add_option('--spg-background-only',
+                      action="store_true", dest="spg_background_only",
+                      default=False)
+    # ----------------------------------------------------
+    # arguments: regions / channels override
+    # ----------------------------------------------------
+    parser.add_option('--btags',
+                      action="store", dest="btags",
+                      default="")
 
     # parse input arguments
     options, args = parser.parse_args()
