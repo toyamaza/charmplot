@@ -124,8 +124,7 @@ class WDFlavourSamples(ChannelTemplate):
         ['Wjets_bjets_emu'],
         ['Wjets_light_emu'],
         ['Top'],
-        ['Zjets_emu'],
-        ['Other'],
+        ['DibosonVjetsTau'],
         ['Multijet_MatrixMethod', proxies.MatrixMethod()]
     ]
 

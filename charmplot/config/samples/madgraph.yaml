@@ -145,6 +145,19 @@ Other:
   fillColor: "15000"
   legendLabel: Other
 
+DibosonVjetsTau:
+  add:
+    - Diboson
+    - MG_Zjets_light_emu
+    - MG_Zjets_cjets_emu
+    - MG_Zjets_bjets_emu
+    - MG_Zjets_tau
+    - MG_Wjets_tau
+  subtract:
+  fillColor: "15000"
+  legendLabel: Other
+  shortName: DibosonVjetsTau
+
 Multijet:
   add: data
   subtract:
