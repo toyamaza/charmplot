@@ -84,7 +84,7 @@ def main(options):
             'Wjets_emu_Charm': '<charge>_Replacement_CharmMisMatched',
             'Wjets_emu_Rest': '<charge>_Replacement_Wjets_emu_Rest',
             'Wjets_emu_MisMatched': '<charge>_Replacement_Wjets_emu_MisMatched',
-            'DibosonVjetsTau': '<charge>_Replacement_DibosonVjetsTau',
+            # 'DibosonVjetsTau': '<charge>_Replacement_DibosonVjetsTau',
         })
 
     # systematics

@@ -283,14 +283,14 @@ class BKGComparison(ChannelTemplate):
             ['Wjets_emu_MisMatched_PostProc', proxies.GenericChannel(name="Wjets_emu_MisMatched", regions_OS=[
                                                                      "Wjets_emu_MisMatched_OS"], regions_SS=["Wjets_emu_MisMatched_SS"])],
         ],
-        'DibosonVjetsTau': [
-            ['DibosonVjetsTau', proxies.PlainChannel()],
-            ['DibosonVjetsTau_PostProc', proxies.GenericChannel(name="DibosonVjetsTau", regions_OS=["Other_OS"], regions_SS=["Other_SS"])],
-        ],
-        'MultiJet': [
-            ['Multijet_MatrixMethod', proxies.MatrixMethod()],
-            ['MultiJet_PostProc', proxies.GenericChannel(name="MultiJet", regions_OS=["MultiJet_OS"], regions_SS=["MultiJet_SS"])],
-        ],
+        # 'DibosonVjetsTau': [
+        #     ['DibosonVjetsTau', proxies.PlainChannel()],
+        #     ['DibosonVjetsTau_PostProc', proxies.GenericChannel(name="DibosonVjetsTau", regions_OS=["Other_OS"], regions_SS=["Other_SS"])],
+        # ],
+        # 'MultiJet': [
+        #     ['Multijet_MatrixMethod', proxies.MatrixMethod()],
+        #     ['MultiJet_PostProc', proxies.GenericChannel(name="MultiJet", regions_OS=["MultiJet_OS"], regions_SS=["MultiJet_SS"])],
+        # ],
     }
 
     def get(self):
@@ -355,9 +355,9 @@ class ReplacementSamples(ChannelTemplate):
                 ['Wjets_emu_MisMatched_PostProc', proxies.GenericChannel(name="Wjets_emu_MisMatched", regions_OS=[
                     "Wjets_emu_MisMatched_OS"], regions_SS=["Wjets_emu_MisMatched_SS"])],
             ],
-            'DibosonVjetsTau': [
-                ['DibosonVjetsTau_PostProc', proxies.GenericChannel(name="DibosonVjetsTau", regions_OS=["Other_OS"], regions_SS=["Other_SS"])],
-            ],
+            # 'DibosonVjetsTau': [
+            #     ['DibosonVjetsTau_PostProc', proxies.GenericChannel(name="DibosonVjetsTau", regions_OS=["Other_OS"], regions_SS=["Other_SS"])],
+            # ],
         })
 
     def get(self):

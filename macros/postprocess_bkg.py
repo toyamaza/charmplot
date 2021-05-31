@@ -11,15 +11,15 @@ backgrounds = {
         "inputs": ["MG_Wjets_cjets_emu", "MG_Wjets_bjets_emu", "MG_Wjets_light_emu"],
         "regions": ["MisMatched", "MatchedNoFid"],
     },
-    "Other": {
-        "inputs": ["Diboson", "MG_Zjets_light_emu", "MG_Zjets_cjets_emu", "MG_Zjets_bjets_emu", "MG_Zjets_tau", "MG_Wjets_tau"],
-        "regions": [""],
-    },
-    "MultiJet": {
-        "inputs": ["data"],
-        "regions": [""],
-        "matrix_method": True,
-    },
+    # "Other": {
+    #     "inputs": ["Diboson", "MG_Zjets_light_emu", "MG_Zjets_cjets_emu", "MG_Zjets_bjets_emu", "MG_Zjets_tau", "MG_Wjets_tau"],
+    #     "regions": [""],
+    # },
+    # "MultiJet": {
+    #     "inputs": ["data"],
+    #     "regions": [""],
+    #     "matrix_method": True,
+    # },
 }
 
 # multijet
