@@ -1,5 +1,7 @@
 # type: NNPDF30_nnlo_as_0118
 type: updown
+affecting:
+  - Sherpa_Wjets
 variations:
   - GEN_MUR1_MUF1_PDF261000
   - GEN_MUR1_MUF1_PDF261001
