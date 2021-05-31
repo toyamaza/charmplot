@@ -1,4 +1,6 @@
 type: updown
+affecting:
+  - Sherpa_Wjets
 variations:
   - GEN_MUR05_MUF05_PDF261000
   - GEN_MUR05_MUF1_PDF261000
