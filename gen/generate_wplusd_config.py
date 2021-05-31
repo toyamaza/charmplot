@@ -100,6 +100,12 @@ def main(options):
             'wjets_theory',
             # 'proxy_norm',
         ]
+    if options.sherpa_systematics:
+        systematics = [
+            'sherpa_theory_pdf',
+            'sherpa_theory_qcd',
+            'sherpa_theory_as',
+        ]
 
     # Base config
     config = templates.DataMCConfig(variables=options.variables,
@@ -242,6 +248,9 @@ if __name__ == "__main__":
     parser.add_option('--sys',
                       action="store_true", dest="systematics",
                       help="add systematics")
+    parser.add_option('--sherpa-sys',
+                      action="store_true", dest="sherpa_systematics",
+                      help="add Sherpa systematics")
     parser.add_option('--replacement-samples',
                       action="store_true", dest="replacement_samples",
                       help="replace samples")
