@@ -1,0 +1,5 @@
+type: alt_sample
+affecting:
+  - Wjets_emu_Rest
+variations:
+  - Sherpa_Wjets_emu_Rest

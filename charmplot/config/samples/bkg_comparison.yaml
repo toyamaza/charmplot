@@ -111,3 +111,22 @@ MultiJet_PostProc:
   lineColor: "21000"
   legendLabel: Loose MJ
   shortName: MultiJet_PostProc
+
+Sherpa_Wjets_emu_Rest:
+  add:
+    - Sh_Wjets_bjets_emu
+    - Sh_Wjets_cjets_emu
+    - Sh_Wjets_highpt_emu
+    - Sh_Wjets_light_emu
+  subtract:
+  lineColor: "14002"
+  legendLabel: "Sherpa W+jets"
+  shortName: Sherpa_Wjets_emu_Rest
+
+Sherpa_Wjets_emu_Rest_PostProc:
+  add:
+    - inclusive_sherpa_bkg
+  subtract:
+  lineColor: "14004"
+  legendLabel: "Sherpa W+jets"
+  shortName: Sherpa_Wjets_emu_Rest_PostProc

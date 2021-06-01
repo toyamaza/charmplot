@@ -152,8 +152,14 @@ def process_channel(options, conf, c):
 
         # replace samples
         for replace_sample, replace_channel in c.replacement_samples.items():
-            logging.info(f"replacing sample {replace_sample} with channel {replace_channel}")
-            utils.replace_sample(conf, mc_map, reader, c, var, replace_sample, replace_channel, mc_map_sys if systematics else None, relative_unc=True)
+            sample_in_map = False
+            for s in mc_map:
+                if s.shortName == replace_sample:
+                    sample_in_map = True
+                    break
+            if sample_in_map:
+                logging.info(f"replacing sample {replace_sample} with channel {replace_channel}")
+                utils.replace_sample(conf, mc_map, reader, c, var, replace_sample, replace_channel, mc_map_sys if systematics else None, relative_unc=True)
 
         # save histograms to root file
         if c.save_to_file:

@@ -83,6 +83,7 @@ def main(options):
             'Wjets_emu_411MisMatched': '<charge>_Replacement_411MisMatched',
             'Wjets_emu_Charm': '<charge>_Replacement_CharmMisMatched',
             'Wjets_emu_Rest': '<charge>_Replacement_Wjets_emu_Rest',
+            'Sherpa_Wjets_emu_Rest': '<charge>_Replacement_Wjets_emu_Rest',
             'Wjets_emu_MisMatched': '<charge>_Replacement_Wjets_emu_MisMatched',
             # 'DibosonVjetsTau': '<charge>_Replacement_DibosonVjetsTau',
         })
@@ -98,6 +99,7 @@ def main(options):
             'ttbar_theory_pdf',
             'ttbar_theory_qcd',
             'wjets_theory',
+            'wjets_rest_alt_samples',
             # 'proxy_norm',
         ]
     if options.sherpa_systematics:

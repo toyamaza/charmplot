@@ -118,6 +118,15 @@ def read_sys_histograms(conf, reader, c, var, samples, fit, systematics, mc_map)
                     h_sys = reader.get_histogram(sample_sys, c, var, c.force_positive)
                     if h_sys:
                         mc_map_sys[group][syst][sample] = h_sys
+
+                    # replace samples
+                    for replaceSample, replace_channel in c.replacement_samples.items():
+                        if sample_sys.shortName == replaceSample:
+                            logging.info(f"replacing sys sample {replaceSample} with channel {replace_channel}")
+                            replace_sample(conf, mc_map_sys[group][syst], reader, c, var, replaceSample,
+                                           replace_channel, None, relative_unc=True, current_sample=sample.shortName)
+                            print([mc_map_sys[group][syst][sample].GetBinContent(i) for i in range(1, mc_map_sys[group][syst][sample].GetNbinsX() + 1)])
+
         elif sys_type == 'overall':
             # start with nominal for all samples
             mc_map_sys[group] = {syst: read_samples(conf, reader, c, var, samples, fit,
@@ -931,21 +940,31 @@ def average_content(h, i):
 
 def replace_sample(conf: globalConfig.GlobalConfig, mc_map: MC_Map, reader: inputDataReader.InputDataReader,
                    c: channel.Channel, var: variable.Variable, sample: str, channel: str, mc_map_sys: Dict[str, MC_Map] = None,
-                   relative_unc: bool = True):
+                   relative_unc: bool = True, current_sample: str = ""):
+
+    # 'Replacement' sample
     channel_replacement = conf.get_channel(channel)
-    assert len(channel_replacement.samples) == 1
-    sample_replacement = conf.get_sample(channel_replacement.samples[0])
-    sample_current = [conf.get_sample(s) for s in c.samples if conf.get_sample(s).shortName == sample]
-    print(sample_current)
-    assert len(sample_current) == 1
-    sample_current = sample_current[0]
+    if len(channel_replacement.samples) == 1:
+        sample_replacement = conf.get_sample(channel_replacement.samples[0])
+    else:
+        sample_replacement = [conf.get_sample(s) for s in channel_replacement.samples if conf.get_sample(s).shortName == f"{sample}_PostProc"]
+        assert len(sample_replacement) == 1, (sample_replacement, sample, [conf.get_sample(s).shortName for s in channel_replacement.samples])
+        sample_replacement = sample_replacement[0]
     h_replacement = reader.get_histogram(sample_replacement, channel_replacement, var, channel_replacement.force_positive)
+
+    # Current sample
+    sample_current = [conf.get_sample(s) for s in c.samples if conf.get_sample(s).shortName == (sample if not current_sample else current_sample)]
+    assert len(sample_current) == 1, (sample_current, sample, [conf.get_sample(s).shortName for s in c.samples])
+    sample_current = sample_current[0]
     if sample_current not in mc_map:
         logging.warning(f"No histogram for {sample_current.name}.. exiting")
         return
     h_current = mc_map[sample_current]
     h_current = h_current.Clone(f"{h_current.GetName()}_temp_clone")
+
+    # Scale replacement histogram to current sample
     h_replacement.Scale(h_current.Integral(0, h_current.GetNbinsX() + 1) / h_replacement.Integral(0, h_replacement.GetNbinsX() + 1))
+    logging.debug(f"Scaled replacement histogram {h_replacement.GetName()} to the itegral of histogram {h_current.GetName()}")
     if h_replacement.GetNbinsX() > h_current.GetNbinsX():
         logging.warning(f"Replacement sample has more bins. Rebinning {h_replacement.GetNbinsX()} -> {h_current.GetNbinsX()}")
         h_replacement.Rebin(int(h_replacement.GetNbinsX() / h_current.GetNbinsX()))
@@ -958,8 +977,13 @@ def replace_sample(conf: globalConfig.GlobalConfig, mc_map: MC_Map, reader: inpu
     h_replacement.Scale(original_norm / h_replacement.GetSumOfWeights())
 
     mc_map[sample_current] = h_replacement
+    logging.debug(f"Replacement histogram saved in the mc_map with key {sample_current.shortName}")
+
+    # transfer systematics
     if mc_map_sys:
         for group, systematics in mc_map_sys.items():
+            if group in ["wjets_rest_alt_samples"]:
+                continue
             for syst, map_sys in systematics.items():
                 h_sys_replaced = map_sys[sample_current].Clone(f"{map_sys[sample_current].GetName()}_replaced")
 
