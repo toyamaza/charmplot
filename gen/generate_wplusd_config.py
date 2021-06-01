@@ -100,7 +100,6 @@ def main(options):
             'ttbar_theory_qcd',
             'wjets_theory',
             'wjets_rest_alt_samples',
-            # 'proxy_norm',
         ]
     if options.sherpa_systematics:
         systematics = [
