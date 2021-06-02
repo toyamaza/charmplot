@@ -450,13 +450,16 @@ class Canvas2(CanvasBase):
 class CanvasMCRatio(Canvas2):
 
     def __init__(self, c: channel.Channel, v: variable.Variable, ratio_title: str,
-                 x: float, y: float, y_split: float = 0.35, ratio_range: list = [0.01, 1.99]):
-        super(CanvasMCRatio, self).__init__(c, v, x, y, y_split, suffix="_mc_ratio")
+                 x: float, y: float, y_split: float = 0.35, ratio_range: list = [0.01, 1.99], suffix: str = "_mc_ratio"):
+        super(CanvasMCRatio, self).__init__(c, v, x, y, y_split, suffix=suffix)
         self.ratio_title = ratio_title
         self.ratio_range = ratio_range
 
     def make_legend(self, mc_map, samples, print_yields=True, show_error=True, yields_unit=None, leg_offset=0.0):
-        self.n_entries = len(samples)
+        self.n_entries = 0
+        for s in samples:
+            if hasattr(s, "legendLabel") and s.legendLabel:
+                self.n_entries += 1
         self.legx_x1 = 0.50 + leg_offset
         self.leg_y2 = 1 - 1.8 * self.text_height_small / (1 - self.y_split)
         self.leg_y1 = self.leg_y2 - self.n_entries * self.text_height_small / (1 - self.y_split)
@@ -471,6 +474,8 @@ class CanvasMCRatio(Canvas2):
         for s in samples:
             name = s.name
             if hasattr(s, "legendLabel"):
+                if not s.legendLabel:
+                    continue
                 name = s.legendLabel
             err = c_double(0)
             integral = mc_map[s].IntegralAndError(0, mc_map[s].GetNbinsX() + 1, err)
