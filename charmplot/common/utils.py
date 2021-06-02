@@ -409,7 +409,7 @@ def get_variables(options, conf, reader, channel, sample=None):
 
 
 def get_maximum(h, x1, x2):
-    out = None
+    out = 0
     for i in range(1, h.GetNbinsX() + 1):
         if h.GetBinCenter(i) < x1 or h.GetBinCenter(i) > x2:
             continue
