@@ -409,11 +409,13 @@ def get_variables(options, conf, reader, channel, sample=None):
 
 
 def get_maximum(h, x1, x2):
-    out = h.GetBinContent(h.FindBin(x1))
+    out = None
     for i in range(1, h.GetNbinsX() + 1):
         if h.GetBinCenter(i) < x1 or h.GetBinCenter(i) > x2:
             continue
-        if h.GetBinContent(i) > out:
+        if not out:
+            out = h.GetBinContent(i)
+        elif h.GetBinContent(i) > out:
             out = h.GetBinContent(i)
     return out
 
@@ -1027,7 +1029,7 @@ def make_canvas_unfold(h: ROOT.TH1, v: variable.Variable, c: channel.Channel,
 
 def make_canvas_mc_ratio(h: ROOT.TH1, v: variable.Variable, c: channel.Channel, ratio_title: str,
                          x: float = 800., y: float = 600., y_split: float = 0.30,
-                         ratio_range: list = [0.01, 1.99], events: str = "Entries") -> ROOT.TCanvas:
-    canv = canvas.CanvasMCRatio(c, v, ratio_title, x, y, y_split, ratio_range)
+                         ratio_range: list = [0.01, 1.99], events: str = "Entries", suffix: str = "_mc_ratio") -> ROOT.TCanvas:
+    canv = canvas.CanvasMCRatio(c, v, ratio_title, x, y, y_split, ratio_range, suffix=suffix)
     canv.construct(h, events=events)
     return canv
