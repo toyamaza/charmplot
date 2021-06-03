@@ -1,6 +1,11 @@
 type: updown
 affecting:
   - Wjets_emu_Matched
+  - Wjets_emu_Matched_truth_pt_bin1
+  - Wjets_emu_Matched_truth_pt_bin2
+  - Wjets_emu_Matched_truth_pt_bin3
+  - Wjets_emu_Matched_truth_pt_bin4
+  - Wjets_emu_Matched_truth_pt_bin5
   - Wjets_emu_411MisMatched
   - Wjets_emu_413MisMatched
   - Wjets_emu_Charm

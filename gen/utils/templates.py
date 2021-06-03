@@ -109,6 +109,7 @@ class WDTruthSamples(ChannelTemplate):
         # MockMC at the bottom
         if not self.os_ss_sub and self.MockMC:
             self.samples += [['MockMC_minus_MC', proxies.MockMC(subtract_mj=True)]]
+            self.samples += [['Offset', proxies.PlainChannel()]]
 
     def get(self):
         return self.samples

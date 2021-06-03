@@ -133,12 +133,14 @@ class InputDataReader(object):
                     h_denom = h.Clone("%s_%s_%s" % (sample.name, channel.name, variable.name))
                 else:
                     h_denom.Add(h, weight)
+        if sample.offset:
+            for i in range(0, h_total.GetNbinsX() + 2):
+                h_total.SetBinContent(i, sample.offset)
         if sample.fit and h_total:
             h_total = utils.fit_histogram(h_total, sample.fit)
         if force_positive and h_total:
             # if 'MatrixMethod' not in sample.name:
-            if not sample.makeGhostSample:
-                utils.set_to_positive(h_total, sys)
+            utils.set_to_positive(h_total, sys)
         if not sample.statError:
             logger.info(f"Set stat error of {sample} to zero.")
             for i in range(0, h_total.GetNbinsX() + 2):

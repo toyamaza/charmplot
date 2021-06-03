@@ -264,28 +264,10 @@ def save_to_trex_file(trex_folder: str, channel: channel.Channel, var: variable.
     for s in mc_map:
         if affecting and s.shortName not in affecting:
             continue
-        if s.makeGhostSample:
-            if not sys:
-                h_ghost = mc_map[s].Clone(f"{mc_map[s].GetName()}_GHOST")
-                # minimum = h_ghost.GetMinimum()
-                for i in range(1, h_ghost.GetNbinsX() + 1):
-                    h_ghost.SetBinContent(i, 10000.)
-                    h_ghost.SetBinError(i, 0)
-                out_file = ROOT.TFile(trex_histograms[s.shortName + "_GHOST"], "UPDATE")
-                h_ghost.Write(out_name)
-                out_file.Close()
-            out_file = ROOT.TFile(trex_histograms[s.shortName], "UPDATE")
-            out_file.cd()
-            h_offset = mc_map[s].Clone(f"{mc_map[s].GetName()}_OFFSET")
-            # for i in range(0, h_offset.GetNbinsX() + 2):
-            #     h_offset.SetBinContent(i, h_offset.GetBinContent(i) + 10000.)
-            h_offset.Write(out_name)
-            out_file.Close()
-        else:
-            out_file = ROOT.TFile(trex_histograms[s.shortName], "UPDATE")
-            out_file.cd()
-            mc_map[s].Write(out_name)
-            out_file.Close()
+        out_file = ROOT.TFile(trex_histograms[s.shortName], "UPDATE")
+        out_file.cd()
+        mc_map[s].Write(out_name)
+        out_file.Close()
 
 
 def save_histograms_to_trex_file(trex_folder: str, channel: channel.Channel, var: variable.Variable,
@@ -816,6 +798,8 @@ def make_stack(samples: List, mc_map: MC_Map):
     hs = ROOT.THStack()
     for s in reversed(samples):
         if s not in mc_map.keys():
+            continue
+        if s.ghost:
             continue
         h = mc_map[s]
         logger.debug(f"adding {h}")

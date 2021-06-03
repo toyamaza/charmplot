@@ -91,11 +91,6 @@ def process_channel(options, conf, c):
                 trex_histograms[s.shortName] = sample_file_name
                 sample_out_file.Close()
                 logging.info(f"created file for trex input {sample_file_name}")
-                if s.makeGhostSample:
-                    sample_file_name_ghost = os.path.join(trex_folder, f"{s.shortName}_GHOST_tmp_{c.name}.root")
-                    sample_out_file = ROOT.TFile(sample_file_name_ghost, "RECREATE")
-                    trex_histograms[s.shortName + "_GHOST"] = sample_file_name_ghost
-                    sample_out_file.Close()
 
     # perform likelihood fit
     fit = utils.likelihood_fit(conf, reader, c, samples)

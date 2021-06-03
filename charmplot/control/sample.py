@@ -12,10 +12,11 @@ class Sample(object):
     channel = ""
     add = []
     subtract = []
+    offset = None
     color_scheme = None
     statError = True
     scaleMC = None
-    makeGhostSample = False
+    ghost = False
     fit = ""
     ignoreTruthMatching = []
 
@@ -24,6 +25,10 @@ class Sample(object):
         self.name = name
         self.shortName = name
 
+        # offset
+        if 'offset' in kwargs:
+            self.offset = float(kwargs.pop('offset'))
+
         # addition
         if 'add' in kwargs:
             add = kwargs.pop('add')
@@ -31,8 +36,8 @@ class Sample(object):
                 self.add = add
             elif type(add) == str:
                 self.add = [add]
-        else:
-            logger.critical("property 'add' missing in sample")
+        elif not self.offset:
+            logger.critical("property 'add' or 'offset' missing in sample")
             sys.exit(1)
 
         # subtraction
@@ -68,14 +73,14 @@ class Sample(object):
         if 'scaleMC' in kwargs:
             self.scaleMC = float(kwargs.pop('scaleMC'))
 
-        if 'makeGhostSample' in kwargs:
-            self.makeGhostSample = bool(kwargs.pop('makeGhostSample'))
-
         if 'fit' in kwargs:
             self.fit = str(kwargs.pop('fit'))
 
         if 'ignoreTruthMatching' in kwargs:
             self.ignoreTruthMatching = str(kwargs.pop('ignoreTruthMatching'))
+
+        if 'ghost' in kwargs:
+            self.ghost = bool(kwargs.pop('ghost'))
 
     def set_color_scheme(self, scheme):
         self.color_scheme = scheme
