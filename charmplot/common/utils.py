@@ -470,6 +470,12 @@ def set_under_over_flow(h: ROOT.TH1, x_range: list, do_overflow: bool, do_underf
 
 
 def rebin_histogram(h: ROOT.TH1, v: variable.Variable, extra_rebin: int = 1):
+    # custom x axis
+    if v.xbins:
+        h_temp = set_under_over_flow(h, v.x_range, v.do_overflow, v.do_underflow)
+        return h_temp.Rebin(len(v.xbins) - 1, f"{h_temp.GetName()}_1", array.array('d', v.xbins))
+
+    # the rest of the code
     rebin = v.rebin
     if rebin and v.allow_rebin and not v.dstar_tail_rebin:
         h.Rebin(int(rebin * extra_rebin))
@@ -952,7 +958,8 @@ def replace_sample(conf: globalConfig.GlobalConfig, mc_map: MC_Map, reader: inpu
     h_replacement.Scale(h_current.Integral(0, h_current.GetNbinsX() + 1) / h_replacement.Integral(0, h_replacement.GetNbinsX() + 1))
     logging.debug(f"Scaled replacement histogram {h_replacement.GetName()} to the itegral of histogram {h_current.GetName()}")
     if h_replacement.GetNbinsX() > h_current.GetNbinsX():
-        logging.warning(f"Replacement sample has more bins. Rebinning {h_replacement.GetNbinsX()} -> {h_current.GetNbinsX()}")
+        logging.critical(f"Replacement sample has more bins: {h_replacement.GetNbinsX()} -> {h_current.GetNbinsX()}")
+        raise Exception("Invalid binning")
         h_replacement.Rebin(int(h_replacement.GetNbinsX() / h_current.GetNbinsX()))
 
     # smooth any bins with very low bin content in the nominal replacement histogram
