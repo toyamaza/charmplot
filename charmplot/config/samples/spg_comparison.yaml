@@ -252,8 +252,8 @@ SPG_Matched:
 
 SPG_411MisMatched:
   add:
-    - SPG_Dminus
-    - SPG_Dplus
+    - SPG_Dminus_postProc
+    - SPG_Dplus_postProc
   subtract:
   lineColor: "21000"
   legendLabel: "#it{D}(other) SPG"
@@ -288,6 +288,8 @@ SPG_BaryonMisMatched:
 
 SPG_CharmMisMatched:
   add:
+    - SPG_Dminus_postProc
+    - SPG_Dplus_postProc
     - SPG_Ds_postProc
     - SPG_D0_Dstar_postProc
     - SPG_Baryon_postProc

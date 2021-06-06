@@ -3,9 +3,15 @@ import ROOT
 
 # file names
 backgrounds = {
-    "Wjets_emu_Rest": {
-        "inputs": ["Sh_Wjets_light_emu", "Sh_Wjets_highpt_emu", "Sh_Wjets_cjets_emu", "Sh_Wjets_bjets_emu"],
-        "regions": ["HardMisMatched", "Other"],
+    "Wjets_emu_Bkg": {
+        "inputs": [
+            ["Sh_Wjets_light_emu", "Sh_Wjets_highpt_emu", "Sh_Wjets_cjets_emu", "Sh_Wjets_bjets_emu"],
+            ["MG_Wjets_emu"],
+        ],
+        "regions": [
+            ["HardMisMatched"],
+            ["MisMatched", "MatchedNoFid", "Other", ],
+        ]
     },
 }
 
@@ -31,30 +37,29 @@ for bkg, props in backgrounds.items():
     for ptbin in ptbins:
         for charge in ["OS", "SS"]:
 
-            # output file
-            f_out = ROOT.TFile("inclusive_sherpa_bkg.root", "UPDATE")
-
-            # input files
-            files = [ROOT.TFile(f"{f}.root", "READ") for f in props["inputs"]]
-            print(files)
-
             # correct scaling
             sf = None
             if len(props["regions"]) > 1:
-                norm = {x: 0 for x in props["regions"]}
-                norm_loose = {x: 0 for x in props["regions"]}
-                for r in props["regions"]:
-                    for f in files:
-                        for c in channels:
-                            h_name = f"{c}_{charge}{('_' + r if r else '')}{('_' + ptbin if ptbin else '')}__{var}"
-                            h_temp = f.Get(h_name)
-                            if h_temp:
-                                norm[r] += h_temp.GetSumOfWeights()
-                        for c in channels_loose:
-                            h_name = f"{c}_{charge}{('_' + r if r else '')}{('_' + ptbin if ptbin else '')}__{var}"
-                            h_temp = f.Get(h_name)
-                            if h_temp:
-                                norm_loose[r] += h_temp.GetSumOfWeights()
+                regions = [item for sublist in props["regions"] for item in sublist]
+                norm = {x: 0 for x in regions}
+                norm_loose = {x: 0 for x in regions}
+                for i in range(len(props["inputs"])):
+                    files = []
+                    for r in props["regions"][i]:
+                        for file in props["inputs"][i]:
+                            f = ROOT.TFile(f"{file}.root", "READ")
+                            files += [f]
+                            for c in channels:
+                                h_name = f"{c}_{charge}{('_' + r if r else '')}{('_' + ptbin if ptbin else '')}__{var}"
+                                h_temp = f.Get(h_name)
+                                if h_temp:
+                                    norm[r] += h_temp.GetSumOfWeights()
+                            for c in channels_loose:
+                                h_name = f"{c}_{charge}{('_' + r if r else '')}{('_' + ptbin if ptbin else '')}__{var}"
+                                h_temp = f.Get(h_name)
+                                if h_temp:
+                                    norm_loose[r] += h_temp.GetSumOfWeights()
+                    _ = [f.Close() for f in files]
 
                 norm_sum = sum([norm[x] for x in norm])
                 norm_sum_loose = sum([norm_loose[x] for x in norm_loose])
@@ -67,37 +72,68 @@ for bkg, props in backgrounds.items():
 
             # histogram
             h = None
-            for r in props["regions"]:
-                for f in files:
-                    for c in channels + channels_loose:
-                        h_name = f"{c}_{charge}{('_' + r if r else '')}{('_' + ptbin if ptbin else '')}__{var}"
-                        print(f"reading histogram {h_name} from file {f}...")
-                        if "matrix_method" not in props:
+            all_files = []
+            for i in range(len(props["inputs"])):
+                for r in props["regions"][i]:
+                    for file in props["inputs"][i]:
+                        f = ROOT.TFile(f"{file}.root", "READ")
+                        all_files += [f]
+                        for c in channels + channels_loose:
+                            h_name = f"{c}_{charge}{('_' + r if r else '')}{('_' + ptbin if ptbin else '')}__{var}"
+                            print(f"reading histogram {h_name} from file {f}...")
                             h_temp = f.Get(h_name)
+                            if h_temp:
+                                h_temp = h_temp.Clone(f"{h_temp.GetName()}_clone")
                             if h_temp and sf and c in channels_loose:
                                 print(f"scaling histogram by {sf[r]}")
                                 h_temp.Scale(sf[r])
-                        else:
-                            h_temp = None
-                            h_temp_Tight = f.Get(f"Tight_{h_name}")
-                            h_temp_AntiTight = f.Get(f"AntiTight_{h_name}")
-                            if h_temp_Tight:
-                                h_temp = h_temp_Tight.Clone(h_temp_Tight.GetName().replace("Tight_", ""))
-                                if h_temp_AntiTight:
-                                    h_temp.Add(h_temp_AntiTight)
-                        if h_temp:
-                            print("got histogram")
-                            if not h:
-                                h = h_temp.Clone(f"{bkg}_{charge}{('_' + ptbin if ptbin else '')}__{var}")
+                            if h_temp:
+                                print(f"got histogram {h_temp}")
+                                if not h:
+                                    h = h_temp.Clone(f"{bkg}_{charge}{('_' + ptbin if ptbin else '')}__{var}")
+                                else:
+                                    h.Add(h_temp)
                             else:
-                                h.Add(h_temp)
-                        else:
-                            print(f"WARNING:: histogram {h_name} not found in file {f}!!")
+                                print(f"WARNING:: histogram {h_name} not found in file {f}!!")
 
             # write
+            f_out = ROOT.TFile("inclusive_sherpa_bkg.root", "UPDATE")
             f_out.cd()
             h.Write()
             f_out.Close()
+            _ = [f.Close() for f in all_files]
+
+            # save per-channel histograms
+            print("~~~~ saving per-channel histograms ~~~~")
+            for c in channels:
+                all_files = []
+                for i in range(len(props["inputs"])):
+                    for r in props["regions"][i]:
+                        # output file
+                        h = None
+                        for file in props["inputs"][i]:
+                            f = ROOT.TFile(f"{file}.root", "READ")
+                            all_files += [f]
+                            h_name = f"{c}_{charge}{('_' + r if r else '')}{('_' + ptbin if ptbin else '')}__{var}"
+                            print(f"reading histogram {h_name} from file {f}...")
+                            h_temp = f.Get(h_name)
+                            if h_temp:
+                                h_temp = h_temp.Clone(f"{h_temp.GetName()}_clone")
+                                print(f"got histogram {h_temp} {h_temp.GetSumOfWeights()}")
+                                if not h:
+                                    h = h_temp.Clone(f"{c}_{charge}_{r}{('_' + ptbin if ptbin else '')}__{var}")
+                                else:
+                                    h.Add(h_temp)
+                            else:
+                                print(f"WARNING:: histogram {h_name} not found in file {f}!!")
+
+                        # write
+                        f_out = ROOT.TFile("inclusive_sherpa_bkg.root", "UPDATE")
+                        f_out.cd()
+                        print(f"Written histogram {h}")
+                        h.Write()
+                        f_out.Close()
+                _ = [f.Close() for f in all_files]
 
 
 f_out.Close()

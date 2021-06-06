@@ -6,6 +6,8 @@ import sys
 
 # file names
 names = [
+    "SPG_Dplus",
+    "SPG_Dminus",
     "SPG_Baryonbar",
     "SPG_Baryon",
     "SPG_Dsminus",
@@ -16,9 +18,15 @@ names = [
 
 # name map
 name_map = {
-    "Baryon": "BaryonMisMatched",
+    "D": "411MisMatched",
     "Ds": "431MisMatched",
     "D0_Dstar": "421MisMatched",
+    "Baryon": "BaryonMisMatched",
+}
+
+# keep only the following truth categories
+truth_cat_to_keep = {
+    "D": "411MisMatched",
 }
 
 # vars
@@ -34,13 +42,13 @@ def main(options, args):
         print("No scale factors provided. SPG will not be scaled.")
 
     for name in names:
-        flavor = name.replace("SPG_", "").replace("_bar", "").replace("bar", "").replace("minus", "")
+        flavor = name.replace("SPG_", "").replace("_bar", "").replace("bar", "").replace("minus", "").replace("plus", "")
         f_in = ROOT.TFile(f"{name}.root", "READ")
         f_out = ROOT.TFile(f"{name}_postProc.root", "RECREATE")
 
         # do OS-SS
         OS_only = False
-        if flavor in ["Ds", "Baryon"]:
+        if flavor in ["D", "Ds", "Baryon"]:
             OS_only = True
 
         # construct inclusive histograms from scaled ones
@@ -51,6 +59,11 @@ def main(options, args):
 
             # TObject name
             obj_name = key.GetName()
+
+            # check truth_cat_to_keep
+            if flavor in truth_cat_to_keep:
+                if truth_cat_to_keep[flavor] not in obj_name:
+                    continue
 
             # var
             var = obj_name.split("__")[-1]
@@ -85,8 +98,8 @@ def main(options, args):
                     print(f"Getting scale-factors for {flavor}_{charge} in pt_bn{pt_bin}")
                     name_spg = f"SPG_{name_map[flavor]}_{charge}_{decay_mode}_{name_map[flavor]}_pt_bin{pt_bin}_{scale_var}"
                     name_mg = f"Wjets_emu_{name_map[flavor]}_{charge}_{decay_mode}_{name_map[flavor]}_pt_bin{pt_bin}_{scale_var}"
-                    h_spg = f_scale_factors.Get(name_spg)
                     h_mg = f_scale_factors.Get(name_mg)
+                    h_spg = f_scale_factors.Get(name_spg)
                     if not (h_spg and h_mg):
                         print(f"Unable to retreive histograms {name_spg} and {name_mg} from file {f_scale_factors}! Exiting!")
                         sys.exit(1)
@@ -98,7 +111,6 @@ def main(options, args):
                     if options.scale_factors:
                         h_scaled.Scale(sf)
                     f_out.cd()
-                    h_scaled.Write(h_scaled.GetName())
                 else:
                     if not (f_in.Get(obj_name.replace("SS", "OS")) and f_in.Get(obj_name.replace("OS", "SS"))):
                         continue
@@ -108,9 +120,14 @@ def main(options, args):
                     # h_scaled.Add(h_SS, -1.0)
                     print(f"created {h_scaled} from {h_OS}")
                     if options.scale_factors:
+                        print(f"sf: {sf}")
                         h_scaled.Scale(sf)
                     f_out.cd()
-                    h_scaled.Write(obj_name)
+
+                # save to file
+                h_scaled.Write(obj_name)
+                if flavor in truth_cat_to_keep:
+                    h_scaled.Write(obj_name.replace(f"_{truth_cat_to_keep[flavor]}", ""))
 
                 # inclusive name
                 inc_name = obj_name.replace(f"_pt_bin{pt_bin}", "")
@@ -126,12 +143,14 @@ def main(options, args):
         for name, h in inclusive_hists.items():
             f_out.cd()
             h.Write(name)
+            if flavor in truth_cat_to_keep:
+                h.Write(name.replace(f"_{truth_cat_to_keep[flavor]}", ""))
 
         f_in.Close()
         f_out.Close()
 
-        if f_scale_factors:
-            f_scale_factors.Close()
+    if options.scale_factors:
+        f_scale_factors.Close()
 
 
 if __name__ == "__main__":

@@ -85,7 +85,7 @@ def get_mc_min(mc_map: MC_Map, samples: list):
         return mc_map[s]
 
 
-def read_sys_histograms(conf, reader, c, var, samples, fit, systematics, mc_map):
+def read_sys_histograms(conf, reader, c, var, samples, fit, systematics, mc_map, alt_sample=False):
     mc_map_sys = {}
     for group in systematics:
         variations = systematics[group].get('variations')
@@ -95,7 +95,7 @@ def read_sys_histograms(conf, reader, c, var, samples, fit, systematics, mc_map)
             mc_map_sys[group] = {syst: read_samples(conf, reader, c, var, samples, fit,
                                                     force_positive=c.force_positive, sys=syst,
                                                     affecting=affecting, fallback=mc_map) for syst in variations}
-        elif sys_type == 'alt_sample':
+        elif sys_type == 'alt_sample' and alt_sample:
             # load files for alternative samples
             for syst in variations:
                 sample = conf.construct_sample(syst)
@@ -471,14 +471,17 @@ def set_under_over_flow(h: ROOT.TH1, x_range: list, do_overflow: bool, do_underf
 
 def rebin_histogram(h: ROOT.TH1, v: variable.Variable, extra_rebin: int = 1):
     # custom x axis
-    if v.xbins:
+    if v.xbins and extra_rebin > 0:
         h_temp = set_under_over_flow(h, v.x_range, v.do_overflow, v.do_underflow)
         return h_temp.Rebin(len(v.xbins) - 1, f"{h_temp.GetName()}_1", array.array('d', v.xbins))
 
     # the rest of the code
     rebin = v.rebin
     if rebin and v.allow_rebin and not v.dstar_tail_rebin:
-        h.Rebin(int(rebin * extra_rebin))
+        if extra_rebin > 0:
+            h.Rebin(int(rebin * extra_rebin))
+        else:
+            h.Rebin(h.GetNbinsX())
         if v.allow_rebin:
             return set_under_over_flow(h, v.x_range, v.do_overflow, v.do_underflow)
         else:
@@ -955,8 +958,8 @@ def replace_sample(conf: globalConfig.GlobalConfig, mc_map: MC_Map, reader: inpu
     h_current = h_current.Clone(f"{h_current.GetName()}_temp_clone")
 
     # Scale replacement histogram to current sample
-    h_replacement.Scale(h_current.Integral(0, h_current.GetNbinsX() + 1) / h_replacement.Integral(0, h_replacement.GetNbinsX() + 1))
-    logging.debug(f"Scaled replacement histogram {h_replacement.GetName()} to the itegral of histogram {h_current.GetName()}")
+    h_replacement.Scale(h_current.GetSumOfWeights() / h_replacement.GetSumOfWeights())
+    logging.debug(f"Scaled replacement histogram {h_replacement.GetName()} to the itegral of histogram {h_current.GetName()}: {h_current.GetSumOfWeights()}")
     if h_replacement.GetNbinsX() > h_current.GetNbinsX():
         logging.critical(f"Replacement sample has more bins: {h_replacement.GetNbinsX()} -> {h_current.GetNbinsX()}")
         raise Exception("Invalid binning")
@@ -975,7 +978,7 @@ def replace_sample(conf: globalConfig.GlobalConfig, mc_map: MC_Map, reader: inpu
     # transfer systematics
     if mc_map_sys:
         for group, systematics in mc_map_sys.items():
-            if group in ["wjets_rest_alt_samples"]:
+            if group in ["wjets_rest_bkg_samples"]:
                 continue
             for syst, map_sys in systematics.items():
                 h_sys_replaced = map_sys[sample_current].Clone(f"{map_sys[sample_current].GetName()}_replaced")

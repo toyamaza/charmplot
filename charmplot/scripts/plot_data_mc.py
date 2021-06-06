@@ -156,6 +156,10 @@ def process_channel(options, conf, c):
                 logging.info(f"replacing sample {replace_sample} with channel {replace_channel}")
                 utils.replace_sample(conf, mc_map, reader, c, var, replace_sample, replace_channel, mc_map_sys if systematics else None, relative_unc=True)
 
+        # systematics histograms with alt samples
+        if systematics:
+            mc_map_sys.update(utils.read_sys_histograms(conf, reader, c, var, samples, fit, systematics, mc_map, alt_sample=True))
+
         # save histograms to root file
         if c.save_to_file:
             utils.save_to_file(out_file_name, c, var, h_data, mc_map)

@@ -11,6 +11,10 @@ backgrounds = {
         "inputs": ["MG_Wjets_cjets_emu", "MG_Wjets_bjets_emu", "MG_Wjets_light_emu"],
         "regions": ["MisMatched", "MatchedNoFid"],
     },
+    "Wjets_emu_Bkg": {
+        "inputs": ["MG_Wjets_cjets_emu", "MG_Wjets_bjets_emu", "MG_Wjets_light_emu"],
+        "regions": ["MisMatched", "MatchedNoFid", "HardMisMatched", "Other"],
+    },
     # "Other": {
     #     "inputs": ["Diboson", "MG_Zjets_light_emu", "MG_Zjets_cjets_emu", "MG_Zjets_bjets_emu", "MG_Zjets_tau", "MG_Wjets_tau"],
     #     "regions": [""],

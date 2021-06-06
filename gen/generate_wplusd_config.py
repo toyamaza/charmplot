@@ -63,8 +63,8 @@ def main(options):
             btags = [btags]
 
     # binning for the 1-tag region
-    # use '40' for 1 bin for D+
-    btag_bin = 40
+    # use '-1' for 1 bin for D+
+    btag_bin = -1
 
     # replace samples to increase mc stats
     replacement_samples = {}
@@ -83,8 +83,9 @@ def main(options):
             'Wjets_emu_411MisMatched': '<charge>_Replacement_411MisMatched',
             'Wjets_emu_Charm': '<charge>_Replacement_CharmMisMatched',
             'Wjets_emu_Rest': '<charge>_Replacement_Wjets_emu_Rest',
-            'Sherpa_Wjets_emu_Rest': '<charge>_Replacement_Wjets_emu_Rest',
-            'Wjets_emu_MisMatched': '<charge>_Replacement_Wjets_emu_MisMatched',
+            'Wjets_emu_Bkg': '<charge>_Replacement_Wjets_emu_Bkg',
+            'Sherpa_Wjets_emu_Bkg': '<charge>_Replacement_Wjets_emu_Bkg',
+            # 'Wjets_emu_MisMatched': '<charge>_Replacement_Wjets_emu_MisMatched',
             # 'DibosonVjetsTau': '<charge>_Replacement_DibosonVjetsTau',
         })
 

@@ -262,7 +262,8 @@ class MatchedCharm(ProxyChannel):
 
     def get_regions(self, regions):
         if self.decayMode == "Dplus":
-            return self.format([reg + "_431MisMatched" for reg in regions] +
+            return self.format([reg + "_411MisMatched" for reg in regions] +
+                               [reg + "_431MisMatched" for reg in regions] +
                                [reg + "_413MisMatched" for reg in regions] +
                                [reg + "_421MisMatched" for reg in regions] +
                                [reg + "_BaryonMisMatched" for reg in regions])

@@ -62,9 +62,8 @@ class WDTruthSamples(ChannelTemplate):
         "Matched_truth_pt_bin5",
     ]
 
-    def __init__(self, fitType="", loose_sr=False, MockMC=True, decayMode="Dplus", truthDiffBins=False, splitSignalSamples=False):
+    def __init__(self, fitType="", MockMC=True, decayMode="Dplus", truthDiffBins=False, splitSignalSamples=False):
         self.os_ss_sub = fitType == "OS-SS"
-        self.loose_sr = loose_sr
         self.MockMC = MockMC
         self.decayMode = decayMode
         self.truthDiffBins = truthDiffBins
@@ -87,18 +86,19 @@ class WDTruthSamples(ChannelTemplate):
         # backgrdound from other than the signal decay modes
         if self.decayMode == "Dplus":
             self.samples += [
-                ['Wjets_emu_411MisMatched', proxies.MisMatched(os_ss_sub=self.os_ss_sub, loose_sr=self.loose_sr, pdgId="411")]]
+                ['Wjets_emu_Charm', proxies.GenericChannel(region=["411MisMatched", "413MisMatched", "421MisMatched", "431MisMatched", "BaryonMisMatched"], name="MatchedCharm")],
+                ['Wjets_emu_Bkg', proxies.GenericChannel(name="MisMatched", os_ss_sub=self.os_ss_sub, region=["MisMatched", "MatchedNoFid", "Other", "HardMisMatched"])],
+            ]
         elif self.decayMode in ["DstarKPiPi0", "Dstar"]:
             self.samples += [
-                ['Wjets_emu_413MisMatched', proxies.MisMatched(os_ss_sub=self.os_ss_sub, loose_sr=self.loose_sr, pdgId="413")]]
+                ['Wjets_emu_413MisMatched', proxies.MisMatched(os_ss_sub=self.os_ss_sub, pdgId="413")],
+                ['Wjets_emu_Charm', proxies.GenericChannel(region=["411MisMatched", "421MisMatched", "431MisMatched", "BaryonMisMatched"], name="MatchedCharm")],
+                ['Wjets_emu_MisMatched', proxies.GenericChannel(name="MisMatched", os_ss_sub=self.os_ss_sub, region=["MisMatched", "MatchedNoFid"])],
+                ['Wjets_emu_Rest', proxies.NoMatchBackground(os_ss_sub=self.os_ss_sub)],
+            ]
 
         # other W+jets backgrounds
         self.samples += [
-            ['Wjets_emu_Charm', proxies.MatchedCharm(os_ss_sub=self.os_ss_sub,
-                                                     loose_sr=self.loose_sr, decayMode=self.decayMode)],
-            # ['Wjets_emu_CharmGeom', proxies.MatchedCharmGeom(os_ss_sub=self.os_ss_sub, loose_sr=self.loose_sr, decayMode=self.decayMode)],
-            ['Wjets_emu_MisMatched', proxies.GenericChannel(name="MisMatched", os_ss_sub=self.os_ss_sub, region=["MisMatched", "MatchedNoFid"])],
-            ['Wjets_emu_Rest', proxies.NoMatchBackground(os_ss_sub=self.os_ss_sub, loose_sr=self.loose_sr)],
             ['Top', proxies.PlainChannel(os_ss_sub=self.os_ss_sub)],
             ['DibosonVjetsTau', proxies.PlainChannel(os_ss_sub=self.os_ss_sub)],
         ]
@@ -198,7 +198,7 @@ class SPGComparison(ChannelTemplate):
                     })
 
         if self.decay_mode == "Dplus":
-            if not self.background_only:
+            if not self.signal_only:
                 self.samples.update(
                     {
                         '411MisMatched': [
@@ -206,11 +206,6 @@ class SPGComparison(ChannelTemplate):
                             ['SPG_411MisMatched', proxies.SPGChannel(name="411MisMatchedInclusiveSPG", regions_OS=["inclusive_Dplus_OS_411MisMatched"], regions_SS=[
                                 "inclusive_Dplus_SS_411MisMatched"], always_OS=True)],
                         ],
-                    }
-                )
-            if not self.signal_only:
-                self.samples.update(
-                    {
                         '421MisMatched': [
                             ['Wjets_emu_421MisMatched', proxies.GenericChannel(region=["421MisMatched", "413MisMatched"], name="421MisMatched")],
                             ['SPG_421MisMatched', proxies.SPGChannel(name="421MisMatchedInclusiveSPG", regions_OS=[
@@ -346,24 +341,26 @@ class ReplacementSamples(ChannelTemplate):
                 })
 
         self.samples.update({
-            '411MisMatched': [
-                ['SPG_411MisMatched', proxies.SPGChannel(name="411MisMatchedInclusiveSPG", regions_OS=["inclusive_Dplus_OS_411MisMatched"], regions_SS=[
-                    "inclusive_Dplus_SS_411MisMatched"], always_OS=True)],
-            ],
             'CharmMisMatched': [
                 ['SPG_CharmMisMatched', proxies.SPGChannel(name="CharmMisMatchedInclusiveSPG", regions_OS=[
                     "inclusive_Dplus_OS"], regions_SS=["inclusive_Dplus_SS"])],
             ],
-            'Wjets_emu_Rest': [
-                ['Wjets_emu_Rest_PostProc', proxies.GenericChannel(name="Wjets_emu_Rest", regions_OS=[
-                    "Wjets_emu_Rest_OS"], regions_SS=["Wjets_emu_Rest_SS"])],
-                ['Sherpa_Wjets_emu_Rest_PostProc', proxies.GenericChannel(name="Wjets_emu_Rest", regions_OS=[
-                    "Wjets_emu_Rest_OS"], regions_SS=["Wjets_emu_Rest_SS"])],
+            'Wjets_emu_Bkg': [
+                ['Wjets_emu_Bkg_PostProc', proxies.GenericChannel(name="Wjets_emu_Bkg", regions_OS=[
+                    "Wjets_emu_Bkg_OS"], regions_SS=["Wjets_emu_Bkg_SS"])],
+                ['Sherpa_Wjets_emu_Bkg_PostProc', proxies.GenericChannel(name="Wjets_emu_Bkg", regions_OS=[
+                    "Wjets_emu_Bkg_OS"], regions_SS=["Wjets_emu_Bkg_SS"])],
             ],
-            'Wjets_emu_MisMatched': [
-                ['Wjets_emu_MisMatched_PostProc', proxies.GenericChannel(name="Wjets_emu_MisMatched", regions_OS=[
-                    "Wjets_emu_MisMatched_OS"], regions_SS=["Wjets_emu_MisMatched_SS"])],
-            ],
+            # 'Wjets_emu_Rest': [
+            #     ['Wjets_emu_Rest_PostProc', proxies.GenericChannel(name="Wjets_emu_Rest", regions_OS=[
+            #         "Wjets_emu_Rest_OS"], regions_SS=["Wjets_emu_Rest_SS"])],
+            #     ['Sherpa_Wjets_emu_Rest_PostProc', proxies.GenericChannel(name="Wjets_emu_Rest", regions_OS=[
+            #         "Wjets_emu_Rest_OS"], regions_SS=["Wjets_emu_Rest_SS"])],
+            # ],
+            # 'Wjets_emu_MisMatched': [
+            #     ['Wjets_emu_MisMatched_PostProc', proxies.GenericChannel(name="Wjets_emu_MisMatched", regions_OS=[
+            #         "Wjets_emu_MisMatched_OS"], regions_SS=["Wjets_emu_MisMatched_SS"])],
+            # ],
             # 'DibosonVjetsTau': [
             #     ['DibosonVjetsTau_PostProc', proxies.GenericChannel(name="DibosonVjetsTau", regions_OS=["Other_OS"], regions_SS=["Other_SS"])],
             # ],
