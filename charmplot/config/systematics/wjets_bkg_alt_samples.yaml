@@ -1,0 +1,5 @@
+type: alt_sample
+affecting:
+  - Wjets_emu_Bkg
+variations:
+  - Sherpa_Wjets_emu_Bkg

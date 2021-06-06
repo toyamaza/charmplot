@@ -99,7 +99,7 @@ def main(options):
             'ttbar_theory_pdf',
             'ttbar_theory_qcd',
             'wjets_theory',
-            'wjets_rest_alt_samples',
+            'wjets_bkg_alt_samples',
         ]
     if options.sherpa_systematics:
         systematics = [
