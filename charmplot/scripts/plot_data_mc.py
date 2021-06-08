@@ -6,6 +6,7 @@ from charmplot.control import inputDataReader
 from multiprocessing import Pool
 import logging
 import os
+import random
 import ROOT
 import sys
 import time
@@ -71,6 +72,7 @@ def process_channel(options, conf, c):
     # output root file
     if c.save_to_file:
         out_file_name = os.path.join(conf.out_name, f"histograms_tmp_{c.name}.root")
+        time.sleep(random.random())
         out_file = ROOT.TFile(out_file_name, "RECREATE")
         out_file.Close()
 
@@ -87,6 +89,7 @@ def process_channel(options, conf, c):
             sample_file_name = os.path.join(trex_folder, f"{s.shortName}_tmp_{c.name}.root")
             logging.info(f"creating file for trex input {sample_file_name}")
             if s.shortName not in trex_histograms:
+                time.sleep(random.random())
                 sample_out_file = ROOT.TFile(sample_file_name, "RECREATE")
                 trex_histograms[s.shortName] = sample_file_name
                 sample_out_file.Close()
