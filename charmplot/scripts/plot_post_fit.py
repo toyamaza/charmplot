@@ -296,7 +296,6 @@ def main(options, conf):
         for par in corr_parameters:
             h_mc_tot_Up = None
             h_mc_tot_Dn = None
-            print(f"{par} {h_mc_tot.GetSumOfWeights()}")
             for channel in plot['+']:
                 h_temp_up = get_err_hist(files[channel], par, "Up", "h_tot_postFit")
                 h_temp_dn = get_err_hist(files[channel], par, "Down", "h_tot_postFit")
@@ -389,6 +388,9 @@ def main(options, conf):
         # top pad
         canv.pad1.cd()
 
+        # make legend
+        canv.make_legend(h_data, h_mc_tot, mc_map, samples, print_yields=True, show_error=False)
+
         # normalize bins to unity
         if var.per_unit:
             utils.normalize_to_unit(hs, hists=[h_mc_tot], grs=[g_mc_tot_err, gr_data])
@@ -397,9 +399,6 @@ def main(options, conf):
         h_mc_tot.Draw("same hist")
         g_mc_tot_err.Draw("e2")
         gr_data.Draw("pe0")
-
-        # make legend
-        canv.make_legend(h_data, h_mc_tot, mc_map, samples, print_yields=True, show_error=False)
 
         # set maximum after creating legend
         canv.set_maximum((h_data, h_mc_tot), var, mc_min=utils.get_mc_min(mc_map, samples))

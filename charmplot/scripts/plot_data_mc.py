@@ -255,6 +255,9 @@ def process_channel(options, conf, c):
         # top pad
         canv.pad1.cd()
 
+        # make legend
+        canv.make_legend(h_data, h_mc_tot, mc_map, samples, print_yields=True, show_error=False)
+
         # normalize bins to unity
         if var.per_unit:
             utils.normalize_to_unit(hs, hists=[h_data, h_mc_tot], grs=[gr_mc_tot_err])
@@ -264,9 +267,6 @@ def process_channel(options, conf, c):
         gr_mc_tot_err.Draw("e2")
         # gr_mc_stat_err.Draw("e2")
         h_data.Draw("same pe")
-
-        # make legend
-        canv.make_legend(h_data, h_mc_tot, mc_map, samples, print_yields=True, show_error=False)
 
         # set maximum after creating legend
         canv.set_maximum((h_data, h_mc_tot), var, mc_min=utils.get_mc_min(mc_map, samples))
