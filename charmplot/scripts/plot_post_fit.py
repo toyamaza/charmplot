@@ -110,18 +110,22 @@ def main(options, conf):
         channel_temp = plot['+'][0]
         channels_all = plot['+'] + plot['-']
         channel_name = "_".join([channel.name for channel in channels_all])
-        if len(channels_all) > 2:
-            channel_name = "0tag_inclusive"
 
         # labels
         labels = []
         for label in channel_temp.label:
+            if len(channels_all) > 2 and "pt_bin" in label:
+                label = "inclusive"
             if len(plot['-']) > 0:
                 label = label.replace("OS", "OS-SS")
             if len(plot['+']) > 1 and "tag" in label:
                 label = label.split(",")[0]
             labels += [label]
         labels[-1] += ', post-fit'
+
+        if len(channels_all) > 2:
+            channel_name = "0tag_inclusive"
+
         chan = Channel(channel_name, labels, channel_temp.lumi, [], [])
 
         # read files
