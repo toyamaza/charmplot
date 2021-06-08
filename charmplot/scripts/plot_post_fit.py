@@ -78,8 +78,9 @@ def main(options, conf):
         for channel_SS in channels:
             if channel_SS.name == channel_OS.name.replace("OS_", "SS_"):
                 OS_minus_SS_plots += [{'+': [channel_OS], '-': [channel_SS]}]
-                OS_minus_SS_total['+'] += [channel_OS]
-                OS_minus_SS_total['-'] += [channel_SS]
+                if "0tag" in channel_SS.name:
+                    OS_minus_SS_total['+'] += [channel_OS]
+                    OS_minus_SS_total['-'] += [channel_SS]
                 break
 
     # get correlation matrix
@@ -94,9 +95,12 @@ def main(options, conf):
             corr_correlation_rows = x['correlation_rows']
     n_pars = len(corr_parameters)
 
-    # plots = individual_plots + OS_minus_SS_plots + [OS_minus_SS_total]
-    plots = individual_plots + OS_minus_SS_plots
+    plots = individual_plots + OS_minus_SS_plots + [OS_minus_SS_total]
+    # plots = individual_plots + OS_minus_SS_plots
     # plots = OS_minus_SS_plots
+
+    print(f"individual_plots {individual_plots}")
+    print(f"OS_minus_SS_plots {OS_minus_SS_plots}")
 
     subtract_manually = True
 
@@ -106,6 +110,8 @@ def main(options, conf):
         channel_temp = plot['+'][0]
         channels_all = plot['+'] + plot['-']
         channel_name = "_".join([channel.name for channel in channels_all])
+        if len(channels_all) > 2:
+            channel_name = "0tag_inclusive"
 
         # labels
         labels = []
