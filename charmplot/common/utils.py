@@ -85,6 +85,44 @@ def get_mc_min(mc_map: MC_Map, samples: list):
         return mc_map[s]
 
 
+def normalize_histo_to_unit(h: ROOT.TH1):
+    for i in range(1, h.GetNbinsX() + 1):
+        w = h.GetBinWidth(i)
+        h.SetBinContent(i, h.GetBinContent(i) / w)
+        h.SetBinError(i, h.GetBinError(i) / w)
+
+
+def normalize_gr_to_unit(gr: ROOT.TGraphAsymmErrors, h_ref: ROOT.TH1):
+    assert h_ref.GetNbinsX() == gr.GetN(), f"Incompatible histogram and graph: h {h_ref}, gr {gr} {gr.GetN()}"
+    for i in range(1, h_ref.GetNbinsX() + 1):
+        w = h_ref.GetBinWidth(i)
+        gr.GetY()[i - 1] /= w
+        if "AsymmErrors" in str(type(gr)):
+            gr.GetEYlow()[i - 1] /= w
+            gr.GetEYhigh()[i - 1] /= w
+        else:
+            gr.GetEY()[i - 1] /= w
+
+
+def normalize_to_unit(stack: ROOT.THStack, hists: List[ROOT.TH1], grs: List[ROOT.TGraphAsymmErrors]):
+    h_ref = None
+
+    # mc map
+    for h in stack.GetStack():
+        if h:
+            if not h_ref:
+                h_ref = h
+            normalize_histo_to_unit(h)
+
+    # hists
+    for h in hists:
+        normalize_histo_to_unit(h)
+
+    # graphs
+    for gr in grs:
+        normalize_gr_to_unit(gr, h_ref)
+
+
 def read_sys_histograms(conf, reader, c, var, samples, fit, systematics, mc_map, alt_sample=False):
     mc_map_sys = {}
     for group in systematics:

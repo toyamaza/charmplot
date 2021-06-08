@@ -77,6 +77,11 @@ class CanvasBase(object):
             precision += 1
             bin_width *= 10
 
+        # per unit
+        if self.variable.per_unit:
+            self.bin_width = 1
+            precision = 1
+
         if self.variable.label:
             if self.variable.unit:
                 proxy.GetXaxis().SetTitle(f"{self.variable.label} [{self.variable.unit}]")

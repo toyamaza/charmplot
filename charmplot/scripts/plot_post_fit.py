@@ -384,6 +384,11 @@ def main(options, conf):
 
         # top pad
         canv.pad1.cd()
+
+        # normalize bins to unity
+        if var.per_unit:
+            utils.normalize_to_unit(hs, hists=[h_mc_tot], grs=[g_mc_tot_err, gr_data])
+
         hs.Draw("same hist")
         h_mc_tot.Draw("same hist")
         g_mc_tot_err.Draw("e2")
