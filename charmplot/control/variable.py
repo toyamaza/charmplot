@@ -21,6 +21,7 @@ class Variable(object):
     logx = False
     xbins = None
     name_override = None
+    per_unit = False
 
     def __init__(self, name, **kwargs):
         self.name = name
