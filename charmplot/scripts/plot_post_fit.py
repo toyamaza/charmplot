@@ -348,8 +348,8 @@ def main(options, conf):
                         err_dn_j = h_mc_tot_err_histograms_Dn[j].GetBinContent(x)
                         err_up = err_up_i * err_up_j * corr * 2
                         err_dn = err_dn_i * err_dn_j * corr * 2
-                        g_mc_tot_err.GetEYlow()[x - 1] += err_up
-                        g_mc_tot_err.GetEYhigh()[x - 1] += err_dn
+                        g_mc_tot_err.GetEYhigh()[x - 1] += err_up
+                        g_mc_tot_err.GetEYlow()[x - 1] += err_dn
             # diagonal
             for i in range(n_pars):
                 if h_mc_tot_err_histograms_Up[i] and h_mc_tot_err_histograms_Dn[i]:
@@ -357,8 +357,8 @@ def main(options, conf):
                     err_dn_i = h_mc_tot_err_histograms_Dn[i].GetBinContent(x)
                     err_up = err_up_i * err_up_i
                     err_dn = err_dn_i * err_dn_i
-                    g_mc_tot_err.GetEYlow()[x - 1] += err_up
-                    g_mc_tot_err.GetEYhigh()[x - 1] += err_dn
+                    g_mc_tot_err.GetEYhigh()[x - 1] += err_up
+                    g_mc_tot_err.GetEYlow()[x - 1] += err_dn
 
             # final
             g_mc_tot_err.GetEYhigh()[x - 1] = math.sqrt(g_mc_tot_err.GetEYhigh()[x - 1])
