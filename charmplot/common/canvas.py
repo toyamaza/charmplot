@@ -77,21 +77,28 @@ class CanvasBase(object):
             precision += 1
             bin_width *= 10
 
-        # per unit
         if self.variable.per_unit:
-            self.bin_width = 1
-            precision = 1
-
-        if self.variable.label:
-            if self.variable.unit:
-                proxy.GetXaxis().SetTitle(f"{self.variable.label} [{self.variable.unit}]")
-                proxy.GetYaxis().SetTitle(f"{events} / ({self.bin_width:.{precision}f} {self.variable.unit})")
+            if self.variable.label:
+                if self.variable.unit:
+                    proxy.GetXaxis().SetTitle(f"{self.variable.label} [{self.variable.unit}]")
+                    proxy.GetYaxis().SetTitle(f"{events} / {self.variable.unit}")
+                else:
+                    proxy.GetXaxis().SetTitle(f"{self.variable.label}")
+                    proxy.GetYaxis().SetTitle(f"{events}")
             else:
-                proxy.GetXaxis().SetTitle(f"{self.variable.label}")
-                proxy.GetYaxis().SetTitle(f"{events} / {self.bin_width:.{precision}f}")
+                proxy.GetXaxis().SetTitle(f"{self.variable.name}")
+                proxy.GetYaxis().SetTitle(f"{events}")
         else:
-            proxy.GetXaxis().SetTitle(f"{self.variable.name}")
-            proxy.GetYaxis().SetTitle(f"{events} / {self.bin_width:.{precision}f}")
+            if self.variable.label:
+                if self.variable.unit:
+                    proxy.GetXaxis().SetTitle(f"{self.variable.label} [{self.variable.unit}]")
+                    proxy.GetYaxis().SetTitle(f"{events} / ({self.bin_width:.{precision}f} {self.variable.unit})")
+                else:
+                    proxy.GetXaxis().SetTitle(f"{self.variable.label}")
+                    proxy.GetYaxis().SetTitle(f"{events} / {self.bin_width:.{precision}f}")
+            else:
+                proxy.GetXaxis().SetTitle(f"{self.variable.name}")
+                proxy.GetYaxis().SetTitle(f"{events} / {self.bin_width:.{precision}f}")
 
         if title:
             proxy.GetYaxis().SetTitle(title)
