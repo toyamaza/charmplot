@@ -99,9 +99,6 @@ def main(options, conf):
     # plots = individual_plots + OS_minus_SS_plots
     # plots = OS_minus_SS_plots
 
-    print(f"individual_plots {individual_plots}")
-    print(f"OS_minus_SS_plots {OS_minus_SS_plots}")
-
     subtract_manually = True
 
     for plot in plots:
@@ -345,11 +342,6 @@ def main(options, conf):
                 for j in range(i):
                     if h_mc_tot_err_histograms_Up[i] and h_mc_tot_err_histograms_Up[j] and h_mc_tot_err_histograms_Dn[i] and h_mc_tot_err_histograms_Dn[j]:
                         corr = corr_correlation_rows[i][j]
-                        # err_i = (h_mc_tot_err_histograms_Up[i].GetBinContent(x) - h_mc_tot_err_histograms_Dn[i].GetBinContent(x)) / 2.
-                        # err_j = (h_mc_tot_err_histograms_Up[j].GetBinContent(x) - h_mc_tot_err_histograms_Dn[j].GetBinContent(x)) / 2.
-                        # err = err_i * err_j * corr * 2
-                        # g_mc_tot_err.GetEYlow()[x - 1] += err
-                        # g_mc_tot_err.GetEYhigh()[x - 1] += err
                         err_up_i = h_mc_tot_err_histograms_Up[i].GetBinContent(x)
                         err_dn_i = h_mc_tot_err_histograms_Dn[i].GetBinContent(x)
                         err_up_j = h_mc_tot_err_histograms_Up[j].GetBinContent(x)
@@ -361,10 +353,6 @@ def main(options, conf):
             # diagonal
             for i in range(n_pars):
                 if h_mc_tot_err_histograms_Up[i] and h_mc_tot_err_histograms_Dn[i]:
-                    # err_i = (h_mc_tot_err_histograms_Up[i].GetBinContent(x) - h_mc_tot_err_histograms_Dn[i].GetBinContent(x)) / 2.
-                    # err = err_i * err_i
-                    # g_mc_tot_err.GetEYlow()[x - 1] += err
-                    # g_mc_tot_err.GetEYhigh()[x - 1] += err
                     err_up_i = h_mc_tot_err_histograms_Up[i].GetBinContent(x)
                     err_dn_i = h_mc_tot_err_histograms_Dn[i].GetBinContent(x)
                     err_up = err_up_i * err_up_i
