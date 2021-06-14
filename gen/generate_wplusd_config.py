@@ -82,10 +82,10 @@ def main(options):
         replacement_samples.update({
             'Wjets_emu_411MisMatched': '<charge>_Replacement_411MisMatched',
             'Wjets_emu_Charm': '<charge>_Replacement_CharmMisMatched',
+            'Wjets_emu_MisMatched': '<charge>_Replacement_Wjets_emu_MisMatched',
             'Wjets_emu_Rest': '<charge>_Replacement_Wjets_emu_Rest',
             'Wjets_emu_Bkg': '<charge>_Replacement_Wjets_emu_Bkg',
-            'Sherpa_Wjets_emu_Bkg': '<charge>_Replacement_Wjets_emu_Bkg',
-            # 'Wjets_emu_MisMatched': '<charge>_Replacement_Wjets_emu_MisMatched',
+            'Sherpa_Wjets_emu_Rest': '<charge>_Replacement_Wjets_emu_Rest',
             # 'DibosonVjetsTau': '<charge>_Replacement_DibosonVjetsTau',
         })
 

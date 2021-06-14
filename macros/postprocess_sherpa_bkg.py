@@ -10,7 +10,17 @@ backgrounds = {
         ],
         "regions": [
             ["HardMisMatched"],
-            ["MisMatched", "MatchedNoFid", "Other", ],
+            ["MisMatched", "MatchedNoFid", "Other"],
+        ]
+    },
+    "Wjets_emu_Rest": {
+        "inputs": [
+            ["Sh_Wjets_light_emu", "Sh_Wjets_highpt_emu", "Sh_Wjets_cjets_emu", "Sh_Wjets_bjets_emu"],
+            ["MG_Wjets_emu"],
+        ],
+        "regions": [
+            ["HardMisMatched"],
+            ["Other"],
         ]
     },
 }

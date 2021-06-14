@@ -87,7 +87,8 @@ class WDTruthSamples(ChannelTemplate):
         if self.decayMode == "Dplus":
             self.samples += [
                 ['Wjets_emu_Charm', proxies.GenericChannel(region=["411MisMatched", "413MisMatched", "421MisMatched", "431MisMatched", "BaryonMisMatched"], name="MatchedCharm")],
-                ['Wjets_emu_Bkg', proxies.GenericChannel(name="MisMatched", os_ss_sub=self.os_ss_sub, region=["MisMatched", "MatchedNoFid", "Other", "HardMisMatched"])],
+                ['Wjets_emu_MisMatched', proxies.GenericChannel(name="MisMatched", os_ss_sub=self.os_ss_sub, region=["MisMatched", "MatchedNoFid"])],
+                ['Wjets_emu_Rest', proxies.GenericChannel(name="Rest", os_ss_sub=self.os_ss_sub, region=["Other", "HardMisMatched"])],
             ]
         elif self.decayMode in ["DstarKPiPi0", "Dstar"]:
             self.samples += [
@@ -345,21 +346,21 @@ class ReplacementSamples(ChannelTemplate):
                 ['SPG_CharmMisMatched', proxies.SPGChannel(name="CharmMisMatchedInclusiveSPG", regions_OS=[
                     "inclusive_Dplus_OS"], regions_SS=["inclusive_Dplus_SS"])],
             ],
-            'Wjets_emu_Bkg': [
-                ['Wjets_emu_Bkg_PostProc', proxies.GenericChannel(name="Wjets_emu_Bkg", regions_OS=[
-                    "Wjets_emu_Bkg_OS"], regions_SS=["Wjets_emu_Bkg_SS"])],
-                ['Sherpa_Wjets_emu_Bkg_PostProc', proxies.GenericChannel(name="Wjets_emu_Bkg", regions_OS=[
-                    "Wjets_emu_Bkg_OS"], regions_SS=["Wjets_emu_Bkg_SS"])],
+            'Wjets_emu_MisMatched': [
+                ['Wjets_emu_MisMatched_PostProc', proxies.GenericChannel(name="Wjets_emu_MisMatched", regions_OS=[
+                    "Wjets_emu_MisMatched_OS"], regions_SS=["Wjets_emu_MisMatched_SS"])],
             ],
-            # 'Wjets_emu_Rest': [
-            #     ['Wjets_emu_Rest_PostProc', proxies.GenericChannel(name="Wjets_emu_Rest", regions_OS=[
-            #         "Wjets_emu_Rest_OS"], regions_SS=["Wjets_emu_Rest_SS"])],
-            #     ['Sherpa_Wjets_emu_Rest_PostProc', proxies.GenericChannel(name="Wjets_emu_Rest", regions_OS=[
-            #         "Wjets_emu_Rest_OS"], regions_SS=["Wjets_emu_Rest_SS"])],
-            # ],
-            # 'Wjets_emu_MisMatched': [
-            #     ['Wjets_emu_MisMatched_PostProc', proxies.GenericChannel(name="Wjets_emu_MisMatched", regions_OS=[
-            #         "Wjets_emu_MisMatched_OS"], regions_SS=["Wjets_emu_MisMatched_SS"])],
+            'Wjets_emu_Rest': [
+                ['Wjets_emu_Rest_PostProc', proxies.GenericChannel(name="Wjets_emu_Rest", regions_OS=[
+                    "Wjets_emu_Rest_OS"], regions_SS=["Wjets_emu_Rest_SS"])],
+                ['Sherpa_Wjets_emu_Rest_PostProc', proxies.GenericChannel(name="Wjets_emu_Rest", regions_OS=[
+                    "Wjets_emu_Rest_OS"], regions_SS=["Wjets_emu_Rest_SS"])],
+            ],
+            # 'Wjets_emu_Bkg': [
+            #     ['Wjets_emu_Bkg_PostProc', proxies.GenericChannel(name="Wjets_emu_Bkg", regions_OS=[
+            #         "Wjets_emu_Bkg_OS"], regions_SS=["Wjets_emu_Bkg_SS"])],
+            #     ['Sherpa_Wjets_emu_Bkg_PostProc', proxies.GenericChannel(name="Wjets_emu_Bkg", regions_OS=[
+            #         "Wjets_emu_Bkg_OS"], regions_SS=["Wjets_emu_Bkg_SS"])],
             # ],
             # 'DibosonVjetsTau': [
             #     ['DibosonVjetsTau_PostProc', proxies.GenericChannel(name="DibosonVjetsTau", regions_OS=["Other_OS"], regions_SS=["Other_SS"])],
