@@ -118,7 +118,7 @@ def main(options, conf):
             if len(plot['+']) > 1 and "tag" in label:
                 label = label.split(",")[0]
             labels += [label]
-        labels[-1] += ', post-fit'
+        labels += ['post-fit']
 
         if len(channels_all) > 2:
             channel_name = "0tag_inclusive"
@@ -164,7 +164,9 @@ def main(options, conf):
                 # pt bin
                 pt_bin = ""
                 if 'MockMC' in sample.shortName or 'Wjets_emu_Matched' in sample.shortName:
-                    pt_bin = "_" + re.findall("(pt_bin[0-9])", channel.name)[0]
+                    pt_bin_re = re.findall("(pt_bin[0-9])", channel.name)
+                    if len(pt_bin_re):
+                        pt_bin = "_" + pt_bin_re[0]
 
                 # truth pt bin
                 truth_pt_bin = ""
@@ -210,7 +212,9 @@ def main(options, conf):
                 # pt bin
                 pt_bin = ""
                 if 'MockMC' in sample.shortName or 'Wjets_emu_Matched' in sample.shortName:
-                    pt_bin = "_" + re.findall("(pt_bin[0-9])", channel.name)[0]
+                    pt_bin_re = re.findall("(pt_bin[0-9])", channel.name)
+                    if len(pt_bin_re):
+                        pt_bin = "_" + pt_bin_re[0]
 
                 # truth pt bin
                 truth_pt_bin = ""
