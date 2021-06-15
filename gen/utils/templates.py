@@ -70,6 +70,9 @@ class WDTruthSamples(ChannelTemplate):
         self.splitSignalSamples = splitSignalSamples
         self.samples = []
 
+        if self.decayMode == "Dstar":
+            self.samplesConf = "madgraph_truth_dstar"
+
         # MockMC at the top in case of OS-SS plots
         if self.os_ss_sub and self.MockMC:
             self.samples += [['MockMC', proxies.MockMC(subtract_mj=False)]]
@@ -84,22 +87,10 @@ class WDTruthSamples(ChannelTemplate):
                 self.samples += [['Wjets_emu_Matched', proxies.Matched(os_ss_sub=self.os_ss_sub)]]
 
         # backgrdound from other than the signal decay modes
-        if self.decayMode == "Dplus":
-            self.samples += [
-                ['Wjets_emu_Charm', proxies.GenericChannel(region=["411MisMatched", "413MisMatched", "421MisMatched", "431MisMatched", "BaryonMisMatched"], name="MatchedCharm")],
-                ['Wjets_emu_MisMatched', proxies.GenericChannel(name="MisMatched", os_ss_sub=self.os_ss_sub, region=["MisMatched", "MatchedNoFid"])],
-                ['Wjets_emu_Rest', proxies.GenericChannel(name="Rest", os_ss_sub=self.os_ss_sub, region=["Other", "HardMisMatched"])],
-            ]
-        elif self.decayMode in ["DstarKPiPi0", "Dstar"]:
-            self.samples += [
-                ['Wjets_emu_413MisMatched', proxies.MisMatched(os_ss_sub=self.os_ss_sub, pdgId="413")],
-                ['Wjets_emu_Charm', proxies.GenericChannel(region=["411MisMatched", "421MisMatched", "431MisMatched", "BaryonMisMatched"], name="MatchedCharm")],
-                ['Wjets_emu_MisMatched', proxies.GenericChannel(name="MisMatched", os_ss_sub=self.os_ss_sub, region=["MisMatched", "MatchedNoFid"])],
-                ['Wjets_emu_Rest', proxies.NoMatchBackground(os_ss_sub=self.os_ss_sub)],
-            ]
-
-        # other W+jets backgrounds
         self.samples += [
+            ['Wjets_emu_Charm', proxies.GenericChannel(region=["411MisMatched", "413MisMatched", "421MisMatched", "431MisMatched", "BaryonMisMatched"], name="MatchedCharm")],
+            ['Wjets_emu_MisMatched', proxies.GenericChannel(name="MisMatched", os_ss_sub=self.os_ss_sub, region=["MisMatched", "MatchedNoFid"])],
+            ['Wjets_emu_Rest', proxies.GenericChannel(name="Rest", os_ss_sub=self.os_ss_sub, region=["Other", "HardMisMatched"])],
             ['Top', proxies.PlainChannel(os_ss_sub=self.os_ss_sub)],
             ['DibosonVjetsTau', proxies.PlainChannel(os_ss_sub=self.os_ss_sub)],
         ]

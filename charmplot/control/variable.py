@@ -16,7 +16,6 @@ class Variable(object):
     rebin = 1
     do_overflow = True
     do_underflow = True
-    dstar_tail_rebin = False
     bins = None
     logx = False
     xbins = None

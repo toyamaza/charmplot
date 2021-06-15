@@ -514,7 +514,7 @@ def rebin_histogram(h: ROOT.TH1, v: variable.Variable, extra_rebin: int = 1):
 
     # the rest of the code
     rebin = v.rebin
-    if rebin and v.allow_rebin and not v.dstar_tail_rebin:
+    if rebin and v.allow_rebin:
         if extra_rebin > 0:
             h.Rebin(int(rebin * extra_rebin))
         else:
@@ -523,17 +523,6 @@ def rebin_histogram(h: ROOT.TH1, v: variable.Variable, extra_rebin: int = 1):
             return set_under_over_flow(h, v.x_range, v.do_overflow, v.do_underflow)
         else:
             return h
-    elif rebin and v.allow_rebin and v.dstar_tail_rebin and v.name == "Dmeson_mdiff":
-        if extra_rebin < 1.5:
-            x_var_list = [135., 140., 141., 142., 143., 144., 145., 146., 147., 148., 149., 150., 153., 156., 159., 162., 165., 168., 171., 174., 177., 180.]
-            x_var = array.array('d', x_var_list)
-            h_out = h.Rebin(len(x_var_list) - 1, "h_out", x_var)
-            return h_out
-        elif extra_rebin > 1.5:
-            x_var_list = [140., 142., 144., 146., 148., 150., 156., 162., 168., 174., 180.]
-            x_var = array.array('d', x_var_list)
-            h_out = h.Rebin(len(x_var_list) - 1, "h_out", x_var)
-            return h_out
     else:
         return h
 
