@@ -2,6 +2,7 @@
 type: updown
 affecting:
   - Sherpa_Wjets
+  - Sherpa_Wjets_emu_Matched
 variations:
   - GEN_MUR1_MUF1_PDF261000
   - GEN_MUR1_MUF1_PDF261001
