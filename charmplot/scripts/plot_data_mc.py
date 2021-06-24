@@ -252,6 +252,11 @@ def process_channel(options, conf, c):
         gr_mc_tot_err = utils.combine_error_multiple([gr_mc_stat_err] + gr_mc_sys_err_map)
         gr_mc_tot_err_only = utils.combine_error_multiple([gr_mc_stat_err_only] + gr_mc_sys_err_only_map)
 
+        # total sys only
+        if options.separate_sys_band:
+            gr_mc_tot_sys_err = utils.combine_error_multiple(gr_mc_sys_err_map, sys=True, symmetrize=True)
+            gr_mc_tot_sys_err_only = utils.combine_error_multiple(gr_mc_sys_err_only_map, sys=True, symmetrize=True)
+
         # top pad
         canv.pad1.cd()
 
@@ -265,7 +270,8 @@ def process_channel(options, conf, c):
         hs.Draw("same hist")
         h_mc_tot.Draw("same hist")
         gr_mc_tot_err.Draw("e2")
-        # gr_mc_stat_err.Draw("e2")
+        if options.separate_sys_band:
+            gr_mc_tot_sys_err.Draw("e2")
         h_data.Draw("same pe")
 
         # set maximum after creating legend
@@ -291,7 +297,8 @@ def process_channel(options, conf, c):
         canv.pad2.cd()
         if not c.qcd_template:
             gr_mc_tot_err_only.Draw("le2")
-            # gr_mc_stat_err_only.Draw("le2")
+            if options.separate_sys_band:
+                gr_mc_tot_sys_err_only.Draw("le2")
             h_ratio.Draw("same pe")
         else:
             h_qcd_frac, h_qcd_frac_err = utils.get_fraction_histogram(mc_map[conf.get_sample(c.qcd_template)], h_data)
@@ -375,6 +382,9 @@ if __name__ == "__main__":
                       help="import post-fit trex plots")
     parser.add_option('--nology',
                       action="store_true", dest="nology",
+                      help="no log-y plots")
+    parser.add_option('--separate-sys-band',
+                      action="store_true", dest="separate_sys_band",
                       help="no log-y plots")
     parser.add_option('-t', '--threads',
                       action="store", dest="threads",

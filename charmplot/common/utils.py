@@ -792,7 +792,7 @@ def combine_error(gr1: ROOT.TGraphAsymmErrors, gr2: ROOT.TGraphAsymmErrors) -> R
     return gr
 
 
-def combine_error_multiple(asym_list):
+def combine_error_multiple(asym_list, sys=False, symmetrize=False):
 
     gr1 = asym_list[0]
     gr = ROOT.TGraphAsymmErrors()
@@ -801,15 +801,21 @@ def combine_error_multiple(asym_list):
         y = gr1.GetY()[i]
         err_x_dn = gr1.GetEXlow()[i]
         err_x_up = gr1.GetEXhigh()[i]
-        err_y_dn = np.sum(np.array([asym.GetEYlow()[i] for asym in asym_list])**2)**0.5
-        err_y_up = np.sum(np.array([asym.GetEYhigh()[i] for asym in asym_list])**2)**0.5
+        if not symmetrize:
+            err_y_dn = np.sum(np.array([asym.GetEYlow()[i] for asym in asym_list])**2)**0.5
+            err_y_up = np.sum(np.array([asym.GetEYhigh()[i] for asym in asym_list])**2)**0.5
+        else:
+            err_y_dn = np.sum(np.array([(asym.GetEYlow()[i] + asym.GetEYhigh()[i]) / 2. for asym in asym_list])**2)**0.5
+            err_y_up = np.sum(np.array([(asym.GetEYlow()[i] + asym.GetEYhigh()[i]) / 2. for asym in asym_list])**2)**0.5
         gr.SetPoint(i, x, y)
         gr.SetPointError(i, err_x_dn, err_x_up, err_y_dn, err_y_up)
 
-    gr.SetFillColor(ROOT.kGray + 3)
-    gr.SetFillStyle(3354)
-    # gr.SetFillColor(ROOT.kBlue - 4)
-    # gr.SetFillStyle(3345)
+    if not sys:
+        gr.SetFillColor(ROOT.kGray + 3)
+        gr.SetFillStyle(3354)
+    else:
+        gr.SetFillColor(ROOT.kBlue - 4)
+        gr.SetFillStyle(3345)
     return gr
 
 
