@@ -28,7 +28,7 @@ colors = {
     "MG_Wjets": ROOT.kBlack,
     "Powheg_Wjets": ROOT.kBlue,
     "Sherpa_Wjets": ROOT.kRed,
-    "Sherpa2210_Wjets": ROOT.kGreen,
+    "Sherpa2211_Wjets": ROOT.kGreen-2,
     "MGFxFx_Wjets": ROOT.kViolet,
 }
 
@@ -37,8 +37,17 @@ bin_shift = {
     "MG_Wjets": 1.00,
     "Powheg_Wjets": 1.05,
     "Sherpa_Wjets": 0.95,
-    "Sherpa2210_Wjets": 0.925,
+    "Sherpa2211_Wjets": 0.925,
     "MGFxFx_Wjets": 1.25,
+}
+
+# legend
+legend_names = {
+    "MG_Wjets": "LO MadGraph",
+    "Powheg_Wjets": "Powheg",
+    "Sherpa_Wjets": "Sherpa2.2.1",
+    "Sherpa2211_Wjets": "Sherpa2.2.11",
+    "MGFxFx_Wjets": "MG FxFx",
 }
 
 # variables
@@ -272,7 +281,10 @@ def main(options, args):
         ROOT.ATLASLabel(0.18, 0.90, "Internal", 1)
         ROOT.myText(0.18, 0.84, 1, "#sqrt{s} = 13 TeV")
         ROOT.myText(0.18, 0.78, 1, "139 fb^{-1}")
-        ROOT.myText(0.50, 0.24, 1, "W#rightarrowl#nu+D, D#rightarrowK#pi#pi")
+        if "Dplus" in c:
+            ROOT.myText(0.50, 0.24, 1, "W#rightarrowl#nu+D, D#rightarrowK#pi#pi")
+        elif "Dstar" in c:
+            ROOT.myText(0.50, 0.24, 1, "W#rightarrowl#nu+D*, D*#rightarrow(K#pi)#pi")
         ROOT.myText(0.50, 0.18, 1, c.replace("OS-SS_", ""))
 
         # save
@@ -290,10 +302,13 @@ def main(options, args):
         leg.SetFillStyle(0)
         leg.SetTextSize(28)
         leg.SetTextFont(43)
-        _ = [leg.AddEntry(fid_eff_gr[s], s, "pe") for s in samples_sys if "_GEN_" not in s]
+        _ = [leg.AddEntry(fid_eff_gr[s], legend_names[s], "pe") for s in samples_sys if "_GEN_" not in s]
 
         # channel ojbect
-        chan = channel.Channel(c, ["W#rightarrowl#nu+D, D#rightarrowK#pi#pi", c], "", [], [])
+        if "Dplus" in c:
+            chan = channel.Channel(c, ["W#rightarrowl#nu+D, D#rightarrowK#pi#pi", c], "", [], [])
+        elif "Dstar" in c:
+            chan = channel.Channel(c, ["W#rightarrowl#nu+D*, D*#rightarrow(K#pi)#pi", c], "", [], [])
 
         # -------------------
         # draw reco
@@ -316,8 +331,11 @@ def main(options, args):
         # ATLAS label
         ROOT.ATLASLabel(0.18, 0.90, "Internal", 1)
         ROOT.myText(0.18, 0.84, 1, "#sqrt{s} = 13 TeV, 139 fb^{-1}")
-        ROOT.myText(0.18, 0.78, 1, "W#rightarrowl#nu+D, D#rightarrowK#pi#pi")
-        ROOT.myText(0.18, 0.72, 1, c)
+        if "Dplus" in c:
+            ROOT.myText(0.18, 0.78, 1, "W#rightarrowl#nu+D, D#rightarrowK#pi#pi")
+        elif "Dstar" in c:
+            ROOT.myText(0.18, 0.78, 1, "W#rightarrowl#nu+D*, D*#rightarrow(K#pi)#pi")
+        # ROOT.myText(0.18, 0.72, 1, c)
 
         # save
         ROOT.gPad.RedrawAxis()
@@ -345,8 +363,11 @@ def main(options, args):
         # ATLAS label
         ROOT.ATLASLabel(0.18, 0.90, "Internal", 1)
         ROOT.myText(0.18, 0.84, 1, "#sqrt{s} = 13 TeV")
-        ROOT.myText(0.18, 0.78, 1, "W#rightarrowl#nu+D, D#rightarrowK#pi#pi")
-        ROOT.myText(0.18, 0.72, 1, c)
+        if "Dplus" in c:
+            ROOT.myText(0.18, 0.78, 1, "W#rightarrowl#nu+D, D#rightarrowK#pi#pi")
+        elif "Dstar" in c:
+            ROOT.myText(0.18, 0.78, 1, "W#rightarrowl#nu+D*, D*#rightarrow(K#pi)#pi")
+        # ROOT.myText(0.18, 0.72, 1, c)
 
         # save
         ROOT.gPad.RedrawAxis()
@@ -437,8 +458,11 @@ def main(options, args):
         ROOT.ATLASLabel(0.18, 0.90, "Internal", 1)
         ROOT.myText(0.18, 0.84, 1, "#sqrt{s} = 13 TeV")
         ROOT.myText(0.18, 0.78, 1, "139 fb^{-1}")
-        ROOT.myText(0.50, 0.24, 1, "W#rightarrowl#nu+D, D#rightarrowK#pi#pi")
-        ROOT.myText(0.50, 0.18, 1, c.replace("OS-SS_", ""))
+        if "Dplus" in c:
+            ROOT.myText(0.40, 0.18, 1, "W#rightarrowl#nu+D, D#rightarrowK#pi#pi")
+        elif "Dstar" in c:
+            ROOT.myText(0.40, 0.18, 1, "W#rightarrowl#nu+D*, D*#rightarrow(K#pi)#pi")
+        # ROOT.myText(0.50, 0.18, 1, c.replace("OS-SS_", ""))
 
         # save
         ROOT.gPad.RedrawAxis()
