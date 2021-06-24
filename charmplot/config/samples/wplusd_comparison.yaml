@@ -46,3 +46,13 @@ Sherpa2210_Wjets_emu_Matched:
   lineColor: "21000"
   legendLabel: "Sherpa2.2.10"
   shortName: Sherpa2210_Wjets_emu_Matched
+
+Sherpa2211_Wjets_emu_Matched:
+  add:
+    - Sh_2211_Wjets_cjets_emu
+    - Sh_2211_Wjets_bjets_emu
+    - Sh_2211_Wjets_light_emu
+  subtract:
+  lineColor: "ROOT.kGreen-2"
+  legendLabel: "Sherpa2.2.11"
+  shortName: Sherpa2211_Wjets_emu_Matched

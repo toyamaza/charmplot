@@ -104,9 +104,9 @@ def main(options):
         ]
     if options.sherpa_systematics:
         systematics = [
-            'sherpa_theory_pdf',
             'sherpa_theory_qcd',
-            'sherpa_theory_as',
+            # 'sherpa_theory_pdf',
+            # 'sherpa_theory_as',
         ]
 
     # Base config
