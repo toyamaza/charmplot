@@ -28,7 +28,7 @@ colors = {
     "MG_Wjets": ROOT.kBlack,
     "Powheg_Wjets": ROOT.kBlue,
     "Sherpa_Wjets": ROOT.kRed,
-    "Sherpa2211_Wjets": ROOT.kGreen-2,
+    "Sherpa2211_Wjets": ROOT.kGreen - 2,
     "MGFxFx_Wjets": ROOT.kViolet,
 }
 
