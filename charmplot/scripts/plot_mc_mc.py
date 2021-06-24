@@ -127,7 +127,7 @@ def main(options, conf, reader):
                 yaxis_label = "Normalized Entries"
 
             # ratio range
-            ratio_range = [0.01, 1.99]
+            ratio_range = [0.51, 1.49]
             if options.show_rel_error:
                 ratio_range = [1e-4, 90]
             canv = utils.make_canvas_mc_ratio(mc_map[samples[0]], var, c, ratio_title=options.ratio_title, x=800, y=800,
