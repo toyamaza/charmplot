@@ -853,3 +853,14 @@ SPG_Matched_truth_pt_bin5:
   lineColor: "21000"
   legendLabel: "SPG #it{D}(#it{K}#pi#pi) (bin 5)"
   shortName: SPG_Matched_truth_pt_bin5
+
+Sherpa_Wjets_emu_Rest:
+  add:
+    - Sh_Wjets_light_emu
+    - Sh_Wjets_cjets_emu
+    - Sh_Wjets_bjets_emu
+    - Sh_Wjets_highpt_emu
+  subtract:
+  lineColor: "21000"
+  legendLabel: "Sherpa W+jets"
+  shortName: Sherpa_Wjets_emu_Rest
