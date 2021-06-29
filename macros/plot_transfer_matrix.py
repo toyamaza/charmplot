@@ -109,6 +109,8 @@ def main(options, args):
         for syst in systematics:
             name = syst
             if syst:
+                if not s == "Sherpa_Wjets":
+                    continue
                 name = f"_{syst}"
             samples_sys += [f"{s}{name}"]
             samples_sys_reco += [f"{s}_emu_Matched{name}"]
@@ -180,10 +182,12 @@ def main(options, args):
             h_fid_eff[s].GetXaxis().SetTitle("p_{T}^{reco}(D) [GeV]")
             h_fid_eff[s].GetYaxis().SetTitle("p_{T}^{truth}(D) [GeV]")
             h_fid_eff[s].SetMarkerSize(1.4)
+            h_fid_eff[s].SetMarkerColor(ROOT.kWhite)
 
             h_fid_eff_inv[s].GetXaxis().SetTitle("p_{T}^{reco}(D) [GeV]")
             h_fid_eff_inv[s].GetYaxis().SetTitle("p_{T}^{truth}(D) [GeV]")
             h_fid_eff_inv[s].SetMarkerSize(1.4)
+            h_fid_eff_inv[s].SetMarkerColor(ROOT.kWhite)
 
             # calculate fiducial efficiency
             fid_eff[s] = ROOT.TEfficiency(truth_projection[s], h_pt_truth[s])
@@ -376,11 +380,20 @@ def main(options, args):
         # -------------------
         # draw fiducial efficiency
         # -------------------
-        if options.sherpa_pdf:
-            sys_band, sys_band_ratio = utils.make_pdf_err(
-                fid_eff_gr[samples_sys[0]], [gr for key, gr in fid_eff_gr.items() if key != samples_sys[0]], "NNPDF30_nnlo_as_0118")
-        elif options.sherpa_qcd:
-            sys_band, sys_band_ratio = utils.make_minmax_err(fid_eff_gr[samples_sys[0]], [gr for key, gr in fid_eff_gr.items() if key != samples_sys[0]])
+        if options.sherpa_pdf or options.sherpa_qcd:
+            sherpa_nominal = None
+            sherpa_sys = []
+            for key, gr in fid_eff_gr.items():
+                if not "Sherpa_Wjets" in key:
+                    continue
+                if key == "Sherpa_Wjets":
+                    sherpa_nominal = gr
+                else:
+                    sherpa_sys += [gr]
+            if options.sherpa_pdf:
+                sys_band, sys_band_ratio = utils.make_pdf_err(sherpa_nominal, sherpa_sys, "NNPDF30_nnlo_as_0118")
+            elif options.sherpa_qcd:
+                sys_band, sys_band_ratio = utils.make_minmax_err(sherpa_nominal, sherpa_sys)
         ROOT.gStyle.SetPaintTextFormat(".5f")
         canv4 = utils.make_canvas_mc_ratio(proxy_axis[samples[0]], truth_pt, chan, "Ratio", x=800, y=800, events="fiducial efficiency")
         canv4.pad1.cd()
@@ -395,9 +408,10 @@ def main(options, args):
                 # eff_err = (fid_eff_inclusive[s].GetEfficiencyErrorUp(1) + fid_eff_inclusive[s].GetEfficiencyErrorLow(1)) / 2
                 # ROOT.myText(0.18, 0.72 - 0.10 * (j + 1), 1, f"{s}: {eff:1.5f} #pm {eff_err:1.5f} ({100 * eff_err / eff:1.3f}%)")
 
-        _ = [fid_eff_gr[s].Draw("pe") for s in reversed(samples_sys)]
         if options.sherpa_pdf or options.sherpa_qcd:
+            sys_band.SetFillColor(colors["Sherpa_Wjets"] + 2)
             sys_band.Draw("e2")
+        _ = [fid_eff_gr[s].Draw("pe") for s in reversed(samples_sys)]
         leg.Draw()
 
         # ratio
@@ -418,9 +432,16 @@ def main(options, args):
                     h, _, _ = utils.get_hist_from_gr(fid_eff_gr_ratio[s], f"{s}_{c}_fid_eff_ratio")
                     h.Write()
 
-        _ = [fid_eff_gr_ratio[s].Draw("pe") for s in reversed(samples_sys)]
+        # draw Sherpa errors
         if options.sherpa_pdf or options.sherpa_qcd:
-            sys_band_ratio.Draw("e2")
+
+            # adjust the central values
+            sys_band_ratio_clone = sys_band_ratio.Clone()
+            for i in range(fid_eff_gr_ratio["Sherpa_Wjets"].GetN()):
+                sys_band_ratio_clone.GetY()[i] = fid_eff_gr_ratio["Sherpa_Wjets"].GetY()[i]
+            sys_band_ratio_clone.Draw("e2")
+            sys_band_ratio_clone.SetFillColor(colors["Sherpa_Wjets"] + 2)
+
             if options.sherpa_qcd:
                 _, h_up, h_dn = utils.get_hist_from_gr(sys_band_ratio, f"{s}_{c}_fid_eff_ratio_qcd_err")
                 sys_band_ratio.Write(f"gr_{s}_{c}_fid_eff_ratio_qcd_err")
@@ -436,6 +457,9 @@ def main(options, args):
                 h, _, _ = utils.get_hist_from_gr(fid_eff_gr_ratio[s], f"{s}_{c}_fid_eff_ratio")
                 h.Write()
 
+        # draw all graphs
+        _ = [fid_eff_gr_ratio[s].Draw("pe") for s in reversed(samples_sys)]
+
         # save
         ROOT.gPad.RedrawAxis()
         canv4.print(f"{options.output}/{c}_fid_eff.pdf")
@@ -444,6 +468,7 @@ def main(options, args):
         # draw fiducial efficiency per bin
         # -------------------
         ROOT.gStyle.SetPaintTextFormat(".3f")
+        ROOT.gStyle.SetPalette(ROOT.kCMYK)
         canv5 = ROOT.TCanvas(f"{c}_matrix", f"{c}_matrix", 1000, 800)
         canv5.SetRightMargin(0.20)
         canv5.SetLogy()
