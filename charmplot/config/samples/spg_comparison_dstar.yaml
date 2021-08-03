@@ -337,8 +337,8 @@ SPG_Matched:
 
 SPG_413MisMatched:
   add:
-    - SPG_Dstar_plus
-    - SPG_Dstar_minus
+    - SPG_Dstar_plus_postProc
+    - SPG_Dstar_minus_postProc
   subtract:
   lineColor: "21000"
   legendLabel: "#it{D}* SPG"
@@ -355,11 +355,11 @@ SPG_421MisMatched:
 
 SPG_411MisMatched:
   add:
-    - SPG_Dminus_postProc
     - SPG_Dplus_postProc
+    - SPG_Dminus_postProc
   subtract:
   lineColor: "21000"
-  legendLabel: "#it{D}(other) SPG"
+  legendLabel: "#it{D} SPG"
   shortName: SPG_411MisMatched
 
 SPG_431MisMatched:
@@ -390,7 +390,109 @@ SPG_CharmMisMatched:
     - SPG_Dsminus_postProc
     - SPG_Baryon_postProc
     - SPG_Baryonbar_postProc
+    - SPG_Dstar_plus_postProc
+    - SPG_Dstar_minus_postProc
   subtract:
   lineColor: "21000"
   legendLabel: "Charm SPG"
   shortName: SPG_CharmMisMatched
+
+Wjets_emu_Matched_truth_pt_bin1:
+  add:
+    # - MG_Wjets_emu
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_bjets_emu
+    - MG_Wjets_light_emu
+  subtract:
+  fillColor: "10004"
+  legendLabel: "W+#it{D*} (bin 1)"
+  shortName: Wjets_emu_Matched_truth_pt_bin1
+
+Wjets_emu_Matched_truth_pt_bin2:
+  add:
+    # - MG_Wjets_emu
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_bjets_emu
+    - MG_Wjets_light_emu
+  subtract:
+  fillColor: "10004"
+  legendLabel: "W+#it{D*} (bin 2)"
+  shortName: Wjets_emu_Matched_truth_pt_bin2
+
+Wjets_emu_Matched_truth_pt_bin3:
+  add:
+    # - MG_Wjets_emu
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_bjets_emu
+    - MG_Wjets_light_emu
+  subtract:
+  fillColor: "10004"
+  legendLabel: "W+#it{D*} (bin 3)"
+  shortName: Wjets_emu_Matched_truth_pt_bin3
+
+Wjets_emu_Matched_truth_pt_bin4:
+  add:
+    # - MG_Wjets_emu
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_bjets_emu
+    - MG_Wjets_light_emu
+  subtract:
+  fillColor: "10004"
+  legendLabel: "W+#it{D*} (bin 4)"
+  shortName: Wjets_emu_Matched_truth_pt_bin4
+
+Wjets_emu_Matched_truth_pt_bin5:
+  add:
+    # - MG_Wjets_emu
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_bjets_emu
+    - MG_Wjets_light_emu
+  subtract:
+  fillColor: "10004"
+  legendLabel: "W+#it{D*} (bin 5)"
+  shortName: Wjets_emu_Matched_truth_pt_bin5
+
+SPG_Matched_truth_pt_bin1:
+  add:
+    - SPG_Dstar_plus
+    - SPG_Dstar_minus
+  subtract:
+  lineColor: "21000"
+  legendLabel: "SPG #it{D*}(#it{K}#pi#pi) (bin 1)"
+  shortName: SPG_Matched_truth_pt_bin1
+
+SPG_Matched_truth_pt_bin2:
+  add:
+    - SPG_Dstar_plus
+    - SPG_Dstar_minus
+  subtract:
+  lineColor: "21000"
+  legendLabel: "SPG #it{D*}(#it{K}#pi#pi) (bin 2)"
+  shortName: SPG_Matched_truth_pt_bin2
+
+SPG_Matched_truth_pt_bin3:
+  add:
+    - SPG_Dstar_plus
+    - SPG_Dstar_minus
+  subtract:
+  lineColor: "21000"
+  legendLabel: "SPG #it{D*}(#it{K}#pi#pi) (bin 3)"
+  shortName: SPG_Matched_truth_pt_bin3
+
+SPG_Matched_truth_pt_bin4:
+  add:
+    - SPG_Dstar_plus
+    - SPG_Dstar_minus
+  subtract:
+  lineColor: "21000"
+  legendLabel: "SPG #it{D*}(#it{K}#pi#pi) (bin 4)"
+  shortName: SPG_Matched_truth_pt_bin4
+
+SPG_Matched_truth_pt_bin5:
+  add:
+    - SPG_Dstar_plus
+    - SPG_Dstar_minus
+  subtract:
+  lineColor: "21000"
+  legendLabel: "SPG #it{D*}(#it{K}#pi#pi) (bin 5)"
+  shortName: SPG_Matched_truth_pt_bin5
