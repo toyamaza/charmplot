@@ -384,7 +384,7 @@ def main(options, args):
             sherpa_nominal = None
             sherpa_sys = []
             for key, gr in fid_eff_gr.items():
-                if not "Sherpa_Wjets" in key:
+                if "Sherpa_Wjets" not in key:
                     continue
                 if key == "Sherpa_Wjets":
                     sherpa_nominal = gr
