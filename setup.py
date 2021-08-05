@@ -25,5 +25,6 @@ setup(name='charmplot',
       ],
       install_requires=[
           'PyYAML',
+          'lhapdf',
       ]
       )
