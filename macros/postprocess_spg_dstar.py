@@ -46,7 +46,7 @@ def main(options, args):
         print("No scale factors provided. SPG will not be scaled.")
 
     for name in names:
-        flavor = name.replace("SPG_", "").replace("_bar", "").replace("bar", "").replace("minus", "").replace("plus", "").replace("Dstar_","Dstar")
+        flavor = name.replace("SPG_", "").replace("_bar", "").replace("bar", "").replace("minus", "").replace("plus", "").replace("Dstar_", "Dstar")
         f_in = ROOT.TFile(f"{name}.root", "READ")
         f_out = ROOT.TFile(f"{name}_postProc.root", "RECREATE")
 

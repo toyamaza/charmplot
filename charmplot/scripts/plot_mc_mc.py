@@ -344,7 +344,7 @@ if __name__ == "__main__":
                 out_files += [os.path.join(out_folder, file)]
                 files_exist = True
     if files_exist:
-        jobs = [[os.path.join(out_folder, f"histograms.root")] + out_files]
+        jobs = [[os.path.join(out_folder, "histograms.root")] + out_files]
         p = Pool(1)
         for i, _ in enumerate(p.imap_unordered(utils.hadd_wrapper, jobs)):
             print("done processing hadd job %s/%s" % (i + 1, len(jobs)))

@@ -20,7 +20,7 @@ channels:
     samples:
       - MG_Wjets
       - Sherpa_Wjets
-      - Sherpa2211_Wjets
+      # - Sherpa2211_Wjets
       # - Powheg_Wjets
       # - MGFxFx_Wjets
     label:
@@ -39,7 +39,7 @@ channels:
     samples:
       - MG_Wjets
       - Sherpa_Wjets
-      - Sherpa2211_Wjets
+      # - Sherpa2211_Wjets
       # - Powheg_Wjets
       # - MGFxFx_Wjets
     label:
@@ -51,7 +51,7 @@ channels:
       - -el_minus_Dplus_SS
     samples:
       - MG_Wjets
-      - Sherpa2211_Wjets
+      # - Sherpa2211_Wjets
       # - Powheg_Wjets
       # - Sherpa_Wjets
       # - MGFxFx_Wjets
@@ -64,7 +64,7 @@ channels:
       - -el_plus_Dplus_SS
     samples:
       - MG_Wjets
-      - Sherpa2211_Wjets
+      # - Sherpa2211_Wjets
       # - Powheg_Wjets
       # - Sherpa_Wjets
       # - MGFxFx_Wjets
@@ -77,7 +77,7 @@ channels:
       - -el_minus_Dplus_SS_Kpipi
     samples:
       - MG_Wjets
-      - Sherpa2211_Wjets
+      # - Sherpa2211_Wjets
       # - Powheg_Wjets
       # - Sherpa_Wjets
       # - MGFxFx_Wjets
@@ -90,7 +90,7 @@ channels:
       - -el_plus_Dplus_SS_Kpipi
     samples:
       - MG_Wjets
-      - Sherpa2211_Wjets
+      # - Sherpa2211_Wjets
       # - Powheg_Wjets
       # - Sherpa_Wjets
       # - MGFxFx_Wjets
@@ -103,7 +103,7 @@ channels:
       - -mu_minus_Dplus_SS
     samples:
       - MG_Wjets
-      - Sherpa2211_Wjets
+      # - Sherpa2211_Wjets
       # - Powheg_Wjets
       # - Sherpa_Wjets
       # - MGFxFx_Wjets
@@ -116,7 +116,7 @@ channels:
       - -mu_plus_Dplus_SS
     samples:
       - MG_Wjets
-      - Sherpa2211_Wjets
+      # - Sherpa2211_Wjets
       # - Powheg_Wjets
       # - Sherpa_Wjets
       # - MGFxFx_Wjets
@@ -129,7 +129,7 @@ channels:
       - -mu_minus_Dplus_SS_Kpipi
     samples:
       - MG_Wjets
-      - Sherpa2211_Wjets
+      # - Sherpa2211_Wjets
       # - Powheg_Wjets
       # - Sherpa_Wjets
       # - MGFxFx_Wjets
@@ -142,7 +142,7 @@ channels:
       - -mu_plus_Dplus_SS_Kpipi
     samples:
       - MG_Wjets
-      - Sherpa2211_Wjets
+      # - Sherpa2211_Wjets
       # - Powheg_Wjets
       # - Sherpa_Wjets
       # - MGFxFx_Wjets
@@ -163,7 +163,7 @@ channels:
     samples:
       - MG_Wjets
       - Sherpa_Wjets
-      - Sherpa2211_Wjets
+      # - Sherpa2211_Wjets
       # - Powheg_Wjets
       # - MGFxFx_Wjets
     label:
@@ -182,7 +182,7 @@ channels:
     samples:
       - MG_Wjets
       - Sherpa_Wjets
-      - Sherpa2211_Wjets
+      # - Sherpa2211_Wjets
       # - Powheg_Wjets
       # - MGFxFx_Wjets
     label:
@@ -194,7 +194,7 @@ channels:
       - -el_minus_Dstar_SS
     samples:
       - MG_Wjets
-      - Sherpa2211_Wjets
+      # - Sherpa2211_Wjets
       # - Powheg_Wjets
       # - Sherpa_Wjets
       # - MGFxFx_Wjets
@@ -207,7 +207,7 @@ channels:
       - -el_plus_Dstar_SS
     samples:
       - MG_Wjets
-      - Sherpa2211_Wjets
+      # - Sherpa2211_Wjets
       # - Powheg_Wjets
       # - Sherpa_Wjets
       # - MGFxFx_Wjets
@@ -233,7 +233,7 @@ channels:
       - -el_plus_Dstar_SS_Kpipi
     samples:
       - MG_Wjets
-      - Sherpa2211_Wjets
+      # - Sherpa2211_Wjets
       # - Powheg_Wjets
       # - Sherpa_Wjets
       # - MGFxFx_Wjets
@@ -246,7 +246,7 @@ channels:
       - -mu_minus_Dstar_SS
     samples:
       - MG_Wjets
-      - Sherpa2211_Wjets
+      # - Sherpa2211_Wjets
       # - Powheg_Wjets
       # - Sherpa_Wjets
       # - MGFxFx_Wjets
@@ -259,7 +259,7 @@ channels:
       - -mu_plus_Dstar_SS
     samples:
       - MG_Wjets
-      - Sherpa2211_Wjets
+      # - Sherpa2211_Wjets
       # - Powheg_Wjets
       # - Sherpa_Wjets
       # - MGFxFx_Wjets
@@ -272,7 +272,7 @@ channels:
       - -mu_minus_Dstar_SS_Kpipi
     samples:
       - MG_Wjets
-      - Sherpa2211_Wjets
+      # - Sherpa2211_Wjets
       # - Powheg_Wjets
       # - Sherpa_Wjets
       # - MGFxFx_Wjets
@@ -285,7 +285,7 @@ channels:
       - -mu_plus_Dstar_SS_Kpipi
     samples:
       - MG_Wjets
-      - Sherpa2211_Wjets
+      # - Sherpa2211_Wjets
       # - Powheg_Wjets
       # - Sherpa_Wjets
       # - MGFxFx_Wjets

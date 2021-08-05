@@ -110,7 +110,7 @@ class GlobalConfig(object):
 
     def construct_sample(self, name):
         split_name = [x.strip() for x in name.split("|")]
-        assert split_name[0] in self.samples_config , f"{split_name[0]} missing in {self.samples_config_name} config file"
+        assert split_name[0] in self.samples_config, f"{split_name[0]} missing in {self.samples_config_name} config file"
         samp = self.samples_config[split_name[0]]
         s = sample.Sample(name, **samp)
         if len(split_name) == 2:

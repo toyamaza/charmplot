@@ -363,7 +363,7 @@ def read_samples(conf: globalConfig.GlobalConfig, reader: inputDataReader.InputD
             if s.shortName not in affecting:
                 logging.info(f"Fallback to nominal histogram for {s.shortName} and sys {sys}")
                 if s not in fallback:
-                    logging.info(f"Fallback histogram not found, continuing...")
+                    logging.info("Fallback histogram not found, continuing...")
                     continue
                 h_nominal = fallback[s]
                 h = h_nominal.Clone(f"{h_nominal.GetName()}_{sys}")

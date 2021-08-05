@@ -49,7 +49,7 @@ if __name__ == "__main__":
             total[s] += production[s][c]
             total[s] += production_from_b[s][c]
 
-    print(f"==== non-B production =====")
+    print("==== non-B production =====")
 
     txt = "\t".join([s for s in samples])
     print(f"\t{txt}")
@@ -57,7 +57,7 @@ if __name__ == "__main__":
         txt = "\t".join(["%.4e" % (production[s][c]) for s in samples])
         print(f"{c}\t{txt}")
 
-    print(f"==== production from B =====")
+    print("==== production from B =====")
 
     txt = "\t".join([s for s in samples])
     print(f"\t{txt}")
@@ -65,7 +65,7 @@ if __name__ == "__main__":
         txt = "\t".join(["%.4e" % (production_from_b[s][c]) for s in samples])
         print(f"{c}\t{txt}")
 
-    print(f"==== relative non-B production =====")
+    print("==== relative non-B production =====")
 
     txt = "\t".join([s for s in samples])
     print(f"\t{txt}")
@@ -73,7 +73,7 @@ if __name__ == "__main__":
         txt = "\t".join(["%.4e" % (100 * production[s][c] / total[s]) for s in samples])
         print(f"{c}\t{txt}")
 
-    print(f"==== relative production from B =====")
+    print("==== relative production from B =====")
 
     txt = "\t".join([s for s in samples])
     print(f"\t{txt}")

@@ -73,7 +73,7 @@ def main(options, conf):
                 break
 
     # get correlation matrix
-    logging.info(f"Loading correlation matrix...")
+    logging.info("Loading correlation matrix...")
     corr_dict = tools.parse_yaml_file(os.path.join(options.trex_input, "CorrelationMatrix.yaml"))
     corr_parameters = None
     corr_correlation_rows = None

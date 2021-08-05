@@ -139,7 +139,7 @@ def main(options):
             reco_string = f"2018_{c}_SR"
             mode_string_OS = f"{options.mode}_OS"
             mode_string_SS = f"{options.mode}_SS"
-            logging.info(f"reading histograms")
+            logging.info("reading histograms")
 
             # OS names
             name_d_OS = f"{reco_string}_{mode_string_OS}_Matched/{reco_string}_{mode_string_OS}_Matched__{var.name}"
@@ -404,7 +404,7 @@ def main(options):
     h_u_inc.Scale(1. / float(options.lumi))
 
     # prediction
-    h_p_inc = h_t_inc.Clone(f"h_p_inc")
+    h_p_inc = h_t_inc.Clone("h_p_inc")
     h_p_inc.Scale(1. / float(options.lumi))
 
     # var and channel object
