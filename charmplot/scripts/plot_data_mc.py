@@ -272,7 +272,7 @@ def process_channel(options, conf, c):
         gr_mc_tot_err.Draw("e2")
         if options.separate_sys_band:
             gr_mc_tot_sys_err.Draw("e2")
-        h_data.Draw("same pe")
+        h_data.Draw("same EX0")
 
         # set maximum after creating legend
         canv.set_maximum((h_data, h_mc_tot), var, mc_min=utils.get_mc_min(mc_map, samples))
@@ -299,7 +299,7 @@ def process_channel(options, conf, c):
             gr_mc_tot_err_only.Draw("le2")
             if options.separate_sys_band:
                 gr_mc_tot_sys_err_only.Draw("le2")
-            h_ratio.Draw("same pe")
+            h_ratio.Draw("same EX0")
         else:
             h_qcd_frac, h_qcd_frac_err = utils.get_fraction_histogram(mc_map[conf.get_sample(c.qcd_template)], h_data)
             canv.draw_qcd_frac(h_qcd_frac, h_qcd_frac_err)
