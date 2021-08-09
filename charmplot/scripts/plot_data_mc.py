@@ -311,6 +311,7 @@ def process_channel(options, conf, c):
 
         # close output file
         if c.save_to_file:
+            logging.info(f"Closing the output file {out_file}")
             out_file.Close()
 
     logging.info(f"finished processing channel {c.name}")

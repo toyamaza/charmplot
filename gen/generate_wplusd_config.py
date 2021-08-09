@@ -177,6 +177,11 @@ def main(options):
                             channelGenerator.make_channel(lumi, sign=sign, btag=btag, lepton=lepton, charge=charge,
                                                           extra_rebin=extra_rebin * (btag_bin if btag != '0tag' else 1), os_only=os_only)
 
+                for charge in charges:
+                    for btag in btags:
+                        channelGenerator.make_channel(lumi, sign=sign, btag=btag, charge=charge,
+                                                      extra_rebin=extra_rebin * (btag_bin if btag != '0tag' else 1), os_only=os_only)
+
     # OS-SS plots
     if not options.fit_only:
         if make_os_minus_ss:
@@ -198,6 +203,11 @@ def main(options):
                         for charge in charges:
                             channelGenerator.make_channel(lumi, btag=btag, lepton=lepton, charge=charge,
                                                           extra_rebin=extra_rebin * (btag_bin if btag != '0tag' else 1), os_only=os_only)
+
+                for charge in charges:
+                    for btag in btags:
+                        channelGenerator.make_channel(lumi, btag=btag, charge=charge,
+                                                      extra_rebin=extra_rebin * (btag_bin if btag != '0tag' else 1), os_only=os_only)
 
     # add channels
     if options.replacement_samples:

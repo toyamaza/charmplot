@@ -514,6 +514,8 @@ class ChannelGenerator:
             sign = 'OS-SS_'
         if suffix:
             suffix = f'_{suffix}'
+        if lepton == '' and charge != '':
+            lepton = 'lep'
         btag_massaged = [btag] if type(btag) != list else btag
         name = f'{sign}{format(year)}{format(lepton)}{format(charge)}{format(btag_massaged[0])}{self.decay_mode}{suffix}'
         return name
@@ -545,12 +547,19 @@ class ChannelGenerator:
     def generate_channel_labels(self, sign='', lepton='', charge='', btag='', extra=''):
         labels = [f'{self.process_string}, {sign if sign else "OS-SS"}']
         row2 = ''
-        if charge:
-            charge = f' {charge}'
-        if lepton:
-            row2 = f'{lepton}{charge} channel'
+        if lepton == "el":
+            row2 = "e"
+        elif lepton == "mu":
+            row2 = "#mu"
         else:
-            row2 = 'inclusive channel'
+            row2 = "W"
+        if charge == "plus":
+            row2 += "^{+}"
+        elif charge == "minus":
+            row2 += "^{-}"
+        else:
+            row2 += "^{#pm}"
+        row2 += " channel"
         if btag:
             btag_massaged = [btag] if type(btag) != list else btag
             row2 += f', {"+".join(btag_massaged)}'
