@@ -161,7 +161,7 @@ def read_sys_histograms(conf, reader, c, var, samples, fit, systematics, mc_map,
                                 replace_sample(conf, mc_map_sys[group][syst], reader, c, var, replaceSample,
                                                replace_channel, None, relative_unc=True, current_sample=sample.shortName)
         else:
-            if sys_type not in ['alt_sample', 'overall']:
+            if sys_type not in ['alt_sample', 'overall', 'pre_computed']:
                 mc_map_sys[group] = {syst: read_samples(conf, reader, c, var, samples, fit,
                                                         force_positive=c.force_positive, sys=syst,
                                                         affecting=affecting, fallback=mc_map) for syst in variations}
@@ -186,6 +186,38 @@ def read_sys_histograms(conf, reader, c, var, samples, fit, systematics, mc_map,
                             h_sys.Scale(1 + size)
                         elif "1dn" in syst:
                             h_sys.Scale(1 - size)
+                        mc_map_sys[group][syst][sample] = h_sys
+            elif sys_type == 'pre_computed':
+                # start with nominal for all samples
+                mc_map_sys[group] = {syst: read_samples(conf, reader, c, var, samples, fit,
+                                                        force_positive=c.force_positive, sys=syst,
+                                                        affecting=[''], fallback=mc_map) for syst in variations}
+                for syst in variations:
+                    for s in affecting:
+                        sample = next((x for x in samples if x.shortName == s), None)
+                        if not sample:
+                            continue
+                        if sample not in mc_map:
+                            continue
+                        h_nominal = mc_map[sample]
+                        if not h_nominal:
+                            continue
+                        h_sys = h_nominal.Clone(f"{h_nominal.GetName()}_{syst}")
+                        file_sf = ROOT.TFile(f"{systematics[group].get('input')}/histograms.root", "READ")
+                        inclusive_channel = c.name
+                        if systematics[group].get('inclusive_only'):
+                            for lep in ["_el", "_mu", "_lep"]:
+                                inclusive_channel = inclusive_channel.replace(f"{lep}", "")
+                            for charge in ["_plus", "_minus"]:
+                                inclusive_channel = inclusive_channel.replace(f"{charge}", "")
+                        histo_name = f"{syst}_{inclusive_channel}_{var.name}_ratio"
+                        h = file_sf.Get(histo_name)
+                        if not h:
+                            continue
+                        logging.info(f"generating pre-computed sys for sample {sample.shortName} in channel {c.name} with histogram {histo_name}")
+                        assert h.GetNbinsX() == h_sys.GetNbinsX(), c.name
+                        for i in range(1, h.GetNbinsX() + 1):
+                            h_sys.SetBinContent(i, h_sys.GetBinContent(i) * h.GetBinContent(i))
                         mc_map_sys[group][syst][sample] = h_sys
     return mc_map_sys
 

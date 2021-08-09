@@ -378,6 +378,21 @@ class WDComparisonSamples(ChannelTemplate):
         return self.samples
 
 
+class WjetsSherpaSys(ChannelTemplate):
+
+    samplesConf = "madgraph_truth"
+
+    samples = [
+        ['Wjets_emu_Rest', proxies.GenericChannel(name="Rest", region=["Other", "HardMisMatched"])],
+        ['Sherpa_Wjets_emu_Rest', proxies.GenericChannel(name="Rest", region=["Other", "HardMisMatched"])],
+        # ['Wjets_emu_Rest_Default', proxies.GenericChannel(name="Rest", region=["Other", "HardMisMatched"])],
+        # ['Sherpa_Wjets_emu_Rest_Default', proxies.GenericChannel(name="Rest", region=["Other", "HardMisMatched"])],
+    ]
+
+    def get(self):
+        return self.samples
+
+
 class ChannelGenerator:
 
     def __init__(self, config, samples, signs, years, leptons, charges,

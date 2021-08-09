@@ -1,0 +1,7 @@
+type: pre_computed
+affecting:
+  - Wjets_emu_Rest
+variations:
+  - Sherpa_Wjets_emu_Rest
+input: wjets_sherpa_sys
+inclusive_only: True

@@ -86,6 +86,21 @@ def main(options, conf, reader):
             # mc map sys
             mc_map_sys = utils.read_sys_histograms(conf, reader, c, var, samples, None, systematics, mc_map)
 
+            # replace samples
+            for replace_sample, replace_channel in c.replacement_samples.items():
+                sample_in_map = False
+                for s in mc_map:
+                    if s.shortName == replace_sample:
+                        sample_in_map = True
+                        break
+                if sample_in_map:
+                    logging.info(f"replacing sample {replace_sample} with channel {replace_channel}")
+                    utils.replace_sample(conf, mc_map, reader, c, var, replace_sample, replace_channel, mc_map_sys if systematics else None)
+
+            # systematics histograms with alt samples
+            if systematics:
+                mc_map_sys.update(utils.read_sys_histograms(conf, reader, c, var, samples, None, systematics, mc_map, alt_sample=True))
+
             # save histograms to root file
             if c.save_to_file:
                 utils.save_to_file(out_file_name, c, var, None, mc_map)
@@ -106,7 +121,7 @@ def main(options, conf, reader):
                         for syst in mc_map_sys[group]:
                             group_histos += [mc_map_sys[group][syst][sample]]
                         sys_type = systematics[group]['type']
-                        if sys_type in ['updown', 'alt_sample', 'overall']:
+                        if sys_type in ['updown', 'alt_sample', 'overall', 'pre_computed']:
                             gr_mc_sys_err, gr_mc_sys_err_only = utils.make_sys_err(nominal, group_histos)
                         elif sys_type == 'minmax':
                             gr_mc_sys_err, gr_mc_sys_err_only = utils.make_minmax_err(nominal, group_histos)
@@ -115,11 +130,6 @@ def main(options, conf, reader):
                             gr_mc_sys_err, gr_mc_sys_err_only = utils.make_pdf_err(nominal, group_histos, sys_type)
                         gr_mc_sys_err_map[sample] += [gr_mc_sys_err]
                         gr_mc_sys_err_only_map[sample] += [gr_mc_sys_err_only]
-
-            # replace samples
-            for replace_sample, replace_channel in c.replacement_samples.items():
-                logging.info(f"replacing sample {replace_sample} with channel {replace_channel}")
-                utils.replace_sample(conf, mc_map, reader, c, var, replace_sample, replace_channel, mc_map_sys if systematics else None)
 
             # canvas
             yaxis_label = "Entries"

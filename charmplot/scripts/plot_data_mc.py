@@ -185,7 +185,7 @@ def process_channel(options, conf, c):
                     variations = systematics[group].get('variations')
                     affecting = systematics[group].get('affecting')
                     sys_type = systematics[group].get('type')
-                    if sys_type in ['updown', 'alt_sample', 'overall']:
+                    if sys_type in ['updown', 'alt_sample', 'overall', 'pre_computed']:
                         for syst in variations:
                             utils.save_to_trex_file(trex_folder, c, var, None, mc_map_sys[group][syst], trex_histograms, syst, affecting)
                     elif sys_type == 'minmax':
@@ -238,7 +238,7 @@ def process_channel(options, conf, c):
         if systematics:
             for group in systematics:
                 sys_type = systematics[group]['type']
-                if sys_type in ['updown', 'alt_sample', 'overall']:
+                if sys_type in ['updown', 'alt_sample', 'overall', 'pre_computed']:
                     gr_mc_sys_err, gr_mc_sys_err_only = utils.make_sys_err(h_mc_tot, h_mc_tot_sys[group])
                 elif sys_type == 'minmax':
                     gr_mc_sys_err, gr_mc_sys_err_only = utils.make_minmax_err(h_mc_tot, h_mc_tot_sys[group])

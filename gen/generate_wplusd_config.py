@@ -24,9 +24,6 @@ def main(options):
                                            decayMode=options.decay_mode,
                                            truthDiffBins=options.truth_differential_bins,
                                            splitSignalSamples=options.split_signal_samples)
-        if options.replacement_samples:
-            samples_replacement = templates.ReplacementSamples(truthDiffBins=options.truth_differential_bins,
-                                                               splitSignalSamples=options.split_signal_samples)
     elif options.samples.lower() == 'flavor' or options.samples.lower() == 'flavour':
         samples = templates.WDFlavourSamples()
     elif options.samples.lower() == 'fit':
@@ -41,9 +38,16 @@ def main(options):
         samples = templates.BKGComparison()
     elif options.samples.lower() == 'wplusd_comparison':
         samples = templates.WDComparisonSamples()
+    elif options.samples.lower() == 'wjets_sherpa_sys':
+        samples = templates.WjetsSherpaSys()
     else:
         print(f"ERROR: Unknown samples type {options.samples}")
         sys.exit(1)
+
+    # replacement samples
+    if options.replacement_samples:
+        samples_replacement = templates.ReplacementSamples(truthDiffBins=options.truth_differential_bins,
+                                                           splitSignalSamples=options.split_signal_samples)
 
     # TODO: make configurable?
     signs = ['OS', 'SS']
@@ -101,6 +105,7 @@ def main(options):
             'ttbar_theory_qcd',
             'wjets_theory',
             'wjets_bkg_alt_samples',
+            # 'wjets_bkg_alt_samples_pre',
         ]
     if options.sherpa_systematics:
         systematics = [
@@ -154,11 +159,11 @@ def main(options):
     if make_os_ss:
         for sign in signs:
             if not options.fit_only:
-                channelGenerator.make_channel(lumi, sign=sign, extra_rebin=extra_rebin, os_only=os_only)
-                if not options.inclusive_only:
-                    for btag in btags:
-                        channelGenerator.make_channel(lumi, sign=sign, btag=btag,
-                                                      extra_rebin=extra_rebin * (btag_bin if btag != '0tag' else 1), os_only=os_only)
+                if len(btags) > 1:
+                    channelGenerator.make_channel(lumi, sign=sign, extra_rebin=extra_rebin, os_only=os_only)
+                for btag in btags:
+                    channelGenerator.make_channel(lumi, sign=sign, btag=btag,
+                                                  extra_rebin=extra_rebin * (btag_bin if btag != '0tag' else 1), os_only=os_only)
             if not options.inclusive_only:
                 for lepton in leptons:
                     if not options.fit_only:
