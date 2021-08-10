@@ -128,6 +128,17 @@ Wjets_emu_Rest:
   legendLabel: "W+jets"
   shortName: Wjets_emu_Rest
 
+Wjets_emu_Rest_Default:
+  add:
+    - MG_Wjets_emu
+    # - MG_Wjets_cjets_emu
+    # - MG_Wjets_bjets_emu
+    # - MG_Wjets_light_emu
+  subtract:
+  fillColor: "14001"
+  legendLabel: "W+jets (OTB)"
+  shortName: Wjets_emu_Rest_Default
+
 Wjets_emu_BkgShared:
   add:
     - MG_Wjets_emu
@@ -707,6 +718,14 @@ Sherpa_Wjets_emu_Rest:
   lineColor: "21000"
   legendLabel: "Sherpa W+jets"
   shortName: Sherpa_Wjets_emu_Rest
+
+Sherpa_Wjets_emu_Rest_Default:
+  add:
+    - inclusive_sherpa_bkg
+  subtract:
+  lineColor: "10001"
+  legendLabel: "Sherpa W+jets (OTB)"
+  shortName: Sherpa_Wjets_emu_Rest_Default
 
 Sherpa_Wjets_emu_Rest_PostProc:
   add:
