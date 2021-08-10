@@ -6,11 +6,17 @@ affecting:
   - Multijet_MatrixMethod_Tight
   - Multijet_MatrixMethod_AntiTight
 variations:
-  - MM_REAL_RATE_STAT__1up
-  - MM_REAL_RATE_STAT__1down
-  # - MM_REAL_RATE_SPECIES_DECAY__1up
-  # - MM_REAL_RATE_SPECIES_DECAY__1down
-  - MM_FAKE_RATE_STAT__1up
-  - MM_FAKE_RATE_STAT__1down
-  - MM_FAKE_RATE__Wjets_MadGraph_Up
-  - MM_FAKE_RATE__Wjets_MadGraph_Dn
+  - MM_EL_RR_STAT__1up
+  - MM_EL_RR_STAT__1down
+  - MM_EL_FR_STAT__1up
+  - MM_EL_FR_STAT__1down
+  - MM_EL_FR__Wjets_MadGraph_Up
+  - MM_EL_FR__Wjets_MadGraph_Dn
+  - MM_EL_NON_CLOSURE
+  - MM_MU_RR_STAT__1up
+  - MM_MU_RR_STAT__1down
+  - MM_MU_FR_STAT__1up
+  - MM_MU_FR_STAT__1down
+  - MM_MU_FR__Wjets_MadGraph_Up
+  - MM_MU_FR__Wjets_MadGraph_Dn
+  - MM_MU_NON_CLOSURE
