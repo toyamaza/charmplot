@@ -415,7 +415,7 @@ def main(options, conf):
         canv.pad2.cd()
         g_mc_tot_err_only.Draw("le2")
         gr_ratio.Draw("pe0")
-        canv.set_ratio_range(0.51, 1.49, override=True)
+        canv.set_ratio_range(0.81, 1.19, override=True)
         ROOT.gPad.RedrawAxis()
 
         # Print out
