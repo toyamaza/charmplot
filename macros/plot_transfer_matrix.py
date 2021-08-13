@@ -376,6 +376,7 @@ def main(options, args):
         # save
         ROOT.gPad.RedrawAxis()
         canv3.Print(f"{options.output}/{c}_truth.pdf")
+        h_pt_truth[samples[0]].Write()
 
         # -------------------
         # draw fiducial efficiency
@@ -492,6 +493,7 @@ def main(options, args):
         # save
         ROOT.gPad.RedrawAxis()
         canv5.Print(f"{options.output}/{c}_fid_eff_per_bin.pdf")
+        h_fid_eff[samples[0]].Write()
 
         # -------------------
         # draw the invertex matrix
