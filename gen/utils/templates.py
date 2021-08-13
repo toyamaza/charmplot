@@ -371,7 +371,7 @@ class WDComparisonSamples(ChannelTemplate):
         # ['Powheg_Wjets_emu_Matched', proxies.Matched()],
         ['Sherpa_Wjets_emu_Matched', proxies.Matched()],
         # ['MGFxFx_Wjets_emu_Matched', proxies.Matched()],
-        ['Sherpa2211_Wjets_emu_Matched', proxies.Matched()],
+        # ['Sherpa2211_Wjets_emu_Matched', proxies.Matched()],
     ]
 
     def get(self):
