@@ -21,6 +21,7 @@ setup(name='charmplot',
           'charmplot/scripts/plot_mc_mc.py',
           'charmplot/scripts/plot_mc.py',
           'charmplot/scripts/plot_post_fit.py',
+          'charmplot/scripts/merge_trex_outputs.sh',
           'gen/generate_wplusd_config.py',
       ],
       install_requires=[
