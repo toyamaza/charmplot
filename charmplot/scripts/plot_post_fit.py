@@ -34,7 +34,7 @@ def get_err_hist(f, par, variation, default):
     if h_temp:
         h_err = h_temp.Clone(f"{h_temp.GetName()}_err_{variation}")
     else:
-        logging.warning(f"Histogram not found for variation {par}_{variation} in file {os.path.basename(f.GetName())}. Using {default} instead.")
+        logging.warning(f"Histogram {name}{par}_{variation}_postFit not found in file {os.path.basename(f.GetName())}. Using {default} instead.")
         h_mc_default = f.Get(default)
         if h_mc_default:
             h_err = h_mc_default.Clone(f"{h_mc_default.GetName()}_err_{variation}")
@@ -118,7 +118,7 @@ def main(options, conf):
             if len(plot['+']) > 1 and "tag" in label:
                 label = label.split(",")[0]
             labels += [label]
-        labels += ['post-fit']
+        labels[-1] += ', post-fit'
 
         if len(channels_all) > 2:
             channel_name = "0tag_inclusive"
@@ -419,8 +419,8 @@ def main(options, conf):
         ROOT.gPad.RedrawAxis()
 
         # Print out
-        canv.print(f"{conf.out_name}/{chan.name}_{var.name}.pdf")
-        canv.print(f"{conf.out_name}/{chan.name}_{var.name}.png")
+        canv.print(f"post_fit/{conf.out_name}/{chan.name}_{var.name}.pdf")
+        canv.print(f"post_fit/{conf.out_name}/{chan.name}_{var.name}.png")
 
         logging.info(f"finished processing channel {channel.name}")
 
@@ -477,8 +477,8 @@ if __name__ == "__main__":
     conf = globalConfig.GlobalConfig(config, out_name)
 
     # make output folder if not exist
-    if not os.path.isdir(out_name):
-        os.makedirs(out_name)
+    if not os.path.isdir(os.path.join("post_fit", out_name)):
+        os.makedirs(os.path.join("post_fit", out_name))
 
     # do the plotting
     main(options, conf)
