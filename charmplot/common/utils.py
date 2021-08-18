@@ -472,10 +472,15 @@ def get_maximum(h, x1, x2):
     return out
 
 
-def set_to_positive(h, sys=""):
+def set_to_positive(h, sys=None):
     for i in range(1, h.GetNbinsX() + 1):
         if h.GetBinContent(i) <= 0:
-            h.SetBinContent(i, 1e-5)
+            h.SetBinContent(i, average_content(h, i))
+            if h.GetBinContent(i) <= 0:
+                if not sys:
+                    h.SetBinContent(i, 1e-3)
+                else:
+                    h.SetBinContent(i, 1e-4)
 
 
 def fit_histogram(h, fit):
@@ -989,13 +994,17 @@ def scale_multijet_histogram(data: ROOT.TH1, mc_map: MC_Map, fit_range: list):
 def average_content(h, i):
     val = 0
     N = 0
+    err = h.GetBinError(i)
     if i > 1:
-        val += h.GetBinContent(i - 1)
+        val += (h.GetBinContent(i - 1) if h.GetBinContent(i - 1) < err else err)
         N += 1
     if i < h.GetNbinsX():
-        val += h.GetBinContent(i + 1)
+        val += (h.GetBinContent(i + 1) if h.GetBinContent(i + 1) < err else err)
         N += 1
-    return val / N
+    if N > 0:
+        return val / N
+    else:
+        return val
 
 
 def replace_sample(conf: globalConfig.GlobalConfig, mc_map: MC_Map, reader: inputDataReader.InputDataReader,

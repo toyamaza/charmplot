@@ -14,8 +14,8 @@ def main(options):
     make_os_minus_ss = not options.fit_only and not options.skip_os_ss
     os_only = options.fit_only
     force_positive = False
-    if options.fit_type == "OS-SS":
-        force_positive = False
+    if options.fit_type == "OS/SS":
+        force_positive = True
 
     # sample type
     if options.samples.lower() == 'truth':
