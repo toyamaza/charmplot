@@ -128,6 +128,7 @@ def read_sys_histograms(conf, reader, c, var, samples, fit, systematics, mc_map,
     for group in systematics:
         variations = systematics[group].get('variations')
         affecting = systematics[group].get('affecting')
+        not_affecting = systematics[group].get('not_affecting', None)
         sys_type = systematics[group].get('type')
         if alt_sample:
             if sys_type == 'alt_sample':
@@ -164,7 +165,7 @@ def read_sys_histograms(conf, reader, c, var, samples, fit, systematics, mc_map,
             if sys_type not in ['alt_sample', 'overall', 'pre_computed']:
                 mc_map_sys[group] = {syst: read_samples(conf, reader, c, var, samples, fit,
                                                         force_positive=c.force_positive, sys=syst,
-                                                        affecting=affecting, fallback=mc_map) for syst in variations}
+                                                        affecting=affecting, not_affecting=not_affecting, fallback=mc_map) for syst in variations}
             elif sys_type == 'overall':
                 # start with nominal for all samples
                 mc_map_sys[group] = {syst: read_samples(conf, reader, c, var, samples, fit,
@@ -383,7 +384,7 @@ def save_to_file_sys(out_file_name: str, channel: channel.Channel, var: variable
 def read_samples(conf: globalConfig.GlobalConfig, reader: inputDataReader.InputDataReader,
                  c: channel.Channel, v: variable.Variable, samples: list,
                  fit: likelihoodFit.LikelihoodFit = None, force_positive: bool = False,
-                 sys: str = None, affecting: list = None, fallback: MC_Map = None) -> MC_Map:
+                 sys: str = None, affecting: list = None, not_affecting: list = None, fallback: MC_Map = None) -> MC_Map:
     mc_map = {}
     for s in samples:
         if sys and "MockMC" in s.shortName:
@@ -391,8 +392,8 @@ def read_samples(conf: globalConfig.GlobalConfig, reader: inputDataReader.InputD
             h = h_nominal.Clone(f"{h_nominal.GetName()}_{sys}")
             mc_map[s] = h
             continue
-        if sys and fallback and affecting:
-            if s.shortName not in affecting:
+        if sys and fallback and (affecting or not_affecting):
+            if (affecting and s.shortName not in affecting) or (not_affecting and s.shortName in not_affecting):
                 logging.info(f"Fallback to nominal histogram for {s.shortName} and sys {sys}")
                 if s not in fallback:
                     logging.info("Fallback histogram not found, continuing...")
