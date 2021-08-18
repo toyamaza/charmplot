@@ -1,10 +1,10 @@
 ---
 variablesConf: charmed_wjets_truth
 samplesConf: wplusd_truth
-# systematics:
-#   - sherpa_theory_qcd
-#   # - sherpa_theory_pdf
-#   # - sherpa_theory_as
+systematics:
+  - sherpa_theory_qcd
+  # - sherpa_theory_pdf
+  # - sherpa_theory_as
 
 channels:
   OS-SS_Dplus:
