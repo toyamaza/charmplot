@@ -161,7 +161,7 @@ def process_channel(options, conf, c):
 
         # systematics histograms with alt samples
         if systematics:
-            mc_map_sys.update(utils.read_sys_histograms(conf, reader, c, var, samples, fit, systematics, mc_map, alt_sample=True))
+            mc_map_sys.update(utils.read_sys_histograms_alt_samples(conf, reader, c, var, samples, fit, systematics, mc_map))
 
         # save histograms to root file
         if c.save_to_file:
