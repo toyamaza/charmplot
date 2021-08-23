@@ -137,7 +137,7 @@ def main(options, conf, reader):
                 yaxis_label = "Normalized Entries"
 
             # ratio range
-            ratio_range = [0.51, 1.49]
+            ratio_range = [1.01 - float(options.ratio_range) / 100., 0.99 + float(options.ratio_range) / 100.]
             if options.show_rel_error:
                 ratio_range = [1e-4, 90]
             canv = utils.make_canvas_mc_ratio(mc_map[samples[0]], var, c, ratio_title=options.ratio_title, x=800, y=800,
@@ -305,6 +305,10 @@ if __name__ == "__main__":
                       action="store", dest="ratio_title",
                       default="Ratio",
                       help="title of the ratio")
+    parser.add_option('-r', '--ratio-range',
+                      action="store", dest="ratio_range",
+                      default=50,
+                      help="range of the ratio y-axis")
     parser.add_option('--stage-out',
                       action="store_true", dest="stage_out",
                       help="copy plots to the www folder")
