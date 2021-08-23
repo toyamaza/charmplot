@@ -40,6 +40,8 @@ def main(options):
         samples = templates.WDComparisonSamples()
     elif options.samples.lower() == 'wjets_sherpa_sys':
         samples = templates.WjetsSherpaSys()
+    elif options.samples.lower() == 'spg_sys':
+        samples = templates.SPGSysComparison()
     else:
         print(f"ERROR: Unknown samples type {options.samples}")
         sys.exit(1)

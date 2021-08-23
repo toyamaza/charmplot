@@ -88,7 +88,7 @@ class WDTruthSamples(ChannelTemplate):
 
         # backgrdound from other than the signal decay modes
         self.samples += [
-            ['Wjets_emu_Charm', proxies.GenericChannel(region=["411MisMatched", "413MisMatched", "421MisMatched", "431MisMatched", "BaryonMisMatched"], name="MatchedCharm")],
+            ['Wjets_emu_Charm', proxies.GenericChannel(region=["411MisMatched", "413MisMatched", "421MisMatched", "431MisMatched", "BaryonMisMatched", "Wjets_emu_Charm"], name="MatchedCharm")],
             ['Wjets_emu_MisMatched', proxies.GenericChannel(name="MisMatched", os_ss_sub=self.os_ss_sub, region=["MisMatched", "MatchedNoFid"])],
             ['Wjets_emu_Rest', proxies.GenericChannel(name="Rest", os_ss_sub=self.os_ss_sub, region=["Other", "HardMisMatched"])],
             ['Top', proxies.PlainChannel(os_ss_sub=self.os_ss_sub)],
@@ -285,6 +285,24 @@ class BKGComparison(ChannelTemplate):
         #     ['Multijet_MatrixMethod', proxies.MatrixMethod()],
         #     ['MultiJet_PostProc', proxies.GenericChannel(name="MultiJet", regions_OS=["MultiJet_OS"], regions_SS=["MultiJet_SS"])],
         # ],
+    }
+
+    def get(self):
+        return self.samples
+
+
+class SPGSysComparison(ChannelTemplate):
+
+    samplesConf = "madgraph_truth"
+
+    samples = {
+        'MatchedCharm': [
+            ['Wjets_emu_Charm', proxies.GenericChannel(region=["411MisMatched", "413MisMatched", "421MisMatched", "431MisMatched", "BaryonMisMatched"], name="MatchedCharm")],
+            # ['SPG_CharmMisMatched_sys', proxies.GenericChannel(region=["Wjets_emu_Charm"], name="SPGMatchedCharm")],
+            ['SPG_CharmMisMatched_sys_Dplus', proxies.GenericChannel(region=["Wjets_emu_Charm"], name="SPGMatchedCharmDplus")],
+            ['SPG_CharmMisMatched_sys_Dzero', proxies.GenericChannel(region=["Wjets_emu_Charm"], name="SPGMatchedCharmDzero")],
+            ['SPG_CharmMisMatched_sys_Dsubs', proxies.GenericChannel(region=["Wjets_emu_Charm"], name="SPGMatchedCharmDsubs")],
+        ],
     }
 
     def get(self):
