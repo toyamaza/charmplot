@@ -1093,6 +1093,7 @@ def replace_sample(conf: globalConfig.GlobalConfig, mc_map: MC_Map, reader: inpu
     mc_map[sample_current] = h_replacement
     logging.debug(f"Replacement histogram saved in the mc_map with key {sample_current.shortName}")
 
+
 def make_canvas(h: ROOT.TH1, v: variable.Variable, c: channel.Channel,
                 x: float = 800., y: float = 600., y_split: float = 0.30,
                 fit: likelihoodFit.LikelihoodFit = None, scale_factors: dict = None,
