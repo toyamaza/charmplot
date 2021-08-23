@@ -1056,9 +1056,6 @@ def replace_sample(conf: globalConfig.GlobalConfig, mc_map: MC_Map, reader: inpu
             h_replacement.SetBinContent(i, 1e-5)
     h_replacement.Scale(original_norm / h_replacement.GetSumOfWeights())
 
-    mc_map[sample_current] = h_replacement
-    logging.debug(f"Replacement histogram saved in the mc_map with key {sample_current.shortName}")
-
     # transfer systematics
     if mc_map_sys:
         for group, systematics in mc_map_sys.items():
@@ -1084,8 +1081,17 @@ def replace_sample(conf: globalConfig.GlobalConfig, mc_map: MC_Map, reader: inpu
                         h_sys_replaced.SetBinContent(i, 0.0)
 
                 h_sys_replaced.Add(h_replacement)
+
+                # set the stat error of the sys template to the stat error of the nominal tempalte
+                for i in range(1, h_sys_replaced.GetNbinsX() + 1):
+                    h_sys_replaced.SetBinError(i, h_current.GetBinError(i))
+
+                # save in map
                 map_sys[sample_current] = h_sys_replaced
 
+    # replace nominal sample
+    mc_map[sample_current] = h_replacement
+    logging.debug(f"Replacement histogram saved in the mc_map with key {sample_current.shortName}")
 
 def make_canvas(h: ROOT.TH1, v: variable.Variable, c: channel.Channel,
                 x: float = 800., y: float = 600., y_split: float = 0.30,
