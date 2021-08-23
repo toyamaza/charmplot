@@ -1,0 +1,7 @@
+type: alt_sample
+affecting:
+  - Wjets_emu_Charm
+variations:
+  - SPG_CharmMisMatched_sys_Dplus
+  - SPG_CharmMisMatched_sys_Dzero
+  - SPG_CharmMisMatched_sys_Dsubs
