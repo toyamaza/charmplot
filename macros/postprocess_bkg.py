@@ -11,10 +11,10 @@ backgrounds = {
         "inputs": ["MG_Wjets_cjets_emu", "MG_Wjets_bjets_emu", "MG_Wjets_light_emu"],
         "regions": ["MisMatched", "MatchedNoFid"],
     },
-    "Wjets_emu_Bkg": {
-        "inputs": ["MG_Wjets_cjets_emu", "MG_Wjets_bjets_emu", "MG_Wjets_light_emu"],
-        "regions": ["MisMatched", "MatchedNoFid", "HardMisMatched", "Other"],
-    },
+    # "Wjets_emu_Bkg": {
+    #     "inputs": ["MG_Wjets_cjets_emu", "MG_Wjets_bjets_emu", "MG_Wjets_light_emu"],
+    #     "regions": ["MisMatched", "MatchedNoFid", "HardMisMatched", "Other"],
+    # },
     # "Other": {
     #     "inputs": ["Diboson", "MG_Zjets_light_emu", "MG_Zjets_cjets_emu", "MG_Zjets_bjets_emu", "MG_Zjets_tau", "MG_Wjets_tau"],
     #     "regions": [""],
@@ -45,15 +45,16 @@ f_out.Close()
 
 # loop
 for bkg, props in backgrounds.items():
+
+    # input files
+    files = [ROOT.TFile(f"{f}.root", "READ") for f in props["inputs"]]
+    print(files)
+
     for ptbin in ptbins:
         for charge in ["OS", "SS"]:
 
             # output file
             f_out = ROOT.TFile("inclusive_bkg.root", "UPDATE")
-
-            # input files
-            files = [ROOT.TFile(f"{f}.root", "READ") for f in props["inputs"]]
-            print(files)
 
             # correct scaling
             sf = None
