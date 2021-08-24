@@ -147,9 +147,9 @@ class InputDataReader(object):
             return None
 
         # scale plus and minus if requested
-        if integral_OS != None and h_plus:
+        if integral_OS is not None and h_plus:
             h_plus.Scale(integral_OS / h_plus.GetSumOfWeights())
-        if integral_SS != None and h_minus:
+        if integral_SS is not None and h_minus:
             h_minus.Scale(integral_SS / h_minus.GetSumOfWeights())
 
         # add plus and minus
