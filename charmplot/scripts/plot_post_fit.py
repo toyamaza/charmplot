@@ -415,7 +415,10 @@ def main(options, conf):
         canv.pad2.cd()
         g_mc_tot_err_only.Draw("le2")
         gr_ratio.Draw("pe0")
-        canv.set_ratio_range(0.81, 1.19, override=True)
+
+        # ratio range
+        ratio_range = [1.01 - float(options.ratio_range) / 100., 0.99 + float(options.ratio_range) / 100.]
+        canv.set_ratio_range(ratio_range[0], ratio_range[1], override=True)
         ROOT.gPad.RedrawAxis()
 
         # Print out
@@ -439,6 +442,10 @@ if __name__ == "__main__":
                       action="store", dest="var",
                       help="fitted variable",
                       default="Dmeson_m")
+    parser.add_option('-r', '--ratio-range',
+                      action="store", dest="ratio_range",
+                      default=50,
+                      help="range of the ratio y-axis")
     parser.add_option('--suffix',
                       action="store", dest="suffix",
                       help="suffix for the output name")
