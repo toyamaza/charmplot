@@ -81,21 +81,28 @@ class InputDataReader(object):
                 quot.SetBinError(i, 0.0)
         return quot
 
-    def get_histogram(self, sample, channel, variable, force_positive=False, sys=None, suffix=None):
+    def get_histogram(self, sample, channel, variable, force_positive=False,
+                      sys=None, suffix=None, integral_OS=None, integral_SS=None):
         logging.info(f":::get_histogram::: {sample.name} {channel.name}")
+        h_plus = None
+        h_minus = None
         h_total = None
         h_denom = None
+
         # scale factors for this channel
         self.channel_scale_factors = channel.scale_factors
+
+        # extra rebin
         extra_rebin = channel.extra_rebin
+
+        # take channels from the sample instead of global
         if sample.channel:
             channel = self.config.get_channel(sample.channel)
             logging.info(f"Using channel {channel.name} for sample {sample.name}")
+
+        # looper over input files
         for input_file in sample.get_all():
-            if input_file in sample.add:
-                weight = 1.
-            elif input_file in sample.subtract:
-                weight = -1.
+            # check that fhe file exists
             if input_file not in self.input_files:
                 logger.critical("No input file found for sample %s", sample.name)
                 raise IOError("No input file found for sample %s", sample.name)
@@ -107,10 +114,10 @@ class InputDataReader(object):
                 h = self.get_histogram_from_file(f, channel, sample, variable, c, extra_rebin, sys)
                 if not h:
                     continue
-                if not h_total:
-                    h_total = h.Clone("%s_%s_%s" % (sample.name, channel.name, variable.name))
+                if not h_plus:
+                    h_plus = h.Clone("%s_%s_%s_plus" % (sample.name, channel.name, variable.name))
                 else:
-                    h_total.Add(h, weight)
+                    h_plus.Add(h)
             for c in channel.subtract:
                 logger.info(f"channel.subtract: {c} {sample.shortName}")
                 if skip_truth_channel(sample, c, input_file):
@@ -118,9 +125,10 @@ class InputDataReader(object):
                 h = self.get_histogram_from_file(f, channel, sample, variable, c, extra_rebin, sys)
                 if not h:
                     continue
-                if not h_total:
-                    return None
-                h_total.Add(h, -1 * weight)
+                if not h_minus:
+                    h_minus = h.Clone("%s_%s_%s_minus" % (sample.name, channel.name, variable.name))
+                else:
+                    h_minus.Add(h)
             for c in channel.divide:
                 print("Division occurs")
                 logger.info(f"channel.divide: {c} {sample.shortName}")
@@ -132,7 +140,23 @@ class InputDataReader(object):
                 if not h_denom:
                     h_denom = h.Clone("%s_%s_%s" % (sample.name, channel.name, variable.name))
                 else:
-                    h_denom.Add(h, weight)
+                    h_denom.Add(h)
+
+        # need the plus histogram at this point...
+        if not h_plus:
+            return None
+
+        # scale plus and minus if requested
+        if integral_OS != None and h_plus:
+            h_plus.Scale(integral_OS / h_plus.GetSumOfWeights())
+        if integral_SS != None and h_minus:
+            h_minus.Scale(integral_SS / h_minus.GetSumOfWeights())
+
+        # add plus and minus
+        h_total = h_plus.Clone("%s_%s_%s" % (sample.name, channel.name, variable.name))
+        if h_minus:
+            h_total.Add(h_minus, -1)
+
         if sample.offset:
             for i in range(0, h_total.GetNbinsX() + 2):
                 h_total.SetBinContent(i, sample.offset)
@@ -152,6 +176,36 @@ class InputDataReader(object):
             h_total.SetTitle(f"{h_total.GetName()}_{suffix}")
         logging.info(f":::END get_histogram::: {sample.name} {channel.name} {h_total}")
         return h_total
+
+    def get_integral(self, sample, channel, variable, sys=None):
+        assert len(channel.divide) == 0, "not implemented"
+        integral_plus = 0
+        integral_minus = 0
+        if sample.channel:
+            channel = self.config.get_channel(sample.channel)
+            logging.info(f"Using channel {channel.name} for sample {sample.name}")
+        for input_file in sample.get_all():
+            if input_file not in self.input_files:
+                logger.critical("No input file found for sample %s", sample.name)
+                raise IOError("No input file found for sample %s", sample.name)
+            f = self.input_files[input_file]
+            for c in channel.add:
+                logger.info(f"channel.add: {c} {sample.shortName}")
+                if skip_truth_channel(sample, c, input_file):
+                    continue
+                h = self.get_histogram_from_file(f, channel, sample, variable, c, extra_rebin=1, sys=sys)
+                if not h:
+                    continue
+                integral_plus += h.GetSumOfWeights()
+            for c in channel.subtract:
+                logger.info(f"channel.subtract: {c} {sample.shortName}")
+                if skip_truth_channel(sample, c, input_file):
+                    continue
+                h = self.get_histogram_from_file(f, channel, sample, variable, c, extra_rebin=1, sys=sys)
+                if not h:
+                    continue
+                integral_minus += h.GetSumOfWeights()
+        return integral_plus, integral_minus
 
     def find_variables(self, sample, channel):
         all_vars = set()

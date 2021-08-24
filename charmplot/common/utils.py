@@ -1021,16 +1021,6 @@ def replace_sample(conf: globalConfig.GlobalConfig, mc_map: MC_Map, reader: inpu
                    c: channel.Channel, var: variable.Variable, sample: str, channel: str, mc_map_sys: Dict[str, MC_Map] = None,
                    relative_unc: bool = True, current_sample: str = ""):
 
-    # 'Replacement' sample
-    channel_replacement = conf.get_channel(channel)
-    if len(channel_replacement.samples) == 1:
-        sample_replacement = conf.get_sample(channel_replacement.samples[0])
-    else:
-        sample_replacement = [conf.get_sample(s) for s in channel_replacement.samples if conf.get_sample(s).shortName == f"{sample}_PostProc"]
-        assert len(sample_replacement) == 1, (sample_replacement, sample, [conf.get_sample(s).shortName for s in channel_replacement.samples])
-        sample_replacement = sample_replacement[0]
-    h_replacement = reader.get_histogram(sample_replacement, channel_replacement, var, channel_replacement.force_positive)
-
     # Current sample
     sample_current = [conf.get_sample(s) for s in c.samples if conf.get_sample(s).shortName == (sample if not current_sample else current_sample)]
     assert len(sample_current) == 1, (sample_current, sample, [conf.get_sample(s).shortName for s in c.samples])
@@ -1041,9 +1031,27 @@ def replace_sample(conf: globalConfig.GlobalConfig, mc_map: MC_Map, reader: inpu
     h_current = mc_map[sample_current]
     h_current = h_current.Clone(f"{h_current.GetName()}_temp_clone")
 
+    # integral OS / SS
+    integral_OS, integral_SS = reader.get_integral(sample_current, c, var)
+    logging.info(f"Integral for the nominal sample-- OS: {integral_OS} SS: {integral_SS}")
+
+    # 'Replacement' sample
+    channel_replacement = conf.get_channel(channel)
+    if len(channel_replacement.samples) == 1:
+        sample_replacement = conf.get_sample(channel_replacement.samples[0])
+    else:
+        sample_replacement = [conf.get_sample(s) for s in channel_replacement.samples if conf.get_sample(s).shortName == f"{sample}_PostProc"]
+        assert len(sample_replacement) == 1, (sample_replacement, sample, [conf.get_sample(s).shortName for s in channel_replacement.samples])
+        sample_replacement = sample_replacement[0]
+    h_replacement = reader.get_histogram(sample_replacement, channel_replacement, var, channel_replacement.force_positive,
+                                         integral_OS=integral_OS, integral_SS=integral_SS)
+
     # Scale replacement histogram to current sample
-    h_replacement.Scale(h_current.GetSumOfWeights() / h_replacement.GetSumOfWeights())
-    logging.debug(f"Scaled replacement histogram {h_replacement.GetName()} to the itegral of histogram {h_current.GetName()}: {h_current.GetSumOfWeights()}")
+    SF = h_current.GetSumOfWeights() / h_replacement.GetSumOfWeights()
+    h_replacement.Scale(SF)
+    logging.debug(f"Scaled replacement histogram {h_replacement.GetName()}"
+                  f" to the itegral of histogram {h_current.GetName()}: {h_current.GetSumOfWeights()}."
+                  f" Scale factor was {SF}")
     if h_replacement.GetNbinsX() > h_current.GetNbinsX():
         logging.critical(f"Replacement sample has more bins: {h_replacement.GetNbinsX()} -> {h_current.GetNbinsX()}")
         raise Exception("Invalid binning")
