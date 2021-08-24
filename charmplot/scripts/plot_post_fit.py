@@ -176,9 +176,15 @@ def main(options, conf):
                 # mockMC
                 if 'MockMC' in sample.shortName:
                     h_temp = files[channel].Get(f"h_SymmBkg{channel_charge}{pt_bin}_postFit")
+                    h_negative = files[channel].Get(f"h_NegativeOffset{channel_charge}{pt_bin}_postFit")
                     if not h_temp:
                         btag = re.findall("([012]tag)", channel.name)[0]
                         h_temp = files[channel].Get(f"h_SymmBkg{channel_charge}_{btag}{pt_bin}_postFit")
+                    if not h_negative:
+                        btag = re.findall("([012]tag)", channel.name)[0]
+                        h_negative = files[channel].Get(f"h_NegativeOffset{channel_charge}_{btag}{pt_bin}_postFit")
+                    if h_negative:
+                        h_temp.Add(h_negative)
                 else:
                     if "SS" in channel.name:
                         h_temp = files[channel].Get(f"h_{sample.shortName}{truth_pt_bin}{channel_charge}_postFit")
@@ -224,9 +230,15 @@ def main(options, conf):
                 # mockMC
                 if 'MockMC' in sample.shortName:
                     h_temp = files[channel].Get(f"h_SymmBkg{channel_charge}{pt_bin}_postFit")
+                    h_negative = files[channel].Get(f"h_NegativeOffset{channel_charge}{pt_bin}_postFit")
                     if not h_temp:
                         btag = re.findall("([012]tag)", channel.name)[0]
                         h_temp = files[channel].Get(f"h_SymmBkg{channel_charge}_{btag}{pt_bin}_postFit")
+                    if not h_negative:
+                        btag = re.findall("([012]tag)", channel.name)[0]
+                        h_negative = files[channel].Get(f"h_NegativeOffset{channel_charge}_{btag}{pt_bin}_postFit")
+                    if h_negative:
+                        h_temp.Add(h_negative)
                 else:
                     h_temp = files[channel].Get(f"h_{sample.shortName}{truth_pt_bin}{channel_charge}_postFit")
                     # h_temp = files[channel].Get(f"h_{sample.shortName}{channel_charge}_SS_postFit")
@@ -385,7 +397,7 @@ def main(options, conf):
 
         # normalize bins to unity
         if var.per_unit:
-            utils.normalize_to_unit(hs, hists=[h_mc_tot], grs=[g_mc_tot_err, gr_data])
+            utils.normalize_to_unit(hs, hists=[h_mc_tot, h_data], grs=[g_mc_tot_err, gr_data])
 
         hs.Draw("same hist")
         h_mc_tot.Draw("same hist")
@@ -396,19 +408,20 @@ def main(options, conf):
         canv.set_maximum((h_data, h_mc_tot), var, mc_min=utils.get_mc_min(mc_map, samples))
 
         # find minimum
-        min_negative = {}
-        for s in samples:
-            if s not in mc_map:
-                continue
-            h = mc_map[s]
-            for i in range(1, h.GetNbinsX() + 1):
-                if h.GetBinContent(i) < 0:
-                    if i not in min_negative:
-                        min_negative[i] = 0
-                    min_negative[i] += h.GetBinContent(i)
-        if min_negative.values():
-            min_negative = min(min_negative.values())
-            canv.proxy_up.SetMinimum(min_negative)
+        if '0tag' in channel.name:
+            min_negative = {}
+            for s in samples:
+                if s not in mc_map:
+                    continue
+                h = mc_map[s]
+                for i in range(1, h.GetNbinsX() + 1):
+                    if h.GetBinContent(i) < 0:
+                        if i not in min_negative:
+                            min_negative[i] = 0
+                        min_negative[i] += h.GetBinContent(i)
+            if min_negative.values():
+                min_negative = min(min_negative.values())
+                canv.proxy_up.SetMinimum(min_negative)
 
         # bottom pad
         ROOT.gPad.RedrawAxis()
