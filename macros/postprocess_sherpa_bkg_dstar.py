@@ -141,7 +141,9 @@ for bkg, props in backgrounds.items():
                         f_out = ROOT.TFile("inclusive_sherpa_bkg.root", "UPDATE")
                         f_out.cd()
                         print(f"Written histogram {h}")
-                        h.Write()
+                        # Check if histogram exists, skip otherwise
+                        if h:
+                            h.Write()
                         f_out.Close()
                 _ = [f.Close() for f in all_files]
 

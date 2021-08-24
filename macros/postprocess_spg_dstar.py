@@ -24,7 +24,7 @@ name_map = {
     "Ds": "431MisMatched",
     "D0": "421MisMatched",
     "Baryon": "BaryonMisMatched",
-    "Dstar": "413MisMatched"
+    "Dstar": "413MisMatched",
 }
 
 # keep only the following truth categories
@@ -33,7 +33,6 @@ truth_cat_to_keep = {
 }
 
 # vars
-# accepted_vars = ["Dmeson_m", "Dmeson_mdiff", "Dmeson_pt"]
 accepted_vars = ["Dmeson_mdiff"]
 
 
@@ -52,7 +51,7 @@ def main(options, args):
 
         # do OS-SS
         OS_only = False
-        if flavor in ["D", "Ds", "Baryon"]:
+        if flavor in ["D", "Ds", "Baryon", "Dstar"]:
             OS_only = True
 
         # construct inclusive histograms from scaled ones

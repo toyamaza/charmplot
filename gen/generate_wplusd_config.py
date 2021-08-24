@@ -116,9 +116,19 @@ def main(options):
             'ttbar_theory_pdf',
             'ttbar_theory_qcd',
             'wjets_theory',
-            'wjets_bkg_alt_samples',
-            # 'wjets_bkg_alt_samples_pre',
         ]
+        if options.decay_mode == "Dstar":
+            systematics += [
+                # 'wjets_bkg_alt_samples',
+                'wjets_bkg_alt_samples_1tag',
+                'wjets_bkg_alt_samples_pre',
+            ]
+        else:
+            systematics += [
+                'wjets_bkg_alt_samples',
+                # 'wjets_bkg_alt_samples_pre',
+            ]
+
     if options.sherpa_systematics:
         systematics = [
             'sherpa_theory_qcd',
