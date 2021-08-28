@@ -102,6 +102,13 @@ class InputDataReader(object):
 
         # looper over input files
         for input_file in sample.get_all():
+
+            # file positive or negative
+            if input_file in sample.add:
+                weight = 1.
+            elif input_file in sample.subtract:
+                weight = -1.
+
             # check that fhe file exists
             if input_file not in self.input_files:
                 logger.critical("No input file found for sample %s", sample.name)
@@ -117,7 +124,7 @@ class InputDataReader(object):
                 if not h_plus:
                     h_plus = h.Clone("%s_%s_%s_plus" % (sample.name, channel.name, variable.name))
                 else:
-                    h_plus.Add(h)
+                    h_plus.Add(h, weight)
             for c in channel.subtract:
                 logger.info(f"channel.subtract: {c} {sample.shortName}")
                 if skip_truth_channel(sample, c, input_file):
@@ -128,7 +135,7 @@ class InputDataReader(object):
                 if not h_minus:
                     h_minus = h.Clone("%s_%s_%s_minus" % (sample.name, channel.name, variable.name))
                 else:
-                    h_minus.Add(h)
+                    h_minus.Add(h, weight)
             for c in channel.divide:
                 print("Division occurs")
                 logger.info(f"channel.divide: {c} {sample.shortName}")
