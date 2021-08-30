@@ -434,6 +434,7 @@ class SignalComparison(ChannelTemplate):
     def get(self):
         return self.samples
 
+
 class ChannelGenerator:
 
     def __init__(self, config, samples, signs, years, leptons, charges,
