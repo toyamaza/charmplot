@@ -36,6 +36,8 @@ def main(options):
                                           background_only=options.spg_background_only)
     elif options.samples.lower() == 'bkg_comparison':
         samples = templates.BKGComparison()
+    elif options.samples.lower() == 'signal_comparison':
+        samples = templates.SignalComparison()
     elif options.samples.lower() == 'wplusd_comparison':
         samples = templates.WDComparisonSamples()
     elif options.samples.lower() == 'wjets_sherpa_sys':

@@ -407,6 +407,33 @@ class WjetsSherpaSys(ChannelTemplate):
         return self.samples
 
 
+class SignalComparison(ChannelTemplate):
+
+    samplesConf = "madgraph_truth"
+
+    samples = {}
+
+    truthSlices = [
+        "Matched_truth_pt_bin1",
+        "Matched_truth_pt_bin2",
+        "Matched_truth_pt_bin3",
+        "Matched_truth_pt_bin4",
+        "Matched_truth_pt_bin5",
+    ]
+
+    samples.update(
+        {
+            'Matched': [
+                ['Wjets_emu_Matched_1tag', proxies.GenericChannel(region=truthSlices, name="Matched_1tag", force_1tag=True, loose_sr=True)],
+                # ['Wjets_emu_Matched', proxies.GenericChannel(region=truthSlices, name="Matched")],
+                ['Wjets_emu_Matched_Loose', proxies.GenericChannel(region=truthSlices, name="Matched_Loose", loose_sr=True)],
+            ]
+        }
+    )
+
+    def get(self):
+        return self.samples
+
 class ChannelGenerator:
 
     def __init__(self, config, samples, signs, years, leptons, charges,

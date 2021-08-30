@@ -5,12 +5,19 @@ import abc
 class ProxyChannel:
     os_ss_sub = False
 
-    def __init__(self, os_ss_sub: bool = False, loose_sr: bool = False, ss_only: bool = False):
+    def __init__(self, os_ss_sub: bool = False, loose_sr: bool = False, loose_sr_only: bool = False,
+                 ss_only: bool = False, force_1tag: bool = False):
         self.os_ss_sub = os_ss_sub
         self.loose_sr = loose_sr
+        self.loose_sr_only = loose_sr_only
         self.ss_only = ss_only
+        self.force_1tag = force_1tag
 
     def format(self, regions):
+        if self.force_1tag:
+            for i in range(len(regions)):
+                if "0tag" in regions[i]:
+                    regions[i] = regions[i].replace("0tag", "1tag")
         out = []
         if not self.os_ss_sub:
             out = regions
@@ -38,7 +45,10 @@ class ProxyChannel:
             antiSR = []
             for reg in out:
                 antiSR += [reg.replace("_SR", "_Anti_SR")]
-            return antiSR + out
+            if not self.loose_sr_only:
+                return antiSR + out
+            else:
+                return antiSR
 
     @property
     @abc.abstractmethod
@@ -177,9 +187,10 @@ class SPGChannel(ProxyChannel):
 class GenericChannel(ProxyChannel):
     name = ""
 
-    def __init__(self, os_ss_sub: bool = False, loose_sr: bool = False, ss_only: bool = False, region: str = "", name: str = "",
+    def __init__(self, os_ss_sub: bool = False, loose_sr: bool = False, loose_sr_only: bool = False,
+                 ss_only: bool = False, force_1tag: bool = False, region: str = "", name: str = "",
                  regions_override: list = [], regions_OS: list = [], regions_SS: list = []):
-        super().__init__(os_ss_sub=os_ss_sub, loose_sr=loose_sr, ss_only=ss_only)
+        super().__init__(os_ss_sub=os_ss_sub, loose_sr=loose_sr, loose_sr_only=loose_sr_only, ss_only=ss_only, force_1tag=force_1tag)
         self.region = region
         self.regions_override = regions_override
         if name == "":
