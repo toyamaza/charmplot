@@ -150,10 +150,154 @@ channels:
     lumi: "2017"
     save_to_file: True
 
+  2015_el_QCD_0tag_Dplus:
+    regions:
+      - 2015_el_QCD_0tag_Dplus
+    samples:
+      - Wjets
+      - Zjets
+      - Top
+      - Diboson
+      - Multijet_MatrixMethod | MatrixMethod_2015_el_QCD_0tag_Dplus
+    label:
+      - "2015 el QCD Closure, 0-tag"
+      - "mT < 60 GeV"
+      - "MadGraph"
+    lumi: "2015"
+    save_to_file: True
+    #extra_scale: 0.023581430
+
+  2015_el_QCD_1tag_Dplus:
+    regions:
+      - 2015_el_QCD_1tag_Dplus
+      - 2015_el_QCD_2tag_Dplus
+    samples:
+      - Wjets
+      - Zjets
+      - Top
+      - Diboson
+      - Multijet_MatrixMethod | MatrixMethod_2015_el_QCD_1tag_Dplus
+    label:
+      - "2015 el QCD Closure, 1-tag"
+      - "mT < 60 GeV"
+      - "MadGraph"
+    lumi: "2015"
+    save_to_file: True
+    #extra_scale: 0.023581430
+
+  2015_mu_QCD_0tag_Dplus:
+    regions:
+      - 2015_mu_QCD_0tag_Dplus
+    samples:
+      - Wjets
+      - Zjets
+      - Top
+      - Diboson
+      - Multijet_MatrixMethod | MatrixMethod_2015_mu_QCD_0tag_Dplus
+    label:
+      - "2015 mu QCD Closure, 0-tag"
+      - "mT < 60 GeV"
+      - "MadGraph"
+    lumi: "2015"
+    save_to_file: True
+    #extra_scale: 0.023581430
+
+  2015_mu_QCD_1tag_Dplus:
+    regions:
+      - 2015_mu_QCD_1tag_Dplus
+      - 2015_mu_QCD_2tag_Dplus
+    samples:
+      - Wjets
+      - Zjets
+      - Top
+      - Diboson
+      - Multijet_MatrixMethod | MatrixMethod_2015_mu_QCD_1tag_Dplus
+    label:
+      - "2015 mu QCD Closure, 1-tag"
+      - "mT < 60 GeV"
+      - "MadGraph"
+    lumi: "2015"
+    save_to_file: True
+    #extra_scale: 0.023581430
+
+  2016_el_QCD_0tag_Dplus:
+    regions:
+      - 2016A-B_el_QCD_0tag_Dplus
+      - 2016C-L_el_QCD_0tag_Dplus
+    samples:
+      - Wjets
+      - Zjets
+      - Top
+      - Diboson
+      - Multijet_MatrixMethod | MatrixMethod_2016_el_QCD_0tag_Dplus
+    label:
+      - "2016 el QCD Closure, 0-tag"
+      - "mT < 60 GeV"
+      - "MadGraph"
+    lumi: "2016"
+    save_to_file: True
+
+  2016_el_QCD_1tag_Dplus:
+    regions:
+      - 2016A-B_el_QCD_1tag_Dplus
+      - 2016A-B_el_QCD_2tag_Dplus
+      - 2016C_L_el_QCD_1tag_Dplus
+      - 2016C_L_el_QCD_2tag_Dplus
+    samples:
+      - Wjets
+      - Zjets
+      - Top
+      - Diboson
+      - Multijet_MatrixMethod | MatrixMethod_2016_el_QCD_1tag_Dplus
+    label:
+      - "2016 el QCD Closure, 1-tag"
+      - "mT < 60 GeV"
+      - "MadGraph"
+    lumi: "2016"
+    save_to_file: True
+
+  2016_mu_QCD_0tag_Dplus:
+    regions:
+      - 2016A-B_mu_QCD_0tag_Dplus
+      - 2016C-L_mu_QCD_0tag_Dplus
+    samples:
+      - Wjets
+      - Zjets
+      - Top
+      - Diboson
+      - Multijet_MatrixMethod | MatrixMethod_2016_mu_QCD_0tag_Dplus
+    label:
+      - "2016 mu QCD Closure, 0-tag"
+      - "mT < 60 GeV"
+      - "MadGraph"
+    lumi: "2016"
+    save_to_file: True
+
+  2016_mu_QCD_1tag_Dplus:
+    regions:
+      - 2016A-B_mu_QCD_1tag_Dplus
+      - 2016A-B_mu_QCD_2tag_Dplus
+      - 2016C-L_mu_QCD_1tag_Dplus
+      - 2016C-L_mu_QCD_2tag_Dplus
+    samples:
+      - Wjets
+      - Zjets
+      - Top
+      - Diboson
+      - Multijet_MatrixMethod | MatrixMethod_2016_mu_QCD_1tag_Dplus
+    label:
+      - "2016 mu QCD Closure, 1-tag"
+      - "mT < 60 GeV"
+      - "MadGraph"
+    lumi: "2016"
+    save_to_file: True
+
   el_QCD_0tag_Dplus:
     regions:
       - 2018_el_QCD_0tag_Dplus
       - 2017_el_QCD_0tag_Dplus
+      - 2016A-B_el_QCD_0tag_Dplus
+      - 2016C-L_el_QCD_0tag_Dplus
     samples:
       - Wjets
       - Zjets
@@ -164,7 +308,7 @@ channels:
       - "el QCD Closure, 0-tag"
       - "mT < 60 GeV"
       - "MadGraph"
-    lumi: "2017+2018"
+    lumi: "2016+2017+2018"
     save_to_file: True
 
   el_QCD_1tag_Dplus:
@@ -173,6 +317,10 @@ channels:
       - 2018_el_QCD_2tag_Dplus
       - 2017_el_QCD_1tag_Dplus
       - 2017_el_QCD_2tag_Dplus
+      - 2016A-B_el_QCD_1tag_Dplus
+      - 2016A-B_el_QCD_2tag_Dplus
+      - 2016C-L_el_QCD_1tag_Dplus
+      - 2016C-L_el_QCD_2tag_Dplus
     samples:
       - Wjets
       - Zjets
@@ -183,13 +331,15 @@ channels:
       - "el QCD Closure, 1-tag"
       - "mT < 60 GeV"
       - "MadGraph"
-    lumi: "2017+2018"
+    lumi: "2016+2017+2018"
     save_to_file: True
 
   mu_QCD_0tag_Dplus:
     regions:
       - 2018_mu_QCD_0tag_Dplus
       - 2017_mu_QCD_0tag_Dplus
+      - 2016A-B_mu_QCD_0tag_Dplus
+      - 2016C-L_mu_QCD_0tag_Dplus
     samples:
       - Wjets
       - Zjets
@@ -200,7 +350,7 @@ channels:
       - "mu QCD Closure, 0-tag"
       - "mT < 60 GeV"
       - "MadGraph"
-    lumi: "2017+2018"
+    lumi: "2016+2017+2018"
     save_to_file: True
 
   mu_QCD_1tag_Dplus:
@@ -209,6 +359,10 @@ channels:
       - 2017_mu_QCD_2tag_Dplus
       - 2018_mu_QCD_1tag_Dplus
       - 2018_mu_QCD_2tag_Dplus
+      - 2016A-B_mu_QCD_1tag_Dplus
+      - 2016A-B_mu_QCD_2tag_Dplus
+      - 2016C-L_mu_QCD_1tag_Dplus
+      - 2016C-L_mu_QCD_2tag_Dplus
     samples:
       - Wjets
       - Zjets
@@ -219,7 +373,7 @@ channels:
       - "mu QCD Closure, 1-tag"
       - "mT < 60 GeV"
       - "MadGraph"
-    lumi: "2017+2018"
+    lumi: "2016+2017+2018"
     save_to_file: True
 
   MatrixMethod_2018_el_QCD_0tag_Dplus:
@@ -227,6 +381,7 @@ channels:
       - AntiTight_2018_el_QCD_0tag_Dplus
       - -Tight_2018_el_QCD_0tag_Dplus
     make_plots: False
+    save_to_file: False
 
   MatrixMethod_2018_el_QCD_1tag_Dplus:
     regions:
@@ -235,12 +390,14 @@ channels:
       - AntiTight_2018_el_QCD_2tag_Dplus
       - -Tight_2018_el_QCD_2tag_Dplus
     make_plots: False
+    save_to_file: False
 
   MatrixMethod_2018_mu_QCD_0tag_Dplus:
     regions:
       - AntiTight_2018_mu_QCD_0tag_Dplus
       - -Tight_2018_mu_QCD_0tag_Dplus
     make_plots: False
+    save_to_file: False
 
   MatrixMethod_2018_mu_QCD_1tag_Dplus:
     regions:
@@ -249,12 +406,14 @@ channels:
       - AntiTight_2018_mu_QCD_2tag_Dplus
       - -Tight_2018_mu_QCD_2tag_Dplus
     make_plots: False
+    save_to_file: False
 
   MatrixMethod_2017_el_QCD_0tag_Dplus:
     regions:
       - AntiTight_2017_el_QCD_0tag_Dplus
       - -Tight_2017_el_QCD_0tag_Dplus
     make_plots: False
+    save_to_file: False
 
   MatrixMethod_2017_el_QCD_1tag_Dplus:
     regions:
@@ -263,12 +422,14 @@ channels:
       - AntiTight_2017_el_QCD_2tag_Dplus
       - -Tight_2017_el_QCD_2tag_Dplus
     make_plots: False
+    save_to_file: False
 
   MatrixMethod_2017_mu_QCD_0tag_Dplus:
     regions:
       - AntiTight_2017_mu_QCD_0tag_Dplus
       - -Tight_2017_mu_QCD_0tag_Dplus
     make_plots: False
+    save_to_file: False
 
   MatrixMethod_2017_mu_QCD_1tag_Dplus:
     regions:
@@ -277,6 +438,83 @@ channels:
       - AntiTight_2017_mu_QCD_2tag_Dplus
       - -Tight_2017_mu_QCD_2tag_Dplus
     make_plots: False
+    save_to_file: False
+
+  MatrixMethod_2015_el_QCD_0tag_Dplus:
+    regions:
+      - AntiTight_2015_el_QCD_0tag_Dplus
+      - -Tight_2015_el_QCD_0tag_Dplus
+    make_plots: False
+    save_to_file: False
+
+  MatrixMethod_2015_el_QCD_1tag_Dplus:
+    regions:
+      - AntiTight_2015_el_QCD_1tag_Dplus
+      - -Tight_2015_el_QCD_1tag_Dplus
+      - AntiTight_2015_el_QCD_2tag_Dplus
+      - -Tight_2015_el_QCD_2tag_Dplus
+    make_plots: False
+    save_to_file: False
+
+  MatrixMethod_2015_mu_QCD_0tag_Dplus:
+    regions:
+      - AntiTight_2015_mu_QCD_0tag_Dplus
+      - -Tight_2015_mu_QCD_0tag_Dplus
+    make_plots: False
+    save_to_file: False
+
+  MatrixMethod_2015_mu_QCD_1tag_Dplus:
+    regions:
+      - AntiTight_2015_mu_QCD_1tag_Dplus
+      - -Tight_2015_mu_QCD_1tag_Dplus
+      - AntiTight_2015_mu_QCD_2tag_Dplus
+      - -Tight_2015_mu_QCD_2tag_Dplus
+    make_plots: False
+    save_to_file: False
+
+  MatrixMethod_2016_el_QCD_0tag_Dplus:
+    regions:
+      - AntiTightA-B_2016_el_QCD_0tag_Dplus
+      - -TightA-B_2016_el_QCD_0tag_Dplus
+      - AntiTightC-L_2016_el_QCD_0tag_Dplus
+      - -TightC-L_2016_el_QCD_0tag_Dplus
+    make_plots: False
+    save_to_file: False
+
+  MatrixMethod_2016_el_QCD_1tag_Dplus:
+    regions:
+      - AntiTight_2016A-B_el_QCD_1tag_Dplus
+      - -Tight_2016A-B_el_QCD_1tag_Dplus
+      - AntiTight_2016A-B_el_QCD_2tag_Dplus
+      - -Tight_2016A-B_el_QCD_2tag_Dplus
+      - AntiTight_2016C-L_el_QCD_1tag_Dplus
+      - -Tight_2016C-L_el_QCD_1tag_Dplus
+      - AntiTight_2016C-L_el_QCD_2tag_Dplus
+      - -Tight_2016C-L_el_QCD_2tag_Dplus
+    make_plots: False
+    save_to_file: False
+
+  MatrixMethod_2016_mu_QCD_0tag_Dplus:
+    regions:
+      - AntiTightA-B_2016_mu_QCD_0tag_Dplus
+      - -TightA-B_2016_mu_QCD_0tag_Dplus
+      - AntiTightC-L_2016_mu_QCD_0tag_Dplus
+      - -TightC-L_2016_mu_QCD_0tag_Dplus
+    make_plots: False
+    save_to_file: False
+
+  MatrixMethod_2016_mu_QCD_1tag_Dplus:
+    regions:
+      - AntiTight_2016A-B_mu_QCD_1tag_Dplus
+      - -Tight_2016A-B_mu_QCD_1tag_Dplus
+      - AntiTight_2016A-B_mu_QCD_2tag_Dplus
+      - -Tight_2016A-B_mu_QCD_2tag_Dplus
+      - AntiTight_2016C-L_mu_QCD_1tag_Dplus
+      - -Tight_2016C-L_mu_QCD_1tag_Dplus
+      - AntiTight_2016C-L_mu_QCD_2tag_Dplus
+      - -Tight_2016C-L_mu_QCD_2tag_Dplus
+    make_plots: False
+    save_to_file: False
 
   MatrixMethod_el_QCD_0tag_Dplus:
     regions:
@@ -284,7 +522,12 @@ channels:
       - -Tight_2017_el_QCD_0tag_Dplus
       - AntiTight_2018_el_QCD_0tag_Dplus
       - -Tight_2018_el_QCD_0tag_Dplus
+      - AntiTight_2016A-B_el_QCD_0tag_Dplus
+      - -Tight_2016A-B_el_QCD_0tag_Dplus
+      - AntiTight_2016C-L_el_QCD_0tag_Dplus
+      - -Tight_2016C-L_el_QCD_0tag_Dplus      
     make_plots: False
+    save_to_file: False
 
   MatrixMethod_el_QCD_1tag_Dplus:
     regions:
@@ -296,7 +539,16 @@ channels:
       - -Tight_2017_el_QCD_1tag_Dplus
       - AntiTight_2017_el_QCD_2tag_Dplus
       - -Tight_2017_el_QCD_2tag_Dplus
+      - AntiTight_2016A-B_el_QCD_1tag_Dplus
+      - -Tight_2016A-B_el_QCD_1tag_Dplus
+      - AntiTight_2016A-B_el_QCD_2tag_Dplus
+      - -Tight_2016A-B_el_QCD_2tag_Dplus
+      - AntiTight_2016C-L_el_QCD_1tag_Dplus
+      - -Tight_2016C-L_el_QCD_1tag_Dplus
+      - AntiTight_2016C-L_el_QCD_2tag_Dplus
+      - -Tight_2016C-L_el_QCD_2tag_Dplus
     make_plots: False
+    save_to_file: False
 
   MatrixMethod_mu_QCD_0tag_Dplus:
     regions:
@@ -304,7 +556,12 @@ channels:
       - -Tight_2018_mu_QCD_0tag_Dplus
       - AntiTight_2017_mu_QCD_0tag_Dplus
       - -Tight_2017_mu_QCD_0tag_Dplus
+      - AntiTight_2016A-B_mu_QCD_0tag_Dplus
+      - -Tight_2016A-B_mu_QCD_0tag_Dplus
+      - AntiTight_2016C-L_mu_QCD_0tag_Dplus
+      - -Tight_2016C-L_mu_QCD_0tag_Dplus
     make_plots: False
+    save_to_file: False
 
   MatrixMethod_mu_QCD_1tag_Dplus:
     regions:
@@ -316,4 +573,13 @@ channels:
       - -Tight_2017_mu_QCD_1tag_Dplus
       - AntiTight_2017_mu_QCD_2tag_Dplus
       - -Tight_2017_mu_QCD_2tag_Dplus
+      - AntiTight_2016A-B_mu_QCD_1tag_Dplus
+      - -Tight_2016A-B_mu_QCD_1tag_Dplus
+      - AntiTight_2016A-B_mu_QCD_2tag_Dplus
+      - -Tight_2016A-B_mu_QCD_2tag_Dplus
+      - AntiTight_2016C-L_mu_QCD_1tag_Dplus
+      - -Tight_2016C-L_mu_QCD_1tag_Dplus
+      - AntiTight_2016C-L_mu_QCD_2tag_Dplus
+      - -Tight_2016C-L_mu_QCD_2tag_Dplus
     make_plots: False
+    save_to_file: False

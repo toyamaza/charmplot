@@ -20,9 +20,11 @@ handler.setFormatter(formatter)
 root.addHandler(handler)
 
 
-def make_ratio_range(num, den, lims, name):
-    hist_tmp = num.Clone()
-    hist_tmp.Divide(den)
+def make_ratio_range(num, den, lims, name, sf):
+    hist_tmp = num.Clone(name + "_tmp")
+    den_Clone = den.Clone(name + "_tmp2")
+    den_Clone.Scale(sf)
+    hist_tmp.Divide(den_Clone)
     upper_bin = num.GetXaxis().FindBin(lims[1])
     lower_bin = num.GetXaxis().FindBin(lims[0])
     nbins = upper_bin - lower_bin
@@ -34,10 +36,10 @@ def make_ratio_range(num, den, lims, name):
         ub_den = 0
         if i + 1 < lower_bin:
             lb_num += num.GetBinContent(i + 1)
-            lb_den += den.GetBinContent(i + 1)
+            lb_den += den_Clone.GetBinContent(i + 1)
         elif i + 1 > upper_bin:
             ub_num += num.GetBinContent(i + 1)
-            ub_den += den.GetBinContent(i + 1)
+            ub_den += den_Clone.GetBinContent(i + 1)
         else:
             hist_out.SetBinContent(i + 2 - lower_bin, hist_tmp.GetBinContent(i + 1))
     if lb_den == 0:
@@ -60,7 +62,11 @@ def main(options, args):
     leptons = ["mu", "el"]
     btags = ["0tag", "1tag"]
     # years and type of D
-    years = ["2017", "2018"]
+    # years = ["2016","2017", "2018"]
+    # non closure calculated for 16- 18 together and 15 separately
+    years = ["_2015", ""]
+    # ratio of separated years to summed years to scale MJ
+    lumi_ratios = [1.0, 1.0]
     dspecies = options.dspecies
     var = options.var_rw
 
@@ -77,34 +83,26 @@ def main(options, args):
 
     for lep in leptons:
         for t in btags:
-            first_year = True
-            for y in years:
-                if first_year:
-                    hist_data_minus_prompt = f.Get(f"Data_{y}_{lep}_QCD_{t}_{dspecies}_{var}").Clone(f"DataMinusPrompt_{lep}_QCD_{t}_{dspecies}_{var}")
-                    hist_data_minus_prompt.Sumw2()
-                    hist_mj = f.Get(f"Multijet_MatrixMethod_{y}_{lep}_QCD_{t}_{dspecies}_{var}").Clone(f"Multijet_MatrixMethod_{lep}_QCD_{t}_{dspecies}_{var}")
-                    hist_mj.Sumw2()
-                    first_year = False
-                else:
-                    hist_tmp = f.Get(f"Data_{y}_{lep}_QCD_{t}_{dspecies}_{var}")
-                    hist_data_minus_prompt.Add(hist_tmp, 1)
-                    hist_tmp2 = f.Get(f"Multijet_MatrixMethod_{y}_{lep}_QCD_{t}_{dspecies}_{var}")
-                    hist_mj.Add(hist_tmp2)
+            for y, sf in zip(years, lumi_ratios):
+                # MJ hists, using 16 -18 for all years
+                hist_mj = f.Get(f"Multijet_MatrixMethod{y}_{lep}_QCD_{t}_{dspecies}_{var}").Clone(f"Multijet_MatrixMethod_{lep}_QCD_{t}_{dspecies}_{var}")
+                hist_mj.Sumw2()
+                hist_data_minus_prompt = f.Get(f"Data{y}_{lep}_QCD_{t}_{dspecies}_{var}").Clone(f"DataMinusPrompt_{lep}_QCD_{t}_{dspecies}_{var}")
+                hist_data_minus_prompt.Sumw2()
                 for c in prompt_channels:
-                    hist_tmp3 = f.Get(f"{c}_{y}_{lep}_QCD_{t}_{dspecies}_{var}")
+                    hist_tmp3 = f.Get(f"{c}{y}_{lep}_QCD_{t}_{dspecies}_{var}")
                     hist_data_minus_prompt.Add(hist_tmp3, -1)
-
-            hist_mj.Write()
-            multijet_hists += [hist_mj]
-            hist_data_minus_prompt.Write()
-            data_minus_prompt_hists += [hist_data_minus_prompt]
-            # MET RW histograms
-            ratio = hist_data_minus_prompt.Clone(f"RW_ratio_{lep}_QCD_{t}_{dspecies}_{var}")
-            ratio.Sumw2()
-            ratio.Divide(hist_mj)
-            ratio.Write()
-            make_ratio_range(hist_data_minus_prompt, hist_mj, options.var_rw_range, f"RW_ratio_{lep}_QCD_{t}_{dspecies}_{var}").Write()
-
+                hist_data_minus_prompt.Write()
+                data_minus_prompt_hists += [hist_data_minus_prompt]
+                # MET RW histograms
+                ratio = hist_data_minus_prompt.Clone(f"RW_ratio_{lep}_QCD_{t}_{dspecies}_{var}")
+                ratio.Sumw2()
+                ratio.Divide(hist_mj)
+                # ratio.Scale(1./sf)
+                ratio.Write()
+                make_ratio_range(hist_data_minus_prompt, hist_mj, options.var_rw_range, f"RW_ratio{y}_{lep}_QCD_{t}_{dspecies}_{var}", sf).Write()
+                multijet_hists += [hist_mj]
+                hist_mj.Write()
     out.Close()
 
 

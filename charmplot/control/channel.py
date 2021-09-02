@@ -11,6 +11,7 @@ class Channel(object):
     print_scale_factors = True
     force_positive = False
     extra_rebin = 1
+    extra_scale = 1.0
     name = ""
     lumi = ""
     label = []
@@ -67,6 +68,9 @@ class Channel(object):
 
     def set_extra_rebin(self, extra_rebin):
         self.extra_rebin = extra_rebin
+
+    def set_extra_scale(self, extra_scale):
+        self.extra_scale = extra_scale
 
     def set_mass_fit(self, mass_fit):
         self.mass_fit = mass_fit

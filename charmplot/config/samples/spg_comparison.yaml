@@ -246,7 +246,7 @@ SPG_Matched:
     - SPG_Dplus
     - SPG_Dminus
   subtract:
-  lineColor: "21000"
+  lineColor: "11000"
   legendLabel: "#it{D}(#it{K}#pi#pi) SPG"
   shortName: SPG_Matched
 

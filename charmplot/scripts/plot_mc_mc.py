@@ -83,6 +83,24 @@ def main(options, conf, reader):
                 logging.warning(f"Histogram is None for {samples[0].name} in channel {c.name}. Continuing...")
                 continue
 
+            # plot sys without error band
+            if options.no_sys_band:
+                systematics = {}
+                samples = [conf.get_sample(s) for s in c.samples]
+                systematics = conf.get_systematics()
+                samples_tmp = []
+                for group in systematics:
+                    variations = systematics[group].get('variations')
+                    color_iter = 2
+                    for variation in variations:
+                        for s in samples:
+                            sample_tmp = utils.make_syst_sample(s, variation, color_iter)
+                            mc_map.update({sample_tmp: reader.get_histogram(s, c, var, sys=variation)})
+                            samples_tmp.append(sample_tmp)
+                            color_iter += 2
+                samples += samples_tmp
+                systematics = {}
+
             # mc map sys
             mc_map_sys = utils.read_sys_histograms(conf, reader, c, var, samples, None, systematics, mc_map)
 
@@ -236,7 +254,10 @@ def main(options, conf, reader):
                             temp_err[-1].GetEYhigh()[x - 1] = 0
                             temp_err[-1].GetEYlow()[x - 1] = 0
                 gr_mc_stat_err, _ = utils.make_stat_err(h)
-                gr_mc_tot_err = utils.combine_error_multiple([gr_mc_stat_err] + temp_err)
+                if not options.no_sys_band:
+                    gr_mc_tot_err = utils.combine_error_multiple(temp_err)
+                    gr_mc_tot_err = utils.combine_error_multiple([gr_mc_stat_err] + temp_err)
+                gr_mc_tot_err = utils.combine_error_multiple([gr_mc_stat_err])
                 gr_mc_stat_err.SetLineColor(fcolor)
                 gr_mc_tot_err.SetLineColor(fcolor)
                 # gr_mc_tot_err.SetFillColorAlpha(fcolor, 0.25)
@@ -317,6 +338,8 @@ if __name__ == "__main__":
                       help="no log-y plots")
     parser.add_option('--show-rel-error',
                       action="store_true", dest="show_rel_error")
+    parser.add_option('--no-sys-band',
+                      action="store_true", dest="no_sys_band")
 
     # parse input arguments
     options, args = parser.parse_args()

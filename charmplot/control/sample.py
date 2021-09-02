@@ -92,7 +92,8 @@ class Sample(object):
         return self.add + self.subtract
 
     def __repr__(self):
-        string = "+".join(self.add)
-        for c in self.subtract:
-            string += "-%s" % c
-        return string
+        return str(id(self))
+        # string = "+".join(self.add)
+        # for c in self.subtract:
+        #     string += "-%s" % c
+        # return string

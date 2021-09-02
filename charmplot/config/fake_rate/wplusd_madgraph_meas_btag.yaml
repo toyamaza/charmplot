@@ -351,3 +351,186 @@ channels:
     qcd_template: Multijet
     save_to_file: True
 
+  Tight_2016_el_QCD_0tag_Dplus:
+    regions:
+      - Tight_2016A-B_el_QCD_0tag_Dplus
+      - Tight_2016C-L_el_QCD_0tag_Dplus
+    samples:
+      - Multijet
+      - Wjets_light_emu
+      - Wjets_bjets_emu
+      - Wjets_cjets_emu
+      - Wjets_tau
+      - Zjets_emu
+      - Zjets_tau
+      - Top
+      - Diboson
+    label:
+      - "el QCD Tight"
+      - "MET < 30 GeV, mT < 60 GeV"
+      - "MadGraph"
+    lumi: "2016"
+    qcd_template: Multijet
+    save_to_file: True
+
+  Tight_2016_el_QCD_1tag_Dplus:
+    regions:
+      - Tight_2016A-B_el_QCD_1tag_Dplus
+      - Tight_2016A-B_el_QCD_2tag_Dplus
+      - Tight_2016C-L_el_QCD_1tag_Dplus
+      - Tight_2016C-L_el_QCD_2tag_Dplus
+    samples:
+      - Multijet
+      - Wjets_light_emu
+      - Wjets_bjets_emu
+      - Wjets_cjets_emu
+      - Wjets_tau
+      - Zjets_emu
+      - Zjets_tau
+      - Top
+      - Diboson
+    label:
+      - "el QCD Tight"
+      - "MET < 30 GeV, mT < 60 GeV"
+      - "MadGraph"
+    lumi: "2016"
+    qcd_template: Multijet
+    save_to_file: True
+
+  Tight_2016_mu_QCD_0tag_Dplus:
+    regions:
+      - Tight_2016A-B_mu_QCD_0tag_Dplus
+      - Tight_2016C-L_mu_QCD_0tag_Dplus
+    samples:
+      - Multijet
+      - Wjets_light_emu
+      - Wjets_bjets_emu
+      - Wjets_cjets_emu
+      - Wjets_tau
+      - Zjets_emu
+      - Zjets_tau
+      - Top
+      - Diboson
+    label:
+      - "mu QCD Tight"
+      - "MET < 30 GeV, mT < 60 GeV"
+      - "MadGraph"
+    lumi: "2016"
+    qcd_template: Multijet
+    save_to_file: True
+
+  Tight_2016_mu_QCD_1tag_Dplus:
+    regions:
+      - Tight_2016A-B_mu_QCD_1tag_Dplus
+      - Tight_2016A-B_mu_QCD_2tag_Dplus
+      - Tight_2016C-L_mu_QCD_1tag_Dplus
+      - Tight_2016C-L_mu_QCD_2tag_Dplus
+    samples:
+      - Multijet
+      - Wjets_light_emu
+      - Wjets_bjets_emu
+      - Wjets_cjets_emu
+      - Wjets_tau
+      - Zjets_emu
+      - Zjets_tau
+      - Top
+      - Diboson
+    label:
+      - "mu QCD Tight"
+      - "MET < 30 GeV, mT < 60 GeV"
+      - "MadGraph"
+    lumi: "2016"
+    qcd_template: Multijet
+    save_to_file: True
+
+  AntiTight_2016_el_QCD_0tag_Dplus:
+    regions:
+      - AntiTight_2016A-B_el_QCD_0tag_Dplus
+      - AntiTight_2016C-L_el_QCD_0tag_Dplus
+    samples:
+      - Multijet
+      - Wjets_light_emu
+      - Wjets_bjets_emu
+      - Wjets_cjets_emu
+      - Wjets_tau
+      - Zjets_emu
+      - Zjets_tau
+      - Top
+      - Diboson
+    label:
+      - "el QCD AntiTight"
+      - "MET < 30 GeV, mT < 60 GeV"
+      - "MadGraph"
+    lumi: "2016"
+    qcd_template: Multijet
+    save_to_file: True
+
+  AntiTight_2016_el_QCD_1tag_Dplus:
+    regions:
+      - AntiTight_2016A-B_el_QCD_1tag_Dplus
+      - AntiTight_2016A-B_el_QCD_2tag_Dplus
+      - AntiTight_2016C-L_el_QCD_1tag_Dplus
+      - AntiTight_2016C-L_el_QCD_2tag_Dplus
+    samples:
+      - Multijet
+      - Wjets_light_emu
+      - Wjets_bjets_emu
+      - Wjets_cjets_emu
+      - Wjets_tau
+      - Zjets_emu
+      - Zjets_tau
+      - Top
+      - Diboson
+    label:
+      - "el QCD AntiTight"
+      - "MET < 30 GeV, mT < 60 GeV"
+      - "MadGraph"
+    lumi: "2016"
+    qcd_template: Multijet
+    save_to_file: True
+
+  AntiTight_2016_mu_QCD_0tag_Dplus:
+    regions:
+      - AntiTight_2016A-B_mu_QCD_0tag_Dplus
+      - AntiTight_2016C-L_mu_QCD_0tag_Dplus
+    samples:
+      - Multijet
+      - Wjets_light_emu
+      - Wjets_bjets_emu
+      - Wjets_cjets_emu
+      - Wjets_tau
+      - Zjets_emu
+      - Zjets_tau
+      - Top
+      - Diboson
+    label:
+      - "mu QCD AntiTight"
+      - "MET < 30 GeV, mT < 60 GeV"
+      - "MadGraph"
+    lumi: "2016"
+    qcd_template: Multijet
+    save_to_file: True
+
+  AntiTight_2016_mu_QCD_1tag_Dplus:
+    regions:
+      - AntiTight_2016A-B_mu_QCD_1tag_Dplus
+      - AntiTight_2016A-B_mu_QCD_2tag_Dplus
+      - AntiTight_2016C-L_mu_QCD_1tag_Dplus
+      - AntiTight_2016C-L_mu_QCD_2tag_Dplus
+    samples:
+      - Multijet
+      - Wjets_light_emu
+      - Wjets_bjets_emu
+      - Wjets_cjets_emu
+      - Wjets_tau
+      - Zjets_emu
+      - Zjets_tau
+      - Top
+      - Diboson
+    label:
+      - "mu QCD AntiTight"
+      - "MET < 30 GeV, mT < 60 GeV"
+      - "MadGraph"
+    lumi: "2016"
+    qcd_template: Multijet
+    save_to_file: True
