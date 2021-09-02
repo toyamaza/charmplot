@@ -738,7 +738,7 @@ SPG_Matched_truth_pt_bin5:
   legendLabel: "SPG #it{D*}(#it{K}#pi#pi) (bin 5)"
   shortName: SPG_Matched_truth_pt_bin5
 
-Sherpa_Wjets_emu_Rest_default:
+Sherpa_Wjets_emu_Rest_Default:
   add:
     - Sh_Wjets_light_emu
     - Sh_Wjets_cjets_emu
@@ -747,7 +747,7 @@ Sherpa_Wjets_emu_Rest_default:
   subtract:
   lineColor: "21000"
   legendLabel: "Sherpa W+jets"
-  shortName: Sherpa_Wjets_emu_Rest_default
+  shortName: Sherpa_Wjets_emu_Rest_Default
 
 Sherpa_Wjets_emu_Rest:
   add:

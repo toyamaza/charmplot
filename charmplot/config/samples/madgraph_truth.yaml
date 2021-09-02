@@ -734,7 +734,10 @@ Sherpa_Wjets_emu_Rest:
 
 Sherpa_Wjets_emu_Rest_Default:
   add:
-    - inclusive_sherpa_bkg
+    - Sh_Wjets_light_emu
+    - Sh_Wjets_cjets_emu
+    - Sh_Wjets_bjets_emu
+    - Sh_Wjets_highpt_emu
   subtract:
   lineColor: "10001"
   legendLabel: "Sherpa W+jets (OTB)"

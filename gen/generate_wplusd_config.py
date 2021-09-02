@@ -123,14 +123,13 @@ def main(options):
         ]
         if options.decay_mode == "Dstar":
             systematics += [
-                # 'wjets_bkg_alt_samples',
+                'wjets_bkg_alt_samples',
                 'wjets_bkg_alt_samples_1tag',
-                'wjets_bkg_alt_samples_pre',
             ]
         else:
             systematics += [
-                'wjets_bkg_alt_samples',
-                # 'wjets_bkg_alt_samples_pre',
+                'wjets_bkg_alt_samples_pre',
+                'wjets_bkg_alt_samples_1tag',
             ]
 
     elif options.systematics and options.samples.lower() == 'spg_sys':
