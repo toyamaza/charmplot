@@ -274,7 +274,9 @@ class BKGComparison(ChannelTemplate):
     samples = {
         'Wjets_emu_Rest': [
             ['Wjets_emu_Rest', proxies.NoMatchBackground()],
-            ['Wjets_emu_Rest_PostProc', proxies.GenericChannel(name="Wjets_emu_Rest", regions_OS=["Wjets_emu_Rest_OS"], regions_SS=["Wjets_emu_Rest_SS"])],
+            ['Wjets_emu_Rest_PostProc', proxies.GenericChannel(name="Wjets_emu_Rest",
+                                                               regions_OS=["Wjets_emu_Rest_OS", "Wjets_emu_Rest_SS"],
+                                                               regions_SS=["Wjets_emu_Rest_OS", "Wjets_emu_Rest_SS"])],
         ],
         'Wjets_emu_MisMatched': [
             ['Wjets_emu_MisMatched', proxies.GenericChannel(name="MisMatched", region=["MisMatched", "MatchedNoFid"])],
@@ -372,9 +374,9 @@ class ReplacementSamples(ChannelTemplate):
             ],
             'Wjets_emu_Rest': [
                 ['Wjets_emu_Rest_PostProc', proxies.GenericChannel(name="Wjets_emu_Rest", regions_OS=[
-                    "Wjets_emu_Rest_OS"], regions_SS=["Wjets_emu_Rest_SS"])],
+                    "Wjets_emu_Rest_OS", "Wjets_emu_Rest_SS"], regions_SS=["Wjets_emu_Rest_OS", "Wjets_emu_Rest_SS"])],
                 ['Sherpa_Wjets_emu_Rest_PostProc', proxies.GenericChannel(name="Wjets_emu_Rest", regions_OS=[
-                    "Wjets_emu_Rest_OS"], regions_SS=["Wjets_emu_Rest_SS"])],
+                    "Wjets_emu_Rest_OS", "Wjets_emu_Rest_SS"], regions_SS=["Wjets_emu_Rest_OS", "Wjets_emu_Rest_SS"])],
             ],
             # 'Wjets_emu_Bkg': [
             #     ['Wjets_emu_Bkg_PostProc', proxies.GenericChannel(name="Wjets_emu_Bkg", regions_OS=[
