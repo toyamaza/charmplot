@@ -3,6 +3,7 @@ from charmplot.common import utils
 from charmplot.common import www
 from charmplot.control import globalConfig
 from charmplot.control import inputDataReader
+from ctypes import c_double, c_int
 from multiprocessing import Pool
 import logging
 import os
@@ -222,7 +223,21 @@ def main(options, conf, reader):
                     denominator.SetBinContent(i, abs(mc_map[samples[0]].GetBinContent(i)))
 
             for i in range(0, len(samples)):
+
+                # get the histogram
                 h = mc_map[samples[i]].Clone(f"{mc_map[samples[i]].GetName()}_ratio")
+
+                # chi2 test
+                if options.chi_square_test:
+                    if i > 0:
+                        chi2 = c_double(0)
+                        ndf = c_int(0)
+                        igood = c_int(0)
+                        p_val = h.Chi2TestX(mc_map[samples[0]], chi2, ndf, igood, "WW")
+                        canv.pad1.cd()
+                        canv.add_text(f"Chi2 p-val: {p_val:.3f}")
+                        canv.pad2.cd()
+
                 for j in range(0, h.GetNbinsX() + 2):
                     h.SetBinContent(j, abs(h.GetBinContent(j)))
 
@@ -277,18 +292,6 @@ def main(options, conf, reader):
                         h.Fit(func, "0WR")
                         func.Write()
                     out_file.Close()
-            # for i in range(0, len(samples), 2):
-            #     h = mc_map[samples[i]].Clone(f"{mc_map[samples[i]].GetName()}_ratio")
-            #     h.Divide(mc_map[samples[i + 1]])
-            #     ratios += [h]
-            #     fcolor = mc_map[samples[i]].GetLineColor()
-            #     gr_mc_stat_err, _ = utils.make_stat_err(h)
-            #     gr_mc_stat_err.SetLineColor(fcolor)
-            #   # gr_mc_stat_err.SetFillColorAlpha(fcolor, 0.25)
-            #     gr_mc_stat_err.SetFillStyle(3345)
-            #     errors += [gr_mc_stat_err]
-            #     gr_mc_stat_err.Draw("e2")
-            #     h.Draw("hist same")
 
             # Print out
             canv.print_all(conf.out_name, c.name, v, multipage_pdf=True, first_plot=first_plot,
@@ -340,6 +343,8 @@ if __name__ == "__main__":
                       action="store_true", dest="show_rel_error")
     parser.add_option('--no-sys-band',
                       action="store_true", dest="no_sys_band")
+    parser.add_option('--chi-square-test',
+                      action="store_true", dest="chi_square_test")
 
     # parse input arguments
     options, args = parser.parse_args()
