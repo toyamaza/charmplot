@@ -33,7 +33,7 @@ class InputDataReader(object):
         self.config = conf
         self.read_input_files()
 
-    def get_histogram_from_file(self, f, channel, sample, variable, c, extra_rebin=1, sys=None):
+    def get_histogram_from_file(self, f, channel, sample, variable, c, extra_rebin=1, sys=None, extra_scale = 1.0):
         logger.debug(f"In get_histogram_from_file with {f.GetName()} {channel.name} {sample.name}")
         # logger.debug(f"In get_histogram_from_file with {channel.name} {sample.name} {variable} {c} {f} extra_rebin: {extra_rebin}")
         h_name = "__".join([c, variable.name])
@@ -60,6 +60,10 @@ class InputDataReader(object):
             key = sample.shortName
             logging.info(f"Scaling histogram by {self.channel_scale_factors[key]}")
             h_new.Scale(self.channel_scale_factors[key])
+
+        # extra scaling for MJ on off years (eg 2015 with different trigger config)
+        if extra_scale != 1.0:
+            h_new.Scale(extra_scale)
 
         # scaling from MC config
         if sample.scaleMC and 'data' not in f.GetName():
@@ -94,8 +98,7 @@ class InputDataReader(object):
 
         # extra rebin
         extra_rebin = channel.extra_rebin
-
-        # take channels from the sample instead of global
+        extra_scale = channel.extra_scale
         if sample.channel:
             channel = self.config.get_channel(sample.channel)
             logging.info(f"Using channel {channel.name} for sample {sample.name}")
@@ -118,7 +121,10 @@ class InputDataReader(object):
                 logger.info(f"channel.add: {c} {sample.shortName}")
                 if skip_truth_channel(sample, c, input_file):
                     continue
-                h = self.get_histogram_from_file(f, channel, sample, variable, c, extra_rebin, sys)
+                extra_scale_to_pass = 1.0
+                if extra_scale != 1.0 and "Multijet" in sample.name:
+                    extra_scale_to_pass = extra_scale
+                h = self.get_histogram_from_file(f, channel, sample, variable, c, extra_rebin, sys, extra_scale_to_pass)
                 if not h:
                     continue
                 if not h_plus:
@@ -129,7 +135,10 @@ class InputDataReader(object):
                 logger.info(f"channel.subtract: {c} {sample.shortName}")
                 if skip_truth_channel(sample, c, input_file):
                     continue
-                h = self.get_histogram_from_file(f, channel, sample, variable, c, extra_rebin, sys)
+                extra_scale_to_pass = 1.0
+                if extra_scale != 1.0 and "Multijet" in sample.name:
+                    extra_scale_to_pass = extra_scale
+                h = self.get_histogram_from_file(f, channel, sample, variable, c, extra_rebin, sys, extra_scale_to_pass)
                 if not h:
                     continue
                 if not h_minus:

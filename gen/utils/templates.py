@@ -125,6 +125,21 @@ class WDFlavourSamples(ChannelTemplate):
         return self.samples
 
 
+class WDFakeTrackSamples(ChannelTemplate):
+
+    samplesConf = "madgraph"
+
+    samples = [
+        ['Zero_Fake', proxies.FakeTrack0()],
+        ['One_Fake', proxies.FakeTrack1()],
+        ['Two_Fake', proxies.FakeTrack2()],
+        ['Three_Fake', proxies.FakeTrack3()]
+    ]
+
+    def get(self):
+        return self.samples
+
+
 class SPGComparison(ChannelTemplate):
 
     # base class

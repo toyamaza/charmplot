@@ -205,21 +205,23 @@ Dmeson_Lxy:
   label: 'D^{#pm} L_{xy}'
   unit: 'mm'
   rebin: 5
-  x_range: [0.0, 30]
+  x_range: [0., 30]
   ratio_range: [0.5, 1.49]
+  do_overflow: False
+  do_underflow: False
 
-Dmeson_Lxy_in_SB:
+Dmeson_Lxy_inSB:
   label: 'D^{#pm} L_{xy}'
   unit: 'mm'
   rebin: 1
-  x_range: [20., 30.]
+  x_range: [0., 30.]
   ratio_range: [0.5, 1.49]
 
-Dmeson_Lxy_out_SB:
+Dmeson_Lxy_outSB:
   label: 'D^{#pm} L_{xy}'
   unit: 'mm'
   rebin: 1
-  x_range: [20., 30.]
+  x_range: [0., 30.]
   ratio_range: [0.5, 1.49]
 
 Dmeson_Lxy0:
@@ -257,19 +259,19 @@ Dmeson_Lxy4:
   x_range: [0.75, 3]
   ratio_range: [0.5, 1.49]
 
-Dmeson_impactSig:
+Dmeson_impact_sig:
   label: 'D^{#pm} 3D Impact Significance'
   rebin: 1
   x_range: [0.0, 10.0]
   ratio_range: [0.5, 1.49]
 
-Dmeson_impactSig_in_SB:
+Dmeson_impact_sig_inSB:
   label: 'D^{#pm} 3D Impact Significance'
   rebin: 1
   x_range: [0.0, 10.0]
   ratio_range: [0.5, 1.49]
 
-Dmeson_impactSig_out_SB:
+Dmeson_impact_sig_outSB:
   label: 'D^{#pm} 3D Impact Significance'
   rebin: 1
   x_range: [0.0, 10.0]
@@ -290,14 +292,14 @@ Dmeson_chi2:
   rebin: 4
   ratio_range: [0.5, 1.49]
 
-Dmeson_chi2_in_SB:
+Dmeson_chi2_inSB:
   label: 'D^{#pm} #chi^{2}'
-  rebin: 4
+  rebin: 1
   ratio_range: [0.5, 1.49]
 
-Dmeson_chi2_out_SB:
+Dmeson_chi2_outSB:
   label: 'D^{#pm} #chi^{2}'
-  rebin: 4
+  rebin: 1
   ratio_range: [0.5, 1.49]
 
 Dmeson_chi20:
@@ -406,6 +408,20 @@ met_met:
   unit: GeV
   rebin: 4
   x_range: [0, 200]
+  ratio_range: [0.5, 1.49]
+
+met_perp_met:
+  label: MET (perpendicular to lep)
+  unit: GeV
+  rebin: 4
+  x_range: [-200, 200]
+  ratio_range: [0.5, 1.49]
+
+met_para_met:
+  label: MET (parallel to lep)
+  unit: GeV
+  rebin: 4
+  x_range: [-200, 200]
   ratio_range: [0.5, 1.49]
 
 met_mt:
@@ -539,12 +555,12 @@ Dmeson_ptcone40_pt:
   rebin: 1
   ratio_range: [0.5, 1.49]
 
-Dmeson_ptcone40_pt_in_SB:
+Dmeson_ptcone40_pt_inSB:
   label: 'D^{#pm} ptcone40/p_{T}'
   rebin: 1
   ratio_range: [0.5, 1.49]
 
-Dmeson_ptcone40_pt_out_SB:
+Dmeson_ptcone40_pt_outSB:
   label: 'D^{#pm} ptcone40/p_{T}'
   rebin: 1
   ratio_range: [0.5, 1.49]

@@ -107,6 +107,8 @@ channels:
   Tight_2017_el_SR_0tag_Dstar:
     regions:
       - Tight_2017_el_SR_0tag_Dstar
+      - Tight_2016A-B_el_SR_0tag_Dstar
+      - Tight_2016C-L_el_SR_0tag_Dstar
     samples:
       - MG_Wjets_emu
       - Top_ttbar
@@ -119,7 +121,11 @@ channels:
   Tight_2017_el_SR_1tag_Dstar:
     regions:
       - Tight_2017_el_SR_1tag_Dstar
+      - Tight_2016A-B_el_SR_1tag_Dstar
+      - Tight_2016C-L_el_SR_1tag_Dstar
       - Tight_2017_el_SR_2tag_Dstar
+      - Tight_2016A-B_el_SR_2tag_Dstar
+      - Tight_2016C-L_el_SR_2tag_Dstar
     samples:
       - MG_Wjets_emu
       - Top_ttbar
@@ -132,6 +138,8 @@ channels:
   Tight_2017_mu_SR_0tag_Dstar:
     regions:
       - Tight_2017_mu_SR_0tag_Dstar
+      - Tight_2016A-B_mu_SR_0tag_Dstar
+      - Tight_2016C-L_mu_SR_0tag_Dstar
     samples:
       - MG_Wjets_emu
       - Top_ttbar
@@ -144,7 +152,11 @@ channels:
   Tight_2017_mu_SR_1tag_Dstar:
     regions:
       - Tight_2017_mu_SR_1tag_Dstar
+      - Tight_2016A-B_mu_SR_1tag_Dstar
+      - Tight_2016C-L_mu_SR_1tag_Dstar
       - Tight_2017_mu_SR_2tag_Dstar
+      - Tight_2016A-B_mu_SR_2tag_Dstar
+      - Tight_2016C-L_mu_SR_2tag_Dstar
     samples:
       - MG_Wjets_emu
       - Top_ttbar
@@ -157,6 +169,8 @@ channels:
   AntiTight_2017_el_SR_0tag_Dstar:
     regions:
       - AntiTight_2017_el_SR_0tag_Dstar
+      - AntiTight_2016A-B_el_SR_0tag_Dstar
+      - AntiTight_2016C-L_el_SR_0tag_Dstar
     samples:
       - MG_Wjets_emu
       - Top_ttbar
@@ -169,7 +183,11 @@ channels:
   AntiTight_2017_el_SR_1tag_Dstar:
     regions:
       - AntiTight_2017_el_SR_1tag_Dstar
+      - AntiTight_2016A-B_el_SR_1tag_Dstar
+      - AntiTight_2016C-L_el_SR_1tag_Dstar
       - AntiTight_2017_el_SR_2tag_Dstar
+      - AntiTight_2016A-B_el_SR_2tag_Dstar
+      - AntiTight_2016C-L_el_SR_2tag_Dstar
     samples:
       - MG_Wjets_emu
       - Top_ttbar
@@ -182,6 +200,8 @@ channels:
   AntiTight_2017_mu_SR_0tag_Dstar:
     regions:
       - AntiTight_2017_mu_SR_0tag_Dstar
+      - AntiTight_2016A-B_mu_SR_0tag_Dstar
+      - AntiTight_2016C-L_mu_SR_0tag_Dstar
     samples:
       - MG_Wjets_emu
       - Top_ttbar
@@ -193,7 +213,11 @@ channels:
   AntiTight_2017_mu_SR_1tag_Dstar:
     regions:
       - AntiTight_2017_mu_SR_1tag_Dstar
+      - AntiTight_2016A-B_mu_SR_1tag_Dstar
+      - AntiTight_2016C-L_mu_SR_1tag_Dstar
       - AntiTight_2017_mu_SR_2tag_Dstar
+      - AntiTight_2016A-B_mu_SR_2tag_Dstar
+      - AntiTight_2016C-L_mu_SR_2tag_Dstar
     samples:
       - MG_Wjets_emu
       - Top_ttbar
@@ -203,10 +227,347 @@ channels:
     lumi: "2017"
     save_to_file: True
 
+  Tight_2015_el_SR_0tag_Dstar:
+    regions:
+      - Tight_2015_el_SR_0tag_Dstar
+    samples:
+      - MG_Wjets_emu
+      - Top_ttbar
+    label:
+      - "el Tight"
+      - "0-tag"
+    lumi: "2015"
+    save_to_file: True
+
+  Tight_2015_el_SR_1tag_Dstar:
+    regions:
+      - Tight_2015_el_SR_1tag_Dstar
+      - Tight_2015_el_SR_2tag_Dstar
+    samples:
+      - MG_Wjets_emu
+      - Top_ttbar
+    label:
+      - "el Tight"
+      - "1-tag"
+    lumi: "2015"
+    save_to_file: True
+
+  Tight_2015_mu_SR_0tag_Dstar:
+    regions:
+      - Tight_2015_mu_SR_0tag_Dstar
+    samples:
+      - MG_Wjets_emu
+      - Top_ttbar
+    label:
+      - "mu Tight"
+      - "0-tag"
+    lumi: "2015"
+    save_to_file: True
+
+  Tight_2015_mu_SR_1tag_Dstar:
+    regions:
+      - Tight_2015_mu_SR_1tag_Dstar
+      - Tight_2015_mu_SR_2tag_Dstar
+    samples:
+      - MG_Wjets_emu
+      - Top_ttbar
+    label:
+      - "mu Tight"
+      - "1-tag"
+    lumi: "2015"
+    save_to_file: True
+
+  AntiTight_2015_el_SR_0tag_Dstar:
+    regions:
+      - AntiTight_2015_el_SR_0tag_Dstar
+    samples:
+      - MG_Wjets_emu
+      - Top_ttbar
+    label:
+      - "el AntiTight"
+      - "0-tag"
+    lumi: "2015"
+    save_to_file: True
+
+  AntiTight_2015_el_SR_1tag_Dstar:
+    regions:
+      - AntiTight_2015_el_SR_1tag_Dstar
+      - AntiTight_2015_el_SR_2tag_Dstar
+    samples:
+      - MG_Wjets_emu
+      - Top_ttbar
+    label:
+      - "el AntiTight"
+      - "1-tag"
+    lumi: "2015"
+    save_to_file: True
+
+  AntiTight_2015_mu_SR_0tag_Dstar:
+    regions:
+      - AntiTight_2015_mu_SR_0tag_Dstar
+    samples:
+      - MG_Wjets_emu
+      - Top_ttbar
+    label:
+      - "mu AntiTight"
+    lumi: "2015"
+    save_to_file: True
+
+  AntiTight_2015_mu_SR_1tag_Dstar:
+    regions:
+      - AntiTight_2015_mu_SR_1tag_Dstar
+      - AntiTight_2015_mu_SR_2tag_Dstar
+    samples:
+      - MG_Wjets_emu
+      - Top_ttbar
+    label:
+      - "mu AntiTight"
+      - "1-tag"
+    lumi: "2015"
+    save_to_file: True
+
+#xyz
+  Tight_2016_el_SR_0tag_Dstar:
+    regions:
+      - Tight_2016A-B_el_SR_0tag_Dstar
+      - Tight_2016C-L_el_SR_0tag_Dstar
+    samples:
+      - MG_Wjets_emu
+      - Top_ttbar
+    label:
+      - "el Tight"
+      - "0-tag"
+    lumi: "2016"
+    save_to_file: True
+
+  Tight_2016_el_SR_1tag_Dstar:
+    regions:
+      - Tight_2016A-B_el_SR_1tag_Dstar
+      - Tight_2016A-B_el_SR_2tag_Dstar
+      - Tight_2016C-L_el_SR_1tag_Dstar
+      - Tight_2016C-L_el_SR_2tag_Dstar
+    samples:
+      - MG_Wjets_emu
+      - Top_ttbar
+    label:
+      - "el Tight"
+      - "1-tag"
+    lumi: "2016"
+    save_to_file: True
+
+  Tight_2016_mu_SR_0tag_Dstar:
+    regions:
+      - Tight_2016A-B_mu_SR_0tag_Dstar
+      - Tight_2016C-L_mu_SR_0tag_Dstar
+    samples:
+      - MG_Wjets_emu
+      - Top_ttbar
+    label:
+      - "mu Tight"
+      - "0-tag"
+    lumi: "2016"
+    save_to_file: True
+
+  Tight_2016_mu_SR_1tag_Dstar:
+    regions:
+      - Tight_2016A-B_mu_SR_1tag_Dstar
+      - Tight_2016A-B_mu_SR_2tag_Dstar
+      - Tight_2016C-L_mu_SR_1tag_Dstar
+      - Tight_2016C-L_mu_SR_2tag_Dstar
+    samples:
+      - MG_Wjets_emu
+      - Top_ttbar
+    label:
+      - "mu Tight"
+      - "1-tag"
+    lumi: "2016"
+    save_to_file: True
+
+  AntiTight_2016_el_SR_0tag_Dstar:
+    regions:
+      - AntiTight_2016A-B_el_SR_0tag_Dstar
+      - AntiTight_2016C-L_el_SR_0tag_Dstar
+    samples:
+      - MG_Wjets_emu
+      - Top_ttbar
+    label:
+      - "el AntiTight"
+      - "0-tag"
+    lumi: "2016"
+    save_to_file: True
+
+  AntiTight_2016_el_SR_1tag_Dstar:
+    regions:
+      - AntiTight_2016A-B_el_SR_1tag_Dstar
+      - AntiTight_2016A-B_el_SR_2tag_Dstar
+      - AntiTight_2016C-L_el_SR_1tag_Dstar
+      - AntiTight_2016C-L_el_SR_2tag_Dstar
+    samples:
+      - MG_Wjets_emu
+      - Top_ttbar
+    label:
+      - "el AntiTight"
+      - "1-tag"
+    lumi: "2016"
+    save_to_file: True
+
+  AntiTight_2016_mu_SR_0tag_Dstar:
+    regions:
+      - AntiTight_2016A-B_mu_SR_0tag_Dstar
+      - AntiTight_2016C-L_mu_SR_0tag_Dstar
+    samples:
+      - MG_Wjets_emu
+      - Top_ttbar
+    label:
+      - "mu AntiTight"
+    lumi: "2016"
+    save_to_file: True
+
+  AntiTight_2016_mu_SR_1tag_Dstar:
+    regions:
+      - AntiTight_2016A-B_mu_SR_1tag_Dstar
+      - AntiTight_2016A-B_mu_SR_2tag_Dstar
+      - AntiTight_2016C-L_mu_SR_1tag_Dstar
+      - AntiTight_2016C-L_mu_SR_2tag_Dstar
+    samples:
+      - MG_Wjets_emu
+      - Top_ttbar
+    label:
+      - "mu AntiTight"
+      - "1-tag"
+    lumi: "2016"
+    save_to_file: True
+
+#xyz
+  Tight_2015-16_el_SR_0tag_Dstar:
+    regions:
+      - Tight_2015_el_SR_0tag_Dstar
+      - Tight_2016A-B_el_SR_0tag_Dstar
+      - Tight_2016C-L_el_SR_0tag_Dstar
+    samples:
+      - MG_Wjets_emu
+      - Top_ttbar
+    label:
+      - "el Tight"
+      - "0-tag"
+    lumi: "2015+2016"
+    save_to_file: True
+
+  Tight_2015-16_el_SR_1tag_Dstar:
+    regions:
+      - Tight_2015_el_SR_1tag_Dstar
+      - Tight_2015_el_SR_2tag_Dstar
+      - Tight_2016A-B_el_SR_1tag_Dstar
+      - Tight_2016A-B_el_SR_2tag_Dstar
+      - Tight_2016C-L_el_SR_1tag_Dstar
+      - Tight_2016C-L_el_SR_2tag_Dstar
+    samples:
+      - MG_Wjets_emu
+      - Top_ttbar
+    label:
+      - "el Tight"
+      - "1-tag"
+    lumi: "2015+2016"
+    save_to_file: True
+
+  Tight_2015-16_mu_SR_0tag_Dstar:
+    regions:
+      - Tight_2015_mu_SR_0tag_Dstar
+      - Tight_2016A-B_mu_SR_0tag_Dstar
+      - Tight_2016C-L_mu_SR_0tag_Dstar
+    samples:
+      - MG_Wjets_emu
+      - Top_ttbar
+    label:
+      - "mu Tight"
+      - "0-tag"
+    lumi: "2015+2016"
+    save_to_file: True
+
+  Tight_2015-16_mu_SR_1tag_Dstar:
+    regions:
+      - Tight_2015_mu_SR_1tag_Dstar
+      - Tight_2015_mu_SR_2tag_Dstar
+      - Tight_2016A-B_mu_SR_1tag_Dstar
+      - Tight_2016A-B_mu_SR_2tag_Dstar
+      - Tight_2016C-L_mu_SR_1tag_Dstar
+      - Tight_2016C-L_mu_SR_2tag_Dstar
+    samples:
+      - MG_Wjets_emu
+      - Top_ttbar
+    label:
+      - "mu Tight"
+      - "1-tag"
+    lumi: "2015+2016"
+    save_to_file: True
+
+  AntiTight_2015-16_el_SR_0tag_Dstar:
+    regions:
+      - AntiTight_2015_el_SR_0tag_Dstar
+      - AntiTight_2016A-B_el_SR_0tag_Dstar
+      - AntiTight_2016C-L_el_SR_0tag_Dstar
+    samples:
+      - MG_Wjets_emu
+      - Top_ttbar
+    label:
+      - "el AntiTight"
+      - "0-tag"
+    lumi: "2015+2016"
+    save_to_file: True
+
+  AntiTight_2015-16_el_SR_1tag_Dstar:
+    regions:
+      - AntiTight_2015_el_SR_1tag_Dstar
+      - AntiTight_2015_el_SR_2tag_Dstar
+      - AntiTight_2016A-B_el_SR_1tag_Dstar
+      - AntiTight_2016A-B_el_SR_2tag_Dstar
+      - AntiTight_2016C-L_el_SR_1tag_Dstar
+      - AntiTight_2016C-L_el_SR_2tag_Dstar
+    samples:
+      - MG_Wjets_emu
+      - Top_ttbar
+    label:
+      - "el AntiTight"
+      - "1-tag"
+    lumi: "2015+2016"
+    save_to_file: True
+
+  AntiTight_2015-16_mu_SR_0tag_Dstar:
+    regions:
+      - AntiTight_2015_mu_SR_0tag_Dstar
+      - AntiTight_2016A-B_mu_SR_0tag_Dstar
+      - AntiTight_2016C-L_mu_SR_0tag_Dstar
+    samples:
+      - MG_Wjets_emu
+      - Top_ttbar
+    label:
+      - "mu AntiTight"
+    lumi: "2015+2016"
+    save_to_file: True
+
+  AntiTight_2015-16_mu_SR_1tag_Dstar:
+    regions:
+      - AntiTight_2015_mu_SR_1tag_Dstar
+      - AntiTight_2015_mu_SR_2tag_Dstar
+      - AntiTight_2016A-B_mu_SR_1tag_Dstar
+      - AntiTight_2016A-B_mu_SR_2tag_Dstar
+      - AntiTight_2016C-L_mu_SR_1tag_Dstar
+      - AntiTight_2016C-L_mu_SR_2tag_Dstar
+    samples:
+      - MG_Wjets_emu
+      - Top_ttbar
+    label:
+      - "mu AntiTight"
+      - "1-tag"
+    lumi: "2015+2016"
+    save_to_file: True
+
   Tight_el_SR_0tag_Dstar:
     regions:
       - Tight_2018_el_SR_0tag_Dstar
       - Tight_2017_el_SR_0tag_Dstar
+      - Tight_2016A-B_el_SR_0tag_Dstar
+      - Tight_2016C-L_el_SR_0tag_Dstar
     samples:
       - MG_Wjets_emu
       - Top_ttbar
@@ -221,7 +582,11 @@ channels:
       - Tight_2018_el_SR_1tag_Dstar
       - Tight_2018_el_SR_2tag_Dstar
       - Tight_2017_el_SR_1tag_Dstar
+      - Tight_2016A-B_el_SR_1tag_Dstar
+      - Tight_2016C-L_el_SR_1tag_Dstar
       - Tight_2017_el_SR_2tag_Dstar
+      - Tight_2016A-B_el_SR_2tag_Dstar
+      - Tight_2016C-L_el_SR_2tag_Dstar
     samples:
       - MG_Wjets_emu
       - Top_ttbar
@@ -235,6 +600,8 @@ channels:
     regions:
       - Tight_2018_mu_SR_0tag_Dstar
       - Tight_2017_mu_SR_0tag_Dstar
+      - Tight_2016A-B_mu_SR_0tag_Dstar
+      - Tight_2016C-L_mu_SR_0tag_Dstar
     samples:
       - MG_Wjets_emu
       - Top_ttbar
@@ -249,7 +616,11 @@ channels:
       - Tight_2018_mu_SR_1tag_Dstar
       - Tight_2018_mu_SR_2tag_Dstar
       - Tight_2017_mu_SR_1tag_Dstar
+      - Tight_2016A-B_mu_SR_1tag_Dstar
+      - Tight_2016C-L_mu_SR_1tag_Dstar
       - Tight_2017_mu_SR_2tag_Dstar
+      - Tight_2016A-B_mu_SR_2tag_Dstar
+      - Tight_2016C-L_mu_SR_2tag_Dstar
     samples:
       - MG_Wjets_emu
       - Top_ttbar
@@ -263,6 +634,8 @@ channels:
     regions:
       - AntiTight_2018_el_SR_0tag_Dstar
       - AntiTight_2017_el_SR_0tag_Dstar
+      - AntiTight_2016A-B_el_SR_0tag_Dstar
+      - AntiTight_2016C-L_el_SR_0tag_Dstar
     samples:
       - MG_Wjets_emu
       - Top_ttbar
@@ -277,7 +650,11 @@ channels:
       - AntiTight_2018_el_SR_1tag_Dstar
       - AntiTight_2018_el_SR_2tag_Dstar
       - AntiTight_2017_el_SR_1tag_Dstar
+      - AntiTight_2016A-B_el_SR_1tag_Dstar
+      - AntiTight_2016C-L_el_SR_1tag_Dstar
       - AntiTight_2017_el_SR_2tag_Dstar
+      - AntiTight_2016A-B_el_SR_2tag_Dstar
+      - AntiTight_2016C-L_el_SR_2tag_Dstar
     samples:
       - MG_Wjets_emu
       - Top_ttbar
@@ -291,6 +668,8 @@ channels:
     regions:
       - AntiTight_2018_mu_SR_0tag_Dstar
       - AntiTight_2017_mu_SR_0tag_Dstar
+      - AntiTight_2016A-B_mu_SR_0tag_Dstar
+      - AntiTight_2016C-L_mu_SR_0tag_Dstar
     samples:
       - MG_Wjets_emu
       - Top_ttbar
@@ -304,7 +683,11 @@ channels:
       - AntiTight_2018_mu_SR_1tag_Dstar
       - AntiTight_2018_mu_SR_2tag_Dstar
       - AntiTight_2017_mu_SR_1tag_Dstar
+      - AntiTight_2016A-B_mu_SR_1tag_Dstar
+      - AntiTight_2016C-L_mu_SR_1tag_Dstar
       - AntiTight_2017_mu_SR_2tag_Dstar
+      - AntiTight_2016A-B_mu_SR_2tag_Dstar
+      - AntiTight_2016C-L_mu_SR_2tag_Dstar
     samples:
       - MG_Wjets_emu
       - Top_ttbar

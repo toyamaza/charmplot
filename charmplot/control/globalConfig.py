@@ -179,6 +179,8 @@ class GlobalConfig(object):
                 chan.set_scale_factors(val['scale_factors'])
             if 'extra_rebin' in val:
                 chan.set_extra_rebin(val['extra_rebin'])
+            if 'extra_scale' in val:
+                chan.set_extra_scale(val['extra_scale'])
             if 'mass_fit' in val:
                 chan.set_mass_fit(val['mass_fit'])
             if 'save_to_file' in val:

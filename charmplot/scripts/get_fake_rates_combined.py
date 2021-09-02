@@ -337,7 +337,7 @@ def main(conf, options, args):
 
             # channel object for plotting
             eta = eta_range[y]
-            chan = channel.Channel(f"{s}_{channel_name}_{y}", [channel_name, f"|#eta| = [{eta[0]}, {eta[1]}]"], "2017+2018", [], [])
+            chan = channel.Channel(f"{s}_{channel_name}_{y}", [channel_name, f"|#eta| = [{eta[0]}, {eta[1]}]"], "2016+2017+2018", [], [])
 
             # canvas
             var = lep_pt

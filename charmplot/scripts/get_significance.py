@@ -11,11 +11,11 @@ ROOT.gROOT.LoadMacro(os.path.join(dirname, "AtlasStyle.C"))
 ROOT.SetAtlasStyle()
 
 # Global Variables
-UB = 1.95 #Mass GeV upper bound signal region
-LB = 1.79 #Mass GeV upper bound signal region
-data_mc_SF =  1.0832366375252516 #0.9177293428318026#0.9975  # 
-dataNminus1 = 121792.1461213921 # 108102.73721837193
-mcNminus1 = 121792.1461213921 # 111457.96897521973
+UB = 1.98 #Mass GeV upper bound signal region
+LB = 1.74 #Mass GeV upper bound signal region
+data_mc_SF =  1.140960939834366  #0.9177293428318026#0.9975  # 
+dataNminus1 = 290896 # 108102.73721837193
+mcNminus1 = dataNminus1 # 111457.96897521973
 
 
 def SB_function(x, p):
@@ -30,16 +30,23 @@ if __name__ == "__main__":
 
     file = ROOT.TFile("histograms.root")
 
-    mc_samples = ["Multijet_MatrixMethod","Wjets_emu_Rest", "Wjets_emu_Matched", "Top_Rest", "Top_Matched", "Zjets_emu", "Other"]
+    mc_samples = [ "Wjets_emu_Matched", "Wjets_emu_Rest","Wjets_emu_411MisMatched","Wjets_emu_Charm", "Top", "DibosonVjetsTau"]
 #    mc_samples = ["Wjets_emu_Charm", "Wjets_emu_Matched", "Top_Charm", "Top_Matched", "Zjets_emu", "Other"]
 #    mc_samples =   ["Wjets_emu_HardMisMatched", "Wjets_emu_Matched","Wjets_emu_NoMatch","Wjets_emu_Charm", "Top_Matched", "Top_Charm", "Top_HardMisMatched" , "Zjets_emu", "Other"]
 
+    pt_bin = ["1","2","3","4","5"]
     data_samples = ["Data"]
 
     charges = ["OS", "SS", "OS-SS"]
 #    charges = ["OS-SS"]
     leps = ["el", "mu"]
 
+    OS_fit_signal_data_0 = 0
+    SS_fit_signal_data_0 = 0
+    mc_signal_err_0 = 0
+    OS_err2_0 = 0
+    SS_err2_0 = 0
+    #tmp_itr = [0,4,5,6,7,8,9]
     for i in range(0,10):
         var_in = str(i)
         sig_sums = []
@@ -59,33 +66,34 @@ if __name__ == "__main__":
             data_sum = ROOT.TH1F()
             data_sum.Sumw2()
 
-            for l in leps:
-                # Accumulating background Histograms
-                for s in mc_samples:
-                    if first_hist_mc:
-                        mc_sum.Clear()
-                        mc_sum = file.Get(s + "_" + c +"_2018_" + l + "_SR_Dplus_Dmeson_m" + var_in).Clone()
-                        first_hist_mc = False
-                    else:
-                        hist = ROOT.TH1F()
-                        #print(s + "_" + c +"_2018_" + l + "_SR_Dplus_Dmeson_m" + var_in)
-                        hist = file.Get(s + "_" + c +"_2018_" + l + "_SR_Dplus_Dmeson_m" + var_in).Clone()
-                        #print(s + "_" + c +"_2018_" + l + "_SR_Dplus_Dmeson_m" + var_in)
-                        mc_sum.Add(hist)
-                #print()
-                for s in data_samples:
-
-                    if first_hist_data:
-                        data_sum.Clear()
-                        data_sum = file.Get(s + "_" + c +"_2018_" + l + "_SR_Dplus_Dmeson_m" + var_in).Clone()
-                        #print(s + "_" + c +"_2018_" + l + "_SR_Dplus_Dmeson_m")
-                        first_hist_data = False
-                    else:
-                        hist = file.Get(s + "_" + c +"_2018_" + l + "_SR_Dplus_Dmeson_m" + var_in).Clone()
-                        #print(s + "_" + c +"_2018_" + l + "_SR_Dplus_Dmeson_m")
-                        #print (hist)
-                        data_sum.Add(hist)
-                #print()
+            for pt in pt_bin:
+                for l in leps:
+                    # Accumulating background Histograms
+                    for s in mc_samples:
+                        if first_hist_mc:
+                            mc_sum.Clear()
+                            #print(s + "_" + c +"_" + l + "_Dplus_pt_bin" + pt + "_Dmeson_m" + var_in)
+                            mc_sum = file.Get(s + "_" + c +"_" + l + "_Dplus_pt_bin" + pt + "_Dmeson_m" + var_in).Clone()
+                            first_hist_mc = False
+                        else:
+                            hist = ROOT.TH1F()
+                            #print(s + "_" + c +"_" + l + "_Dplus_pt_bin" + pt + "_Dmeson_m" + var_in)
+                            hist = file.Get(s + "_" + c +"_" + l + "_Dplus_pt_bin" + pt + "_Dmeson_m" + var_in).Clone()
+                            #print(s + "_" + c +"_" + l + "_Dplus_pt_bin" + pt + "_Dmeson_m" + var_in)
+                            mc_sum.Add(hist)
+                    #print()
+                    for s in data_samples:
+                        if first_hist_data:
+                            data_sum.Clear()
+                            data_sum = file.Get(s + "_" + c +"_" + l + "_Dplus_pt_bin" + pt + "_Dmeson_m" + var_in).Clone()
+                            #print(s + "_" + c +"_" + l + "_Dplus_pt_bin" + pt + "_Dmeson_m")
+                            first_hist_data = False
+                        else:
+                            hist = file.Get(s + "_" + c +"_" + l + "_Dplus_pt_bin" + pt + "_Dmeson_m" + var_in).Clone()
+                            #print(s + "_" + c +"_" + l + "_Dplus_pt_bin" + pt + "_Dmeson_m")
+                            #print (hist)
+                            data_sum.Add(hist)
+                    #print()
             first_hist_mc = True
             first_hist_data = True
             mc_sums += [mc_sum]
@@ -97,37 +105,37 @@ if __name__ == "__main__":
             sig_sum.Sumw2()
             sig_sum_data = ROOT.TH1F()
             sig_sum_data.Sumw2()
-
-            for l in leps:
-                #print("lep: " + l)
-                if first_hist_sig:
-                    sig_sum.Clear()
-                    sig_sum = file.Get("Wjets_emu_Matched_" + c + "_2018_" + l + "_SR_Dplus_Dmeson_m" + var_in).Clone()
-                    first_hist_sig = False
-                    #print("el MC: " + str(sig_sum.Integral()))
-                else:
-                    hist = file.Get("Wjets_emu_Matched_" + c + "_2018_" + l + "_SR_Dplus_Dmeson_m" + var_in).Clone()
-                    sig_sum.Add(hist)
-                    #print("mu MC: " + str(hist.Integral()))
-                if first_hist_sig_data:
-                    sig_sum_data.Clear()
-                    sig_sum_data = file.Get("Data_" + c + "_2018_" + l + "_SR_Dplus_Dmeson_m" + var_in).Clone()
-                    first_hist_sig_data = False
-                    #print("el MC: " + str(sig_sum_data.Integral()))
-                else:
-                    hist_data = ROOT.TH1F()
-                    hist_data = file.Get("Data_" + c + "_2018_" + l + "_SR_Dplus_Dmeson_m" + var_in).Clone()
-                    sig_sum_data.Add(hist_data)
-                    #print("mu MC: " + str(hist_data.Integral()))
+            
+            for pt in pt_bin:
+                for l in leps:
+                    #print("lep: " + l)
+                    if first_hist_sig:
+                        sig_sum.Clear()
+                        sig_sum = file.Get("Wjets_emu_Matched_" + c + "_" + l + "_Dplus_pt_bin" + pt + "_Dmeson_m" + var_in).Clone()
+                        first_hist_sig = False
+                        #print("el MC: " + str(sig_sum.Integral()))
+                    else:
+                        hist = file.Get("Wjets_emu_Matched_" + c + "_" + l + "_Dplus_pt_bin" + pt + "_Dmeson_m" + var_in).Clone()
+                        sig_sum.Add(hist)
+                        #print("mu MC: " + str(hist.Integral()))
+                    if first_hist_sig_data:
+                        sig_sum_data.Clear()
+                        sig_sum_data = file.Get("Data_" + c + "_" + l + "_Dplus_pt_bin" + pt + "_Dmeson_m" + var_in).Clone()
+                        first_hist_sig_data = False
+                        #print("el MC: " + str(sig_sum_data.Integral()))
+                    else:
+                        hist_data = ROOT.TH1F()
+                        hist_data = file.Get("Data_" + c + "_" + l + "_Dplus_pt_bin" + pt + "_Dmeson_m" + var_in).Clone()
+                        sig_sum_data.Add(hist_data)
+                        #print("mu MC: " + str(hist_data.Integral()))
             first_hist_sig = True
             first_hist_sig_data = True
             sig_sums += [sig_sum]
             sig_sums_data += [sig_sum_data]
 
-        #print("lep sum: " + str(sig_sums[2].Integral()))
-        #print("lep sum: " + str(sig_sums_data[2].Integral()))
-
         bkg_fns = []
+        OS_fit_signal_data = 0
+        SS_fit_signal_data = 0
         for c, d, mc, sig, sig_data in zip(charges, data_sums, mc_sums, sig_sums, sig_sums_data):
             dError = ROOT.Double()
             mcError = ROOT.Double()
@@ -137,7 +145,11 @@ if __name__ == "__main__":
 
             # Call fitting function to get integral and uncertainty
             bkg_fn_fit = ROOT.TF1("bkg_fn_fit", SB_function, sig_data.GetBinLowEdge(1), sig_data.GetBinLowEdge(sig_data.GetNbinsX()) + sig_data.GetBinWidth(1), 3)
-            fit_res = d.Fit(bkg_fn_fit, "0")
+            #d_clone = d.Clone(c+"_"+str(i))
+            #d_clone.Rebin(4)
+            #d_clone.Scale(.5)
+            #d.Rebin(4)
+            fit_res = d.Fit(bkg_fn_fit, "Q0")
             #cov = fit_res.GetCovarianceMatrix()
             bkg_fn = ROOT.TF1("bkg_fn", "pol2", sig_data.GetBinLowEdge(1), sig_data.GetBinLowEdge(sig_data.GetNbinsX()) + sig_data.GetBinWidth(1))
 
@@ -148,7 +160,7 @@ if __name__ == "__main__":
             # Events and Uncertainty in SB region
             dIntSR = bkg_fn.Integral(LB, UB) / d.GetBinWidth(1)
             dErrorSR = bkg_fn.IntegralError(LB, UB) / d.GetBinWidth(1)
-           
+            
             # Events in Matched Peak Region
             dIntSig = ROOT.Double()
             dIntSig = sig.Integral(sig.GetXaxis().FindBin(LB) + 1, sig.GetXaxis().FindBin(UB) - 1)
@@ -158,11 +170,24 @@ if __name__ == "__main__":
             dIntSig_data = sig_data.IntegralAndError(sig_data.GetXaxis().FindBin(LB) + 1, sig_data.GetXaxis().FindBin(UB) - 1, dIntSig_data_err)
             #print("just dIntSig_integral: " + str(sig_data.Integral(sig_data.GetXaxis().FindBin(LB) + 1, sig_data.GetXaxis().FindBin(UB) - 1)))
             # Replace uncertainty on Signal Error for OS - SS case
-            if "OS-SS" in c:
+            if c == "OS":
+                OS_fit_signal_data = dIntSig_data - dIntSR 
+                if i is 0:
+                    OS_fit_signal_data_0 = dIntSig_data - dIntSR
+            elif c == "SS":
+                SS_fit_signal_data = dIntSig_data - dIntSR 
+                if i is 0:
+                    SS_fit_signal_data_0 = dIntSig_data - dIntSR
+            elif "OS-SS" in c:
                 # OS Signal Error
                 OS_err2 = sig_sums[0].Integral(sig.GetXaxis().FindBin(LB) + 1, sig.GetXaxis().FindBin(UB) - 1)
                 SS_err2 = sig_sums[1].Integral(sig.GetXaxis().FindBin(LB) + 1, sig.GetXaxis().FindBin(UB) - 1)
                 dIntSig_data_err = (OS_err2 + SS_err2)**.5 * data_mc_SF
+                if i is 0:
+                    OS_err2_0 = OS_err2
+                    SS_err2_0 = SS_err2
+                    mc_signal_err_0 = dIntSig_data_err
+                    print((dIntSig_data - dIntSR)/ (dIntSig))
             # Significance where Z = N events in signal peak / uncertainty on bkg sideband
 
             Z = dIntSig * data_mc_SF / (dErrorSR * dErrorSR + dIntSig_data_err * dIntSig_data_err)**0.5
@@ -181,9 +206,11 @@ if __name__ == "__main__":
             canv.Print(c + "_test_"+var_in+".pdf")
 
             bkgHist = bkg_fn.CreateHistogram()
+            #bkgHist.Rebin(4)
             #print("Nbins bkg, sig: " + str(bkgHist.GetNbinsX()) + ", " + str(sig_data.GetNbinsX()))
             #print("0 bin bkg, sig: " + str(bkgHist.GetBinCenter(100)) + ", " + str(sig_data.GetBinCenter(100)))
             sigMinusBkg = sig_data
+            #sigMinusBkg.Rebin(4)
             sigMinusBkg.Add(bkgHist, -1)
             sigMinusBkg.GetXaxis().SetRangeUser(1.76, 2.0)
             sigMinusBkg.GetYaxis().SetRangeUser(sigMinusBkg.GetMinimum(), sigMinusBkg.GetMaximum() * 1.3)
@@ -206,4 +233,13 @@ if __name__ == "__main__":
                 #print("Cut: "+var_in+" MC   Eff: " + str((dIntSig * data_mc_SF) / mcNminus1))
                 #print("Cut: "+var_in+" Normalization for data/MC in peak region vs Baseline SF :               " + str((dIntSig_data - dIntSR) / (dIntSig)) + " : " + str(data_mc_SF))
                 #print()
-                print(str((dIntSig_data - dIntSR) / (dIntSig)) +", " +str(dIntSig_data - dIntSR) + ", " +str(dIntSig* data_mc_SF) + ", " + str((dIntSig_data - dIntSR) / dataNminus1) + ", " + str((dIntSig * data_mc_SF) / mcNminus1) +", " + str(((dIntSig_data - dIntSR) / dataNminus1)/((dIntSig * data_mc_SF) / mcNminus1))+ ", " + str(Z))
+                data_eff = (dIntSig_data - dIntSR) / dataNminus1
+                mc_eff = (dIntSig * data_mc_SF)/ mcNminus1
+                data_eff_err = data_eff * (((OS_fit_signal_data+SS_fit_signal_data)/(OS_fit_signal_data-SS_fit_signal_data)**2) + (dErrorSR/(OS_fit_signal_data-SS_fit_signal_data))**2 + ((OS_fit_signal_data_0+SS_fit_signal_data_0)/(OS_fit_signal_data_0+SS_fit_signal_data_0)**2))**0.5
+                mc_eff_err = mc_eff * (((mc_signal_err_0**2/((OS_err2_0-SS_err2_0)* data_mc_SF)**2)) + ((dIntSig_data_err**2/((OS_err2-SS_err2)*data_mc_SF)**2)))**0.5
+                eff_ratio_err =  (data_eff/mc_eff) * ((data_eff_err/data_eff)**2 + (mc_eff_err/mc_eff)**2)**0.5
+                #print(dErrorSR/(dIntSig_data - dIntSR))
+                #print(str((dIntSig_data - dIntSR) / (dIntSig)) +", " +str(dIntSig_data - dIntSR) + ", " +str(dIntSig* data_mc_SF) + ", " + str((dIntSig_data - dIntSR) / dataNminus1) + ", " + str((dIntSig * data_mc_SF) / mcNminus1) +", " + str(((dIntSig_data - dIntSR) / dataNminus1)/((dIntSig * data_mc_SF) / mcNminus1))+ ", " + str(Z))
+                
+                #print("{0:.2f}, {1:.0f}, {2:.0f}, {3:.2f} +/- {4:.2f}, {5:.2f} +/- {6:.2f}, {7:.3f} +/- {8:.3f}, {9:.2f}".format((dIntSig_data - dIntSR) / (dIntSig), dIntSig_data - dIntSR, dIntSig* data_mc_SF, (dIntSig_data - dIntSR) / dataNminus1, data_eff_err,(dIntSig * data_mc_SF) / mcNminus1, mc_eff_err, ((dIntSig_data - dIntSR) / dataNminus1)/((dIntSig * data_mc_SF) / mcNminus1), eff_ratio_err,Z))
+                print("{0:.3f} & {1:.3f} & {2:.3f} double slash".format((dIntSig_data - dIntSR) / dataNminus1,(dIntSig * data_mc_SF) / mcNminus1, ((dIntSig_data - dIntSR) / dataNminus1)/((dIntSig * data_mc_SF) / mcNminus1)))

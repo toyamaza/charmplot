@@ -85,6 +85,28 @@ Wjets_emu_Matched:
   legendLabel: "W+#it{D}"
   shortName: Wjets_light_Matched
 
+Wjets_emu_411MisMatched:
+  add:
+    - Sh_Wjets_light_emu
+    - Sh_Wjets_cjets_emu
+    - Sh_Wjets_bjets_emu
+    - Sh_Wjets_highpt_emu
+  subtract:
+  fillColor: "10002"
+  legendLabel: "W+#it{D}(other)"
+  shortName: Wjets_emu_411MisMatched
+
+Wjets_emu_MisMatched:
+  add:
+    - Sh_Wjets_light_emu
+    - Sh_Wjets_cjets_emu
+    - Sh_Wjets_bjets_emu
+    - Sh_Wjets_highpt_emu
+  subtract:
+  fillColor: "11004"
+  legendLabel: "W+c^{mis-match}"
+  shortName: Wjets_emu_MisMatched
+
 Wjets_emu_Rest:
   add:
     - Sh_Wjets_light_emu
@@ -257,6 +279,19 @@ Other:
   fillColor: "15000"
   legendLabel: Other
   shortName: Other
+
+DibosonVjetsTau:
+  add:
+    - Diboson
+    - MG_Zjets_light_emu
+    - MG_Zjets_cjets_emu
+    - MG_Zjets_bjets_emu
+    - MG_Zjets_tau
+    - Sh_Wjets_tau
+  subtract:
+  fillColor: "15000"
+  legendLabel: Other
+  shortName: DibosonVjetsTau
 
 Multijet:
   add: data

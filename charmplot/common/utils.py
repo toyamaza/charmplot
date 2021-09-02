@@ -233,6 +233,15 @@ def read_sys_histograms(conf, reader, c, var, samples, fit, systematics, mc_map)
     return mc_map_sys
 
 
+def make_syst_sample(sample, variation, line_color_add):
+    sample_out = deepcopy(sample)
+    sample_out.name = variation + "_" + sample.name
+    sample_out.lineColor = sample.lineColor + line_color_add
+    sample_out.legendLabel = variation
+    print(sample_out)
+    return sample_out
+
+
 def trex_subtraction(channelOS: channel.Channel, channelSS: channel.Channel,
                      var: variable.Variable, mc_map: MC_Map, trex_post_fit_histograms: Dict):
     logging.info(f"Making post-fit histograms for {channelOS.name} - {channelSS.name}")

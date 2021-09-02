@@ -28,6 +28,8 @@ def main(options):
         samples = templates.WDFlavourSamples()
     elif options.samples.lower() == 'fit':
         samples = templates.WDFitSamples()
+    elif options.samples.lower() == 'fake_track' or options.samples.lower() == 'fake_track':
+        samples = templates.WDFakeTrackSamples()
     elif options.samples.lower() == 'spg_comparison':
         samples = templates.SPGComparison(truthDiffBins=options.truth_differential_bins,
                                           splitSignalSamples=options.split_signal_samples,
@@ -109,7 +111,7 @@ def main(options):
 
     # systematics
     systematics = []
-    if options.systematics:
+    if options.systematics and not options.samples.lower() == 'spg_sys':
         systematics = [
             'experimental',
             'matrix_method',
@@ -130,6 +132,9 @@ def main(options):
                 'wjets_bkg_alt_samples',
                 # 'wjets_bkg_alt_samples_pre',
             ]
+
+    elif options.systematics and options.samples.lower() == 'spg_sys':
+        systematics = ['track_impact_parameter']
 
     if options.sherpa_systematics:
         systematics = [
@@ -265,7 +270,7 @@ if __name__ == "__main__":
                       default="Dplus")
     parser.add_option('-s', '--samples',
                       action="store", dest="samples",
-                      help="type of samples (truth, flavor, fit)",
+                      help="type of samples (truth, flavor, fit, fake_track)",
                       default="truth")
     parser.add_option('-r', '--extra-rebin',
                       action="store", dest="extra_rebin",

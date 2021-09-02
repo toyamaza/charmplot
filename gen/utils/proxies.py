@@ -352,3 +352,55 @@ class Rest(ProxyChannel):
                 out += [f"{anti_sign}{reg}_MatchedNoFid"]
                 out += [f"{anti_sign}{reg}_MisMatched"]
         return self.format(regs + out)
+
+
+class FakeTrack0(ProxyChannel):
+    name = "_fakeTrack0"
+
+    def __init__(self, os_ss_sub: bool = False, loose_sr: bool = False, ptbin: int = -1):
+        super().__init__(os_ss_sub=os_ss_sub, loose_sr=loose_sr)
+        self.ptbin = ptbin
+        if self.ptbin >= 0:
+            self.name += f"_truth_pt_bin{self.ptbin}"
+
+    def get_regions(self, regions):
+        return self.format([reg + f"_{self.name}" for reg in regions])
+
+
+class FakeTrack1(ProxyChannel):
+    name = "_fakeTrack1"
+
+    def __init__(self, os_ss_sub: bool = False, loose_sr: bool = False, ptbin: int = -1):
+        super().__init__(os_ss_sub=os_ss_sub, loose_sr=loose_sr)
+        self.ptbin = ptbin
+        if self.ptbin >= 0:
+            self.name += f"_truth_pt_bin{self.ptbin}"
+
+    def get_regions(self, regions):
+        return self.format([reg + f"_{self.name}" for reg in regions])
+
+
+class FakeTrack2(ProxyChannel):
+    name = "_fakeTrack2"
+
+    def __init__(self, os_ss_sub: bool = False, loose_sr: bool = False, ptbin: int = -1):
+        super().__init__(os_ss_sub=os_ss_sub, loose_sr=loose_sr)
+        self.ptbin = ptbin
+        if self.ptbin >= 0:
+            self.name += f"_truth_pt_bin{self.ptbin}"
+
+    def get_regions(self, regions):
+        return self.format([reg + f"_{self.name}" for reg in regions])
+
+
+class FakeTrack3(ProxyChannel):
+    name = "_fakeTrack3"
+
+    def __init__(self, os_ss_sub: bool = False, loose_sr: bool = False, ptbin: int = -1):
+        super().__init__(os_ss_sub=os_ss_sub, loose_sr=loose_sr)
+        self.ptbin = ptbin
+        if self.ptbin >= 0:
+            self.name += f"_truth_pt_bin{self.ptbin}"
+
+    def get_regions(self, regions):
+        return self.format([reg + f"_{self.name}" for reg in regions])
