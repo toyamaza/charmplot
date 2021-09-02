@@ -270,9 +270,9 @@ def main(options, conf, reader):
                             temp_err[-1].GetEYlow()[x - 1] = 0
                 gr_mc_stat_err, _ = utils.make_stat_err(h)
                 if not options.no_sys_band:
-                    gr_mc_tot_err = utils.combine_error_multiple(temp_err)
                     gr_mc_tot_err = utils.combine_error_multiple([gr_mc_stat_err] + temp_err)
-                gr_mc_tot_err = utils.combine_error_multiple([gr_mc_stat_err])
+                else:
+                    gr_mc_tot_err = utils.combine_error_multiple([gr_mc_stat_err])
                 gr_mc_stat_err.SetLineColor(fcolor)
                 gr_mc_tot_err.SetLineColor(fcolor)
                 # gr_mc_tot_err.SetFillColorAlpha(fcolor, 0.25)
