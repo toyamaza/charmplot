@@ -439,9 +439,10 @@ class SignalComparison(ChannelTemplate):
     samples.update(
         {
             'Matched': [
-                ['Wjets_emu_Matched_1tag', proxies.GenericChannel(region=truthSlices, name="Matched_1tag", force_1tag=True, loose_sr=True)],
-                # ['Wjets_emu_Matched', proxies.GenericChannel(region=truthSlices, name="Matched")],
-                ['Wjets_emu_Matched_Loose', proxies.GenericChannel(region=truthSlices, name="Matched_Loose", loose_sr=True)],
+                # ['Wjets_emu_Matched_1tag', proxies.GenericChannel(region=truthSlices, name="Matched_1tag", force_1tag=True)],
+                ['Wjets_emu_Matched_1tag', proxies.GenericChannel(region=truthSlices, name="Matched_1tag", add_1tag=True)],
+                ['Wjets_emu_Matched', proxies.GenericChannel(region=truthSlices, name="Matched")],
+                # ['Wjets_emu_Matched_Loose', proxies.GenericChannel(region=truthSlices, name="Matched_Loose", loose_sr=True, loose_sr_only=True)],
             ]
         }
     )
