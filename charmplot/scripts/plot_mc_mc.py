@@ -168,6 +168,18 @@ def main(options, conf, reader):
             # top pad
             errors = []
             canv.pad1.cd()
+
+            # make legend
+            canv.make_legend(mc_map, samples, print_yields=options.normalize)
+
+            # normalize bins to unity
+            if var.per_unit:
+                utils.normalize_to_unit(hists=[mc_map[s] for s in samples])
+
+            # set maximum after creating legend
+            canv.set_maximum([mc_map[s] for s in samples], var, mc_map[samples[0]])
+
+            # plot
             for s in samples:
                 if mc_map[s].GetLineColor() > 1:
                     fcolor = mc_map[s].GetLineColor()
@@ -185,12 +197,6 @@ def main(options, conf, reader):
                 gr_mc_tot_err.Draw("e2")
                 gr_mc_stat_err.Draw("e0")
                 mc_map[s].Draw("hist same")
-
-            # make legend
-            canv.make_legend(mc_map, samples, print_yields=options.normalize)
-
-            # set maximum after creating legend
-            canv.set_maximum([mc_map[s] for s in samples], var, mc_map[samples[0]])
 
             # find minimum
             if options.nology:

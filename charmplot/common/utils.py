@@ -104,15 +104,16 @@ def normalize_gr_to_unit(gr: ROOT.TGraphAsymmErrors, h_ref: ROOT.TH1):
             gr.GetEY()[i - 1] /= w
 
 
-def normalize_to_unit(stack: ROOT.THStack, hists: List[ROOT.TH1], grs: List[ROOT.TGraphAsymmErrors]):
+def normalize_to_unit(stack: ROOT.THStack = None, hists: List[ROOT.TH1] = [], grs: List[ROOT.TGraphAsymmErrors] = []):
     h_ref = None
 
     # mc map
-    for h in stack.GetStack():
-        if h:
-            if not h_ref:
-                h_ref = h
-            normalize_histo_to_unit(h)
+    if stack:
+        for h in stack.GetStack():
+            if h:
+                if not h_ref:
+                    h_ref = h
+                normalize_histo_to_unit(h)
 
     # hists
     for h in hists:
