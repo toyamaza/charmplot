@@ -34,7 +34,7 @@ def get_err_hist(f, par, variation, default):
     if h_temp:
         h_err = h_temp.Clone(f"{h_temp.GetName()}_err_{variation}")
     else:
-        logging.warning(f"Histogram {name}{par}_{variation}_postFit not found in file {os.path.basename(f.GetName())}. Using {default} instead.")
+        # logging.warning(f"Histogram {name}{par}_{variation}_postFit not found in file {os.path.basename(f.GetName())}. Using {default} instead.")
         h_mc_default = f.Get(default)
         if h_mc_default:
             h_err = h_mc_default.Clone(f"{h_mc_default.GetName()}_err_{variation}")
@@ -140,11 +140,6 @@ def main(options, conf):
                     sample_names.append(sample.shortName)
                     samples.append(sample)
 
-        # put MockMC last
-        if len(plot['-']) and 'MockMC' in samples[0].shortName:
-            samples += [samples.pop(0)]
-            sample_names += [sample_names.pop(0)]
-
         # get mc samples
         mc_map = {}
         for sample in samples:
@@ -155,7 +150,7 @@ def main(options, conf):
 
                 # channel charge
                 channel_charge = ""
-                if options.plus_minus_ratio and ('MockMC' in sample.shortName or 'Wjets_emu_Matched' in sample.shortName):
+                if options.plus_minus_ratio and 'Wjets_emu_Matched' in sample.shortName:
                     if "minus" in channel.name:
                         channel_charge = "_minus"
                     elif "plus" in channel.name:
@@ -163,7 +158,7 @@ def main(options, conf):
 
                 # pt bin
                 pt_bin = ""
-                if 'MockMC' in sample.shortName or 'Wjets_emu_Matched' in sample.shortName:
+                if 'Wjets_emu_Matched' in sample.shortName:
                     pt_bin_re = re.findall("(pt_bin[0-9])", channel.name)
                     if len(pt_bin_re):
                         pt_bin = "_" + pt_bin_re[0]
@@ -173,31 +168,7 @@ def main(options, conf):
                 if pt_bin and 'Wjets_emu_Matched' in sample.shortName and "truth_pt" not in sample.shortName:
                     truth_pt_bin = f"_truth{pt_bin}"
 
-                # mockMC
-                if 'MockMC' in sample.shortName:
-                    h_temp = files[channel].Get(f"h_SymmBkg{channel_charge}{pt_bin}_postFit")
-                    h_negative = files[channel].Get(f"h_NegativeOffset{channel_charge}{pt_bin}_postFit")
-                    if not h_temp:
-                        btag = re.findall("([012]tag)", channel.name)[0]
-                        h_temp = files[channel].Get(f"h_SymmBkg{channel_charge}_{btag}{pt_bin}_postFit")
-                    if not h_negative:
-                        btag = re.findall("([012]tag)", channel.name)[0]
-                        h_negative = files[channel].Get(f"h_NegativeOffset{channel_charge}_{btag}{pt_bin}_postFit")
-                    if h_negative:
-                        h_temp.Add(h_negative)
-                else:
-                    if "SS" in channel.name:
-                        h_temp = files[channel].Get(f"h_{sample.shortName}{truth_pt_bin}{channel_charge}_postFit")
-                        # h_temp = files[channel].Get(f"h_{sample.shortName}{channel_charge}_SS_postFit")
-                        h_temp_couter = files[channel].Get(f"h_{sample.shortName}{truth_pt_bin}{channel_charge}_CounterTerm_SS_postFit")
-                        if h_temp_couter:
-                            h_temp.Add(h_temp_couter)
-                    else:
-                        h_temp = files[channel].Get(f"h_{sample.shortName}{truth_pt_bin}{channel_charge}_postFit")
-                        h_temp_couter = files[channel].Get(f"h_{sample.shortName}{truth_pt_bin}{channel_charge}_CounterTerm_postFit")
-                        if h_temp_couter:
-                            print("subtractign the counter term: ", h_temp_couter)
-                            h_temp.Add(h_temp_couter)
+                h_temp = files[channel].Get(f"h_{sample.shortName}{truth_pt_bin}{channel_charge}_postFit")
                 if h_temp:
                     if h_sum is None:
                         h_sum = h_temp.Clone(f"{h_temp.GetName()}_{chan.name}")
@@ -209,7 +180,7 @@ def main(options, conf):
 
                 # channel charge
                 channel_charge = ""
-                if options.plus_minus_ratio and ('MockMC' in sample.shortName or 'Wjets_emu_Matched' in sample.shortName):
+                if options.plus_minus_ratio and 'Wjets_emu_Matched' in sample.shortName:
                     if "minus" in channel.name:
                         channel_charge = "_minus"
                     elif "plus" in channel.name:
@@ -217,7 +188,7 @@ def main(options, conf):
 
                 # pt bin
                 pt_bin = ""
-                if 'MockMC' in sample.shortName or 'Wjets_emu_Matched' in sample.shortName:
+                if 'Wjets_emu_Matched' in sample.shortName:
                     pt_bin_re = re.findall("(pt_bin[0-9])", channel.name)
                     if len(pt_bin_re):
                         pt_bin = "_" + pt_bin_re[0]
@@ -227,31 +198,14 @@ def main(options, conf):
                 if pt_bin and 'Wjets_emu_Matched' in sample.shortName and "truth_pt" not in sample.shortName:
                     truth_pt_bin = f"_truth{pt_bin}"
 
-                # mockMC
-                if 'MockMC' in sample.shortName:
-                    h_temp = files[channel].Get(f"h_SymmBkg{channel_charge}{pt_bin}_postFit")
-                    h_negative = files[channel].Get(f"h_NegativeOffset{channel_charge}{pt_bin}_postFit")
-                    if not h_temp:
-                        btag = re.findall("([012]tag)", channel.name)[0]
-                        h_temp = files[channel].Get(f"h_SymmBkg{channel_charge}_{btag}{pt_bin}_postFit")
-                    if not h_negative:
-                        btag = re.findall("([012]tag)", channel.name)[0]
-                        h_negative = files[channel].Get(f"h_NegativeOffset{channel_charge}_{btag}{pt_bin}_postFit")
-                    if h_negative:
-                        h_temp.Add(h_negative)
-                else:
-                    h_temp = files[channel].Get(f"h_{sample.shortName}{truth_pt_bin}{channel_charge}_postFit")
-                    # h_temp = files[channel].Get(f"h_{sample.shortName}{channel_charge}_SS_postFit")
-                    h_temp_couter = files[channel].Get(f"h_{sample.shortName}{truth_pt_bin}{channel_charge}_CounterTerm_SS_postFit")
-                    if h_temp_couter:
-                        print("subtractign the counter term: ", h_temp_couter)
-                        h_temp.Add(h_temp_couter)
+                h_temp = files[channel].Get(f"h_{sample.shortName}{truth_pt_bin}{channel_charge}_postFit")
                 if h_temp:
                     if h_sum is None:
                         h_sum = h_temp.Clone(f"{h_temp.GetName()}_{chan.name}")
                         h_sum.Scale(-1.)
                     else:
                         h_sum.Add(h_temp, -1)
+
             if h_sum and abs(h_sum.GetSum()) > 1e-2:
                 mc_map[sample] = h_sum
 
