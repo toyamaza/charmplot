@@ -159,7 +159,7 @@ class InputDataReader(object):
                     h_denom.Add(h)
 
         # need the plus histogram at this point...
-        if not h_plus:
+        if not h_plus and not h_minus:
             return None
 
         # scale plus and minus if requested
@@ -169,7 +169,10 @@ class InputDataReader(object):
             h_minus.Scale(integral_SS / h_minus.GetSumOfWeights())
 
         # add plus and minus
-        h_total = h_plus.Clone("%s_%s_%s" % (sample.name, channel.name, variable.name))
+        if h_plus:
+            h_total = h_plus.Clone("%s_%s_%s" % (sample.name, channel.name, variable.name))
+        else:
+            h_total = h_minus.Clone("%s_%s_%s" % (sample.name, channel.name, variable.name))
         if h_minus:
             h_total.Add(h_minus, -1)
 
