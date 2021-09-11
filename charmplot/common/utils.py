@@ -646,11 +646,12 @@ def make_sys_err(h: ROOT.TH1, h_sys: List) -> List[Union[ROOT.TGraphErrors, ROOT
                 y_err_dn += err**2
         y_err_up = (y_err_up)**(0.5)
         y_err_dn = (y_err_dn)**(0.5)
+        y_err_sym = max(y_err_up, y_err_dn)
         gr.SetPoint(gr.GetN(), x, y)
-        gr.SetPointError(gr.GetN() - 1, (h.GetBinWidth(i) / 2.), (h.GetBinWidth(i) / 2.), y_err_dn, y_err_up)
+        gr.SetPointError(gr.GetN() - 1, (h.GetBinWidth(i) / 2.), (h.GetBinWidth(i) / 2.), y_err_sym, y_err_sym)
         gr_err_only.SetPoint(gr_err_only.GetN(), x, 1)
         if y:
-            gr_err_only.SetPointError(gr_err_only.GetN() - 1, (h.GetBinWidth(i) / 2.), (h.GetBinWidth(i) / 2.), y_err_dn / y, y_err_up / y)
+            gr_err_only.SetPointError(gr_err_only.GetN() - 1, (h.GetBinWidth(i) / 2.), (h.GetBinWidth(i) / 2.), y_err_sym / y, y_err_sym / y)
         else:
             gr_err_only.SetPointError(gr_err_only.GetN() - 1, (h.GetBinWidth(i) / 2.), (h.GetBinWidth(i) / 2.), 0, 0)
     gr.SetFillColor(ROOT.kGray + 3)
