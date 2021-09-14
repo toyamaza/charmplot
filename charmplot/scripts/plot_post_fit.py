@@ -333,8 +333,12 @@ def main(options, conf):
             # final
             g_mc_tot_err.GetEYhigh()[x - 1] = math.sqrt(g_mc_tot_err.GetEYhigh()[x - 1])
             g_mc_tot_err.GetEYlow()[x - 1] = math.sqrt(g_mc_tot_err.GetEYlow()[x - 1])
-            g_mc_tot_err_only.GetEYhigh()[x - 1] = g_mc_tot_err.GetEYhigh()[x - 1] / h_mc_tot.GetBinContent(x)
-            g_mc_tot_err_only.GetEYlow()[x - 1] = g_mc_tot_err.GetEYlow()[x - 1] / h_mc_tot.GetBinContent(x)
+            if h_mc_tot.GetBinContent(x) > 0:
+                g_mc_tot_err_only.GetEYhigh()[x - 1] = g_mc_tot_err.GetEYhigh()[x - 1] / h_mc_tot.GetBinContent(x)
+                g_mc_tot_err_only.GetEYlow()[x - 1] = g_mc_tot_err.GetEYlow()[x - 1] / h_mc_tot.GetBinContent(x)
+            else:
+                g_mc_tot_err_only.GetEYhigh()[x - 1] = 0
+                g_mc_tot_err_only.GetEYlow()[x - 1] = 0
 
         # ratio
         h_ratio = utils.make_ratio(h_data, h_mc_tot)
