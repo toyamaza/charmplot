@@ -474,10 +474,10 @@ channels:
 
   MatrixMethod_2016_el_QCD_0tag_Dplus:
     regions:
-      - AntiTightA-B_2016_el_QCD_0tag_Dplus
-      - -TightA-B_2016_el_QCD_0tag_Dplus
-      - AntiTightC-L_2016_el_QCD_0tag_Dplus
-      - -TightC-L_2016_el_QCD_0tag_Dplus
+      - AntiTight2016A-B_el_QCD_0tag_Dplus
+      - -Tight2016A-B_el_QCD_0tag_Dplus
+      - AntiTight2016C-L_el_QCD_0tag_Dplus
+      - -Tight2016C-L_el_QCD_0tag_Dplus
     make_plots: False
     save_to_file: False
 
@@ -496,10 +496,10 @@ channels:
 
   MatrixMethod_2016_mu_QCD_0tag_Dplus:
     regions:
-      - AntiTightA-B_2016_mu_QCD_0tag_Dplus
-      - -TightA-B_2016_mu_QCD_0tag_Dplus
-      - AntiTightC-L_2016_mu_QCD_0tag_Dplus
-      - -TightC-L_2016_mu_QCD_0tag_Dplus
+      - AntiTight2016A-B_mu_QCD_0tag_Dplus
+      - -Tight2016A-B_mu_QCD_0tag_Dplus
+      - AntiTight2016C-L_mu_QCD_0tag_Dplus
+      - -Tight2016C-L_mu_QCD_0tag_Dplus
     make_plots: False
     save_to_file: False
 
