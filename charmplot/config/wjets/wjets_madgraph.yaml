@@ -6,6 +6,9 @@ samplesConf: madgraph
 
 data: Data
 
+systematics:
+  - experimental
+
 samples:
   - Wjets_light_emu
   - Wjets_bjets_emu
@@ -17,18 +20,20 @@ samples:
   - Top
 
 channels:
-  2018_el:
+  el_0tag:
     regions:
-      - 2018_el_SR
+      - el_minus_SR_0tag
+      - el_plus_SR_0tag
     label:
-      - "2018 el SR"
+      - "e^{#pm} 0-tag"
       - "MadGraph"
-    lumi: "2018"
+    lumi: "2015+2016A-B+2016C-L+2017+2018"
 
-  2018_mu:
+  mu_0tag:
     regions:
-      - 2018_mu_SR
+      - mu_minus_SR_0tag
+      - mu_plus_SR_0tag
     label:
-      - "2018 mu SR"
+      - "#mu^{#pm} 0-tag"
       - "MadGraph"
-    lumi: "2018"
+    lumi: "2015+2016A-B+2016C-L+2017+2018"
