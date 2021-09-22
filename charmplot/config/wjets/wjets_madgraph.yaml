@@ -20,20 +20,24 @@ samples:
   - Top
 
 channels:
-  el_0tag:
+  el:
     regions:
       - el_minus_SR_0tag
       - el_plus_SR_0tag
+      - el_minus_SR_1tag
+      - el_plus_SR_1tag
     label:
-      - "e^{#pm} 0-tag"
+      - "e^{#pm} inclusive"
       - "MadGraph"
     lumi: "2015+2016A-B+2016C-L+2017+2018"
 
-  mu_0tag:
+  mu:
     regions:
       - mu_minus_SR_0tag
       - mu_plus_SR_0tag
+      - mu_minus_SR_1tag
+      - mu_plus_SR_1tag
     label:
-      - "#mu^{#pm} 0-tag"
+      - "#mu^{#pm} inclusive"
       - "MadGraph"
     lumi: "2015+2016A-B+2016C-L+2017+2018"
