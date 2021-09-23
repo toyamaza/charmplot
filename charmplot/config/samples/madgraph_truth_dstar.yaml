@@ -780,3 +780,35 @@ Sherpa_Wjets_emu_Bkg_PostProc:
   lineColor: "21000"
   legendLabel: "Sherpa W+jets"
   shortName: Sherpa_Wjets_emu_Bkg_PostProc
+
+Wjets_emu_Rest_Fit:
+  add:
+    - wjets_bkg_fit
+  subtract:
+  lineColor: "21000"
+  legendLabel: "W+jets Fit"
+  shortName: Wjets_emu_Rest_Fit
+
+Sherpa_Wjets_emu_Rest_Fit:
+  add:
+    - sherpa_wjets_bkg_fit
+  subtract:
+  lineColor: "21000"
+  legendLabel: "Sherpa W+jets Fit"
+  shortName: Sherpa_Wjets_emu_Rest_Fit
+
+Wjets_emu_Matched_1tag:
+  add:
+    - MG_Wjets_emu
+  subtract:
+  fillColor: "14004"
+  legendLabel: "1-tag W+#it{D*}(#it{K}#pi#pi)"
+  shortName: Wjets_emu_Matched_1tag
+
+Wjets_emu_Matched_Loose:
+  add:
+    - MG_Wjets_emu
+  subtract:
+  fillColor: "21000"
+  legendLabel: "Loose W+#it{D*}(#it{K}#pi#pi)"
+  shortName: Wjets_emu_Matched_Loose

@@ -271,33 +271,55 @@ class BKGComparison(ChannelTemplate):
 
     samplesConf = "bkg_comparison"
 
-    samples = {
-        'Wjets_emu_Rest': [
-            ['Wjets_emu_Rest', proxies.NoMatchBackground()],
-            ['Wjets_emu_Rest_PostProc', proxies.GenericChannel(name="Wjets_emu_Rest",
-                                                               regions_OS=["Wjets_emu_Rest_OS", "Wjets_emu_Rest_SS"],
-                                                               regions_SS=["Wjets_emu_Rest_OS", "Wjets_emu_Rest_SS"])],
-        ],
-        'Wjets_emu_MisMatched': [
-            ['Wjets_emu_MisMatched', proxies.GenericChannel(name="MisMatched", region=["MisMatched", "MatchedNoFid"])],
-            ['Wjets_emu_MisMatched_PostProc', proxies.GenericChannel(name="Wjets_emu_MisMatched", regions_OS=[
-                                                                     "Wjets_emu_MisMatched_OS"], regions_SS=["Wjets_emu_MisMatched_SS"])],
-        ],
-        # 'Wjets_emu_Rest': [
-        #     ['Wjets_emu_Rest', proxies.NoMatchBackground()],
-        #     ['Sherpa_Wjets_emu_Rest', proxies.NoMatchBackground()],
-        #     ['Wjets_emu_Rest_PostProc', proxies.GenericChannel(name="Wjets_emu_Rest", regions_OS=["Wjets_emu_Rest_OS"], regions_SS=["Wjets_emu_Rest_SS"])],
-        #     ['Sherpa_Wjets_emu_Rest_PostProc', proxies.GenericChannel(name="Wjets_emu_Rest", regions_OS=["Wjets_emu_Rest_OS"], regions_SS=["Wjets_emu_Rest_SS"])],
-        # ],
-        # 'DibosonVjetsTau': [
-        #     ['DibosonVjetsTau', proxies.PlainChannel()],
-        #     ['DibosonVjetsTau_PostProc', proxies.GenericChannel(name="DibosonVjetsTau", regions_OS=["Other_OS"], regions_SS=["Other_SS"])],
-        # ],
-        # 'MultiJet': [
-        #     ['Multijet_MatrixMethod', proxies.MatrixMethod()],
-        #     ['MultiJet_PostProc', proxies.GenericChannel(name="MultiJet", regions_OS=["MultiJet_OS"], regions_SS=["MultiJet_SS"])],
-        # ],
-    }
+    def __init__(self, decay_mode="Dplus"):
+        self.decay_mode = decay_mode
+
+        self.samples = {
+            'Wjets_emu_Rest': [
+                ['Wjets_emu_Rest', proxies.NoMatchBackground()],
+                ['Wjets_emu_Rest_PostProc', proxies.GenericChannel(name="Wjets_emu_Rest",
+                                                                   regions_OS=["Wjets_emu_Rest_OS", "Wjets_emu_Rest_SS"],
+                                                                   regions_SS=["Wjets_emu_Rest_OS", "Wjets_emu_Rest_SS"])],
+            ],
+            'Wjets_emu_MisMatched': [
+                ['Wjets_emu_MisMatched', proxies.GenericChannel(name="MisMatched", region=["MisMatched", "MatchedNoFid"])],
+                ['Wjets_emu_MisMatched_PostProc', proxies.GenericChannel(name="Wjets_emu_MisMatched", regions_OS=[
+                                                                         "Wjets_emu_MisMatched_OS"], regions_SS=["Wjets_emu_MisMatched_SS"])],
+            ],
+            # 'Wjets_emu_Rest': [
+            #     ['Wjets_emu_Rest', proxies.NoMatchBackground()],
+            #     ['Sherpa_Wjets_emu_Rest', proxies.NoMatchBackground()],
+            #     ['Wjets_emu_Rest_PostProc', proxies.GenericChannel(name="Wjets_emu_Rest", regions_OS=["Wjets_emu_Rest_OS"], regions_SS=["Wjets_emu_Rest_SS"])],
+            #     ['Sherpa_Wjets_emu_Rest_PostProc', proxies.GenericChannel(name="Wjets_emu_Rest", regions_OS=["Wjets_emu_Rest_OS"], regions_SS=["Wjets_emu_Rest_SS"])],
+            # ],
+            # 'DibosonVjetsTau': [
+            #     ['DibosonVjetsTau', proxies.PlainChannel()],
+            #     ['DibosonVjetsTau_PostProc', proxies.GenericChannel(name="DibosonVjetsTau", regions_OS=["Other_OS"], regions_SS=["Other_SS"])],
+            # ],
+            # 'MultiJet': [
+            #     ['Multijet_MatrixMethod', proxies.MatrixMethod()],
+            #     ['MultiJet_PostProc', proxies.GenericChannel(name="MultiJet", regions_OS=["MultiJet_OS"], regions_SS=["MultiJet_SS"])],
+            # ],
+        }
+
+        if self.decay_mode == "Dstar":
+            self.samples.update(
+                {
+                    'Wjets_emu_Rest_Fit': [
+                        ['Wjets_emu_Rest', proxies.NoMatchBackground()],
+                        ['Wjets_emu_Rest_Fit', proxies.GenericChannel(name="Wjets_emu_Rest_Fit", regions_OS=["Wjets_emu_Rest_Fit"], regions_SS=["Wjets_emu_Rest_Fit"])],
+                    ],
+                    'Fit_Comparison': [
+                        ['Wjets_emu_Rest_Fit', proxies.GenericChannel(name="Wjets_emu_Rest_Fit", regions_OS=["Wjets_emu_Rest_Fit"], regions_SS=["Wjets_emu_Rest_Fit"])],
+                        ['Sherpa_Wjets_emu_Rest_Fit', proxies.GenericChannel(name="Sherpa_Wjets_emu_Rest_Fit", regions_OS=["Sherpa_Wjets_emu_Rest_Fit"], regions_SS=["Sherpa_Wjets_emu_Rest_Fit"])],
+                    ],
+                    'Sherpa_Wjets_emu_Rest_Fit': [
+                        ['Sherpa_Wjets_emu_Rest_PostProc', proxies.GenericChannel(name="Wjets_emu_Rest", regions_OS=["Wjets_emu_Rest_OS"], regions_SS=["Wjets_emu_Rest_SS"])],
+                        ['Sherpa_Wjets_emu_Rest', proxies.NoMatchBackground()],
+                        ['Sherpa_Wjets_emu_Rest_Fit', proxies.GenericChannel(name="Sherpa_Wjets_emu_Rest_Fit", regions_OS=["Sherpa_Wjets_emu_Rest_Fit"], regions_SS=["Sherpa_Wjets_emu_Rest_Fit"])],
+                    ],
+                }
+            )
 
     def get(self):
         return self.samples
@@ -372,12 +394,6 @@ class ReplacementSamples(ChannelTemplate):
                 ['Wjets_emu_MisMatched_PostProc', proxies.GenericChannel(name="Wjets_emu_MisMatched", regions_OS=[
                     "Wjets_emu_MisMatched_OS"], regions_SS=["Wjets_emu_MisMatched_SS"])],
             ],
-            'Wjets_emu_Rest': [
-                ['Wjets_emu_Rest_PostProc', proxies.GenericChannel(name="Wjets_emu_Rest", regions_OS=[
-                    "Wjets_emu_Rest_OS", "Wjets_emu_Rest_SS"], regions_SS=["Wjets_emu_Rest_OS", "Wjets_emu_Rest_SS"])],
-                ['Sherpa_Wjets_emu_Rest_PostProc', proxies.GenericChannel(name="Wjets_emu_Rest", regions_OS=[
-                    "Wjets_emu_Rest_OS", "Wjets_emu_Rest_SS"], regions_SS=["Wjets_emu_Rest_OS", "Wjets_emu_Rest_SS"])],
-            ],
             # 'Wjets_emu_Bkg': [
             #     ['Wjets_emu_Bkg_PostProc', proxies.GenericChannel(name="Wjets_emu_Bkg", regions_OS=[
             #         "Wjets_emu_Bkg_OS"], regions_SS=["Wjets_emu_Bkg_SS"])],
@@ -388,6 +404,30 @@ class ReplacementSamples(ChannelTemplate):
             #     ['DibosonVjetsTau_PostProc', proxies.GenericChannel(name="DibosonVjetsTau", regions_OS=["Other_OS"], regions_SS=["Other_SS"])],
             # ],
         })
+
+        if self.decay_mode == "Dplus":
+            self.samples.update(
+                {
+                    'Wjets_emu_Rest': [
+                        ['Wjets_emu_Rest_PostProc', proxies.GenericChannel(name="Wjets_emu_Rest", regions_OS=[
+                            "Wjets_emu_Rest_OS", "Wjets_emu_Rest_SS"], regions_SS=["Wjets_emu_Rest_OS", "Wjets_emu_Rest_SS"])],
+                        ['Sherpa_Wjets_emu_Rest_PostProc', proxies.GenericChannel(name="Wjets_emu_Rest", regions_OS=[
+                            "Wjets_emu_Rest_OS", "Wjets_emu_Rest_SS"], regions_SS=["Wjets_emu_Rest_OS", "Wjets_emu_Rest_SS"])],
+                    ],
+                }
+            )
+
+        if self.decay_mode == "Dstar":
+            self.samples.update(
+                {
+                    'Wjets_emu_Rest': [
+                        ['Sherpa_Wjets_emu_Rest_Fit', proxies.GenericChannel(name="Sherpa_Wjets_emu_Rest_Fit", regions_OS=[
+                            "Sherpa_Wjets_emu_Rest_Fit"], regions_SS=["Sherpa_Wjets_emu_Rest_Fit"])],
+                        ['Wjets_emu_Rest_Fit', proxies.GenericChannel(name="Wjets_emu_Rest_Fit", regions_OS=[
+                            "Wjets_emu_Rest_Fit"], regions_SS=["Wjets_emu_Rest_Fit"])],
+                    ],
+                }
+            )
 
     def get(self):
         return self.samples
@@ -413,12 +453,18 @@ class WjetsSherpaSys(ChannelTemplate):
 
     samplesConf = "madgraph_truth"
 
-    samples = [
-        ['Wjets_emu_Rest', proxies.GenericChannel(name="Rest", region=["Other", "HardMisMatched"])],
-        ['Sherpa_Wjets_emu_Rest', proxies.GenericChannel(name="Rest", region=["Other", "HardMisMatched"])],
-        # ['Wjets_emu_Rest_Default', proxies.GenericChannel(name="Rest", region=["Other", "HardMisMatched"])],
-        # ['Sherpa_Wjets_emu_Rest_Default', proxies.GenericChannel(name="Rest", region=["Other", "HardMisMatched"])],
-    ]
+    def __init__(self, decay_mode="Dplus"):
+        self.decay_mode = decay_mode
+
+        if self.decay_mode == "Dstar":
+            self.samplesConf = "madgraph_truth_dstar"
+
+        self.samples = [
+            ['Wjets_emu_Rest', proxies.GenericChannel(name="Rest", region=["Other", "HardMisMatched"])],
+            ['Sherpa_Wjets_emu_Rest', proxies.GenericChannel(name="Rest", region=["Other", "HardMisMatched"])],
+            # ['Wjets_emu_Rest_Default', proxies.GenericChannel(name="Rest", region=["Other", "HardMisMatched"])],
+            # ['Sherpa_Wjets_emu_Rest_Default', proxies.GenericChannel(name="Rest", region=["Other", "HardMisMatched"])],
+        ]
 
     def get(self):
         return self.samples
@@ -438,16 +484,22 @@ class SignalComparison(ChannelTemplate):
         "Matched_truth_pt_bin5",
     ]
 
-    samples.update(
-        {
-            'Matched': [
-                # ['Wjets_emu_Matched_1tag', proxies.GenericChannel(region=truthSlices, name="Matched_1tag", force_1tag=True)],
-                ['Wjets_emu_Matched_1tag', proxies.GenericChannel(region=truthSlices, name="Matched_1tag", add_1tag=True)],
-                ['Wjets_emu_Matched', proxies.GenericChannel(region=truthSlices, name="Matched")],
-                # ['Wjets_emu_Matched_Loose', proxies.GenericChannel(region=truthSlices, name="Matched_Loose", loose_sr=True, loose_sr_only=True)],
-            ]
-        }
-    )
+    def __init__(self, decay_mode="Dplus"):
+        self.decay_mode = decay_mode
+
+        if self.decay_mode == "Dstar":
+            self.samplesConf = "madgraph_truth_dstar"
+
+        self.samples.update(
+            {
+                'Matched': [
+                    # ['Wjets_emu_Matched_1tag', proxies.GenericChannel(region=truthSlices, name="Matched_1tag", force_1tag=True)],
+                    ['Wjets_emu_Matched_1tag', proxies.GenericChannel(region=self.truthSlices, name="Matched_1tag", add_1tag=True)],
+                    ['Wjets_emu_Matched', proxies.GenericChannel(region=self.truthSlices, name="Matched")],
+                    # ['Wjets_emu_Matched_Loose', proxies.GenericChannel(region=truthSlices, name="Matched_Loose", loose_sr=True, loose_sr_only=True)],
+                ]
+            }
+        )
 
     def get(self):
         return self.samples

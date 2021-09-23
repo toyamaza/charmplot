@@ -1,0 +1,5 @@
+type: fit
+affecting:
+  - Wjets_emu_Rest
+variations:
+  - stat_up
