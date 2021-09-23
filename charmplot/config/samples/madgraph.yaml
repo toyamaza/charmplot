@@ -295,3 +295,11 @@ Three_Fake:
   subtract:
   fillColor: "13000"
   legendLabel: 3 Fakes
+
+MockMC_minus_MC:
+  add: data
+  subtract: MC
+  fillColor: "13001"
+  legendLabel: "Ch. Symm."
+  shortName: MockMC
+  statError: True
