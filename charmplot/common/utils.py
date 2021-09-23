@@ -17,6 +17,7 @@ import os
 import ROOT
 import subprocess
 import sys
+import re
 
 MC_Map = Dict[sample.Sample, ROOT.TH1]
 
@@ -130,37 +131,67 @@ def read_sys_histograms_alt_samples(conf, reader, c, var, samples, fit, systemat
         variations = systematics[group].get('variations')
         affecting = systematics[group].get('affecting')
         sys_type = systematics[group].get('type')
-        if sys_type != 'alt_sample':
-            continue
-        # load files for alternative samples
-        for syst in variations:
-            sample = conf.construct_sample(syst)
-            if not sample:
-                logging.error(f"sample not found for variation {syst}!")
-            conf.add_sample(sample)
-            reader.read_input_file(sample)
-        # start with nominal for all samples
-        mc_map_sys[group] = {syst: read_samples(conf, reader, c, var, samples, fit,
-                                                force_positive=c.force_positive, sys=syst,
-                                                affecting=[''], fallback=mc_map) for syst in variations}
-        # replace affected with alternative samples
-        for syst in variations:
-            for s in affecting:
-                sample = next((x for x in samples if x.shortName == s), None)
-                if not sample:
-                    continue
-                sample_sys = conf.get_sample(syst)
-                sample_sys.channel = sample.channel
-                h_sys = reader.get_histogram(sample_sys, c, var, c.force_positive)
-                if h_sys:
+        # print("Outside of if statement")
+        if sys_type == 'fit':
+            # print("Entered the if statement")
+            # start with nominal for all samples
+            mc_map_sys[group] = {syst: read_samples(conf, reader, c, var, samples, fit,
+                                                    force_positive=c.force_positive, sys=syst,
+                                                    affecting=[''], fallback=mc_map) for syst in variations}
+            for syst in variations:
+                # print(syst)
+                for s in affecting:
+                    # print(s)
+                    sample = next((x for x in samples if x.shortName == s), None)
+                    if not sample:
+                        continue
+                    # print("x")
+                    if sample not in mc_map:
+                        continue
+                    # print("y")
+                    h_nominal = mc_map[sample]
+                    if not h_nominal:
+                        continue
+                    # print("z")
+                    # print(h_nominal.GetName())
+                    # for i in range(1, h_nominal.GetNbinsX() + 1):
+                    #     print(h_nominal.GetBinContent(i))
+                    #     print(h_nominal.GetBinError(i))
+                    # sys.exit(1)
+                    h_sys = h_nominal.Clone(f"{h_nominal.GetName()}_{syst}")
+                    for i in range(1, h_sys.GetNbinsX() + 1):
+                        h_sys.SetBinContent(i, h_sys.GetBinContent(i) + h_sys.GetBinError(i))
                     mc_map_sys[group][syst][sample] = h_sys
+        elif sys_type == 'alt_sample':
+            # load files for alternative samples
+            for syst in variations:
+                sample = conf.construct_sample(syst)
+                if not sample:
+                    logging.error(f"sample not found for variation {syst}!")
+                conf.add_sample(sample)
+                reader.read_input_file(sample)
+            # start with nominal for all samples
+            mc_map_sys[group] = {syst: read_samples(conf, reader, c, var, samples, fit,
+                                                    force_positive=c.force_positive, sys=syst,
+                                                    affecting=[''], fallback=mc_map) for syst in variations}
+            # replace affected with alternative samples
+            for syst in variations:
+                for s in affecting:
+                    sample = next((x for x in samples if x.shortName == s), None)
+                    if not sample:
+                        continue
+                    sample_sys = conf.get_sample(syst)
+                    sample_sys.channel = sample.channel
+                    h_sys = reader.get_histogram(sample_sys, c, var, c.force_positive)
+                    if h_sys:
+                        mc_map_sys[group][syst][sample] = h_sys
 
-                # replace samples
-                for replaceSample, replace_channel in c.replacement_samples.items():
-                    if sample_sys.shortName == replaceSample:
-                        logging.info(f"replacing sys sample {replaceSample} with channel {replace_channel}")
-                        replace_sample(conf, mc_map_sys[group][syst], reader, c, var, replaceSample,
-                                       replace_channel, None, relative_unc=True, current_sample=sample.shortName)
+                    # replace samples
+                    for replaceSample, replace_channel in c.replacement_samples.items():
+                        if sample_sys.shortName == replaceSample:
+                            logging.info(f"replacing sys sample {replaceSample} with channel {replace_channel}")
+                            replace_sample(conf, mc_map_sys[group][syst], reader, c, var, replaceSample,
+                                           replace_channel, None, relative_unc=True, current_sample=sample.shortName)
     return mc_map_sys
 
 
@@ -171,7 +202,7 @@ def read_sys_histograms(conf, reader, c, var, samples, fit, systematics, mc_map)
         affecting = systematics[group].get('affecting')
         not_affecting = systematics[group].get('not_affecting', None)
         sys_type = systematics[group].get('type')
-        if sys_type in ['alt_sample']:
+        if sys_type in ['alt_sample', 'fit']:
             continue
         if sys_type == 'overall':
             # start with nominal for all samples
@@ -568,7 +599,16 @@ def rebin_histogram(h: ROOT.TH1, v: variable.Variable, extra_rebin: int = 1):
     # custom x axis
     if v.xbins and extra_rebin > 0:
         h_temp = set_under_over_flow(h, v.x_range, v.do_overflow, v.do_underflow)
-        return h_temp.Rebin(len(v.xbins) - 1, f"{h_temp.GetName()}_1", array.array('d', v.xbins))
+        h_new = h_temp.Rebin(len(v.xbins) - 1, f"{h_temp.GetName()}_1", array.array('d', v.xbins))
+        # Calculate error if dealing with W+jets fit systematic histogram
+        if re.search("Rest_Fit", str(h.GetName())):
+            for i in range(1, h_new.GetNbinsX() + 1):
+                bin_error = 0
+                for j in range(1, h.GetNbinsX() + 1):
+                    if (h.GetBinCenter(j) < (h_new.GetBinCenter(i) + 0.5 * h_new.GetBinWidth(i))) and (h.GetBinCenter(j) > (h_new.GetBinCenter(i) - 0.5 * h_new.GetBinWidth(i))):
+                        bin_error += h.GetBinError(j)
+                h_new.SetBinError(i, bin_error)
+        return h_new
 
     # the rest of the code
     rebin = v.rebin
@@ -1051,7 +1091,7 @@ def replace_sample(conf: globalConfig.GlobalConfig, mc_map: MC_Map, reader: inpu
     if len(channel_replacement.samples) == 1:
         sample_replacement = conf.get_sample(channel_replacement.samples[0])
     else:
-        sample_replacement = [conf.get_sample(s) for s in channel_replacement.samples if conf.get_sample(s).shortName == f"{sample}_PostProc"]
+        sample_replacement = [conf.get_sample(s) for s in channel_replacement.samples if conf.get_sample(s).shortName in [f"{sample}_PostProc", f"{sample}_Fit"]]
         assert len(sample_replacement) == 1, (sample_replacement, sample, [conf.get_sample(s).shortName for s in channel_replacement.samples])
         sample_replacement = sample_replacement[0]
     h_replacement = reader.get_histogram(sample_replacement, channel_replacement, var, channel_replacement.force_positive,

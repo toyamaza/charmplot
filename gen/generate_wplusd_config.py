@@ -37,13 +37,13 @@ def main(options):
                                           signal_only=options.spg_signal_only,
                                           background_only=options.spg_background_only)
     elif options.samples.lower() == 'bkg_comparison':
-        samples = templates.BKGComparison()
+        samples = templates.BKGComparison(decay_mode=options.decay_mode)
     elif options.samples.lower() == 'signal_comparison':
-        samples = templates.SignalComparison()
+        samples = templates.SignalComparison(decay_mode=options.decay_mode)
     elif options.samples.lower() == 'wplusd_comparison':
         samples = templates.WDComparisonSamples()
     elif options.samples.lower() == 'wjets_sherpa_sys':
-        samples = templates.WjetsSherpaSys()
+        samples = templates.WjetsSherpaSys(decay_mode=options.decay_mode)
     elif options.samples.lower() == 'spg_sys':
         samples = templates.SPGSysComparison()
     else:
@@ -53,7 +53,7 @@ def main(options):
     # replacement samples
     if options.replacement_samples:
         samples_replacement = templates.ReplacementSamples(truthDiffBins=options.truth_differential_bins,
-                                                           splitSignalSamples=options.split_signal_samples)
+                                                           splitSignalSamples=options.split_signal_samples, decay_mode=options.decay_mode)
 
     # TODO: make configurable?
     signs = ['OS', 'SS']
@@ -125,6 +125,7 @@ def main(options):
             systematics += [
                 'wjets_bkg_alt_samples',
                 'wjets_bkg_alt_samples_1tag',
+                'wjets_bkg_fit',
             ]
         else:
             systematics += [
@@ -207,8 +208,9 @@ def main(options):
 
                 if not options.skip_inclusive_leptons:
                     for charge in charges:
-                        channelGenerator.make_channel(lumi, sign=sign, charge=charge,
-                                                      extra_rebin=extra_rebin, os_only=os_only)
+                        if not options.fit_only:
+                            channelGenerator.make_channel(lumi, sign=sign, charge=charge,
+                                                          extra_rebin=extra_rebin, os_only=os_only)
                         for btag in btags:
                             channelGenerator.make_channel(lumi, sign=sign, btag=btag, charge=charge,
                                                           extra_rebin=extra_rebin * (btag_bin if btag != '0tag' else 1), os_only=os_only)
