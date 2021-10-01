@@ -78,7 +78,7 @@ Dmeson_m9:
 Dmeson_pt:
   label: 'D^{#pm} p_{T}'
   unit: 'GeV'
-  rebin: 2
+  rebin: 5
   ratio_range: [0.5, 1.49]
 
 Dmeson_pt0:
