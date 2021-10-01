@@ -468,7 +468,7 @@ def main(options, args):
         # -------------------
         # draw fiducial efficiency per bin
         # -------------------
-        ROOT.gStyle.SetPaintTextFormat(".3f")
+        ROOT.gStyle.SetPaintTextFormat(".2f%")
         ROOT.gStyle.SetPalette(ROOT.kCMYK)
         canv5 = ROOT.TCanvas(f"{c}_matrix", f"{c}_matrix", 1000, 800)
         canv5.SetRightMargin(0.20)
@@ -495,9 +495,21 @@ def main(options, args):
         canv5.Print(f"{options.output}/{c}_fid_eff_per_bin.pdf")
         h_fid_eff[samples[0]].Write()
 
+        # normalized matrix
+        integral = h_fid_eff[samples[0]].GetSumOfWeights()
+        for i in range(1, h_fid_eff[samples[0]].GetNbinsX() + 1):
+            for j in range(1, h_fid_eff[samples[0]].GetNbinsX() + 1):
+                z = h_fid_eff[samples[0]].GetBinContent(i, j)
+                h_fid_eff[samples[0]].SetBinContent(i, j, 100 * z / integral)
+        h_fid_eff[samples[0]].SetMaximum(25.)
+        h_fid_eff[samples[0]].GetZaxis().SetTitle("Normalized R. Matrix [%] #pm rel. err. [%]")
+        canv5.Update()
+        canv5.Print(f"{options.output}/{c}_fid_eff_per_bin_norm.pdf")
+
         # -------------------
         # draw the invertex matrix
         # -------------------
+        ROOT.gStyle.SetPaintTextFormat(".3f")
         canv6 = ROOT.TCanvas(f"{c}_matrix_inv", f"{c}_matrix_inv", 1000, 800)
         canv6.SetRightMargin(0.15)
         canv6.SetLogy()
