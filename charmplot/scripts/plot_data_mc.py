@@ -177,6 +177,11 @@ def process_channel(options, conf, c):
         # configure histograms
         canv.configure_histograms(mc_map, h_data, style=conf.style)
 
+        # ratio range
+        ratio_range = [1.01 - float(options.ratio_range) / 100., 0.99 + float(options.ratio_range) / 100.]
+        print(ratio_range)
+        canv.set_ratio_range(ratio_range[0], ratio_range[1], override=True)
+
         # save histograms to root file
         if options.trex:
             utils.save_to_trex_file(trex_folder, c, var, h_data, mc_map, trex_histograms)
@@ -372,6 +377,10 @@ if __name__ == "__main__":
     parser.add_option('-v', '--vars',
                       action="store", dest="vars",
                       help="run over a subset of variables (comma separated)")
+    parser.add_option('-r', '--ratio-range',
+                      action="store", dest="ratio_range",
+                      default=50,
+                      help="range of the ratio y-axis")
     parser.add_option('--suffix',
                       action="store", dest="suffix",
                       help="suffix for the output name")
