@@ -349,7 +349,7 @@ class Canvas2(CanvasBase):
             self.proxy_up.SetMaximum(math.pow(10, math.log10(self.max_val) * self.maximum_scale_factor +
                                               (1 - self.maximum_scale_factor) * math.log10(self.proxy_up.GetMinimum())))
 
-    def make_legend(self, data, mc_tot=None, mc_map=[], samples=[], print_yields=False, draw_option="f", show_error=True, data_name=None, leg_offset=0.0):
+    def make_legend(self, data, mc_tot=None, mc_map=[], samples=[], print_yields=False, draw_option="f", show_error=True, data_name=None, leg_offset=0.0, sys_band=None):
         # temp entry for sys unc
         temp_err = ROOT.TGraphErrors()
         temp_err.SetLineColor(ROOT.kBlack)
@@ -367,6 +367,8 @@ class Canvas2(CanvasBase):
         if data:
             self.n_entries += 1
         if mc_tot:
+            self.n_entries += 1
+        if sys_band:
             self.n_entries += 1
         self.legx_x1 = 0.60 + leg_offset
         if not print_yields:
@@ -395,6 +397,8 @@ class Canvas2(CanvasBase):
                     leg.AddEntry(temp_err, "SM tot. #scale[0.60]{%.2e}" % integral, "lf")
             else:
                 leg.AddEntry(temp_err, "SM tot.", "lf")
+        if sys_band:
+                leg.AddEntry(sys_band, "Syst. Unc.", "lf")
         for s in samples:
             if s not in mc_map.keys():
                 continue

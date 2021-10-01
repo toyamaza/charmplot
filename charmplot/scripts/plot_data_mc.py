@@ -261,7 +261,10 @@ def process_channel(options, conf, c):
         canv.pad1.cd()
 
         # make legend
-        canv.make_legend(h_data, h_mc_tot, mc_map, samples, print_yields=True, show_error=False)
+        if not options.separate_sys_band:
+            canv.make_legend(h_data, h_mc_tot, mc_map, samples, print_yields=True, show_error=False)
+        else:
+            canv.make_legend(h_data, h_mc_tot, mc_map, samples, print_yields=True, show_error=False, sys_band=gr_mc_tot_sys_err_only)
 
         # normalize bins to unity
         if var.per_unit:
