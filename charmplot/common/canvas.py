@@ -398,7 +398,7 @@ class Canvas2(CanvasBase):
             else:
                 leg.AddEntry(temp_err, "SM tot.", "lf")
         if sys_band:
-                leg.AddEntry(sys_band, "Syst. Unc.", "lf")
+            leg.AddEntry(sys_band, "Syst. Unc.", "lf")
         for s in samples:
             if s not in mc_map.keys():
                 continue
