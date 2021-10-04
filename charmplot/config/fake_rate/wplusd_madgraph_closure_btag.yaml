@@ -28,8 +28,8 @@ channels:
       - Diboson
       - Multijet_MatrixMethod | MatrixMethod_2018_el_QCD_0tag_Dplus
     label:
-      - "2018 el QCD Closure, 0-tag"
-      - "mT < 60 GeV"
+      - "2018 el + D^{+} QCD Closure, 0-tag"
+      - "mT < 40 GeV"
       - "MadGraph"
     lumi: "2018"
     save_to_file: True
@@ -45,8 +45,8 @@ channels:
       - Diboson
       - Multijet_MatrixMethod | MatrixMethod_2018_el_QCD_1tag_Dplus
     label:
-      - "2018 el QCD Closure, 1-tag"
-      - "mT < 60 GeV"
+      - "2018 el + D^{+} QCD Closure, 1-tag"
+      - "mT < 40 GeV"
       - "MadGraph"
     lumi: "2018"
     save_to_file: True
@@ -61,8 +61,8 @@ channels:
       - Diboson
       - Multijet_MatrixMethod | MatrixMethod_2018_mu_QCD_0tag_Dplus
     label:
-      - "2018 mu QCD Closure, 0-tag"
-      - "mT < 60 GeV"
+      - "2018 mu + D^{+} QCD Closure, 0-tag"
+      - "mT < 40 GeV"
       - "MadGraph"
     lumi: "2018"
     save_to_file: True
@@ -78,8 +78,8 @@ channels:
       - Diboson
       - Multijet_MatrixMethod | MatrixMethod_2018_mu_QCD_1tag_Dplus
     label:
-      - "2018 mu QCD Closure, 1-tag"
-      - "mT < 60 GeV"
+      - "2018 mu + D^{+} QCD Closure, 1-tag"
+      - "mT < 40 GeV"
       - "MadGraph"
     lumi: "2018"
     save_to_file: True
@@ -94,8 +94,8 @@ channels:
       - Diboson
       - Multijet_MatrixMethod | MatrixMethod_2017_el_QCD_0tag_Dplus
     label:
-      - "2017 el QCD Closure, 0-tag"
-      - "mT < 60 GeV"
+      - "2017 el + D^{+} QCD Closure, 0-tag"
+      - "mT < 40 GeV"
       - "MadGraph"
     lumi: "2017"
     save_to_file: True
@@ -111,8 +111,8 @@ channels:
       - Diboson
       - Multijet_MatrixMethod | MatrixMethod_2017_el_QCD_1tag_Dplus
     label:
-      - "2017 el QCD Closure, 1-tag"
-      - "mT < 60 GeV"
+      - "2017 el + D^{+} QCD Closure, 1-tag"
+      - "mT < 40 GeV"
       - "MadGraph"
     lumi: "2017"
     save_to_file: True
@@ -127,8 +127,8 @@ channels:
       - Diboson
       - Multijet_MatrixMethod | MatrixMethod_2017_mu_QCD_0tag_Dplus
     label:
-      - "2017 mu QCD Closure, 0-tag"
-      - "mT < 60 GeV"
+      - "2017 mu + D^{+} QCD Closure, 0-tag"
+      - "mT < 40 GeV"
       - "MadGraph"
     lumi: "2017"
     save_to_file: True
@@ -144,8 +144,8 @@ channels:
       - Diboson
       - Multijet_MatrixMethod | MatrixMethod_2017_mu_QCD_1tag_Dplus
     label:
-      - "2017 mu QCD Closure, 1-tag"
-      - "mT < 60 GeV"
+      - "2017 mu + D^{+} QCD Closure, 1-tag"
+      - "mT < 40 GeV"
       - "MadGraph"
     lumi: "2017"
     save_to_file: True
@@ -160,8 +160,8 @@ channels:
       - Diboson
       - Multijet_MatrixMethod | MatrixMethod_2015_el_QCD_0tag_Dplus
     label:
-      - "2015 el QCD Closure, 0-tag"
-      - "mT < 60 GeV"
+      - "2015 el + D^{+} QCD Closure, 0-tag"
+      - "mT < 40 GeV"
       - "MadGraph"
     lumi: "2015"
     save_to_file: True
@@ -178,8 +178,8 @@ channels:
       - Diboson
       - Multijet_MatrixMethod | MatrixMethod_2015_el_QCD_1tag_Dplus
     label:
-      - "2015 el QCD Closure, 1-tag"
-      - "mT < 60 GeV"
+      - "2015 el + D^{+} QCD Closure, 1-tag"
+      - "mT < 40 GeV"
       - "MadGraph"
     lumi: "2015"
     save_to_file: True
@@ -195,8 +195,8 @@ channels:
       - Diboson
       - Multijet_MatrixMethod | MatrixMethod_2015_mu_QCD_0tag_Dplus
     label:
-      - "2015 mu QCD Closure, 0-tag"
-      - "mT < 60 GeV"
+      - "2015 mu + D^{+} QCD Closure, 0-tag"
+      - "mT < 40 GeV"
       - "MadGraph"
     lumi: "2015"
     save_to_file: True
@@ -213,8 +213,8 @@ channels:
       - Diboson
       - Multijet_MatrixMethod | MatrixMethod_2015_mu_QCD_1tag_Dplus
     label:
-      - "2015 mu QCD Closure, 1-tag"
-      - "mT < 60 GeV"
+      - "2015 mu + D^{+} QCD Closure, 1-tag"
+      - "mT < 40 GeV"
       - "MadGraph"
     lumi: "2015"
     save_to_file: True
@@ -231,8 +231,8 @@ channels:
       - Diboson
       - Multijet_MatrixMethod | MatrixMethod_2016_el_QCD_0tag_Dplus
     label:
-      - "2016 el QCD Closure, 0-tag"
-      - "mT < 60 GeV"
+      - "2016 el + D^{+} QCD Closure, 0-tag"
+      - "mT < 40 GeV"
       - "MadGraph"
     lumi: "2016"
     save_to_file: True
@@ -250,8 +250,8 @@ channels:
       - Diboson
       - Multijet_MatrixMethod | MatrixMethod_2016_el_QCD_1tag_Dplus
     label:
-      - "2016 el QCD Closure, 1-tag"
-      - "mT < 60 GeV"
+      - "2016 el + D^{+} QCD Closure, 1-tag"
+      - "mT < 40 GeV"
       - "MadGraph"
     lumi: "2016"
     save_to_file: True
@@ -267,8 +267,8 @@ channels:
       - Diboson
       - Multijet_MatrixMethod | MatrixMethod_2016_mu_QCD_0tag_Dplus
     label:
-      - "2016 mu QCD Closure, 0-tag"
-      - "mT < 60 GeV"
+      - "2016 mu + D^{+} QCD Closure, 0-tag"
+      - "mT < 40 GeV"
       - "MadGraph"
     lumi: "2016"
     save_to_file: True
@@ -286,8 +286,8 @@ channels:
       - Diboson
       - Multijet_MatrixMethod | MatrixMethod_2016_mu_QCD_1tag_Dplus
     label:
-      - "2016 mu QCD Closure, 1-tag"
-      - "mT < 60 GeV"
+      - "2016 mu + D^{+} QCD Closure, 1-tag"
+      - "mT < 40 GeV"
       - "MadGraph"
     lumi: "2016"
     save_to_file: True
@@ -298,6 +298,7 @@ channels:
       - 2017_el_QCD_0tag_Dplus
       - 2016A-B_el_QCD_0tag_Dplus
       - 2016C-L_el_QCD_0tag_Dplus
+      - 2015_el_QCD_0tag_Dplus
     samples:
       - Wjets
       - Zjets
@@ -305,10 +306,10 @@ channels:
       - Diboson
       - Multijet_MatrixMethod | MatrixMethod_el_QCD_0tag_Dplus
     label:
-      - "el QCD Closure, 0-tag"
-      - "mT < 60 GeV"
+      - "el + D^{+} QCD Closure, 0-tag"
+      - "mT < 40 GeV"
       - "MadGraph"
-    lumi: "2016+2017+2018"
+    lumi: "2015+2016+2017+2018"
     save_to_file: True
 
   el_QCD_1tag_Dplus:
@@ -321,6 +322,8 @@ channels:
       - 2016A-B_el_QCD_2tag_Dplus
       - 2016C-L_el_QCD_1tag_Dplus
       - 2016C-L_el_QCD_2tag_Dplus
+      - 2015_el_QCD_1tag_Dplus
+      - 2015_el_QCD_2tag_Dplus
     samples:
       - Wjets
       - Zjets
@@ -328,10 +331,10 @@ channels:
       - Diboson
       - Multijet_MatrixMethod | MatrixMethod_el_QCD_1tag_Dplus
     label:
-      - "el QCD Closure, 1-tag"
-      - "mT < 60 GeV"
+      - "el + D^{+} QCD Closure, 1-tag"
+      - "mT < 40 GeV"
       - "MadGraph"
-    lumi: "2016+2017+2018"
+    lumi: "2015+2016+2017+2018"
     save_to_file: True
 
   mu_QCD_0tag_Dplus:
@@ -340,6 +343,7 @@ channels:
       - 2017_mu_QCD_0tag_Dplus
       - 2016A-B_mu_QCD_0tag_Dplus
       - 2016C-L_mu_QCD_0tag_Dplus
+      - 2015_mu_QCD_0tag_Dplus
     samples:
       - Wjets
       - Zjets
@@ -347,10 +351,10 @@ channels:
       - Diboson
       - Multijet_MatrixMethod | MatrixMethod_mu_QCD_0tag_Dplus
     label:
-      - "mu QCD Closure, 0-tag"
-      - "mT < 60 GeV"
+      - "mu + D^{+} QCD Closure, 0-tag"
+      - "mT < 40 GeV"
       - "MadGraph"
-    lumi: "2016+2017+2018"
+    lumi: "2015+2016+2017+2018"
     save_to_file: True
 
   mu_QCD_1tag_Dplus:
@@ -363,6 +367,8 @@ channels:
       - 2016A-B_mu_QCD_2tag_Dplus
       - 2016C-L_mu_QCD_1tag_Dplus
       - 2016C-L_mu_QCD_2tag_Dplus
+      - 2015_mu_QCD_1tag_Dplus
+      - 2015_mu_QCD_2tag_Dplus
     samples:
       - Wjets
       - Zjets
@@ -370,10 +376,10 @@ channels:
       - Diboson
       - Multijet_MatrixMethod | MatrixMethod_mu_QCD_1tag_Dplus
     label:
-      - "mu QCD Closure, 1-tag"
-      - "mT < 60 GeV"
+      - "mu + D^{+} QCD Closure, 1-tag"
+      - "mT < 40 GeV"
       - "MadGraph"
-    lumi: "2016+2017+2018"
+    lumi: "2015+2016+2017+2018"
     save_to_file: True
 
   MatrixMethod_2018_el_QCD_0tag_Dplus:

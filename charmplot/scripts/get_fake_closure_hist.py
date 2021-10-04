@@ -27,9 +27,11 @@ def make_ratio_range(num, den, lims, name, sf):
     hist_tmp.Divide(den_Clone)
     upper_bin = num.GetXaxis().FindBin(lims[1])
     lower_bin = num.GetXaxis().FindBin(lims[0])
+    upper_bin_denom = num.GetNbinsX() - num.GetXaxis().FindBin(lims[1]) + 1
+    lower_bin_denom = num.GetXaxis().FindBin(lims[0])
     nbins = upper_bin - lower_bin
     hist_out = ROOT.TH1F(name + "_final", name + "_final", nbins, lims[0], lims[1])
-    for i in range(hist_tmp.GetNbinsX() - 2):
+    for i in range(hist_tmp.GetNbinsX() - 1):
         lb_num = 0
         ub_num = 0
         lb_den = 0
@@ -46,8 +48,10 @@ def make_ratio_range(num, den, lims, name, sf):
         lb_den = 1
     if ub_den == 0:
         ub_den = 1
-    hist_out.SetBinContent(0, lb_num / lb_den)
-    hist_out.SetBinContent(nbins + 1, ub_num / ub_den)
+    hist_out.SetBinContent(0, (lb_num / lb_den) / lower_bin_denom)
+    hist_out.SetBinContent(nbins + 1, (ub_num / ub_den) / upper_bin_denom)
+    print('test')
+    print(upper_bin_denom)
     return hist_out
 
 
@@ -64,6 +68,7 @@ def main(options, args):
     # years and type of D
     # years = ["2016","2017", "2018"]
     # non closure calculated for 16- 18 together and 15 separately
+#    years = [""]
     years = ["_2015", ""]
     # ratio of separated years to summed years to scale MJ
     lumi_ratios = [1.0, 1.0]
@@ -131,7 +136,7 @@ if __name__ == "__main__":
     parser.add_option('-r', '--variable-reweight-range',
                       action="store", dest="var_rw_range",
                       help="python list range ofvariable to reweight wrt (MET default)",
-                      default=[0, 80])
+                      default=[0, 60])
 
     # parse input arguments
     options, args = parser.parse_args()
