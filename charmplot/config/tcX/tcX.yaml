@@ -1,0 +1,99 @@
+colorScheme: gemstone_hues
+
+variablesConf: charmed_wjets
+
+samplesConf: madgraph
+
+data: Data
+
+channels:
+  tcX0jet:
+    regions:
+      - mu_SR_1tag_1jet_Dplus_OS
+      - el_SR_1tag_1jet_Dplus_OS
+      - -mu_SR_1tag_1jet_Dplus_SS
+      - -el_SR_1tag_1jet_Dplus_SS
+    samples:
+      - Top_ttbar
+      - Top_single_top
+      - Top_ttx
+      - Wjets
+      - Diboson
+      - Zjets
+    label:
+      - "OS-SS, tcX 0-jet"
+    extra_rebin: 10
+    lumi: "2015+2016A-B+2016C-L+2017+2018"
+
+  tcX0jet_OS:
+    regions:
+      - mu_SR_1tag_1jet_Dplus_OS
+      - el_SR_1tag_1jet_Dplus_OS
+    samples:
+      - Top_ttbar
+      - Top_single_top
+      - Top_ttx
+      - Wjets
+      - Diboson
+      - Zjets
+    label:
+      - "OS, tcX 0-jet"
+    extra_rebin: 10
+    lumi: "2015+2016A-B+2016C-L+2017+2018"
+
+  tcX0jet_SS:
+    regions:
+      - mu_SR_1tag_1jet_Dplus_SS
+      - el_SR_1tag_1jet_Dplus_SS
+    samples:
+      - Top_ttbar
+      - Top_single_top
+      - Top_ttx
+      - Wjets
+      - Diboson
+      - Zjets
+    label:
+      - "SS, tcX 0-jet"
+    extra_rebin: 10
+    lumi: "2015+2016A-B+2016C-L+2017+2018"
+
+  tcX1pjet:
+    regions:
+      - mu_SR_1tag_2pjet_Dplus_OS
+      - el_SR_1tag_2pjet_Dplus_OS
+      - -mu_SR_1tag_2pjet_Dplus_SS
+      - -el_SR_1tag_2pjet_Dplus_SS
+    samples:
+      - Top_ttbar
+      - Top_single_top
+      - Top_ttx
+      - Wjets
+      - Diboson
+      - Zjets
+    label:
+      - "OS-SS, tcX #geq 1-jet"
+    extra_rebin: 2
+    lumi: "2015+2016A-B+2016C-L+2017+2018"
+
+  tcX_2tag:
+    regions:
+      - mu_SR_1tag_1jet_Dplus_OS
+      - el_SR_1tag_1jet_Dplus_OS
+      - -mu_SR_1tag_1jet_Dplus_SS
+      - -el_SR_1tag_1jet_Dplus_SS
+      - mu_SR_2tag_2pjet_Dplus_OS
+      - el_SR_2tag_2pjet_Dplus_OS
+      - -mu_SR_2tag_2pjet_Dplus_SS
+      - -el_SR_2tag_2pjet_Dplus_SS
+    samples:
+      - Top_ttbar
+      - Top_single_top
+      - Top_ttx
+      - Wjets
+      - Diboson
+      - Zjets
+    label:
+      - "OS-SS, tcX 2-tag"
+    extra_rebin: 2
+    lumi: "2015+2016A-B+2016C-L+2017+2018"
+
