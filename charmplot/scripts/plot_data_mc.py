@@ -164,8 +164,10 @@ def process_channel(options, conf, c):
             mc_map_sys.update(utils.read_sys_histograms_alt_samples(conf, reader, c, var, samples, fit, systematics, mc_map))
 
         # save histograms to root file
-        if c.save_to_file:
+        if c.save_to_file and not options.trex:
             utils.save_to_file(out_file_name, c, var, h_data, mc_map)
+            for group in systematics:
+                utils.save_to_file_sys(out_file_name, c, var, mc_map_sys[group], systematics[group]['variations'])
 
         # continue if not make plots
         if not c.make_plots or not var.make_plots:
