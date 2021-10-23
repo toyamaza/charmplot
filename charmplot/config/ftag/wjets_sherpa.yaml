@@ -1,0 +1,843 @@
+colorScheme: gemstone_hues
+
+variablesConf: inclusive_wjets
+
+samplesConf: sherpa
+
+data: Data
+
+systematics:
+  - wjets_theory_prod_frac
+
+channels:
+  mu:
+    regions:
+      - mu_SR_0tag_0jet
+      - mu_SR_0tag_1jet
+      - mu_SR_0tag_2jet
+      - mu_SR_0tag_3pjet
+      - mu_SR_1tag_1jet
+      - mu_SR_1tag_2jet
+      - mu_SR_1tag_3pjet
+    samples:
+      - Wjets_cjets_emu | mu_truth
+      - Wjets_bjets_emu | mu_truth
+      - Wjets_light_emu | mu_truth
+      - Wjets_tau | mu_truth
+      - Zjets_emu | mu_truth
+      - Zjets_tau | mu_truth
+      - Diboson | mu_truth
+      - Top | mu_truth
+    label:
+      - "#mu^{#pm} inclusive"
+      - "Sherpa2.2.1"
+    lumi: "2015+2016A-B+2016C-L+2017+2018"
+
+  lep:
+    regions:
+      - mu_SR_0tag_0jet
+      - mu_SR_0tag_1jet
+      - mu_SR_0tag_2jet
+      - mu_SR_0tag_3pjet
+      - mu_SR_1tag_1jet
+      - mu_SR_1tag_2jet
+      - mu_SR_1tag_3pjet
+      - el_SR_0tag_0jet
+      - el_SR_0tag_1jet
+      - el_SR_0tag_2jet
+      - el_SR_0tag_3pjet
+      - el_SR_1tag_1jet
+      - el_SR_1tag_2jet
+      - el_SR_1tag_3pjet
+    samples:
+      - Wjets_cjets_emu | lep_truth
+      - Wjets_bjets_emu | lep_truth
+      - Wjets_light_emu | lep_truth
+      - Wjets_tau | lep_truth
+      - Zjets_emu | lep_truth
+      - Zjets_tau | lep_truth
+      - Diboson | lep_truth
+      - Top | lep_truth
+    label:
+      - "W^{#pm} inclusive"
+      - "Sherpa2.2.1"
+    lumi: "2015+2016A-B+2016C-L+2017+2018"
+
+  lep_1jet:
+    regions:
+      - mu_SR_0tag_1jet
+      - mu_SR_0tag_2jet
+      - mu_SR_0tag_3pjet
+      - mu_SR_1tag_1jet
+      - mu_SR_1tag_2jet
+      - mu_SR_1tag_3pjet
+      - el_SR_0tag_1jet
+      - el_SR_0tag_2jet
+      - el_SR_0tag_3pjet
+      - el_SR_1tag_1jet
+      - el_SR_1tag_2jet
+      - el_SR_1tag_3pjet
+    samples:
+      - Wjets_cjets_emu | lep_truth_1jet
+      - Wjets_bjets_emu | lep_truth_1jet
+      - Wjets_light_emu | lep_truth_1jet
+      - Wjets_tau | lep_truth_1jet
+      - Zjets_emu | lep_truth_1jet
+      - Zjets_tau | lep_truth_1jet
+      - Diboson | lep_truth_1jet
+      - Top | lep_truth_1jet
+    label:
+      - "W^{#pm}, N(jet) #geq 1"
+      - "Sherpa2.2.1"
+    lumi: "2015+2016A-B+2016C-L+2017+2018"
+
+  lep_1jet_tag:
+    regions:
+      - mu_SR_1tag_1jet
+      - mu_SR_1tag_2jet
+      - mu_SR_1tag_3pjet
+      - el_SR_1tag_1jet
+      - el_SR_1tag_2jet
+      - el_SR_1tag_3pjet
+    samples:
+      - Wjets_cjets_emu | lep_truth_1jet_tag
+      - Wjets_bjets_emu | lep_truth_1jet_tag
+      - Wjets_light_emu | lep_truth_1jet_tag
+      - Wjets_tau | lep_truth_1jet_tag
+      - Zjets_emu | lep_truth_1jet_tag
+      - Zjets_tau | lep_truth_1jet_tag
+      - Diboson | lep_truth_1jet_tag
+      - Top | lep_truth_1jet_tag
+    label:
+      - "W^{#pm}, N(jet) #geq 1, tag"
+      - "Sherpa2.2.1"
+    lumi: "2015+2016A-B+2016C-L+2017+2018"
+
+  lep_1jet_notag:
+    regions:
+      - mu_SR_0tag_1jet
+      - mu_SR_0tag_2jet
+      - mu_SR_0tag_3pjet
+      - el_SR_0tag_1jet
+      - el_SR_0tag_2jet
+      - el_SR_0tag_3pjet
+    samples:
+      - Wjets_cjets_emu | lep_truth_1jet_notag
+      - Wjets_bjets_emu | lep_truth_1jet_notag
+      - Wjets_light_emu | lep_truth_1jet_notag
+      - Wjets_tau | lep_truth_1jet_notag
+      - Zjets_emu | lep_truth_1jet_notag
+      - Zjets_tau | lep_truth_1jet_notag
+      - Diboson | lep_truth_1jet_notag
+      - Top | lep_truth_1jet_notag
+    label:
+      - "W^{#pm}, N(jet) #geq 1, no-tag"
+      - "Sherpa2.2.1"
+    lumi: "2015+2016A-B+2016C-L+2017+2018"
+
+  lep_1jet_tag_ftag:
+    regions:
+      - mu_SR_1tag_1jet
+      - mu_SR_1tag_2jet
+      - mu_SR_1tag_3pjet
+      - el_SR_1tag_1jet
+      - el_SR_1tag_2jet
+      - el_SR_1tag_3pjet
+    samples:
+      - Wjets_cjets_ftag | lep_truth_1jet_c_tag
+      - Wjets_bjets_ftag | lep_truth_1jet_b_tag
+      - Wjets_light_ftag | lep_truth_1jet_l_tag
+      - Wjets_tau_ftag | lep_truth_1jet_tau_tag
+      - Zjets_emu | lep_truth_1jet_tag
+      - Zjets_tau | lep_truth_1jet_tag
+      - Diboson | lep_truth_1jet_tag
+      - Top | lep_truth_1jet_tag
+    label:
+      - "W^{#pm}, N(jet) #geq 1, tag"
+      - "Sherpa2.2.1"
+    lumi: "2015+2016A-B+2016C-L+2017+2018"
+
+  lep_1jet_notag_ftag:
+    regions:
+      - mu_SR_0tag_1jet
+      - mu_SR_0tag_2jet
+      - mu_SR_0tag_3pjet
+      - el_SR_0tag_1jet
+      - el_SR_0tag_2jet
+      - el_SR_0tag_3pjet
+    samples:
+      - Wjets_cjets_ftag | lep_truth_1jet_c_notag
+      - Wjets_bjets_ftag | lep_truth_1jet_b_notag
+      - Wjets_light_ftag | lep_truth_1jet_l_notag
+      - Wjets_tau_ftag | lep_truth_1jet_tau_notag
+      - Zjets_emu | lep_truth_1jet_notag
+      - Zjets_tau | lep_truth_1jet_notag
+      - Diboson | lep_truth_1jet_notag
+      - Top | lep_truth_1jet_notag
+    label:
+      - "W^{#pm}, N(jet) #geq 1, no-tag"
+      - "Sherpa2.2.1"
+    lumi: "2015+2016A-B+2016C-L+2017+2018"
+
+  lep_1jet_tag_ftag_hadron:
+    regions:
+      - mu_SR_1tag_1jet
+      - mu_SR_1tag_2jet
+      - mu_SR_1tag_3pjet
+      - el_SR_1tag_1jet
+      - el_SR_1tag_2jet
+      - el_SR_1tag_3pjet
+    samples:
+      - Wjets_cjets_dplus_ftag | lep_truth_1jet_c_dplus_tag
+      - Wjets_cjets_dzero_ftag | lep_truth_1jet_c_dzero_tag
+      - Wjets_cjets_dsubs_ftag | lep_truth_1jet_c_dsubs_tag
+      - Wjets_cjets_baryon_ftag | lep_truth_1jet_c_baryon_tag
+      - Wjets_cjets_other_ftag | lep_truth_1jet_c_other_tag
+      - Wjets_bjets_ftag | lep_truth_1jet_b_tag
+      - Wjets_light_ftag | lep_truth_1jet_l_tag
+      - Wjets_tau_ftag | lep_truth_1jet_tau_tag
+      - Zjets_emu | lep_truth_1jet_tag
+      - Zjets_tau | lep_truth_1jet_tag
+      - Diboson | lep_truth_1jet_tag
+      - Top | lep_truth_1jet_tag
+    label:
+      - "W^{#pm}, N(jet) #geq 1, tag"
+      - "Sherpa2.2.1"
+    lumi: "2015+2016A-B+2016C-L+2017+2018"
+
+  lep_1jet_notag_ftag_hadron:
+    regions:
+      - mu_SR_0tag_1jet
+      - mu_SR_0tag_2jet
+      - mu_SR_0tag_3pjet
+      - el_SR_0tag_1jet
+      - el_SR_0tag_2jet
+      - el_SR_0tag_3pjet
+    samples:
+      - Wjets_cjets_dplus_ftag | lep_truth_1jet_c_dplus_notag
+      - Wjets_cjets_dzero_ftag | lep_truth_1jet_c_dzero_notag
+      - Wjets_cjets_dsubs_ftag | lep_truth_1jet_c_dsubs_notag
+      - Wjets_cjets_baryon_ftag | lep_truth_1jet_c_baryon_notag
+      - Wjets_cjets_other_ftag | lep_truth_1jet_c_other_notag
+      - Wjets_bjets_ftag | lep_truth_1jet_b_notag
+      - Wjets_light_ftag | lep_truth_1jet_l_notag
+      - Wjets_tau_ftag | lep_truth_1jet_tau_notag
+      - Zjets_emu | lep_truth_1jet_notag
+      - Zjets_tau | lep_truth_1jet_notag
+      - Diboson | lep_truth_1jet_notag
+      - Top | lep_truth_1jet_notag
+    label:
+      - "W^{#pm}, N(jet) #geq 1, no-tag"
+      - "Sherpa2.2.1"
+    lumi: "2015+2016A-B+2016C-L+2017+2018"
+
+  mu_truth:
+    make_plots: False
+    save_to_file: False
+    regions:
+      - mu_SR_0tag_1jet_c_dplus
+      - mu_SR_0tag_2jet_c_dplus
+      - mu_SR_0tag_3pjet_c_dplus
+      - mu_SR_1tag_1jet_c_dplus
+      - mu_SR_1tag_2jet_c_dplus
+      - mu_SR_1tag_3pjet_c_dplus
+      - mu_SR_0tag_1jet_c_dzero
+      - mu_SR_0tag_2jet_c_dzero
+      - mu_SR_0tag_3pjet_c_dzero
+      - mu_SR_1tag_1jet_c_dzero
+      - mu_SR_1tag_2jet_c_dzero
+      - mu_SR_1tag_3pjet_c_dzero
+      - mu_SR_0tag_1jet_c_dsubs
+      - mu_SR_0tag_2jet_c_dsubs
+      - mu_SR_0tag_3pjet_c_dsubs
+      - mu_SR_1tag_1jet_c_dsubs
+      - mu_SR_1tag_2jet_c_dsubs
+      - mu_SR_1tag_3pjet_c_dsubs
+      - mu_SR_0tag_1jet_c_baryon
+      - mu_SR_0tag_2jet_c_baryon
+      - mu_SR_0tag_3pjet_c_baryon
+      - mu_SR_1tag_1jet_c_baryon
+      - mu_SR_1tag_2jet_c_baryon
+      - mu_SR_1tag_3pjet_c_baryon
+      - mu_SR_0tag_1jet_c_other
+      - mu_SR_0tag_2jet_c_other
+      - mu_SR_0tag_3pjet_c_other
+      - mu_SR_1tag_1jet_c_other
+      - mu_SR_1tag_2jet_c_other
+      - mu_SR_1tag_3pjet_c_other
+      - mu_SR_0tag_1jet_b
+      - mu_SR_0tag_2jet_b
+      - mu_SR_0tag_3pjet_b
+      - mu_SR_1tag_1jet_b
+      - mu_SR_1tag_2jet_b
+      - mu_SR_1tag_3pjet_b
+      - mu_SR_0tag_1jet_l
+      - mu_SR_0tag_2jet_l
+      - mu_SR_0tag_3pjet_l
+      - mu_SR_1tag_1jet_l
+      - mu_SR_1tag_2jet_l
+      - mu_SR_1tag_3pjet_l
+      - mu_SR_0tag_1jet_tau
+      - mu_SR_0tag_2jet_tau
+      - mu_SR_0tag_3pjet_tau
+      - mu_SR_1tag_1jet_tau
+      - mu_SR_1tag_2jet_tau
+      - mu_SR_1tag_3pjet_tau
+      - mu_SR_0tag_0jet
+
+  lep_truth:
+    make_plots: False
+    save_to_file: False
+    regions:
+      - mu_SR_0tag_1jet_c_dplus
+      - mu_SR_0tag_2jet_c_dplus
+      - mu_SR_0tag_3pjet_c_dplus
+      - mu_SR_1tag_1jet_c_dplus
+      - mu_SR_1tag_2jet_c_dplus
+      - mu_SR_1tag_3pjet_c_dplus
+      - mu_SR_0tag_1jet_c_dzero
+      - mu_SR_0tag_2jet_c_dzero
+      - mu_SR_0tag_3pjet_c_dzero
+      - mu_SR_1tag_1jet_c_dzero
+      - mu_SR_1tag_2jet_c_dzero
+      - mu_SR_1tag_3pjet_c_dzero
+      - mu_SR_0tag_1jet_c_dsubs
+      - mu_SR_0tag_2jet_c_dsubs
+      - mu_SR_0tag_3pjet_c_dsubs
+      - mu_SR_1tag_1jet_c_dsubs
+      - mu_SR_1tag_2jet_c_dsubs
+      - mu_SR_1tag_3pjet_c_dsubs
+      - mu_SR_0tag_1jet_c_baryon
+      - mu_SR_0tag_2jet_c_baryon
+      - mu_SR_0tag_3pjet_c_baryon
+      - mu_SR_1tag_1jet_c_baryon
+      - mu_SR_1tag_2jet_c_baryon
+      - mu_SR_1tag_3pjet_c_baryon
+      - mu_SR_0tag_1jet_c_other
+      - mu_SR_0tag_2jet_c_other
+      - mu_SR_0tag_3pjet_c_other
+      - mu_SR_1tag_1jet_c_other
+      - mu_SR_1tag_2jet_c_other
+      - mu_SR_1tag_3pjet_c_other
+      - mu_SR_0tag_1jet_b
+      - mu_SR_0tag_2jet_b
+      - mu_SR_0tag_3pjet_b
+      - mu_SR_1tag_1jet_b
+      - mu_SR_1tag_2jet_b
+      - mu_SR_1tag_3pjet_b
+      - mu_SR_0tag_1jet_l
+      - mu_SR_0tag_2jet_l
+      - mu_SR_0tag_3pjet_l
+      - mu_SR_1tag_1jet_l
+      - mu_SR_1tag_2jet_l
+      - mu_SR_1tag_3pjet_l
+      - mu_SR_0tag_1jet_tau
+      - mu_SR_0tag_2jet_tau
+      - mu_SR_0tag_3pjet_tau
+      - mu_SR_1tag_1jet_tau
+      - mu_SR_1tag_2jet_tau
+      - mu_SR_1tag_3pjet_tau
+      - mu_SR_0tag_0jet
+      - el_SR_0tag_1jet_c_dplus
+      - el_SR_0tag_2jet_c_dplus
+      - el_SR_0tag_3pjet_c_dplus
+      - el_SR_1tag_1jet_c_dplus
+      - el_SR_1tag_2jet_c_dplus
+      - el_SR_1tag_3pjet_c_dplus
+      - el_SR_0tag_1jet_c_dzero
+      - el_SR_0tag_2jet_c_dzero
+      - el_SR_0tag_3pjet_c_dzero
+      - el_SR_1tag_1jet_c_dzero
+      - el_SR_1tag_2jet_c_dzero
+      - el_SR_1tag_3pjet_c_dzero
+      - el_SR_0tag_1jet_c_dsubs
+      - el_SR_0tag_2jet_c_dsubs
+      - el_SR_0tag_3pjet_c_dsubs
+      - el_SR_1tag_1jet_c_dsubs
+      - el_SR_1tag_2jet_c_dsubs
+      - el_SR_1tag_3pjet_c_dsubs
+      - el_SR_0tag_1jet_c_baryon
+      - el_SR_0tag_2jet_c_baryon
+      - el_SR_0tag_3pjet_c_baryon
+      - el_SR_1tag_1jet_c_baryon
+      - el_SR_1tag_2jet_c_baryon
+      - el_SR_1tag_3pjet_c_baryon
+      - el_SR_0tag_1jet_c_other
+      - el_SR_0tag_2jet_c_other
+      - el_SR_0tag_3pjet_c_other
+      - el_SR_1tag_1jet_c_other
+      - el_SR_1tag_2jet_c_other
+      - el_SR_1tag_3pjet_c_other
+      - el_SR_0tag_1jet_b
+      - el_SR_0tag_2jet_b
+      - el_SR_0tag_3pjet_b
+      - el_SR_1tag_1jet_b
+      - el_SR_1tag_2jet_b
+      - el_SR_1tag_3pjet_b
+      - el_SR_0tag_1jet_l
+      - el_SR_0tag_2jet_l
+      - el_SR_0tag_3pjet_l
+      - el_SR_1tag_1jet_l
+      - el_SR_1tag_2jet_l
+      - el_SR_1tag_3pjet_l
+      - el_SR_0tag_1jet_tau
+      - el_SR_0tag_2jet_tau
+      - el_SR_0tag_3pjet_tau
+      - el_SR_1tag_1jet_tau
+      - el_SR_1tag_2jet_tau
+      - el_SR_1tag_3pjet_tau
+      - el_SR_0tag_0jet
+
+  lep_truth_1jet:
+    make_plots: False
+    save_to_file: False
+    regions:
+      - mu_SR_0tag_1jet_c_dplus
+      - mu_SR_0tag_2jet_c_dplus
+      - mu_SR_0tag_3pjet_c_dplus
+      - mu_SR_1tag_1jet_c_dplus
+      - mu_SR_1tag_2jet_c_dplus
+      - mu_SR_1tag_3pjet_c_dplus
+      - mu_SR_0tag_1jet_c_dzero
+      - mu_SR_0tag_2jet_c_dzero
+      - mu_SR_0tag_3pjet_c_dzero
+      - mu_SR_1tag_1jet_c_dzero
+      - mu_SR_1tag_2jet_c_dzero
+      - mu_SR_1tag_3pjet_c_dzero
+      - mu_SR_0tag_1jet_c_dsubs
+      - mu_SR_0tag_2jet_c_dsubs
+      - mu_SR_0tag_3pjet_c_dsubs
+      - mu_SR_1tag_1jet_c_dsubs
+      - mu_SR_1tag_2jet_c_dsubs
+      - mu_SR_1tag_3pjet_c_dsubs
+      - mu_SR_0tag_1jet_c_baryon
+      - mu_SR_0tag_2jet_c_baryon
+      - mu_SR_0tag_3pjet_c_baryon
+      - mu_SR_1tag_1jet_c_baryon
+      - mu_SR_1tag_2jet_c_baryon
+      - mu_SR_1tag_3pjet_c_baryon
+      - mu_SR_0tag_1jet_c_other
+      - mu_SR_0tag_2jet_c_other
+      - mu_SR_0tag_3pjet_c_other
+      - mu_SR_1tag_1jet_c_other
+      - mu_SR_1tag_2jet_c_other
+      - mu_SR_1tag_3pjet_c_other
+      - mu_SR_0tag_1jet_b
+      - mu_SR_0tag_2jet_b
+      - mu_SR_0tag_3pjet_b
+      - mu_SR_1tag_1jet_b
+      - mu_SR_1tag_2jet_b
+      - mu_SR_1tag_3pjet_b
+      - mu_SR_0tag_1jet_l
+      - mu_SR_0tag_2jet_l
+      - mu_SR_0tag_3pjet_l
+      - mu_SR_1tag_1jet_l
+      - mu_SR_1tag_2jet_l
+      - mu_SR_1tag_3pjet_l
+      - mu_SR_0tag_1jet_tau
+      - mu_SR_0tag_2jet_tau
+      - mu_SR_0tag_3pjet_tau
+      - mu_SR_1tag_1jet_tau
+      - mu_SR_1tag_2jet_tau
+      - mu_SR_1tag_3pjet_tau
+      - el_SR_0tag_1jet_c_dplus
+      - el_SR_0tag_2jet_c_dplus
+      - el_SR_0tag_3pjet_c_dplus
+      - el_SR_1tag_1jet_c_dplus
+      - el_SR_1tag_2jet_c_dplus
+      - el_SR_1tag_3pjet_c_dplus
+      - el_SR_0tag_1jet_c_dzero
+      - el_SR_0tag_2jet_c_dzero
+      - el_SR_0tag_3pjet_c_dzero
+      - el_SR_1tag_1jet_c_dzero
+      - el_SR_1tag_2jet_c_dzero
+      - el_SR_1tag_3pjet_c_dzero
+      - el_SR_0tag_1jet_c_dsubs
+      - el_SR_0tag_2jet_c_dsubs
+      - el_SR_0tag_3pjet_c_dsubs
+      - el_SR_1tag_1jet_c_dsubs
+      - el_SR_1tag_2jet_c_dsubs
+      - el_SR_1tag_3pjet_c_dsubs
+      - el_SR_0tag_1jet_c_baryon
+      - el_SR_0tag_2jet_c_baryon
+      - el_SR_0tag_3pjet_c_baryon
+      - el_SR_1tag_1jet_c_baryon
+      - el_SR_1tag_2jet_c_baryon
+      - el_SR_1tag_3pjet_c_baryon
+      - el_SR_0tag_1jet_c_other
+      - el_SR_0tag_2jet_c_other
+      - el_SR_0tag_3pjet_c_other
+      - el_SR_1tag_1jet_c_other
+      - el_SR_1tag_2jet_c_other
+      - el_SR_1tag_3pjet_c_other
+      - el_SR_0tag_1jet_b
+      - el_SR_0tag_2jet_b
+      - el_SR_0tag_3pjet_b
+      - el_SR_1tag_1jet_b
+      - el_SR_1tag_2jet_b
+      - el_SR_1tag_3pjet_b
+      - el_SR_0tag_1jet_l
+      - el_SR_0tag_2jet_l
+      - el_SR_0tag_3pjet_l
+      - el_SR_1tag_1jet_l
+      - el_SR_1tag_2jet_l
+      - el_SR_1tag_3pjet_l
+      - el_SR_0tag_1jet_tau
+      - el_SR_0tag_2jet_tau
+      - el_SR_0tag_3pjet_tau
+      - el_SR_1tag_1jet_tau
+      - el_SR_1tag_2jet_tau
+      - el_SR_1tag_3pjet_tau
+
+  lep_truth_1jet_tag:
+    make_plots: False
+    save_to_file: False
+    regions:
+      - mu_SR_1tag_1jet_c_dplus
+      - mu_SR_1tag_2jet_c_dplus
+      - mu_SR_1tag_3pjet_c_dplus
+      - mu_SR_1tag_1jet_c_dzero
+      - mu_SR_1tag_2jet_c_dzero
+      - mu_SR_1tag_3pjet_c_dzero
+      - mu_SR_1tag_1jet_c_dsubs
+      - mu_SR_1tag_2jet_c_dsubs
+      - mu_SR_1tag_3pjet_c_dsubs
+      - mu_SR_1tag_1jet_c_baryon
+      - mu_SR_1tag_2jet_c_baryon
+      - mu_SR_1tag_3pjet_c_baryon
+      - mu_SR_1tag_1jet_c_other
+      - mu_SR_1tag_2jet_c_other
+      - mu_SR_1tag_3pjet_c_other
+      - mu_SR_1tag_1jet_b
+      - mu_SR_1tag_2jet_b
+      - mu_SR_1tag_3pjet_b
+      - mu_SR_1tag_1jet_l
+      - mu_SR_1tag_2jet_l
+      - mu_SR_1tag_3pjet_l
+      - mu_SR_1tag_1jet_tau
+      - mu_SR_1tag_2jet_tau
+      - mu_SR_1tag_3pjet_tau
+      - el_SR_1tag_1jet_c_dplus
+      - el_SR_1tag_2jet_c_dplus
+      - el_SR_1tag_3pjet_c_dplus
+      - el_SR_1tag_1jet_c_dzero
+      - el_SR_1tag_2jet_c_dzero
+      - el_SR_1tag_3pjet_c_dzero
+      - el_SR_1tag_1jet_c_dsubs
+      - el_SR_1tag_2jet_c_dsubs
+      - el_SR_1tag_3pjet_c_dsubs
+      - el_SR_1tag_1jet_c_baryon
+      - el_SR_1tag_2jet_c_baryon
+      - el_SR_1tag_3pjet_c_baryon
+      - el_SR_1tag_1jet_c_other
+      - el_SR_1tag_2jet_c_other
+      - el_SR_1tag_3pjet_c_other
+      - el_SR_1tag_1jet_b
+      - el_SR_1tag_2jet_b
+      - el_SR_1tag_3pjet_b
+      - el_SR_1tag_1jet_l
+      - el_SR_1tag_2jet_l
+      - el_SR_1tag_3pjet_l
+      - el_SR_1tag_1jet_tau
+      - el_SR_1tag_2jet_tau
+      - el_SR_1tag_3pjet_tau
+
+  lep_truth_1jet_notag:
+    make_plots: False
+    save_to_file: False
+    regions:
+      - mu_SR_0tag_1jet_c_dplus
+      - mu_SR_0tag_2jet_c_dplus
+      - mu_SR_0tag_3pjet_c_dplus
+      - mu_SR_0tag_1jet_c_dzero
+      - mu_SR_0tag_2jet_c_dzero
+      - mu_SR_0tag_3pjet_c_dzero
+      - mu_SR_0tag_1jet_c_dsubs
+      - mu_SR_0tag_2jet_c_dsubs
+      - mu_SR_0tag_3pjet_c_dsubs
+      - mu_SR_0tag_1jet_c_baryon
+      - mu_SR_0tag_2jet_c_baryon
+      - mu_SR_0tag_3pjet_c_baryon
+      - mu_SR_0tag_1jet_c_other
+      - mu_SR_0tag_2jet_c_other
+      - mu_SR_0tag_3pjet_c_other
+      - mu_SR_0tag_1jet_b
+      - mu_SR_0tag_2jet_b
+      - mu_SR_0tag_3pjet_b
+      - mu_SR_0tag_1jet_l
+      - mu_SR_0tag_2jet_l
+      - mu_SR_0tag_3pjet_l
+      - mu_SR_0tag_1jet_tau
+      - mu_SR_0tag_2jet_tau
+      - mu_SR_0tag_3pjet_tau
+      - el_SR_0tag_1jet_c_dplus
+      - el_SR_0tag_2jet_c_dplus
+      - el_SR_0tag_3pjet_c_dplus
+      - el_SR_0tag_1jet_c_dzero
+      - el_SR_0tag_2jet_c_dzero
+      - el_SR_0tag_3pjet_c_dzero
+      - el_SR_0tag_1jet_c_dsubs
+      - el_SR_0tag_2jet_c_dsubs
+      - el_SR_0tag_3pjet_c_dsubs
+      - el_SR_0tag_1jet_c_baryon
+      - el_SR_0tag_2jet_c_baryon
+      - el_SR_0tag_3pjet_c_baryon
+      - el_SR_0tag_1jet_c_other
+      - el_SR_0tag_2jet_c_other
+      - el_SR_0tag_3pjet_c_other
+      - el_SR_0tag_1jet_b
+      - el_SR_0tag_2jet_b
+      - el_SR_0tag_3pjet_b
+      - el_SR_0tag_1jet_l
+      - el_SR_0tag_2jet_l
+      - el_SR_0tag_3pjet_l
+      - el_SR_0tag_1jet_tau
+      - el_SR_0tag_2jet_tau
+      - el_SR_0tag_3pjet_tau
+
+  lep_truth_1jet_c_tag:
+    make_plots: False
+    save_to_file: False
+    regions:
+      - mu_SR_1tag_1jet_c_dplus
+      - mu_SR_1tag_2jet_c_dplus
+      - mu_SR_1tag_3pjet_c_dplus
+      - mu_SR_1tag_1jet_c_dzero
+      - mu_SR_1tag_2jet_c_dzero
+      - mu_SR_1tag_3pjet_c_dzero
+      - mu_SR_1tag_1jet_c_dsubs
+      - mu_SR_1tag_2jet_c_dsubs
+      - mu_SR_1tag_3pjet_c_dsubs
+      - mu_SR_1tag_1jet_c_baryon
+      - mu_SR_1tag_2jet_c_baryon
+      - mu_SR_1tag_3pjet_c_baryon
+      - mu_SR_1tag_1jet_c_other
+      - mu_SR_1tag_2jet_c_other
+      - mu_SR_1tag_3pjet_c_other
+      - el_SR_1tag_1jet_c_dplus
+      - el_SR_1tag_2jet_c_dplus
+      - el_SR_1tag_3pjet_c_dplus
+      - el_SR_1tag_1jet_c_dzero
+      - el_SR_1tag_2jet_c_dzero
+      - el_SR_1tag_3pjet_c_dzero
+      - el_SR_1tag_1jet_c_dsubs
+      - el_SR_1tag_2jet_c_dsubs
+      - el_SR_1tag_3pjet_c_dsubs
+      - el_SR_1tag_1jet_c_baryon
+      - el_SR_1tag_2jet_c_baryon
+      - el_SR_1tag_3pjet_c_baryon
+      - el_SR_1tag_1jet_c_other
+      - el_SR_1tag_2jet_c_other
+      - el_SR_1tag_3pjet_c_other
+
+  lep_truth_1jet_c_notag:
+    make_plots: False
+    save_to_file: False
+    regions:
+      - mu_SR_0tag_1jet_c_dplus
+      - mu_SR_0tag_2jet_c_dplus
+      - mu_SR_0tag_3pjet_c_dplus
+      - mu_SR_0tag_1jet_c_dzero
+      - mu_SR_0tag_2jet_c_dzero
+      - mu_SR_0tag_3pjet_c_dzero
+      - mu_SR_0tag_1jet_c_dsubs
+      - mu_SR_0tag_2jet_c_dsubs
+      - mu_SR_0tag_3pjet_c_dsubs
+      - mu_SR_0tag_1jet_c_baryon
+      - mu_SR_0tag_2jet_c_baryon
+      - mu_SR_0tag_3pjet_c_baryon
+      - mu_SR_0tag_1jet_c_other
+      - mu_SR_0tag_2jet_c_other
+      - mu_SR_0tag_3pjet_c_other
+      - el_SR_0tag_1jet_c_dplus
+      - el_SR_0tag_2jet_c_dplus
+      - el_SR_0tag_3pjet_c_dplus
+      - el_SR_0tag_1jet_c_dzero
+      - el_SR_0tag_2jet_c_dzero
+      - el_SR_0tag_3pjet_c_dzero
+      - el_SR_0tag_1jet_c_dsubs
+      - el_SR_0tag_2jet_c_dsubs
+      - el_SR_0tag_3pjet_c_dsubs
+      - el_SR_0tag_1jet_c_baryon
+      - el_SR_0tag_2jet_c_baryon
+      - el_SR_0tag_3pjet_c_baryon
+      - el_SR_0tag_1jet_c_other
+      - el_SR_0tag_2jet_c_other
+      - el_SR_0tag_3pjet_c_other
+
+  lep_truth_1jet_b_tag:
+    make_plots: False
+    save_to_file: False
+    regions:
+      - mu_SR_1tag_1jet_b
+      - mu_SR_1tag_2jet_b
+      - mu_SR_1tag_3pjet_b
+      - el_SR_1tag_1jet_b
+      - el_SR_1tag_2jet_b
+      - el_SR_1tag_3pjet_b
+
+  lep_truth_1jet_b_notag:
+    make_plots: False
+    save_to_file: False
+    regions:
+      - mu_SR_0tag_1jet_b
+      - mu_SR_0tag_2jet_b
+      - mu_SR_0tag_3pjet_b
+      - el_SR_0tag_1jet_b
+      - el_SR_0tag_2jet_b
+      - el_SR_0tag_3pjet_b
+
+  lep_truth_1jet_l_tag:
+    make_plots: False
+    save_to_file: False
+    regions:
+      - mu_SR_1tag_1jet_l
+      - mu_SR_1tag_2jet_l
+      - mu_SR_1tag_3pjet_l
+      - el_SR_1tag_1jet_l
+      - el_SR_1tag_2jet_l
+      - el_SR_1tag_3pjet_l
+
+  lep_truth_1jet_l_notag:
+    make_plots: False
+    save_to_file: False
+    regions:
+      - mu_SR_0tag_1jet_l
+      - mu_SR_0tag_2jet_l
+      - mu_SR_0tag_3pjet_l
+      - el_SR_0tag_1jet_l
+      - el_SR_0tag_2jet_l
+      - el_SR_0tag_3pjet_l
+
+  lep_truth_1jet_tau_tag:
+    make_plots: False
+    save_to_file: False
+    regions:
+      - mu_SR_1tag_1jet_tau
+      - mu_SR_1tag_2jet_tau
+      - mu_SR_1tag_3pjet_tau
+      - el_SR_1tag_1jet_tau
+      - el_SR_1tag_2jet_tau
+      - el_SR_1tag_3pjet_tau
+
+  lep_truth_1jet_tau_notag:
+    make_plots: False
+    save_to_file: False
+    regions:
+      - mu_SR_0tag_1jet_tau
+      - mu_SR_0tag_2jet_tau
+      - mu_SR_0tag_3pjet_tau
+      - el_SR_0tag_1jet_tau
+      - el_SR_0tag_2jet_tau
+      - el_SR_0tag_3pjet_tau
+
+  lep_truth_1jet_c_dplus_tag:
+    make_plots: False
+    save_to_file: False
+    regions:
+      - mu_SR_1tag_1jet_c_dplus
+      - mu_SR_1tag_2jet_c_dplus
+      - mu_SR_1tag_3pjet_c_dplus
+      - el_SR_1tag_1jet_c_dplus
+      - el_SR_1tag_2jet_c_dplus
+      - el_SR_1tag_3pjet_c_dplus
+
+  lep_truth_1jet_c_dplus_notag:
+    make_plots: False
+    save_to_file: False
+    regions:
+      - mu_SR_0tag_1jet_c_dplus
+      - mu_SR_0tag_2jet_c_dplus
+      - mu_SR_0tag_3pjet_c_dplus
+      - el_SR_0tag_1jet_c_dplus
+      - el_SR_0tag_2jet_c_dplus
+      - el_SR_0tag_3pjet_c_dplus
+
+  lep_truth_1jet_c_dzero_tag:
+    make_plots: False
+    save_to_file: False
+    regions:
+      - mu_SR_1tag_1jet_c_dzero
+      - mu_SR_1tag_2jet_c_dzero
+      - mu_SR_1tag_3pjet_c_dzero
+      - el_SR_1tag_1jet_c_dzero
+      - el_SR_1tag_2jet_c_dzero
+      - el_SR_1tag_3pjet_c_dzero
+
+  lep_truth_1jet_c_dzero_notag:
+    make_plots: False
+    save_to_file: False
+    regions:
+      - mu_SR_0tag_1jet_c_dzero
+      - mu_SR_0tag_2jet_c_dzero
+      - mu_SR_0tag_3pjet_c_dzero
+      - el_SR_0tag_1jet_c_dzero
+      - el_SR_0tag_2jet_c_dzero
+      - el_SR_0tag_3pjet_c_dzero
+
+  lep_truth_1jet_c_dsubs_tag:
+    make_plots: False
+    save_to_file: False
+    regions:
+      - mu_SR_1tag_1jet_c_dsubs
+      - mu_SR_1tag_2jet_c_dsubs
+      - mu_SR_1tag_3pjet_c_dsubs
+      - el_SR_1tag_1jet_c_dsubs
+      - el_SR_1tag_2jet_c_dsubs
+      - el_SR_1tag_3pjet_c_dsubs
+
+  lep_truth_1jet_c_dsubs_notag:
+    make_plots: False
+    save_to_file: False
+    regions:
+      - mu_SR_0tag_1jet_c_dsubs
+      - mu_SR_0tag_2jet_c_dsubs
+      - mu_SR_0tag_3pjet_c_dsubs
+      - el_SR_0tag_1jet_c_dsubs
+      - el_SR_0tag_2jet_c_dsubs
+      - el_SR_0tag_3pjet_c_dsubs
+
+  lep_truth_1jet_c_baryon_tag:
+    make_plots: False
+    save_to_file: False
+    regions:
+      - mu_SR_1tag_1jet_c_baryon
+      - mu_SR_1tag_2jet_c_baryon
+      - mu_SR_1tag_3pjet_c_baryon
+      - el_SR_1tag_1jet_c_baryon
+      - el_SR_1tag_2jet_c_baryon
+      - el_SR_1tag_3pjet_c_baryon
+
+  lep_truth_1jet_c_baryon_notag:
+    make_plots: False
+    save_to_file: False
+    regions:
+      - mu_SR_0tag_1jet_c_baryon
+      - mu_SR_0tag_2jet_c_baryon
+      - mu_SR_0tag_3pjet_c_baryon
+      - el_SR_0tag_1jet_c_baryon
+      - el_SR_0tag_2jet_c_baryon
+      - el_SR_0tag_3pjet_c_baryon
+
+  lep_truth_1jet_c_other_tag:
+    make_plots: False
+    save_to_file: False
+    regions:
+      - mu_SR_1tag_1jet_c_other
+      - mu_SR_1tag_2jet_c_other
+      - mu_SR_1tag_3pjet_c_other
+      - el_SR_1tag_1jet_c_other
+      - el_SR_1tag_2jet_c_other
+      - el_SR_1tag_3pjet_c_other
+
+  lep_truth_1jet_c_other_notag:
+    make_plots: False
+    save_to_file: False
+    regions:
+      - mu_SR_0tag_1jet_c_other
+      - mu_SR_0tag_2jet_c_other
+      - mu_SR_0tag_3pjet_c_other
+      - el_SR_0tag_1jet_c_other
+      - el_SR_0tag_2jet_c_other
+      - el_SR_0tag_3pjet_c_other
+

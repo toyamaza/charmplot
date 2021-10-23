@@ -215,3 +215,102 @@ Multijet:
   fillColor: "14002"
   legendLabel: Multijet
   shortName: Multijet
+
+Wjets_light_ftag:
+  add:
+    - Sh_Wjets_light_emu
+    - Sh_Wjets_cjets_emu
+    - Sh_Wjets_bjets_emu
+    - Sh_Wjets_tau
+    - Sh_Wjets_highpt_emu
+  subtract:
+  fillColor: "10000"
+  legendLabel: "W#rightarrowl#nu + u"
+
+Wjets_bjets_ftag:
+  add:
+    - Sh_Wjets_light_emu
+    - Sh_Wjets_cjets_emu
+    - Sh_Wjets_bjets_emu
+    - Sh_Wjets_tau
+    - Sh_Wjets_highpt_emu
+  subtract:
+  fillColor: "10001"
+  legendLabel: "W#rightarrowl#nu + b"
+
+Wjets_cjets_ftag:
+  add:
+    - Sh_Wjets_light_emu
+    - Sh_Wjets_cjets_emu
+    - Sh_Wjets_bjets_emu
+    - Sh_Wjets_tau
+    - Sh_Wjets_highpt_emu
+  subtract:
+  fillColor: "10002"
+  legendLabel: "W#rightarrowl#nu + c"
+
+Wjets_tau_ftag:
+  add:
+    - Sh_Wjets_light_emu
+    - Sh_Wjets_cjets_emu
+    - Sh_Wjets_bjets_emu
+    - Sh_Wjets_tau
+    - Sh_Wjets_highpt_emu
+  subtract:
+  fillColor: "10003"
+  legendLabel: "W#rightarrowl#nu + #tau"
+
+Wjets_cjets_dplus_ftag:
+  add:
+    - Sh_Wjets_light_emu
+    - Sh_Wjets_cjets_emu
+    - Sh_Wjets_bjets_emu
+    - Sh_Wjets_tau
+    - Sh_Wjets_highpt_emu
+  subtract:
+  fillColor: "15001"
+  legendLabel: "W#rightarrowl#nu + D+"
+
+Wjets_cjets_dzero_ftag:
+  add:
+    - Sh_Wjets_light_emu
+    - Sh_Wjets_cjets_emu
+    - Sh_Wjets_bjets_emu
+    - Sh_Wjets_tau
+    - Sh_Wjets_highpt_emu
+  subtract:
+  fillColor: "15002"
+  legendLabel: "W#rightarrowl#nu + D0"
+
+Wjets_cjets_dsubs_ftag:
+  add:
+    - Sh_Wjets_light_emu
+    - Sh_Wjets_cjets_emu
+    - Sh_Wjets_bjets_emu
+    - Sh_Wjets_tau
+    - Sh_Wjets_highpt_emu
+  subtract:
+  fillColor: "15003"
+  legendLabel: "W#rightarrowl#nu + Ds"
+
+Wjets_cjets_baryon_ftag:
+  add:
+    - Sh_Wjets_light_emu
+    - Sh_Wjets_cjets_emu
+    - Sh_Wjets_bjets_emu
+    - Sh_Wjets_tau
+    - Sh_Wjets_highpt_emu
+  subtract:
+  fillColor: "15004"
+  legendLabel: "W#rightarrowl#nu + #Lambda"
+
+Wjets_cjets_other_ftag:
+  add:
+    - Sh_Wjets_light_emu
+    - Sh_Wjets_cjets_emu
+    - Sh_Wjets_bjets_emu
+    - Sh_Wjets_tau
+    - Sh_Wjets_highpt_emu
+  subtract:
+  fillColor: "15005"
+  legendLabel: "W#rightarrowl#nu + c"
