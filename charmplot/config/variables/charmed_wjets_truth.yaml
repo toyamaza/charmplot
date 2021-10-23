@@ -15,9 +15,19 @@ D_m_tracks:
 D_pt:
   label: "D^{#pm} p_{T}"
   unit: "GeV"
-  rebin: 1
+  rebin: 5
   x_range: [0, 150]
   ratio_range: [0.5, 1.49]
+
+D_pt_truth:
+  name_override: D_pt
+  label: "D^{#pm} p_{T}"
+  unit: "GeV"
+  rebin: 1
+  xbins: [8, 10, 12, 14, 16, 18, 20, 30, 40, 60, 80, 150]
+  ratio_range: [0.5, 1.49]
+  per_unit: True
+  # x_range: [0, 150]
 
 D_differential_pt:
   label: "D^{#pm} p_{T}"

@@ -103,6 +103,12 @@ beamPosY_minus_PVY:
   unit: '#mum'
   ratio_range: [0.0, 1.99]
 
+jet_pt:
+  label: jet p_{T}
+  unit: GeV
+  rebin: 1
+  x_range: [20, 250]
+
 N_Dplus:
   label: N_{D^{+}}
 

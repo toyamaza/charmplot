@@ -2,12 +2,10 @@ colorScheme: gemstone_hues
 
 MG_Wjets:
   add:
-    - MG_Wjets_cjets_emu
-    - MG_Wjets_bjets_emu
-    - MG_Wjets_light_emu
+    - MG_Wjets_emu
   subtract:
-  lineColor: "ROOT.kBlue"
-  legendLabel: "MG W+#it{D}"
+  lineColor: "21000"
+  legendLabel: "LO MG W+jets"
   shortName: MG_Wjets
 
 Powheg_Wjets:
@@ -15,7 +13,7 @@ Powheg_Wjets:
     - Ph_Wjets_emu
   subtract:
   lineColor: "ROOT.kGreen"
-  legendLabel: "Powheg W+#it{D}"
+  legendLabel: "Powheg"
   shortName: Ph_Wjets_emu
 
 Sherpa_Wjets:
@@ -26,7 +24,7 @@ Sherpa_Wjets:
     - Sh_Wjets_highpt_emu
   subtract:
   lineColor: "ROOT.kRed"
-  legendLabel: "Sherpa2.2.1 W+#it{D}"
+  legendLabel: "Sherpa2.2.1"
   shortName: Sherpa_Wjets
 
 Sherpa2210_Wjets:
@@ -36,23 +34,53 @@ Sherpa2210_Wjets:
     - Sh_2210_Wjets_light_emu
   subtract:
   lineColor: "21000"
-  legendLabel: "Sherpa2.2.10 W+#it{D}"
+  legendLabel: "Sherpa2.2.10"
   shortName: Sherpa2210_Wjets
-
-Sherpa2211_Wjets:
-  add:
-    - Sh_2211_Wjets_cjets_emu
-    - Sh_2211_Wjets_bjets_emu
-    - Sh_2211_Wjets_light_emu
-  subtract:
-  lineColor: "ROOT.kGreen-2"
-  legendLabel: "Sherpa2.2.11 W+#it{D}"
-  shortName: Sherpa2211_Wjets
 
 MGFxFx_Wjets:
   add:
     - MG_FxFx_Wjets_emu
   subtract:
   lineColor: "15002"
-  legendLabel: "MG FxFx W+#it{D}"
+  legendLabel: "MG FxFx"
   shortName: MGFxFx_Wjets
+
+Sherpa2211_WplusD:
+  add:
+    - Sh_2211_WplusD
+  subtract:
+  lineColor: "ROOT.kBlue"
+  legendLabel: "Sh2.2.11 W+D"
+  shortName: Sherpa2211_WplusD
+
+MGPy8EG_NLO_WplusD:
+  add:
+    - MG_NLO_WplusD
+  subtract:
+  lineColor: "ROOT.kRed"
+  legendLabel: "NLO MG W+D"
+  shortName: MGPy8EG_NLO_WplusD
+
+MGPy8EG_NLO_WplusD_rw:
+  add:
+    - MG_NLO_WplusD_rw
+  subtract:
+  lineColor: "ROOT.kGreen"
+  legendLabel: "NLO MG W+D (rw)"
+  shortName: MGPy8EG_NLO_WplusD_rw
+
+MG_NLO_WplusD_Dstar:
+  add:
+    - MG_NLO_WplusD_Dstar
+  subtract:
+  lineColor: "ROOT.kRed"
+  legendLabel: "NLO MG W+D (D*)"
+  shortName: MG_NLO_WplusD_Dstar
+
+MG_NLO_WplusD_prompt:
+  add:
+    - MG_NLO_WplusD_prompt
+  subtract:
+  lineColor: "ROOT.kBlue"
+  legendLabel: "NLO MG W+D"
+  shortName: MG_NLO_WplusD_prompt
