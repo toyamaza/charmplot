@@ -427,7 +427,10 @@ def save_to_file_sys(out_file_name: str, channel: channel.Channel, var: variable
         out_file.cd()
         for s in mc_map[syst]:
             if mc_map[syst][s]:
-                out_name = f"{s.shortName}_{syst}_{channel.name}_{var.name}"
+                out_name = mc_map[syst][s].GetName()
+                if " | " in out_name:
+                    out_name_split = out_name.split(" | ")
+                    out_name = f"{syst}_{out_name_split[0]}_{channel.name}_{var.name}"
                 mc_map[syst][s].Write(out_name)
         out_file.Close()
 

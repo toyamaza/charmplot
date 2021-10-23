@@ -16,6 +16,13 @@ def parse_regions(regions):
     minus = []
     divide = []
     if type(regions) == list:
+        tmp = []
+        for element in regions:
+            if type(element) == list:
+                tmp += element
+            else:
+                tmp += [element]
+        regions = tmp
         for c in regions:
             if c.startswith("-"):
                 minus += [c[1:]]
