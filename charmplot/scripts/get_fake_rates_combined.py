@@ -131,7 +131,11 @@ def get_div_graphs(eff_main, eff_list):
         num = num_eff.CreateGraph()
         quotient = ROOT.TGraphAsymmErrors(den.GetN())
         if num.GetN() > 1:
-            for i in range(den.GetN()):
+            print("num.GetN")
+            print(num.GetN())
+            print("den.GetN")
+            print(den.GetN())
+            for i in range(min(den.GetN(),num.GetN())):
                 quotient.SetPoint(i, den.GetX()[i], num.GetY()[i] / den.GetY()[i])
                 quotient.SetPointError(i, den.GetErrorXlow(i), den.GetErrorXhigh(i), num.GetErrorYlow(i) / num.GetY()[i], num.GetErrorYhigh(i) / num.GetY()[i])
             quotient.SetMarkerColor(num.GetMarkerColor())

@@ -127,3 +127,11 @@ lep_pt_eta:
 lep_pt_calo_eta:
   make_plots: False
   allow_rebin: False
+
+lep_pt_eta_plusTopoConeET20:
+  make_plots: False
+  allow_rebin: False
+
+lep_pt_calo_eta_plusTopoConeET20:
+  make_plots: False
+  allow_rebin: False

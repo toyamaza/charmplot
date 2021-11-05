@@ -903,6 +903,22 @@ lep_pt_calo_eta:
   make_plots: False
   allow_rebin: False
 
+lep_pt_eta_plusTopoConeET20:
+  make_plots: False
+  allow_rebin: False
+
+lep_pt_calo_eta_plusTopoConeET20:
+  make_plots: False
+  allow_rebin: False
+
+lep_pt_met:
+  make_plots: False
+  allow_rebin: False
+
+lep_pt_met_plusTopoConeET20:
+  make_plots: False
+  allow_rebin: False
+
 Dmeson_transfer_matrix:
   make_plots: False
   allow_rebin: False

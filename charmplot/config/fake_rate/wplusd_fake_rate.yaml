@@ -14,7 +14,7 @@ channels:
       - MG_Multijet_Dn
     label:
       - "el QCD Tight"
-      - "MET < 30 GeV, mT < 60 GeV"
+      - "MET < 30 GeV, mT < 40 GeV"
     lumi: "2018"
     save_to_file: True
 
@@ -28,7 +28,7 @@ channels:
       - MG_Multijet_Dn
     label:
       - "el QCD Tight"
-      - "MET < 30 GeV, mT < 60 GeV"
+      - "MET < 30 GeV, mT < 40 GeV"
     lumi: "2018"
     save_to_file: True
 
@@ -41,7 +41,7 @@ channels:
       - MG_Multijet_Dn
     label:
       - "mu QCD Tight"
-      - "MET < 30 GeV, mT < 60 GeV"
+      - "MET < 30 GeV, mT < 40 GeV"
     lumi: "2018"
     save_to_file: True
 
@@ -55,7 +55,7 @@ channels:
       - MG_Multijet_Dn
     label:
       - "mu QCD Tight"
-      - "MET < 30 GeV, mT < 60 GeV"
+      - "MET < 30 GeV, mT < 40 GeV"
     lumi: "2018"
     save_to_file: True
 
@@ -68,7 +68,7 @@ channels:
       - MG_Multijet_Dn
     label:
       - "el QCD AntiTight"
-      - "MET < 30 GeV, mT < 60 GeV"
+      - "MET < 30 GeV, mT < 40 GeV"
     lumi: "2018"
     save_to_file: True
 
@@ -82,7 +82,7 @@ channels:
       - MG_Multijet_Dn
     label:
       - "el QCD AntiTight"
-      - "MET < 30 GeV, mT < 60 GeV"
+      - "MET < 30 GeV, mT < 40 GeV"
     lumi: "2018"
     save_to_file: True
 
@@ -95,7 +95,7 @@ channels:
       - MG_Multijet_Dn
     label:
       - "mu QCD AntiTight"
-      - "MET < 30 GeV, mT < 60 GeV"
+      - "MET < 30 GeV, mT < 40 GeV"
     lumi: "2018"
     save_to_file: True
 
@@ -109,7 +109,7 @@ channels:
       - MG_Multijet_Dn
     label:
       - "mu QCD AntiTight"
-      - "MET < 30 GeV, mT < 60 GeV"
+      - "MET < 30 GeV, mT < 40 GeV"
     lumi: "2018"
     save_to_file: True
 
@@ -124,7 +124,7 @@ channels:
       - MG_Multijet_Dn
     label:
       - "el QCD Tight"
-      - "MET < 30 GeV, mT < 60 GeV"
+      - "MET < 30 GeV, mT < 40 GeV"
     lumi: "2017"
     save_to_file: True
 
@@ -142,7 +142,7 @@ channels:
       - MG_Multijet_Dn
     label:
       - "el QCD Tight"
-      - "MET < 30 GeV, mT < 60 GeV"
+      - "MET < 30 GeV, mT < 40 GeV"
     lumi: "2017"
     save_to_file: True
 
@@ -157,7 +157,7 @@ channels:
       - MG_Multijet_Dn
     label:
       - "mu QCD Tight"
-      - "MET < 30 GeV, mT < 60 GeV"
+      - "MET < 30 GeV, mT < 40 GeV"
     lumi: "2017"
     save_to_file: True
 
@@ -175,7 +175,7 @@ channels:
       - MG_Multijet_Dn
     label:
       - "mu QCD Tight"
-      - "MET < 30 GeV, mT < 60 GeV"
+      - "MET < 30 GeV, mT < 40 GeV"
     lumi: "2017"
     save_to_file: True
 
@@ -190,7 +190,7 @@ channels:
       - MG_Multijet_Dn
     label:
       - "el QCD AntiTight"
-      - "MET < 30 GeV, mT < 60 GeV"
+      - "MET < 30 GeV, mT < 40 GeV"
     lumi: "2017"
     save_to_file: True
 
@@ -208,7 +208,7 @@ channels:
       - MG_Multijet_Dn
     label:
       - "el QCD AntiTight"
-      - "MET < 30 GeV, mT < 60 GeV"
+      - "MET < 30 GeV, mT < 40 GeV"
     lumi: "2017"
     save_to_file: True
 
@@ -223,7 +223,7 @@ channels:
       - MG_Multijet_Dn
     label:
       - "mu QCD AntiTight"
-      - "MET < 30 GeV, mT < 60 GeV"
+      - "MET < 30 GeV, mT < 40 GeV"
     lumi: "2017"
     save_to_file: True
 
@@ -241,7 +241,7 @@ channels:
       - MG_Multijet_Dn
     label:
       - "mu QCD AntiTight"
-      - "MET < 30 GeV, mT < 60 GeV"
+      - "MET < 30 GeV, mT < 40 GeV"
     lumi: "2017"
     save_to_file: True
 
@@ -255,7 +255,7 @@ channels:
       - MG_Multijet_Dn
     label:
       - "el QCD Tight"
-      - "MET < 30 GeV, mT < 60 GeV"
+      - "MET < 30 GeV, mT < 40 GeV"
     lumi: "2015"
     save_to_file: True
 
@@ -269,7 +269,7 @@ channels:
       - MG_Multijet_Dn
     label:
       - "el QCD Tight"
-      - "MET < 30 GeV, mT < 60 GeV"
+      - "MET < 30 GeV, mT < 40 GeV"
     lumi: "2015"
     save_to_file: True
 
@@ -282,7 +282,7 @@ channels:
       - MG_Multijet_Dn
     label:
       - "mu QCD Tight"
-      - "MET < 30 GeV, mT < 60 GeV"
+      - "MET < 30 GeV, mT < 40 GeV"
     lumi: "2015"
     save_to_file: True
 
@@ -296,7 +296,7 @@ channels:
       - MG_Multijet_Dn
     label:
       - "mu QCD Tight"
-      - "MET < 30 GeV, mT < 60 GeV"
+      - "MET < 30 GeV, mT < 40 GeV"
     lumi: "2015"
     save_to_file: True
 
@@ -309,7 +309,7 @@ channels:
       - MG_Multijet_Dn
     label:
       - "el QCD AntiTight"
-      - "MET < 30 GeV, mT < 60 GeV"
+      - "MET < 30 GeV, mT < 40 GeV"
     lumi: "2015"
     save_to_file: True
 
@@ -323,7 +323,7 @@ channels:
       - MG_Multijet_Dn
     label:
       - "el QCD AntiTight"
-      - "MET < 30 GeV, mT < 60 GeV"
+      - "MET < 30 GeV, mT < 40 GeV"
     lumi: "2015"
     save_to_file: True
 
@@ -336,7 +336,7 @@ channels:
       - MG_Multijet_Dn
     label:
       - "mu QCD AntiTight"
-      - "MET < 30 GeV, mT < 60 GeV"
+      - "MET < 30 GeV, mT < 40 GeV"
     lumi: "2015"
     save_to_file: True
 
@@ -350,7 +350,7 @@ channels:
       - MG_Multijet_Dn
     label:
       - "mu QCD AntiTight"
-      - "MET < 30 GeV, mT < 60 GeV"
+      - "MET < 30 GeV, mT < 40 GeV"
     lumi: "2015"
     save_to_file: True
 
@@ -365,7 +365,7 @@ channels:
       - MG_Multijet_Dn
     label:
       - "el QCD Tight"
-      - "MET < 30 GeV, mT < 60 GeV"
+      - "MET < 30 GeV, mT < 40 GeV"
     lumi: "2016"
     save_to_file: True
 
@@ -381,7 +381,7 @@ channels:
       - MG_Multijet_Dn
     label:
       - "el QCD Tight"
-      - "MET < 30 GeV, mT < 60 GeV"
+      - "MET < 30 GeV, mT < 40 GeV"
     lumi: "2016"
     save_to_file: True
 
@@ -395,7 +395,7 @@ channels:
       - MG_Multijet_Dn
     label:
       - "mu QCD Tight"
-      - "MET < 30 GeV, mT < 60 GeV"
+      - "MET < 30 GeV, mT < 40 GeV"
     lumi: "2016"
     save_to_file: True
 
@@ -411,7 +411,7 @@ channels:
       - MG_Multijet_Dn
     label:
       - "mu QCD Tight"
-      - "MET < 30 GeV, mT < 60 GeV"
+      - "MET < 30 GeV, mT < 40 GeV"
     lumi: "2016"
     save_to_file: True
 
@@ -425,7 +425,7 @@ channels:
       - MG_Multijet_Dn
     label:
       - "el QCD AntiTight"
-      - "MET < 30 GeV, mT < 60 GeV"
+      - "MET < 30 GeV, mT < 40 GeV"
     lumi: "2016"
     save_to_file: True
 
@@ -441,7 +441,7 @@ channels:
       - MG_Multijet_Dn
     label:
       - "el QCD AntiTight"
-      - "MET < 30 GeV, mT < 60 GeV"
+      - "MET < 30 GeV, mT < 40 GeV"
     lumi: "2016"
     save_to_file: True
 
@@ -455,7 +455,7 @@ channels:
       - MG_Multijet_Dn
     label:
       - "mu QCD AntiTight"
-      - "MET < 30 GeV, mT < 60 GeV"
+      - "MET < 30 GeV, mT < 40 GeV"
     lumi: "2016"
     save_to_file: True
 
@@ -471,7 +471,7 @@ channels:
       - MG_Multijet_Dn
     label:
       - "mu QCD AntiTight"
-      - "MET < 30 GeV, mT < 60 GeV"
+      - "MET < 30 GeV, mT < 40 GeV"
     lumi: "2016"
     save_to_file: True
 
@@ -487,7 +487,7 @@ channels:
       - MG_Multijet_Dn
     label:
       - "el QCD Tight"
-      - "MET < 30 GeV, mT < 60 GeV"
+      - "MET < 30 GeV, mT < 40 GeV"
     lumi: "2015+2016"
     save_to_file: True
 
@@ -505,7 +505,7 @@ channels:
       - MG_Multijet_Dn
     label:
       - "el QCD Tight"
-      - "MET < 30 GeV, mT < 60 GeV"
+      - "MET < 30 GeV, mT < 40 GeV"
     lumi: "2015+2016"
     save_to_file: True
 
@@ -520,7 +520,7 @@ channels:
       - MG_Multijet_Dn
     label:
       - "mu QCD Tight"
-      - "MET < 30 GeV, mT < 60 GeV"
+      - "MET < 30 GeV, mT < 40 GeV"
     lumi: "2015+2016"
     save_to_file: True
 
@@ -538,7 +538,7 @@ channels:
       - MG_Multijet_Dn
     label:
       - "mu QCD Tight"
-      - "MET < 30 GeV, mT < 60 GeV"
+      - "MET < 30 GeV, mT < 40 GeV"
     lumi: "2015+2016"
     save_to_file: True
 
@@ -553,7 +553,7 @@ channels:
       - MG_Multijet_Dn
     label:
       - "el QCD AntiTight"
-      - "MET < 30 GeV, mT < 60 GeV"
+      - "MET < 30 GeV, mT < 40 GeV"
     lumi: "2015+2016"
     save_to_file: True
 
@@ -571,7 +571,7 @@ channels:
       - MG_Multijet_Dn
     label:
       - "el QCD AntiTight"
-      - "MET < 30 GeV, mT < 60 GeV"
+      - "MET < 30 GeV, mT < 40 GeV"
     lumi: "2015+2016"
     save_to_file: True
 
@@ -586,7 +586,7 @@ channels:
       - MG_Multijet_Dn
     label:
       - "mu QCD AntiTight"
-      - "MET < 30 GeV, mT < 60 GeV"
+      - "MET < 30 GeV, mT < 40 GeV"
     lumi: "2015+2016"
     save_to_file: True
 
@@ -604,7 +604,7 @@ channels:
       - MG_Multijet_Dn
     label:
       - "mu QCD AntiTight"
-      - "MET < 30 GeV, mT < 60 GeV"
+      - "MET < 30 GeV, mT < 40 GeV"
     lumi: "2015+2016"
     save_to_file: True
 
@@ -620,7 +620,7 @@ channels:
       - MG_Multijet_Dn
     label:
       - "el QCD Tight"
-      - "MET < 30 GeV, mT < 60 GeV"
+      - "MET < 30 GeV, mT < 40 GeV"
     lumi: "2016+2017+2018"
     save_to_file: True
 
@@ -640,7 +640,7 @@ channels:
       - MG_Multijet_Dn
     label:
       - "el QCD Tight"
-      - "MET < 30 GeV, mT < 60 GeV"
+      - "MET < 30 GeV, mT < 40 GeV"
     lumi: "2016+2017+2018"
     save_to_file: True
 
@@ -656,7 +656,7 @@ channels:
       - MG_Multijet_Dn
     label:
       - "mu QCD Tight"
-      - "MET < 30 GeV, mT < 60 GeV"
+      - "MET < 30 GeV, mT < 40 GeV"
     lumi: "2016+2017+2018"
     save_to_file: True
 
@@ -676,7 +676,7 @@ channels:
       - MG_Multijet_Dn
     label:
       - "mu QCD Tight"
-      - "MET < 30 GeV, mT < 60 GeV"
+      - "MET < 30 GeV, mT < 40 GeV"
     lumi: "2016+2017+2018"
     save_to_file: True
 
@@ -692,7 +692,7 @@ channels:
       - MG_Multijet_Dn
     label:
       - "el QCD AntiTight"
-      - "MET < 30 GeV, mT < 60 GeV"
+      - "MET < 30 GeV, mT < 40 GeV"
     lumi: "2016+2017+2018"
     save_to_file: True
 
@@ -712,7 +712,7 @@ channels:
       - MG_Multijet_Dn
     label:
       - "el QCD AntiTight"
-      - "MET < 30 GeV, mT < 60 GeV"
+      - "MET < 30 GeV, mT < 40 GeV"
     lumi: "2016+2017+2018"
     save_to_file: True
 
@@ -728,7 +728,7 @@ channels:
       - MG_Multijet_Dn
     label:
       - "mu QCD AntiTight"
-      - "MET < 30 GeV, mT < 60 GeV"
+      - "MET < 30 GeV, mT < 40 GeV"
     lumi: "2016+2017+2018"
     save_to_file: True
 
@@ -748,7 +748,7 @@ channels:
       - MG_Multijet_Dn
     label:
       - "mu QCD AntiTight"
-      - "MET < 30 GeV, mT < 60 GeV"
+      - "MET < 30 GeV, mT < 40 GeV"
     lumi: "2016+2017+2018"
     save_to_file: True
 
@@ -763,7 +763,7 @@ channels:
       - MG_Multijet_Dn
     label:
       - "el QCD Tight"
-      - "MET < 30 GeV, mT < 60 GeV"
+      - "MET < 30 GeV, mT < 40 GeV"
     lumi: "2017+2018"
     save_to_file: True
 
@@ -779,7 +779,7 @@ channels:
       - MG_Multijet_Dn
     label:
       - "el QCD Tight"
-      - "MET < 30 GeV, mT < 60 GeV"
+      - "MET < 30 GeV, mT < 40 GeV"
     lumi: "2017+2018"
     save_to_file: True
 
@@ -793,7 +793,7 @@ channels:
       - MG_Multijet_Dn
     label:
       - "mu QCD Tight"
-      - "MET < 30 GeV, mT < 60 GeV"
+      - "MET < 30 GeV, mT < 40 GeV"
     lumi: "2017+2018"
     save_to_file: True
 
@@ -809,7 +809,7 @@ channels:
       - MG_Multijet_Dn
     label:
       - "mu QCD Tight"
-      - "MET < 30 GeV, mT < 60 GeV"
+      - "MET < 30 GeV, mT < 40 GeV"
     lumi: "2017+2018"
     save_to_file: True
 
@@ -823,7 +823,7 @@ channels:
       - MG_Multijet_Dn
     label:
       - "el QCD AntiTight"
-      - "MET < 30 GeV, mT < 60 GeV"
+      - "MET < 30 GeV, mT < 40 GeV"
     lumi: "2017+2018"
     save_to_file: True
 
@@ -839,7 +839,7 @@ channels:
       - MG_Multijet_Dn
     label:
       - "el QCD AntiTight"
-      - "MET < 30 GeV, mT < 60 GeV"
+      - "MET < 30 GeV, mT < 40 GeV"
     lumi: "2017+2018"
     save_to_file: True
 
@@ -853,7 +853,7 @@ channels:
       - MG_Multijet_Dn
     label:
       - "mu QCD AntiTight"
-      - "MET < 30 GeV, mT < 60 GeV"
+      - "MET < 30 GeV, mT < 40 GeV"
     lumi: "2017+2018"
     save_to_file: True
 
@@ -869,6 +869,6 @@ channels:
       - MG_Multijet_Dn
     label:
       - "mu QCD AntiTight"
-      - "MET < 30 GeV, mT < 60 GeV"
+      - "MET < 30 GeV, mT < 40 GeV"
     lumi: "2017+2018"
     save_to_file: True
