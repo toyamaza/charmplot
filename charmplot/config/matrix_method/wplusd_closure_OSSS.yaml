@@ -1,0 +1,58 @@
+colorScheme: gemstone_hues
+
+variablesConf: charmed_wjets
+
+samplesConf: madgraph
+
+data: Data
+
+channels:
+  el_QCD_mtCtrl_metSig_0tag_Dplus_OSpSS:
+    regions:
+      - el_QCD_mtCtrl_metSig_0tag_Dplus_OS
+      - el_QCD_mtCtrl_metSig_0tag_Dplus_SS
+    samples:
+      - Wjets
+      - Zjets
+      - Top
+      - Diboson
+      - Multijet_MatrixMethod | MatrixMethod_el_QCD_mtCtrl_metSig_0tag_Dplus_OSpSS
+    label:
+      - "W(e^{#pm})+D, 0-tag, OS+SS"
+      - "mT < 40 GeV, MET > 30 GeV"
+    lumi: "2015+2016A-B+2016C-L+2017+2018"
+    save_to_file: True
+
+  el_QCD_mtCtrl_metSig_0tag_Dplus_OSmSS:
+    regions:
+      - el_QCD_mtCtrl_metSig_0tag_Dplus_OS
+      - -el_QCD_mtCtrl_metSig_0tag_Dplus_SS
+    samples:
+      - Wjets
+      - Zjets
+      - Top
+      - Diboson
+      - Multijet_MatrixMethod | MatrixMethod_el_QCD_mtCtrl_metSig_0tag_Dplus_OSmSS
+    label:
+      - "W(e^{#pm})+D, 0-tag, OS-SS"
+      - "mT < 40 GeV, MET > 30 GeV"
+    lumi: "2015+2016A-B+2016C-L+2017+2018"
+    save_to_file: True
+
+  MatrixMethod_el_QCD_mtCtrl_metSig_0tag_Dplus_OSpSS:
+    make_plots: false
+    save_to_file: false
+    regions:
+      - AntiTight_el_QCD_mtCtrl_metSig_0tag_Dplus_OS
+      - AntiTight_el_QCD_mtCtrl_metSig_0tag_Dplus_SS
+      - -Tight_el_QCD_mtCtrl_metSig_0tag_Dplus_OS
+      - -Tight_el_QCD_mtCtrl_metSig_0tag_Dplus_SS
+
+  MatrixMethod_el_QCD_mtCtrl_metSig_0tag_Dplus_OSmSS:
+    make_plots: false
+    save_to_file: false
+    regions:
+      - AntiTight_el_QCD_mtCtrl_metSig_0tag_Dplus_OS
+      - -AntiTight_el_QCD_mtCtrl_metSig_0tag_Dplus_SS
+      - -Tight_el_QCD_mtCtrl_metSig_0tag_Dplus_OS
+      - Tight_el_QCD_mtCtrl_metSig_0tag_Dplus_SS
