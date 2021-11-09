@@ -81,6 +81,15 @@ Dmeson_pt:
   rebin: 5
   ratio_range: [0.5, 1.49]
 
+Dmeson_pt_fit:
+  name_override: Dmeson_pt
+  label: 'D^{#pm} p_{T}'
+  unit: "GeV"
+  rebin: 1
+  xbins: [8, 10, 12, 14, 16, 18, 20, 30, 40, 60, 80, 150]
+  ratio_range: [0.5, 1.49]
+  per_unit: True
+
 Dmeson_pt0:
   label: 'D^{#pm} p_{T}0'
   unit: 'GeV'
@@ -407,12 +416,11 @@ met_met:
   label: MET
   unit: GeV
   rebin: 4
-  x_range: [0, 200]
-  xbins: [0.0, 4.0, 8.0, 12., 16., 20., 24., 28., 32., 36., 40, 44., 48., 52., 56., 60, 200] 
+  x_range: [0, 100]
+  xbins: [0.0, 4.0, 8.0, 12., 16., 20., 24., 28., 32., 36., 40, 44., 48., 52., 56., 60, 100]
   ratio_range: [0.5, 1.49]
-  do_overflow: False
-  per_unit: True
-
+  do_overflow: True
+  per_unit: False
 
 met_perp_met:
   label: MET (perpendicular to lep)

@@ -438,11 +438,13 @@ class WDComparisonSamples(ChannelTemplate):
     samplesConf = "wplusd_comparison"
 
     samples = [
-        ['MG_Wjets_emu_Matched', proxies.Matched()],
         # ['Powheg_Wjets_emu_Matched', proxies.Matched()],
-        ['Sherpa_Wjets_emu_Matched', proxies.Matched()],
+        # ['Sherpa_Wjets_emu_Matched', proxies.Matched()],
         # ['MGFxFx_Wjets_emu_Matched', proxies.Matched()],
-        # ['Sherpa2211_Wjets_emu_Matched', proxies.Matched()],
+        ['MG_Wjets_emu_Matched', proxies.GenericChannel(name="Matched", region="Matched")],
+        ['MGPy8EG_NLO_WplusD', proxies.GenericChannel(name="Matched", region="Matched")],
+        ['Sherpa2211_WplusD', proxies.GenericChannel(name="Matched", region="Matched")],
+        ['Sherpa2211_Wjets', proxies.GenericChannel(name="Matched", region="Matched")],
     ]
 
     def get(self):

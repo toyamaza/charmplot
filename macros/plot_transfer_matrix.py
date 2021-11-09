@@ -28,8 +28,13 @@ colors = {
     "MG_Wjets": ROOT.kBlack,
     "Powheg_Wjets": ROOT.kBlue,
     "Sherpa_Wjets": ROOT.kRed,
-    "Sherpa2211_Wjets": ROOT.kGreen - 2,
+    "Sherpa2211_Wjets": ROOT.kGreen,
     "MGFxFx_Wjets": ROOT.kViolet,
+    "Sherpa2211_WplusD": ROOT.kBlue,
+    "MGPy8EG_NLO_WplusD": ROOT.kRed,
+    "MG_NLO_WplusD_Dstar": ROOT.kRed,
+    "MG_NLO_WplusD_prompt": ROOT.kBlue,
+    "MGPy8EG_NLO_WplusD_rw": ROOT.kGreen,
 }
 
 # bin shift
@@ -39,6 +44,11 @@ bin_shift = {
     "Sherpa_Wjets": 0.95,
     "Sherpa2211_Wjets": 0.925,
     "MGFxFx_Wjets": 1.25,
+    "Sherpa2211_WplusD": 1.00,
+    "MGPy8EG_NLO_WplusD": 1.00,
+    "MG_NLO_WplusD_Dstar": 1.00,
+    "MG_NLO_WplusD_prompt": 1.00,
+    "MGPy8EG_NLO_WplusD_rw": 1.00,
 }
 
 # legend
@@ -46,8 +56,13 @@ legend_names = {
     "MG_Wjets": "LO MadGraph",
     "Powheg_Wjets": "Powheg",
     "Sherpa_Wjets": "Sherpa2.2.1",
-    "Sherpa2211_Wjets": "Sherpa2.2.11",
+    "Sherpa2211_Wjets": "Sh.2.11 W+jets",
     "MGFxFx_Wjets": "MG FxFx",
+    "Sherpa2211_WplusD": "Sh.2.11 W+D",
+    "MGPy8EG_NLO_WplusD": "NLO MG W+D",
+    "MG_NLO_WplusD_Dstar": "NLO MG W+D (D*)",
+    "MG_NLO_WplusD_prompt": "NLO MG W+D",
+    "MGPy8EG_NLO_WplusD_rw": "NLO MG W+D (rw)",
 }
 
 # variables
@@ -113,7 +128,10 @@ def main(options, args):
                     continue
                 name = f"_{syst}"
             samples_sys += [f"{s}{name}"]
-            samples_sys_reco += [f"{s}_emu_Matched{name}"]
+            if "WplusD" not in s and "Sherpa2211" not in s:
+                samples_sys_reco += [f"{s}_emu_Matched{name}"]
+            else:
+                samples_sys_reco += [f"{s}{name}"]
     print(f"Samples sys: {samples_sys}")
     print(f"Samples sys reco: {samples_sys_reco}")
 
@@ -122,6 +140,7 @@ def main(options, args):
 
         # matrix
         h_tmp = {s.replace("_emu_Matched", ""): f.Get(f"{s}_{c.replace('_Kpipi', '')}_Dmeson_transfer_matrix") for s in samples_sys_reco}
+        print([f"{s}_{c.replace('_Kpipi', '')}_Dmeson_transfer_matrix" for s in samples_sys_reco])
         nbins = h_tmp[samples[0]].GetNbinsX()
         xbins = array('d', [h_tmp[samples[0]].GetXaxis().GetBinLowEdge(i) for i in range(1, nbins + 3)])
         xbins[-1] = xbins[-2] + 2 * xbins[-3]
@@ -140,6 +159,12 @@ def main(options, args):
         truth_projection_tmp = {s: h_tmp[s].ProjectionY(f"{s}_{c}_truth_projection_tmp", 0, nbins + 1) for s in samples_sys}
         _ = [truth_projection_tmp[s].Scale(1. / LUMI_RUN2) for s in samples_sys]
         truth_projection = {s: ROOT.TH1D(f"{s}_{c}_truth_projection", f"{s}_{c}_truth_projection", nbins + 1, xbins) for s in samples_sys}
+
+        # account for forced decay samples
+        if "Kpipi" in c:
+            for s in h_pt_truth:
+                if "WplusD" in s:
+                    h_pt_truth_tmp[s].Scale(0.092)
 
         # calculate fiducial efficiency per bin
         h_fid_eff = {s: ROOT.TH2D(f"{s}_{c}_fid_eff", f"{s}_{c}_fid_eff", nbins + 1, xbins, nbins + 1, xbins) for s in samples_sys}
@@ -325,7 +350,7 @@ def main(options, args):
         if len(samples) < 2:
             h_pt[samples[0]].Draw("text hist")
         else:
-            h_pt[samples[0]].Draw("hist")
+            h_pt[samples[0]].Draw("text hist")
         for s in reversed(samples_sys):
             if s == samples[0]:
                 continue
@@ -351,13 +376,13 @@ def main(options, args):
         ROOT.gStyle.SetPaintTextFormat(".4f")
         canv3 = ROOT.TCanvas(f"{c}_truth", f"{c}_truth", 1000, 800)
         canv3.SetLogx()
-        h_pt_truth[samples[0]].SetMaximum(2 * h_pt_truth[samples[0]].GetMaximum())
+        h_pt_truth[samples[0]].SetMaximum(2 * max([h_pt_truth[s].GetMaximum() for s in h_pt_truth]))
         h_pt_truth[samples[0]].GetXaxis().SetMoreLogLabels()
         h_pt_truth[samples[0]].GetXaxis().SetNoExponent()
         if len(samples) < 2:
             h_pt_truth[samples[0]].Draw("text hist")
         else:
-            h_pt_truth[samples[0]].Draw("hist")
+            h_pt_truth[samples[0]].Draw("text hist")
         for s in reversed(samples_sys):
             if s == samples[0]:
                 continue

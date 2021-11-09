@@ -1,8 +1,8 @@
 ---
 variablesConf: charmed_wjets_truth
 samplesConf: wplusd_truth
-systematics:
-  - sherpa_theory_qcd
+# systematics:
+  # - sherpa_theory_qcd
   # - sherpa_theory_pdf
   # - sherpa_theory_as
 
@@ -19,13 +19,13 @@ channels:
       - -mu_plus_Dplus_SS
     samples:
       - MG_Wjets
-      - Sherpa_Wjets
-      # - Sherpa2211_Wjets
-      # - Powheg_Wjets
-      # - MGFxFx_Wjets
+      - MGPy8EG_NLO_WplusD
+      - Sherpa2211_WplusD
+      - Sherpa2211_Wjets
+      # - Sherpa_Wjets
     label:
-      - W#rightarrowl#nu+D, D#rightarrowK#pi#pi
-      - inclusive OS-SS
+      - W#rightarrowl#nu+D
+      - inclusive OS-SS, Truth-level
   OS-SS_Dplus_Kpipi:
     regions:
       - el_minus_Dplus_OS_Kpipi
@@ -38,377 +38,351 @@ channels:
       - -mu_plus_Dplus_SS_Kpipi
     samples:
       - MG_Wjets
-      - Sherpa_Wjets
-      # - Sherpa2211_Wjets
-      # - Powheg_Wjets
-      # - MGFxFx_Wjets
-    label:
-      - W#rightarrowl#nu+D, D#rightarrowK#pi#pi
-      - inclusive OS-SS
-  OS-SS_lep_minus_Dplus:
-    regions:
-      - el_minus_Dplus_OS
-      - -el_minus_Dplus_SS
-      - mu_minus_Dplus_OS
-      - -mu_minus_Dplus_SS
-    samples:
-      - MG_Wjets
-      # - Sherpa2211_Wjets
-      # - Powheg_Wjets
+      - MGPy8EG_NLO_WplusD
+      - Sherpa2211_WplusD
+      - Sherpa2211_Wjets
       # - Sherpa_Wjets
-      # - MGFxFx_Wjets
     label:
       - W#rightarrowl#nu+D, D#rightarrowK#pi#pi
-      - lep_minus OS-SS
-  OS-SS_lep_plus_Dplus:
-    regions:
-      - el_plus_Dplus_OS
-      - -el_plus_Dplus_SS
-      - mu_minus_Dplus_OS
-      - -mu_minus_Dplus_SS
-    samples:
-      - MG_Wjets
-      # - Sherpa2211_Wjets
-      # - Powheg_Wjets
-      # - Sherpa_Wjets
-      # - MGFxFx_Wjets
-    label:
-      - W#rightarrowl#nu+D, D#rightarrowK#pi#pi
-      - lep_plus OS-SS
-  OS-SS_lep_minus_Dplus_Kpipi:
-    regions:
-      - el_minus_Dplus_OS_Kpipi
-      - -el_minus_Dplus_SS_Kpipi
-      - mu_minus_Dplus_OS_Kpipi
-      - -mu_minus_Dplus_SS_Kpipi
-    samples:
-      - MG_Wjets
-      # - Sherpa2211_Wjets
-      # - Powheg_Wjets
-      # - Sherpa_Wjets
-      # - MGFxFx_Wjets
-    label:
-      - W#rightarrowl#nu+D, D#rightarrowK#pi#pi
-      - lep_minus OS-SS
-  OS-SS_lep_plus_Dplus_Kpipi:
-    regions:
-      - el_plus_Dplus_OS_Kpipi
-      - -el_plus_Dplus_SS_Kpipi
-      - mu_plus_Dplus_OS_Kpipi
-      - -mu_plus_Dplus_SS_Kpipi
-    samples:
-      - MG_Wjets
-      # - Sherpa2211_Wjets
-      # - Powheg_Wjets
-      # - Sherpa_Wjets
-      # - MGFxFx_Wjets
-    label:
-      - W#rightarrowl#nu+D, D#rightarrowK#pi#pi
-      - lep_plus OS-SS
-  OS-SS_el_minus_Dplus:
-    regions:
-      - el_minus_Dplus_OS
-      - -el_minus_Dplus_SS
-    samples:
-      - MG_Wjets
-      # - Sherpa2211_Wjets
-      # - Powheg_Wjets
-      # - Sherpa_Wjets
-      # - MGFxFx_Wjets
-    label:
-      - W#rightarrowl#nu+D, D#rightarrowK#pi#pi
-      - el_minus OS-SS
-  OS-SS_el_plus_Dplus:
-    regions:
-      - el_plus_Dplus_OS
-      - -el_plus_Dplus_SS
-    samples:
-      - MG_Wjets
-      # - Sherpa2211_Wjets
-      # - Powheg_Wjets
-      # - Sherpa_Wjets
-      # - MGFxFx_Wjets
-    label:
-      - W#rightarrowl#nu+D, D#rightarrowK#pi#pi
-      - el_plus OS-SS
-  OS-SS_el_minus_Dplus_Kpipi:
-    regions:
-      - el_minus_Dplus_OS_Kpipi
-      - -el_minus_Dplus_SS_Kpipi
-    samples:
-      - MG_Wjets
-      # - Sherpa2211_Wjets
-      # - Powheg_Wjets
-      # - Sherpa_Wjets
-      # - MGFxFx_Wjets
-    label:
-      - W#rightarrowl#nu+D, D#rightarrowK#pi#pi
-      - el_minus OS-SS
-  OS-SS_el_plus_Dplus_Kpipi:
-    regions:
-      - el_plus_Dplus_OS_Kpipi
-      - -el_plus_Dplus_SS_Kpipi
-    samples:
-      - MG_Wjets
-      # - Sherpa2211_Wjets
-      # - Powheg_Wjets
-      # - Sherpa_Wjets
-      # - MGFxFx_Wjets
-    label:
-      - W#rightarrowl#nu+D, D#rightarrowK#pi#pi
-      - el_plus OS-SS
-  OS-SS_mu_minus_Dplus:
-    regions:
-      - mu_minus_Dplus_OS
-      - -mu_minus_Dplus_SS
-    samples:
-      - MG_Wjets
-      # - Sherpa2211_Wjets
-      # - Powheg_Wjets
-      # - Sherpa_Wjets
-      # - MGFxFx_Wjets
-    label:
-      - W#rightarrowl#nu+D, D#rightarrowK#pi#pi
-      - mu_minus OS-SS
-  OS-SS_mu_plus_Dplus:
-    regions:
-      - mu_plus_Dplus_OS
-      - -mu_plus_Dplus_SS
-    samples:
-      - MG_Wjets
-      # - Sherpa2211_Wjets
-      # - Powheg_Wjets
-      # - Sherpa_Wjets
-      # - MGFxFx_Wjets
-    label:
-      - W#rightarrowl#nu+D, D#rightarrowK#pi#pi
-      - mu_plus OS-SS
-  OS-SS_mu_minus_Dplus_Kpipi:
-    regions:
-      - mu_minus_Dplus_OS_Kpipi
-      - -mu_minus_Dplus_SS_Kpipi
-    samples:
-      - MG_Wjets
-      # - Sherpa2211_Wjets
-      # - Powheg_Wjets
-      # - Sherpa_Wjets
-      # - MGFxFx_Wjets
-    label:
-      - W#rightarrowl#nu+D, D#rightarrowK#pi#pi
-      - mu_minus OS-SS
-  OS-SS_mu_plus_Dplus_Kpipi:
-    regions:
-      - mu_plus_Dplus_OS_Kpipi
-      - -mu_plus_Dplus_SS_Kpipi
-    samples:
-      - MG_Wjets
-      # - Sherpa2211_Wjets
-      # - Powheg_Wjets
-      # - Sherpa_Wjets
-      # - MGFxFx_Wjets
-    label:
-      - W#rightarrowl#nu+D, D#rightarrowK#pi#pi
-      - mu_plus OS-SS
+      - inclusive OS-SS, Truth-level
+  # OS-SS_lep_minus_Dplus:
+  #   regions:
+  #     - el_minus_Dplus_OS
+  #     - -el_minus_Dplus_SS
+  #     - mu_minus_Dplus_OS
+  #     - -mu_minus_Dplus_SS
+  #   samples:
+  #     - MG_Wjets
+  #     # - Sherpa_Wjets
+  #     - Sherpa2211_WplusD
+  #     - MGPy8EG_NLO_WplusD
+  #   label:
+  #     - W#rightarrowl#nu+D
+  #     - W^{-} OS-SS, Truth-level
+  # OS-SS_lep_plus_Dplus:
+  #   regions:
+  #     - el_plus_Dplus_OS
+  #     - -el_plus_Dplus_SS
+  #     - mu_minus_Dplus_OS
+  #     - -mu_minus_Dplus_SS
+  #   samples:
+  #     - MG_Wjets
+  #     # - Sherpa_Wjets
+  #     - Sherpa2211_WplusD
+  #     - MGPy8EG_NLO_WplusD
+  #   label:
+  #     - W#rightarrowl#nu+D
+  #     - W^{+} OS-SS, Truth-level
+  # OS-SS_lep_minus_Dplus_Kpipi:
+  #   regions:
+  #     - el_minus_Dplus_OS_Kpipi
+  #     - -el_minus_Dplus_SS_Kpipi
+  #     - mu_minus_Dplus_OS_Kpipi
+  #     - -mu_minus_Dplus_SS_Kpipi
+  #   samples:
+  #     - MG_Wjets
+  #     # - Sherpa_Wjets
+  #     - Sherpa2211_WplusD
+  #     - MGPy8EG_NLO_WplusD
+  #   label:
+  #     - W#rightarrowl#nu+D, D#rightarrowK#pi#pi
+  #     - W^{-} OS-SS, Truth-level
+  # OS-SS_lep_plus_Dplus_Kpipi:
+  #   regions:
+  #     - el_plus_Dplus_OS_Kpipi
+  #     - -el_plus_Dplus_SS_Kpipi
+  #     - mu_plus_Dplus_OS_Kpipi
+  #     - -mu_plus_Dplus_SS_Kpipi
+  #   samples:
+  #     - MG_Wjets
+  #     # - Sherpa_Wjets
+  #     - Sherpa2211_WplusD
+  #     - MGPy8EG_NLO_WplusD
+  #   label:
+  #     - W#rightarrowl#nu+D, D#rightarrowK#pi#pi
+  #     - W^{+} OS-SS, Truth-level
+  # OS-SS_el_minus_Dplus:
+  #   regions:
+  #     - el_minus_Dplus_OS
+  #     - -el_minus_Dplus_SS
+  #   samples:
+  #     - MG_Wjets
+  #     # - Sherpa_Wjets
+  #     - Sherpa2211_WplusD
+  #     - MGPy8EG_NLO_WplusD
+  #   label:
+  #     - W#rightarrowl#nu+D
+  #     - el_minus OS-SS, Truth-level
+  # OS-SS_el_plus_Dplus:
+  #   regions:
+  #     - el_plus_Dplus_OS
+  #     - -el_plus_Dplus_SS
+  #   samples:
+  #     - MG_Wjets
+  #     # - Sherpa_Wjets
+  #     - Sherpa2211_WplusD
+  #     - MGPy8EG_NLO_WplusD
+  #   label:
+  #     - W#rightarrowl#nu+D
+  #     - el_plus OS-SS, Truth-level
+  # OS-SS_el_minus_Dplus_Kpipi:
+  #   regions:
+  #     - el_minus_Dplus_OS_Kpipi
+  #     - -el_minus_Dplus_SS_Kpipi
+  #   samples:
+  #     - MG_Wjets
+  #     # - Sherpa_Wjets
+  #     - Sherpa2211_WplusD
+  #     - MGPy8EG_NLO_WplusD
+  #   label:
+  #     - W#rightarrowl#nu+D, D#rightarrowK#pi#pi
+  #     - el_minus OS-SS, Truth-level
+  # OS-SS_el_plus_Dplus_Kpipi:
+  #   regions:
+  #     - el_plus_Dplus_OS_Kpipi
+  #     - -el_plus_Dplus_SS_Kpipi
+  #   samples:
+  #     - MG_Wjets
+  #     # - Sherpa_Wjets
+  #     - Sherpa2211_WplusD
+  #     - MGPy8EG_NLO_WplusD
+  #   label:
+  #     - W#rightarrowl#nu+D, D#rightarrowK#pi#pi
+  #     - el_plus OS-SS, Truth-level
+  # OS-SS_mu_minus_Dplus:
+  #   regions:
+  #     - mu_minus_Dplus_OS
+  #     - -mu_minus_Dplus_SS
+  #   samples:
+  #     - MG_Wjets
+  #     # - Sherpa_Wjets
+  #     - Sherpa2211_WplusD
+  #     - MGPy8EG_NLO_WplusD
+  #   label:
+  #     - W#rightarrowl#nu+D
+  #     - mu_minus OS-SS, Truth-level
+  # OS-SS_mu_plus_Dplus:
+  #   regions:
+  #     - mu_plus_Dplus_OS
+  #     - -mu_plus_Dplus_SS
+  #   samples:
+  #     - MG_Wjets
+  #     # - Sherpa_Wjets
+  #     - Sherpa2211_WplusD
+  #     - MGPy8EG_NLO_WplusD
+  #   label:
+  #     - W#rightarrowl#nu+D
+  #     - mu_plus OS-SS, Truth-level
+  # OS-SS_mu_minus_Dplus_Kpipi:
+  #   regions:
+  #     - mu_minus_Dplus_OS_Kpipi
+  #     - -mu_minus_Dplus_SS_Kpipi
+  #   samples:
+  #     - MG_Wjets
+  #     # - Sherpa_Wjets
+  #     - Sherpa2211_WplusD
+  #     - MGPy8EG_NLO_WplusD
+  #   label:
+  #     - W#rightarrowl#nu+D, D#rightarrowK#pi#pi
+  #     - mu_minus OS-SS, Truth-level
+  # OS-SS_mu_plus_Dplus_Kpipi:
+  #   regions:
+  #     - mu_plus_Dplus_OS_Kpipi
+  #     - -mu_plus_Dplus_SS_Kpipi
+  #   samples:
+  #     - MG_Wjets
+  #     # - Sherpa_Wjets
+  #     - Sherpa2211_WplusD
+  #     - MGPy8EG_NLO_WplusD
+  #   label:
+  #     - W#rightarrowl#nu+D, D#rightarrowK#pi#pi
+  #     - mu_plus OS-SS, Truth-level
 
-  OS-SS_Dstar:
-    regions:
-      - el_minus_Dstar_OS
-      - el_plus_Dstar_OS
-      - mu_minus_Dstar_OS
-      - mu_plus_Dstar_OS
-      - -el_minus_Dstar_SS
-      - -el_plus_Dstar_SS
-      - -mu_minus_Dstar_SS
-      - -mu_plus_Dstar_SS
-    samples:
-      - MG_Wjets
-      - Sherpa_Wjets
-      # - Sherpa2211_Wjets
-      # - Powheg_Wjets
-      # - MGFxFx_Wjets
-    label:
-      - W#rightarrowl#nu+D, D#rightarrowK#pi#pi
-      - inclusive OS-SS
-  OS-SS_Dstar_Kpipi:
-    regions:
-      - el_minus_Dstar_OS_Kpipi
-      - el_plus_Dstar_OS_Kpipi
-      - mu_minus_Dstar_OS_Kpipi
-      - mu_plus_Dstar_OS_Kpipi
-      - -el_minus_Dstar_SS_Kpipi
-      - -el_plus_Dstar_SS_Kpipi
-      - -mu_minus_Dstar_SS_Kpipi
-      - -mu_plus_Dstar_SS_Kpipi
-    samples:
-      - MG_Wjets
-      - Sherpa_Wjets
-      # - Sherpa2211_Wjets
-      # - Powheg_Wjets
-      # - MGFxFx_Wjets
-    label:
-      - W#rightarrowl#nu+D, D#rightarrowK#pi#pi
-      - inclusive OS-SS
-  OS-SS_lep_minus_Dstar:
-    regions:
-      - el_minus_Dstar_OS
-      - -el_minus_Dstar_SS
-      - mu_minus_Dstar_OS
-      - -mu_minus_Dstar_SS
-    samples:
-      - MG_Wjets
-      # - Sherpa2211_Wjets
-      # - Powheg_Wjets
-      # - Sherpa_Wjets
-      # - MGFxFx_Wjets
-    label:
-      - W#rightarrowl#nu+D, D#rightarrowK#pi#pi
-      - lep_minus OS-SS
-  OS-SS_lep_plus_Dstar:
-    regions:
-      - el_plus_Dstar_OS
-      - -el_plus_Dstar_SS
-      - mu_minus_Dstar_OS
-      - -mu_minus_Dstar_SS
-    samples:
-      - MG_Wjets
-      # - Sherpa2211_Wjets
-      # - Powheg_Wjets
-      # - Sherpa_Wjets
-      # - MGFxFx_Wjets
-    label:
-      - W#rightarrowl#nu+D, D#rightarrowK#pi#pi
-      - lep_plus OS-SS
-  OS-SS_lep_minus_Dstar_Kpipi:
-    regions:
-      - el_minus_Dstar_OS_Kpipi
-      - -el_minus_Dstar_SS_Kpipi
-      - mu_minus_Dstar_OS_Kpipi
-      - -mu_minus_Dstar_SS_Kpipi
-    samples:
-      - MG_Wjets
-      # - Sherpa2211_Wjets
-      # - Powheg_Wjets
-      # - Sherpa_Wjets
-      # - MGFxFx_Wjets
-    label:
-      - W#rightarrowl#nu+D, D#rightarrowK#pi#pi
-      - lep_minus OS-SS
-  OS-SS_lep_plus_Dstar_Kpipi:
-    regions:
-      - el_plus_Dstar_OS_Kpipi
-      - -el_plus_Dstar_SS_Kpipi
-      - mu_plus_Dstar_OS_Kpipi
-      - -mu_plus_Dstar_SS_Kpipi
-    samples:
-      - MG_Wjets
-      # - Sherpa2211_Wjets
-      # - Powheg_Wjets
-      # - Sherpa_Wjets
-      # - MGFxFx_Wjets
-    label:
-      - W#rightarrowl#nu+D, D#rightarrowK#pi#pi
-      - lep_plus OS-SS
-  OS-SS_el_minus_Dstar:
-    regions:
-      - el_minus_Dstar_OS
-      - -el_minus_Dstar_SS
-    samples:
-      - MG_Wjets
-      # - Sherpa2211_Wjets
-      # - Powheg_Wjets
-      # - Sherpa_Wjets
-      # - MGFxFx_Wjets
-    label:
-      - W#rightarrowl#nu+D, D#rightarrowK#pi#pi
-      - el_minus OS-SS
-  OS-SS_el_plus_Dstar:
-    regions:
-      - el_plus_Dstar_OS
-      - -el_plus_Dstar_SS
-    samples:
-      - MG_Wjets
-      # - Sherpa2211_Wjets
-      # - Powheg_Wjets
-      # - Sherpa_Wjets
-      # - MGFxFx_Wjets
-    label:
-      - W#rightarrowl#nu+D, D#rightarrowK#pi#pi
-      - el_plus OS-SS
-  OS-SS_el_minus_Dstar_Kpipi:
-    regions:
-      - el_minus_Dstar_OS_Kpipi
-      - -el_minus_Dstar_SS_Kpipi
-    samples:
-      - MG_Wjets
-      # - Powheg_Wjets
-      # - Sherpa_Wjets
-      # - Sherpa2210_Wjets
-      # - MGFxFx_Wjets
-    label:
-      - W#rightarrowl#nu+D, D#rightarrowK#pi#pi
-      - el_minus OS-SS
-  OS-SS_el_plus_Dstar_Kpipi:
-    regions:
-      - el_plus_Dstar_OS_Kpipi
-      - -el_plus_Dstar_SS_Kpipi
-    samples:
-      - MG_Wjets
-      # - Sherpa2211_Wjets
-      # - Powheg_Wjets
-      # - Sherpa_Wjets
-      # - MGFxFx_Wjets
-    label:
-      - W#rightarrowl#nu+D, D#rightarrowK#pi#pi
-      - el_plus OS-SS
-  OS-SS_mu_minus_Dstar:
-    regions:
-      - mu_minus_Dstar_OS
-      - -mu_minus_Dstar_SS
-    samples:
-      - MG_Wjets
-      # - Sherpa2211_Wjets
-      # - Powheg_Wjets
-      # - Sherpa_Wjets
-      # - MGFxFx_Wjets
-    label:
-      - W#rightarrowl#nu+D, D#rightarrowK#pi#pi
-      - mu_minus OS-SS
-  OS-SS_mu_plus_Dstar:
-    regions:
-      - mu_plus_Dstar_OS
-      - -mu_plus_Dstar_SS
-    samples:
-      - MG_Wjets
-      # - Sherpa2211_Wjets
-      # - Powheg_Wjets
-      # - Sherpa_Wjets
-      # - MGFxFx_Wjets
-    label:
-      - W#rightarrowl#nu+D, D#rightarrowK#pi#pi
-      - mu_plus OS-SS
-  OS-SS_mu_minus_Dstar_Kpipi:
-    regions:
-      - mu_minus_Dstar_OS_Kpipi
-      - -mu_minus_Dstar_SS_Kpipi
-    samples:
-      - MG_Wjets
-      # - Sherpa2211_Wjets
-      # - Powheg_Wjets
-      # - Sherpa_Wjets
-      # - MGFxFx_Wjets
-    label:
-      - W#rightarrowl#nu+D, D#rightarrowK#pi#pi
-      - mu_minus OS-SS
-  OS-SS_mu_plus_Dstar_Kpipi:
-    regions:
-      - mu_plus_Dstar_OS_Kpipi
-      - -mu_plus_Dstar_SS_Kpipi
-    samples:
-      - MG_Wjets
-      # - Sherpa2211_Wjets
-      # - Powheg_Wjets
-      # - Sherpa_Wjets
-      # - MGFxFx_Wjets
-    label:
-      - W#rightarrowl#nu+D, D#rightarrowK#pi#pi
-      - mu_plus OS-SS
+  # OS-SS_Dstar:
+  #   regions:
+  #     - el_minus_Dstar_OS
+  #     - el_plus_Dstar_OS
+  #     - mu_minus_Dstar_OS
+  #     - mu_plus_Dstar_OS
+  #     - -el_minus_Dstar_SS
+  #     - -el_plus_Dstar_SS
+  #     - -mu_minus_Dstar_SS
+  #     - -mu_plus_Dstar_SS
+  #   samples:
+  #     - MG_Wjets
+  #     # - Sherpa_Wjets
+  #     - Sherpa2211_WplusD
+  #     - MGPy8EG_NLO_WplusD
+  #   label:
+  #     - W#rightarrowl#nu+D
+  #     - inclusive OS-SS, Truth-level
+  # OS-SS_Dstar_Kpipi:
+  #   regions:
+  #     - el_minus_Dstar_OS_Kpipi
+  #     - el_plus_Dstar_OS_Kpipi
+  #     - mu_minus_Dstar_OS_Kpipi
+  #     - mu_plus_Dstar_OS_Kpipi
+  #     - -el_minus_Dstar_SS_Kpipi
+  #     - -el_plus_Dstar_SS_Kpipi
+  #     - -mu_minus_Dstar_SS_Kpipi
+  #     - -mu_plus_Dstar_SS_Kpipi
+  #   samples:
+  #     - MG_Wjets
+  #     # - Sherpa_Wjets
+  #     - Sherpa2211_WplusD
+  #     - MGPy8EG_NLO_WplusD
+  #   label:
+  #     - W#rightarrowl#nu+D, D#rightarrowK#pi#pi
+  #     - inclusive OS-SS, Truth-level
+  # OS-SS_lep_minus_Dstar:
+  #   regions:
+  #     - el_minus_Dstar_OS
+  #     - -el_minus_Dstar_SS
+  #     - mu_minus_Dstar_OS
+  #     - -mu_minus_Dstar_SS
+  #   samples:
+  #     - MG_Wjets
+  #     # - Sherpa_Wjets
+  #     - Sherpa2211_WplusD
+  #     - MGPy8EG_NLO_WplusD
+  #   label:
+  #     - W#rightarrowl#nu+D
+  #     - lep_minus OS-SS, Truth-level
+  # OS-SS_lep_plus_Dstar:
+  #   regions:
+  #     - el_plus_Dstar_OS
+  #     - -el_plus_Dstar_SS
+  #     - mu_minus_Dstar_OS
+  #     - -mu_minus_Dstar_SS
+  #   samples:
+  #     - MG_Wjets
+  #     # - Sherpa_Wjets
+  #     - Sherpa2211_WplusD
+  #     - MGPy8EG_NLO_WplusD
+  #   label:
+  #     - W#rightarrowl#nu+D
+  #     - lep_plus OS-SS, Truth-level
+  # OS-SS_lep_minus_Dstar_Kpipi:
+  #   regions:
+  #     - el_minus_Dstar_OS_Kpipi
+  #     - -el_minus_Dstar_SS_Kpipi
+  #     - mu_minus_Dstar_OS_Kpipi
+  #     - -mu_minus_Dstar_SS_Kpipi
+  #   samples:
+  #     - MG_Wjets
+  #     # - Sherpa_Wjets
+  #     - Sherpa2211_WplusD
+  #     - MGPy8EG_NLO_WplusD
+  #   label:
+  #     - W#rightarrowl#nu+D, D#rightarrowK#pi#pi
+  #     - lep_minus OS-SS, Truth-level
+  # OS-SS_lep_plus_Dstar_Kpipi:
+  #   regions:
+  #     - el_plus_Dstar_OS_Kpipi
+  #     - -el_plus_Dstar_SS_Kpipi
+  #     - mu_plus_Dstar_OS_Kpipi
+  #     - -mu_plus_Dstar_SS_Kpipi
+  #   samples:
+  #     - MG_Wjets
+  #     # - Sherpa_Wjets
+  #     - Sherpa2211_WplusD
+  #     - MGPy8EG_NLO_WplusD
+  #   label:
+  #     - W#rightarrowl#nu+D, D#rightarrowK#pi#pi
+  #     - lep_plus OS-SS, Truth-level
+  # OS-SS_el_minus_Dstar:
+  #   regions:
+  #     - el_minus_Dstar_OS
+  #     - -el_minus_Dstar_SS
+  #   samples:
+  #     - MG_Wjets
+  #     # - Sherpa_Wjets
+  #     - Sherpa2211_WplusD
+  #     - MGPy8EG_NLO_WplusD
+  #   label:
+  #     - W#rightarrowl#nu+D
+  #     - el_minus OS-SS, Truth-level
+  # OS-SS_el_plus_Dstar:
+  #   regions:
+  #     - el_plus_Dstar_OS
+  #     - -el_plus_Dstar_SS
+  #   samples:
+  #     - MG_Wjets
+  #     # - Sherpa_Wjets
+  #     - Sherpa2211_WplusD
+  #     - MGPy8EG_NLO_WplusD
+  #   label:
+  #     - W#rightarrowl#nu+D
+  #     - el_plus OS-SS, Truth-level
+  # OS-SS_el_minus_Dstar_Kpipi:
+  #   regions:
+  #     - el_minus_Dstar_OS_Kpipi
+  #     - -el_minus_Dstar_SS_Kpipi
+  #   samples:
+  #     - MG_Wjets
+  #     # - Sherpa_Wjets
+  #     - Sherpa2211_WplusD
+  #     - MGPy8EG_NLO_WplusD
+  #   label:
+  #     - W#rightarrowl#nu+D, D#rightarrowK#pi#pi
+  #     - el_minus OS-SS, Truth-level
+  # OS-SS_el_plus_Dstar_Kpipi:
+  #   regions:
+  #     - el_plus_Dstar_OS_Kpipi
+  #     - -el_plus_Dstar_SS_Kpipi
+  #   samples:
+  #     - MG_Wjets
+  #     # - Sherpa_Wjets
+  #     - Sherpa2211_WplusD
+  #     - MGPy8EG_NLO_WplusD
+  #   label:
+  #     - W#rightarrowl#nu+D, D#rightarrowK#pi#pi
+  #     - el_plus OS-SS, Truth-level
+  # OS-SS_mu_minus_Dstar:
+  #   regions:
+  #     - mu_minus_Dstar_OS
+  #     - -mu_minus_Dstar_SS
+  #   samples:
+  #     - MG_Wjets
+  #     # - Sherpa_Wjets
+  #     - Sherpa2211_WplusD
+  #     - MGPy8EG_NLO_WplusD
+  #   label:
+  #     - W#rightarrowl#nu+D
+  #     - mu_minus OS-SS, Truth-level
+  # OS-SS_mu_plus_Dstar:
+  #   regions:
+  #     - mu_plus_Dstar_OS
+  #     - -mu_plus_Dstar_SS
+  #   samples:
+  #     - MG_Wjets
+  #     # - Sherpa_Wjets
+  #     - Sherpa2211_WplusD
+  #     - MGPy8EG_NLO_WplusD
+  #   label:
+  #     - W#rightarrowl#nu+D
+  #     - mu_plus OS-SS, Truth-level
+  # OS-SS_mu_minus_Dstar_Kpipi:
+  #   regions:
+  #     - mu_minus_Dstar_OS_Kpipi
+  #     - -mu_minus_Dstar_SS_Kpipi
+  #   samples:
+  #     - MG_Wjets
+  #     # - Sherpa_Wjets
+  #     - Sherpa2211_WplusD
+  #     - MGPy8EG_NLO_WplusD
+  #   label:
+  #     - W#rightarrowl#nu+D, D#rightarrowK#pi#pi
+  #     - mu_minus OS-SS, Truth-level
+  # OS-SS_mu_plus_Dstar_Kpipi:
+  #   regions:
+  #     - mu_plus_Dstar_OS_Kpipi
+  #     - -mu_plus_Dstar_SS_Kpipi
+  #   samples:
+  #     - MG_Wjets
+  #     # - Sherpa_Wjets
+  #     - Sherpa2211_WplusD
+  #     - MGPy8EG_NLO_WplusD
+  #   label:
+  #     - W#rightarrowl#nu+D, D#rightarrowK#pi#pi
+  #     - mu_plus OS-SS, Truth-level
