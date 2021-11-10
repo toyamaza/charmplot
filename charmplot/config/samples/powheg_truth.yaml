@@ -70,6 +70,7 @@ Wjets_emu_Matched:
 Wjets_emu_Rest:
   add:
     - Ph_Wjets_emu
+    - Ph_Wjets_tau
   subtract:
   fillColor: "10001"
   legendLabel: "W+#it{D}"
@@ -94,6 +95,7 @@ Wjets_emu_HardMisMatched:
 Wjets_emu_Rest:
   add:
     - Ph_Wjets_emu
+    - Ph_Wjets_tau
   subtract:
   fillColor: "10000"
   legendLabel: "W+jets"

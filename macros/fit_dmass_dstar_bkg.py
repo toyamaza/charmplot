@@ -26,12 +26,24 @@ names = [
     "Wjets_emu_Rest_PostProc_OS_0tag_Dstar_Wjets_emu_Rest_pt_bin3_Dmeson_mdiff",
     "Wjets_emu_Rest_PostProc_OS_0tag_Dstar_Wjets_emu_Rest_pt_bin4_Dmeson_mdiff",
     "Wjets_emu_Rest_PostProc_OS_0tag_Dstar_Wjets_emu_Rest_pt_bin5_Dmeson_mdiff",
-    "Sherpa_Wjets_emu_Rest_PostProc_OS_0tag_Dstar_Wjets_emu_Rest_Dmeson_mdiff",
-    "Sherpa_Wjets_emu_Rest_PostProc_OS_0tag_Dstar_Wjets_emu_Rest_pt_bin1_Dmeson_mdiff",
-    "Sherpa_Wjets_emu_Rest_PostProc_OS_0tag_Dstar_Wjets_emu_Rest_pt_bin2_Dmeson_mdiff",
-    "Sherpa_Wjets_emu_Rest_PostProc_OS_0tag_Dstar_Wjets_emu_Rest_pt_bin3_Dmeson_mdiff",
-    "Sherpa_Wjets_emu_Rest_PostProc_OS_0tag_Dstar_Wjets_emu_Rest_pt_bin4_Dmeson_mdiff",
-    "Sherpa_Wjets_emu_Rest_PostProc_OS_0tag_Dstar_Wjets_emu_Rest_pt_bin5_Dmeson_mdiff",
+    "Wjets_emu_Rest_PostProc_Loose_OS_0tag_Dstar_Wjets_emu_Rest_Dmeson_mdiff",
+    "Wjets_emu_Rest_PostProc_Loose_OS_0tag_Dstar_Wjets_emu_Rest_pt_bin1_Dmeson_mdiff",
+    "Wjets_emu_Rest_PostProc_Loose_OS_0tag_Dstar_Wjets_emu_Rest_pt_bin2_Dmeson_mdiff",
+    "Wjets_emu_Rest_PostProc_Loose_OS_0tag_Dstar_Wjets_emu_Rest_pt_bin3_Dmeson_mdiff",
+    "Wjets_emu_Rest_PostProc_Loose_OS_0tag_Dstar_Wjets_emu_Rest_pt_bin4_Dmeson_mdiff",
+    "Wjets_emu_Rest_PostProc_Loose_OS_0tag_Dstar_Wjets_emu_Rest_pt_bin5_Dmeson_mdiff",
+    # "Sherpa_Wjets_emu_Rest_PostProc_OS_0tag_Dstar_Wjets_emu_Rest_Dmeson_mdiff",
+    # "Sherpa_Wjets_emu_Rest_PostProc_OS_0tag_Dstar_Wjets_emu_Rest_pt_bin1_Dmeson_mdiff",
+    # "Sherpa_Wjets_emu_Rest_PostProc_OS_0tag_Dstar_Wjets_emu_Rest_pt_bin2_Dmeson_mdiff",
+    # "Sherpa_Wjets_emu_Rest_PostProc_OS_0tag_Dstar_Wjets_emu_Rest_pt_bin3_Dmeson_mdiff",
+    # "Sherpa_Wjets_emu_Rest_PostProc_OS_0tag_Dstar_Wjets_emu_Rest_pt_bin4_Dmeson_mdiff",
+    # "Sherpa_Wjets_emu_Rest_PostProc_OS_0tag_Dstar_Wjets_emu_Rest_pt_bin5_Dmeson_mdiff",
+    # "Powheg_Wjets_emu_Rest_PostProc_OS_0tag_Dstar_Wjets_emu_Rest_Dmeson_mdiff",
+    # "Powheg_Wjets_emu_Rest_PostProc_OS_0tag_Dstar_Wjets_emu_Rest_pt_bin1_Dmeson_mdiff",
+    # "Powheg_Wjets_emu_Rest_PostProc_OS_0tag_Dstar_Wjets_emu_Rest_pt_bin2_Dmeson_mdiff",
+    # "Powheg_Wjets_emu_Rest_PostProc_OS_0tag_Dstar_Wjets_emu_Rest_pt_bin3_Dmeson_mdiff",
+    # "Powheg_Wjets_emu_Rest_PostProc_OS_0tag_Dstar_Wjets_emu_Rest_pt_bin4_Dmeson_mdiff",
+    # "Powheg_Wjets_emu_Rest_PostProc_OS_0tag_Dstar_Wjets_emu_Rest_pt_bin5_Dmeson_mdiff",
 ]
 
 
@@ -45,6 +57,7 @@ def main(options, args):
     out_gen = ROOT.TFile("wjets_bkg_fit.root", "RECREATE")
     out_var = ROOT.TFile("wjets_bkg_fit_var.root", "RECREATE")
     out_sherpa = ROOT.TFile("sherpa_wjets_bkg_fit.root", "RECREATE")
+    out_powheg = ROOT.TFile("powheg_wjets_bkg_fit.root", "RECREATE")
 
     # Create pdf
     ROOT.RooClassFactory.makePdf("bkg_pdf", "x,a0,a1,a2", "", "a0+a1*log(x-a2)")
@@ -64,12 +77,29 @@ def main(options, args):
         else:
             pt_bin = ''
 
+        # Get pt bin
+        if re.search("pt_bin", name):
+            pt_bin = (name.split("_Dmeson")[0]).split("Rest_")[-1]
+        else:
+            pt_bin = ''
+
         # Get Sherpa or Madgraph
         if re.search("Sherpa", name):
             sherpa = True
-            sh_string = "Sherpa_"
+            powheg = False
+            mc_string = "Sherpa_"
+        elif re.search("Powheg", name):
+            powheg = True
+            sherpa = False
+            mc_string = "Powheg_"
         else:
             sherpa = False
+            powheg = False
+
+        if re.search("Loose", name):
+            loose = True
+        else:
+            loose = False
 
         # Get the histogram
         f.cd()
@@ -110,7 +140,6 @@ def main(options, args):
         # Extract covariance and correlation matrix as ROOT.TMatrixDSym
         cor = fit_result.correlationMatrix()
         cov = fit_result.covarianceMatrix()
-
         # Print correlation, matrix
         print("correlation matrix")
         cor.Print()
@@ -222,14 +251,21 @@ def main(options, args):
         ROOT.myText(0.17, 0.9 - 4 * 0.06, 1, (name.split("_Dmeson_mdiff")[0]).split("Dstar_")[-1])
         if sherpa:
             out_sherpa.cd()
+        elif powheg:
+            out_powheg.cd()
         else:
             out_gen.cd()
 
-        if sherpa:
+        if sherpa or powheg:
             if pt_bin:
-                h_gen.Write(f"{sh_string}Wjets_emu_Rest_Fit_{pt_bin}__Dmeson_mdiff")
+                h_gen.Write(f"{mc_string}Wjets_emu_Rest_Fit_{pt_bin}__Dmeson_mdiff")
             else:
-                h_gen.Write(f"{sh_string}Wjets_emu_Rest_Fit__Dmeson_mdiff")
+                h_gen.Write(f"{mc_string}Wjets_emu_Rest_Fit__Dmeson_mdiff")
+        elif loose:
+            if pt_bin:
+                h_gen.Write(f"Wjets_emu_Rest_Fit_Loose_{pt_bin}__Dmeson_mdiff")
+            else:
+                h_gen.Write("Wjets_emu_Rest_Fit_Loose__Dmeson_mdiff")
         else:
             if pt_bin:
                 h_gen.Write(f"Wjets_emu_Rest_Fit_{pt_bin}__Dmeson_mdiff")
@@ -253,12 +289,12 @@ def main(options, args):
         ROOT.myText(0.17, 0.9 - 3 * 0.06, 1, (name.split("_Wjets")[0]).split("PostProc_")[-1])
         ROOT.myText(0.17, 0.9 - 4 * 0.06, 1, (name.split("_Dmeson_mdiff")[0]).split("Dstar_")[-1])
         out_var.cd()
-        if sherpa:
+        if sherpa or powheg:
             if pt_bin:
-                h_var_up.Write(f"{sh_string}Wjets_emu_Rest_Fit_{pt_bin}__Dmeson_mdiff")
+                h_var_up.Write(f"{mc_string}Wjets_emu_Rest_Fit_{pt_bin}__Dmeson_mdiff")
             else:
-                h_var_up.Write(f"{sh_string}Wjets_emu_Rest_Fit__Dmeson_mdiff")
-        else:
+                h_var_up.Write(f"{mc_string}Wjets_emu_Rest_Fit__Dmeson_mdiff")
+        elif not loose:
             if pt_bin:
                 h_var_up.Write(f"Wjets_emu_Rest_Fit_{pt_bin}__Dmeson_mdiff")
             else:
@@ -274,6 +310,7 @@ def main(options, args):
     out_var.Close()
     out_gen.Close()
     out_sherpa.Close()
+    out_powheg.Close()
     out.Close()
     f.Close()
 

@@ -252,7 +252,6 @@ Other:
   add:
     - Diboson
     - MG_Zjets_tau
-    - MG_Wjets_tau
   subtract:
   fillColor: "15000"
   legendLabel: Other
