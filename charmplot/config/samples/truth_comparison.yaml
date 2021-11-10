@@ -15,6 +15,7 @@ MG_Wjets_emu_Rest:
     - MG_Wjets_light_emu
     - MG_Wjets_cjets_emu
     - MG_Wjets_bjets_emu
+    - MG_Wjets_tau
   subtract:
   lineColor: "14004"
   legendLabel: "MG W+jets"
@@ -32,6 +33,7 @@ Ph_Wjets_emu_Matched:
 Ph_Wjets_emu_Rest:
   add:
     - Ph_Wjets_emu
+    - Ph_Wjets_tau
   subtract:
   lineColor: "14001"
   legendLabel: "Ph W+jets"

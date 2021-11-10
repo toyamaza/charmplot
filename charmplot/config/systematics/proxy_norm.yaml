@@ -1,7 +1,7 @@
 type: overall
 size: 0.01
 affecting:
-  - DibosonZjetsTau
+  - DibosonZjets
   - Multijet_MatrixMethod
   - Top
   - Wjets_emu_411MisMatched

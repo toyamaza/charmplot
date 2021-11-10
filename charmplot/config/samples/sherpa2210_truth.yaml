@@ -41,7 +41,6 @@ Other:
   add:
     - Diboson
     - Sh_2210_Zjets_tau
-    - Sh_2210_Wjets_tau
   fillColor: '15000'
   legendLabel: Other
   shortName: Other
@@ -110,6 +109,7 @@ Wjets_emu_NoMatch:
     - Sh_2210_Wjets_light_emu
     - Sh_2210_Wjets_cjets_emu
     - Sh_2210_Wjets_bjets_emu
+    - Sh_2210_Wjets_tau
     - Top_ttbar
     - Top_single_top
     - Top_ttx
@@ -122,6 +122,7 @@ Wjets_emu_Rest:
     - Sh_2210_Wjets_light_emu
     - Sh_2210_Wjets_cjets_emu
     - Sh_2210_Wjets_bjets_emu
+    - Sh_2210_Wjets_tau
   fillColor: '10002'
   legendLabel: W+jets
   shortName: Wjets_emu_Rest

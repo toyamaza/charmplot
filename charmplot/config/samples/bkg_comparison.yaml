@@ -5,6 +5,7 @@ Wjets_emu_Rest:
     - MG_Wjets_cjets_emu
     - MG_Wjets_bjets_emu
     - MG_Wjets_light_emu
+    - MG_Wjets_tau
   subtract:
   fillColor: "11002"
   legendLabel: "W+jets"
@@ -15,6 +16,7 @@ Wjets_emu_Rest_Loose:
     - MG_Wjets_cjets_emu
     - MG_Wjets_bjets_emu
     - MG_Wjets_light_emu
+    - MG_Wjets_tau
   subtract:
   lineColor: "21000"
   legendLabel: "W+jets Loose"
@@ -25,6 +27,7 @@ Wjets_emu_MisMatched:
     - MG_Wjets_cjets_emu
     - MG_Wjets_bjets_emu
     - MG_Wjets_light_emu
+    - MG_Wjets_tau
   subtract:
   lineColor: "11004"
   legendLabel: "W+c^{mis-match}"
@@ -35,49 +38,48 @@ Wjets_emu_MisMatched_Loose:
     - MG_Wjets_cjets_emu
     - MG_Wjets_bjets_emu
     - MG_Wjets_light_emu
+    - MG_Wjets_tau
   subtract:
   lineColor: "21000"
   legendLabel: "Loose W+c^{mis-match}"
   shortName: Wjets_emu_MisMatched_Loose
 
-DibosonVjetsTau:
+DibosonZjets:
   add:
     - Diboson
     - MG_Zjets_light_emu
     - MG_Zjets_cjets_emu
     - MG_Zjets_bjets_emu
     - MG_Zjets_tau
-    - MG_Wjets_tau
   subtract:
   lineColor: "15002"
-  legendLabel: Other
-  shortName: DibosonVjetsTau
+  legendLabel: "Other"
+  shortName: DibosonZjets
 
-DibosonVjetsTau_Loose:
+DibosonZjets_Loose:
   add:
     - Diboson
     - MG_Zjets_light_emu
     - MG_Zjets_cjets_emu
     - MG_Zjets_bjets_emu
     - MG_Zjets_tau
-    - MG_Wjets_tau
   subtract:
   lineColor: "21000"
-  legendLabel: Loose Other
-  shortName: DibosonVjetsTau_Loose
+  legendLabel: "Loose Other"
+  shortName: DibosonZjets_Loose
 
 Multijet_MatrixMethod:
   add: data
   subtract:
   lineColor: "14003"
-  legendLabel: MJ
+  legendLabel: "MJ"
   shortName: Multijet_MatrixMethod
 
 Multijet_MatrixMethod_Loose:
   add: data
   subtract:
   lineColor: "21000"
-  legendLabel: Loose MJ
+  legendLabel: "Loose MJ"
   shortName: Multijet_MatrixMethod_Loose
 
 Wjets_emu_Rest_PostProc:
@@ -85,8 +87,16 @@ Wjets_emu_Rest_PostProc:
     - inclusive_bkg
   subtract:
   lineColor: "21000"
-  legendLabel: "Loose W+jets"
+  legendLabel: "Loose Inclusive W+jets"
   shortName: Wjets_emu_Rest_PostProc
+
+Wjets_emu_Rest_PostProc_Loose:
+  add:
+    - inclusive_bkg
+  subtract:
+  lineColor: "15002"
+  legendLabel: "Loose W+jets"
+  shortName: Wjets_emu_Rest_PostProc_Loose
 
 Wjets_emu_Rest_Fit:
   add:
@@ -95,6 +105,14 @@ Wjets_emu_Rest_Fit:
   lineColor: "21000"
   legendLabel: "W+jets Fit"
   shortName: Wjets_emu_Rest_Fit
+
+Wjets_emu_Rest_Fit_Loose:
+  add:
+    - wjets_bkg_fit
+  subtract:
+  lineColor: "15002"
+  legendLabel: "W+jets Fit Loose"
+  shortName: Wjets_emu_Rest_Fit_Loose
 
 Sherpa_Wjets_emu_Rest_Fit:
   add:
@@ -112,20 +130,20 @@ Wjets_emu_MisMatched_PostProc:
   legendLabel: "Loose W+c^{mis-match}"
   shortName: Wjets_emu_MisMatched_PostProc
 
-DibosonVjetsTau_PostProc:
+DibosonZjets_PostProc:
   add:
     - inclusive_bkg
   subtract:
   lineColor: "21000"
-  legendLabel: Loose Other
-  shortName: DibosonVjetsTau_Loose
+  legendLabel: "Loose Other"
+  shortName: DibosonZjets_PostProc
 
 MultiJet_PostProc:
   add:
     - inclusive_bkg
   subtract:
   lineColor: "21000"
-  legendLabel: Loose MJ
+  legendLabel: "Loose MJ"
   shortName: MultiJet_PostProc
 
 Sherpa_Wjets_emu_Rest:
@@ -134,6 +152,7 @@ Sherpa_Wjets_emu_Rest:
     - Sh_Wjets_cjets_emu
     - Sh_Wjets_highpt_emu
     - Sh_Wjets_light_emu
+    - Sh_Wjets_tau
   subtract:
   lineColor: "14002"
   legendLabel: "Sherpa W+jets"
@@ -146,3 +165,20 @@ Sherpa_Wjets_emu_Rest_PostProc:
   lineColor: "14004"
   legendLabel: "Sherpa W+jets"
   shortName: Sherpa_Wjets_emu_Rest_PostProc
+
+Powheg_Wjets_emu_Rest:
+  add:
+    - Ph_Wjets_emu
+    - Ph_Wjets_tau
+  subtract:
+  lineColor: "11004"
+  legendLabel: "Powheg W+jets"
+  shortName: Powheg_Wjets_emu_Rest
+
+Powheg_Wjets_emu_Rest_PostProc:
+  add:
+    - inclusive_powheg_bkg
+  subtract:
+  lineColor: "11004"
+  legendLabel: "Powheg W+jets"
+  shortName: Powheg_Wjets_emu_Rest_PostProc

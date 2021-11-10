@@ -106,7 +106,7 @@ def main(options):
             'Wjets_emu_Rest': '<charge>_Replacement_Wjets_emu_Rest',
             'Wjets_emu_Bkg': '<charge>_Replacement_Wjets_emu_Bkg',
             'Sherpa_Wjets_emu_Rest': '<charge>_Replacement_Wjets_emu_Rest',
-            # 'DibosonVjetsTau': '<charge>_Replacement_DibosonVjetsTau',
+            # 'DibosonZjets': '<charge>_Replacement_DibosonZjets',
         })
 
     # systematics

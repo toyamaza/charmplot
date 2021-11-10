@@ -100,6 +100,7 @@ Wjets_emu_MatchedShared:
 Wjets_emu_411MisMatched:
   add:
     - MG_Wjets_emu
+    - MG_Wjets_tau
     # - MG_Wjets_cjets_emu
     # - MG_Wjets_bjets_emu
     # - MG_Wjets_light_emu
@@ -111,6 +112,7 @@ Wjets_emu_411MisMatched:
 Wjets_emu_431MisMatched:
   add:
     - MG_Wjets_emu
+    - MG_Wjets_tau
     # - MG_Wjets_cjets_emu
     # - MG_Wjets_bjets_emu
     # - MG_Wjets_light_emu
@@ -122,6 +124,7 @@ Wjets_emu_431MisMatched:
 Wjets_emu_BaryonMisMatched:
   add:
     - MG_Wjets_emu
+    - MG_Wjets_tau
     # - MG_Wjets_cjets_emu
     # - MG_Wjets_bjets_emu
     # - MG_Wjets_light_emu
@@ -133,6 +136,7 @@ Wjets_emu_BaryonMisMatched:
 Wjets_emu_Rest:
   add:
     - MG_Wjets_emu
+    - MG_Wjets_tau
     # - MG_Wjets_cjets_emu
     # - MG_Wjets_bjets_emu
     # - MG_Wjets_light_emu
@@ -144,6 +148,7 @@ Wjets_emu_Rest:
 Wjets_emu_Rest_Default:
   add:
     - MG_Wjets_emu
+    - MG_Wjets_tau
     # - MG_Wjets_cjets_emu
     # - MG_Wjets_bjets_emu
     # - MG_Wjets_light_emu
@@ -155,6 +160,7 @@ Wjets_emu_Rest_Default:
 Wjets_emu_BkgShared:
   add:
     - MG_Wjets_emu
+    - MG_Wjets_tau
     # - MG_Wjets_cjets_emu
     # - MG_Wjets_bjets_emu
     # - MG_Wjets_light_emu
@@ -166,6 +172,7 @@ Wjets_emu_BkgShared:
 Wjets_emu_MisMatched:
   add:
     - MG_Wjets_emu
+    - MG_Wjets_tau
     # - MG_Wjets_cjets_emu
     # - MG_Wjets_bjets_emu
     # - MG_Wjets_light_emu
@@ -177,6 +184,7 @@ Wjets_emu_MisMatched:
 Wjets_emu_Bkg:
   add:
     - MG_Wjets_emu
+    - MG_Wjets_tau
     # - MG_Wjets_cjets_emu
     # - MG_Wjets_bjets_emu
     # - MG_Wjets_light_emu
@@ -188,6 +196,7 @@ Wjets_emu_Bkg:
 Wjets_emu_413MisMatched:
   add:
     - MG_Wjets_emu
+    - MG_Wjets_tau
     # - MG_Wjets_cjets_emu
     # - MG_Wjets_bjets_emu
     # - MG_Wjets_light_emu
@@ -199,6 +208,7 @@ Wjets_emu_413MisMatched:
 Wjets_emu_421MisMatched:
   add:
     - MG_Wjets_emu
+    - MG_Wjets_tau
     # - MG_Wjets_cjets_emu
     # - MG_Wjets_bjets_emu
     # - MG_Wjets_light_emu
@@ -221,6 +231,7 @@ Wjets_emu_MatchedFid:
 Wjets_emu_MatchedNoFid:
   add:
     - MG_Wjets_emu
+    - MG_Wjets_tau
     # - MG_Wjets_cjets_emu
     # - MG_Wjets_bjets_emu
     # - MG_Wjets_light_emu
@@ -232,6 +243,7 @@ Wjets_emu_MatchedNoFid:
 Wjets_emu_Charm:
   add:
     - MG_Wjets_emu
+    - MG_Wjets_tau
     # - MG_Wjets_cjets_emu
     # - MG_Wjets_bjets_emu
     # - MG_Wjets_light_emu
@@ -244,6 +256,7 @@ Wjets_emu_Charm:
 Wjets_emu_CharmGeom:
   add:
     - MG_Wjets_emu
+    - MG_Wjets_tau
     # - MG_Wjets_light_emu
     # - MG_Wjets_cjets_emu
     # - MG_Wjets_bjets_emu
@@ -256,6 +269,7 @@ Wjets_emu_CharmGeom:
 Wjets_emu_HardMisMatched:
   add:
     - MG_Wjets_emu
+    - MG_Wjets_tau
     # - MG_Wjets_cjets_emu
     # - MG_Wjets_bjets_emu
     # - MG_Wjets_light_emu
@@ -269,6 +283,7 @@ Wjets_emu_NoMatch:
     - MG_Wjets_cjets_emu
     - MG_Wjets_bjets_emu
     - MG_Wjets_light_emu
+    - MG_Wjets_tau
     - Top_ttbar
     - Top_single_top
     - Top_ttx
@@ -442,13 +457,12 @@ Other:
   add:
     - Diboson
     - MG_Zjets_tau
-    - MG_Wjets_tau
   subtract:
   fillColor: "15000"
   legendLabel: Other
   shortName: Other
 
-DibosonZjetsTau:
+DibosonZjets:
   add:
     - Diboson
     - MG_Zjets_light_emu
@@ -458,20 +472,7 @@ DibosonZjetsTau:
   subtract:
   fillColor: "15000"
   legendLabel: Other
-  shortName: DibosonZjetsTau
-
-DibosonVjetsTau:
-  add:
-    - Diboson
-    - MG_Zjets_light_emu
-    - MG_Zjets_cjets_emu
-    - MG_Zjets_bjets_emu
-    - MG_Zjets_tau
-    - MG_Wjets_tau
-  subtract:
-  fillColor: "15000"
-  legendLabel: Other
-  shortName: DibosonVjetsTau
+  shortName: DibosonZjets
 
 Multijet:
   add: data
@@ -618,6 +619,7 @@ Wjets_emu_MisMatched_Loose_OS-SS:
     - MG_Wjets_cjets_emu
     - MG_Wjets_bjets_emu
     - MG_Wjets_light_emu
+    - MG_Wjets_tau
   subtract:
   lineColor: "21000"
   legendLabel: "Loose W+c^{mis-match} OS-SS"
@@ -663,13 +665,13 @@ Wjets_emu_Bkg_PostProc:
   legendLabel: "Loose W+jets"
   shortName: Wjets_emu_Bkg_PostProc
 
-DibosonVjetsTau_PostProc:
+DibosonZjets_PostProc:
   add:
     - inclusive_bkg
   subtract:
   lineColor: "21000"
   legendLabel: Loose Other
-  shortName: DibosonVjetsTau_Loose
+  shortName: DibosonZjets_Loose
 
 MultiJet_PostProc:
   add:

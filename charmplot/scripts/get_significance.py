@@ -30,7 +30,7 @@ if __name__ == "__main__":
 
     file = ROOT.TFile("histograms.root")
 
-    mc_samples = [ "Wjets_emu_Matched", "Wjets_emu_Rest","Wjets_emu_411MisMatched","Wjets_emu_Charm", "Top", "DibosonVjetsTau"]
+    mc_samples = [ "Wjets_emu_Matched", "Wjets_emu_Rest","Wjets_emu_411MisMatched","Wjets_emu_Charm", "Top", "DibosonZjets"]
 #    mc_samples = ["Wjets_emu_Charm", "Wjets_emu_Matched", "Top_Charm", "Top_Matched", "Zjets_emu", "Other"]
 #    mc_samples =   ["Wjets_emu_HardMisMatched", "Wjets_emu_Matched","Wjets_emu_NoMatch","Wjets_emu_Charm", "Top_Matched", "Top_Charm", "Top_HardMisMatched" , "Zjets_emu", "Other"]
 
