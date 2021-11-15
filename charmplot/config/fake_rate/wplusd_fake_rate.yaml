@@ -5,9 +5,9 @@ variablesConf: charmed_wjets
 samplesConf: real_fake_rate_measurement
 
 channels:
-  Tight_2018_el_QCD_0tag_Dplus:
+  Tight_2018_el_QCD_mtCtrl_metSig_0tag_Dplus:
     regions:
-      - Tight_2018_el_QCD_0tag_Dplus
+      - Tight_2018_el_QCD_mtCtrl_metSig_0tag_Dplus
     samples:
       - MG_Multijet
       - MG_Multijet_Up
@@ -18,10 +18,10 @@ channels:
     lumi: "2018"
     save_to_file: True
 
-  Tight_2018_el_QCD_1tag_Dplus:
+  Tight_2018_el_QCD_mtCtrl_metSig_1tag_Dplus:
     regions:
-      - Tight_2018_el_QCD_1tag_Dplus
-      - Tight_2018_el_QCD_2tag_Dplus
+      - Tight_2018_el_QCD_mtCtrl_metSig_1tag_Dplus
+      - Tight_2018_el_QCD_mtCtrl_metSig_2tag_Dplus
     samples:
       - MG_Multijet
       - MG_Multijet_Up
@@ -32,9 +32,9 @@ channels:
     lumi: "2018"
     save_to_file: True
 
-  Tight_2018_mu_QCD_0tag_Dplus:
+  Tight_2018_mu_QCD_mtCtrl_metSig_0tag_Dplus:
     regions:
-      - Tight_2018_mu_QCD_0tag_Dplus
+      - Tight_2018_mu_QCD_mtCtrl_metSig_0tag_Dplus
     samples:
       - MG_Multijet
       - MG_Multijet_Up
@@ -45,10 +45,10 @@ channels:
     lumi: "2018"
     save_to_file: True
 
-  Tight_2018_mu_QCD_1tag_Dplus:
+  Tight_2018_mu_QCD_mtCtrl_metSig_1tag_Dplus:
     regions:
-      - Tight_2018_mu_QCD_1tag_Dplus
-      - Tight_2018_mu_QCD_2tag_Dplus
+      - Tight_2018_mu_QCD_mtCtrl_metSig_1tag_Dplus
+      - Tight_2018_mu_QCD_mtCtrl_metSig_2tag_Dplus
     samples:
       - MG_Multijet
       - MG_Multijet_Up
@@ -59,9 +59,9 @@ channels:
     lumi: "2018"
     save_to_file: True
 
-  AntiTight_2018_el_QCD_0tag_Dplus:
+  AntiTight_2018_el_QCD_mtCtrl_metSig_0tag_Dplus:
     regions:
-      - AntiTight_2018_el_QCD_0tag_Dplus
+      - AntiTight_2018_el_QCD_mtCtrl_metSig_0tag_Dplus
     samples:
       - MG_Multijet
       - MG_Multijet_Up
@@ -72,10 +72,10 @@ channels:
     lumi: "2018"
     save_to_file: True
 
-  AntiTight_2018_el_QCD_1tag_Dplus:
+  AntiTight_2018_el_QCD_mtCtrl_metSig_1tag_Dplus:
     regions:
-      - AntiTight_2018_el_QCD_1tag_Dplus
-      - AntiTight_2018_el_QCD_2tag_Dplus
+      - AntiTight_2018_el_QCD_mtCtrl_metSig_1tag_Dplus
+      - AntiTight_2018_el_QCD_mtCtrl_metSig_2tag_Dplus
     samples:
       - MG_Multijet
       - MG_Multijet_Up
@@ -86,9 +86,9 @@ channels:
     lumi: "2018"
     save_to_file: True
 
-  AntiTight_2018_mu_QCD_0tag_Dplus:
+  AntiTight_2018_mu_QCD_mtCtrl_metSig_0tag_Dplus:
     regions:
-      - AntiTight_2018_mu_QCD_0tag_Dplus
+      - AntiTight_2018_mu_QCD_mtCtrl_metSig_0tag_Dplus
     samples:
       - MG_Multijet
       - MG_Multijet_Up
@@ -99,10 +99,10 @@ channels:
     lumi: "2018"
     save_to_file: True
 
-  AntiTight_2018_mu_QCD_1tag_Dplus:
+  AntiTight_2018_mu_QCD_mtCtrl_metSig_1tag_Dplus:
     regions:
-      - AntiTight_2018_mu_QCD_1tag_Dplus
-      - AntiTight_2018_mu_QCD_2tag_Dplus
+      - AntiTight_2018_mu_QCD_mtCtrl_metSig_1tag_Dplus
+      - AntiTight_2018_mu_QCD_mtCtrl_metSig_2tag_Dplus
     samples:
       - MG_Multijet
       - MG_Multijet_Up
@@ -113,11 +113,11 @@ channels:
     lumi: "2018"
     save_to_file: True
 
-  Tight_2017_el_QCD_0tag_Dplus:
+  Tight_2017_el_QCD_mtCtrl_metSig_0tag_Dplus:
     regions:
-      - Tight_2017_el_QCD_0tag_Dplus
-      - Tight_2016A-B_el_QCD_0tag_Dplus
-      - Tight_2016C-L_el_QCD_0tag_Dplus
+      - Tight_2017_el_QCD_mtCtrl_metSig_0tag_Dplus
+      - Tight_2016A-B_el_QCD_mtCtrl_metSig_0tag_Dplus
+      - Tight_2016C-L_el_QCD_mtCtrl_metSig_0tag_Dplus
     samples:
       - MG_Multijet
       - MG_Multijet_Up
@@ -128,14 +128,14 @@ channels:
     lumi: "2017"
     save_to_file: True
 
-  Tight_2017_el_QCD_1tag_Dplus:
+  Tight_2017_el_QCD_mtCtrl_metSig_1tag_Dplus:
     regions:
-      - Tight_2017_el_QCD_1tag_Dplus
-      - Tight_2016A-B_el_QCD_1tag_Dplus
-      - Tight_2016C-L_el_QCD_1tag_Dplus
-      - Tight_2017_el_QCD_2tag_Dplus
-      - Tight_2016A-B_el_QCD_2tag_Dplus
-      - Tight_2016C-L_el_QCD_2tag_Dplus
+      - Tight_2017_el_QCD_mtCtrl_metSig_1tag_Dplus
+      - Tight_2016A-B_el_QCD_mtCtrl_metSig_1tag_Dplus
+      - Tight_2016C-L_el_QCD_mtCtrl_metSig_1tag_Dplus
+      - Tight_2017_el_QCD_mtCtrl_metSig_2tag_Dplus
+      - Tight_2016A-B_el_QCD_mtCtrl_metSig_2tag_Dplus
+      - Tight_2016C-L_el_QCD_mtCtrl_metSig_2tag_Dplus
     samples:
       - MG_Multijet
       - MG_Multijet_Up
@@ -146,11 +146,11 @@ channels:
     lumi: "2017"
     save_to_file: True
 
-  Tight_2017_mu_QCD_0tag_Dplus:
+  Tight_2017_mu_QCD_mtCtrl_metSig_0tag_Dplus:
     regions:
-      - Tight_2017_mu_QCD_0tag_Dplus
-      - Tight_2016A-B_mu_QCD_0tag_Dplus
-      - Tight_2016C-L_mu_QCD_0tag_Dplus
+      - Tight_2017_mu_QCD_mtCtrl_metSig_0tag_Dplus
+      - Tight_2016A-B_mu_QCD_mtCtrl_metSig_0tag_Dplus
+      - Tight_2016C-L_mu_QCD_mtCtrl_metSig_0tag_Dplus
     samples:
       - MG_Multijet
       - MG_Multijet_Up
@@ -161,14 +161,14 @@ channels:
     lumi: "2017"
     save_to_file: True
 
-  Tight_2017_mu_QCD_1tag_Dplus:
+  Tight_2017_mu_QCD_mtCtrl_metSig_1tag_Dplus:
     regions:
-      - Tight_2017_mu_QCD_1tag_Dplus
-      - Tight_2016A-B_mu_QCD_1tag_Dplus
-      - Tight_2016C-L_mu_QCD_1tag_Dplus
-      - Tight_2017_mu_QCD_2tag_Dplus
-      - Tight_2016A-B_mu_QCD_2tag_Dplus
-      - Tight_2016C-L_mu_QCD_2tag_Dplus
+      - Tight_2017_mu_QCD_mtCtrl_metSig_1tag_Dplus
+      - Tight_2016A-B_mu_QCD_mtCtrl_metSig_1tag_Dplus
+      - Tight_2016C-L_mu_QCD_mtCtrl_metSig_1tag_Dplus
+      - Tight_2017_mu_QCD_mtCtrl_metSig_2tag_Dplus
+      - Tight_2016A-B_mu_QCD_mtCtrl_metSig_2tag_Dplus
+      - Tight_2016C-L_mu_QCD_mtCtrl_metSig_2tag_Dplus
     samples:
       - MG_Multijet
       - MG_Multijet_Up
@@ -179,11 +179,11 @@ channels:
     lumi: "2017"
     save_to_file: True
 
-  AntiTight_2017_el_QCD_0tag_Dplus:
+  AntiTight_2017_el_QCD_mtCtrl_metSig_0tag_Dplus:
     regions:
-      - AntiTight_2017_el_QCD_0tag_Dplus
-      - AntiTight_2016A-B_el_QCD_0tag_Dplus
-      - AntiTight_2016C-L_el_QCD_0tag_Dplus
+      - AntiTight_2017_el_QCD_mtCtrl_metSig_0tag_Dplus
+      - AntiTight_2016A-B_el_QCD_mtCtrl_metSig_0tag_Dplus
+      - AntiTight_2016C-L_el_QCD_mtCtrl_metSig_0tag_Dplus
     samples:
       - MG_Multijet
       - MG_Multijet_Up
@@ -194,14 +194,14 @@ channels:
     lumi: "2017"
     save_to_file: True
 
-  AntiTight_2017_el_QCD_1tag_Dplus:
+  AntiTight_2017_el_QCD_mtCtrl_metSig_1tag_Dplus:
     regions:
-      - AntiTight_2017_el_QCD_1tag_Dplus
-      - AntiTight_2016A-B_el_QCD_1tag_Dplus
-      - AntiTight_2016C-L_el_QCD_1tag_Dplus
-      - AntiTight_2017_el_QCD_2tag_Dplus
-      - AntiTight_2016A-B_el_QCD_2tag_Dplus
-      - AntiTight_2016C-L_el_QCD_2tag_Dplus
+      - AntiTight_2017_el_QCD_mtCtrl_metSig_1tag_Dplus
+      - AntiTight_2016A-B_el_QCD_mtCtrl_metSig_1tag_Dplus
+      - AntiTight_2016C-L_el_QCD_mtCtrl_metSig_1tag_Dplus
+      - AntiTight_2017_el_QCD_mtCtrl_metSig_2tag_Dplus
+      - AntiTight_2016A-B_el_QCD_mtCtrl_metSig_2tag_Dplus
+      - AntiTight_2016C-L_el_QCD_mtCtrl_metSig_2tag_Dplus
     samples:
       - MG_Multijet
       - MG_Multijet_Up
@@ -212,11 +212,11 @@ channels:
     lumi: "2017"
     save_to_file: True
 
-  AntiTight_2017_mu_QCD_0tag_Dplus:
+  AntiTight_2017_mu_QCD_mtCtrl_metSig_0tag_Dplus:
     regions:
-      - AntiTight_2017_mu_QCD_0tag_Dplus
-      - AntiTight_2016A-B_mu_QCD_0tag_Dplus
-      - AntiTight_2016C-L_mu_QCD_0tag_Dplus
+      - AntiTight_2017_mu_QCD_mtCtrl_metSig_0tag_Dplus
+      - AntiTight_2016A-B_mu_QCD_mtCtrl_metSig_0tag_Dplus
+      - AntiTight_2016C-L_mu_QCD_mtCtrl_metSig_0tag_Dplus
     samples:
       - MG_Multijet
       - MG_Multijet_Up
@@ -227,14 +227,14 @@ channels:
     lumi: "2017"
     save_to_file: True
 
-  AntiTight_2017_mu_QCD_1tag_Dplus:
+  AntiTight_2017_mu_QCD_mtCtrl_metSig_1tag_Dplus:
     regions:
-      - AntiTight_2017_mu_QCD_1tag_Dplus
-      - AntiTight_2016A-B_mu_QCD_1tag_Dplus
-      - AntiTight_2016C-L_mu_QCD_1tag_Dplus
-      - AntiTight_2017_mu_QCD_2tag_Dplus
-      - AntiTight_2016A-B_mu_QCD_2tag_Dplus
-      - AntiTight_2016C-L_mu_QCD_2tag_Dplus
+      - AntiTight_2017_mu_QCD_mtCtrl_metSig_1tag_Dplus
+      - AntiTight_2016A-B_mu_QCD_mtCtrl_metSig_1tag_Dplus
+      - AntiTight_2016C-L_mu_QCD_mtCtrl_metSig_1tag_Dplus
+      - AntiTight_2017_mu_QCD_mtCtrl_metSig_2tag_Dplus
+      - AntiTight_2016A-B_mu_QCD_mtCtrl_metSig_2tag_Dplus
+      - AntiTight_2016C-L_mu_QCD_mtCtrl_metSig_2tag_Dplus
     samples:
       - MG_Multijet
       - MG_Multijet_Up
@@ -246,9 +246,9 @@ channels:
     save_to_file: True
 
     #xyz
-  Tight_2015_el_QCD_0tag_Dplus:
+  Tight_2015_el_QCD_mtCtrl_metSig_0tag_Dplus:
     regions:
-      - Tight_2015_el_QCD_0tag_Dplus
+      - Tight_2015_el_QCD_mtCtrl_metSig_0tag_Dplus
     samples:
       - MG_Multijet
       - MG_Multijet_Up
@@ -259,10 +259,10 @@ channels:
     lumi: "2015"
     save_to_file: True
 
-  Tight_2015_el_QCD_1tag_Dplus:
+  Tight_2015_el_QCD_mtCtrl_metSig_1tag_Dplus:
     regions:
-      - Tight_2015_el_QCD_1tag_Dplus
-      - Tight_2015_el_QCD_2tag_Dplus
+      - Tight_2015_el_QCD_mtCtrl_metSig_1tag_Dplus
+      - Tight_2015_el_QCD_mtCtrl_metSig_2tag_Dplus
     samples:
       - MG_Multijet
       - MG_Multijet_Up
@@ -273,9 +273,9 @@ channels:
     lumi: "2015"
     save_to_file: True
 
-  Tight_2015_mu_QCD_0tag_Dplus:
+  Tight_2015_mu_QCD_mtCtrl_metSig_0tag_Dplus:
     regions:
-      - Tight_2015_mu_QCD_0tag_Dplus
+      - Tight_2015_mu_QCD_mtCtrl_metSig_0tag_Dplus
     samples:
       - MG_Multijet
       - MG_Multijet_Up
@@ -286,10 +286,10 @@ channels:
     lumi: "2015"
     save_to_file: True
 
-  Tight_2015_mu_QCD_1tag_Dplus:
+  Tight_2015_mu_QCD_mtCtrl_metSig_1tag_Dplus:
     regions:
-      - Tight_2015_mu_QCD_1tag_Dplus
-      - Tight_2015_mu_QCD_2tag_Dplus
+      - Tight_2015_mu_QCD_mtCtrl_metSig_1tag_Dplus
+      - Tight_2015_mu_QCD_mtCtrl_metSig_2tag_Dplus
     samples:
       - MG_Multijet
       - MG_Multijet_Up
@@ -300,9 +300,9 @@ channels:
     lumi: "2015"
     save_to_file: True
 
-  AntiTight_2015_el_QCD_0tag_Dplus:
+  AntiTight_2015_el_QCD_mtCtrl_metSig_0tag_Dplus:
     regions:
-      - AntiTight_2015_el_QCD_0tag_Dplus
+      - AntiTight_2015_el_QCD_mtCtrl_metSig_0tag_Dplus
     samples:
       - MG_Multijet
       - MG_Multijet_Up
@@ -313,10 +313,10 @@ channels:
     lumi: "2015"
     save_to_file: True
 
-  AntiTight_2015_el_QCD_1tag_Dplus:
+  AntiTight_2015_el_QCD_mtCtrl_metSig_1tag_Dplus:
     regions:
-      - AntiTight_2015_el_QCD_1tag_Dplus
-      - AntiTight_2015_el_QCD_2tag_Dplus
+      - AntiTight_2015_el_QCD_mtCtrl_metSig_1tag_Dplus
+      - AntiTight_2015_el_QCD_mtCtrl_metSig_2tag_Dplus
     samples:
       - MG_Multijet
       - MG_Multijet_Up
@@ -327,9 +327,9 @@ channels:
     lumi: "2015"
     save_to_file: True
 
-  AntiTight_2015_mu_QCD_0tag_Dplus:
+  AntiTight_2015_mu_QCD_mtCtrl_metSig_0tag_Dplus:
     regions:
-      - AntiTight_2015_mu_QCD_0tag_Dplus
+      - AntiTight_2015_mu_QCD_mtCtrl_metSig_0tag_Dplus
     samples:
       - MG_Multijet
       - MG_Multijet_Up
@@ -340,10 +340,10 @@ channels:
     lumi: "2015"
     save_to_file: True
 
-  AntiTight_2015_mu_QCD_1tag_Dplus:
+  AntiTight_2015_mu_QCD_mtCtrl_metSig_1tag_Dplus:
     regions:
-      - AntiTight_2015_mu_QCD_1tag_Dplus
-      - AntiTight_2015_mu_QCD_2tag_Dplus
+      - AntiTight_2015_mu_QCD_mtCtrl_metSig_1tag_Dplus
+      - AntiTight_2015_mu_QCD_mtCtrl_metSig_2tag_Dplus
     samples:
       - MG_Multijet
       - MG_Multijet_Up
@@ -355,10 +355,10 @@ channels:
     save_to_file: True
 
         #xyz
-  Tight_2016_el_QCD_0tag_Dplus:
+  Tight_2016_el_QCD_mtCtrl_metSig_0tag_Dplus:
     regions:
-      - Tight_2016A-B_el_QCD_0tag_Dplus
-      - Tight_2016C-L_el_QCD_0tag_Dplus
+      - Tight_2016A-B_el_QCD_mtCtrl_metSig_0tag_Dplus
+      - Tight_2016C-L_el_QCD_mtCtrl_metSig_0tag_Dplus
     samples:
       - MG_Multijet
       - MG_Multijet_Up
@@ -369,12 +369,12 @@ channels:
     lumi: "2016"
     save_to_file: True
 
-  Tight_2016_el_QCD_1tag_Dplus:
+  Tight_2016_el_QCD_mtCtrl_metSig_1tag_Dplus:
     regions:
-      - Tight_2016A-B_el_QCD_1tag_Dplus
-      - Tight_2016A-B_el_QCD_2tag_Dplus
-      - Tight_2016C-L_el_QCD_1tag_Dplus
-      - Tight_2016C-L_el_QCD_2tag_Dplus
+      - Tight_2016A-B_el_QCD_mtCtrl_metSig_1tag_Dplus
+      - Tight_2016A-B_el_QCD_mtCtrl_metSig_2tag_Dplus
+      - Tight_2016C-L_el_QCD_mtCtrl_metSig_1tag_Dplus
+      - Tight_2016C-L_el_QCD_mtCtrl_metSig_2tag_Dplus
     samples:
       - MG_Multijet
       - MG_Multijet_Up
@@ -385,10 +385,10 @@ channels:
     lumi: "2016"
     save_to_file: True
 
-  Tight_2016_mu_QCD_0tag_Dplus:
+  Tight_2016_mu_QCD_mtCtrl_metSig_0tag_Dplus:
     regions:
-      - Tight_2016A-B_mu_QCD_0tag_Dplus
-      - Tight_2016C-L_mu_QCD_0tag_Dplus
+      - Tight_2016A-B_mu_QCD_mtCtrl_metSig_0tag_Dplus
+      - Tight_2016C-L_mu_QCD_mtCtrl_metSig_0tag_Dplus
     samples:
       - MG_Multijet
       - MG_Multijet_Up
@@ -399,12 +399,12 @@ channels:
     lumi: "2016"
     save_to_file: True
 
-  Tight_2016_mu_QCD_1tag_Dplus:
+  Tight_2016_mu_QCD_mtCtrl_metSig_1tag_Dplus:
     regions:
-      - Tight_2016A-B_mu_QCD_1tag_Dplus
-      - Tight_2016A-B_mu_QCD_2tag_Dplus
-      - Tight_2016C-L_mu_QCD_1tag_Dplus
-      - Tight_2016C-L_mu_QCD_2tag_Dplus
+      - Tight_2016A-B_mu_QCD_mtCtrl_metSig_1tag_Dplus
+      - Tight_2016A-B_mu_QCD_mtCtrl_metSig_2tag_Dplus
+      - Tight_2016C-L_mu_QCD_mtCtrl_metSig_1tag_Dplus
+      - Tight_2016C-L_mu_QCD_mtCtrl_metSig_2tag_Dplus
     samples:
       - MG_Multijet
       - MG_Multijet_Up
@@ -415,10 +415,10 @@ channels:
     lumi: "2016"
     save_to_file: True
 
-  AntiTight_2016_el_QCD_0tag_Dplus:
+  AntiTight_2016_el_QCD_mtCtrl_metSig_0tag_Dplus:
     regions:
-      - AntiTight_2016A-B_el_QCD_0tag_Dplus
-      - AntiTight_2016C-L_el_QCD_0tag_Dplus
+      - AntiTight_2016A-B_el_QCD_mtCtrl_metSig_0tag_Dplus
+      - AntiTight_2016C-L_el_QCD_mtCtrl_metSig_0tag_Dplus
     samples:
       - MG_Multijet
       - MG_Multijet_Up
@@ -429,12 +429,12 @@ channels:
     lumi: "2016"
     save_to_file: True
 
-  AntiTight_2016_el_QCD_1tag_Dplus:
+  AntiTight_2016_el_QCD_mtCtrl_metSig_1tag_Dplus:
     regions:
-      - AntiTight_2016A-B_el_QCD_1tag_Dplus
-      - AntiTight_2016A-B_el_QCD_2tag_Dplus
-      - AntiTight_2016C-L_el_QCD_1tag_Dplus
-      - AntiTight_2016C-L_el_QCD_2tag_Dplus
+      - AntiTight_2016A-B_el_QCD_mtCtrl_metSig_1tag_Dplus
+      - AntiTight_2016A-B_el_QCD_mtCtrl_metSig_2tag_Dplus
+      - AntiTight_2016C-L_el_QCD_mtCtrl_metSig_1tag_Dplus
+      - AntiTight_2016C-L_el_QCD_mtCtrl_metSig_2tag_Dplus
     samples:
       - MG_Multijet
       - MG_Multijet_Up
@@ -445,10 +445,10 @@ channels:
     lumi: "2016"
     save_to_file: True
 
-  AntiTight_2016_mu_QCD_0tag_Dplus:
+  AntiTight_2016_mu_QCD_mtCtrl_metSig_0tag_Dplus:
     regions:
-      - AntiTight_2016A-B_mu_QCD_0tag_Dplus
-      - AntiTight_2016C-L_mu_QCD_0tag_Dplus
+      - AntiTight_2016A-B_mu_QCD_mtCtrl_metSig_0tag_Dplus
+      - AntiTight_2016C-L_mu_QCD_mtCtrl_metSig_0tag_Dplus
     samples:
       - MG_Multijet
       - MG_Multijet_Up
@@ -459,12 +459,12 @@ channels:
     lumi: "2016"
     save_to_file: True
 
-  AntiTight_2016_mu_QCD_1tag_Dplus:
+  AntiTight_2016_mu_QCD_mtCtrl_metSig_1tag_Dplus:
     regions:
-      - AntiTight_2016A-B_mu_QCD_1tag_Dplus
-      - AntiTight_2016A-B_mu_QCD_2tag_Dplus
-      - AntiTight_2016C-L_mu_QCD_1tag_Dplus
-      - AntiTight_2016C-L_mu_QCD_2tag_Dplus
+      - AntiTight_2016A-B_mu_QCD_mtCtrl_metSig_1tag_Dplus
+      - AntiTight_2016A-B_mu_QCD_mtCtrl_metSig_2tag_Dplus
+      - AntiTight_2016C-L_mu_QCD_mtCtrl_metSig_1tag_Dplus
+      - AntiTight_2016C-L_mu_QCD_mtCtrl_metSig_2tag_Dplus
     samples:
       - MG_Multijet
       - MG_Multijet_Up
@@ -476,11 +476,11 @@ channels:
     save_to_file: True
 
     #xyz
-  Tight_2015-16_el_QCD_0tag_Dplus:
+  Tight_2015-16_el_QCD_mtCtrl_metSig_0tag_Dplus:
     regions:
-      - Tight_2015_el_QCD_0tag_Dplus
-      - Tight_2016A-B_el_QCD_0tag_Dplus
-      - Tight_2016C-L_el_QCD_0tag_Dplus
+      - Tight_2015_el_QCD_mtCtrl_metSig_0tag_Dplus
+      - Tight_2016A-B_el_QCD_mtCtrl_metSig_0tag_Dplus
+      - Tight_2016C-L_el_QCD_mtCtrl_metSig_0tag_Dplus
     samples:
       - MG_Multijet
       - MG_Multijet_Up
@@ -491,14 +491,14 @@ channels:
     lumi: "2015+2016"
     save_to_file: True
 
-  Tight_2015-16_el_QCD_1tag_Dplus:
+  Tight_2015-16_el_QCD_mtCtrl_metSig_1tag_Dplus:
     regions:
-      - Tight_2015_el_QCD_1tag_Dplus
-      - Tight_2015_el_QCD_2tag_Dplus
-      - Tight_2016A-B_el_QCD_1tag_Dplus
-      - Tight_2016A-B_el_QCD_2tag_Dplus
-      - Tight_2016C-L_el_QCD_1tag_Dplus
-      - Tight_2016C-L_el_QCD_2tag_Dplus
+      - Tight_2015_el_QCD_mtCtrl_metSig_1tag_Dplus
+      - Tight_2015_el_QCD_mtCtrl_metSig_2tag_Dplus
+      - Tight_2016A-B_el_QCD_mtCtrl_metSig_1tag_Dplus
+      - Tight_2016A-B_el_QCD_mtCtrl_metSig_2tag_Dplus
+      - Tight_2016C-L_el_QCD_mtCtrl_metSig_1tag_Dplus
+      - Tight_2016C-L_el_QCD_mtCtrl_metSig_2tag_Dplus
     samples:
       - MG_Multijet
       - MG_Multijet_Up
@@ -509,11 +509,11 @@ channels:
     lumi: "2015+2016"
     save_to_file: True
 
-  Tight_2015-16_mu_QCD_0tag_Dplus:
+  Tight_2015-16_mu_QCD_mtCtrl_metSig_0tag_Dplus:
     regions:
-      - Tight_2015_mu_QCD_0tag_Dplus
-      - Tight_2016A-B_mu_QCD_0tag_Dplus
-      - Tight_2016C-L_mu_QCD_0tag_Dplus
+      - Tight_2015_mu_QCD_mtCtrl_metSig_0tag_Dplus
+      - Tight_2016A-B_mu_QCD_mtCtrl_metSig_0tag_Dplus
+      - Tight_2016C-L_mu_QCD_mtCtrl_metSig_0tag_Dplus
     samples:
       - MG_Multijet
       - MG_Multijet_Up
@@ -524,14 +524,14 @@ channels:
     lumi: "2015+2016"
     save_to_file: True
 
-  Tight_2015-16_mu_QCD_1tag_Dplus:
+  Tight_2015-16_mu_QCD_mtCtrl_metSig_1tag_Dplus:
     regions:
-      - Tight_2015_mu_QCD_1tag_Dplus
-      - Tight_2015_mu_QCD_2tag_Dplus
-      - Tight_2016A-B_mu_QCD_1tag_Dplus
-      - Tight_2016A-B_mu_QCD_2tag_Dplus
-      - Tight_2016C-L_mu_QCD_1tag_Dplus
-      - Tight_2016C-L_mu_QCD_2tag_Dplus
+      - Tight_2015_mu_QCD_mtCtrl_metSig_1tag_Dplus
+      - Tight_2015_mu_QCD_mtCtrl_metSig_2tag_Dplus
+      - Tight_2016A-B_mu_QCD_mtCtrl_metSig_1tag_Dplus
+      - Tight_2016A-B_mu_QCD_mtCtrl_metSig_2tag_Dplus
+      - Tight_2016C-L_mu_QCD_mtCtrl_metSig_1tag_Dplus
+      - Tight_2016C-L_mu_QCD_mtCtrl_metSig_2tag_Dplus
     samples:
       - MG_Multijet
       - MG_Multijet_Up
@@ -542,11 +542,11 @@ channels:
     lumi: "2015+2016"
     save_to_file: True
 
-  AntiTight_2015-16_el_QCD_0tag_Dplus:
+  AntiTight_2015-16_el_QCD_mtCtrl_metSig_0tag_Dplus:
     regions:
-      - AntiTight_2015_el_QCD_0tag_Dplus
-      - AntiTight_2016A-B_el_QCD_0tag_Dplus
-      - AntiTight_2016C-L_el_QCD_0tag_Dplus
+      - AntiTight_2015_el_QCD_mtCtrl_metSig_0tag_Dplus
+      - AntiTight_2016A-B_el_QCD_mtCtrl_metSig_0tag_Dplus
+      - AntiTight_2016C-L_el_QCD_mtCtrl_metSig_0tag_Dplus
     samples:
       - MG_Multijet
       - MG_Multijet_Up
@@ -557,14 +557,14 @@ channels:
     lumi: "2015+2016"
     save_to_file: True
 
-  AntiTight_2015-16_el_QCD_1tag_Dplus:
+  AntiTight_2015-16_el_QCD_mtCtrl_metSig_1tag_Dplus:
     regions:
-      - AntiTight_2015_el_QCD_1tag_Dplus
-      - AntiTight_2015_el_QCD_2tag_Dplus
-      - AntiTight_2016A-B_el_QCD_1tag_Dplus
-      - AntiTight_2016A-B_el_QCD_2tag_Dplus
-      - AntiTight_2016C-L_el_QCD_1tag_Dplus
-      - AntiTight_2016C-L_el_QCD_2tag_Dplus
+      - AntiTight_2015_el_QCD_mtCtrl_metSig_1tag_Dplus
+      - AntiTight_2015_el_QCD_mtCtrl_metSig_2tag_Dplus
+      - AntiTight_2016A-B_el_QCD_mtCtrl_metSig_1tag_Dplus
+      - AntiTight_2016A-B_el_QCD_mtCtrl_metSig_2tag_Dplus
+      - AntiTight_2016C-L_el_QCD_mtCtrl_metSig_1tag_Dplus
+      - AntiTight_2016C-L_el_QCD_mtCtrl_metSig_2tag_Dplus
     samples:
       - MG_Multijet
       - MG_Multijet_Up
@@ -575,11 +575,11 @@ channels:
     lumi: "2015+2016"
     save_to_file: True
 
-  AntiTight_2015-16_mu_QCD_0tag_Dplus:
+  AntiTight_2015-16_mu_QCD_mtCtrl_metSig_0tag_Dplus:
     regions:
-      - AntiTight_2015_mu_QCD_0tag_Dplus
-      - AntiTight_2016A-B_mu_QCD_0tag_Dplus
-      - AntiTight_2016C-L_mu_QCD_0tag_Dplus
+      - AntiTight_2015_mu_QCD_mtCtrl_metSig_0tag_Dplus
+      - AntiTight_2016A-B_mu_QCD_mtCtrl_metSig_0tag_Dplus
+      - AntiTight_2016C-L_mu_QCD_mtCtrl_metSig_0tag_Dplus
     samples:
       - MG_Multijet
       - MG_Multijet_Up
@@ -590,14 +590,14 @@ channels:
     lumi: "2015+2016"
     save_to_file: True
 
-  AntiTight_2015-16_mu_QCD_1tag_Dplus:
+  AntiTight_2015-16_mu_QCD_mtCtrl_metSig_1tag_Dplus:
     regions:
-      - AntiTight_2015_mu_QCD_1tag_Dplus
-      - AntiTight_2015_mu_QCD_2tag_Dplus
-      - AntiTight_2016A-B_mu_QCD_1tag_Dplus
-      - AntiTight_2016A-B_mu_QCD_2tag_Dplus
-      - AntiTight_2016C-L_mu_QCD_1tag_Dplus
-      - AntiTight_2016C-L_mu_QCD_2tag_Dplus
+      - AntiTight_2015_mu_QCD_mtCtrl_metSig_1tag_Dplus
+      - AntiTight_2015_mu_QCD_mtCtrl_metSig_2tag_Dplus
+      - AntiTight_2016A-B_mu_QCD_mtCtrl_metSig_1tag_Dplus
+      - AntiTight_2016A-B_mu_QCD_mtCtrl_metSig_2tag_Dplus
+      - AntiTight_2016C-L_mu_QCD_mtCtrl_metSig_1tag_Dplus
+      - AntiTight_2016C-L_mu_QCD_mtCtrl_metSig_2tag_Dplus
     samples:
       - MG_Multijet
       - MG_Multijet_Up
@@ -608,12 +608,12 @@ channels:
     lumi: "2015+2016"
     save_to_file: True
 
-  Tight_el_QCD_0tag_Dplus:
+  Tight_el_QCD_mtCtrl_metSig_0tag_Dplus:
     regions:
-      - Tight_2018_el_QCD_0tag_Dplus
-      - Tight_2017_el_QCD_0tag_Dplus
-      - Tight_2016A-B_el_QCD_0tag_Dplus
-      - Tight_2016C-L_el_QCD_0tag_Dplus
+      - Tight_2018_el_QCD_mtCtrl_metSig_0tag_Dplus
+      - Tight_2017_el_QCD_mtCtrl_metSig_0tag_Dplus
+      - Tight_2016A-B_el_QCD_mtCtrl_metSig_0tag_Dplus
+      - Tight_2016C-L_el_QCD_mtCtrl_metSig_0tag_Dplus
     samples:
       - MG_Multijet
       - MG_Multijet_Up
@@ -624,16 +624,16 @@ channels:
     lumi: "2016+2017+2018"
     save_to_file: True
 
-  Tight_el_QCD_1tag_Dplus:
+  Tight_el_QCD_mtCtrl_metSig_1tag_Dplus:
     regions:
-      - Tight_2018_el_QCD_1tag_Dplus
-      - Tight_2018_el_QCD_2tag_Dplus
-      - Tight_2017_el_QCD_1tag_Dplus
-      - Tight_2016A-B_el_QCD_1tag_Dplus
-      - Tight_2016C-L_el_QCD_1tag_Dplus
-      - Tight_2017_el_QCD_2tag_Dplus
-      - Tight_2016A-B_el_QCD_2tag_Dplus
-      - Tight_2016C-L_el_QCD_2tag_Dplus
+      - Tight_2018_el_QCD_mtCtrl_metSig_1tag_Dplus
+      - Tight_2018_el_QCD_mtCtrl_metSig_2tag_Dplus
+      - Tight_2017_el_QCD_mtCtrl_metSig_1tag_Dplus
+      - Tight_2016A-B_el_QCD_mtCtrl_metSig_1tag_Dplus
+      - Tight_2016C-L_el_QCD_mtCtrl_metSig_1tag_Dplus
+      - Tight_2017_el_QCD_mtCtrl_metSig_2tag_Dplus
+      - Tight_2016A-B_el_QCD_mtCtrl_metSig_2tag_Dplus
+      - Tight_2016C-L_el_QCD_mtCtrl_metSig_2tag_Dplus
     samples:
       - MG_Multijet
       - MG_Multijet_Up
@@ -644,12 +644,12 @@ channels:
     lumi: "2016+2017+2018"
     save_to_file: True
 
-  Tight_mu_QCD_0tag_Dplus:
+  Tight_mu_QCD_mtCtrl_metSig_0tag_Dplus:
     regions:
-      - Tight_2018_mu_QCD_0tag_Dplus
-      - Tight_2017_mu_QCD_0tag_Dplus
-      - Tight_2016A-B_mu_QCD_0tag_Dplus
-      - Tight_2016C-L_mu_QCD_0tag_Dplus
+      - Tight_2018_mu_QCD_mtCtrl_metSig_0tag_Dplus
+      - Tight_2017_mu_QCD_mtCtrl_metSig_0tag_Dplus
+      - Tight_2016A-B_mu_QCD_mtCtrl_metSig_0tag_Dplus
+      - Tight_2016C-L_mu_QCD_mtCtrl_metSig_0tag_Dplus
     samples:
       - MG_Multijet
       - MG_Multijet_Up
@@ -660,16 +660,16 @@ channels:
     lumi: "2016+2017+2018"
     save_to_file: True
 
-  Tight_mu_QCD_1tag_Dplus:
+  Tight_mu_QCD_mtCtrl_metSig_1tag_Dplus:
     regions:
-      - Tight_2018_mu_QCD_1tag_Dplus
-      - Tight_2018_mu_QCD_2tag_Dplus
-      - Tight_2017_mu_QCD_1tag_Dplus
-      - Tight_2016A-B_mu_QCD_1tag_Dplus
-      - Tight_2016C-L_mu_QCD_1tag_Dplus
-      - Tight_2017_mu_QCD_2tag_Dplus
-      - Tight_2016A-B_mu_QCD_2tag_Dplus
-      - Tight_2016C-L_mu_QCD_2tag_Dplus
+      - Tight_2018_mu_QCD_mtCtrl_metSig_1tag_Dplus
+      - Tight_2018_mu_QCD_mtCtrl_metSig_2tag_Dplus
+      - Tight_2017_mu_QCD_mtCtrl_metSig_1tag_Dplus
+      - Tight_2016A-B_mu_QCD_mtCtrl_metSig_1tag_Dplus
+      - Tight_2016C-L_mu_QCD_mtCtrl_metSig_1tag_Dplus
+      - Tight_2017_mu_QCD_mtCtrl_metSig_2tag_Dplus
+      - Tight_2016A-B_mu_QCD_mtCtrl_metSig_2tag_Dplus
+      - Tight_2016C-L_mu_QCD_mtCtrl_metSig_2tag_Dplus
     samples:
       - MG_Multijet
       - MG_Multijet_Up
@@ -680,12 +680,12 @@ channels:
     lumi: "2016+2017+2018"
     save_to_file: True
 
-  AntiTight_el_QCD_0tag_Dplus:
+  AntiTight_el_QCD_mtCtrl_metSig_0tag_Dplus:
     regions:
-      - AntiTight_2018_el_QCD_0tag_Dplus
-      - AntiTight_2017_el_QCD_0tag_Dplus
-      - AntiTight_2016A-B_el_QCD_0tag_Dplus
-      - AntiTight_2016C-L_el_QCD_0tag_Dplus
+      - AntiTight_2018_el_QCD_mtCtrl_metSig_0tag_Dplus
+      - AntiTight_2017_el_QCD_mtCtrl_metSig_0tag_Dplus
+      - AntiTight_2016A-B_el_QCD_mtCtrl_metSig_0tag_Dplus
+      - AntiTight_2016C-L_el_QCD_mtCtrl_metSig_0tag_Dplus
     samples:
       - MG_Multijet
       - MG_Multijet_Up
@@ -696,16 +696,16 @@ channels:
     lumi: "2016+2017+2018"
     save_to_file: True
 
-  AntiTight_el_QCD_1tag_Dplus:
+  AntiTight_el_QCD_mtCtrl_metSig_1tag_Dplus:
     regions:
-      - AntiTight_2018_el_QCD_1tag_Dplus
-      - AntiTight_2018_el_QCD_2tag_Dplus
-      - AntiTight_2017_el_QCD_1tag_Dplus
-      - AntiTight_2016A-B_el_QCD_1tag_Dplus
-      - AntiTight_2016C-L_el_QCD_1tag_Dplus
-      - AntiTight_2017_el_QCD_2tag_Dplus
-      - AntiTight_2016A-B_el_QCD_2tag_Dplus
-      - AntiTight_2016C-L_el_QCD_2tag_Dplus
+      - AntiTight_2018_el_QCD_mtCtrl_metSig_1tag_Dplus
+      - AntiTight_2018_el_QCD_mtCtrl_metSig_2tag_Dplus
+      - AntiTight_2017_el_QCD_mtCtrl_metSig_1tag_Dplus
+      - AntiTight_2016A-B_el_QCD_mtCtrl_metSig_1tag_Dplus
+      - AntiTight_2016C-L_el_QCD_mtCtrl_metSig_1tag_Dplus
+      - AntiTight_2017_el_QCD_mtCtrl_metSig_2tag_Dplus
+      - AntiTight_2016A-B_el_QCD_mtCtrl_metSig_2tag_Dplus
+      - AntiTight_2016C-L_el_QCD_mtCtrl_metSig_2tag_Dplus
     samples:
       - MG_Multijet
       - MG_Multijet_Up
@@ -716,12 +716,12 @@ channels:
     lumi: "2016+2017+2018"
     save_to_file: True
 
-  AntiTight_mu_QCD_0tag_Dplus:
+  AntiTight_mu_QCD_mtCtrl_metSig_0tag_Dplus:
     regions:
-      - AntiTight_2018_mu_QCD_0tag_Dplus
-      - AntiTight_2017_mu_QCD_0tag_Dplus
-      - AntiTight_2016A-B_mu_QCD_0tag_Dplus
-      - AntiTight_2016C-L_mu_QCD_0tag_Dplus
+      - AntiTight_2018_mu_QCD_mtCtrl_metSig_0tag_Dplus
+      - AntiTight_2017_mu_QCD_mtCtrl_metSig_0tag_Dplus
+      - AntiTight_2016A-B_mu_QCD_mtCtrl_metSig_0tag_Dplus
+      - AntiTight_2016C-L_mu_QCD_mtCtrl_metSig_0tag_Dplus
     samples:
       - MG_Multijet
       - MG_Multijet_Up
@@ -732,16 +732,16 @@ channels:
     lumi: "2016+2017+2018"
     save_to_file: True
 
-  AntiTight_mu_QCD_1tag_Dplus:
+  AntiTight_mu_QCD_mtCtrl_metSig_1tag_Dplus:
     regions:
-      - AntiTight_2018_mu_QCD_1tag_Dplus
-      - AntiTight_2018_mu_QCD_2tag_Dplus
-      - AntiTight_2017_mu_QCD_1tag_Dplus
-      - AntiTight_2016A-B_mu_QCD_1tag_Dplus
-      - AntiTight_2016C-L_mu_QCD_1tag_Dplus
-      - AntiTight_2017_mu_QCD_2tag_Dplus
-      - AntiTight_2016A-B_mu_QCD_2tag_Dplus
-      - AntiTight_2016C-L_mu_QCD_2tag_Dplus
+      - AntiTight_2018_mu_QCD_mtCtrl_metSig_1tag_Dplus
+      - AntiTight_2018_mu_QCD_mtCtrl_metSig_2tag_Dplus
+      - AntiTight_2017_mu_QCD_mtCtrl_metSig_1tag_Dplus
+      - AntiTight_2016A-B_mu_QCD_mtCtrl_metSig_1tag_Dplus
+      - AntiTight_2016C-L_mu_QCD_mtCtrl_metSig_1tag_Dplus
+      - AntiTight_2017_mu_QCD_mtCtrl_metSig_2tag_Dplus
+      - AntiTight_2016A-B_mu_QCD_mtCtrl_metSig_2tag_Dplus
+      - AntiTight_2016C-L_mu_QCD_mtCtrl_metSig_2tag_Dplus
     samples:
       - MG_Multijet
       - MG_Multijet_Up
@@ -753,10 +753,10 @@ channels:
     save_to_file: True
 
   #xyz
-  Tight_2017-18_el_QCD_0tag_Dplus:
+  Tight_2017-18_el_QCD_mtCtrl_metSig_0tag_Dplus:
     regions:
-      - Tight_2018_el_QCD_0tag_Dplus
-      - Tight_2017_el_QCD_0tag_Dplus
+      - Tight_2018_el_QCD_mtCtrl_metSig_0tag_Dplus
+      - Tight_2017_el_QCD_mtCtrl_metSig_0tag_Dplus
     samples:
       - MG_Multijet
       - MG_Multijet_Up
@@ -767,12 +767,12 @@ channels:
     lumi: "2017+2018"
     save_to_file: True
 
-  Tight_2017-18_el_QCD_1tag_Dplus:
+  Tight_2017-18_el_QCD_mtCtrl_metSig_1tag_Dplus:
     regions:
-      - Tight_2018_el_QCD_1tag_Dplus
-      - Tight_2018_el_QCD_2tag_Dplus
-      - Tight_2017_el_QCD_1tag_Dplus
-      - Tight_2017_el_QCD_2tag_Dplus
+      - Tight_2018_el_QCD_mtCtrl_metSig_1tag_Dplus
+      - Tight_2018_el_QCD_mtCtrl_metSig_2tag_Dplus
+      - Tight_2017_el_QCD_mtCtrl_metSig_1tag_Dplus
+      - Tight_2017_el_QCD_mtCtrl_metSig_2tag_Dplus
     samples:
       - MG_Multijet
       - MG_Multijet_Up
@@ -783,10 +783,10 @@ channels:
     lumi: "2017+2018"
     save_to_file: True
 
-  Tight_2017-18_mu_QCD_0tag_Dplus:
+  Tight_2017-18_mu_QCD_mtCtrl_metSig_0tag_Dplus:
     regions:
-      - Tight_2018_mu_QCD_0tag_Dplus
-      - Tight_2017_mu_QCD_0tag_Dplus
+      - Tight_2018_mu_QCD_mtCtrl_metSig_0tag_Dplus
+      - Tight_2017_mu_QCD_mtCtrl_metSig_0tag_Dplus
     samples:
       - MG_Multijet
       - MG_Multijet_Up
@@ -797,12 +797,12 @@ channels:
     lumi: "2017+2018"
     save_to_file: True
 
-  Tight_2017-18_mu_QCD_1tag_Dplus:
+  Tight_2017-18_mu_QCD_mtCtrl_metSig_1tag_Dplus:
     regions:
-      - Tight_2018_mu_QCD_1tag_Dplus
-      - Tight_2018_mu_QCD_2tag_Dplus
-      - Tight_2017_mu_QCD_1tag_Dplus
-      - Tight_2017_mu_QCD_2tag_Dplus
+      - Tight_2018_mu_QCD_mtCtrl_metSig_1tag_Dplus
+      - Tight_2018_mu_QCD_mtCtrl_metSig_2tag_Dplus
+      - Tight_2017_mu_QCD_mtCtrl_metSig_1tag_Dplus
+      - Tight_2017_mu_QCD_mtCtrl_metSig_2tag_Dplus
     samples:
       - MG_Multijet
       - MG_Multijet_Up
@@ -813,10 +813,10 @@ channels:
     lumi: "2017+2018"
     save_to_file: True
 
-  AntiTight_2017-18_el_QCD_0tag_Dplus:
+  AntiTight_2017-18_el_QCD_mtCtrl_metSig_0tag_Dplus:
     regions:
-      - AntiTight_2018_el_QCD_0tag_Dplus
-      - AntiTight_2017_el_QCD_0tag_Dplus
+      - AntiTight_2018_el_QCD_mtCtrl_metSig_0tag_Dplus
+      - AntiTight_2017_el_QCD_mtCtrl_metSig_0tag_Dplus
     samples:
       - MG_Multijet
       - MG_Multijet_Up
@@ -827,12 +827,12 @@ channels:
     lumi: "2017+2018"
     save_to_file: True
 
-  AntiTight_2017-18_el_QCD_1tag_Dplus:
+  AntiTight_2017-18_el_QCD_mtCtrl_metSig_1tag_Dplus:
     regions:
-      - AntiTight_2018_el_QCD_1tag_Dplus
-      - AntiTight_2018_el_QCD_2tag_Dplus
-      - AntiTight_2017_el_QCD_1tag_Dplus
-      - AntiTight_2017_el_QCD_2tag_Dplus
+      - AntiTight_2018_el_QCD_mtCtrl_metSig_1tag_Dplus
+      - AntiTight_2018_el_QCD_mtCtrl_metSig_2tag_Dplus
+      - AntiTight_2017_el_QCD_mtCtrl_metSig_1tag_Dplus
+      - AntiTight_2017_el_QCD_mtCtrl_metSig_2tag_Dplus
     samples:
       - MG_Multijet
       - MG_Multijet_Up
@@ -843,10 +843,10 @@ channels:
     lumi: "2017+2018"
     save_to_file: True
 
-  AntiTight_2017-18_mu_QCD_0tag_Dplus:
+  AntiTight_2017-18_mu_QCD_mtCtrl_metSig_0tag_Dplus:
     regions:
-      - AntiTight_2018_mu_QCD_0tag_Dplus
-      - AntiTight_2017_mu_QCD_0tag_Dplus
+      - AntiTight_2018_mu_QCD_mtCtrl_metSig_0tag_Dplus
+      - AntiTight_2017_mu_QCD_mtCtrl_metSig_0tag_Dplus
     samples:
       - MG_Multijet
       - MG_Multijet_Up
@@ -857,12 +857,12 @@ channels:
     lumi: "2017+2018"
     save_to_file: True
 
-  AntiTight_2017-18_mu_QCD_1tag_Dplus:
+  AntiTight_2017-18_mu_QCD_mtCtrl_metSig_1tag_Dplus:
     regions:
-      - AntiTight_2018_mu_QCD_1tag_Dplus
-      - AntiTight_2018_mu_QCD_2tag_Dplus
-      - AntiTight_2017_mu_QCD_1tag_Dplus
-      - AntiTight_2017_mu_QCD_2tag_Dplus
+      - AntiTight_2018_mu_QCD_mtCtrl_metSig_1tag_Dplus
+      - AntiTight_2018_mu_QCD_mtCtrl_metSig_2tag_Dplus
+      - AntiTight_2017_mu_QCD_mtCtrl_metSig_1tag_Dplus
+      - AntiTight_2017_mu_QCD_mtCtrl_metSig_2tag_Dplus
     samples:
       - MG_Multijet
       - MG_Multijet_Up
