@@ -23,7 +23,6 @@ def main(options):
                                            MockMC=options.fit_type != '',
                                            decayMode=options.decay_mode,
                                            truthDiffBins=options.truth_differential_bins,
-                                           splitSignalSamples=options.split_signal_samples,
                                            samplesConfOverride=options.samples_config)
     elif options.samples.lower() == 'flavor' or options.samples.lower() == 'flavour':
         samples = templates.WDFlavourSamples()
@@ -33,7 +32,6 @@ def main(options):
         samples = templates.WDFakeTrackSamples()
     elif options.samples.lower() == 'spg_comparison':
         samples = templates.SPGComparison(truthDiffBins=options.truth_differential_bins,
-                                          splitSignalSamples=options.split_signal_samples,
                                           decay_mode=options.decay_mode,
                                           signal_only=options.spg_signal_only,
                                           background_only=options.spg_background_only)
@@ -54,7 +52,7 @@ def main(options):
     # replacement samples
     if options.replacement_samples:
         samples_replacement = templates.ReplacementSamples(truthDiffBins=options.truth_differential_bins,
-                                                           splitSignalSamples=options.split_signal_samples, decay_mode=options.decay_mode)
+                                                           decay_mode=options.decay_mode)
 
     # TODO: make configurable?
     signs = ['OS', 'SS']
@@ -319,9 +317,6 @@ if __name__ == "__main__":
                       default=False)
     parser.add_option('--truth-differential-bins',
                       action="store_true", dest="truth_differential_bins",
-                      default=False)
-    parser.add_option('--split-signal-samples',
-                      action="store_true", dest="split_signal_samples",
                       default=False)
     parser.add_option('--spg-signal-only',
                       action="store_true", dest="spg_signal_only",

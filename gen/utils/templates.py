@@ -62,12 +62,11 @@ class WDTruthSamples(ChannelTemplate):
         "Matched_truth_pt_bin5",
     ]
 
-    def __init__(self, fitType="", MockMC=True, decayMode="Dplus", truthDiffBins=False, splitSignalSamples=False, samplesConfOverride=None):
+    def __init__(self, fitType="", MockMC=True, decayMode="Dplus", truthDiffBins=False, samplesConfOverride=None):
         self.os_ss_sub = fitType == "OS-SS"
         self.MockMC = MockMC
         self.decayMode = decayMode
         self.truthDiffBins = truthDiffBins
-        self.splitSignalSamples = splitSignalSamples
         self.samples = []
         self.samplesConfOverride = samplesConfOverride
 
@@ -83,13 +82,10 @@ class WDTruthSamples(ChannelTemplate):
             self.samples += [['MockMC', proxies.MockMC(subtract_mj=False)]]
 
         # signal sample
-        if self.truthDiffBins and self.splitSignalSamples:
+        if self.truthDiffBins:
             self.samples += [[f'Wjets_emu_{slice}', proxies.Matched(os_ss_sub=self.os_ss_sub, ptbin=i + 1)] for i, slice in enumerate(self.truthSlices)]
         else:
-            if self.splitSignalSamples:
-                self.samples += [['Wjets_emu_Matched', proxies.GenericChannel(region=self.truthSlices, name="Matched", os_ss_sub=self.os_ss_sub)]]
-            else:
-                self.samples += [['Wjets_emu_Matched', proxies.Matched(os_ss_sub=self.os_ss_sub)]]
+            self.samples += [['Wjets_emu_Matched', proxies.GenericChannel(region=self.truthSlices, name="Matched", os_ss_sub=self.os_ss_sub)]]
 
         # backgrdound from other than the signal decay modes
         self.samples += [
@@ -159,9 +155,8 @@ class SPGComparison(ChannelTemplate):
         "Matched_truth_pt_bin5",
     ]
 
-    def __init__(self, truthDiffBins=False, splitSignalSamples=False, decay_mode="Dplus", signal_only=False, background_only=False):
+    def __init__(self, truthDiffBins=False, decay_mode="Dplus", signal_only=False, background_only=False):
         self.truthDiffBins = truthDiffBins
-        self.splitSignalSamples = splitSignalSamples
         self.decay_mode = decay_mode
         self.signal_only = signal_only
         self.background_only = background_only
@@ -173,31 +168,23 @@ class SPGComparison(ChannelTemplate):
 
         # signal samples
         if not self.background_only:
-            if self.splitSignalSamples:
-                self.samples.update(
-                    {
-                        'Matched': [
-                            ['Wjets_emu_Matched', proxies.GenericChannel(region=self.truthSlices, name="Matched")],
-                            ['SPG_Matched', proxies.SPGChannel(name="SPG_Matched",
-                                                               regions_OS=["inclusive_" + self.decay_mode + f"_OS_{slice}" for slice in self.truthSlices],
-                                                               regions_SS=["inclusive_" + self.decay_mode + f"_SS_{slice}" for slice in self.truthSlices],
-                                                               always_OS=True)]]
-                    }
-                )
-            else:
-                self.samples.update(
-                    {
-                        'Matched': [
-                            ['Wjets_emu_Matched', proxies.Matched()],
-                            ['SPG_Matched', proxies.SPGChannel(name="SPG_Matched",
-                                                               regions_OS=["inclusive_" + self.decay_mode + "_OS_Matched"],
-                                                               regions_SS=["inclusive_" + self.decay_mode + "_SS_Matched"],
-                                                               always_OS=True)]]
-                    }
-                )
+            self.samples.update(
+                {
+                    'Matched': [
+                        ['Wjets_emu_Matched', proxies.GenericChannel(region=self.truthSlices, name="Matched")],
+                        ['Sh2211_Wjets_emu_Matched', proxies.GenericChannel(region=self.truthSlices, name="Matched")],
+                        ['SPG_Matched', proxies.SPGChannel(name="SPG_Matched",
+                                                            regions_OS=["inclusive_" + self.decay_mode + f"_OS_{slice}" for slice in self.truthSlices],
+                                                            regions_SS=["inclusive_" + self.decay_mode + f"_SS_{slice}" for slice in self.truthSlices],
+                                                            always_OS=True)],
+                        ['MGPy8EG_NLO_WplusD', proxies.GenericChannel(region=self.truthSlices, name="Matched")],
+                        ['Sherpa2211_WplusD', proxies.GenericChannel(region=self.truthSlices, name="Matched")],
+                    ]
+                }
+            )
 
             # signal samples in truth differential bins
-            if self.truthDiffBins and self.splitSignalSamples:
+            if self.truthDiffBins:
                 self.samples.update(
                     {
                         slice: [
@@ -388,29 +375,20 @@ class ReplacementSamples(ChannelTemplate):
         "Matched_truth_pt_bin5",
     ]
 
-    def __init__(self, truthDiffBins=False, splitSignalSamples=False, decay_mode="Dplus"):
+    def __init__(self, truthDiffBins=False, decay_mode="Dplus"):
         self.truthDiffBins = truthDiffBins
-        self.splitSignalSamples = splitSignalSamples
         self.decay_mode = decay_mode
 
         # signal samples
-        if self.splitSignalSamples:
-            self.samples = {
-                'Matched': [['SPG_Matched', proxies.SPGChannel(name="SPG_Matched",
-                                                               regions_OS=[f"inclusive_{self.decay_mode}_OS_{slice}" for slice in self.truthSlices],
-                                                               regions_SS=[f"inclusive_{self.decay_mode}_SS_{slice}" for slice in self.truthSlices],
-                                                               always_OS=True)]]
-            }
-        else:
-            self.samples = {
-                'Matched': [['SPG_Matched', proxies.SPGChannel(name="SPG_Matched",
-                                                               regions_OS=[f"inclusive_{self.decay_mode}_OS_Matched"],
-                                                               regions_SS=[f"inclusive_{self.decay_mode}_SS_Matched"],
-                                                               always_OS=True)]]
-            }
+        self.samples = {
+            'Matched': [['SPG_Matched', proxies.SPGChannel(name="SPG_Matched",
+                                                            regions_OS=[f"inclusive_{self.decay_mode}_OS_{slice}" for slice in self.truthSlices],
+                                                            regions_SS=[f"inclusive_{self.decay_mode}_SS_{slice}" for slice in self.truthSlices],
+                                                            always_OS=True)]]
+        }
 
         # signal samples in truth differential bins
-        if self.truthDiffBins and self.splitSignalSamples:
+        if self.truthDiffBins:
             self.samples.update(
                 {
                     slice: [[f'SPG_{slice}', proxies.SPGChannel(name=f"SPG_{slice}",
@@ -716,5 +694,5 @@ class ChannelGenerator:
         if self.template:
             labels += [x for x in self.template.labels]
         if extra:
-            labels += [extra]
+            labels += [extra.replace('pt_bin', 'reco p_{T}(D) bin ')]
         return labels
