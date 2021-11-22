@@ -62,16 +62,21 @@ class WDTruthSamples(ChannelTemplate):
         "Matched_truth_pt_bin5",
     ]
 
-    def __init__(self, fitType="", MockMC=True, decayMode="Dplus", truthDiffBins=False, splitSignalSamples=False):
+    def __init__(self, fitType="", MockMC=True, decayMode="Dplus", truthDiffBins=False, splitSignalSamples=False, samplesConfOverride=None):
         self.os_ss_sub = fitType == "OS-SS"
         self.MockMC = MockMC
         self.decayMode = decayMode
         self.truthDiffBins = truthDiffBins
         self.splitSignalSamples = splitSignalSamples
         self.samples = []
+        self.samplesConfOverride = samplesConfOverride
 
         if self.decayMode == "Dstar":
             self.samplesConf = "madgraph_truth_dstar"
+
+        # override samples config
+        if self.samplesConfOverride:
+            self.samplesConf = self.samplesConfOverride
 
         # MockMC at the top in case of OS-SS plots
         if self.os_ss_sub and self.MockMC:

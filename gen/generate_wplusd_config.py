@@ -23,7 +23,8 @@ def main(options):
                                            MockMC=options.fit_type != '',
                                            decayMode=options.decay_mode,
                                            truthDiffBins=options.truth_differential_bins,
-                                           splitSignalSamples=options.split_signal_samples)
+                                           splitSignalSamples=options.split_signal_samples,
+                                           samplesConfOverride=options.samples_config)
     elif options.samples.lower() == 'flavor' or options.samples.lower() == 'flavour':
         samples = templates.WDFlavourSamples()
     elif options.samples.lower() == 'fit':
