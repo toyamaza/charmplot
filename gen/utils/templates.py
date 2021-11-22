@@ -174,9 +174,9 @@ class SPGComparison(ChannelTemplate):
                         ['Wjets_emu_Matched', proxies.GenericChannel(region=self.truthSlices, name="Matched")],
                         ['Sh2211_Wjets_emu_Matched', proxies.GenericChannel(region=self.truthSlices, name="Matched")],
                         ['SPG_Matched', proxies.SPGChannel(name="SPG_Matched",
-                                                            regions_OS=["inclusive_" + self.decay_mode + f"_OS_{slice}" for slice in self.truthSlices],
-                                                            regions_SS=["inclusive_" + self.decay_mode + f"_SS_{slice}" for slice in self.truthSlices],
-                                                            always_OS=True)],
+                                                           regions_OS=["inclusive_" + self.decay_mode + f"_OS_{slice}" for slice in self.truthSlices],
+                                                           regions_SS=["inclusive_" + self.decay_mode + f"_SS_{slice}" for slice in self.truthSlices],
+                                                           always_OS=True)],
                         ['MGPy8EG_NLO_WplusD', proxies.GenericChannel(region=self.truthSlices, name="Matched")],
                         ['Sherpa2211_WplusD', proxies.GenericChannel(region=self.truthSlices, name="Matched")],
                     ]
@@ -382,9 +382,9 @@ class ReplacementSamples(ChannelTemplate):
         # signal samples
         self.samples = {
             'Matched': [['SPG_Matched', proxies.SPGChannel(name="SPG_Matched",
-                                                            regions_OS=[f"inclusive_{self.decay_mode}_OS_{slice}" for slice in self.truthSlices],
-                                                            regions_SS=[f"inclusive_{self.decay_mode}_SS_{slice}" for slice in self.truthSlices],
-                                                            always_OS=True)]]
+                                                           regions_OS=[f"inclusive_{self.decay_mode}_OS_{slice}" for slice in self.truthSlices],
+                                                           regions_SS=[f"inclusive_{self.decay_mode}_SS_{slice}" for slice in self.truthSlices],
+                                                           always_OS=True)]]
         }
 
         # signal samples in truth differential bins
