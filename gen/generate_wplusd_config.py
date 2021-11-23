@@ -283,7 +283,7 @@ if __name__ == "__main__":
     parser.add_option('--samples-config',
                       action="store", dest="samples_config",
                       help="different sample configurations (madgraph_truth,sherpa_truth,sherpa2210_truth,madgraph_fxfx_truth)",
-                      default="madgraph_truth")
+                      default="")
     parser.add_option('--fit-only',
                       action="store_true", dest="fit_only",
                       help="only regions necessaty for the fit")
