@@ -32,9 +32,6 @@ colors = {
     "MGFxFx_Wjets": ROOT.kViolet,
     "Sherpa2211_WplusD": ROOT.kBlue,
     "MGPy8EG_NLO_WplusD": ROOT.kRed,
-    "MG_NLO_WplusD_Dstar": ROOT.kRed,
-    "MG_NLO_WplusD_prompt": ROOT.kBlue,
-    "MGPy8EG_NLO_WplusD_rw": ROOT.kGreen,
 }
 
 # bin shift
@@ -46,9 +43,6 @@ bin_shift = {
     "MGFxFx_Wjets": 1.25,
     "Sherpa2211_WplusD": 1.00,
     "MGPy8EG_NLO_WplusD": 1.00,
-    "MG_NLO_WplusD_Dstar": 1.00,
-    "MG_NLO_WplusD_prompt": 1.00,
-    "MGPy8EG_NLO_WplusD_rw": 1.00,
 }
 
 # legend
@@ -60,9 +54,6 @@ legend_names = {
     "MGFxFx_Wjets": "MG FxFx",
     "Sherpa2211_WplusD": "Sh.2.11 W+D",
     "MGPy8EG_NLO_WplusD": "NLO MG W+D",
-    "MG_NLO_WplusD_Dstar": "NLO MG W+D (D*)",
-    "MG_NLO_WplusD_prompt": "NLO MG W+D",
-    "MGPy8EG_NLO_WplusD_rw": "NLO MG W+D (rw)",
 }
 
 # variables
@@ -103,13 +94,12 @@ def main(options, args):
         systematics += [f"GEN_MUR1_MUF1_PDF{N}" for N in range(261000, 261101)]
     elif options.sherpa_qcd:
         systematics += [
-            "GEN_MUR05_MUF05_PDF261000",
-            "GEN_MUR05_MUF1_PDF261000",
-            "GEN_MUR1_MUF05_PDF261000",
-            "GEN_MUR1_MUF1_PDF261000",
-            "GEN_MUR1_MUF2_PDF261000",
-            "GEN_MUR2_MUF1_PDF261000",
-            "GEN_MUR2_MUF2_PDF261000",
+            "GEN_MUR05_MUF05_PDF303200_PSMUR05_PSMUF05",
+            "GEN_MUR05_MUF1_PDF303200_PSMUR05_PSMUF1",
+            "GEN_MUR1_MUF05_PDF303200_PSMUR1_PSMUF05",
+            "GEN_MUR1_MUF2_PDF303200_PSMUR1_PSMUF2",
+            "GEN_MUR2_MUF1_PDF303200_PSMUR2_PSMUF1",
+            "GEN_MUR2_MUF2_PDF303200_PSMUR2_PSMUF2",
         ]
     elif options.sherpa_as:
         systematics += [
@@ -119,56 +109,85 @@ def main(options, args):
 
     # samples sys
     samples_sys = []
-    samples_sys_reco = []
     for s in samples:
         for syst in systematics:
-            name = syst
             if syst:
-                if not s == "Sherpa_Wjets":
+                if not s == "Sherpa2211_WplusD":
                     continue
-                name = f"_{syst}"
-            samples_sys += [f"{s}{name}"]
-            if "WplusD" not in s and "Sherpa2211" not in s:
-                samples_sys_reco += [f"{s}_emu_Matched{name}"]
-            else:
-                samples_sys_reco += [f"{s}{name}"]
+                syst = f"_{syst}"
+            samples_sys += [f"{s}{syst}"]
     print(f"Samples sys: {samples_sys}")
-    print(f"Samples sys reco: {samples_sys_reco}")
 
     # loop
     for c in channels:
 
-        # matrix
-        h_tmp = {s.replace("_emu_Matched", ""): f.Get(f"{s}_{c.replace('_Kpipi', '')}_Dmeson_transfer_matrix") for s in samples_sys_reco}
-        print([f"{s}_{c.replace('_Kpipi', '')}_Dmeson_transfer_matrix" for s in samples_sys_reco])
-        nbins = h_tmp[samples[0]].GetNbinsX()
-        xbins = array('d', [h_tmp[samples[0]].GetXaxis().GetBinLowEdge(i) for i in range(1, nbins + 3)])
-        xbins[-1] = xbins[-2] + 2 * xbins[-3]
-        h = {s.replace("_emu_Matched", ""): ROOT.TH2D(f"{s}_{c}_transfer_matrix", f"{s}_{c}_transfer_matrix",
-                                                      nbins + 1, xbins, nbins + 1, xbins) for s in samples_sys_reco}
+        print(f"Doing channel {c}")
 
-        # differential bins
-        h_pt_tmp = {s.replace("_emu_Matched", ""): f.Get(f"{s}_{c.replace('_Kpipi', '')}_Dmeson_differential_pt") for s in samples_sys_reco}
-        h_pt = {s.replace("_emu_Matched", ""): ROOT.TH1D(f"{s}_{c}_differential_pt", f"{s}_{c}_differential_pt", nbins + 1, xbins) for s in samples_sys_reco}
+        # reco
+        h_tmp = {}
+        h = {}
+        h_pt_tmp = {}
+        h_pt = {}
 
-        # truth differential
-        h_pt_truth_tmp = {s: f_truth.Get(f"{s}_{c}_D_differential_pt") for s in samples_sys}
-        h_pt_truth = {s: ROOT.TH1D(f"{s}_{c}_truth_differential_pt", f"{s}_{c}_truth_differential_pt", nbins + 1, xbins) for s in samples_sys}
+        # truth
+        h_pt_truth_tmp = {}
+        h_pt_truth = {}
+        truth_projection_tmp = {}
+        truth_projection = {}
+        h_fid_eff = {}
+        h_fid_eff_inv = {}
 
-        # calculate fiducial efficiency
-        truth_projection_tmp = {s: h_tmp[s].ProjectionY(f"{s}_{c}_truth_projection_tmp", 0, nbins + 1) for s in samples_sys}
-        _ = [truth_projection_tmp[s].Scale(1. / LUMI_RUN2) for s in samples_sys]
-        truth_projection = {s: ROOT.TH1D(f"{s}_{c}_truth_projection", f"{s}_{c}_truth_projection", nbins + 1, xbins) for s in samples_sys}
+        for s in samples_sys:
 
-        # account for forced decay samples
-        if "Kpipi" in c:
-            for s in h_pt_truth:
-                if "WplusD" in s:
-                    h_pt_truth_tmp[s].Scale(0.092)
+            # systematic and special cases
+            sys = s.split("_GEN")
 
-        # calculate fiducial efficiency per bin
-        h_fid_eff = {s: ROOT.TH2D(f"{s}_{c}_fid_eff", f"{s}_{c}_fid_eff", nbins + 1, xbins, nbins + 1, xbins) for s in samples_sys}
-        h_fid_eff_inv = {s: ROOT.TH2D(f"{s}_{c}_fid_eff_inv", f"{s}_{c}_fid_eff_inv", nbins + 1, xbins, nbins + 1, xbins) for s in samples_sys}
+            # special name for truth-matched reco samples
+            if "WplusD" not in s and "Sherpa2211" not in s:
+                name_reco = sys[0] + "_emu_Matched"
+            else:
+                name_reco = sys[0]
+            name = sys[0]
+
+            # systematics
+            if len(sys) > 1:
+                sys = "_GEN" + sys[-1]
+            else:
+                sys = ""
+
+            # histogram name
+            print(f"{name_reco}_{c.replace('_Kpipi', '')}_Dmeson_transfer_matrix{sys}")
+
+            h_tmp[s] = f.Get(f"{name_reco}_{c.replace('_Kpipi', '')}_Dmeson_transfer_matrix{sys}")
+            nbins = h_tmp[s].GetNbinsX()
+            xbins = array('d', [h_tmp[s].GetXaxis().GetBinLowEdge(i) for i in range(1, nbins + 3)])
+            xbins[-1] = xbins[-2] + 2 * xbins[-3]
+            h[s] = ROOT.TH2D(f"{s}_{c}_transfer_matrix", f"{s}_{c}_transfer_matrix", nbins + 1, xbins, nbins + 1, xbins)
+
+            # differential bins
+            h_pt_tmp[s] = f.Get(f"{name_reco}_{c.replace('_Kpipi', '')}_Dmeson_differential_pt{sys}")
+            h_pt[s] = ROOT.TH1D(f"{s}_{c}_differential_pt", f"{s}_{c}_differential_pt", nbins + 1, xbins)
+
+            # truth histogram name
+            print(f"{name}_{c.replace('_0tag', '')}_D_differential_pt{sys}")
+
+            h_pt_truth_tmp[s] = f_truth.Get(f"{name}_{c.replace('_0tag', '')}_D_differential_pt{sys}")
+            h_pt_truth[s] = ROOT.TH1D(f"{s}_{c}_truth_differential_pt", f"{s}_{c}_truth_differential_pt", nbins + 1, xbins)
+
+            # calculate fiducial efficiency
+            truth_projection_tmp[s] = h_tmp[s].ProjectionY(f"{s}_{c}_truth_projection_tmp", 0, nbins + 1)
+            truth_projection_tmp[s].Scale(1. / LUMI_RUN2)
+            truth_projection[s] = ROOT.TH1D(f"{s}_{c}_truth_projection", f"{s}_{c}_truth_projection", nbins + 1, xbins)
+
+            # # account for forced decay samples
+            # if "Kpipi" in c:
+            #     for s in h_pt_truth:
+            #         if "WplusD" in s:
+            #             h_pt_truth_tmp[s].Scale(0.096)
+
+            # calculate fiducial efficiency per bin
+            h_fid_eff[s] = ROOT.TH2D(f"{s}_{c}_fid_eff", f"{s}_{c}_fid_eff", nbins + 1, xbins, nbins + 1, xbins)
+            h_fid_eff_inv[s] = ROOT.TH2D(f"{s}_{c}_fid_eff_inv", f"{s}_{c}_fid_eff_inv", nbins + 1, xbins, nbins + 1, xbins)
 
         # numpy matrix
         np_matrix = np.identity(nbins + 1)
@@ -271,28 +290,8 @@ def main(options, args):
             inclusive_num.Rebin(inclusive_num.GetNbinsX())
             inclusive_den.Rebin(inclusive_den.GetNbinsX())
             fid_eff_inclusive[s] = ROOT.TEfficiency(inclusive_num, inclusive_den)
-            # print(f":: Inclusive Efficiency for {s}-- {fid_eff_inclusive.GetEfficiency(1)} + {fid_eff_inclusive.GetEfficiencyErrorUp(1)} - {fid_eff_inclusive.GetEfficiencyErrorLow(1)}")
 
         f_out.cd()
-        # for s in samples_sys:
-        #     h[s].Write()
-        #     h_pt[s].Write()
-        #     h_pt_truth[s].Write()
-        #     fid_eff_gr[s].Write(f"{s}_{c}_fid_eff")
-
-        # # -------------------
-        # # print numpy matrix
-        # # -------------------
-        # print(c)
-        # print(np_matrix)
-        # print(np_truth)
-        # print(np.dot(np_matrix, np_truth))
-        # np_truth_inv = np.linalg.inv(np_matrix)
-        # print(np_truth_inv)
-        # # fill in the invertex matrix
-        # for i in range(1, nbins + 2):
-        #     for j in range(1, nbins + 2):
-        #         h_fid_eff_inv[s].SetBinContent(i, j, np_truth_inv[i - 1][j - 1])
 
         # -------------------
         # draw matrix
@@ -410,9 +409,10 @@ def main(options, args):
             sherpa_nominal = None
             sherpa_sys = []
             for key, gr in fid_eff_gr.items():
-                if "Sherpa_Wjets" not in key:
+                print(key)
+                if "Sherpa2211_WplusD" not in key:
                     continue
-                if key == "Sherpa_Wjets":
+                if key == "Sherpa2211_WplusD":
                     sherpa_nominal = gr
                 else:
                     sherpa_sys += [gr]
@@ -435,9 +435,12 @@ def main(options, args):
                 # ROOT.myText(0.18, 0.72 - 0.10 * (j + 1), 1, f"{s}: {eff:1.5f} #pm {eff_err:1.5f} ({100 * eff_err / eff:1.3f}%)")
 
         if options.sherpa_pdf or options.sherpa_qcd:
-            sys_band.SetFillColor(colors["Sherpa_Wjets"] + 2)
+            sys_band.SetFillColor(colors["Sherpa2211_WplusD"] + 2)
             sys_band.Draw("e2")
-        _ = [fid_eff_gr[s].Draw("pe") for s in reversed(samples_sys)]
+        for s in samples_sys:
+            if "_GEN_" in s:
+                continue
+            fid_eff_gr[s].Draw("pe")
         leg.Draw()
 
         # ratio
@@ -451,22 +454,21 @@ def main(options, args):
                 fid_eff_gr_ratio[s].GetEYhigh()[i] /= fid_eff_gr[samples[0]].GetY()[i]
                 fid_eff_gr_ratio[s].GetEYlow()[i] /= fid_eff_gr[samples[0]].GetY()[i]
 
-        if not options.sherpa_pdf:
-            for s in reversed(samples_sys):
-                fid_eff_gr_ratio[s].Draw("pe")
-                if not (options.sherpa_qcd or options.sherpa_pdf):
-                    h, _, _ = utils.get_hist_from_gr(fid_eff_gr_ratio[s], f"{s}_{c}_fid_eff_ratio")
-                    h.Write()
+            if "_GEN_" in s:
+                continue
+
+            h, _, _ = utils.get_hist_from_gr(fid_eff_gr_ratio[s], f"{s}_{c}_fid_eff_ratio")
+            h.Write()
 
         # draw Sherpa errors
         if options.sherpa_pdf or options.sherpa_qcd:
 
             # adjust the central values
             sys_band_ratio_clone = sys_band_ratio.Clone()
-            for i in range(fid_eff_gr_ratio["Sherpa_Wjets"].GetN()):
-                sys_band_ratio_clone.GetY()[i] = fid_eff_gr_ratio["Sherpa_Wjets"].GetY()[i]
+            for i in range(fid_eff_gr_ratio["Sherpa2211_WplusD"].GetN()):
+                sys_band_ratio_clone.GetY()[i] = fid_eff_gr_ratio["Sherpa2211_WplusD"].GetY()[i]
             sys_band_ratio_clone.Draw("e2")
-            sys_band_ratio_clone.SetFillColor(colors["Sherpa_Wjets"] + 2)
+            sys_band_ratio_clone.SetFillColor(colors["Sherpa2211_WplusD"] + 2)
 
             if options.sherpa_qcd:
                 _, h_up, h_dn = utils.get_hist_from_gr(sys_band_ratio, f"{s}_{c}_fid_eff_ratio_qcd_err")
@@ -484,7 +486,10 @@ def main(options, args):
                 h.Write()
 
         # draw all graphs
-        _ = [fid_eff_gr_ratio[s].Draw("pe") for s in reversed(samples_sys)]
+        for s in reversed(samples_sys):
+            if "_GEN_" in s:
+                continue
+            fid_eff_gr_ratio[s].Draw("pe")
 
         # save
         ROOT.gPad.RedrawAxis()

@@ -109,7 +109,7 @@ def main(options):
 
     # systematics
     systematics = []
-    if options.systematics and not options.samples.lower() == 'spg_sys':
+    if options.systematics:
         systematics = [
             'experimental',
             'matrix_method',
@@ -131,15 +131,9 @@ def main(options):
                 'wjets_bkg_alt_samples_1tag',
             ]
 
-    elif options.systematics and options.samples.lower() == 'spg_sys':
-        systematics = ['track_impact_parameter']
+    if options.sys_configs:
+        systematics = options.sys_configs.split(",")
 
-    if options.sherpa_systematics:
-        systematics = [
-            'sherpa_theory_qcd',
-            # 'sherpa_theory_pdf',
-            # 'sherpa_theory_as',
-        ]
 
     # Base config
     config = templates.DataMCConfig(variables=options.variables,
@@ -306,9 +300,9 @@ if __name__ == "__main__":
     parser.add_option('--sys',
                       action="store_true", dest="systematics",
                       help="add systematics")
-    parser.add_option('--sherpa-sys',
-                      action="store_true", dest="sherpa_systematics",
-                      help="add Sherpa systematics")
+    parser.add_option('--sys-configs',
+                      action="store", dest="sys_configs",
+                      help="comma sepparated list of sys configs")
     parser.add_option('--replacement-samples',
                       action="store_true", dest="replacement_samples",
                       help="replace samples")

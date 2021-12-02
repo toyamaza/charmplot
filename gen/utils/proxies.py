@@ -6,13 +6,17 @@ class ProxyChannel:
     os_ss_sub = False
 
     def __init__(self, os_ss_sub: bool = False, loose_sr: bool = False, loose_sr_only: bool = False,
-                 ss_only: bool = False, force_1tag: bool = False, add_1tag: bool = False):
+                 ss_only: bool = False, os_only: bool = False, force_1tag: bool = False, add_1tag: bool = False):
         self.os_ss_sub = os_ss_sub
         self.loose_sr = loose_sr
         self.loose_sr_only = loose_sr_only
         self.ss_only = ss_only
+        self.os_only = os_only
         self.force_1tag = force_1tag
         self.add_1tag = add_1tag
+
+        # inconsistent config
+        assert not (ss_only and os_only)
 
     def format(self, regions):
 
@@ -32,7 +36,19 @@ class ProxyChannel:
 
         out = []
         if not self.os_ss_sub:
-            out = regions
+            if self.os_only:
+                for reg in regions:
+                    if "_OS" in reg:
+                        out += [reg]
+            elif self.ss_only:
+                for reg in regions:
+                    if "_SS" in reg:
+                        if reg.startswith("-"):
+                            out += [reg[1:]]
+                        else:
+                            out += ["-" + reg]
+            else:
+                out = regions
         else:
             for reg in regions:
                 anti_sign = "-"
@@ -200,10 +216,10 @@ class GenericChannel(ProxyChannel):
     name = ""
 
     def __init__(self, os_ss_sub: bool = False, loose_sr: bool = False, loose_sr_only: bool = False,
-                 ss_only: bool = False, force_1tag: bool = False, add_1tag: bool = False, region: str = "", name: str = "",
+                 ss_only: bool = False, os_only: bool = False, force_1tag: bool = False, add_1tag: bool = False, region: str = "", name: str = "",
                  regions_override: list = [], regions_OS: list = [], regions_SS: list = []):
         super().__init__(os_ss_sub=os_ss_sub, loose_sr=loose_sr, loose_sr_only=loose_sr_only,
-                         ss_only=ss_only, force_1tag=force_1tag, add_1tag=add_1tag)
+                         ss_only=ss_only, os_only=os_only, force_1tag=force_1tag, add_1tag=add_1tag)
         self.region = region
         self.regions_override = regions_override
         if name == "":

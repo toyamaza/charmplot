@@ -293,10 +293,6 @@ def main(options, conf, reader):
                     out_file = ROOT.TFile(out_file_name, "UPDATE")
                     out_file.cd()
                     h.Write(f"{samples[i].shortName}_{c.name}_{var.name}_ratio")
-                    if var.name == "Dmeson_pt":
-                        func = ROOT.TF1(f"{samples[i].shortName}_{c.name}_{var.name}_ratio_func", "pol5", 8, 98)
-                        h.Fit(func, "0WR")
-                        func.Write()
                     out_file.Close()
 
             # Print out

@@ -451,9 +451,6 @@ class WDComparisonSamples(ChannelTemplate):
     samplesConf = "wplusd_comparison"
 
     samples = [
-        # ['Powheg_Wjets_emu_Matched', proxies.Matched()],
-        # ['Sherpa_Wjets_emu_Matched', proxies.Matched()],
-        # ['MGFxFx_Wjets_emu_Matched', proxies.Matched()],
         ['MG_Wjets_emu_Matched', proxies.GenericChannel(name="Matched", region="Matched")],
         ['MGPy8EG_NLO_WplusD', proxies.GenericChannel(name="Matched", region="Matched")],
         ['Sherpa2211_WplusD', proxies.GenericChannel(name="Matched", region="Matched")],
@@ -555,7 +552,7 @@ class ChannelGenerator:
             self.config["data"] = self.template.data
         return self.config
 
-    def make_channel(self, lumi, sign='', year='', lepton='', charge='', btag='', extra_rebin=1, os_only=False):
+    def make_channel(self, lumi, sign='', year='', lepton='', charge='', btag='', extra_rebin=1):
         for ptbin in self.ptbins:
             for suffix, samples in self.samples.items():
                 channel_name = self.generate_channel_name(sign=sign, year=year, lepton=lepton, charge=charge, btag=btag, suffix=suffix)

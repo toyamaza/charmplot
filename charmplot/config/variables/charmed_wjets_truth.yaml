@@ -27,7 +27,15 @@ D_pt_truth:
   xbins: [8, 10, 12, 14, 16, 18, 20, 30, 40, 60, 80, 150]
   ratio_range: [0.5, 1.49]
   per_unit: True
-  # x_range: [0, 150]
+
+D_pt_fit:
+  name_override: D_pt
+  label: "D^{#pm} p_{T}"
+  unit: "GeV"
+  rebin: 1
+  xbins: [8, 12, 20, 40, 80, 150]
+  ratio_range: [0.5, 1.49]
+  per_unit: True
 
 D_differential_pt:
   label: "D^{#pm} p_{T}"
@@ -87,3 +95,21 @@ dR_min_Dplus:
 
 dR_min_OS_Dplus:
   label: "#DeltaR^{min}_{OS}(D^{#pm})"
+
+v_m:
+  label: "v_m"
+
+D_m_pi0:
+  label: "D_m_pi0"
+
+v_phi:
+  label: "v_phi"
+
+lep_charge:
+  label: "lep_charge"
+
+v_eta:
+  label: "v_eta"
+
+v_pt:
+  label: "v_pt"
