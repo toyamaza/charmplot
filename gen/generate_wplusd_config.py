@@ -134,7 +134,6 @@ def main(options):
     if options.sys_configs:
         systematics = options.sys_configs.split(",")
 
-
     # Base config
     config = templates.DataMCConfig(variables=options.variables,
                                     systematics=systematics).to_dict()
