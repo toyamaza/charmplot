@@ -209,7 +209,7 @@ def main(conf, options, args):
             canv.proxy_up.GetXaxis().SetRangeUser(0, x_range[1] + 20)
             canv.proxy_up.SetMinimum(y_range[0])
             canv.proxy_up.SetMaximum(y_range[1])
-            canv.make_legend(None, None, mc_map, mc_map.keys(), draw_option="pe")
+            canv.make_legend(None, None, mc_map, mc_map.keys(), draw_option="pe", leg_offset=-0.05)
             hs.Draw("same nostack")
             canv.print(os.path.join(plots_folder, f"{options.output}_{channel_name}_{y}.pdf"))
             canv.print(os.path.join(plots_folder, f"{options.output}_{channel_name}_{y}.png"))

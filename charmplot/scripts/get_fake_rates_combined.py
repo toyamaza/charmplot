@@ -180,6 +180,9 @@ def main(conf, options, args):
     # split tags
     tags = options.tags.split(",")
 
+    #skip systematic variation
+    sys_var_skip = options.sys_var_skip
+
     # out plots
     plots_folder = os.path.join(os.path.dirname(options.input), f"{options.output}")
     if not os.path.isdir(plots_folder):
@@ -254,6 +257,8 @@ def main(conf, options, args):
                         projX_den = lep_pt_eta_loose.ProjectionX(f"Eff_den_{s}_{channel_name}_{t}_{d}_{y}", y, y)
                         projX_den.Add(projX_num)
                         print("before" + str(y))
+                        print(projX_num.GetNbinsX())
+                        print(projX_den.GetNbinsX())
                         tmp_out = projX_num.Clone(f"tmp_out_{s}_{channel_name}_{t}_{d}_{y}")
                         tmp_out.Divide(projX_den)
                         eff = ROOT.TEfficiency(projX_num, projX_den)
@@ -305,6 +310,7 @@ def main(conf, options, args):
                 first_sample = True
                 # eff_sum = ROOT.TEfficiency()
                 for s in samples:
+                    print(f"look here: {s}_{sys_var_skip}")
                     first_d_species = True
                     # eff_tmp = ROOT.TEfficiency()
                     for d in dspecies:
@@ -323,6 +329,9 @@ def main(conf, options, args):
                     fake_rate_map_comb[f"{s}_{t}"].SetLineColor(sample_config.lineColor)
                     mc_map[sample_config] = fake_rate_map_comb[f"{s}_{t}"]
 
+                    # skip the systematic variation in the average
+                    if s == sys_var_skip:
+                        continue
                     # Prepping sum for output
                     if first_sample:
                         eff_sum = eff_tmp.Clone(f"{s}_{t}_Comb")
@@ -350,7 +359,7 @@ def main(conf, options, args):
             canv.proxy_dn.GetXaxis().SetRangeUser(0, x_range[1] + 20)
             canv.proxy_up.SetMinimum(y_range[0])
             canv.proxy_up.SetMaximum(y_range[1])
-            canv.make_legend(None, None, mc_map, mc_map.keys(), draw_option="pe")
+            canv.make_legend(None, None, mc_map, mc_map.keys(), draw_option="pe", leg_offset=-0.15)
 
             eff_list = []
             for s in samples:
@@ -418,6 +427,10 @@ if __name__ == "__main__":
                       action="store", dest="tags",
                       help="comma separated list tags to be compared",
                       default="0tag")
+    parser.add_option('-k', '--sys-var-skip',
+                      action="store", dest="sys_var_skip",
+                      help="MC that will be used as systematic variation, not to be included in sum",
+                      default="MG_Wjets_emu")
 
     # parse input arguments
     options, args = parser.parse_args()
