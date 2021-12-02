@@ -59,9 +59,8 @@ Sherpa2211_WplusD:
   add:
     - Sh_2211_WplusD
   subtract:
-  lineColor: "ROOT.kBlue"
+  lineColor: "ROOT.kRed"
   legendLabel: "Sh.2.11 W+D"
-  # scaleMC: 0.092
   shortName: Sherpa2211_WplusD
 
 Sherpa2211_Wjets:
@@ -80,7 +79,6 @@ MGPy8EG_NLO_WplusD:
   subtract:
   lineColor: "ROOT.kRed"
   legendLabel: "NLO MG W+D"
-  # scaleMC: 0.092
   shortName: MGPy8EG_NLO_WplusD
 
 MGPy8EG_NLO_WplusD_rw:
@@ -113,7 +111,6 @@ Sherpa2211_WplusD_Loose:
   subtract:
   lineColor: "ROOT.kBlue+2"
   legendLabel: "Sh.2.11 W+D Loose"
-  # scaleMC: 0.092
   shortName: Sherpa2211_WplusD_Loose
 
 MGPy8EG_NLO_WplusD_Loose:
@@ -122,7 +119,6 @@ MGPy8EG_NLO_WplusD_Loose:
   subtract:
   lineColor: "ROOT.kRed+2"
   legendLabel: "NLO MG W+D Loose"
-  # scaleMC: 0.092
   shortName: MGPy8EG_NLO_WplusD_Loose
 
 MG_Wjets_emu_Matched_Loose:
@@ -150,7 +146,7 @@ Sh2211_Wjets_emu_Matched:
     - Sh_2211_Wjets_cjets_emu
     - Sh_2211_Wjets_light_emu
   subtract:
-  lineColor: "ROOT.kRed"
+  lineColor: "ROOT.kGreen"
   legendLabel: "Sh2.2.11"
   shortName: Sh2211_Wjets_emu_Matched
 
@@ -160,6 +156,6 @@ Sh2211_Wjets_emu_Matched_Loose:
     - Sh_2211_Wjets_cjets_emu
     - Sh_2211_Wjets_light_emu
   subtract:
-  lineColor: "ROOT.kRed+2"
+  lineColor: "ROOT.kGreen+2"
   legendLabel: "Sh2.2.11"
   shortName: Sh2211_Wjets_emu_Matched_Loose

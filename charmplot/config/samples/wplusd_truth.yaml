@@ -49,7 +49,7 @@ Sherpa2211_WplusD:
   add:
     - Sh_2211_WplusD
   subtract:
-  lineColor: "ROOT.kBlue"
+  lineColor: "ROOT.kRed"
   legendLabel: "Sh2.2.11 W+D"
   shortName: Sherpa2211_WplusD
 
@@ -70,27 +70,3 @@ MGPy8EG_NLO_WplusD:
   lineColor: "ROOT.kRed"
   legendLabel: "NLO MG W+D"
   shortName: MGPy8EG_NLO_WplusD
-
-MGPy8EG_NLO_WplusD_rw:
-  add:
-    - MG_NLO_WplusD_rw
-  subtract:
-  lineColor: "ROOT.kGreen"
-  legendLabel: "NLO MG W+D (rw)"
-  shortName: MGPy8EG_NLO_WplusD_rw
-
-MG_NLO_WplusD_Dstar:
-  add:
-    - MG_NLO_WplusD_Dstar
-  subtract:
-  lineColor: "ROOT.kRed"
-  legendLabel: "NLO MG W+D (D*)"
-  shortName: MG_NLO_WplusD_Dstar
-
-MG_NLO_WplusD_prompt:
-  add:
-    - MG_NLO_WplusD_prompt
-  subtract:
-  lineColor: "ROOT.kBlue"
-  legendLabel: "NLO MG W+D"
-  shortName: MG_NLO_WplusD_prompt

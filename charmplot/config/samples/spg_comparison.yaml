@@ -2,14 +2,35 @@ colorScheme: gemstone_hues
 
 Wjets_emu_Matched:
   add:
-    # - MG_Wjets_emu
-    - MG_Wjets_cjets_emu
-    - MG_Wjets_bjets_emu
-    - MG_Wjets_light_emu
+    - MG_Wjets_emu
   subtract:
   lineColor: "10004"
   legendLabel: "MG W+#it{D}(#it{K}#pi#pi)"
   shortName: Wjets_emu_Matched
+
+Wjets_emu_Matched_OS:
+  add:
+    - MG_Wjets_emu
+  subtract:
+  lineColor: "ROOT.kRed+1"
+  legendLabel: "LO MG (OS)"
+  shortName: Wjets_emu_Matched_OS
+
+Wjets_emu_Matched_SS:
+  add:
+    - MG_Wjets_emu
+  subtract:
+  lineColor: "ROOT.kBlue+1"
+  legendLabel: "LO MG (SS)"
+  shortName: Wjets_emu_Matched_SS
+
+Wjets_emu_Matched_OS-SS:
+  add:
+    - MG_Wjets_emu
+  subtract:
+  lineColor: "ROOT.kGreen+1"
+  legendLabel: "LO MG (OS-SS)"
+  shortName: Wjets_emu_Matched_OS-SS
 
 Wjets_emu_411MisMatched:
   add:
@@ -60,36 +81,6 @@ Wjets_emu_CharmMisMatched:
   lineColor: "10004"
   legendLabel: "MG W+Charm"
   shortName: Wjets_emu_CharmMisMatched
-
-Wjets_emu_Matched_OS-SS:
-  add:
-    - MG_Wjets_cjets_emu
-    - MG_Wjets_bjets_emu
-    - MG_Wjets_light_emu
-  subtract:
-  lineColor: "10004"
-  legendLabel: "W+#it{D}(#it{K}#pi#pi) OS-SS"
-  shortName: Wjets_emu_Matched_OS-SS
-
-Wjets_emu_Matched_OS:
-  add:
-    - MG_Wjets_cjets_emu
-    - MG_Wjets_bjets_emu
-    - MG_Wjets_light_emu
-  subtract:
-  lineColor: "11004"
-  legendLabel: "W+#it{D}(#it{K}#pi#pi) OS"
-  shortName: Wjets_emu_Matched_OS
-
-Wjets_emu_Matched_SS:
-  add:
-    - MG_Wjets_cjets_emu
-    - MG_Wjets_bjets_emu
-    - MG_Wjets_light_emu
-  subtract:
-  lineColor: "14004"
-  legendLabel: "W+#it{D}(#it{K}#pi#pi) SS"
-  shortName: Wjets_emu_Matched_SS
 
 Wjets_emu_411MisMatched_OS-SS:
   add:
@@ -246,7 +237,7 @@ SPG_Matched:
     - SPG_Dplus
     - SPG_Dminus
   subtract:
-  lineColor: "11000"
+  lineColor: "21000"
   legendLabel: "#it{D}(#it{K}#pi#pi) SPG"
   shortName: SPG_Matched
 
@@ -400,3 +391,93 @@ SPG_Matched_truth_pt_bin5:
   lineColor: "21000"
   legendLabel: "SPG #it{D}(#it{K}#pi#pi) (bin 5)"
   shortName: SPG_Matched_truth_pt_bin5
+
+Sh2211_Wjets_emu_Matched:
+  add:
+    - Sh_2211_Wjets_bjets_emu
+    - Sh_2211_Wjets_cjets_emu
+    - Sh_2211_Wjets_light_emu
+  subtract:
+  lineColor: "ROOT.kGreen"
+  legendLabel: "Sh2.2.11"
+  shortName: Sh2211_Wjets_emu_Matched
+
+MGPy8EG_NLO_WplusD:
+  add:
+    - MG_NLO_WplusD
+  subtract:
+  lineColor: "ROOT.kBlue"
+  legendLabel: "NLO MG W+D"
+  shortName: MGPy8EG_NLO_WplusD
+
+Sherpa2211_WplusD:
+  add:
+    - Sh_2211_WplusD
+  subtract:
+  lineColor: "ROOT.kRed"
+  legendLabel: "Sh.2.11 W+D"
+  shortName: Sherpa2211_WplusD
+
+Sherpa2211_WplusD_OS:
+  add:
+    - Sh_2211_WplusD
+  subtract:
+  lineColor: "ROOT.kRed"
+  legendLabel: "Sh.2.11 W+D (OS)"
+  shortName: Sherpa2211_WplusD_OS
+
+Sherpa2211_WplusD_SS:
+  add:
+    - Sh_2211_WplusD
+  subtract:
+  lineColor: "ROOT.kBlue"
+  legendLabel: "Sh.2.11 W+D (SS)"
+  shortName: Sherpa2211_WplusD_SS
+
+Sherpa2211_WplusD_OS-SS:
+  add:
+    - Sh_2211_WplusD
+  subtract:
+  lineColor: "ROOT.kGreen"
+  legendLabel: "Sh.2.11 W+D (OS-SS)"
+  shortName: Sherpa2211_WplusD_OS-SS
+
+Sherpa2211_WplusD_Matched_truth_pt_bin1:
+  add:
+    - Sh_2211_WplusD
+  subtract:
+  lineColor: "ROOT.kRed"
+  legendLabel: "Sh.2.11 W+D (bin 1)"
+  shortName: Sherpa2211_WplusD_Matched_truth_pt_bin1
+
+Sherpa2211_WplusD_Matched_truth_pt_bin2:
+  add:
+    - Sh_2211_WplusD
+  subtract:
+  lineColor: "ROOT.kRed"
+  legendLabel: "Sh.2.11 W+D (bin 2)"
+  shortName: Sherpa2211_WplusD_Matched_truth_pt_bin2
+
+Sherpa2211_WplusD_Matched_truth_pt_bin3:
+  add:
+    - Sh_2211_WplusD
+  subtract:
+  lineColor: "ROOT.kRed"
+  legendLabel: "Sh.2.11 W+D (bin 3)"
+  shortName: Sherpa2211_WplusD_Matched_truth_pt_bin3
+
+Sherpa2211_WplusD_Matched_truth_pt_bin4:
+  add:
+    - Sh_2211_WplusD
+  subtract:
+  lineColor: "ROOT.kRed"
+  legendLabel: "Sh.2.11 W+D (bin 4)"
+  shortName: Sherpa2211_WplusD_Matched_truth_pt_bin4
+
+Sherpa2211_WplusD_Matched_truth_pt_bin5:
+  add:
+    - Sh_2211_WplusD
+  subtract:
+  lineColor: "ROOT.kRed"
+  legendLabel: "Sh.2.11 W+D (bin 5)"
+  shortName: Sherpa2211_WplusD_Matched_truth_pt_bin5
