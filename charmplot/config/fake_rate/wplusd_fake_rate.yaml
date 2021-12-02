@@ -9,12 +9,13 @@ channels:
     regions:
       - Tight_2018_el_QCD_mtCtrl_metSig_0tag_Dplus
     samples:
+      - Sh_2211_Multijet
       - MG_Multijet
-      - MG_Multijet_Up
-      - MG_Multijet_Dn
+      - Sh_2211_Multijet_Up
+      - Sh_2211_Multijet_Dn
     label:
       - "el QCD Tight"
-      - "MET < 30 GeV, mT < 40 GeV"
+      - "MET > 30 GeV, mT < 40 GeV"
     lumi: "2018"
     save_to_file: True
 
@@ -23,12 +24,13 @@ channels:
       - Tight_2018_el_QCD_mtCtrl_metSig_1tag_Dplus
       - Tight_2018_el_QCD_mtCtrl_metSig_2tag_Dplus
     samples:
+      - Sh_2211_Multijet
       - MG_Multijet
-      - MG_Multijet_Up
-      - MG_Multijet_Dn
+      - Sh_2211_Multijet_Up
+      - Sh_2211_Multijet_Dn
     label:
       - "el QCD Tight"
-      - "MET < 30 GeV, mT < 40 GeV"
+      - "MET > 30 GeV, mT < 40 GeV"
     lumi: "2018"
     save_to_file: True
 
@@ -36,12 +38,13 @@ channels:
     regions:
       - Tight_2018_mu_QCD_mtCtrl_metSig_0tag_Dplus
     samples:
+      - Sh_2211_Multijet
       - MG_Multijet
-      - MG_Multijet_Up
-      - MG_Multijet_Dn
+      - Sh_2211_Multijet_Up
+      - Sh_2211_Multijet_Dn
     label:
       - "mu QCD Tight"
-      - "MET < 30 GeV, mT < 40 GeV"
+      - "MET > 30 GeV, mT < 40 GeV"
     lumi: "2018"
     save_to_file: True
 
@@ -50,12 +53,13 @@ channels:
       - Tight_2018_mu_QCD_mtCtrl_metSig_1tag_Dplus
       - Tight_2018_mu_QCD_mtCtrl_metSig_2tag_Dplus
     samples:
+      - Sh_2211_Multijet
       - MG_Multijet
-      - MG_Multijet_Up
-      - MG_Multijet_Dn
+      - Sh_2211_Multijet_Up
+      - Sh_2211_Multijet_Dn
     label:
       - "mu QCD Tight"
-      - "MET < 30 GeV, mT < 40 GeV"
+      - "MET > 30 GeV, mT < 40 GeV"
     lumi: "2018"
     save_to_file: True
 
@@ -63,12 +67,13 @@ channels:
     regions:
       - AntiTight_2018_el_QCD_mtCtrl_metSig_0tag_Dplus
     samples:
+      - Sh_2211_Multijet
       - MG_Multijet
-      - MG_Multijet_Up
-      - MG_Multijet_Dn
+      - Sh_2211_Multijet_Up
+      - Sh_2211_Multijet_Dn
     label:
       - "el QCD AntiTight"
-      - "MET < 30 GeV, mT < 40 GeV"
+      - "MET > 30 GeV, mT < 40 GeV"
     lumi: "2018"
     save_to_file: True
 
@@ -77,12 +82,13 @@ channels:
       - AntiTight_2018_el_QCD_mtCtrl_metSig_1tag_Dplus
       - AntiTight_2018_el_QCD_mtCtrl_metSig_2tag_Dplus
     samples:
+      - Sh_2211_Multijet
       - MG_Multijet
-      - MG_Multijet_Up
-      - MG_Multijet_Dn
+      - Sh_2211_Multijet_Up
+      - Sh_2211_Multijet_Dn
     label:
       - "el QCD AntiTight"
-      - "MET < 30 GeV, mT < 40 GeV"
+      - "MET > 30 GeV, mT < 40 GeV"
     lumi: "2018"
     save_to_file: True
 
@@ -90,12 +96,13 @@ channels:
     regions:
       - AntiTight_2018_mu_QCD_mtCtrl_metSig_0tag_Dplus
     samples:
+      - Sh_2211_Multijet
       - MG_Multijet
-      - MG_Multijet_Up
-      - MG_Multijet_Dn
+      - Sh_2211_Multijet_Up
+      - Sh_2211_Multijet_Dn
     label:
       - "mu QCD AntiTight"
-      - "MET < 30 GeV, mT < 40 GeV"
+      - "MET > 30 GeV, mT < 40 GeV"
     lumi: "2018"
     save_to_file: True
 
@@ -104,12 +111,13 @@ channels:
       - AntiTight_2018_mu_QCD_mtCtrl_metSig_1tag_Dplus
       - AntiTight_2018_mu_QCD_mtCtrl_metSig_2tag_Dplus
     samples:
+      - Sh_2211_Multijet
       - MG_Multijet
-      - MG_Multijet_Up
-      - MG_Multijet_Dn
+      - Sh_2211_Multijet_Up
+      - Sh_2211_Multijet_Dn
     label:
       - "mu QCD AntiTight"
-      - "MET < 30 GeV, mT < 40 GeV"
+      - "MET > 30 GeV, mT < 40 GeV"
     lumi: "2018"
     save_to_file: True
 
@@ -119,12 +127,13 @@ channels:
       - Tight_2016A-B_el_QCD_mtCtrl_metSig_0tag_Dplus
       - Tight_2016C-L_el_QCD_mtCtrl_metSig_0tag_Dplus
     samples:
+      - Sh_2211_Multijet
       - MG_Multijet
-      - MG_Multijet_Up
-      - MG_Multijet_Dn
+      - Sh_2211_Multijet_Up
+      - Sh_2211_Multijet_Dn
     label:
       - "el QCD Tight"
-      - "MET < 30 GeV, mT < 40 GeV"
+      - "MET > 30 GeV, mT < 40 GeV"
     lumi: "2017"
     save_to_file: True
 
@@ -137,12 +146,13 @@ channels:
       - Tight_2016A-B_el_QCD_mtCtrl_metSig_2tag_Dplus
       - Tight_2016C-L_el_QCD_mtCtrl_metSig_2tag_Dplus
     samples:
+      - Sh_2211_Multijet
       - MG_Multijet
-      - MG_Multijet_Up
-      - MG_Multijet_Dn
+      - Sh_2211_Multijet_Up
+      - Sh_2211_Multijet_Dn
     label:
       - "el QCD Tight"
-      - "MET < 30 GeV, mT < 40 GeV"
+      - "MET > 30 GeV, mT < 40 GeV"
     lumi: "2017"
     save_to_file: True
 
@@ -152,12 +162,13 @@ channels:
       - Tight_2016A-B_mu_QCD_mtCtrl_metSig_0tag_Dplus
       - Tight_2016C-L_mu_QCD_mtCtrl_metSig_0tag_Dplus
     samples:
+      - Sh_2211_Multijet
       - MG_Multijet
-      - MG_Multijet_Up
-      - MG_Multijet_Dn
+      - Sh_2211_Multijet_Up
+      - Sh_2211_Multijet_Dn
     label:
       - "mu QCD Tight"
-      - "MET < 30 GeV, mT < 40 GeV"
+      - "MET > 30 GeV, mT < 40 GeV"
     lumi: "2017"
     save_to_file: True
 
@@ -170,12 +181,13 @@ channels:
       - Tight_2016A-B_mu_QCD_mtCtrl_metSig_2tag_Dplus
       - Tight_2016C-L_mu_QCD_mtCtrl_metSig_2tag_Dplus
     samples:
+      - Sh_2211_Multijet
       - MG_Multijet
-      - MG_Multijet_Up
-      - MG_Multijet_Dn
+      - Sh_2211_Multijet_Up
+      - Sh_2211_Multijet_Dn
     label:
       - "mu QCD Tight"
-      - "MET < 30 GeV, mT < 40 GeV"
+      - "MET > 30 GeV, mT < 40 GeV"
     lumi: "2017"
     save_to_file: True
 
@@ -185,12 +197,13 @@ channels:
       - AntiTight_2016A-B_el_QCD_mtCtrl_metSig_0tag_Dplus
       - AntiTight_2016C-L_el_QCD_mtCtrl_metSig_0tag_Dplus
     samples:
+      - Sh_2211_Multijet
       - MG_Multijet
-      - MG_Multijet_Up
-      - MG_Multijet_Dn
+      - Sh_2211_Multijet_Up
+      - Sh_2211_Multijet_Dn
     label:
       - "el QCD AntiTight"
-      - "MET < 30 GeV, mT < 40 GeV"
+      - "MET > 30 GeV, mT < 40 GeV"
     lumi: "2017"
     save_to_file: True
 
@@ -203,12 +216,13 @@ channels:
       - AntiTight_2016A-B_el_QCD_mtCtrl_metSig_2tag_Dplus
       - AntiTight_2016C-L_el_QCD_mtCtrl_metSig_2tag_Dplus
     samples:
+      - Sh_2211_Multijet
       - MG_Multijet
-      - MG_Multijet_Up
-      - MG_Multijet_Dn
+      - Sh_2211_Multijet_Up
+      - Sh_2211_Multijet_Dn
     label:
       - "el QCD AntiTight"
-      - "MET < 30 GeV, mT < 40 GeV"
+      - "MET > 30 GeV, mT < 40 GeV"
     lumi: "2017"
     save_to_file: True
 
@@ -218,12 +232,13 @@ channels:
       - AntiTight_2016A-B_mu_QCD_mtCtrl_metSig_0tag_Dplus
       - AntiTight_2016C-L_mu_QCD_mtCtrl_metSig_0tag_Dplus
     samples:
+      - Sh_2211_Multijet
       - MG_Multijet
-      - MG_Multijet_Up
-      - MG_Multijet_Dn
+      - Sh_2211_Multijet_Up
+      - Sh_2211_Multijet_Dn
     label:
       - "mu QCD AntiTight"
-      - "MET < 30 GeV, mT < 40 GeV"
+      - "MET > 30 GeV, mT < 40 GeV"
     lumi: "2017"
     save_to_file: True
 
@@ -236,12 +251,13 @@ channels:
       - AntiTight_2016A-B_mu_QCD_mtCtrl_metSig_2tag_Dplus
       - AntiTight_2016C-L_mu_QCD_mtCtrl_metSig_2tag_Dplus
     samples:
+      - Sh_2211_Multijet
       - MG_Multijet
-      - MG_Multijet_Up
-      - MG_Multijet_Dn
+      - Sh_2211_Multijet_Up
+      - Sh_2211_Multijet_Dn
     label:
       - "mu QCD AntiTight"
-      - "MET < 30 GeV, mT < 40 GeV"
+      - "MET > 30 GeV, mT < 40 GeV"
     lumi: "2017"
     save_to_file: True
 
@@ -250,12 +266,13 @@ channels:
     regions:
       - Tight_2015_el_QCD_mtCtrl_metSig_0tag_Dplus
     samples:
+      - Sh_2211_Multijet
       - MG_Multijet
-      - MG_Multijet_Up
-      - MG_Multijet_Dn
+      - Sh_2211_Multijet_Up
+      - Sh_2211_Multijet_Dn
     label:
       - "el QCD Tight"
-      - "MET < 30 GeV, mT < 40 GeV"
+      - "MET > 30 GeV, mT < 40 GeV"
     lumi: "2015"
     save_to_file: True
 
@@ -264,12 +281,13 @@ channels:
       - Tight_2015_el_QCD_mtCtrl_metSig_1tag_Dplus
       - Tight_2015_el_QCD_mtCtrl_metSig_2tag_Dplus
     samples:
+      - Sh_2211_Multijet
       - MG_Multijet
-      - MG_Multijet_Up
-      - MG_Multijet_Dn
+      - Sh_2211_Multijet_Up
+      - Sh_2211_Multijet_Dn
     label:
       - "el QCD Tight"
-      - "MET < 30 GeV, mT < 40 GeV"
+      - "MET > 30 GeV, mT < 40 GeV"
     lumi: "2015"
     save_to_file: True
 
@@ -277,12 +295,13 @@ channels:
     regions:
       - Tight_2015_mu_QCD_mtCtrl_metSig_0tag_Dplus
     samples:
+      - Sh_2211_Multijet
       - MG_Multijet
-      - MG_Multijet_Up
-      - MG_Multijet_Dn
+      - Sh_2211_Multijet_Up
+      - Sh_2211_Multijet_Dn
     label:
       - "mu QCD Tight"
-      - "MET < 30 GeV, mT < 40 GeV"
+      - "MET > 30 GeV, mT < 40 GeV"
     lumi: "2015"
     save_to_file: True
 
@@ -291,12 +310,13 @@ channels:
       - Tight_2015_mu_QCD_mtCtrl_metSig_1tag_Dplus
       - Tight_2015_mu_QCD_mtCtrl_metSig_2tag_Dplus
     samples:
+      - Sh_2211_Multijet
       - MG_Multijet
-      - MG_Multijet_Up
-      - MG_Multijet_Dn
+      - Sh_2211_Multijet_Up
+      - Sh_2211_Multijet_Dn
     label:
       - "mu QCD Tight"
-      - "MET < 30 GeV, mT < 40 GeV"
+      - "MET > 30 GeV, mT < 40 GeV"
     lumi: "2015"
     save_to_file: True
 
@@ -304,12 +324,13 @@ channels:
     regions:
       - AntiTight_2015_el_QCD_mtCtrl_metSig_0tag_Dplus
     samples:
+      - Sh_2211_Multijet
       - MG_Multijet
-      - MG_Multijet_Up
-      - MG_Multijet_Dn
+      - Sh_2211_Multijet_Up
+      - Sh_2211_Multijet_Dn
     label:
       - "el QCD AntiTight"
-      - "MET < 30 GeV, mT < 40 GeV"
+      - "MET > 30 GeV, mT < 40 GeV"
     lumi: "2015"
     save_to_file: True
 
@@ -318,12 +339,13 @@ channels:
       - AntiTight_2015_el_QCD_mtCtrl_metSig_1tag_Dplus
       - AntiTight_2015_el_QCD_mtCtrl_metSig_2tag_Dplus
     samples:
+      - Sh_2211_Multijet
       - MG_Multijet
-      - MG_Multijet_Up
-      - MG_Multijet_Dn
+      - Sh_2211_Multijet_Up
+      - Sh_2211_Multijet_Dn
     label:
       - "el QCD AntiTight"
-      - "MET < 30 GeV, mT < 40 GeV"
+      - "MET > 30 GeV, mT < 40 GeV"
     lumi: "2015"
     save_to_file: True
 
@@ -331,12 +353,13 @@ channels:
     regions:
       - AntiTight_2015_mu_QCD_mtCtrl_metSig_0tag_Dplus
     samples:
+      - Sh_2211_Multijet
       - MG_Multijet
-      - MG_Multijet_Up
-      - MG_Multijet_Dn
+      - Sh_2211_Multijet_Up
+      - Sh_2211_Multijet_Dn
     label:
       - "mu QCD AntiTight"
-      - "MET < 30 GeV, mT < 40 GeV"
+      - "MET > 30 GeV, mT < 40 GeV"
     lumi: "2015"
     save_to_file: True
 
@@ -345,12 +368,13 @@ channels:
       - AntiTight_2015_mu_QCD_mtCtrl_metSig_1tag_Dplus
       - AntiTight_2015_mu_QCD_mtCtrl_metSig_2tag_Dplus
     samples:
+      - Sh_2211_Multijet
       - MG_Multijet
-      - MG_Multijet_Up
-      - MG_Multijet_Dn
+      - Sh_2211_Multijet_Up
+      - Sh_2211_Multijet_Dn
     label:
       - "mu QCD AntiTight"
-      - "MET < 30 GeV, mT < 40 GeV"
+      - "MET > 30 GeV, mT < 40 GeV"
     lumi: "2015"
     save_to_file: True
 
@@ -360,12 +384,13 @@ channels:
       - Tight_2016A-B_el_QCD_mtCtrl_metSig_0tag_Dplus
       - Tight_2016C-L_el_QCD_mtCtrl_metSig_0tag_Dplus
     samples:
+      - Sh_2211_Multijet
       - MG_Multijet
-      - MG_Multijet_Up
-      - MG_Multijet_Dn
+      - Sh_2211_Multijet_Up
+      - Sh_2211_Multijet_Dn
     label:
       - "el QCD Tight"
-      - "MET < 30 GeV, mT < 40 GeV"
+      - "MET > 30 GeV, mT < 40 GeV"
     lumi: "2016"
     save_to_file: True
 
@@ -376,12 +401,13 @@ channels:
       - Tight_2016C-L_el_QCD_mtCtrl_metSig_1tag_Dplus
       - Tight_2016C-L_el_QCD_mtCtrl_metSig_2tag_Dplus
     samples:
+      - Sh_2211_Multijet
       - MG_Multijet
-      - MG_Multijet_Up
-      - MG_Multijet_Dn
+      - Sh_2211_Multijet_Up
+      - Sh_2211_Multijet_Dn
     label:
       - "el QCD Tight"
-      - "MET < 30 GeV, mT < 40 GeV"
+      - "MET > 30 GeV, mT < 40 GeV"
     lumi: "2016"
     save_to_file: True
 
@@ -390,12 +416,13 @@ channels:
       - Tight_2016A-B_mu_QCD_mtCtrl_metSig_0tag_Dplus
       - Tight_2016C-L_mu_QCD_mtCtrl_metSig_0tag_Dplus
     samples:
+      - Sh_2211_Multijet
       - MG_Multijet
-      - MG_Multijet_Up
-      - MG_Multijet_Dn
+      - Sh_2211_Multijet_Up
+      - Sh_2211_Multijet_Dn
     label:
       - "mu QCD Tight"
-      - "MET < 30 GeV, mT < 40 GeV"
+      - "MET > 30 GeV, mT < 40 GeV"
     lumi: "2016"
     save_to_file: True
 
@@ -406,12 +433,13 @@ channels:
       - Tight_2016C-L_mu_QCD_mtCtrl_metSig_1tag_Dplus
       - Tight_2016C-L_mu_QCD_mtCtrl_metSig_2tag_Dplus
     samples:
+      - Sh_2211_Multijet
       - MG_Multijet
-      - MG_Multijet_Up
-      - MG_Multijet_Dn
+      - Sh_2211_Multijet_Up
+      - Sh_2211_Multijet_Dn
     label:
       - "mu QCD Tight"
-      - "MET < 30 GeV, mT < 40 GeV"
+      - "MET > 30 GeV, mT < 40 GeV"
     lumi: "2016"
     save_to_file: True
 
@@ -420,12 +448,13 @@ channels:
       - AntiTight_2016A-B_el_QCD_mtCtrl_metSig_0tag_Dplus
       - AntiTight_2016C-L_el_QCD_mtCtrl_metSig_0tag_Dplus
     samples:
+      - Sh_2211_Multijet
       - MG_Multijet
-      - MG_Multijet_Up
-      - MG_Multijet_Dn
+      - Sh_2211_Multijet_Up
+      - Sh_2211_Multijet_Dn
     label:
       - "el QCD AntiTight"
-      - "MET < 30 GeV, mT < 40 GeV"
+      - "MET > 30 GeV, mT < 40 GeV"
     lumi: "2016"
     save_to_file: True
 
@@ -436,12 +465,13 @@ channels:
       - AntiTight_2016C-L_el_QCD_mtCtrl_metSig_1tag_Dplus
       - AntiTight_2016C-L_el_QCD_mtCtrl_metSig_2tag_Dplus
     samples:
+      - Sh_2211_Multijet
       - MG_Multijet
-      - MG_Multijet_Up
-      - MG_Multijet_Dn
+      - Sh_2211_Multijet_Up
+      - Sh_2211_Multijet_Dn
     label:
       - "el QCD AntiTight"
-      - "MET < 30 GeV, mT < 40 GeV"
+      - "MET > 30 GeV, mT < 40 GeV"
     lumi: "2016"
     save_to_file: True
 
@@ -450,12 +480,13 @@ channels:
       - AntiTight_2016A-B_mu_QCD_mtCtrl_metSig_0tag_Dplus
       - AntiTight_2016C-L_mu_QCD_mtCtrl_metSig_0tag_Dplus
     samples:
+      - Sh_2211_Multijet
       - MG_Multijet
-      - MG_Multijet_Up
-      - MG_Multijet_Dn
+      - Sh_2211_Multijet_Up
+      - Sh_2211_Multijet_Dn
     label:
       - "mu QCD AntiTight"
-      - "MET < 30 GeV, mT < 40 GeV"
+      - "MET > 30 GeV, mT < 40 GeV"
     lumi: "2016"
     save_to_file: True
 
@@ -466,12 +497,13 @@ channels:
       - AntiTight_2016C-L_mu_QCD_mtCtrl_metSig_1tag_Dplus
       - AntiTight_2016C-L_mu_QCD_mtCtrl_metSig_2tag_Dplus
     samples:
+      - Sh_2211_Multijet
       - MG_Multijet
-      - MG_Multijet_Up
-      - MG_Multijet_Dn
+      - Sh_2211_Multijet_Up
+      - Sh_2211_Multijet_Dn
     label:
       - "mu QCD AntiTight"
-      - "MET < 30 GeV, mT < 40 GeV"
+      - "MET > 30 GeV, mT < 40 GeV"
     lumi: "2016"
     save_to_file: True
 
@@ -482,12 +514,13 @@ channels:
       - Tight_2016A-B_el_QCD_mtCtrl_metSig_0tag_Dplus
       - Tight_2016C-L_el_QCD_mtCtrl_metSig_0tag_Dplus
     samples:
+      - Sh_2211_Multijet
       - MG_Multijet
-      - MG_Multijet_Up
-      - MG_Multijet_Dn
+      - Sh_2211_Multijet_Up
+      - Sh_2211_Multijet_Dn
     label:
       - "el QCD Tight"
-      - "MET < 30 GeV, mT < 40 GeV"
+      - "MET > 30 GeV, mT < 40 GeV"
     lumi: "2015+2016"
     save_to_file: True
 
@@ -500,12 +533,13 @@ channels:
       - Tight_2016C-L_el_QCD_mtCtrl_metSig_1tag_Dplus
       - Tight_2016C-L_el_QCD_mtCtrl_metSig_2tag_Dplus
     samples:
+      - Sh_2211_Multijet
       - MG_Multijet
-      - MG_Multijet_Up
-      - MG_Multijet_Dn
+      - Sh_2211_Multijet_Up
+      - Sh_2211_Multijet_Dn
     label:
       - "el QCD Tight"
-      - "MET < 30 GeV, mT < 40 GeV"
+      - "MET > 30 GeV, mT < 40 GeV"
     lumi: "2015+2016"
     save_to_file: True
 
@@ -515,12 +549,13 @@ channels:
       - Tight_2016A-B_mu_QCD_mtCtrl_metSig_0tag_Dplus
       - Tight_2016C-L_mu_QCD_mtCtrl_metSig_0tag_Dplus
     samples:
+      - Sh_2211_Multijet
       - MG_Multijet
-      - MG_Multijet_Up
-      - MG_Multijet_Dn
+      - Sh_2211_Multijet_Up
+      - Sh_2211_Multijet_Dn
     label:
       - "mu QCD Tight"
-      - "MET < 30 GeV, mT < 40 GeV"
+      - "MET > 30 GeV, mT < 40 GeV"
     lumi: "2015+2016"
     save_to_file: True
 
@@ -533,12 +568,13 @@ channels:
       - Tight_2016C-L_mu_QCD_mtCtrl_metSig_1tag_Dplus
       - Tight_2016C-L_mu_QCD_mtCtrl_metSig_2tag_Dplus
     samples:
+      - Sh_2211_Multijet
       - MG_Multijet
-      - MG_Multijet_Up
-      - MG_Multijet_Dn
+      - Sh_2211_Multijet_Up
+      - Sh_2211_Multijet_Dn
     label:
       - "mu QCD Tight"
-      - "MET < 30 GeV, mT < 40 GeV"
+      - "MET > 30 GeV, mT < 40 GeV"
     lumi: "2015+2016"
     save_to_file: True
 
@@ -548,12 +584,13 @@ channels:
       - AntiTight_2016A-B_el_QCD_mtCtrl_metSig_0tag_Dplus
       - AntiTight_2016C-L_el_QCD_mtCtrl_metSig_0tag_Dplus
     samples:
+      - Sh_2211_Multijet
       - MG_Multijet
-      - MG_Multijet_Up
-      - MG_Multijet_Dn
+      - Sh_2211_Multijet_Up
+      - Sh_2211_Multijet_Dn
     label:
       - "el QCD AntiTight"
-      - "MET < 30 GeV, mT < 40 GeV"
+      - "MET > 30 GeV, mT < 40 GeV"
     lumi: "2015+2016"
     save_to_file: True
 
@@ -566,12 +603,13 @@ channels:
       - AntiTight_2016C-L_el_QCD_mtCtrl_metSig_1tag_Dplus
       - AntiTight_2016C-L_el_QCD_mtCtrl_metSig_2tag_Dplus
     samples:
+      - Sh_2211_Multijet
       - MG_Multijet
-      - MG_Multijet_Up
-      - MG_Multijet_Dn
+      - Sh_2211_Multijet_Up
+      - Sh_2211_Multijet_Dn
     label:
       - "el QCD AntiTight"
-      - "MET < 30 GeV, mT < 40 GeV"
+      - "MET > 30 GeV, mT < 40 GeV"
     lumi: "2015+2016"
     save_to_file: True
 
@@ -581,12 +619,13 @@ channels:
       - AntiTight_2016A-B_mu_QCD_mtCtrl_metSig_0tag_Dplus
       - AntiTight_2016C-L_mu_QCD_mtCtrl_metSig_0tag_Dplus
     samples:
+      - Sh_2211_Multijet
       - MG_Multijet
-      - MG_Multijet_Up
-      - MG_Multijet_Dn
+      - Sh_2211_Multijet_Up
+      - Sh_2211_Multijet_Dn
     label:
       - "mu QCD AntiTight"
-      - "MET < 30 GeV, mT < 40 GeV"
+      - "MET > 30 GeV, mT < 40 GeV"
     lumi: "2015+2016"
     save_to_file: True
 
@@ -599,12 +638,13 @@ channels:
       - AntiTight_2016C-L_mu_QCD_mtCtrl_metSig_1tag_Dplus
       - AntiTight_2016C-L_mu_QCD_mtCtrl_metSig_2tag_Dplus
     samples:
+      - Sh_2211_Multijet
       - MG_Multijet
-      - MG_Multijet_Up
-      - MG_Multijet_Dn
+      - Sh_2211_Multijet_Up
+      - Sh_2211_Multijet_Dn
     label:
       - "mu QCD AntiTight"
-      - "MET < 30 GeV, mT < 40 GeV"
+      - "MET > 30 GeV, mT < 40 GeV"
     lumi: "2015+2016"
     save_to_file: True
 
@@ -615,12 +655,13 @@ channels:
       - Tight_2016A-B_el_QCD_mtCtrl_metSig_0tag_Dplus
       - Tight_2016C-L_el_QCD_mtCtrl_metSig_0tag_Dplus
     samples:
+      - Sh_2211_Multijet
       - MG_Multijet
-      - MG_Multijet_Up
-      - MG_Multijet_Dn
+      - Sh_2211_Multijet_Up
+      - Sh_2211_Multijet_Dn
     label:
       - "el QCD Tight"
-      - "MET < 30 GeV, mT < 40 GeV"
+      - "MET > 30 GeV, mT < 40 GeV"
     lumi: "2016+2017+2018"
     save_to_file: True
 
@@ -635,12 +676,13 @@ channels:
       - Tight_2016A-B_el_QCD_mtCtrl_metSig_2tag_Dplus
       - Tight_2016C-L_el_QCD_mtCtrl_metSig_2tag_Dplus
     samples:
+      - Sh_2211_Multijet
       - MG_Multijet
-      - MG_Multijet_Up
-      - MG_Multijet_Dn
+      - Sh_2211_Multijet_Up
+      - Sh_2211_Multijet_Dn
     label:
       - "el QCD Tight"
-      - "MET < 30 GeV, mT < 40 GeV"
+      - "MET > 30 GeV, mT < 40 GeV"
     lumi: "2016+2017+2018"
     save_to_file: True
 
@@ -651,12 +693,13 @@ channels:
       - Tight_2016A-B_mu_QCD_mtCtrl_metSig_0tag_Dplus
       - Tight_2016C-L_mu_QCD_mtCtrl_metSig_0tag_Dplus
     samples:
+      - Sh_2211_Multijet
       - MG_Multijet
-      - MG_Multijet_Up
-      - MG_Multijet_Dn
+      - Sh_2211_Multijet_Up
+      - Sh_2211_Multijet_Dn
     label:
       - "mu QCD Tight"
-      - "MET < 30 GeV, mT < 40 GeV"
+      - "MET > 30 GeV, mT < 40 GeV"
     lumi: "2016+2017+2018"
     save_to_file: True
 
@@ -671,12 +714,13 @@ channels:
       - Tight_2016A-B_mu_QCD_mtCtrl_metSig_2tag_Dplus
       - Tight_2016C-L_mu_QCD_mtCtrl_metSig_2tag_Dplus
     samples:
+      - Sh_2211_Multijet
       - MG_Multijet
-      - MG_Multijet_Up
-      - MG_Multijet_Dn
+      - Sh_2211_Multijet_Up
+      - Sh_2211_Multijet_Dn
     label:
       - "mu QCD Tight"
-      - "MET < 30 GeV, mT < 40 GeV"
+      - "MET > 30 GeV, mT < 40 GeV"
     lumi: "2016+2017+2018"
     save_to_file: True
 
@@ -687,12 +731,13 @@ channels:
       - AntiTight_2016A-B_el_QCD_mtCtrl_metSig_0tag_Dplus
       - AntiTight_2016C-L_el_QCD_mtCtrl_metSig_0tag_Dplus
     samples:
+      - Sh_2211_Multijet
       - MG_Multijet
-      - MG_Multijet_Up
-      - MG_Multijet_Dn
+      - Sh_2211_Multijet_Up
+      - Sh_2211_Multijet_Dn
     label:
       - "el QCD AntiTight"
-      - "MET < 30 GeV, mT < 40 GeV"
+      - "MET > 30 GeV, mT < 40 GeV"
     lumi: "2016+2017+2018"
     save_to_file: True
 
@@ -707,12 +752,13 @@ channels:
       - AntiTight_2016A-B_el_QCD_mtCtrl_metSig_2tag_Dplus
       - AntiTight_2016C-L_el_QCD_mtCtrl_metSig_2tag_Dplus
     samples:
+      - Sh_2211_Multijet
       - MG_Multijet
-      - MG_Multijet_Up
-      - MG_Multijet_Dn
+      - Sh_2211_Multijet_Up
+      - Sh_2211_Multijet_Dn
     label:
       - "el QCD AntiTight"
-      - "MET < 30 GeV, mT < 40 GeV"
+      - "MET > 30 GeV, mT < 40 GeV"
     lumi: "2016+2017+2018"
     save_to_file: True
 
@@ -723,12 +769,13 @@ channels:
       - AntiTight_2016A-B_mu_QCD_mtCtrl_metSig_0tag_Dplus
       - AntiTight_2016C-L_mu_QCD_mtCtrl_metSig_0tag_Dplus
     samples:
+      - Sh_2211_Multijet
       - MG_Multijet
-      - MG_Multijet_Up
-      - MG_Multijet_Dn
+      - Sh_2211_Multijet_Up
+      - Sh_2211_Multijet_Dn
     label:
       - "mu QCD AntiTight"
-      - "MET < 30 GeV, mT < 40 GeV"
+      - "MET > 30 GeV, mT < 40 GeV"
     lumi: "2016+2017+2018"
     save_to_file: True
 
@@ -743,12 +790,13 @@ channels:
       - AntiTight_2016A-B_mu_QCD_mtCtrl_metSig_2tag_Dplus
       - AntiTight_2016C-L_mu_QCD_mtCtrl_metSig_2tag_Dplus
     samples:
+      - Sh_2211_Multijet
       - MG_Multijet
-      - MG_Multijet_Up
-      - MG_Multijet_Dn
+      - Sh_2211_Multijet_Up
+      - Sh_2211_Multijet_Dn
     label:
       - "mu QCD AntiTight"
-      - "MET < 30 GeV, mT < 40 GeV"
+      - "MET > 30 GeV, mT < 40 GeV"
     lumi: "2016+2017+2018"
     save_to_file: True
 
@@ -758,12 +806,13 @@ channels:
       - Tight_2018_el_QCD_mtCtrl_metSig_0tag_Dplus
       - Tight_2017_el_QCD_mtCtrl_metSig_0tag_Dplus
     samples:
+      - Sh_2211_Multijet
       - MG_Multijet
-      - MG_Multijet_Up
-      - MG_Multijet_Dn
+      - Sh_2211_Multijet_Up
+      - Sh_2211_Multijet_Dn
     label:
       - "el QCD Tight"
-      - "MET < 30 GeV, mT < 40 GeV"
+      - "MET > 30 GeV, mT < 40 GeV"
     lumi: "2017+2018"
     save_to_file: True
 
@@ -774,12 +823,13 @@ channels:
       - Tight_2017_el_QCD_mtCtrl_metSig_1tag_Dplus
       - Tight_2017_el_QCD_mtCtrl_metSig_2tag_Dplus
     samples:
+      - Sh_2211_Multijet
       - MG_Multijet
-      - MG_Multijet_Up
-      - MG_Multijet_Dn
+      - Sh_2211_Multijet_Up
+      - Sh_2211_Multijet_Dn
     label:
       - "el QCD Tight"
-      - "MET < 30 GeV, mT < 40 GeV"
+      - "MET > 30 GeV, mT < 40 GeV"
     lumi: "2017+2018"
     save_to_file: True
 
@@ -788,12 +838,13 @@ channels:
       - Tight_2018_mu_QCD_mtCtrl_metSig_0tag_Dplus
       - Tight_2017_mu_QCD_mtCtrl_metSig_0tag_Dplus
     samples:
+      - Sh_2211_Multijet
       - MG_Multijet
-      - MG_Multijet_Up
-      - MG_Multijet_Dn
+      - Sh_2211_Multijet_Up
+      - Sh_2211_Multijet_Dn
     label:
       - "mu QCD Tight"
-      - "MET < 30 GeV, mT < 40 GeV"
+      - "MET > 30 GeV, mT < 40 GeV"
     lumi: "2017+2018"
     save_to_file: True
 
@@ -804,12 +855,13 @@ channels:
       - Tight_2017_mu_QCD_mtCtrl_metSig_1tag_Dplus
       - Tight_2017_mu_QCD_mtCtrl_metSig_2tag_Dplus
     samples:
+      - Sh_2211_Multijet
       - MG_Multijet
-      - MG_Multijet_Up
-      - MG_Multijet_Dn
+      - Sh_2211_Multijet_Up
+      - Sh_2211_Multijet_Dn
     label:
       - "mu QCD Tight"
-      - "MET < 30 GeV, mT < 40 GeV"
+      - "MET > 30 GeV, mT < 40 GeV"
     lumi: "2017+2018"
     save_to_file: True
 
@@ -818,12 +870,13 @@ channels:
       - AntiTight_2018_el_QCD_mtCtrl_metSig_0tag_Dplus
       - AntiTight_2017_el_QCD_mtCtrl_metSig_0tag_Dplus
     samples:
+      - Sh_2211_Multijet
       - MG_Multijet
-      - MG_Multijet_Up
-      - MG_Multijet_Dn
+      - Sh_2211_Multijet_Up
+      - Sh_2211_Multijet_Dn
     label:
       - "el QCD AntiTight"
-      - "MET < 30 GeV, mT < 40 GeV"
+      - "MET > 30 GeV, mT < 40 GeV"
     lumi: "2017+2018"
     save_to_file: True
 
@@ -834,12 +887,13 @@ channels:
       - AntiTight_2017_el_QCD_mtCtrl_metSig_1tag_Dplus
       - AntiTight_2017_el_QCD_mtCtrl_metSig_2tag_Dplus
     samples:
+      - Sh_2211_Multijet
       - MG_Multijet
-      - MG_Multijet_Up
-      - MG_Multijet_Dn
+      - Sh_2211_Multijet_Up
+      - Sh_2211_Multijet_Dn
     label:
       - "el QCD AntiTight"
-      - "MET < 30 GeV, mT < 40 GeV"
+      - "MET > 30 GeV, mT < 40 GeV"
     lumi: "2017+2018"
     save_to_file: True
 
@@ -848,12 +902,13 @@ channels:
       - AntiTight_2018_mu_QCD_mtCtrl_metSig_0tag_Dplus
       - AntiTight_2017_mu_QCD_mtCtrl_metSig_0tag_Dplus
     samples:
+      - Sh_2211_Multijet
       - MG_Multijet
-      - MG_Multijet_Up
-      - MG_Multijet_Dn
+      - Sh_2211_Multijet_Up
+      - Sh_2211_Multijet_Dn
     label:
       - "mu QCD AntiTight"
-      - "MET < 30 GeV, mT < 40 GeV"
+      - "MET > 30 GeV, mT < 40 GeV"
     lumi: "2017+2018"
     save_to_file: True
 
@@ -864,11 +919,12 @@ channels:
       - AntiTight_2017_mu_QCD_mtCtrl_metSig_1tag_Dplus
       - AntiTight_2017_mu_QCD_mtCtrl_metSig_2tag_Dplus
     samples:
+      - Sh_2211_Multijet
       - MG_Multijet
-      - MG_Multijet_Up
-      - MG_Multijet_Dn
+      - Sh_2211_Multijet_Up
+      - Sh_2211_Multijet_Dn
     label:
       - "mu QCD AntiTight"
-      - "MET < 30 GeV, mT < 40 GeV"
+      - "MET > 30 GeV, mT < 40 GeV"
     lumi: "2017+2018"
     save_to_file: True

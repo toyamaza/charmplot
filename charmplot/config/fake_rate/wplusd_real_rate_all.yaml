@@ -11,6 +11,8 @@ channels:
     samples:
       - MG_Wjets_emu_0tag
       - MG_Wjets_emu_1tag
+      - Sh_2211_Wjets_emu_0tag
+      - Sh_2211_Wjets_emu_1tag
       - Top_ttbar_0tag
       - Top_ttbar_1tag
       - MC_Comb
@@ -27,6 +29,8 @@ channels:
     samples:
       - MG_Wjets_emu_0tag
       - MG_Wjets_emu_1tag
+      - Sh_2211_Wjets_emu_0tag
+      - Sh_2211_Wjets_emu_1tag
       - Top_ttbar_0tag
       - Top_ttbar_1tag
       - MC_Comb
@@ -42,6 +46,8 @@ channels:
     samples:
       - MG_Wjets_emu_0tag
       - MG_Wjets_emu_1tag
+      - Sh_2211_Wjets_emu_0tag
+      - Sh_2211_Wjets_emu_1tag
       - Top_ttbar_0tag
       - Top_ttbar_1tag
       - MC_Comb
@@ -58,6 +64,8 @@ channels:
     samples:
       - MG_Wjets_emu_0tag
       - MG_Wjets_emu_1tag
+      - Sh_2211_Wjets_emu_0tag
+      - Sh_2211_Wjets_emu_1tag
       - Top_ttbar_0tag
       - Top_ttbar_1tag
       - MC_Comb
@@ -73,6 +81,8 @@ channels:
     samples:
       - MG_Wjets_emu_0tag
       - MG_Wjets_emu_1tag
+      - Sh_2211_Wjets_emu_0tag
+      - Sh_2211_Wjets_emu_1tag
       - Top_ttbar_0tag
       - Top_ttbar_1tag
       - MC_Comb
@@ -89,6 +99,8 @@ channels:
     samples:
       - MG_Wjets_emu_0tag
       - MG_Wjets_emu_1tag
+      - Sh_2211_Wjets_emu_0tag
+      - Sh_2211_Wjets_emu_1tag
       - Top_ttbar_0tag
       - Top_ttbar_1tag
       - MC_Comb
@@ -104,6 +116,8 @@ channels:
     samples:
       - MG_Wjets_emu_0tag
       - MG_Wjets_emu_1tag
+      - Sh_2211_Wjets_emu_0tag
+      - Sh_2211_Wjets_emu_1tag
       - Top_ttbar_0tag
       - Top_ttbar_1tag
       - MC_Comb
@@ -119,6 +133,8 @@ channels:
     samples:
       - MG_Wjets_emu_0tag
       - MG_Wjets_emu_1tag
+      - Sh_2211_Wjets_emu_0tag
+      - Sh_2211_Wjets_emu_1tag
       - Top_ttbar_0tag
       - Top_ttbar_1tag
       - MC_Comb
@@ -132,8 +148,8 @@ channels:
     regions:
       - Tight_2017_el_SR_0tag_Dplus
     samples:
-      - MG_Wjets_emu_0tag
-      - MG_Wjets_emu_1tag
+      - Sh_2211_Wjets_emu_0tag
+      - Sh_2211_Wjets_emu_1tag
       - Top_ttbar_0tag
       - Top_ttbar_1tag
       - MC_Comb
@@ -150,6 +166,8 @@ channels:
     samples:
       - MG_Wjets_emu_0tag
       - MG_Wjets_emu_1tag
+      - Sh_2211_Wjets_emu_0tag
+      - Sh_2211_Wjets_emu_1tag
       - Top_ttbar_0tag
       - Top_ttbar_1tag
       - MC_Comb
@@ -165,6 +183,8 @@ channels:
     samples:
       - MG_Wjets_emu_0tag
       - MG_Wjets_emu_1tag
+      - Sh_2211_Wjets_emu_0tag
+      - Sh_2211_Wjets_emu_1tag
       - Top_ttbar_0tag
       - Top_ttbar_1tag
       - MC_Comb
@@ -181,6 +201,8 @@ channels:
     samples:
       - MG_Wjets_emu_0tag
       - MG_Wjets_emu_1tag
+      - Sh_2211_Wjets_emu_0tag
+      - Sh_2211_Wjets_emu_1tag
       - Top_ttbar_0tag
       - Top_ttbar_1tag
       - MC_Comb
@@ -196,6 +218,8 @@ channels:
     samples:
       - MG_Wjets_emu_0tag
       - MG_Wjets_emu_1tag
+      - Sh_2211_Wjets_emu_0tag
+      - Sh_2211_Wjets_emu_1tag
       - Top_ttbar_0tag
       - Top_ttbar_1tag
       - MC_Comb
@@ -212,6 +236,8 @@ channels:
     samples:
       - MG_Wjets_emu_0tag
       - MG_Wjets_emu_1tag
+      - Sh_2211_Wjets_emu_0tag
+      - Sh_2211_Wjets_emu_1tag
       - Top_ttbar_0tag
       - Top_ttbar_1tag
       - MC_Comb
@@ -227,6 +253,8 @@ channels:
     samples:
       - MG_Wjets_emu_0tag
       - MG_Wjets_emu_1tag
+      - Sh_2211_Wjets_emu_0tag
+      - Sh_2211_Wjets_emu_1tag
       - Top_ttbar_0tag
       - Top_ttbar_1tag
       - MC_Comb
@@ -242,6 +270,8 @@ channels:
     samples:
       - MG_Wjets_emu_0tag
       - MG_Wjets_emu_1tag
+      - Sh_2211_Wjets_emu_0tag
+      - Sh_2211_Wjets_emu_1tag
       - Top_ttbar_0tag
       - Top_ttbar_1tag
       - MC_Comb
@@ -258,6 +288,8 @@ channels:
     samples:
       - MG_Wjets_emu_0tag
       - MG_Wjets_emu_1tag
+      - Sh_2211_Wjets_emu_0tag
+      - Sh_2211_Wjets_emu_1tag
       - Top_ttbar_0tag
       - Top_ttbar_1tag
       - MC_Comb
@@ -276,6 +308,8 @@ channels:
     samples:
       - MG_Wjets_emu_0tag
       - MG_Wjets_emu_1tag
+      - Sh_2211_Wjets_emu_0tag
+      - Sh_2211_Wjets_emu_1tag
       - Top_ttbar_0tag
       - Top_ttbar_1tag
       - MC_Comb
@@ -292,6 +326,8 @@ channels:
     samples:
       - MG_Wjets_emu_0tag
       - MG_Wjets_emu_1tag
+      - Sh_2211_Wjets_emu_0tag
+      - Sh_2211_Wjets_emu_1tag
       - Top_ttbar_0tag
       - Top_ttbar_1tag
       - MC_Comb
@@ -310,6 +346,8 @@ channels:
     samples:
       - MG_Wjets_emu_0tag
       - MG_Wjets_emu_1tag
+      - Sh_2211_Wjets_emu_0tag
+      - Sh_2211_Wjets_emu_1tag
       - Top_ttbar_0tag
       - Top_ttbar_1tag
       - MC_Comb
@@ -326,6 +364,8 @@ channels:
     samples:
       - MG_Wjets_emu_0tag
       - MG_Wjets_emu_1tag
+      - Sh_2211_Wjets_emu_0tag
+      - Sh_2211_Wjets_emu_1tag
       - Top_ttbar_0tag
       - Top_ttbar_1tag
       - MC_Comb
@@ -344,6 +384,8 @@ channels:
     samples:
       - MG_Wjets_emu_0tag
       - MG_Wjets_emu_1tag
+      - Sh_2211_Wjets_emu_0tag
+      - Sh_2211_Wjets_emu_1tag
       - Top_ttbar_0tag
       - Top_ttbar_1tag
       - MC_Comb
@@ -360,6 +402,8 @@ channels:
     samples:
       - MG_Wjets_emu_0tag
       - MG_Wjets_emu_1tag
+      - Sh_2211_Wjets_emu_0tag
+      - Sh_2211_Wjets_emu_1tag
       - Top_ttbar_0tag
       - Top_ttbar_1tag
       - MC_Comb
@@ -377,6 +421,8 @@ channels:
     samples:
       - MG_Wjets_emu_0tag
       - MG_Wjets_emu_1tag
+      - Sh_2211_Wjets_emu_0tag
+      - Sh_2211_Wjets_emu_1tag
       - Top_ttbar_0tag
       - Top_ttbar_1tag
       - MC_Comb
