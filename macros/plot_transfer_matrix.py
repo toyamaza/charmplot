@@ -429,7 +429,8 @@ def main(options, args):
             truth_sys_band, truth_sys_band_ratio = utils.make_pdf_err(sherpa_nominal, sherpa_sys, "NNPDF30_nnlo_as_0118_hessian")
         h_pt_truth[samples_sys[0]].GetXaxis().SetNoExponent()
 
-        canv3 = utils.make_canvas_mc_ratio(h_pt_truth[samples_sys[0]], truth_pt, chan, "Ratio", x=800, y=800, events="d#sigma / dp_{T}(D) [pb / bin]", suffix="truth")
+        canv3 = utils.make_canvas_mc_ratio(h_pt_truth[samples_sys[0]], truth_pt, chan, "Ratio", x=800,
+                                           y=800, events="d#sigma / dp_{T}(D) [pb / bin]", suffix="truth")
         canv3.pad1.cd()
         canv3.pad1.SetLogx()
         if options.sherpa_pdf:
@@ -498,9 +499,9 @@ def main(options, args):
         #             proxy_axis[s].SetBinContent(i, fid_eff_gr[s].GetY()[i - 1])
         #             proxy_axis[s].SetBinError(i, 0)
         #             proxy_axis[s].Draw("hist text same")
-                # eff = fid_eff_inclusive[s].GetEfficiency(1)
-                # eff_err = (fid_eff_inclusive[s].GetEfficiencyErrorUp(1) + fid_eff_inclusive[s].GetEfficiencyErrorLow(1)) / 2
-                # ROOT.myText(0.18, 0.72 - 0.10 * (j + 1), 1, f"{s}: {eff:1.5f} #pm {eff_err:1.5f} ({100 * eff_err / eff:1.3f}%)")
+        # eff = fid_eff_inclusive[s].GetEfficiency(1)
+        # eff_err = (fid_eff_inclusive[s].GetEfficiencyErrorUp(1) + fid_eff_inclusive[s].GetEfficiencyErrorLow(1)) / 2
+        # ROOT.myText(0.18, 0.72 - 0.10 * (j + 1), 1, f"{s}: {eff:1.5f} #pm {eff_err:1.5f} ({100 * eff_err / eff:1.3f}%)")
 
         if options.sherpa_pdf or options.sherpa_qcd or options.sherpa_as or options.sherpa_ew:
             sys_band.SetFillColor(colors["Sherpa2211_WplusD"] + 2)
