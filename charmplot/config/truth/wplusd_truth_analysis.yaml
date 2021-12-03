@@ -3,9 +3,9 @@ variablesConf: charmed_wjets_truth
 samplesConf: wplusd_truth
 systematics:
   - sherpa2211_theory_qcd
-  # - sherpa_theory_qcd
-  # - sherpa_theory_pdf
-  # - sherpa_theory_as
+  - sherpa2211_theory_as
+  - sherpa2211_theory_pdf
+  - sherpa2211_theory_ew
 
 channels:
   # lep:

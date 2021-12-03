@@ -1,0 +1,7 @@
+type: updown
+affecting:
+  - Sherpa2211_WplusD
+  - Sherpa2211_Wjets
+variations:
+  - GEN_ME_ONLY_MUR1_MUF1_PDF269000
+  - GEN_ME_ONLY_MUR1_MUF1_PDF270000
