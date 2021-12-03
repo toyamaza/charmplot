@@ -98,7 +98,7 @@ def main(options, conf, reader):
                             sample_tmp = utils.make_syst_sample(s, variation, color_iter)
                             mc_map.update({sample_tmp: reader.get_histogram(s, c, var, sys=variation)})
                             samples_tmp.append(sample_tmp)
-                            color_iter += 2
+                            # color_iter += 2
                 samples += samples_tmp
                 systematics = {}
 
@@ -130,26 +130,6 @@ def main(options, conf, reader):
             if not var.make_plots:
                 continue
 
-            # systematics error bands
-            gr_mc_sys_err_map = {sample: [] for sample in mc_map}
-            gr_mc_sys_err_only_map = {sample: [] for sample in mc_map}
-            if systematics:
-                for sample, nominal in mc_map.items():
-                    for group in systematics:
-                        group_histos = []
-                        for syst in mc_map_sys[group]:
-                            group_histos += [mc_map_sys[group][syst][sample]]
-                        sys_type = systematics[group]['type']
-                        if sys_type in ['updown', 'alt_sample', 'overall', 'pre_computed']:
-                            gr_mc_sys_err, gr_mc_sys_err_only = utils.make_sys_err(nominal, group_histos)
-                        elif sys_type == 'minmax':
-                            gr_mc_sys_err, gr_mc_sys_err_only = utils.make_minmax_err(nominal, group_histos)
-                        else:
-                            print(sys_type, " ", len(group_histos))
-                            gr_mc_sys_err, gr_mc_sys_err_only = utils.make_pdf_err(nominal, group_histos, sys_type)
-                        gr_mc_sys_err_map[sample] += [gr_mc_sys_err]
-                        gr_mc_sys_err_only_map[sample] += [gr_mc_sys_err_only]
-
             # canvas
             yaxis_label = "Entries"
             if not options.normalize:
@@ -161,9 +141,35 @@ def main(options, conf, reader):
                 ratio_range = [1e-4, 90]
             canv = utils.make_canvas_mc_ratio(mc_map[samples[0]], var, c, ratio_title=options.ratio_title, x=800, y=800,
                                               events=yaxis_label, ratio_range=ratio_range)
-
             # configure histograms
             canv.configure_histograms(mc_map, options.normalize)
+
+            # normalize bins to unity
+            if var.per_unit:
+                utils.normalize_to_unit(hists=[mc_map[s] for s in samples])
+
+            # systematics error bands
+            gr_mc_sys_err_map = {sample: [] for sample in mc_map}
+            gr_mc_sys_err_only_map = {sample: [] for sample in mc_map}
+            if systematics:
+                for sample, nominal in mc_map.items():
+                    for group in systematics:
+                        group_histos = []
+                        for syst in mc_map_sys[group]:
+                            h_syst = mc_map_sys[group][syst][sample]
+                            if not options.normalize:
+                                h_syst.Scale((h_syst.GetSum() / abs(h_syst.GetSum())) / h_syst.GetSum())
+                            group_histos += [h_syst]
+                        sys_type = systematics[group]['type']
+                        if sys_type in ['updown', 'alt_sample', 'overall', 'pre_computed']:
+                            gr_mc_sys_err, gr_mc_sys_err_only = utils.make_sys_err(nominal, group_histos)
+                        elif sys_type == 'minmax':
+                            gr_mc_sys_err, gr_mc_sys_err_only = utils.make_minmax_err(nominal, group_histos)
+                        else:
+                            print(sys_type, " ", len(group_histos))
+                            gr_mc_sys_err, gr_mc_sys_err_only = utils.make_pdf_err(nominal, group_histos, sys_type)
+                        gr_mc_sys_err_map[sample] += [gr_mc_sys_err]
+                        gr_mc_sys_err_only_map[sample] += [gr_mc_sys_err_only]
 
             # top pad
             errors = []
@@ -171,10 +177,6 @@ def main(options, conf, reader):
 
             # make legend
             canv.make_legend(mc_map, samples, print_yields=options.normalize)
-
-            # normalize bins to unity
-            if var.per_unit:
-                utils.normalize_to_unit(hists=[mc_map[s] for s in samples])
 
             # set maximum after creating legend
             canv.set_maximum([mc_map[s] for s in samples], var, mc_map[samples[0]])
@@ -194,8 +196,11 @@ def main(options, conf, reader):
                 gr_mc_tot_err.SetFillStyle(3345)
                 gr_mc_stat_err.SetLineColor(fcolor)
                 errors += [gr_mc_tot_err, gr_mc_stat_err]
-                gr_mc_tot_err.Draw("e2")
-                gr_mc_stat_err.Draw("e0")
+                if not options.no_sys_band:
+                    gr_mc_tot_err.Draw("e2")
+                    gr_mc_stat_err.Draw("e0")
+                if s == samples[0]:
+                    gr_mc_stat_err.Draw("e0")
                 mc_map[s].Draw("hist same")
 
             # find minimum
@@ -286,8 +291,11 @@ def main(options, conf, reader):
                 gr_mc_tot_err.SetFillStyle(3345)
                 errors += [gr_mc_tot_err, gr_mc_stat_err]
                 if not options.show_rel_error:
-                    gr_mc_tot_err.Draw("e2")
-                    gr_mc_stat_err.Draw("e0")
+                    if not options.no_sys_band:
+                        gr_mc_tot_err.Draw("e2")
+                        gr_mc_stat_err.Draw("e0")
+                    if i == 0:
+                        gr_mc_stat_err.Draw("e0")
                 h.Draw("hist same")
                 if c.save_to_file:
                     out_file = ROOT.TFile(out_file_name, "UPDATE")
