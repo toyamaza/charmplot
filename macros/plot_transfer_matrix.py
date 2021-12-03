@@ -61,6 +61,10 @@ truth_pt = variable.Variable("D_pt", **{
     "label": "p^{truth}_{T}(D)",
     "unit": "GeV"})
 
+reco_pt = variable.Variable("D_pt", **{
+    "label": "p^{reco}_{T}(D)",
+    "unit": "GeV"})
+
 
 def shifted_bins(xbins, r):
     out = array('d', [x * r for x in xbins])
@@ -91,20 +95,35 @@ def main(options, args):
     # systematics
     systematics = [""]
     if options.sherpa_pdf:
-        systematics += [f"GEN_MUR1_MUF1_PDF{N}" for N in range(261000, 261101)]
+        systematics += [f"GEN_ME_ONLY_MUR1_MUF1_PDF{N}" for N in range(303200, 303301)]
     elif options.sherpa_qcd:
         systematics += [
-            "GEN_MUR05_MUF05_PDF303200_PSMUR05_PSMUF05",
-            "GEN_MUR05_MUF1_PDF303200_PSMUR05_PSMUF1",
-            "GEN_MUR1_MUF05_PDF303200_PSMUR1_PSMUF05",
-            "GEN_MUR1_MUF2_PDF303200_PSMUR1_PSMUF2",
-            "GEN_MUR2_MUF1_PDF303200_PSMUR2_PSMUF1",
-            "GEN_MUR2_MUF2_PDF303200_PSMUR2_PSMUF2",
+            "GEN_ME_ONLY_MUR05_MUF05_PDF303200_PSMUR05_PSMUF05",
+            "GEN_ME_ONLY_MUR05_MUF1_PDF303200_PSMUR05_PSMUF1",
+            "GEN_ME_ONLY_MUR1_MUF05_PDF303200_PSMUR1_PSMUF05",
+            "GEN_ME_ONLY_MUR1_MUF2_PDF303200_PSMUR1_PSMUF2",
+            "GEN_ME_ONLY_MUR2_MUF1_PDF303200_PSMUR2_PSMUF1",
+            "GEN_ME_ONLY_MUR2_MUF2_PDF303200_PSMUR2_PSMUF2",
         ]
     elif options.sherpa_as:
         systematics += [
-            "GEN_MUR1_MUF1_PDF270000",
-            "GEN_MUR1_MUF1_PDF269000",
+            "GEN_ME_ONLY_MUR1_MUF1_PDF270000",
+            "GEN_ME_ONLY_MUR1_MUF1_PDF269000",
+        ]
+    elif options.sherpa_ew:
+        systematics += [
+            "GEN_ME_ONLY_MUR1_MUF1_PDF303200_ASSEW",
+            "GEN_ME_ONLY_MUR1_MUF1_PDF303200_ASSEWLO1",
+            "GEN_ME_ONLY_MUR1_MUF1_PDF303200_ASSEWLO1LO2",
+            "GEN_ME_ONLY_MUR1_MUF1_PDF303200_ASSEWLO1LO2LO3",
+            "GEN_ME_ONLY_MUR1_MUF1_PDF303200_EXPASSEW",
+            "GEN_ME_ONLY_MUR1_MUF1_PDF303200_EXPASSEWLO1",
+            "GEN_ME_ONLY_MUR1_MUF1_PDF303200_EXPASSEWLO1LO2",
+            "GEN_ME_ONLY_MUR1_MUF1_PDF303200_EXPASSEWLO1LO2LO3",
+            "GEN_ME_ONLY_MUR1_MUF1_PDF303200_MULTIASSEW",
+            "GEN_ME_ONLY_MUR1_MUF1_PDF303200_MULTIASSEWLO1",
+            "GEN_ME_ONLY_MUR1_MUF1_PDF303200_MULTIASSEWLO1LO2",
+            "GEN_ME_ONLY_MUR1_MUF1_PDF303200_MULTIASSEWLO1LO2LO3",
         ]
 
     # samples sys
@@ -341,75 +360,122 @@ def main(options, args):
         # -------------------
         # draw reco
         # -------------------
-        canv2 = ROOT.TCanvas(f"{c}_reco", f"{c}_reco", 1000, 800)
-        canv2.SetLogx()
-        h_pt[samples[0]].SetMaximum(2 * h_pt[samples[0]].GetMaximum())
-        h_pt[samples[0]].GetXaxis().SetMoreLogLabels()
-        h_pt[samples[0]].GetXaxis().SetNoExponent()
-        if len(samples) < 2:
-            h_pt[samples[0]].Draw("text hist")
-        else:
-            h_pt[samples[0]].Draw("text hist")
+        if options.sherpa_pdf:
+            sherpa_nominal = None
+            sherpa_sys = []
+            for key, h_sys in h_pt.items():
+                if "Sherpa2211_WplusD" not in key:
+                    continue
+                if key == "Sherpa2211_WplusD":
+                    sherpa_nominal = h_sys
+                else:
+                    sherpa_sys += [h_sys]
+            reco_sys_band, reco_sys_band_ratio = utils.make_pdf_err(sherpa_nominal, sherpa_sys, "NNPDF30_nnlo_as_0118_hessian")
+        h_pt[samples_sys[0]].GetXaxis().SetNoExponent()
+
+        canv2 = utils.make_canvas_mc_ratio(h_pt[samples_sys[0]], reco_pt, chan, "Ratio", x=800, y=800, events="d#sigma / dp_{T}(D) [pb / bin]", suffix="reco")
+        canv2.pad1.cd()
+        canv2.pad1.SetLogx()
+        if options.sherpa_pdf:
+            reco_sys_band.SetFillColor(colors["Sherpa2211_WplusD"] + 2)
+            reco_sys_band.Draw("e2")
         for s in reversed(samples_sys):
-            if s == samples[0]:
+            if (len(samples) > 1 or options.sherpa_pdf) and "_GEN_" in s:
                 continue
             h_pt[s].Draw("hist same")
         leg.Draw()
 
-        # ATLAS label
-        ROOT.ATLASLabel(0.18, 0.90, "Internal", 1)
-        ROOT.myText(0.18, 0.84, 1, "#sqrt{s} = 13 TeV, 139 fb^{-1}")
-        if "Dplus" in c:
-            ROOT.myText(0.18, 0.78, 1, "W#rightarrowl#nu+D, D#rightarrowK#pi#pi")
-        elif "Dstar" in c:
-            ROOT.myText(0.18, 0.78, 1, "W#rightarrowl#nu+D*, D*#rightarrow(K#pi)#pi")
-        # ROOT.myText(0.18, 0.72, 1, c)
+        # set maximum after creating legend
+        canv2.proxy_up.SetMaximum(2 * max([h_pt[s].GetMaximum() for s in h_pt]))
+
+        # ratio
+        ROOT.gPad.RedrawAxis()
+        canv2.pad2.cd()
+        canv2.pad2.SetLogx()
+        if options.sherpa_pdf:
+            reco_sys_band_ratio.SetFillColor(colors["Sherpa2211_WplusD"] + 2)
+            reco_sys_band_ratio.Draw("e2")
+        denum = h_pt[samples_sys[0]].Clone("reco_denum")
+        for i in range(1, denum.GetNbinsX() + 1):
+            denum.SetBinError(i, 0)
+        ratios = []
+        for s in reversed(samples_sys):
+            if (len(samples) > 1 or options.sherpa_pdf) and "_GEN_" in s:
+                continue
+            h_pt_r = h_pt[s].Clone(f"{h_pt[s].GetName()}_r")
+            h_pt_r.Divide(denum)
+            h_pt_r.Draw("hist same")
+            ratios += [h_pt_r]
 
         # save
         ROOT.gPad.RedrawAxis()
-        canv2.Print(f"{options.output}/{c}_reco.pdf")
+        canv2.set_ratio_range(0.71, 1.29, override=True)
+        canv2.print(f"{options.output}/{c}_reco.pdf")
+        h_pt[samples[0]].Write()
 
         # -------------------
         # draw truth
         # -------------------
-        ROOT.gStyle.SetPaintTextFormat(".4f")
-        canv3 = ROOT.TCanvas(f"{c}_truth", f"{c}_truth", 1000, 800)
-        canv3.SetLogx()
-        h_pt_truth[samples[0]].SetMaximum(2 * max([h_pt_truth[s].GetMaximum() for s in h_pt_truth]))
-        h_pt_truth[samples[0]].GetXaxis().SetMoreLogLabels()
-        h_pt_truth[samples[0]].GetXaxis().SetNoExponent()
-        if len(samples) < 2:
-            h_pt_truth[samples[0]].Draw("text hist")
-        else:
-            h_pt_truth[samples[0]].Draw("text hist")
+        if options.sherpa_pdf:
+            sherpa_nominal = None
+            sherpa_sys = []
+            for key, h_sys in h_pt_truth.items():
+                if "Sherpa2211_WplusD" not in key:
+                    continue
+                if key == "Sherpa2211_WplusD":
+                    sherpa_nominal = h_sys
+                else:
+                    sherpa_sys += [h_sys]
+            truth_sys_band, truth_sys_band_ratio = utils.make_pdf_err(sherpa_nominal, sherpa_sys, "NNPDF30_nnlo_as_0118_hessian")
+        h_pt_truth[samples_sys[0]].GetXaxis().SetNoExponent()
+
+        canv3 = utils.make_canvas_mc_ratio(h_pt_truth[samples_sys[0]], truth_pt, chan, "Ratio", x=800, y=800, events="d#sigma / dp_{T}(D) [pb / bin]", suffix="truth")
+        canv3.pad1.cd()
+        canv3.pad1.SetLogx()
+        if options.sherpa_pdf:
+            truth_sys_band.SetFillColor(colors["Sherpa2211_WplusD"] + 2)
+            truth_sys_band.Draw("e2")
         for s in reversed(samples_sys):
-            if s == samples[0]:
+            if (len(samples) > 1 or options.sherpa_pdf) and "_GEN_" in s:
                 continue
             h_pt_truth[s].Draw("hist same")
         leg.Draw()
 
-        # ATLAS label
-        ROOT.ATLASLabel(0.18, 0.90, "Internal", 1)
-        ROOT.myText(0.18, 0.84, 1, "#sqrt{s} = 13 TeV")
-        if "Dplus" in c:
-            ROOT.myText(0.18, 0.78, 1, "W#rightarrowl#nu+D, D#rightarrowK#pi#pi")
-        elif "Dstar" in c:
-            ROOT.myText(0.18, 0.78, 1, "W#rightarrowl#nu+D*, D*#rightarrow(K#pi)#pi")
-        # ROOT.myText(0.18, 0.72, 1, c)
+        # set maximum after creating legend
+        canv3.proxy_up.SetMaximum(2 * max([h_pt_truth[s].GetMaximum() for s in h_pt_truth]))
+
+        # ratio
+        ROOT.gPad.RedrawAxis()
+        canv3.pad2.cd()
+        canv3.pad2.SetLogx()
+        if options.sherpa_pdf:
+            truth_sys_band_ratio.SetFillColor(colors["Sherpa2211_WplusD"] + 2)
+            truth_sys_band_ratio.Draw("e2")
+        denum = h_pt_truth[samples_sys[0]].Clone("truth_denum")
+        for i in range(1, denum.GetNbinsX() + 1):
+            denum.SetBinError(i, 0)
+        ratios = []
+        for s in reversed(samples_sys):
+            if (len(samples) > 1 or options.sherpa_pdf) and "_GEN_" in s:
+                continue
+            h_pt_truth_r = h_pt_truth[s].Clone(f"{h_pt_truth[s].GetName()}_r")
+            h_pt_truth_r.Divide(denum)
+            h_pt_truth_r.Draw("hist same")
+            ratios += [h_pt_truth_r]
 
         # save
         ROOT.gPad.RedrawAxis()
-        canv3.Print(f"{options.output}/{c}_truth.pdf")
+        canv3.set_ratio_range(0.71, 1.29, override=True)
+        canv3.print(f"{options.output}/{c}_truth.pdf")
         h_pt_truth[samples[0]].Write()
 
         # -------------------
         # draw fiducial efficiency
         # -------------------
-        if options.sherpa_pdf or options.sherpa_qcd:
+        if options.sherpa_pdf or options.sherpa_qcd or options.sherpa_as or options.sherpa_ew:
             sherpa_nominal = None
             sherpa_sys = []
             for key, gr in fid_eff_gr.items():
-                print(key)
                 if "Sherpa2211_WplusD" not in key:
                     continue
                 if key == "Sherpa2211_WplusD":
@@ -417,28 +483,30 @@ def main(options, args):
                 else:
                     sherpa_sys += [gr]
             if options.sherpa_pdf:
-                sys_band, sys_band_ratio = utils.make_pdf_err(sherpa_nominal, sherpa_sys, "NNPDF30_nnlo_as_0118")
-            elif options.sherpa_qcd:
+                sys_band, sys_band_ratio = utils.make_pdf_err(sherpa_nominal, sherpa_sys, "NNPDF30_nnlo_as_0118_hessian")
+            elif options.sherpa_qcd or options.sherpa_as or options.sherpa_ew:
                 sys_band, sys_band_ratio = utils.make_minmax_err(sherpa_nominal, sherpa_sys)
         ROOT.gStyle.SetPaintTextFormat(".5f")
+
+        # canvas
         canv4 = utils.make_canvas_mc_ratio(proxy_axis[samples[0]], truth_pt, chan, "Ratio", x=800, y=800, events="fiducial efficiency")
         canv4.pad1.cd()
         canv4.pad1.SetLogx()
-        if len(samples) < 2:
-            for j, s in enumerate(samples):
-                for i in range(1, nbins + 2):
-                    proxy_axis[s].SetBinContent(i, fid_eff_gr[s].GetY()[i - 1])
-                    proxy_axis[s].SetBinError(i, 0)
-                    proxy_axis[s].Draw("hist text same")
+        # if len(samples) < 2:
+        #     for j, s in enumerate(samples):
+        #         for i in range(1, nbins + 2):
+        #             proxy_axis[s].SetBinContent(i, fid_eff_gr[s].GetY()[i - 1])
+        #             proxy_axis[s].SetBinError(i, 0)
+        #             proxy_axis[s].Draw("hist text same")
                 # eff = fid_eff_inclusive[s].GetEfficiency(1)
                 # eff_err = (fid_eff_inclusive[s].GetEfficiencyErrorUp(1) + fid_eff_inclusive[s].GetEfficiencyErrorLow(1)) / 2
                 # ROOT.myText(0.18, 0.72 - 0.10 * (j + 1), 1, f"{s}: {eff:1.5f} #pm {eff_err:1.5f} ({100 * eff_err / eff:1.3f}%)")
 
-        if options.sherpa_pdf or options.sherpa_qcd:
+        if options.sherpa_pdf or options.sherpa_qcd or options.sherpa_as or options.sherpa_ew:
             sys_band.SetFillColor(colors["Sherpa2211_WplusD"] + 2)
             sys_band.Draw("e2")
         for s in samples_sys:
-            if "_GEN_" in s:
+            if (len(samples) > 1 or options.sherpa_pdf) and "_GEN_" in s:
                 continue
             fid_eff_gr[s].Draw("pe")
         leg.Draw()
@@ -446,7 +514,10 @@ def main(options, args):
         # ratio
         canv4.pad2.cd()
         canv4.pad2.SetLogx()
-        canv4.set_ratio_range(0.81, 1.19, override=True)
+        if len(samples) > 1:
+            canv4.set_ratio_range(0.81, 1.19, override=True)
+        else:
+            canv4.set_ratio_range(0.951, 1.049, override=True)
         fid_eff_gr_ratio = {s: fid_eff_gr[s].Clone(f"{fid_eff_gr[s].GetName()}_ratio") for s in samples_sys}
         for s in samples_sys:
             for i in range(fid_eff_gr_ratio[s].GetN()):
@@ -461,7 +532,7 @@ def main(options, args):
             h.Write()
 
         # draw Sherpa errors
-        if options.sherpa_pdf or options.sherpa_qcd:
+        if options.sherpa_pdf or options.sherpa_qcd or options.sherpa_as or options.sherpa_ew:
 
             # adjust the central values
             sys_band_ratio_clone = sys_band_ratio.Clone()
@@ -470,7 +541,7 @@ def main(options, args):
             sys_band_ratio_clone.Draw("e2")
             sys_band_ratio_clone.SetFillColor(colors["Sherpa2211_WplusD"] + 2)
 
-            if options.sherpa_qcd:
+            if options.sherpa_qcd or options.sherpa_as or options.sherpa_ew:
                 _, h_up, h_dn = utils.get_hist_from_gr(sys_band_ratio, f"{s}_{c}_fid_eff_ratio_qcd_err")
                 sys_band_ratio.Write(f"gr_{s}_{c}_fid_eff_ratio_qcd_err")
                 h_up.Write()
@@ -487,7 +558,7 @@ def main(options, args):
 
         # draw all graphs
         for s in reversed(samples_sys):
-            if "_GEN_" in s:
+            if (len(samples) > 1 or options.sherpa_pdf) and "_GEN_" in s:
                 continue
             fid_eff_gr_ratio[s].Draw("pe")
 
@@ -595,6 +666,9 @@ if __name__ == "__main__":
     parser.add_option('--sherpa-as',
                       action="store_true", dest="sherpa_as",
                       default=False, help="Sherpa Alpha_S systematics.")
+    parser.add_option('--sherpa-ew',
+                      action="store_true", dest="sherpa_ew",
+                      default=False, help="Sherpa EW systematics.")
 
     # parse input arguments
     options, args = parser.parse_args()
