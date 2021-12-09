@@ -50,9 +50,9 @@ legend_names = {
     "MG_Wjets": "LO MadGraph",
     "Powheg_Wjets": "Powheg",
     "Sherpa_Wjets": "Sherpa2.2.1",
-    "Sherpa2211_Wjets": "Sh.2.11 W+jets",
+    "Sherpa2211_Wjets": "Sh2.2.11 W+jets",
     "MGFxFx_Wjets": "MG FxFx",
-    "Sherpa2211_WplusD": "Sh.2.11 W+D",
+    "Sherpa2211_WplusD": "Sh2.2.11 W+D",
     "MGPy8EG_NLO_WplusD": "NLO MG W+D",
 }
 

@@ -415,7 +415,7 @@ Sherpa2211_WplusD:
     - Sh_2211_WplusD
   subtract:
   lineColor: "ROOT.kRed"
-  legendLabel: "Sh.2.11 W+D"
+  legendLabel: "Sh2.2.11 W+D"
   shortName: Sherpa2211_WplusD
 
 Sherpa2211_WplusD_OS:
@@ -423,7 +423,7 @@ Sherpa2211_WplusD_OS:
     - Sh_2211_WplusD
   subtract:
   lineColor: "ROOT.kRed"
-  legendLabel: "Sh.2.11 W+D (OS)"
+  legendLabel: "Sh2.2.11 W+D (OS)"
   shortName: Sherpa2211_WplusD_OS
 
 Sherpa2211_WplusD_SS:
@@ -431,7 +431,7 @@ Sherpa2211_WplusD_SS:
     - Sh_2211_WplusD
   subtract:
   lineColor: "ROOT.kBlue"
-  legendLabel: "Sh.2.11 W+D (SS)"
+  legendLabel: "Sh2.2.11 W+D (SS)"
   shortName: Sherpa2211_WplusD_SS
 
 Sherpa2211_WplusD_OS-SS:
@@ -439,7 +439,7 @@ Sherpa2211_WplusD_OS-SS:
     - Sh_2211_WplusD
   subtract:
   lineColor: "ROOT.kGreen"
-  legendLabel: "Sh.2.11 W+D (OS-SS)"
+  legendLabel: "Sh2.2.11 W+D (OS-SS)"
   shortName: Sherpa2211_WplusD_OS-SS
 
 Sherpa2211_WplusD_Matched_truth_pt_bin1:
@@ -447,7 +447,7 @@ Sherpa2211_WplusD_Matched_truth_pt_bin1:
     - Sh_2211_WplusD
   subtract:
   lineColor: "ROOT.kRed"
-  legendLabel: "Sh.2.11 W+D (bin 1)"
+  legendLabel: "Sh2.2.11 W+D (bin 1)"
   shortName: Sherpa2211_WplusD_Matched_truth_pt_bin1
 
 Sherpa2211_WplusD_Matched_truth_pt_bin2:
@@ -455,7 +455,7 @@ Sherpa2211_WplusD_Matched_truth_pt_bin2:
     - Sh_2211_WplusD
   subtract:
   lineColor: "ROOT.kRed"
-  legendLabel: "Sh.2.11 W+D (bin 2)"
+  legendLabel: "Sh2.2.11 W+D (bin 2)"
   shortName: Sherpa2211_WplusD_Matched_truth_pt_bin2
 
 Sherpa2211_WplusD_Matched_truth_pt_bin3:
@@ -463,7 +463,7 @@ Sherpa2211_WplusD_Matched_truth_pt_bin3:
     - Sh_2211_WplusD
   subtract:
   lineColor: "ROOT.kRed"
-  legendLabel: "Sh.2.11 W+D (bin 3)"
+  legendLabel: "Sh2.2.11 W+D (bin 3)"
   shortName: Sherpa2211_WplusD_Matched_truth_pt_bin3
 
 Sherpa2211_WplusD_Matched_truth_pt_bin4:
@@ -471,7 +471,7 @@ Sherpa2211_WplusD_Matched_truth_pt_bin4:
     - Sh_2211_WplusD
   subtract:
   lineColor: "ROOT.kRed"
-  legendLabel: "Sh.2.11 W+D (bin 4)"
+  legendLabel: "Sh2.2.11 W+D (bin 4)"
   shortName: Sherpa2211_WplusD_Matched_truth_pt_bin4
 
 Sherpa2211_WplusD_Matched_truth_pt_bin5:
@@ -479,5 +479,5 @@ Sherpa2211_WplusD_Matched_truth_pt_bin5:
     - Sh_2211_WplusD
   subtract:
   lineColor: "ROOT.kRed"
-  legendLabel: "Sh.2.11 W+D (bin 5)"
+  legendLabel: "Sh2.2.11 W+D (bin 5)"
   shortName: Sherpa2211_WplusD_Matched_truth_pt_bin5

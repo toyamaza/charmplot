@@ -4,7 +4,7 @@ MG_Wjets:
   add:
     - MG_Wjets_emu
   subtract:
-  lineColor: "21000"
+  lineColor: "ROOT.kBlue"
   legendLabel: "LO MG W+jets"
   shortName: MG_Wjets
 
@@ -59,7 +59,7 @@ Sherpa2211_Wjets:
     - Sh_2211_Wjets_bjets_emu
     - Sh_2211_Wjets_light_emu
   subtract:
-  lineColor: "ROOT.kGreen"
+  lineColor: "ROOT.kRed"
   legendLabel: "Sh2.2.11 W+jets"
   shortName: Sherpa2211_Wjets
 

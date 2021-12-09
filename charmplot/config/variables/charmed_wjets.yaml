@@ -1,7 +1,7 @@
 Dmeson_m:
   label: 'D^{#pm} m'
   unit: 'GeV'
-  rebin: 2
+  rebin: 5
   x_range: [1.7, 2.2]
   ratio_range: [0.5, 1.49]
 
@@ -912,3 +912,25 @@ truth_Dmeson_pt:
   unit: 'GeV'
   rebin: 1
   ratio_range: [0.5, 1.49]
+
+truth_Dmeson_decay_mode_dplus:
+  label: 'D^{#pm} decay Mode'
+  rebin: 1
+  ratio_range: [0.5, 1.49]
+
+truth_Dmeson_full_decay_mode_dplus:
+  label: 'D^{#pm} decay Mode'
+  rebin: 1
+  ratio_range: [0.5, 1.49]
+
+truth_Dmeson_el_pt:
+  label: 'e p_{T}'
+  unit: 'GeV'
+  rebin: 1
+  x_range: [0, 40]
+
+truth_Dmeson_mu_pt:
+  label: '#mu p_{T}'
+  unit: 'GeV'
+  rebin: 1
+  x_range: [0, 40]

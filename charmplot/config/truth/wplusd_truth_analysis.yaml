@@ -50,25 +50,25 @@ channels:
   #   label:
   #     - W#rightarrow#mu#nu
   #     - inclusive, Truth-level
-  # OS-SS_Dplus:
-  #   regions:
-  #     - el_minus_Dplus_OS
-  #     - el_plus_Dplus_OS
-  #     - mu_minus_Dplus_OS
-  #     - mu_plus_Dplus_OS
-  #     - -el_minus_Dplus_SS
-  #     - -el_plus_Dplus_SS
-  #     - -mu_minus_Dplus_SS
-  #     - -mu_plus_Dplus_SS
-  #   samples:
-  #     - MG_Wjets
-  #     - MGPy8EG_NLO_WplusD
-  #     - Sherpa2211_WplusD
-  #     - Sherpa2211_Wjets
-  #     # - Sherpa_Wjets
-  #   label:
-  #     - W#rightarrowl#nu+D
-  #     - inclusive OS-SS, Truth-level
+  OS-SS_Dplus:
+    regions:
+      - el_minus_Dplus_OS
+      - el_plus_Dplus_OS
+      - mu_minus_Dplus_OS
+      - mu_plus_Dplus_OS
+      - -el_minus_Dplus_SS
+      - -el_plus_Dplus_SS
+      - -mu_minus_Dplus_SS
+      - -mu_plus_Dplus_SS
+    samples:
+      - Sherpa2211_Wjets
+      - MG_Wjets
+      - MGPy8EG_NLO_WplusD
+      - Sherpa2211_WplusD
+      # - Sherpa_Wjets
+    label:
+      - W#rightarrowl#nu+D
+      - inclusive OS-SS, Truth-level
   # OS-SS_el_Dplus:
   #   regions:
   #     - el_minus_Dplus_OS
