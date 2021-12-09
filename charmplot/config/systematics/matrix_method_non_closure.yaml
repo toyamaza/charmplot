@@ -1,5 +1,5 @@
 type: overall
-size: 0.4
+size: 0.05
 affecting:
   - Multijet_MatrixMethod
   - Multijet_MatrixMethod_Offset
