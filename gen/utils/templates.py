@@ -455,6 +455,8 @@ class WDComparisonSamples(ChannelTemplate):
         ['MGPy8EG_NLO_WplusD', proxies.GenericChannel(name="Matched", region="Matched")],
         ['Sherpa2211_WplusD', proxies.GenericChannel(name="Matched", region="Matched")],
         ['Sherpa2211_Wjets', proxies.GenericChannel(name="Matched", region="Matched")],
+        ['MG_Wjets_emu_411MisMatched', proxies.GenericChannel(name="411MisMatched", region="411MisMatched")],
+        ['Sherpa2211_Wjets_emu_411MisMatched', proxies.GenericChannel(name="411MisMatched", region="411MisMatched")],
     ]
 
     def get(self):
