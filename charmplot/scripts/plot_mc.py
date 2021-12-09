@@ -63,8 +63,8 @@ def main(options, conf, reader):
         variables = utils.get_variables(options, conf, reader, c, samples[0])
 
         # make channel folder if not exist
-        if not os.path.isdir(os.path.join(options.analysis_config, c.name)):
-            os.makedirs(os.path.join(options.analysis_config, c.name))
+        if not os.path.isdir(os.path.join(conf.out_name, c.name)):
+            os.makedirs(os.path.join(conf.out_name, c.name))
         for v in variables:
 
             # variable object
@@ -87,10 +87,15 @@ def main(options, conf, reader):
                 continue
 
             # canvas
-            canv = utils.make_canvas(mc_map[samples[0]], var, c, x=800, y=800, y_split=0)
+            yaxis_label = "Entries"
+            if not options.normalize:
+                yaxis_label = "Normalized Entries"
+
+            # canvas
+            canv = utils.make_canvas(mc_map[samples[0]], var, c, x=800, y=800, y_split=0, events=yaxis_label)
 
             # configure histograms
-            canv.configure_histograms(mc_map)
+            canv.configure_histograms(mc_map, normalize=options.normalize)
 
             # top pad
             hists = [mc_map[s] for s in mc_map]
@@ -101,10 +106,10 @@ def main(options, conf, reader):
                     if s not in mc_map.keys():
                         continue
                     fcolor = mc_map[s].GetLineColor()
-                    gr_mc_stat_err, gr_mc_stat_err_only = utils.make_stat_err(mc_map[s])
+                    gr_mc_stat_err, _ = utils.make_stat_err(mc_map[s])
                     gr_mc_stat_err.SetLineColor(fcolor)
-                    gr_mc_stat_err.SetFillColorAlpha(fcolor, 0.25)
-                    gr_mc_stat_err.SetFillStyle(1001)
+                    # gr_mc_stat_err.SetFillColorAlpha(fcolor, 0.25)
+                    gr_mc_stat_err.SetFillStyle(3345)
                     errors += [gr_mc_stat_err]
                     gr_mc_stat_err.Draw("e2")
                     mc_map[s].Draw("hist same")
@@ -113,7 +118,7 @@ def main(options, conf, reader):
                 hs.Draw("samehist")
 
             # make legend
-            canv.make_legend(data=None, mc_map=mc_map, samples=samples, print_yields=True)
+            canv.make_legend(data=None, mc_map=mc_map, samples=samples, print_yields=options.normalize, leg_offset=-0.1)
 
             # set maximum after creating legend
             if not options.do_stack:
@@ -123,7 +128,7 @@ def main(options, conf, reader):
                 canv.set_maximum([h_mc_tot], var, mc_min=utils.get_mc_min(mc_map, samples))
 
             # Print out
-            canv.print_all(options.analysis_config, c.name, v, multipage_pdf=True, first_plot=first_plot, last_plot=last_plot, as_png=options.stage_out)
+            canv.print_all(conf.out_name, c.name, v, multipage_pdf=True, first_plot=first_plot, last_plot=last_plot, as_png=options.stage_out)
             first_plot = False
 
 
@@ -159,12 +164,19 @@ if __name__ == "__main__":
     # parse input arguments
     options, args = parser.parse_args()
 
+    # analysis configs
+    config = options.analysis_config
+
     # output name
-    out_name = options.analysis_config
+    out_name = config.replace(".yaml", "").replace(".yml", "")
     if options.suffix:
         out_name = out_name.split("/")
-        out_name[0] += "_" + options.suffix
-        out_name = "/".join(out_name)
+        if out_name[0] != ".":
+            out_name[0] += "_" + options.suffix
+            out_name = "/".join(out_name)
+        else:
+            out_name[1] += "_" + options.suffix
+            out_name = "/".join(out_name)
 
     # make output folder if not exist
     if not os.path.isdir(out_name):
@@ -172,7 +184,7 @@ if __name__ == "__main__":
 
     # read inputs
     from charmplot.control import globalConfig
-    conf = globalConfig.GlobalConfig(options.analysis_config, out_name)
+    conf = globalConfig.GlobalConfig(config, out_name)
     reader = inputDataReader.InputDataReader(conf)
 
     # do the plotting
@@ -180,4 +192,4 @@ if __name__ == "__main__":
 
     # stage-out to the www folder
     if options.stage_out:
-        www.stage_out_plots(options.analysis_config, conf.get_variables(), x=300, y=300)
+        www.stage_out_plots(config, conf.get_variables(), x=300, y=300)

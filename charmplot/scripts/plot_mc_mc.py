@@ -56,7 +56,15 @@ def main(options, conf, reader):
             sys.exit(1)
         else:
             samples = [conf.get_sample(s) for s in c.samples]
-        logging.info(f"making plots for channel {c} with samples {samples}")
+
+        # only subset of samples
+        if options.samples:
+            samples_new = []
+            for s in samples:
+                if s.shortName in options.samples.split(","):
+                    samples_new += [s]
+            samples = samples_new
+        logging.info(f"making plots for channel {c.name} with samples {samples}")
 
         # list of variables
         variables = utils.get_variables(options, conf, reader, c, samples[0])
@@ -66,6 +74,8 @@ def main(options, conf, reader):
 
         # systematics
         systematics = conf.get_systematics()
+        if options.no_sys:
+            systematics = {}
 
         # make channel folder if not exist
         if not os.path.isdir(os.path.join(conf.out_name, c.name)):
@@ -136,7 +146,7 @@ def main(options, conf, reader):
                 yaxis_label = "Normalized Entries"
 
             # ratio range
-            ratio_range = [1.01 - float(options.ratio_range) / 100., 0.99 + float(options.ratio_range) / 100.]
+            ratio_range = [max(0.01, 1.01 - float(options.ratio_range) / 100.), 0.99 + float(options.ratio_range) / 100.]
             if options.show_rel_error:
                 ratio_range = [1e-4, 90]
             canv = utils.make_canvas_mc_ratio(mc_map[samples[0]], var, c, ratio_title=options.ratio_title, x=800, y=800,
@@ -329,6 +339,9 @@ if __name__ == "__main__":
     parser.add_option('-v', '--vars',
                       action="store", dest="vars",
                       help="run over a subset of variables (comma separated)")
+    parser.add_option('-s', '--samples',
+                      action="store", dest="samples",
+                      help="run over a subset of samples (comma separated)")
     parser.add_option('--suffix',
                       action="store", dest="suffix",
                       help="suffix for the output name")
@@ -355,6 +368,8 @@ if __name__ == "__main__":
                       action="store_true", dest="no_sys_band")
     parser.add_option('--chi-square-test',
                       action="store_true", dest="chi_square_test")
+    parser.add_option('--no-sys',
+                      action="store_true", dest="no_sys")
 
     # parse input arguments
     options, args = parser.parse_args()

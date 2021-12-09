@@ -1,4 +1,5 @@
 import logging
+import os
 import ROOT
 
 
@@ -33,7 +34,7 @@ class InputDataReader(object):
         self.config = conf
         self.read_input_files()
 
-    def get_histogram_from_file(self, f, channel, sample, variable, c, extra_rebin=1, sys=None, extra_scale = 1.0):
+    def get_histogram_from_file(self, f, channel, sample, variable, c, extra_rebin=1, sys=None, extra_scale=1.0):
         logger.debug(f"In get_histogram_from_file with {f.GetName()} {channel.name} {sample.name}")
         # logger.debug(f"In get_histogram_from_file with {channel.name} {sample.name} {variable} {c} {f} extra_rebin: {extra_rebin}")
         h_name = "__".join([c, variable.name])
@@ -256,13 +257,17 @@ class InputDataReader(object):
         for input_file in sample.get_all():
             if input_file in self.input_files:
                 continue
-            f = ROOT.TFile("%s.root" % input_file, "READ")
-            if not f:
-                logger.critical("No input file found for sample %s", sample.name)
-                raise IOError("No input file found for sample %s", sample.name)
+            if os.path.isfile("%s.root" % input_file):
+                f = ROOT.TFile("%s.root" % input_file, "READ")
+                if not f:
+                    logger.critical("No input file found for sample %s", sample.name)
+                    raise IOError("No input file found for sample %s", sample.name)
+                else:
+                    logger.info("Successfully read input file for sample %s", sample.name)
+                    self.input_files[input_file] = f
             else:
-                logger.info("Successfully read input file for sample %s", sample.name)
-                self.input_files[input_file] = f
+                logger.warning("No input file found for sample %s", sample.name)
+                return None
 
     def read_input_files(self):
         for s in self.config.get_data_and_mc():

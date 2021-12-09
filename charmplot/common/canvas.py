@@ -270,9 +270,11 @@ class Canvas2(CanvasBase):
                 else:
                     self.print(f"{output}/{channel}.pdf")
 
-    def configure_histograms(self, mc_map: MC_Map, data: ROOT.TH1 = None, style: Dict = None):
+    def configure_histograms(self, mc_map: MC_Map, data: ROOT.TH1 = None, style: Dict = None, normalize: bool = True):
         if data:
             data.SetMarkerSize(0.8)
+            if not normalize:
+                data.Scale((data.GetSumOfWeights() / abs(data.GetSumOfWeights())) / data.GetSumOfWeights())
         for s, h in mc_map.items():
             logger.debug(f"configuring {s} {h}")
             if s.fillColor:
@@ -283,6 +285,8 @@ class Canvas2(CanvasBase):
                 h.SetLineColor(s.lineColor)
             else:
                 h.SetLineWidth(0)
+            if not normalize:
+                h.Scale((h.GetSumOfWeights() / abs(h.GetSumOfWeights())) / h.GetSumOfWeights())
 
     def set_maximum(self, histograms: list, variable: variable.Variable, mc_min: ROOT.TH1 = None):
 
@@ -384,8 +388,8 @@ class Canvas2(CanvasBase):
         leg.SetTextFont(43)
         if data:
             data_string = data_name if data_name else "Data"
-            if print_yields and mc_tot.GetSum() > 0.1:
-                leg.AddEntry(data, "%s #scale[0.50]{#splitline{%.2e}{/ MC = %1.3f}}" % (data_string, data.GetSum(), data.GetSum() / mc_tot.GetSum()), "pe")
+            if print_yields and mc_tot.GetSumOfWeights() > 0.1:
+                leg.AddEntry(data, "%s #scale[0.50]{#splitline{%.2e}{/ MC = %1.3f}}" % (data_string, data.GetSumOfWeights(), data.GetSumOfWeights() / mc_tot.GetSumOfWeights()), "pe")
             else:
                 leg.AddEntry(data, data_string, "pe")
         if mc_tot:
@@ -413,9 +417,9 @@ class Canvas2(CanvasBase):
                 integral = mc_map[s].IntegralAndError(0, mc_map[s].GetNbinsX() + 1, err)
                 utils.eprint(s.name, integral, err)
                 if show_error and integral != 0:
-                    leg.AddEntry(mc_map[s], "%s #scale[0.60]{%.2e #pm%.0f%s}" % (name, mc_map[s].GetSum(), 100 * err.value / integral, "%"), "f")
+                    leg.AddEntry(mc_map[s], "%s #scale[0.60]{%.2e #pm%.0f%s}" % (name, mc_map[s].GetSumOfWeights(), 100 * err.value / integral, "%"), "f")
                 else:
-                    leg.AddEntry(mc_map[s], "%s #scale[0.60]{%.2e}" % (name, mc_map[s].GetSum()), "f")
+                    leg.AddEntry(mc_map[s], "%s #scale[0.60]{%.2e}" % (name, mc_map[s].GetSumOfWeights()), "f")
             else:
                 leg.AddEntry(mc_map[s], "%s" % name, draw_option)
         self.pad1.cd()
@@ -503,9 +507,9 @@ class CanvasMCRatio(Canvas2):
             integral = mc_map[s].IntegralAndError(0, mc_map[s].GetNbinsX() + 1, err)
             if print_yields:
                 if show_error:
-                    leg.AddEntry(mc_map[s], "%s #scale[0.75]{%.2e #pm%.1f%s}" % (name, mc_map[s].GetSum(), 100 * err.value / integral, "%"), "l")
+                    leg.AddEntry(mc_map[s], "%s #scale[0.75]{%.2e #pm%.1f%s}" % (name, mc_map[s].GetSumOfWeights(), 100 * err.value / integral, "%"), "l")
                 else:
-                    leg.AddEntry(mc_map[s], "%s #scale[0.75]{%.2e%s}" % (name, mc_map[s].GetSum(), (f" {yields_unit}" if yields_unit else "")), "l")
+                    leg.AddEntry(mc_map[s], "%s #scale[0.75]{%.2e%s}" % (name, mc_map[s].GetSumOfWeights(), (f" {yields_unit}" if yields_unit else "")), "l")
             else:
                 leg.AddEntry(mc_map[s], name, "l")
         self.pad1.cd()
@@ -520,7 +524,7 @@ class CanvasMCRatio(Canvas2):
                 h.SetLineColor(s.lineColor)
                 h.SetLineWidth(2)
             if not normalize:
-                h.Scale((h.GetSum() / abs(h.GetSum())) / h.GetSum())
+                h.Scale((h.GetSumOfWeights() / abs(h.GetSumOfWeights())) / h.GetSumOfWeights())
 
     def set_atlas_label(self):
         # ATLAS label
