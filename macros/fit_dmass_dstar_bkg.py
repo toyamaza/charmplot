@@ -83,6 +83,12 @@ def main(options, args):
         else:
             pt_bin = ''
 
+        # Get pt bin
+        if re.search("pt_bin", name):
+            pt_bin = (name.split("_Dmeson")[0]).split("Rest_")[-1]
+        else:
+            pt_bin = ''
+
         # Get Sherpa or Madgraph
         if re.search("Sherpa", name):
             sherpa = True

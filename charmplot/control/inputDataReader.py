@@ -53,7 +53,7 @@ class InputDataReader(object):
             h = h.Clone(f"{h.GetName()}_{sys}_{f.GetName().replace('.root', '')}_{channel.name}")
         else:
             h = h.Clone(f"{h.GetName()}_{f.GetName().replace('.root', '')}_{channel.name}")
-        h_new = utils.rebin_histogram(h, variable, extra_rebin)
+        h_new = utils.rebin_histogram(h, variable, extra_rebin, sample)
         logger.info(f"Got histogram {h_new}")
 
         # scale histogram
@@ -182,7 +182,7 @@ class InputDataReader(object):
                 h_total.SetBinContent(i, sample.offset)
         if sample.fit and h_total:
             h_total = utils.fit_histogram(h_total, sample.fit)
-        if force_positive and h_total:
+        if force_positive and h_total and not sample.ignoreForcePositive:
             # if 'MatrixMethod' not in sample.name:
             utils.set_to_positive(h_total, sys)
         if not sample.statError:

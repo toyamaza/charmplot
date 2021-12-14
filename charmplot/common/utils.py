@@ -17,7 +17,6 @@ import os
 import ROOT
 import subprocess
 import sys
-import re
 
 MC_Map = Dict[sample.Sample, ROOT.TH1]
 
@@ -404,12 +403,14 @@ def save_histograms_to_trex_file(trex_folder: str, channel: channel.Channel, var
     out_file.Close()
 
 
-def save_to_file(out_file_name: str, channel: channel.Channel, var: variable.Variable, h_data: ROOT.TH1, mc_map: MC_Map):
+def save_to_file(out_file_name: str, channel: channel.Channel, var: variable.Variable, h_data: ROOT.TH1, mc_map: MC_Map, mc_tot: ROOT.TH1 = None):
     logging.info(f"Saving histograms to root file for channel {channel.name}")
     out_file = ROOT.TFile(out_file_name, "UPDATE")
     out_file.cd()
     if h_data:
         h_data.Write()
+    if mc_tot:
+        mc_tot.Write()
     for s in mc_map:
         if mc_map[s]:
             out_name = mc_map[s].GetName()
@@ -465,11 +466,6 @@ def read_samples(conf: globalConfig.GlobalConfig, reader: inputDataReader.InputD
             h = h.Clone(f"{h.GetName()}_{sys}")
         mc_map[s] = h
 
-        # fix negative or low value bins in MockMC
-        if "MockMC" in s.shortName:
-            for i in range(1, h.GetNbinsX() + 1):
-                if h.GetBinContent(i) < 100:
-                    h.SetBinContent(i, 100)
     return mc_map
 
 
@@ -598,32 +594,32 @@ def set_under_over_flow(h: ROOT.TH1, x_range: list, do_overflow: bool, do_underf
     return h_new
 
 
-def rebin_histogram(h: ROOT.TH1, v: variable.Variable, extra_rebin: int = 1):
+def rebin_histogram(h: ROOT.TH1, v: variable.Variable, extra_rebin: int = 1, sample: sample.Sample = None):
     # custom x axis
     if v.xbins and extra_rebin > 0:
-        h_temp = set_under_over_flow(h, v.x_range, v.do_overflow, v.do_underflow)
-        h_new = h_temp.Rebin(len(v.xbins) - 1, f"{h_temp.GetName()}_1", array.array('d', v.xbins))
-        # Calculate error if dealing with W+jets fit systematic histogram
-        if re.search("Rest_Fit", str(h.GetName())):
-            for i in range(1, h_new.GetNbinsX() + 1):
-                bin_error = 0
-                for j in range(1, h.GetNbinsX() + 1):
-                    if (h.GetBinCenter(j) < (h_new.GetBinCenter(i) + 0.5 * h_new.GetBinWidth(i))) and (h.GetBinCenter(j) > (h_new.GetBinCenter(i) - 0.5 * h_new.GetBinWidth(i))):
-                        bin_error += h.GetBinError(j)
-                h_new.SetBinError(i, bin_error)
-        return h_new
+        if sample.allowRebin:
+            h_temp = set_under_over_flow(h, v.x_range, v.do_overflow, v.do_underflow)
+            h_new = h_temp.Rebin(len(v.xbins) - 1, f"{h_temp.GetName()}_1", array.array('d', v.xbins))
+            # Calculate error if dealing with fit systematic histogram (ex. W+jets fit)
+            if sample.fitRebin:
+                for i in range(1, h_new.GetNbinsX() + 1):
+                    bin_error = 0
+                    for j in range(1, h.GetNbinsX() + 1):
+                        if (h.GetBinCenter(j) < (h_new.GetBinCenter(i) + 0.5 * h_new.GetBinWidth(i))) and (h.GetBinCenter(j) > (h_new.GetBinCenter(i) - 0.5 * h_new.GetBinWidth(i))):
+                            bin_error += h.GetBinError(j)
+                    h_new.SetBinError(i, bin_error)
+            return h_new
+        else:
+            return h
 
     # the rest of the code
     rebin = v.rebin
-    if rebin and v.allow_rebin:
+    if rebin and v.allow_rebin and sample.allowRebin:
         if extra_rebin > 0:
             h.Rebin(int(rebin * extra_rebin))
         else:
             h.Rebin(h.GetNbinsX())
-        if v.allow_rebin:
-            return set_under_over_flow(h, v.x_range, v.do_overflow, v.do_underflow)
-        else:
-            return h
+        return set_under_over_flow(h, v.x_range, v.do_overflow, v.do_underflow)
     else:
         return h
 

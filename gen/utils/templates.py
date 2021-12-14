@@ -101,8 +101,8 @@ class WDTruthSamples(ChannelTemplate):
 
         # MockMC at the bottom
         if not self.os_ss_sub and self.MockMC:
-            self.samples += [['MockMC_minus_MC', proxies.MockMC(subtract_mj=True)]]
-            self.samples += [['Offset', proxies.PlainChannel()]]
+            self.samples += ['MockMC_minus_MC', proxies.GenericChannel(name="MockMC_minus_MC", region=["Mock_MC"])],
+            self.samples += ['Offset', proxies.GenericChannel(name="Offset", region=["Offset"])],
 
     def get(self):
         return self.samples
@@ -278,23 +278,6 @@ class BKGComparison(ChannelTemplate):
                 ['Wjets_emu_MisMatched_PostProc', proxies.GenericChannel(name="Wjets_emu_MisMatched", regions_OS=[
                                                                          "Wjets_emu_MisMatched_OS"], regions_SS=["Wjets_emu_MisMatched_SS"])],
             ],
-            # 'Wjets_emu_Rest': [
-            #     ['Wjets_emu_Rest', proxies.NoMatchBackground()],
-            #     # ['Sherpa_Wjets_emu_Rest', proxies.NoMatchBackground()],
-            #     # ['Powheg_Wjets_emu_Rest', proxies.NoMatchBackground()],
-            #     ['Wjets_emu_Rest_PostProc', proxies.GenericChannel(name="Wjets_emu_Rest", regions_OS=["Wjets_emu_Rest_OS"], regions_SS=["Wjets_emu_Rest_SS"])],
-            #     ['Wjets_emu_Rest_PostProc_Loose', proxies.GenericChannel(name="Wjets_emu_Rest_Loose", regions_OS=["Wjets_emu_Rest_OS_loose"], regions_SS=["Wjets_emu_Rest_SS_loose"])],
-            #     # ['Sherpa_Wjets_emu_Rest_PostProc', proxies.GenericChannel(name="Wjets_emu_Rest", regions_OS=["Wjets_emu_Rest_OS"], regions_SS=["Wjets_emu_Rest_SS"])],
-            #     # ['Powheg_Wjets_emu_Rest_PostProc', proxies.GenericChannel(name="Wjets_emu_Rest", regions_OS=["Wjets_emu_Rest_OS"], regions_SS=["Wjets_emu_Rest_SS"])],
-            # ],
-            # 'DibosonZjets': [
-            #     ['DibosonZjets', proxies.PlainChannel()],
-            #     ['DibosonZjets_PostProc', proxies.GenericChannel(name="DibosonZjets", regions_OS=["Other_OS_loose"], regions_SS=["Other_SS_loose"])],
-            # ],
-            # 'MultiJet': [
-            #     ['Multijet_MatrixMethod', proxies.MatrixMethod()],
-            #     ['MultiJet_PostProc', proxies.GenericChannel(name="MultiJet", regions_OS=["MultiJet_OS"], regions_SS=["MultiJet_SS"])],
-            # ],
         }
 
         if self.decay_mode == "Dstar":
@@ -313,25 +296,6 @@ class BKGComparison(ChannelTemplate):
                         ['Wjets_emu_Rest_Fit_Loose', proxies.GenericChannel(name="Wjets_emu_Rest_Fit_Loose", regions_OS=["Wjets_emu_Rest_Fit_Loose"], regions_SS=["Wjets_emu_Rest_Fit_Loose"])],
                     ],
                     'Sherpa Fit_Comparison': [
-                        ['Wjets_emu_Rest_Fit', proxies.GenericChannel(name="Wjets_emu_Rest_Fit", regions_OS=["Wjets_emu_Rest_Fit"], regions_SS=["Wjets_emu_Rest_Fit"])],
-                        ['Sherpa_Wjets_emu_Rest_Fit', proxies.GenericChannel(name="Sherpa_Wjets_emu_Rest_Fit", regions_OS=["Sherpa_Wjets_emu_Rest_Fit"], regions_SS=["Sherpa_Wjets_emu_Rest_Fit"])],
-                    ],
-                    'Sherpa_Wjets_emu_Rest_Fit': [
-                        ['Sherpa_Wjets_emu_Rest_PostProc', proxies.GenericChannel(name="Wjets_emu_Rest", regions_OS=["Wjets_emu_Rest_OS"], regions_SS=["Wjets_emu_Rest_SS"])],
-                        ['Sherpa_Wjets_emu_Rest', proxies.NoMatchBackground()],
-                        ['Sherpa_Wjets_emu_Rest_Fit', proxies.GenericChannel(name="Sherpa_Wjets_emu_Rest_Fit", regions_OS=["Sherpa_Wjets_emu_Rest_Fit"], regions_SS=["Sherpa_Wjets_emu_Rest_Fit"])],
-                    ],
-                }
-            )
-
-        if self.decay_mode == "Dstar":
-            self.samples.update(
-                {
-                    'Wjets_emu_Rest_Fit': [
-                        ['Wjets_emu_Rest', proxies.NoMatchBackground()],
-                        ['Wjets_emu_Rest_Fit', proxies.GenericChannel(name="Wjets_emu_Rest_Fit", regions_OS=["Wjets_emu_Rest_Fit"], regions_SS=["Wjets_emu_Rest_Fit"])],
-                    ],
-                    'Fit_Comparison': [
                         ['Wjets_emu_Rest_Fit', proxies.GenericChannel(name="Wjets_emu_Rest_Fit", regions_OS=["Wjets_emu_Rest_Fit"], regions_SS=["Wjets_emu_Rest_Fit"])],
                         ['Sherpa_Wjets_emu_Rest_Fit', proxies.GenericChannel(name="Sherpa_Wjets_emu_Rest_Fit", regions_OS=["Sherpa_Wjets_emu_Rest_Fit"], regions_SS=["Sherpa_Wjets_emu_Rest_Fit"])],
                     ],
@@ -413,9 +377,9 @@ class ReplacementSamples(ChannelTemplate):
             #     ['Sherpa_Wjets_emu_Bkg_PostProc', proxies.GenericChannel(name="Wjets_emu_Bkg", regions_OS=[
             #         "Wjets_emu_Bkg_OS"], regions_SS=["Wjets_emu_Bkg_SS"])],
             # ],
-            # 'DibosonZjets': [
-            #     ['DibosonZjets_PostProc', proxies.GenericChannel(name="DibosonZjets", regions_OS=["Other_OS"], regions_SS=["Other_SS"])],
-            # ],
+            'DibosonZjets': [
+                ['DibosonZjets_PostProc', proxies.GenericChannel(name="DibosonZjets", regions_OS=["Other_OS"], regions_SS=["Other_SS"])],
+            ],
         })
 
         if self.decay_mode == "Dplus":
