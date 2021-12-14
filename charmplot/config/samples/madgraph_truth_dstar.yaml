@@ -489,14 +489,14 @@ Multijet:
     - Top_single_top
     - Top_ttx
     - Diboson
-  fillColor: "14002"
+  fillColor: "15002"
   legendLabel: Multijet
   shortName: Multijet
 
 Multijet_MatrixMethod:
   add: data
   subtract:
-  fillColor: "14003"
+  fillColor: "15002"
   legendLabel: Multijet
   shortName: Multijet_MatrixMethod
   makeGhostSample: True
@@ -504,7 +504,7 @@ Multijet_MatrixMethod:
 Multijet_MatrixMethod_Offset:
   add: data
   subtract:
-  fillColor: "14003"
+  fillColor: "15002"
   legendLabel: Multijet
   shortName: Multijet_MatrixMethod_Offset
   makeGhostSample: True
@@ -514,7 +514,7 @@ Multijet_MatrixMethod_FF:
     - data_FF
     - MC
   subtract:
-  fillColor: "14003"
+  fillColor: "15002"
   legendLabel: "Multijet"
   shortName: Multijet_MatrixMethod
 
@@ -527,21 +527,23 @@ MockMC:
   statError: True
 
 MockMC_minus_MC:
-  add: data
-  subtract: MC
+  add: 
+    - Mock_MC
+  subtract:
   fillColor: "13001"
   legendLabel: "Ch. Symm."
-  shortName: MockMC
-  statError: True
+  shortName: MockMC_minus_MC
+  allowRebin: False
 
 Offset:
-  add: data
+  add:
+    - Offset
   subtract:
-  offset: 100
-  ghost: True
   fillColor: "13004"
   legendLabel: "Offset"
   shortName: Offset
+  allowRebin: False
+  ignoreForcePositive: True
 
 SPG_Matched:
   add:
@@ -690,7 +692,7 @@ MultiJet_PostProc:
   add:
     - inclusive_bkg
   subtract:
-  lineColor: "21000"
+  lineColor: "15002"
   legendLabel: Loose MJ
   shortName: MultiJet_PostProc
 
@@ -789,6 +791,7 @@ Wjets_emu_Rest_Fit:
   lineColor: "21000"
   legendLabel: "W+jets Fit"
   shortName: Wjets_emu_Rest_Fit
+  fitRebin: True
 
 Sherpa_Wjets_emu_Rest_Fit:
   add:
@@ -797,6 +800,7 @@ Sherpa_Wjets_emu_Rest_Fit:
   lineColor: "21000"
   legendLabel: "Sherpa W+jets Fit"
   shortName: Sherpa_Wjets_emu_Rest_Fit
+  fitRebin: True
 
 Wjets_emu_Matched_1tag:
   add:

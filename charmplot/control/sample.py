@@ -19,6 +19,9 @@ class Sample(object):
     ghost = False
     fit = ""
     ignoreTruthMatching = []
+    allowRebin = True
+    ignoreForcePositive = False
+    fitRebin = False
 
     def __init__(self, name, color_scheme=None, **kwargs):
         # sample name
@@ -81,6 +84,15 @@ class Sample(object):
 
         if 'ghost' in kwargs:
             self.ghost = bool(kwargs.pop('ghost'))
+
+        if 'allowRebin' in kwargs:
+            self.allowRebin = bool(kwargs.pop('allowRebin'))
+
+        if 'ignoreForcePositive' in kwargs:
+            self.ignoreForcePositive = bool(kwargs.pop('ignoreForcePositive'))
+
+        if 'fitRebin' in kwargs:
+            self.fitRebin = bool(kwargs.pop('fitRebin'))
 
     def set_color_scheme(self, scheme):
         self.color_scheme = scheme

@@ -12,9 +12,9 @@ def main(options):
     # TODO: make configurable?
     make_os_ss = not options.skip_os
     make_os_minus_ss = not options.fit_only and not options.skip_os_ss
-    force_positive = False
-    if options.fit_type == "OS/SS":
-        force_positive = True
+    force_positive = True
+    if options.not_force_positive:
+        force_positive = False
 
     # sample type
     if options.samples.lower() == 'truth':
@@ -104,7 +104,7 @@ def main(options):
             'Wjets_emu_Rest': '<charge>_Replacement_Wjets_emu_Rest',
             'Wjets_emu_Bkg': '<charge>_Replacement_Wjets_emu_Bkg',
             'Sherpa_Wjets_emu_Rest': '<charge>_Replacement_Wjets_emu_Rest',
-            # 'DibosonZjets': '<charge>_Replacement_DibosonZjets',
+            'DibosonZjets': '<charge>_Replacement_DibosonZjets',
         })
 
     # systematics
@@ -319,6 +319,9 @@ if __name__ == "__main__":
                       default=False)
     parser.add_option('--spg-background-only',
                       action="store_true", dest="spg_background_only",
+                      default=False)
+    parser.add_option('--not-force-positive',
+                      action="store_true", dest="not_force_positive",
                       default=False)
     # ----------------------------------------------------
     # arguments: regions / channels override

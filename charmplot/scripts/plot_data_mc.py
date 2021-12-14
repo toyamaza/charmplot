@@ -159,25 +159,32 @@ def process_channel(options, conf, c):
                 logging.info(f"replacing sample {replace_sample} with channel {replace_channel}")
                 utils.replace_sample(conf, mc_map, reader, c, var, replace_sample, replace_channel, mc_map_sys if systematics else None, relative_unc=True)
 
+        # canvas
+        canv = utils.make_canvas(h_data, var, c, x=800, y=800, fit=fit)
+
+        # configure histograms
+        canv.configure_histograms(mc_map, h_data, style=conf.style)
+
+        # stack and total mc
+        hs = utils.make_stack(samples, mc_map)
+        if trex_mc_tot:
+            h_mc_tot = trex_mc_tot
+        else:
+            h_mc_tot = utils.make_mc_tot(hs, f"MC_TOT_{c.name}_{var.name}")
+
         # systematics histograms with alt samples
         if systematics:
             mc_map_sys.update(utils.read_sys_histograms_alt_samples(conf, reader, c, var, samples, fit, systematics, mc_map))
 
         # save histograms to root file
         if c.save_to_file and not options.trex:
-            utils.save_to_file(out_file_name, c, var, h_data, mc_map)
+            utils.save_to_file(out_file_name, c, var, h_data, mc_map, h_mc_tot)
             for group in systematics:
                 utils.save_to_file_sys(out_file_name, c, var, mc_map_sys[group], systematics[group]['variations'])
 
         # continue if not make plots
         if not c.make_plots or not var.make_plots:
             continue
-
-        # canvas
-        canv = utils.make_canvas(h_data, var, c, x=800, y=800, fit=fit)
-
-        # configure histograms
-        canv.configure_histograms(mc_map, h_data, style=conf.style)
 
         # ratio range
         ratio_range = [1.01 - float(options.ratio_range) / 100., 0.99 + float(options.ratio_range) / 100.]
@@ -215,12 +222,14 @@ def process_channel(options, conf, c):
                             utils.save_histograms_to_trex_file(trex_folder, c, var, h_up, s, trex_histograms, f"{group}_up")
                             utils.save_histograms_to_trex_file(trex_folder, c, var, h_dn, s, trex_histograms, f"{group}_dn")
 
-        # stack and total mc
-        hs = utils.make_stack(samples, mc_map)
-        if trex_mc_tot:
-            h_mc_tot = trex_mc_tot
-        else:
-            h_mc_tot = utils.make_mc_tot(hs, f"{c}_{v}_mc_tot")
+        # Multiply Offset by -1 for visual purposes
+        for s in mc_map:
+            if s.shortName == "Offset":
+                h_mc_tot.Add(mc_map[s], -1.0)
+                mc_map[s].Scale(-1.0)
+                h_mc_tot.Add(mc_map[s], 1.0)
+                hs = utils.make_stack(samples, mc_map)
+                break
 
         # MC tot for systematics
         if systematics:

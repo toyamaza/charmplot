@@ -525,21 +525,23 @@ MockMC:
   statError: True
 
 MockMC_minus_MC:
-  add: data
-  subtract: MC
+  add: 
+    - Mock_MC
+  subtract:
   fillColor: "13001"
   legendLabel: "Ch. Symm."
-  shortName: MockMC
-  statError: True
+  shortName: MockMC_minus_MC
+  allowRebin: False
 
 Offset:
-  add: data
+  add:
+    - Offset
   subtract:
-  offset: 100
-  ghost: True
   fillColor: "13004"
   legendLabel: "Offset"
   shortName: Offset
+  allowRebin: False
+  ignoreForcePositive: True
 
 SPG_Matched:
   add:
