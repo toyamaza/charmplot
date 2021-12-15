@@ -210,6 +210,9 @@ def main(options):
         if make_os_minus_ss:
             if len(btags) > 1:
                 channelGenerator.make_channel(lumi, extra_rebin=extra_rebin)
+                for btag in btags:
+                    channelGenerator.make_channel(lumi, btag=btag,
+                                                  extra_rebin=extra_rebin * (btag_bin if btag != '0tag' else 1))
             else:
                 for btag in btags:
                     channelGenerator.make_channel(lumi, btag=btag, extra_rebin=extra_rebin * (btag_bin if btag != '0tag' else 1))
