@@ -77,13 +77,23 @@ class CanvasBase(object):
             precision += 1
             bin_width *= 10
 
-        if self.variable.per_unit:
+        # equidistant bin?
+        equidistant = True
+        for i in range(1, proxy.GetNbinsX() + 1):
+            if proxy.GetBinWidth(i) != self.bin_width:
+                equidistant = False
+                break
+
+        if self.variable.per_unit or not equidistant:
             if self.variable.label:
-                if self.variable.unit:
+                if self.variable.unit and self.variable.per_unit:
                     proxy.GetXaxis().SetTitle(f"{self.variable.label} [{self.variable.unit}]")
                     proxy.GetYaxis().SetTitle(f"{events} / {self.variable.unit}")
                 else:
-                    proxy.GetXaxis().SetTitle(f"{self.variable.label}")
+                    if self.variable.unit:
+                        proxy.GetXaxis().SetTitle(f"{self.variable.label} [{self.variable.unit}]")
+                    else:
+                        proxy.GetXaxis().SetTitle(f"{self.variable.label}")
                     proxy.GetYaxis().SetTitle(f"{events}")
             else:
                 proxy.GetXaxis().SetTitle(f"{self.variable.name}")
@@ -389,7 +399,8 @@ class Canvas2(CanvasBase):
         if data:
             data_string = data_name if data_name else "Data"
             if print_yields and mc_tot.GetSumOfWeights() > 0.1:
-                leg.AddEntry(data, "%s #scale[0.50]{#splitline{%.2e}{/ MC = %1.3f}}" % (data_string, data.GetSumOfWeights(), data.GetSumOfWeights() / mc_tot.GetSumOfWeights()), "pe")
+                leg.AddEntry(data, "%s #scale[0.50]{#splitline{%.2e}{/ MC = %1.3f}}" %
+                             (data_string, data.GetSumOfWeights(), data.GetSumOfWeights() / mc_tot.GetSumOfWeights()), "pe")
             else:
                 leg.AddEntry(data, data_string, "pe")
         if mc_tot:
