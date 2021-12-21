@@ -150,7 +150,8 @@ def main(options, conf, reader):
             if options.show_rel_error:
                 ratio_range = [1e-4, 90]
             canv = utils.make_canvas_mc_ratio(mc_map[samples[0]], var, c, ratio_title=options.ratio_title, x=800, y=800,
-                                              events=yaxis_label, ratio_range=ratio_range)
+                                              events=yaxis_label, ratio_range=ratio_range, y_split=float(options.y_split),
+                                              bottom_margin=float(options.bottom_margin))
             # configure histograms
             canv.configure_histograms(mc_map, options.normalize)
 
@@ -356,6 +357,12 @@ if __name__ == "__main__":
                       action="store", dest="ratio_range",
                       default=50,
                       help="range of the ratio y-axis")
+    parser.add_option('-y', '--y-split',
+                      action="store", dest="y_split",
+                      default=0.3)
+    parser.add_option('-b', '--bottom-margin',
+                      action="store", dest="bottom_margin",
+                      default=1.0)
     parser.add_option('--stage-out',
                       action="store_true", dest="stage_out",
                       help="copy plots to the www folder")
