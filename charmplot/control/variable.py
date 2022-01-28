@@ -21,6 +21,7 @@ class Variable(object):
     xbins = None
     name_override = None
     per_unit = False
+    x_bin_labels = None
 
     def __init__(self, name, **kwargs):
         self.name = name
@@ -28,5 +29,3 @@ class Variable(object):
             logger.debug(f"setting {key} to {kwargs[key]}")
             setattr(self, key, kwargs[key])
 
-        if self.name_override:
-            self.name = self.name_override

@@ -26,7 +26,7 @@ class CanvasBase(object):
         self.canv.Delete()
 
     def __init__(self, c: channel.Channel, v: variable.Variable, x: float, y: float, suffix: str = "",
-                 sys: str = ""):
+                 sys: str = "", bottom_margin: float = 1.0):
         self.name = f"{c.name}_{v.name}"
         if suffix:
             self.name += f"_{suffix}"
@@ -35,6 +35,7 @@ class CanvasBase(object):
         self.x = x
         self.y = y
         self.sys = sys
+        self.bottom_margin = bottom_margin
         if self.sys:
             self.name += f"_{self.sys}"
         self.canv = ROOT.TCanvas(self.name, "", int(self.x), int(self.y))
@@ -51,7 +52,7 @@ class CanvasBase(object):
         if self.variable.x_range:
             h.GetXaxis().SetRangeUser(self.variable.x_range[0], self.variable.x_range[1])
 
-    def make_proxy_histogram(self, h, name="proxy"):
+    def make_proxy_histogram(self, h, var, name="proxy"):
         proxy = h.Clone(f"{self.name}_{h.GetName()}_{name}")
         for i in range(1, proxy.GetNbinsX() + 1):
             proxy.SetBinContent(i, 0)
@@ -61,11 +62,16 @@ class CanvasBase(object):
         proxy.SetMarkerStyle(0)
         proxy.SetLineStyle(0)
         proxy.Draw("l")
+
+        if var.x_bin_labels:
+            for i in range(len(var.x_bin_labels)):
+                proxy.GetXaxis().SetBinLabel(i + 1, var.x_bin_labels[i])
+            proxy.LabelsOption("v", "X")
         return proxy
 
     def set_canvas_margins(self):
         self.canv.SetTopMargin(40 / self.canv.GetWindowHeight())
-        self.canv.SetBottomMargin(80 / self.canv.GetWindowHeight())
+        self.canv.SetBottomMargin(self.bottom_margin * 80 / self.canv.GetWindowHeight())
         self.canv.SetLeftMargin(120 / self.canv.GetWindowWidth())
         self.canv.SetRightMargin(30 / self.canv.GetWindowWidth())
 
@@ -153,8 +159,8 @@ class Canvas2(CanvasBase):
 
     def __init__(self, c: channel.Channel, v: variable.Variable, x: float, y: float,
                  y_split: float = 0.35, fit: likelihoodFit.LikelihoodFit = None,
-                 suffix: str = "", sys: str = ""):
-        super(Canvas2, self).__init__(c, v, x, y, suffix, sys)
+                 suffix: str = "", sys: str = "", bottom_margin: float = 1.0):
+        super(Canvas2, self).__init__(c, v, x, y, suffix, sys, bottom_margin)
 
         # upper/lower canvas split
         self.y_split = y_split
@@ -469,7 +475,7 @@ class Canvas2(CanvasBase):
     def construct(self, h, events):
         # proxy histogram to control the upper axis
         self.pad1.cd()
-        self.proxy_up = self.make_proxy_histogram(h, "up")
+        self.proxy_up = self.make_proxy_histogram(h, self.variable, "up")
         self.set_axis_title(self.proxy_up, events=events)
         self.set_axis_text_size(self.proxy_up, no_x_axis=(self.y_split > 0))
         self.set_x_range(self.proxy_up)
@@ -477,7 +483,7 @@ class Canvas2(CanvasBase):
         # proxy histogram to control the lower axis
         if self.pad2:
             self.pad2.cd()
-            self.proxy_dn = self.make_proxy_histogram(h, "dn")
+            self.proxy_dn = self.make_proxy_histogram(h, self.variable, "dn")
             self.set_axis_title(self.proxy_dn, "Data / MC" if self.y_split else "")
             self.set_axis_text_size(self.proxy_dn, self.y_split + self.offset)
             self.set_ratio_range(0.75, 1.24)
@@ -487,8 +493,9 @@ class Canvas2(CanvasBase):
 class CanvasMCRatio(Canvas2):
 
     def __init__(self, c: channel.Channel, v: variable.Variable, ratio_title: str,
-                 x: float, y: float, y_split: float = 0.35, ratio_range: list = [0.01, 1.99], suffix: str = "_mc_ratio"):
-        super(CanvasMCRatio, self).__init__(c, v, x, y, y_split, suffix=suffix)
+                 x: float, y: float, y_split: float = 0.35, ratio_range: list = [0.01, 1.99],
+                 suffix: str = "_mc_ratio", bottom_margin: float = 1.0):
+        super(CanvasMCRatio, self).__init__(c, v, x, y, y_split, suffix=suffix, bottom_margin=bottom_margin)
         self.ratio_title = ratio_title
         self.ratio_range = ratio_range
 
@@ -547,7 +554,7 @@ class CanvasMCRatio(Canvas2):
     def construct(self, h, events):
         # proxy histogram to control the upper axis
         self.pad1.cd()
-        self.proxy_up = self.make_proxy_histogram(h, "up")
+        self.proxy_up = self.make_proxy_histogram(h, self.variable, "up")
         self.set_axis_title(self.proxy_up, events=events)
         self.set_axis_text_size(self.proxy_up, no_x_axis=(self.y_split > 0))
         self.set_x_range(self.proxy_up)
@@ -555,7 +562,7 @@ class CanvasMCRatio(Canvas2):
         # proxy histogram to control the lower axis
         if self.pad2:
             self.pad2.cd()
-            self.proxy_dn = self.make_proxy_histogram(h, "dn")
+            self.proxy_dn = self.make_proxy_histogram(h, self.variable, "dn")
             self.set_axis_title(self.proxy_dn, self.ratio_title if self.y_split else "")
             self.set_axis_text_size(self.proxy_dn, self.y_split + self.offset)
             self.set_ratio_range(self.ratio_range[0], self.ratio_range[1], override=True)

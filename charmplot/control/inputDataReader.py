@@ -37,7 +37,7 @@ class InputDataReader(object):
     def get_histogram_from_file(self, f, channel, sample, variable, c, extra_rebin=1, sys=None, extra_scale=1.0):
         logger.debug(f"In get_histogram_from_file with {f.GetName()} {channel.name} {sample.name}")
         # logger.debug(f"In get_histogram_from_file with {channel.name} {sample.name} {variable} {c} {f} extra_rebin: {extra_rebin}")
-        h_name = "__".join([c, variable.name])
+        h_name = "__".join([c, (variable.name_override if variable.name_override else variable.name)])
         h = None
         if sys:
             h_name_sys = "_-_".join([sys, "__".join([c, variable.name])])
