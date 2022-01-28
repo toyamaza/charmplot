@@ -114,5 +114,29 @@ v_eta:
 v_pt:
   label: "v_pt"
 
-D_decay_mode:
-  label: "D+ decay mode"
+D_decay_dplus:
+  name_override: D_decay
+  label: 'D+ decay'
+  rebin: 1
+  x_range: [-0.5, 10.5]
+  x_bin_labels: ["Other", "K#pi#pi", "KK#pi", "#pi#pi#pi", "K#pi#pi#pi_{0}", "#pi#pi#pi#pi_{0}", "K#pi#mu#nu", "K#pie#nu", "K_{0}#pi#pi#pi"]
+  do_overflow: False
+  do_underflow: False
+
+D_decay_dzero:
+  name_override: D_decay
+  label: 'D0 decay'
+  rebin: 1
+  x_range: [19.5, 30.5]
+  x_bin_labels: ["Other", "K#pi", "K#pi#pi_{0}", "K#pi#pi_{0}#pi_{0}", "K_{0}#pi#pi", "K#pi#pi#pi", "K#pi#pi#pi#pi_{0}", "#pi#pi#pi#pi", "#pi#pi#pi#pi#pi_{0}"]
+  do_overflow: False
+  do_underflow: False
+
+D_decay_dsubs:
+  name_override: D_decay
+  label: 'Ds decay'
+  rebin: 1
+  x_range: [39.5, 50.5]
+  x_bin_labels: ["Other", "KK#pi", "K#pi#pi", "#pi#pi#pi", "#pi#pi#pi#gamma", "#pi#pi#pi#pi0", "#pi#pi#piX", "KK#mu#nu", "KKe#nu"]
+  do_overflow: False
+  do_underflow: False
