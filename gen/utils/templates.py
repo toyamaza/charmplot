@@ -414,14 +414,14 @@ class WDComparisonSamples(ChannelTemplate):
 
     samplesConf = "wplusd_comparison"
 
-    samples = [
-        ['MG_Wjets_emu_Matched', proxies.GenericChannel(name="Matched", region="Matched")],
-        ['MGPy8EG_NLO_WplusD', proxies.GenericChannel(name="Matched", region="Matched")],
-        ['Sherpa2211_WplusD', proxies.GenericChannel(name="Matched", region="Matched")],
-        ['Sherpa2211_Wjets', proxies.GenericChannel(name="Matched", region="Matched")],
-        ['MG_Wjets_emu_411MisMatched', proxies.GenericChannel(name="411MisMatched", region="411MisMatched")],
-        ['Sherpa2211_Wjets_emu_411MisMatched', proxies.GenericChannel(name="411MisMatched", region="411MisMatched")],
-    ]
+    samples = {
+        "Matched": [
+            ['MG_Wjets', proxies.GenericChannel(name="Matched", region="Matched")],
+            ['MGPy8EG_NLO_WplusD', proxies.GenericChannel(name="Matched", region="Matched")],
+            ['Sherpa2211_WplusD', proxies.GenericChannel(name="Matched", region="Matched")],
+            ['Sherpa2211_Wjets', proxies.GenericChannel(name="Matched", region="Matched")],
+        ]
+    }
 
     def get(self):
         return self.samples
