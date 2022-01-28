@@ -28,4 +28,3 @@ class Variable(object):
         for key in kwargs:
             logger.debug(f"setting {key} to {kwargs[key]}")
             setattr(self, key, kwargs[key])
-
