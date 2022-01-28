@@ -34,29 +34,38 @@ def decode(i):
         return 0
 
 
+def pdg_to_str(pdg):
+    if pdg == "411":
+        return "dplus"
+    elif pdg == "421_413":
+        return "dzero"
+
+
 def main(options):
 
     # file
     f = ROOT.TFile(options.input, "READ")
 
     # histogram
-    h = f.Get("MG_Wjets_emu_411MisMatched_OS-SS_0tag_Dplus_truth_Dmeson_full_decay_mode_dplus")
-    total = h.GetSumOfWeights()
-    decay_mode_dict = {}
-    for i in range(0, h.GetNbinsX() + 2):
-        y = h.GetBinContent(i)
-        if y:
-            decay_str = ""
-            encoded = i
-            while (encoded):
-                num = encoded % 10
-                decay_str += f"{decode(num)} "
-                encoded = encoded // 10
-            decay_mode_dict[decay_str] = y
+    for species in ["411", "421_413"]:
+        print(f"~~~~~ {species} ~~~~~")
+        h = f.Get(f"MG_Wjets_OS-SS_0tag_Dplus_{species}_truth_Dmeson_full_decay_mode_{pdg_to_str(species)}")
+        total = h.GetSumOfWeights()
+        decay_mode_dict = {}
+        for i in range(0, h.GetNbinsX() + 2):
+            y = h.GetBinContent(i)
+            if y:
+                decay_str = ""
+                encoded = i
+                while (encoded):
+                    num = encoded % 10
+                    decay_str += f"{decode(num)} "
+                    encoded = encoded // 10
+                decay_mode_dict[decay_str] = y
 
-    decay_mode_dict_sorted = dict(sorted(decay_mode_dict.items(), key=lambda item: item[1], reverse=True))
-    for k, v in decay_mode_dict_sorted.items():
-        print(f"{str(k):26}: {v:7.0f} ({100 * v / total:2.3f}%)")
+        decay_mode_dict_sorted = dict(sorted(decay_mode_dict.items(), key=lambda item: abs(item[1]), reverse=True))
+        for k, v in decay_mode_dict_sorted.items():
+            print(f"{str(k):26}: {v:7.0f} ({100 * v / total:2.3f}%)")
 
 
 if __name__ == "__main__":
