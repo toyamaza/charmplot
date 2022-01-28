@@ -524,6 +524,9 @@ class CanvasMCRatio(Canvas2):
             err = c_double(0)
             integral = mc_map[s].IntegralAndError(0, mc_map[s].GetNbinsX() + 1, err)
             if print_yields:
+                err = c_double(0)
+                integral = mc_map[s].IntegralAndError(0, mc_map[s].GetNbinsX() + 1, err)
+                utils.eprint(s.name, integral, err)
                 if show_error:
                     leg.AddEntry(mc_map[s], "%s #scale[0.75]{%.2e #pm%.1f%s}" % (name, mc_map[s].GetSumOfWeights(), 100 * err.value / integral, "%"), "l")
                 else:
