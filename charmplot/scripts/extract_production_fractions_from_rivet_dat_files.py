@@ -165,7 +165,7 @@ def main(options):
             canv = utils.make_canvas_mc_ratio(mc_map[samples[0]], var, chan, "Fraction", x=800, y=800, ratio_range=[0.0, 0.99], events=yaxis_label)
 
             # configure histograms
-            canv.configure_histograms(mc_map, True)
+            canv.configure_histograms(mc_map)
 
             # top pad
             canv.pad1.cd()

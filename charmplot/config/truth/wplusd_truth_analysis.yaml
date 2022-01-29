@@ -2,11 +2,11 @@
 variablesConf: charmed_wjets_truth
 samplesConf: wplusd_truth
 systematics:
-  - sherpa2211_theory_qcd
+  # - sherpa2211_theory_qcd
   - sherpa2211_theory_qcd_me_ps
   - sherpa2211_theory_as
   - sherpa2211_theory_pdf
-  - sherpa2211_theory_ew
+  # - sherpa2211_theory_ew
 
 channels:
   OS-SS_Dplus:
@@ -20,10 +20,10 @@ channels:
       - -mu_minus_Dplus_SS
       - -mu_plus_Dplus_SS
     samples:
-      - Sherpa2211_Wjets
       - MG_Wjets
-      - MGPy8EG_NLO_WplusD
       - Sherpa2211_WplusD
+      - Sherpa2211_Wjets
+      - MGPy8EG_NLO_WplusD
     label:
       - W#rightarrowl#nu+D
       - inclusive OS-SS, Truth-level
@@ -32,10 +32,10 @@ channels:
       - el_minus_Dplus_OS
       - -el_minus_Dplus_SS
     samples:
-      - Sherpa2211_Wjets
       - MG_Wjets
-      - MGPy8EG_NLO_WplusD
       - Sherpa2211_WplusD
+      - Sherpa2211_Wjets
+      - MGPy8EG_NLO_WplusD
     label:
       - W#rightarrowe#nu+D
       - inclusive OS-SS, Truth-level
@@ -44,10 +44,10 @@ channels:
       - el_plus_Dplus_OS
       - -el_plus_Dplus_SS
     samples:
-      - Sherpa2211_Wjets
       - MG_Wjets
-      - MGPy8EG_NLO_WplusD
       - Sherpa2211_WplusD
+      - Sherpa2211_Wjets
+      - MGPy8EG_NLO_WplusD
     label:
       - W#rightarrowe#nu+D
       - inclusive OS-SS, Truth-level
@@ -56,10 +56,10 @@ channels:
       - mu_minus_Dplus_OS
       - -mu_minus_Dplus_SS
     samples:
-      - Sherpa2211_Wjets
       - MG_Wjets
-      - MGPy8EG_NLO_WplusD
       - Sherpa2211_WplusD
+      - Sherpa2211_Wjets
+      - MGPy8EG_NLO_WplusD
     label:
       - W#rightarrow#mu#nu+D
       - inclusive OS-SS, Truth-level
@@ -68,10 +68,10 @@ channels:
       - mu_plus_Dplus_OS
       - -mu_plus_Dplus_SS
     samples:
-      - Sherpa2211_Wjets
       - MG_Wjets
-      - MGPy8EG_NLO_WplusD
       - Sherpa2211_WplusD
+      - Sherpa2211_Wjets
+      - MGPy8EG_NLO_WplusD
     label:
       - W#rightarrow#mu#nu+D
       - inclusive OS-SS, Truth-level
@@ -230,10 +230,10 @@ channels:
       - -mu_minus_Dstar_SS
       - -mu_plus_Dstar_SS
     samples:
-      - Sherpa2211_Wjets
       - MG_Wjets
-      - MGPy8EG_NLO_WplusD
       - Sherpa2211_WplusD
+      - Sherpa2211_Wjets
+      - MGPy8EG_NLO_WplusD
     label:
       - W#rightarrowl#nu+D*
       - inclusive OS-SS, Truth-level
@@ -242,10 +242,10 @@ channels:
       - el_minus_Dstar_OS
       - -el_minus_Dstar_SS
     samples:
-      - Sherpa2211_Wjets
       - MG_Wjets
-      - MGPy8EG_NLO_WplusD
       - Sherpa2211_WplusD
+      - Sherpa2211_Wjets
+      - MGPy8EG_NLO_WplusD
     label:
       - W#rightarrowe#nu+D*
       - inclusive OS-SS, Truth-level
@@ -254,10 +254,10 @@ channels:
       - el_plus_Dstar_OS
       - -el_plus_Dstar_SS
     samples:
-      - Sherpa2211_Wjets
       - MG_Wjets
-      - MGPy8EG_NLO_WplusD
       - Sherpa2211_WplusD
+      - Sherpa2211_Wjets
+      - MGPy8EG_NLO_WplusD
     label:
       - W#rightarrowe#nu+D*
       - inclusive OS-SS, Truth-level
@@ -266,10 +266,10 @@ channels:
       - mu_minus_Dstar_OS
       - -mu_minus_Dstar_SS
     samples:
-      - Sherpa2211_Wjets
       - MG_Wjets
-      - MGPy8EG_NLO_WplusD
       - Sherpa2211_WplusD
+      - Sherpa2211_Wjets
+      - MGPy8EG_NLO_WplusD
     label:
       - W#rightarrow#mu#nu+D*
       - inclusive OS-SS, Truth-level
@@ -278,10 +278,10 @@ channels:
       - mu_plus_Dstar_OS
       - -mu_plus_Dstar_SS
     samples:
-      - Sherpa2211_Wjets
       - MG_Wjets
-      - MGPy8EG_NLO_WplusD
       - Sherpa2211_WplusD
+      - Sherpa2211_Wjets
+      - MGPy8EG_NLO_WplusD
     label:
       - W#rightarrow#mu#nu+D*
       - inclusive OS-SS, Truth-level

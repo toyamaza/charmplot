@@ -282,7 +282,7 @@ def main(options):
                     canv = utils.make_canvas_mc_ratio(h0, var, chan, "Ratio", x=800, y=800, events=yaxis_label)
 
                     # configure histograms
-                    canv.configure_histograms(mc_map, True)
+                    canv.configure_histograms(mc_map)
 
                     # logx
                     if var.logx:

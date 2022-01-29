@@ -286,11 +286,9 @@ class Canvas2(CanvasBase):
                 else:
                     self.print(f"{output}/{channel}.pdf")
 
-    def configure_histograms(self, mc_map: MC_Map, data: ROOT.TH1 = None, style: Dict = None, normalize: bool = True):
+    def configure_histograms(self, mc_map: MC_Map, data: ROOT.TH1 = None, style: Dict = None):
         if data:
             data.SetMarkerSize(0.8)
-            if not normalize:
-                data.Scale((data.GetSumOfWeights() / abs(data.GetSumOfWeights())) / data.GetSumOfWeights())
         for s, h in mc_map.items():
             logger.debug(f"configuring {s} {h}")
             if s.fillColor:
@@ -301,8 +299,6 @@ class Canvas2(CanvasBase):
                 h.SetLineColor(s.lineColor)
             else:
                 h.SetLineWidth(0)
-            if not normalize:
-                h.Scale((h.GetSumOfWeights() / abs(h.GetSumOfWeights())) / h.GetSumOfWeights())
 
     def set_maximum(self, histograms: list, variable: variable.Variable, mc_min: ROOT.TH1 = None):
 
@@ -537,15 +533,13 @@ class CanvasMCRatio(Canvas2):
         self.legend = leg
         self.legend.Draw()
 
-    def configure_histograms(self, mc_map: MC_Map, normalize: bool):
+    def configure_histograms(self, mc_map: MC_Map):
         for s, h in mc_map.items():
             logger.debug(f"configuring {s} {h}")
             h.SetFillStyle(0)
             if s.lineColor:
                 h.SetLineColor(s.lineColor)
                 h.SetLineWidth(2)
-            if not normalize:
-                h.Scale((h.GetSumOfWeights() / abs(h.GetSumOfWeights())) / h.GetSumOfWeights())
 
     def set_atlas_label(self):
         # ATLAS label

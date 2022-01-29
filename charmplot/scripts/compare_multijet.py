@@ -130,7 +130,7 @@ def main(options):
             canv = utils.make_canvas_mc_ratio(mc_map[samples[0]], var, chan, ratio_title=options.ratio_title, x=800, y=800, ratio_range=ratio_range)
 
             # configure histograms
-            canv.configure_histograms(mc_map, options.normalize)
+            canv.configure_histograms(mc_map)
 
             # top pad
             canv.pad1.cd()

@@ -95,7 +95,12 @@ def main(options, conf, reader):
             canv = utils.make_canvas(mc_map[samples[0]], var, c, x=800, y=800, y_split=0, events=yaxis_label)
 
             # configure histograms
-            canv.configure_histograms(mc_map, normalize=options.normalize)
+            canv.configure_histograms(mc_map)
+
+            # normalize integral to unity
+            if options.normalize:
+                for h in mc_map:
+                    mc_map[h].Scale(1. / mc_map[h].GetSumOfWeights())
 
             # top pad
             hists = [mc_map[s] for s in mc_map]
