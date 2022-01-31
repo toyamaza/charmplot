@@ -198,6 +198,7 @@ def main(conf, options, args):
                 fake_rate_map[y][s].SetLineColor(sample_config.lineColor)
                 mc_map[sample_config] = fake_rate_map[y][s]
                 hs.Add(fake_rate_map[y][s])
+                print(f"y: {y}, s: {s}, value of last bin{fake_rate_map[y][s].GetBinContent(fake_rate_map[y][s].GetNbinsX()+1)}")
 
             # channel object for plotting
             eta = eta_range[y]
@@ -242,6 +243,10 @@ if __name__ == "__main__":
     parser.add_option('-s', '--samples',
                       action="store", dest="samples",
                       help="comma separated list of samples",
+                      default="Multijet")
+    parser.add_option('-sys', '--systematics',
+                      action="store", dest="systematics",
+                      help="comma separated list of systematics, to be applied to baseline",
                       default="Multijet")
     parser.add_option('-y', '--yrange',
                       action="store", dest="yrange",
