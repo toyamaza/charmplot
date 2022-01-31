@@ -62,6 +62,9 @@ def main(options, conf, reader):
         # list of variables
         variables = utils.get_variables(options, conf, reader, c, samples[0])
 
+        #systematics
+        systematics = conf.get_systematics()
+
         # make channel folder if not exist
         if not os.path.isdir(os.path.join(conf.out_name, c.name)):
             os.makedirs(os.path.join(conf.out_name, c.name))
@@ -78,10 +81,16 @@ def main(options, conf, reader):
             if not mc_map:
                 continue
 
+            # import systematics histograms
+            fit = utils.likelihood_fit(conf, reader, c, samples)
+            if systematics:
+                mc_map_sys = utils.read_sys_histograms(conf, reader, c, var, samples, fit, systematics, mc_map)
+
             # save histograms to root file
             if c.save_to_file:
                 utils.save_to_file(out_file_name, c, var, None, mc_map)
-
+                for group in systematics:
+                    utils.save_to_file_sys(out_file_name, c, var, mc_map_sys[group], systematics[group]['variations'])
             # continue if not make plots
             if not c.make_plots or not var.make_plots:
                 continue

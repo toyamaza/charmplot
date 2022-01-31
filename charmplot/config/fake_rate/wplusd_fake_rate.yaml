@@ -4,6 +4,9 @@ variablesConf: charmed_wjets
 
 samplesConf: real_fake_rate_measurement
 
+systematics:
+  - sherpa2211_theory_qcd
+
 channels:
   Tight_2018_el_QCD_mtCtrl_metSig_0tag_Dplus:
     regions:

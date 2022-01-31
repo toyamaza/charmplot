@@ -321,3 +321,165 @@ Top_ttbar_1tag:
   subtract:
   lineColor: "12003"
   legendLabel: 't#bar{t} + D, 1tag'
+
+#Scale variations to be made into systematics 
+Sh_2211_Wjets_emu_GEN_MUR2_MUF2_PDF303200_PSMUR2_PSMUF2:
+  add: data
+  subtract:
+    - Sh_2211_Wjets_light_emu
+    - Sh_2211_Wjets_cjets_emu
+    - Sh_2211_Wjets_bjets_emu
+    - Sh_2211_Wjets_tau
+#    - Sh_Wjets_highpt_emu
+    - MG_Zjets_light_emu
+    - MG_Zjets_cjets_emu
+    - MG_Zjets_bjets_emu
+    - MG_Zjets_tau
+    #- Sh_Zjets_light_emu
+    #- Sh_Zjets_cjets_emu
+    #- Sh_Zjets_bjets_emu
+    #- Sh_Zjets_tau
+    #- Sh_Zjets_highpt_emu
+    #- Sh_Zjets_lowmass_emu
+    - Top_ttbar
+    - Top_single_top
+    - Top_ttx
+    - Diboson
+  subtract:
+  lineColor: "10004"
+  legendLabel: 'Sherpa W#rightarrowl#nu MUR2_MUF2'
+
+#Scale variations to be made into systematics 
+Sh_2211_Wjets_emu_GEN_MUR05_MUF1_PDF303200_PSMUR05_PSMUF1:
+  add: data
+  subtract:
+    - Sh_2211_Wjets_light_emu
+    - Sh_2211_Wjets_cjets_emu
+    - Sh_2211_Wjets_bjets_emu
+    - Sh_2211_Wjets_tau
+#    - Sh_Wjets_highpt_emu
+    - MG_Zjets_light_emu
+    - MG_Zjets_cjets_emu
+    - MG_Zjets_bjets_emu
+    - MG_Zjets_tau
+    #- Sh_Zjets_light_emu
+    #- Sh_Zjets_cjets_emu
+    #- Sh_Zjets_bjets_emu
+    #- Sh_Zjets_tau
+    #- Sh_Zjets_highpt_emu
+    #- Sh_Zjets_lowmass_emu
+    - Top_ttbar
+    - Top_single_top
+    - Top_ttx
+    - Diboson
+  subtract:
+  lineColor: "10006"
+  legendLabel: 'Sherpa W#rightarrowl#nu MUR05_MUF1'
+
+#Scale variations to be made into systematics 
+Sh_2211_Wjets_emu_GEN_MUR2_MUF1_PDF303200_PSMUR2_PSMUF1:
+  add: data
+  subtract:
+    - Sh_2211_Wjets_light_emu
+    - Sh_2211_Wjets_cjets_emu
+    - Sh_2211_Wjets_bjets_emu
+    - Sh_2211_Wjets_tau
+#    - Sh_Wjets_highpt_emu
+    - MG_Zjets_light_emu
+    - MG_Zjets_cjets_emu
+    - MG_Zjets_bjets_emu
+    - MG_Zjets_tau
+    #- Sh_Zjets_light_emu
+    #- Sh_Zjets_cjets_emu
+    #- Sh_Zjets_bjets_emu
+    #- Sh_Zjets_tau
+    #- Sh_Zjets_highpt_emu
+    #- Sh_Zjets_lowmass_emu
+    - Top_ttbar
+    - Top_single_top
+    - Top_ttx
+    - Diboson
+  subtract:
+  lineColor: "11002"
+  legendLabel: 'Sherpa W#rightarrowl#nu MUR2_MUF1'
+
+#Scale variations to be made into systematics 
+Sh_2211_Wjets_emu_GEN_MUR1_MUF2_PDF303200_PSMUR1_PSMUF2:
+  add: data
+  subtract:
+    - Sh_2211_Wjets_light_emu
+    - Sh_2211_Wjets_cjets_emu
+    - Sh_2211_Wjets_bjets_emu
+    - Sh_2211_Wjets_tau
+#    - Sh_Wjets_highpt_emu
+    - MG_Zjets_light_emu
+    - MG_Zjets_cjets_emu
+    - MG_Zjets_bjets_emu
+    - MG_Zjets_tau
+    #- Sh_Zjets_light_emu
+    #- Sh_Zjets_cjets_emu
+    #- Sh_Zjets_bjets_emu
+    #- Sh_Zjets_tau
+    #- Sh_Zjets_highpt_emu
+    #- Sh_Zjets_lowmass_emu
+    - Top_ttbar
+    - Top_single_top
+    - Top_ttx
+    - Diboson
+  subtract:
+  lineColor: "11004"
+  legendLabel: 'Sherpa W#rightarrowl#nu MUR1_MUF2'
+
+#Scale variations to be made into systematics 
+Sh_2211_Wjets_emu_GEN_MUR05_MUF05_PDF303200_PSMUR05_PSMUF05:
+  add: data
+  subtract:
+    - Sh_2211_Wjets_light_emu
+    - Sh_2211_Wjets_cjets_emu
+    - Sh_2211_Wjets_bjets_emu
+    - Sh_2211_Wjets_tau
+#    - Sh_Wjets_highpt_emu
+    - MG_Zjets_light_emu
+    - MG_Zjets_cjets_emu
+    - MG_Zjets_bjets_emu
+    - MG_Zjets_tau
+    #- Sh_Zjets_light_emu
+    #- Sh_Zjets_cjets_emu
+    #- Sh_Zjets_bjets_emu
+    #- Sh_Zjets_tau
+    #- Sh_Zjets_highpt_emu
+    #- Sh_Zjets_lowmass_emu
+    - Top_ttbar
+    - Top_single_top
+    - Top_ttx
+    - Diboson
+  subtract:
+  lineColor: "10006"
+  legendLabel: 'Sherpa W#rightarrowl#nu MUR05_MUF05'
+
+#Scale variations to be made into systematics 
+Sh_2211_Wjets_emu_GEN_MUR1_MUF05_PDF303200_PSMUR1_PSMUF05:
+  add: data
+  subtract:
+    - Sh_2211_Wjets_light_emu
+    - Sh_2211_Wjets_cjets_emu
+    - Sh_2211_Wjets_bjets_emu
+    - Sh_2211_Wjets_tau
+#    - Sh_Wjets_highpt_emu
+    - MG_Zjets_light_emu
+    - MG_Zjets_cjets_emu
+    - MG_Zjets_bjets_emu
+    - MG_Zjets_tau
+    #- Sh_Zjets_light_emu
+    #- Sh_Zjets_cjets_emu
+    #- Sh_Zjets_bjets_emu
+    #- Sh_Zjets_tau
+    #- Sh_Zjets_highpt_emu
+    #- Sh_Zjets_lowmass_emu
+    - Top_ttbar
+    - Top_single_top
+    - Top_ttx
+    - Diboson
+  subtract:
+  lineColor: "12002"
+  legendLabel: 'Sherpa W#rightarrowl#nu MUR1_MUF05'
