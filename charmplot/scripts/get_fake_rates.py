@@ -109,6 +109,11 @@ def main(conf, options, args):
 
     # samples
     samples = options.samples.split(",")
+    samples_base = samples[0]
+    
+    #systematics
+    systematics = options.systematics.split(",")
+    systematics.insert(0,"")
 
     # channels
     channels = options.channels.split(",")
@@ -137,52 +142,58 @@ def main(conf, options, args):
         eta_range = {}
 
         for s in samples:
+            for sys in systematics:
+                if s is not samples_base and sys is not "":
+                    continue
+                if sys is not "":
+                    sys = "_"+sys
+                v = "lep_pt_eta" if "el_" not in channel_name else "lep_pt_calo_eta"
+                # v = "lep_pt_met" if "el_" not in channel_name else "lep_pt_met"
 
-            v = "lep_pt_eta" if "el_" not in channel_name else "lep_pt_calo_eta"
-#            v = "lep_pt_met" if "el_" not in channel_name else "lep_pt_met"
+                rebin = int(c.split(":")[3])
 
-            rebin = int(c.split(":")[3])
+                print(f"{s}_Tight_{channel_name}_{v}{sys}")
+                lep_pt_eta_tight = f.Get(f"{s}_Tight_{channel_name}_{v}")
+                lep_pt_eta_loose = f.Get(f"{s}_AntiTight_{channel_name}_{v}")
+#                lep_pt_eta_tight = f.Get(f"{s}_Tight_{channel_name}_{v}{sys}")
+#                lep_pt_eta_loose = f.Get(f"{s}_AntiTight_{channel_name}_{v}{sys}")
+                lep_pt_eta_tight.RebinX(rebin)
+                lep_pt_eta_loose.RebinX(rebin)
+                set_range(lep_pt_eta_tight, x_range)
+                set_range(lep_pt_eta_loose, x_range)
 
-            print(f"{s}_Tight_{channel_name}_{v}")
-            lep_pt_eta_tight = f.Get(f"{s}_Tight_{channel_name}_{v}")
-            lep_pt_eta_loose = f.Get(f"{s}_AntiTight_{channel_name}_{v}")
-            lep_pt_eta_tight.RebinX(rebin)
-            lep_pt_eta_loose.RebinX(rebin)
-            set_range(lep_pt_eta_tight, x_range)
-            set_range(lep_pt_eta_loose, x_range)
+                fake_rate = lep_pt_eta_tight.Clone(f"Fake_Rate_{s}{sys}_{channel_name}")
+                fake_rate.Divide(lep_pt_eta_loose)
+                out.cd()
+                fake_rate.Write()
 
-            fake_rate = lep_pt_eta_tight.Clone(f"Fake_Rate_{s}_{channel_name}")
-            fake_rate.Divide(lep_pt_eta_loose)
-            out.cd()
-            fake_rate.Write()
+                # store fake factor histograms for later
+                histograms = {}
 
-            # store fake factor histograms for later
-            histograms = {}
+                for y in range(1, fake_rate.GetNbinsY() + 1):
+                    # insert y slice in map
+                    if y not in fake_rate_map.keys():
+                        fake_rate_map[y] = {}
 
-            for y in range(1, fake_rate.GetNbinsY() + 1):
-                # insert y slice in map
-                if y not in fake_rate_map.keys():
-                    fake_rate_map[y] = {}
+                    # eta edge
+                    eta = [fake_rate.GetYaxis().GetBinLowEdge(y), fake_rate.GetYaxis().GetBinLowEdge(y) + fake_rate.GetYaxis().GetBinWidth(y)]
+                    eta_range[y] = eta
 
-                # eta edge
-                eta = [fake_rate.GetYaxis().GetBinLowEdge(y), fake_rate.GetYaxis().GetBinLowEdge(y) + fake_rate.GetYaxis().GetBinWidth(y)]
-                eta_range[y] = eta
+                    # get fake rate
+                    projX = fake_rate.ProjectionX(f"Fake_Rate_{s}{sys}_{channel_name}_{y}", y, y)
+                    h_F, h_f = make_fake_rate_histograms(projX, x_range)
+                    fake_rate_map[y][s+sys] = h_f
 
-                # get fake rate
-                projX = fake_rate.ProjectionX(f"Fake_Rate_{s}_{channel_name}_{y}", y, y)
-                h_F, h_f = make_fake_rate_histograms(projX, x_range)
-                fake_rate_map[y][s] = h_f
+                    # write to file
+                    h_F.Write(h_F.GetName())
+                    h_f.Write(h_f.GetName())
 
-                # write to file
-                h_F.Write(h_F.GetName())
-                h_f.Write(h_f.GetName())
+                    # temporarily save in memory
+                    histograms[y] = h_f
 
-                # temporarily save in memory
-                histograms[y] = h_f
-
-            # assemble 2D histogram
-            h_f_2D = make_fake_rate_histogram_2D(fake_rate, histograms)
-            h_f_2D.Write()
+                # assemble 2D histogram
+                h_f_2D = make_fake_rate_histogram_2D(fake_rate, histograms)
+                h_f_2D.Write()
 
         # plot fake rates
         for y in fake_rate_map:
@@ -193,31 +204,36 @@ def main(conf, options, args):
             # make stack
             hs = ROOT.THStack()
             for s in samples:
-                sample_config = conf.get_sample(s)
-                fake_rate_map[y][s].SetMarkerColor(sample_config.lineColor)
-                fake_rate_map[y][s].SetLineColor(sample_config.lineColor)
-                mc_map[sample_config] = fake_rate_map[y][s]
-                hs.Add(fake_rate_map[y][s])
-                print(f"y: {y}, s: {s}, value of last bin{fake_rate_map[y][s].GetBinContent(fake_rate_map[y][s].GetNbinsX()+1)}")
-
-            # channel object for plotting
-            eta = eta_range[y]
-            chan = channel.Channel(f"{s}_{channel_name}_{y}", [channel_name, f"|#eta| = [{eta[0]}, {eta[1]}]"], "2016+2017+2018", [], [])
-
-            # canvas
-            var = lep_pt
-            canv = utils.make_canvas(hs.GetStack().Last(), var, chan, x=800, y=800, y_split=0, events="f")
-            canv.proxy_up.GetXaxis().SetRangeUser(0, x_range[1] + 20)
-            canv.proxy_up.SetMinimum(y_range[0])
-            canv.proxy_up.SetMaximum(y_range[1])
-            canv.make_legend(None, None, mc_map, mc_map.keys(), draw_option="pe", leg_offset=-0.05)
-            hs.Draw("same nostack")
-            canv.print(os.path.join(plots_folder, f"{options.output}_{channel_name}_{y}.pdf"))
-            canv.print(os.path.join(plots_folder, f"{options.output}_{channel_name}_{y}.png"))
-
-    # close out file
-    out.Close()
-
+                for sys in systematics:
+                    if s is not samples_base and sys is not "":
+                        continue
+                    if sys is not "":
+                        sys = "_"+sys
+                    sample_config = conf.get_sample(s+sys)
+                    fake_rate_map[y][s+sys].SetMarkerColor(sample_config.lineColor)
+                    fake_rate_map[y][s+sys].SetLineColor(sample_config.lineColor)
+                    mc_map[sample_config] = fake_rate_map[y][s+sys]
+                    hs.Add(fake_rate_map[y][s+sys])
+                    print(f"y: {y}, s: {s+sys}, value of last bin{fake_rate_map[y][s+sys].GetBinContent(fake_rate_map[y][s+sys].GetNbinsX()+1)}")
+    
+                # channel object for plotting
+                eta = eta_range[y]
+                chan = channel.Channel(f"{s}{sys}_{channel_name}_{y}", [channel_name, f"|#eta| = [{eta[0]}, {eta[1]}]"], "2016+2017+2018", [], [])
+    
+                # canvas
+                var = lep_pt
+                canv = utils.make_canvas(hs.GetStack().Last(), var, chan, x=800, y=800, y_split=0, events="f")
+                canv.proxy_up.GetXaxis().SetRangeUser(0, x_range[1] + 20)
+                canv.proxy_up.SetMinimum(y_range[0])
+                canv.proxy_up.SetMaximum(y_range[1])
+                canv.make_legend(None, None, mc_map, mc_map.keys(), draw_option="pe", leg_offset=-0.05)
+                hs.Draw("same nostack")
+                canv.print(os.path.join(plots_folder, f"{options.output}_{channel_name}_{y}.pdf"))
+                canv.print(os.path.join(plots_folder, f"{options.output}_{channel_name}_{y}.png"))
+    
+        # close out file
+        out.Close()
+    
 
 if __name__ == "__main__":
     import optparse
@@ -244,10 +260,10 @@ if __name__ == "__main__":
                       action="store", dest="samples",
                       help="comma separated list of samples",
                       default="Multijet")
-    parser.add_option('-sys', '--systematics',
+    parser.add_option('--systematics',
                       action="store", dest="systematics",
                       help="comma separated list of systematics, to be applied to baseline",
-                      default="Multijet")
+                      default="")
     parser.add_option('-y', '--yrange',
                       action="store", dest="yrange",
                       help="y-axis range",
