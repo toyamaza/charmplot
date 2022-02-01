@@ -5,7 +5,7 @@ variablesConf: charmed_wjets
 samplesConf: real_fake_rate_measurement
 
 systematics:
-  - sherpa2211_theory_qcd
+  - sherpa2211_theory_qcd_me_ps
 
 channels:
   Tight_2018_el_QCD_mtCtrl_metSig_0tag_Dplus:
@@ -14,8 +14,8 @@ channels:
     samples:
       - Sh_2211_Multijet
       - MG_Multijet
-      - Sh_2211_Multijet_Up
-      - Sh_2211_Multijet_Dn
+      #- Sh_2211_Multijet_Up
+      #- Sh_2211_Multijet_Dn
     label:
       - "el QCD Tight"
       - "MET > 30 GeV, mT < 40 GeV"
@@ -29,8 +29,8 @@ channels:
     samples:
       - Sh_2211_Multijet
       - MG_Multijet
-      - Sh_2211_Multijet_Up
-      - Sh_2211_Multijet_Dn
+      #- Sh_2211_Multijet_Up
+      #- Sh_2211_Multijet_Dn
     label:
       - "el QCD Tight"
       - "MET > 30 GeV, mT < 40 GeV"
@@ -43,8 +43,8 @@ channels:
     samples:
       - Sh_2211_Multijet
       - MG_Multijet
-      - Sh_2211_Multijet_Up
-      - Sh_2211_Multijet_Dn
+      #- Sh_2211_Multijet_Up
+      #- Sh_2211_Multijet_Dn
     label:
       - "mu QCD Tight"
       - "MET > 30 GeV, mT < 40 GeV"
@@ -58,8 +58,8 @@ channels:
     samples:
       - Sh_2211_Multijet
       - MG_Multijet
-      - Sh_2211_Multijet_Up
-      - Sh_2211_Multijet_Dn
+      #- Sh_2211_Multijet_Up
+      #- Sh_2211_Multijet_Dn
     label:
       - "mu QCD Tight"
       - "MET > 30 GeV, mT < 40 GeV"
@@ -72,8 +72,8 @@ channels:
     samples:
       - Sh_2211_Multijet
       - MG_Multijet
-      - Sh_2211_Multijet_Up
-      - Sh_2211_Multijet_Dn
+      #- Sh_2211_Multijet_Up
+      #- Sh_2211_Multijet_Dn
     label:
       - "el QCD AntiTight"
       - "MET > 30 GeV, mT < 40 GeV"
@@ -87,8 +87,8 @@ channels:
     samples:
       - Sh_2211_Multijet
       - MG_Multijet
-      - Sh_2211_Multijet_Up
-      - Sh_2211_Multijet_Dn
+      #- Sh_2211_Multijet_Up
+      #- Sh_2211_Multijet_Dn
     label:
       - "el QCD AntiTight"
       - "MET > 30 GeV, mT < 40 GeV"
@@ -101,8 +101,8 @@ channels:
     samples:
       - Sh_2211_Multijet
       - MG_Multijet
-      - Sh_2211_Multijet_Up
-      - Sh_2211_Multijet_Dn
+      #- Sh_2211_Multijet_Up
+      #- Sh_2211_Multijet_Dn
     label:
       - "mu QCD AntiTight"
       - "MET > 30 GeV, mT < 40 GeV"
@@ -116,8 +116,8 @@ channels:
     samples:
       - Sh_2211_Multijet
       - MG_Multijet
-      - Sh_2211_Multijet_Up
-      - Sh_2211_Multijet_Dn
+      #- Sh_2211_Multijet_Up
+      #- Sh_2211_Multijet_Dn
     label:
       - "mu QCD AntiTight"
       - "MET > 30 GeV, mT < 40 GeV"
@@ -132,8 +132,8 @@ channels:
     samples:
       - Sh_2211_Multijet
       - MG_Multijet
-      - Sh_2211_Multijet_Up
-      - Sh_2211_Multijet_Dn
+      #- Sh_2211_Multijet_Up
+      #- Sh_2211_Multijet_Dn
     label:
       - "el QCD Tight"
       - "MET > 30 GeV, mT < 40 GeV"
@@ -151,8 +151,8 @@ channels:
     samples:
       - Sh_2211_Multijet
       - MG_Multijet
-      - Sh_2211_Multijet_Up
-      - Sh_2211_Multijet_Dn
+      #- Sh_2211_Multijet_Up
+      #- Sh_2211_Multijet_Dn
     label:
       - "el QCD Tight"
       - "MET > 30 GeV, mT < 40 GeV"
@@ -167,8 +167,8 @@ channels:
     samples:
       - Sh_2211_Multijet
       - MG_Multijet
-      - Sh_2211_Multijet_Up
-      - Sh_2211_Multijet_Dn
+      #- Sh_2211_Multijet_Up
+      #- Sh_2211_Multijet_Dn
     label:
       - "mu QCD Tight"
       - "MET > 30 GeV, mT < 40 GeV"
@@ -186,8 +186,8 @@ channels:
     samples:
       - Sh_2211_Multijet
       - MG_Multijet
-      - Sh_2211_Multijet_Up
-      - Sh_2211_Multijet_Dn
+      #- Sh_2211_Multijet_Up
+      #- Sh_2211_Multijet_Dn
     label:
       - "mu QCD Tight"
       - "MET > 30 GeV, mT < 40 GeV"
@@ -202,8 +202,8 @@ channels:
     samples:
       - Sh_2211_Multijet
       - MG_Multijet
-      - Sh_2211_Multijet_Up
-      - Sh_2211_Multijet_Dn
+      #- Sh_2211_Multijet_Up
+      #- Sh_2211_Multijet_Dn
     label:
       - "el QCD AntiTight"
       - "MET > 30 GeV, mT < 40 GeV"
@@ -221,8 +221,8 @@ channels:
     samples:
       - Sh_2211_Multijet
       - MG_Multijet
-      - Sh_2211_Multijet_Up
-      - Sh_2211_Multijet_Dn
+      #- Sh_2211_Multijet_Up
+      #- Sh_2211_Multijet_Dn
     label:
       - "el QCD AntiTight"
       - "MET > 30 GeV, mT < 40 GeV"
@@ -237,8 +237,8 @@ channels:
     samples:
       - Sh_2211_Multijet
       - MG_Multijet
-      - Sh_2211_Multijet_Up
-      - Sh_2211_Multijet_Dn
+      #- Sh_2211_Multijet_Up
+      #- Sh_2211_Multijet_Dn
     label:
       - "mu QCD AntiTight"
       - "MET > 30 GeV, mT < 40 GeV"
@@ -256,8 +256,8 @@ channels:
     samples:
       - Sh_2211_Multijet
       - MG_Multijet
-      - Sh_2211_Multijet_Up
-      - Sh_2211_Multijet_Dn
+      #- Sh_2211_Multijet_Up
+      #- Sh_2211_Multijet_Dn
     label:
       - "mu QCD AntiTight"
       - "MET > 30 GeV, mT < 40 GeV"
@@ -271,8 +271,8 @@ channels:
     samples:
       - Sh_2211_Multijet
       - MG_Multijet
-      - Sh_2211_Multijet_Up
-      - Sh_2211_Multijet_Dn
+      #- Sh_2211_Multijet_Up
+      #- Sh_2211_Multijet_Dn
     label:
       - "el QCD Tight"
       - "MET > 30 GeV, mT < 40 GeV"
@@ -286,8 +286,8 @@ channels:
     samples:
       - Sh_2211_Multijet
       - MG_Multijet
-      - Sh_2211_Multijet_Up
-      - Sh_2211_Multijet_Dn
+      #- Sh_2211_Multijet_Up
+      #- Sh_2211_Multijet_Dn
     label:
       - "el QCD Tight"
       - "MET > 30 GeV, mT < 40 GeV"
@@ -300,8 +300,8 @@ channels:
     samples:
       - Sh_2211_Multijet
       - MG_Multijet
-      - Sh_2211_Multijet_Up
-      - Sh_2211_Multijet_Dn
+      #- Sh_2211_Multijet_Up
+      #- Sh_2211_Multijet_Dn
     label:
       - "mu QCD Tight"
       - "MET > 30 GeV, mT < 40 GeV"
@@ -315,8 +315,8 @@ channels:
     samples:
       - Sh_2211_Multijet
       - MG_Multijet
-      - Sh_2211_Multijet_Up
-      - Sh_2211_Multijet_Dn
+      #- Sh_2211_Multijet_Up
+      #- Sh_2211_Multijet_Dn
     label:
       - "mu QCD Tight"
       - "MET > 30 GeV, mT < 40 GeV"
@@ -329,8 +329,8 @@ channels:
     samples:
       - Sh_2211_Multijet
       - MG_Multijet
-      - Sh_2211_Multijet_Up
-      - Sh_2211_Multijet_Dn
+      #- Sh_2211_Multijet_Up
+      #- Sh_2211_Multijet_Dn
     label:
       - "el QCD AntiTight"
       - "MET > 30 GeV, mT < 40 GeV"
@@ -344,8 +344,8 @@ channels:
     samples:
       - Sh_2211_Multijet
       - MG_Multijet
-      - Sh_2211_Multijet_Up
-      - Sh_2211_Multijet_Dn
+      #- Sh_2211_Multijet_Up
+      #- Sh_2211_Multijet_Dn
     label:
       - "el QCD AntiTight"
       - "MET > 30 GeV, mT < 40 GeV"
@@ -358,8 +358,8 @@ channels:
     samples:
       - Sh_2211_Multijet
       - MG_Multijet
-      - Sh_2211_Multijet_Up
-      - Sh_2211_Multijet_Dn
+      #- Sh_2211_Multijet_Up
+      #- Sh_2211_Multijet_Dn
     label:
       - "mu QCD AntiTight"
       - "MET > 30 GeV, mT < 40 GeV"
@@ -373,8 +373,8 @@ channels:
     samples:
       - Sh_2211_Multijet
       - MG_Multijet
-      - Sh_2211_Multijet_Up
-      - Sh_2211_Multijet_Dn
+      #- Sh_2211_Multijet_Up
+      #- Sh_2211_Multijet_Dn
     label:
       - "mu QCD AntiTight"
       - "MET > 30 GeV, mT < 40 GeV"
@@ -389,8 +389,8 @@ channels:
     samples:
       - Sh_2211_Multijet
       - MG_Multijet
-      - Sh_2211_Multijet_Up
-      - Sh_2211_Multijet_Dn
+      #- Sh_2211_Multijet_Up
+      #- Sh_2211_Multijet_Dn
     label:
       - "el QCD Tight"
       - "MET > 30 GeV, mT < 40 GeV"
@@ -406,8 +406,8 @@ channels:
     samples:
       - Sh_2211_Multijet
       - MG_Multijet
-      - Sh_2211_Multijet_Up
-      - Sh_2211_Multijet_Dn
+      #- Sh_2211_Multijet_Up
+      #- Sh_2211_Multijet_Dn
     label:
       - "el QCD Tight"
       - "MET > 30 GeV, mT < 40 GeV"
@@ -421,8 +421,8 @@ channels:
     samples:
       - Sh_2211_Multijet
       - MG_Multijet
-      - Sh_2211_Multijet_Up
-      - Sh_2211_Multijet_Dn
+      #- Sh_2211_Multijet_Up
+      #- Sh_2211_Multijet_Dn
     label:
       - "mu QCD Tight"
       - "MET > 30 GeV, mT < 40 GeV"
@@ -438,8 +438,8 @@ channels:
     samples:
       - Sh_2211_Multijet
       - MG_Multijet
-      - Sh_2211_Multijet_Up
-      - Sh_2211_Multijet_Dn
+      #- Sh_2211_Multijet_Up
+      #- Sh_2211_Multijet_Dn
     label:
       - "mu QCD Tight"
       - "MET > 30 GeV, mT < 40 GeV"
@@ -453,8 +453,8 @@ channels:
     samples:
       - Sh_2211_Multijet
       - MG_Multijet
-      - Sh_2211_Multijet_Up
-      - Sh_2211_Multijet_Dn
+      #- Sh_2211_Multijet_Up
+      #- Sh_2211_Multijet_Dn
     label:
       - "el QCD AntiTight"
       - "MET > 30 GeV, mT < 40 GeV"
@@ -470,8 +470,8 @@ channels:
     samples:
       - Sh_2211_Multijet
       - MG_Multijet
-      - Sh_2211_Multijet_Up
-      - Sh_2211_Multijet_Dn
+      #- Sh_2211_Multijet_Up
+      #- Sh_2211_Multijet_Dn
     label:
       - "el QCD AntiTight"
       - "MET > 30 GeV, mT < 40 GeV"
@@ -485,8 +485,8 @@ channels:
     samples:
       - Sh_2211_Multijet
       - MG_Multijet
-      - Sh_2211_Multijet_Up
-      - Sh_2211_Multijet_Dn
+      #- Sh_2211_Multijet_Up
+      #- Sh_2211_Multijet_Dn
     label:
       - "mu QCD AntiTight"
       - "MET > 30 GeV, mT < 40 GeV"
@@ -502,8 +502,8 @@ channels:
     samples:
       - Sh_2211_Multijet
       - MG_Multijet
-      - Sh_2211_Multijet_Up
-      - Sh_2211_Multijet_Dn
+      #- Sh_2211_Multijet_Up
+      #- Sh_2211_Multijet_Dn
     label:
       - "mu QCD AntiTight"
       - "MET > 30 GeV, mT < 40 GeV"
@@ -519,8 +519,8 @@ channels:
     samples:
       - Sh_2211_Multijet
       - MG_Multijet
-      - Sh_2211_Multijet_Up
-      - Sh_2211_Multijet_Dn
+      #- Sh_2211_Multijet_Up
+      #- Sh_2211_Multijet_Dn
     label:
       - "el QCD Tight"
       - "MET > 30 GeV, mT < 40 GeV"
@@ -538,8 +538,8 @@ channels:
     samples:
       - Sh_2211_Multijet
       - MG_Multijet
-      - Sh_2211_Multijet_Up
-      - Sh_2211_Multijet_Dn
+      #- Sh_2211_Multijet_Up
+      #- Sh_2211_Multijet_Dn
     label:
       - "el QCD Tight"
       - "MET > 30 GeV, mT < 40 GeV"
@@ -554,8 +554,8 @@ channels:
     samples:
       - Sh_2211_Multijet
       - MG_Multijet
-      - Sh_2211_Multijet_Up
-      - Sh_2211_Multijet_Dn
+      #- Sh_2211_Multijet_Up
+      #- Sh_2211_Multijet_Dn
     label:
       - "mu QCD Tight"
       - "MET > 30 GeV, mT < 40 GeV"
@@ -573,8 +573,8 @@ channels:
     samples:
       - Sh_2211_Multijet
       - MG_Multijet
-      - Sh_2211_Multijet_Up
-      - Sh_2211_Multijet_Dn
+      #- Sh_2211_Multijet_Up
+      #- Sh_2211_Multijet_Dn
     label:
       - "mu QCD Tight"
       - "MET > 30 GeV, mT < 40 GeV"
@@ -589,8 +589,8 @@ channels:
     samples:
       - Sh_2211_Multijet
       - MG_Multijet
-      - Sh_2211_Multijet_Up
-      - Sh_2211_Multijet_Dn
+      #- Sh_2211_Multijet_Up
+      #- Sh_2211_Multijet_Dn
     label:
       - "el QCD AntiTight"
       - "MET > 30 GeV, mT < 40 GeV"
@@ -608,8 +608,8 @@ channels:
     samples:
       - Sh_2211_Multijet
       - MG_Multijet
-      - Sh_2211_Multijet_Up
-      - Sh_2211_Multijet_Dn
+      #- Sh_2211_Multijet_Up
+      #- Sh_2211_Multijet_Dn
     label:
       - "el QCD AntiTight"
       - "MET > 30 GeV, mT < 40 GeV"
@@ -624,8 +624,8 @@ channels:
     samples:
       - Sh_2211_Multijet
       - MG_Multijet
-      - Sh_2211_Multijet_Up
-      - Sh_2211_Multijet_Dn
+      #- Sh_2211_Multijet_Up
+      #- Sh_2211_Multijet_Dn
     label:
       - "mu QCD AntiTight"
       - "MET > 30 GeV, mT < 40 GeV"
@@ -643,8 +643,8 @@ channels:
     samples:
       - Sh_2211_Multijet
       - MG_Multijet
-      - Sh_2211_Multijet_Up
-      - Sh_2211_Multijet_Dn
+      #- Sh_2211_Multijet_Up
+      #- Sh_2211_Multijet_Dn
     label:
       - "mu QCD AntiTight"
       - "MET > 30 GeV, mT < 40 GeV"
@@ -660,8 +660,8 @@ channels:
     samples:
       - Sh_2211_Multijet
       - MG_Multijet
-      - Sh_2211_Multijet_Up
-      - Sh_2211_Multijet_Dn
+      #- Sh_2211_Multijet_Up
+      #- Sh_2211_Multijet_Dn
     label:
       - "el QCD Tight"
       - "MET > 30 GeV, mT < 40 GeV"
@@ -681,8 +681,8 @@ channels:
     samples:
       - Sh_2211_Multijet
       - MG_Multijet
-      - Sh_2211_Multijet_Up
-      - Sh_2211_Multijet_Dn
+      #- Sh_2211_Multijet_Up
+      #- Sh_2211_Multijet_Dn
     label:
       - "el QCD Tight"
       - "MET > 30 GeV, mT < 40 GeV"
@@ -698,8 +698,8 @@ channels:
     samples:
       - Sh_2211_Multijet
       - MG_Multijet
-      - Sh_2211_Multijet_Up
-      - Sh_2211_Multijet_Dn
+      #- Sh_2211_Multijet_Up
+      #- Sh_2211_Multijet_Dn
     label:
       - "mu QCD Tight"
       - "MET > 30 GeV, mT < 40 GeV"
@@ -719,8 +719,8 @@ channels:
     samples:
       - Sh_2211_Multijet
       - MG_Multijet
-      - Sh_2211_Multijet_Up
-      - Sh_2211_Multijet_Dn
+      #- Sh_2211_Multijet_Up
+      #- Sh_2211_Multijet_Dn
     label:
       - "mu QCD Tight"
       - "MET > 30 GeV, mT < 40 GeV"
@@ -736,8 +736,8 @@ channels:
     samples:
       - Sh_2211_Multijet
       - MG_Multijet
-      - Sh_2211_Multijet_Up
-      - Sh_2211_Multijet_Dn
+      #- Sh_2211_Multijet_Up
+      #- Sh_2211_Multijet_Dn
     label:
       - "el QCD AntiTight"
       - "MET > 30 GeV, mT < 40 GeV"
@@ -757,8 +757,8 @@ channels:
     samples:
       - Sh_2211_Multijet
       - MG_Multijet
-      - Sh_2211_Multijet_Up
-      - Sh_2211_Multijet_Dn
+      #- Sh_2211_Multijet_Up
+      #- Sh_2211_Multijet_Dn
     label:
       - "el QCD AntiTight"
       - "MET > 30 GeV, mT < 40 GeV"
@@ -774,8 +774,8 @@ channels:
     samples:
       - Sh_2211_Multijet
       - MG_Multijet
-      - Sh_2211_Multijet_Up
-      - Sh_2211_Multijet_Dn
+      #- Sh_2211_Multijet_Up
+      #- Sh_2211_Multijet_Dn
     label:
       - "mu QCD AntiTight"
       - "MET > 30 GeV, mT < 40 GeV"
@@ -795,8 +795,8 @@ channels:
     samples:
       - Sh_2211_Multijet
       - MG_Multijet
-      - Sh_2211_Multijet_Up
-      - Sh_2211_Multijet_Dn
+      #- Sh_2211_Multijet_Up
+      #- Sh_2211_Multijet_Dn
     label:
       - "mu QCD AntiTight"
       - "MET > 30 GeV, mT < 40 GeV"
@@ -811,8 +811,8 @@ channels:
     samples:
       - Sh_2211_Multijet
       - MG_Multijet
-      - Sh_2211_Multijet_Up
-      - Sh_2211_Multijet_Dn
+      #- Sh_2211_Multijet_Up
+      #- Sh_2211_Multijet_Dn
     label:
       - "el QCD Tight"
       - "MET > 30 GeV, mT < 40 GeV"
@@ -828,8 +828,8 @@ channels:
     samples:
       - Sh_2211_Multijet
       - MG_Multijet
-      - Sh_2211_Multijet_Up
-      - Sh_2211_Multijet_Dn
+      #- Sh_2211_Multijet_Up
+      #- Sh_2211_Multijet_Dn
     label:
       - "el QCD Tight"
       - "MET > 30 GeV, mT < 40 GeV"
@@ -843,8 +843,8 @@ channels:
     samples:
       - Sh_2211_Multijet
       - MG_Multijet
-      - Sh_2211_Multijet_Up
-      - Sh_2211_Multijet_Dn
+      #- Sh_2211_Multijet_Up
+      #- Sh_2211_Multijet_Dn
     label:
       - "mu QCD Tight"
       - "MET > 30 GeV, mT < 40 GeV"
@@ -860,8 +860,8 @@ channels:
     samples:
       - Sh_2211_Multijet
       - MG_Multijet
-      - Sh_2211_Multijet_Up
-      - Sh_2211_Multijet_Dn
+      #- Sh_2211_Multijet_Up
+      #- Sh_2211_Multijet_Dn
     label:
       - "mu QCD Tight"
       - "MET > 30 GeV, mT < 40 GeV"
@@ -875,8 +875,8 @@ channels:
     samples:
       - Sh_2211_Multijet
       - MG_Multijet
-      - Sh_2211_Multijet_Up
-      - Sh_2211_Multijet_Dn
+      #- Sh_2211_Multijet_Up
+      #- Sh_2211_Multijet_Dn
     label:
       - "el QCD AntiTight"
       - "MET > 30 GeV, mT < 40 GeV"
@@ -892,8 +892,8 @@ channels:
     samples:
       - Sh_2211_Multijet
       - MG_Multijet
-      - Sh_2211_Multijet_Up
-      - Sh_2211_Multijet_Dn
+      #- Sh_2211_Multijet_Up
+      #- Sh_2211_Multijet_Dn
     label:
       - "el QCD AntiTight"
       - "MET > 30 GeV, mT < 40 GeV"
@@ -907,8 +907,8 @@ channels:
     samples:
       - Sh_2211_Multijet
       - MG_Multijet
-      - Sh_2211_Multijet_Up
-      - Sh_2211_Multijet_Dn
+      #- Sh_2211_Multijet_Up
+      #- Sh_2211_Multijet_Dn
     label:
       - "mu QCD AntiTight"
       - "MET > 30 GeV, mT < 40 GeV"
@@ -924,8 +924,8 @@ channels:
     samples:
       - Sh_2211_Multijet
       - MG_Multijet
-      - Sh_2211_Multijet_Up
-      - Sh_2211_Multijet_Dn
+      #- Sh_2211_Multijet_Up
+      #- Sh_2211_Multijet_Dn
     label:
       - "mu QCD AntiTight"
       - "MET > 30 GeV, mT < 40 GeV"
