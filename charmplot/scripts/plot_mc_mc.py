@@ -174,6 +174,13 @@ def main(options, conf, reader):
                         gr_mc_sys_err_map[sample] += [gr_mc_sys_err]
                         gr_mc_sys_err_only_map[sample] += [gr_mc_sys_err_only]
 
+            # top pad
+            errors = []
+            canv.pad1.cd()
+
+            # make legend
+            canv.make_legend(mc_map, samples, print_yields=(not options.normalize))
+
             # normalize bins to unity
             if var.per_unit:
                 utils.normalize_to_unit(hists=[mc_map[s] for s in samples])
@@ -182,13 +189,6 @@ def main(options, conf, reader):
             if options.normalize:
                 for h in mc_map:
                     mc_map[h].Scale(1. / mc_map[h].GetSumOfWeights())
-
-            # top pad
-            errors = []
-            canv.pad1.cd()
-
-            # make legend
-            canv.make_legend(mc_map, samples, print_yields=(not options.normalize))
 
             # set maximum after creating legend
             canv.set_maximum([mc_map[s] for s in samples], var, mc_map[samples[0]])
