@@ -548,7 +548,12 @@ def main(options, args):
             sys_band_ratio_clone.SetFillColor(colors[options.sys_sample] + 2)
 
             if options.sherpa_qcd or options.sherpa_qcd_me_ps or options.sherpa_as or options.sherpa_ew:
-                _, h_up, h_dn = utils.get_hist_from_gr(sys_band_ratio, f"{s}_{c}_fid_eff_ratio_qcd_err")
+                if options.sherpa_qcd or options.sherpa_qcd_me_ps:
+                    _, h_up, h_dn = utils.get_hist_from_gr(sys_band_ratio, f"{s}_{c}_fid_eff_ratio_qcd_err")
+                elif options.sherpa_as:
+                    _, h_up, h_dn = utils.get_hist_from_gr(sys_band_ratio, f"{s}_{c}_fid_eff_ratio_as")
+                elif options.sherpa_ew:
+                    _, h_up, h_dn = utils.get_hist_from_gr(sys_band_ratio, f"{s}_{c}_fid_eff_ratio_ew")
                 sys_band_ratio.Write(f"gr_{s}_{c}_fid_eff_ratio_qcd_err")
                 h_up.Write()
                 h_dn.Write()
