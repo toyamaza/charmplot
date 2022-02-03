@@ -171,30 +171,36 @@ class SPGComparison(ChannelTemplate):
             self.samples.update(
                 {
                     'Matched': [
-                        ['Wjets_emu_Matched', proxies.GenericChannel(region=self.truthSlices, name="Matched")],
-                        ['Sh2211_Wjets_emu_Matched', proxies.GenericChannel(region=self.truthSlices, name="Matched")],
+                        ['MG_Wjets', proxies.GenericChannel(region=self.truthSlices, name="Matched")],
+                        ['MGPy8EG_NLO_WplusD', proxies.GenericChannel(region=self.truthSlices, name="Matched")],
+                        ['Sherpa2211_WplusD', proxies.GenericChannel(region=self.truthSlices, name="Matched")],
+                        ['Sherpa2211_Wjets', proxies.GenericChannel(region=self.truthSlices, name="Matched")],
                         ['SPG_Matched', proxies.SPGChannel(name="SPG_Matched",
                                                            regions_OS=["inclusive_" + self.decay_mode + f"_OS_{slice}" for slice in self.truthSlices],
                                                            regions_SS=["inclusive_" + self.decay_mode + f"_SS_{slice}" for slice in self.truthSlices],
                                                            always_OS=True)],
-                        ['MGPy8EG_NLO_WplusD', proxies.GenericChannel(region=self.truthSlices, name="Matched")],
-                        ['Sherpa2211_WplusD', proxies.GenericChannel(region=self.truthSlices, name="Matched")],
                     ]
                 }
             )
 
             # signal samples in truth differential bins
             if self.truthDiffBins:
-                self.samples.update(
-                    {
-                        slice: [
-                            [f'Wjets_emu_{slice}', proxies.GenericChannel(region=slice, name=slice)],
-                            [f'SPG_{slice}', proxies.SPGChannel(name=f"SPG_{slice}",
-                                                                regions_OS=["inclusive_" + self.decay_mode + f"_OS_{slice}"],
-                                                                regions_SS=["inclusive_" + self.decay_mode + f"_SS_{slice}"],
-                                                                always_OS=True)],
-                        ] for slice in self.truthSlices
-                    })
+                for slice in self.truthSlices:
+                    pt_bin_name = slice.replace("Matched_", "")
+                    self.samples.update(
+                        {
+                            pt_bin_name: [
+                                [f'MG_Wjets', proxies.GenericChannel(region=slice, name=slice)],
+                                [f'MGPy8EG_NLO_WplusD', proxies.GenericChannel(region=slice, name=slice)],
+                                [f'Sherpa2211_WplusD', proxies.GenericChannel(region=slice, name=slice)],
+                                [f'Sherpa2211_Wjets', proxies.GenericChannel(region=slice, name=slice)],
+                                [f'SPG_Matched', proxies.SPGChannel(name=f"SPG_{slice}",
+                                                                    regions_OS=["inclusive_" + self.decay_mode + f"_OS_{slice}"],
+                                                                    regions_SS=["inclusive_" + self.decay_mode + f"_SS_{slice}"],
+                                                                    always_OS=True)],
+                            ]
+                        }
+                    )
 
         if self.decay_mode == "Dplus":
             if not self.signal_only:

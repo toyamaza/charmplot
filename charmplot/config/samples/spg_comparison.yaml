@@ -1,36 +1,36 @@
 colorScheme: gemstone_hues
 
-Wjets_emu_Matched:
+MG_Wjets:
   add:
     - MG_Wjets_emu
   subtract:
-  lineColor: "10004"
+  lineColor: "21000"
   legendLabel: "MG W+#it{D}(#it{K}#pi#pi)"
-  shortName: Wjets_emu_Matched
+  shortName: MG_Wjets
 
-Wjets_emu_Matched_OS:
+MG_Wjets_OS:
   add:
     - MG_Wjets_emu
   subtract:
   lineColor: "ROOT.kRed+1"
   legendLabel: "LO MG (OS)"
-  shortName: Wjets_emu_Matched_OS
+  shortName: MG_Wjets_OS
 
-Wjets_emu_Matched_SS:
+MG_Wjets_SS:
   add:
     - MG_Wjets_emu
   subtract:
   lineColor: "ROOT.kBlue+1"
   legendLabel: "LO MG (SS)"
-  shortName: Wjets_emu_Matched_SS
+  shortName: MG_Wjets_SS
 
-Wjets_emu_Matched_OS-SS:
+MG_Wjets_OS-SS:
   add:
     - MG_Wjets_emu
   subtract:
   lineColor: "ROOT.kGreen+1"
   legendLabel: "LO MG (OS-SS)"
-  shortName: Wjets_emu_Matched_OS-SS
+  shortName: MG_Wjets_OS-SS
 
 Wjets_emu_411MisMatched:
   add:
@@ -38,7 +38,7 @@ Wjets_emu_411MisMatched:
     - MG_Wjets_bjets_emu
     - MG_Wjets_light_emu
   subtract:
-  lineColor: "10004"
+  lineColor: "21000"
   legendLabel: "MG W+#it{D}(other)"
   shortName: Wjets_emu_411MisMatched
 
@@ -48,7 +48,7 @@ Wjets_emu_431MisMatched:
     - MG_Wjets_bjets_emu
     - MG_Wjets_light_emu
   subtract:
-  lineColor: "10004"
+  lineColor: "21000"
   legendLabel: "MG W+#it{D}_{S}"
   shortName: Wjets_emu_431MisMatched
 
@@ -58,7 +58,7 @@ Wjets_emu_421MisMatched:
     - MG_Wjets_bjets_emu
     - MG_Wjets_light_emu
   subtract:
-  lineColor: "10004"
+  lineColor: "21000"
   legendLabel: "MG W+#it{D}0/#it{D}*"
   shortName: Wjets_emu_421MisMatched
 
@@ -68,7 +68,7 @@ Wjets_emu_BaryonMisMatched:
     - MG_Wjets_bjets_emu
     - MG_Wjets_light_emu
   subtract:
-  lineColor: "10004"
+  lineColor: "21000"
   legendLabel: "MG W+Baryon"
   shortName: Wjets_emu_BaryonMisMatched
 
@@ -78,7 +78,7 @@ Wjets_emu_CharmMisMatched:
     - MG_Wjets_bjets_emu
     - MG_Wjets_light_emu
   subtract:
-  lineColor: "10004"
+  lineColor: "21000"
   legendLabel: "MG W+Charm"
   shortName: Wjets_emu_CharmMisMatched
 
@@ -88,7 +88,7 @@ Wjets_emu_411MisMatched_OS-SS:
     - MG_Wjets_bjets_emu
     - MG_Wjets_light_emu
   subtract:
-  lineColor: "10004"
+  lineColor: "21000"
   legendLabel: "W+#it{D}(other) OS-SS"
   shortName: Wjets_emu_411MisMatched_OS-SS
 
@@ -118,7 +118,7 @@ Wjets_emu_431MisMatched_OS-SS:
     - MG_Wjets_bjets_emu
     - MG_Wjets_light_emu
   subtract:
-  lineColor: "10004"
+  lineColor: "21000"
   legendLabel: "W+#it{D}_{S} OS-SS"
   shortName: Wjets_emu_431MisMatched_OS-SS
 
@@ -148,7 +148,7 @@ Wjets_emu_421MisMatched_OS-SS:
     - MG_Wjets_bjets_emu
     - MG_Wjets_light_emu
   subtract:
-  lineColor: "10004"
+  lineColor: "21000"
   legendLabel: "W+#it{D}0/#it{D}* OS-SS"
   shortName: Wjets_emu_421MisMatched_OS-SS
 
@@ -178,7 +178,7 @@ Wjets_emu_BaryonMisMatched_OS-SS:
     - MG_Wjets_bjets_emu
     - MG_Wjets_light_emu
   subtract:
-  lineColor: "10004"
+  lineColor: "21000"
   legendLabel: "W+Baryon OS-SS"
   shortName: Wjets_emu_BaryonMisMatched_OS-SS
 
@@ -208,7 +208,7 @@ Wjets_emu_CharmMisMatched_OS-SS:
     - MG_Wjets_bjets_emu
     - MG_Wjets_light_emu
   subtract:
-  lineColor: "10004"
+  lineColor: "21000"
   legendLabel: "W+Charm OS-SS"
   shortName: Wjets_emu_CharmMisMatched_OS-SS
 
@@ -292,60 +292,60 @@ SPG_CharmMisMatched:
   legendLabel: "Charm SPG"
   shortName: SPG_CharmMisMatched
 
-Wjets_emu_Matched_truth_pt_bin1:
+MG_Wjets_truth_pt_bin1:
   add:
     # - MG_Wjets_emu
     - MG_Wjets_cjets_emu
     - MG_Wjets_bjets_emu
     - MG_Wjets_light_emu
   subtract:
-  fillColor: "10004"
+  fillColor: "21000"
   legendLabel: "W+#it{D} (bin 1)"
-  shortName: Wjets_emu_Matched_truth_pt_bin1
+  shortName: MG_Wjets_truth_pt_bin1
 
-Wjets_emu_Matched_truth_pt_bin2:
+MG_Wjets_truth_pt_bin2:
   add:
     # - MG_Wjets_emu
     - MG_Wjets_cjets_emu
     - MG_Wjets_bjets_emu
     - MG_Wjets_light_emu
   subtract:
-  fillColor: "10004"
+  fillColor: "21000"
   legendLabel: "W+#it{D} (bin 2)"
-  shortName: Wjets_emu_Matched_truth_pt_bin2
+  shortName: MG_Wjets_truth_pt_bin2
 
-Wjets_emu_Matched_truth_pt_bin3:
+MG_Wjets_truth_pt_bin3:
   add:
     # - MG_Wjets_emu
     - MG_Wjets_cjets_emu
     - MG_Wjets_bjets_emu
     - MG_Wjets_light_emu
   subtract:
-  fillColor: "10004"
+  fillColor: "21000"
   legendLabel: "W+#it{D} (bin 3)"
-  shortName: Wjets_emu_Matched_truth_pt_bin3
+  shortName: MG_Wjets_truth_pt_bin3
 
-Wjets_emu_Matched_truth_pt_bin4:
+MG_Wjets_truth_pt_bin4:
   add:
     # - MG_Wjets_emu
     - MG_Wjets_cjets_emu
     - MG_Wjets_bjets_emu
     - MG_Wjets_light_emu
   subtract:
-  fillColor: "10004"
+  fillColor: "21000"
   legendLabel: "W+#it{D} (bin 4)"
-  shortName: Wjets_emu_Matched_truth_pt_bin4
+  shortName: MG_Wjets_truth_pt_bin4
 
-Wjets_emu_Matched_truth_pt_bin5:
+MG_Wjets_truth_pt_bin5:
   add:
     # - MG_Wjets_emu
     - MG_Wjets_cjets_emu
     - MG_Wjets_bjets_emu
     - MG_Wjets_light_emu
   subtract:
-  fillColor: "10004"
+  fillColor: "21000"
   legendLabel: "W+#it{D} (bin 5)"
-  shortName: Wjets_emu_Matched_truth_pt_bin5
+  shortName: MG_Wjets_truth_pt_bin5
 
 SPG_Matched_truth_pt_bin1:
   add:
@@ -392,92 +392,162 @@ SPG_Matched_truth_pt_bin5:
   legendLabel: "SPG #it{D}(#it{K}#pi#pi) (bin 5)"
   shortName: SPG_Matched_truth_pt_bin5
 
-Sh2211_Wjets_emu_Matched:
-  add:
-    - Sh_2211_Wjets_bjets_emu
-    - Sh_2211_Wjets_cjets_emu
-    - Sh_2211_Wjets_light_emu
-  subtract:
-  lineColor: "ROOT.kGreen"
-  legendLabel: "Sh2.2.11"
-  shortName: Sh2211_Wjets_emu_Matched
-
 MGPy8EG_NLO_WplusD:
   add:
     - MG_NLO_WplusD
   subtract:
-  lineColor: "ROOT.kBlue"
+  lineColor: "ROOT.kRed"
   legendLabel: "NLO MG W+D"
   shortName: MGPy8EG_NLO_WplusD
+
+MGPy8EG_NLO_WplusD_truth_pt_bin1:
+  add:
+    - MG_NLO_WplusD
+  subtract:
+  lineColor: "ROOT.kRed"
+  legendLabel: "NLO MG W+D (bin 1)"
+  shortName: MGPy8EG_NLO_WplusD_truth_pt_bin1
+
+MGPy8EG_NLO_WplusD_truth_pt_bin2:
+  add:
+    - MG_NLO_WplusD
+  subtract:
+  lineColor: "ROOT.kRed"
+  legendLabel: "NLO MG W+D (bin 2)"
+  shortName: MGPy8EG_NLO_WplusD_truth_pt_bin2
+
+MGPy8EG_NLO_WplusD_truth_pt_bin3:
+  add:
+    - MG_NLO_WplusD
+  subtract:
+  lineColor: "ROOT.kRed"
+  legendLabel: "NLO MG W+D (bin 3)"
+  shortName: MGPy8EG_NLO_WplusD_truth_pt_bin3
+
+MGPy8EG_NLO_WplusD_truth_pt_bin4:
+  add:
+    - MG_NLO_WplusD
+  subtract:
+  lineColor: "ROOT.kRed"
+  legendLabel: "NLO MG W+D (bin 4)"
+  shortName: MGPy8EG_NLO_WplusD_truth_pt_bin4
+
+MGPy8EG_NLO_WplusD_truth_pt_bin5:
+  add:
+    - MG_NLO_WplusD
+  subtract:
+  lineColor: "ROOT.kRed"
+  legendLabel: "NLO MG W+D (bin 5)"
+  shortName: MGPy8EG_NLO_WplusD_truth_pt_bin5 
+
+
 
 Sherpa2211_WplusD:
   add:
     - Sh_2211_WplusD
   subtract:
-  lineColor: "ROOT.kRed"
+  lineColor: "ROOT.kGreen"
   legendLabel: "Sh2.2.11 W+D"
   shortName: Sherpa2211_WplusD
 
-Sherpa2211_WplusD_OS:
-  add:
-    - Sh_2211_WplusD
-  subtract:
-  lineColor: "ROOT.kRed"
-  legendLabel: "Sh2.2.11 W+D (OS)"
-  shortName: Sherpa2211_WplusD_OS
-
-Sherpa2211_WplusD_SS:
-  add:
-    - Sh_2211_WplusD
-  subtract:
-  lineColor: "ROOT.kBlue"
-  legendLabel: "Sh2.2.11 W+D (SS)"
-  shortName: Sherpa2211_WplusD_SS
-
-Sherpa2211_WplusD_OS-SS:
+Sherpa2211_WplusD_truth_pt_bin1:
   add:
     - Sh_2211_WplusD
   subtract:
   lineColor: "ROOT.kGreen"
-  legendLabel: "Sh2.2.11 W+D (OS-SS)"
-  shortName: Sherpa2211_WplusD_OS-SS
-
-Sherpa2211_WplusD_Matched_truth_pt_bin1:
-  add:
-    - Sh_2211_WplusD
-  subtract:
-  lineColor: "ROOT.kRed"
   legendLabel: "Sh2.2.11 W+D (bin 1)"
-  shortName: Sherpa2211_WplusD_Matched_truth_pt_bin1
+  shortName: Sherpa2211_WplusD_truth_pt_bin1
 
-Sherpa2211_WplusD_Matched_truth_pt_bin2:
+Sherpa2211_WplusD_truth_pt_bin2:
   add:
     - Sh_2211_WplusD
   subtract:
-  lineColor: "ROOT.kRed"
+  lineColor: "ROOT.kGreen"
   legendLabel: "Sh2.2.11 W+D (bin 2)"
-  shortName: Sherpa2211_WplusD_Matched_truth_pt_bin2
+  shortName: Sherpa2211_WplusD_truth_pt_bin2
 
-Sherpa2211_WplusD_Matched_truth_pt_bin3:
+Sherpa2211_WplusD_truth_pt_bin3:
   add:
     - Sh_2211_WplusD
   subtract:
-  lineColor: "ROOT.kRed"
+  lineColor: "ROOT.kGreen"
   legendLabel: "Sh2.2.11 W+D (bin 3)"
-  shortName: Sherpa2211_WplusD_Matched_truth_pt_bin3
+  shortName: Sherpa2211_WplusD_truth_pt_bin3
 
-Sherpa2211_WplusD_Matched_truth_pt_bin4:
+Sherpa2211_WplusD_truth_pt_bin4:
   add:
     - Sh_2211_WplusD
   subtract:
-  lineColor: "ROOT.kRed"
+  lineColor: "ROOT.kGreen"
   legendLabel: "Sh2.2.11 W+D (bin 4)"
-  shortName: Sherpa2211_WplusD_Matched_truth_pt_bin4
+  shortName: Sherpa2211_WplusD_truth_pt_bin4
 
-Sherpa2211_WplusD_Matched_truth_pt_bin5:
+Sherpa2211_WplusD_truth_pt_bin5:
   add:
     - Sh_2211_WplusD
   subtract:
-  lineColor: "ROOT.kRed"
+  lineColor: "ROOT.kGreen"
   legendLabel: "Sh2.2.11 W+D (bin 5)"
-  shortName: Sherpa2211_WplusD_Matched_truth_pt_bin5
+  shortName: Sherpa2211_WplusD_truth_pt_bin5
+
+
+
+Sherpa2211_Wjets:
+  add:
+    - Sh_2211_Wjets_cjets_emu
+    - Sh_2211_Wjets_bjets_emu
+    - Sh_2211_Wjets_light_emu
+  subtract:
+  lineColor: "ROOT.kBlue"
+  legendLabel: "Sh2.2.11 W+jets"
+  shortName: Sherpa2211_Wjets
+
+Sherpa2211_Wjets_truth_pt_bin1:
+  add:
+    - Sh_2211_Wjets_cjets_emu
+    - Sh_2211_Wjets_bjets_emu
+    - Sh_2211_Wjets_light_emu
+  subtract:
+  lineColor: "ROOT.kBlue"
+  legendLabel: "Sh2.2.11 W+jets (bin 1)"
+  shortName: Sherpa2211_Wjets_truth_pt_bin1
+
+Sherpa2211_Wjets_truth_pt_bin2:
+  add:
+    - Sh_2211_Wjets_cjets_emu
+    - Sh_2211_Wjets_bjets_emu
+    - Sh_2211_Wjets_light_emu
+  subtract:
+  lineColor: "ROOT.kBlue"
+  legendLabel: "Sh2.2.11 W+jets (bin 2)"
+  shortName: Sherpa2211_Wjets_truth_pt_bin2
+
+Sherpa2211_Wjets_truth_pt_bin3:
+  add:
+    - Sh_2211_Wjets_cjets_emu
+    - Sh_2211_Wjets_bjets_emu
+    - Sh_2211_Wjets_light_emu
+  subtract:
+  lineColor: "ROOT.kBlue"
+  legendLabel: "Sh2.2.11 W+jets (bin 3)"
+  shortName: Sherpa2211_Wjets_truth_pt_bin3
+
+Sherpa2211_Wjets_truth_pt_bin4:
+  add:
+    - Sh_2211_Wjets_cjets_emu
+    - Sh_2211_Wjets_bjets_emu
+    - Sh_2211_Wjets_light_emu
+  subtract:
+  lineColor: "ROOT.kBlue"
+  legendLabel: "Sh2.2.11 W+jets (bin 4)"
+  shortName: Sherpa2211_Wjets_truth_pt_bin4
+
+Sherpa2211_Wjets_truth_pt_bin5:
+  add:
+    - Sh_2211_Wjets_cjets_emu
+    - Sh_2211_Wjets_bjets_emu
+    - Sh_2211_Wjets_light_emu
+  subtract:
+  lineColor: "ROOT.kBlue"
+  legendLabel: "Sh2.2.11 W+jets (bin 5)"
+  shortName: Sherpa2211_Wjets_truth_pt_bin5
