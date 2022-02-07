@@ -177,8 +177,7 @@ class SPGComparison(ChannelTemplate):
                         ['Sherpa2211_Wjets', proxies.GenericChannel(region=self.truthSlices, name="Matched")],
                         ['SPG_Matched', proxies.SPGChannel(name="SPG_Matched",
                                                            regions_OS=["inclusive_" + self.decay_mode + f"_OS_{slice}" for slice in self.truthSlices],
-                                                           regions_SS=["inclusive_" + self.decay_mode + f"_SS_{slice}" for slice in self.truthSlices],
-                                                           always_OS=True)],
+                                                           regions_SS=["inclusive_" + self.decay_mode + f"_SS_{slice}" for slice in self.truthSlices])],
                     ]
                 }
             )
@@ -196,8 +195,7 @@ class SPGComparison(ChannelTemplate):
                                 [f'Sherpa2211_Wjets', proxies.GenericChannel(region=slice, name=slice)],
                                 [f'SPG_Matched', proxies.SPGChannel(name=f"SPG_{slice}",
                                                                     regions_OS=["inclusive_" + self.decay_mode + f"_OS_{slice}"],
-                                                                    regions_SS=["inclusive_" + self.decay_mode + f"_SS_{slice}"],
-                                                                    always_OS=True)],
+                                                                    regions_SS=["inclusive_" + self.decay_mode + f"_SS_{slice}"])],
                             ]
                         }
                     )
@@ -207,12 +205,14 @@ class SPGComparison(ChannelTemplate):
                 self.samples.update(
                     {
                         '411MisMatched': [
-                            ['Wjets_emu_411MisMatched', proxies.GenericChannel(region="411MisMatched", name="411MisMatched")],
+                            ['MG_Wjets_411MisMatched', proxies.GenericChannel(region="411MisMatched", name="411MisMatched")],
+                            ['Sherpa2211_Wjets_411MisMatched', proxies.GenericChannel(region="411MisMatched", name="411MisMatched")],
                             ['SPG_411MisMatched', proxies.SPGChannel(name="411MisMatchedInclusiveSPG", regions_OS=["inclusive_Dplus_OS_411MisMatched"], regions_SS=[
-                                "inclusive_Dplus_SS_411MisMatched"], always_OS=True)],
+                                "inclusive_Dplus_SS_411MisMatched"])],
                         ],
                         '421MisMatched': [
-                            ['Wjets_emu_421MisMatched', proxies.GenericChannel(region=["421MisMatched", "413MisMatched"], name="421MisMatched")],
+                            ['MG_Wjets_421MisMatched', proxies.GenericChannel(region=["421MisMatched", "413MisMatched"], name="421MisMatched")],
+                            ['Sherpa2211_Wjets_421MisMatched', proxies.GenericChannel(region=["421MisMatched", "413MisMatched"], name="421MisMatched")],
                             ['SPG_421MisMatched', proxies.SPGChannel(name="421MisMatchedInclusiveSPG", regions_OS=[
                                 "inclusive_Dplus_OS"], regions_SS=["inclusive_Dplus_SS"])],
                         ],
@@ -223,17 +223,17 @@ class SPGComparison(ChannelTemplate):
                 self.samples.update(
                     {
                         '413MisMatched': [
-                            ['Wjets_emu_413MisMatched', proxies.GenericChannel(region="413MisMatched", name="413MisMatched")],
+                            ['MG_Wjets_413MisMatched', proxies.GenericChannel(region="413MisMatched", name="413MisMatched")],
                             ['SPG_413MisMatched', proxies.SPGChannel(name="413MisMatchedInclusiveSPG", regions_OS=[
                                                                      "inclusive_Dstar_OS_413MisMatched"], regions_SS=["inclusive_Dstar_SS_413MisMatched"])],
                         ],
                         '411MisMatched': [
-                            ['Wjets_emu_411MisMatched', proxies.GenericChannel(region="411MisMatched", name="411MisMatched")],
+                            ['MG_Wjets_411MisMatched', proxies.GenericChannel(region="411MisMatched", name="411MisMatched")],
                             ['SPG_411MisMatched', proxies.SPGChannel(name="411MisMatchedInclusiveSPG", regions_OS=[
-                                                                     "inclusive_Dstar_OS"], regions_SS=["inclusive_Dstar_SS"], always_OS=True)],
+                                                                     "inclusive_Dstar_OS"], regions_SS=["inclusive_Dstar_SS"])],
                         ],
                         '421MisMatched': [
-                            ['Wjets_emu_421MisMatched', proxies.GenericChannel(region="421MisMatched", name="421MisMatched")],
+                            ['MG_Wjets_421MisMatched', proxies.GenericChannel(region="421MisMatched", name="421MisMatched")],
                             ['SPG_421MisMatched', proxies.SPGChannel(name="421MisMatchedInclusiveSPG", regions_OS=[
                                                                      "inclusive_Dstar_OS"], regions_SS=["inclusive_Dstar_SS"])],
                         ],
@@ -245,17 +245,20 @@ class SPGComparison(ChannelTemplate):
             self.samples.update(
                 {
                     '431MisMatched': [
-                        ['Wjets_emu_431MisMatched', proxies.GenericChannel(region="431MisMatched", name="431MisMatched")],
+                        ['MG_Wjets_431MisMatched', proxies.GenericChannel(region="431MisMatched", name="431MisMatched")],
+                        ['Sherpa2211_Wjets_431MisMatched', proxies.GenericChannel(region="431MisMatched", name="431MisMatched")],
                         ['SPG_431MisMatched', proxies.SPGChannel(name="431MisMatchedInclusiveSPG", regions_OS=[
                             "inclusive_" + self.decay_mode + "_OS"], regions_SS=["inclusive_" + self.decay_mode + "_SS"])],
                     ],
                     'BaryonMisMatched': [
-                        ['Wjets_emu_BaryonMisMatched', proxies.GenericChannel(region="BaryonMisMatched", name="BaryonMisMatched")],
+                        ['MG_Wjets_BaryonMisMatched', proxies.GenericChannel(region="BaryonMisMatched", name="BaryonMisMatched")],
+                        ['Sherpa2211_Wjets_BaryonMisMatched', proxies.GenericChannel(region="BaryonMisMatched", name="BaryonMisMatched")],
                         ['SPG_BaryonMisMatched', proxies.SPGChannel(name="BaryonMisMatchedInclusiveSPG", regions_OS=[
                             "inclusive_" + self.decay_mode + "_OS"], regions_SS=["inclusive_" + self.decay_mode + "_SS"])],
                     ],
                     'CharmMisMatched': [
-                        ['Wjets_emu_CharmMisMatched', proxies.MatchedCharm(name="CharmMisMatched")],
+                        ['MG_Wjets_CharmMisMatched', proxies.MatchedCharm(name="CharmMisMatched")],
+                        ['Sherpa2211_Wjets_CharmMisMatched', proxies.MatchedCharm(name="CharmMisMatched")],
                         ['SPG_CharmMisMatched', proxies.SPGChannel(name="CharmMisMatchedInclusiveSPG", regions_OS=[
                             "inclusive_" + self.decay_mode + "_OS"], regions_SS=["inclusive_" + self.decay_mode + "_SS"])],
                     ],
@@ -353,8 +356,7 @@ class ReplacementSamples(ChannelTemplate):
         self.samples = {
             'Matched': [['SPG_Matched', proxies.SPGChannel(name="SPG_Matched",
                                                            regions_OS=[f"inclusive_{self.decay_mode}_OS_{slice}" for slice in self.truthSlices],
-                                                           regions_SS=[f"inclusive_{self.decay_mode}_SS_{slice}" for slice in self.truthSlices],
-                                                           always_OS=True)]]
+                                                           regions_SS=[f"inclusive_{self.decay_mode}_SS_{slice}" for slice in self.truthSlices])]]
         }
 
         # signal samples in truth differential bins
@@ -363,8 +365,7 @@ class ReplacementSamples(ChannelTemplate):
                 {
                     slice: [[f'SPG_{slice}', proxies.SPGChannel(name=f"SPG_{slice}",
                                                                 regions_OS=[f"inclusive_{self.decay_mode}_OS_{slice}"],
-                                                                regions_SS=[f"inclusive_{self.decay_mode}_SS_{slice}"],
-                                                                always_OS=True)],
+                                                                regions_SS=[f"inclusive_{self.decay_mode}_SS_{slice}"])],
                             ] for slice in self.truthSlices
                 })
 
