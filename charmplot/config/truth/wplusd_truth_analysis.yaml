@@ -2,8 +2,7 @@
 variablesConf: charmed_wjets_truth
 samplesConf: wplusd_truth
 systematics:
-  # - sherpa2211_theory_qcd
-  - sherpa2211_theory_qcd_me_ps
+  - sherpa2211_theory_qcd
   - sherpa2211_theory_as
   - sherpa2211_theory_pdf
   # - sherpa2211_theory_ew
