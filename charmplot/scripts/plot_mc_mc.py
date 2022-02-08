@@ -195,6 +195,7 @@ def main(options, conf, reader):
 
             # plot
             for s in samples:
+                mc_map[s].SetLineStyle(s.lineStyle)
                 if mc_map[s].GetLineColor() > 1:
                     fcolor = mc_map[s].GetLineColor()
                 else:

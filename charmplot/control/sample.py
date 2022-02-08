@@ -59,6 +59,12 @@ class Sample(object):
             self.lineColor = eval(kwargs.pop('lineColor'))
         else:
             self.lineColor = None
+
+        if 'lineStyle' in kwargs:
+            self.lineStyle = int(kwargs.pop('lineStyle'))
+        else:
+            self.lineStyle = 1
+
         if 'fillColor' in kwargs:
             self.fillColor = eval(kwargs.pop('fillColor'))
         else:

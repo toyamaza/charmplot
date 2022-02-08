@@ -5,22 +5,30 @@ import ROOT
 def main(options, args):
     # file names
     backgrounds = {
-        "Wjets_emu_Rest": {
+        "MG_Wjets_Rest": {
             "inputs": ["MG_Wjets_cjets_emu", "MG_Wjets_bjets_emu", "MG_Wjets_light_emu", "MG_Wjets_tau"],
             "regions": ["HardMisMatched", "Other"],
         },
-        "Wjets_emu_MisMatched": {
+        "MG_Wjets_MisMatched": {
             "inputs": ["MG_Wjets_cjets_emu", "MG_Wjets_bjets_emu", "MG_Wjets_light_emu", "MG_Wjets_tau"],
             "regions": ["MisMatched", "MatchedNoFid"],
         },
-        # "Wjets_emu_Bkg": {
+        "Sh_Wjets_Rest": {
+            "inputs": ["Sh_2211_Wjets_light_emu", "Sh_2211_Wjets_cjets_emu", "Sh_2211_Wjets_bjets_emu"],
+            "regions": ["HardMisMatched", "Other"],
+        },
+        "Sh_Wjets_MisMatched": {
+            "inputs": ["Sh_2211_Wjets_light_emu", "Sh_2211_Wjets_cjets_emu", "Sh_2211_Wjets_bjets_emu"],
+            "regions": ["MisMatched", "MatchedNoFid"],
+        },
+        # "MG_Wjets_Bkg": {
         #     "inputs": ["MG_Wjets_cjets_emu", "MG_Wjets_bjets_emu", "MG_Wjets_light_emu"],
         #     "regions": ["MisMatched", "MatchedNoFid", "HardMisMatched", "Other", "411MisMatched", "413MisMatched", "421MisMatched", "431MisMatched", "BaryonMisMatched"],
         # },
-        "Other": {
-            "inputs": ["Diboson", "MG_Zjets_light_emu", "MG_Zjets_cjets_emu", "MG_Zjets_bjets_emu", "MG_Zjets_tau"],
-            "regions": [""],
-        },
+        # "Other": {
+        #     "inputs": ["Diboson", "MG_Zjets_light_emu", "MG_Zjets_cjets_emu", "MG_Zjets_bjets_emu", "MG_Zjets_tau"],
+        #     "regions": [""],
+        # },
         # "MultiJet": {
         #     "inputs": ["data"],
         #     "regions": [""],

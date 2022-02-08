@@ -1,17 +1,29 @@
 colorScheme: gemstone_hues
 
-Wjets_emu_Rest:
+MG_Wjets_Rest:
   add:
     - MG_Wjets_cjets_emu
     - MG_Wjets_bjets_emu
     - MG_Wjets_light_emu
     - MG_Wjets_tau
   subtract:
-  fillColor: "11002"
-  legendLabel: "W+jets"
-  shortName: Wjets_emu_Rest
+  fillColor: "21000"
+  legendLabel: "MG W+jets (LIS)"
+  lineStyle: 9
+  shortName: MG_Wjets_Rest
 
-Wjets_emu_Rest_Loose:
+MG_Wjets_Rest_Plain:
+  add:
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_bjets_emu
+    - MG_Wjets_light_emu
+    - MG_Wjets_tau
+  subtract:
+  fillColor: "ROOT.kRed"
+  legendLabel: "MG W+jets"
+  shortName: MG_Wjets_Rest_Plain
+
+MG_Wjets_Rest_Loose:
   add:
     - MG_Wjets_cjets_emu
     - MG_Wjets_bjets_emu
@@ -20,20 +32,32 @@ Wjets_emu_Rest_Loose:
   subtract:
   lineColor: "21000"
   legendLabel: "W+jets Loose"
-  shortName: Wjets_emu_Rest_Loose
+  shortName: MG_Wjets_Rest_Loose
 
-Wjets_emu_MisMatched:
+MG_Wjets_MisMatched:
   add:
     - MG_Wjets_cjets_emu
     - MG_Wjets_bjets_emu
     - MG_Wjets_light_emu
     - MG_Wjets_tau
   subtract:
-  lineColor: "11004"
-  legendLabel: "W+c^{mis-match}"
-  shortName: Wjets_emu_MisMatched
+  fillColor: "21000"
+  legendLabel: "MG W+c (LIS)"
+  lineStyle: 9
+  shortName: MG_Wjets_MisMatched
 
-Wjets_emu_MisMatched_Loose:
+MG_Wjets_MisMatched_Plain:
+  add:
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_bjets_emu
+    - MG_Wjets_light_emu
+    - MG_Wjets_tau
+  subtract:
+  fillColor: "ROOT.kRed"
+  legendLabel: "MG W+c"
+  shortName: MG_Wjets_MisMatched_Plain
+
+MG_Wjets_MisMatched_Loose:
   add:
     - MG_Wjets_cjets_emu
     - MG_Wjets_bjets_emu
@@ -41,8 +65,8 @@ Wjets_emu_MisMatched_Loose:
     - MG_Wjets_tau
   subtract:
   lineColor: "21000"
-  legendLabel: "Loose W+c^{mis-match}"
-  shortName: Wjets_emu_MisMatched_Loose
+  legendLabel: "Loose W+c"
+  shortName: MG_Wjets_MisMatched_Loose
 
 DibosonZjets:
   add:
@@ -82,53 +106,53 @@ Multijet_MatrixMethod_Loose:
   legendLabel: "Loose MJ"
   shortName: Multijet_MatrixMethod_Loose
 
-Wjets_emu_Rest_PostProc:
+MG_Wjets_Rest_PostProc:
   add:
     - inclusive_bkg
   subtract:
   lineColor: "21000"
   legendLabel: "Loose Inclusive W+jets"
-  shortName: Wjets_emu_Rest_PostProc
+  shortName: MG_Wjets_Rest_PostProc
 
-Wjets_emu_Rest_PostProc_Loose:
+MG_Wjets_Rest_PostProc_Loose:
   add:
     - inclusive_bkg
   subtract:
   lineColor: "15002"
   legendLabel: "Loose W+jets"
-  shortName: Wjets_emu_Rest_PostProc_Loose
+  shortName: MG_Wjets_Rest_PostProc_Loose
 
-Wjets_emu_Rest_Fit:
+MG_Wjets_Rest_Fit:
   add:
     - wjets_bkg_fit
   subtract:
   lineColor: "21000"
   legendLabel: "W+jets Fit"
-  shortName: Wjets_emu_Rest_Fit
+  shortName: MG_Wjets_Rest_Fit
 
-Wjets_emu_Rest_Fit_Loose:
+MG_Wjets_Rest_Fit_Loose:
   add:
     - wjets_bkg_fit
   subtract:
   lineColor: "15002"
   legendLabel: "W+jets Fit Loose"
-  shortName: Wjets_emu_Rest_Fit_Loose
+  shortName: MG_Wjets_Rest_Fit_Loose
 
-Sherpa_Wjets_emu_Rest_Fit:
+Sherpa_MG_Wjets_Rest_Fit:
   add:
     - sherpa_wjets_bkg_fit
   subtract:
   lineColor: "15002"
   legendLabel: "Sherpa W+jets Fit"
-  shortName: Sherpa_Wjets_emu_Rest_Fit
+  shortName: Sherpa_MG_Wjets_Rest_Fit
 
-Wjets_emu_MisMatched_PostProc:
+MG_Wjets_MisMatched_PostProc:
   add:
     - inclusive_bkg
   subtract:
   lineColor: "21000"
-  legendLabel: "Loose W+c^{mis-match}"
-  shortName: Wjets_emu_MisMatched_PostProc
+  legendLabel: "Loose W+c"
+  shortName: MG_Wjets_MisMatched_PostProc
 
 DibosonZjets_PostProc:
   add:
@@ -146,7 +170,7 @@ MultiJet_PostProc:
   legendLabel: "Loose MJ"
   shortName: MultiJet_PostProc
 
-Sherpa_Wjets_emu_Rest:
+Sherpa_MG_Wjets_Rest:
   add:
     - Sh_Wjets_bjets_emu
     - Sh_Wjets_cjets_emu
@@ -156,29 +180,89 @@ Sherpa_Wjets_emu_Rest:
   subtract:
   lineColor: "14002"
   legendLabel: "Sherpa W+jets"
-  shortName: Sherpa_Wjets_emu_Rest
+  shortName: Sherpa_MG_Wjets_Rest
 
-Sherpa_Wjets_emu_Rest_PostProc:
+Sherpa_MG_Wjets_Rest_PostProc:
   add:
     - inclusive_sherpa_bkg
   subtract:
   lineColor: "14004"
   legendLabel: "Sherpa W+jets"
-  shortName: Sherpa_Wjets_emu_Rest_PostProc
+  shortName: Sherpa_MG_Wjets_Rest_PostProc
 
-Powheg_Wjets_emu_Rest:
+Powheg_MG_Wjets_Rest:
   add:
-    - Ph_Wjets_emu
+    - Ph_MG_Wjets
     - Ph_Wjets_tau
   subtract:
   lineColor: "11004"
   legendLabel: "Powheg W+jets"
-  shortName: Powheg_Wjets_emu_Rest
+  shortName: Powheg_MG_Wjets_Rest
 
-Powheg_Wjets_emu_Rest_PostProc:
+Powheg_MG_Wjets_Rest_PostProc:
   add:
     - inclusive_powheg_bkg
   subtract:
   lineColor: "11004"
   legendLabel: "Powheg W+jets"
-  shortName: Powheg_Wjets_emu_Rest_PostProc
+  shortName: Powheg_MG_Wjets_Rest_PostProc
+
+
+
+Sherpa2211_Wjets_Rest:
+  add:
+    - Sh_2211_Wjets_cjets_emu
+    - Sh_2211_Wjets_bjets_emu
+    - Sh_2211_Wjets_light_emu
+  subtract:
+  lineColor: "ROOT.kBlue+2"
+  legendLabel: "Sh W+jets (LIS)"
+  shortName: Sherpa2211_Wjets_Rest
+
+Sherpa2211_Wjets_Rest_PostProc:
+  add:
+    - inclusive_bkg
+  subtract:
+  lineColor: "ROOT.kBlue+2"
+  legendLabel: "Sh W+jets (LIS)"
+  lineStyle: 9
+  shortName: Sherpa2211_Wjets_Rest_PostProc
+
+Sherpa2211_Wjets_Rest_Plain:
+  add:
+    - Sh_2211_Wjets_cjets_emu
+    - Sh_2211_Wjets_bjets_emu
+    - Sh_2211_Wjets_light_emu
+  subtract:
+  lineColor: "ROOT.kGreen"
+  legendLabel: "Sh W+jets"
+  shortName: Sherpa2211_Wjets_Rest_Plain
+
+Sherpa2211_Wjets_MisMatched:
+  add:
+    - Sh_2211_Wjets_cjets_emu
+    - Sh_2211_Wjets_bjets_emu
+    - Sh_2211_Wjets_light_emu
+  subtract:
+  lineColor: "ROOT.kBlue+2"
+  lineStyle: 9
+  legendLabel: "Sh W+c (LIS)"
+  shortName: Sherpa2211_Wjets_MisMatched
+
+Sherpa2211_Wjets_MisMatched_PostProc:
+  add:
+    - inclusive_bkg
+  subtract:
+  lineColor: "ROOT.kBlue+2"
+  legendLabel: "Sh W+c (LIS)"
+  shortName: Sherpa2211_Wjets_MisMatched_PostProc
+
+Sherpa2211_Wjets_MisMatched_Plain:
+  add:
+    - Sh_2211_Wjets_cjets_emu
+    - Sh_2211_Wjets_bjets_emu
+    - Sh_2211_Wjets_light_emu
+  subtract:
+  lineColor: "ROOT.kGreen"
+  legendLabel: "Sh W+c"
+  shortName: Sherpa2211_Wjets_MisMatched_Plain

@@ -51,7 +51,8 @@ def main(options):
     # replacement samples
     if options.replacement_samples:
         samples_replacement = templates.ReplacementSamples(truthDiffBins=options.truth_differential_bins,
-                                                           decay_mode=options.decay_mode)
+                                                           decay_mode=options.decay_mode,
+                                                           comparison=options.samples.lower())
 
     # TODO: make configurable?
     signs = ['OS', 'SS']
@@ -89,21 +90,21 @@ def main(options):
     if options.replacement_samples:
         if options.truth_differential_bins:
             replacement_samples = {
-                'Wjets_emu_Matched_truth_pt_bin1': '<charge>_Replacement_Matched_truth_pt_bin1',
-                'Wjets_emu_Matched_truth_pt_bin2': '<charge>_Replacement_Matched_truth_pt_bin2',
-                'Wjets_emu_Matched_truth_pt_bin3': '<charge>_Replacement_Matched_truth_pt_bin3',
-                'Wjets_emu_Matched_truth_pt_bin4': '<charge>_Replacement_Matched_truth_pt_bin4',
-                'Wjets_emu_Matched_truth_pt_bin5': '<charge>_Replacement_Matched_truth_pt_bin5',
+                'MG_Wjets_Matched_truth_pt_bin1': '<charge>_Replacement_Matched_truth_pt_bin1',
+                'MG_Wjets_Matched_truth_pt_bin2': '<charge>_Replacement_Matched_truth_pt_bin2',
+                'MG_Wjets_Matched_truth_pt_bin3': '<charge>_Replacement_Matched_truth_pt_bin3',
+                'MG_Wjets_Matched_truth_pt_bin4': '<charge>_Replacement_Matched_truth_pt_bin4',
+                'MG_Wjets_Matched_truth_pt_bin5': '<charge>_Replacement_Matched_truth_pt_bin5',
             }
         else:
-            replacement_samples = {'Wjets_emu_Matched': '<charge>_Replacement_Matched'}
+            replacement_samples = {'MG_Wjets_Matched': '<charge>_Replacement_Matched'}
         replacement_samples.update({
-            'Wjets_emu_411MisMatched': '<charge>_Replacement_411MisMatched',
-            'Wjets_emu_Charm': '<charge>_Replacement_CharmMisMatched',
-            'Wjets_emu_MisMatched': '<charge>_Replacement_Wjets_emu_MisMatched',
-            'Wjets_emu_Rest': '<charge>_Replacement_Wjets_emu_Rest',
-            'Wjets_emu_Bkg': '<charge>_Replacement_Wjets_emu_Bkg',
-            'Sherpa_Wjets_emu_Rest': '<charge>_Replacement_Wjets_emu_Rest',
+            'MG_Wjets_411MisMatched': '<charge>_Replacement_411MisMatched',
+            'MG_Wjets_Charm': '<charge>_Replacement_CharmMisMatched',
+            'MG_Wjets_MisMatched': '<charge>_Replacement_MisMatched',
+            'MG_Wjets_Rest': '<charge>_Replacement_Rest',
+            'Sherpa2211_Wjets_MisMatched': '<charge>_Replacement_MisMatched',
+            'Sherpa2211_Wjets_Rest': '<charge>_Replacement_Rest',
             'DibosonZjets': '<charge>_Replacement_DibosonZjets',
         })
 
