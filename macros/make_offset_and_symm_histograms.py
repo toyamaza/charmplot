@@ -7,14 +7,14 @@ def main(options, args):
 
     # histogram names
     dplus_histo_list = [
-        "SS_el_minus_0tag_Dplus_Dmeson_m",
-        "SS_el_minus_1tag_Dplus_Dmeson_m",
-        "SS_el_plus_0tag_Dplus_Dmeson_m",
-        "SS_el_plus_1tag_Dplus_Dmeson_m",
-        "SS_mu_minus_0tag_Dplus_Dmeson_m",
-        "SS_mu_minus_1tag_Dplus_Dmeson_m",
-        "SS_mu_plus_0tag_Dplus_Dmeson_m",
-        "SS_mu_plus_1tag_Dplus_Dmeson_m",
+        "SS_el_minus_0tag_Dplus_Dmeson_m_fit",
+        "SS_el_minus_1tag_Dplus_Dmeson_m_fit",
+        "SS_el_plus_0tag_Dplus_Dmeson_m_fit",
+        "SS_el_plus_1tag_Dplus_Dmeson_m_fit",
+        "SS_mu_minus_0tag_Dplus_Dmeson_m_fit",
+        "SS_mu_minus_1tag_Dplus_Dmeson_m_fit",
+        "SS_mu_plus_0tag_Dplus_Dmeson_m_fit",
+        "SS_mu_plus_1tag_Dplus_Dmeson_m_fit",
     ]
     dstar_histo_list = [
         "SS_el_minus_0tag_Dstar_Dmeson_mdiff",
@@ -98,16 +98,18 @@ def main(options, args):
             # Set symmetric histogram error
             h_symm.SetBinError(i, h_diff.GetBinError(i))
 
+        charge = re.findall("_minus_|_plus_", data)[0]
+        flavor = re.findall("el_|mu_", data)[0][:-1]
+        btag = re.findall("_0tag_|_1tag_", data)[0]
+        meson = re.findall("Dplus_|Dstar_", data)[0]
+        var = "Dmeson_" + data.split("Dmeson_")[-1].replace("_fit", "")
+        ptbin = ""
         if re.search("pt_bin", data):
-            h_symm_OS_name = re.split("[0, 1]tag", data.split("SS_")[-1])[0] + "SR" + re.split("(minus|plus)", data.split("_pt_bin")[0])[-1] + "_OS_Mock_MC" + re.split("(Dplus|Dstar)", data.split("_Dmeson")[0])[-1] + "_" + re.split("_pt_bin[1-5]", data)[-1]
-            h_symm_SS_name = re.split("[0, 1]tag", data.split("SS_")[-1])[0] + "SR" + re.split("(minus|plus)", data.split("_pt_bin")[0])[-1] + "_SS_Mock_MC" + re.split("(Dplus|Dstar)", data.split("_Dmeson")[0])[-1] + "_" + re.split("_pt_bin[1-5]", data)[-1]
-            h_offset_OS_name = re.split("[0, 1]tag", data.split("SS_")[-1])[0] + "SR" + re.split("(minus|plus)", data.split("_pt_bin")[0])[-1] + "_OS_Offset" + re.split("(Dplus|Dstar)", data.split("_Dmeson")[0])[-1] + "_" + re.split("_pt_bin[1-5]", data)[-1]
-            h_offset_SS_name = re.split("[0, 1]tag", data.split("SS_")[-1])[0] + "SR" + re.split("(minus|plus)", data.split("_pt_bin")[0])[-1] + "_SS_Offset" + re.split("(Dplus|Dstar)", data.split("_Dmeson")[0])[-1] + "_" + re.split("_pt_bin[1-5]", data)[-1]
-        else:
-            h_symm_OS_name = re.split("[0, 1]tag", data.split("SS_")[-1])[0] + "SR" + re.split("(minus|plus)", data.split("_Dmeson")[0])[-1] + "_OS_Mock_MC__Dmeson_" + data.split("_Dmeson_")[-1]
-            h_symm_SS_name = re.split("[0, 1]tag", data.split("SS_")[-1])[0] + "SR" + re.split("(minus|plus)", data.split("_Dmeson")[0])[-1] + "_SS_Mock_MC__Dmeson_" + data.split("_Dmeson_")[-1]
-            h_offset_OS_name = re.split("[0, 1]tag", data.split("SS_")[-1])[0] + "SR" + re.split("(minus|plus)", data.split("_Dmeson")[0])[-1] + "_OS_Offset__Dmeson_" + data.split("_Dmeson_")[-1]
-            h_offset_SS_name = re.split("[0, 1]tag", data.split("SS_")[-1])[0] + "SR" + re.split("(minus|plus)", data.split("_Dmeson")[0])[-1] + "_SS_Offset__Dmeson_" + data.split("_Dmeson_")[-1]
+            ptbin = re.findall("_pt_bin[1-5]", data)[0]
+        h_symm_OS_name = f"{flavor}{charge}SR{btag}{meson}OS_Mock_MC{ptbin}__{var}"
+        h_symm_SS_name = f"{flavor}{charge}SR{btag}{meson}SS_Mock_MC{ptbin}__{var}"
+        h_offset_OS_name = f"{flavor}{charge}SR{btag}{meson}OS_Offset{ptbin}__{var}"
+        h_offset_SS_name = f"{flavor}{charge}SR{btag}{meson}SS_Offset{ptbin}__{var}"
 
         # Create OS and SS histograms
         h_symm_OS = h_symm.Clone()
