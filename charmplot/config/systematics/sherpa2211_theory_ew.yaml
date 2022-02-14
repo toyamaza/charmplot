@@ -2,6 +2,14 @@ type: updown
 affecting:
   - Sherpa2211_WplusD
   - Sherpa2211_Wjets
+  - Sherpa2211_WplusD_Matched
+  - Sherpa2211_WplusD_Matched_truth_pt_bin1
+  - Sherpa2211_WplusD_Matched_truth_pt_bin2
+  - Sherpa2211_WplusD_Matched_truth_pt_bin3
+  - Sherpa2211_WplusD_Matched_truth_pt_bin4
+  - Sherpa2211_WplusD_Matched_truth_pt_bin5
+  - Sherpa2211_Wjets_MisMatched
+  - Sherpa2211_Wjets_Rest
 variations:
   - GEN_MUR1_MUF1_PDF303200_ASSEW
   - GEN_MUR1_MUF1_PDF303200_ASSEWLO1

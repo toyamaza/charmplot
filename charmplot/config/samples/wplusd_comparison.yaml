@@ -58,6 +58,7 @@ Sherpa2211_Wjets:
     - Sh_2211_Wjets_cjets_emu
     - Sh_2211_Wjets_bjets_emu
     - Sh_2211_Wjets_light_emu
+    - Sh_2211_Wjets_tau
   subtract:
   lineColor: "ROOT.kRed"
   legendLabel: "Sherpa2.2.11"
@@ -68,6 +69,7 @@ Sherpa2211_Wjets_emu_Matched:
     - Sh_2211_Wjets_cjets_emu
     - Sh_2211_Wjets_bjets_emu
     - Sh_2211_Wjets_light_emu
+    - Sh_2211_Wjets_tau
   subtract:
   lineColor: "ROOT.kGreen"
   legendLabel: "Sherpa2.2.11"
@@ -78,6 +80,7 @@ Sherpa2211_Wjets_emu_411MisMatched:
     - Sh_2211_Wjets_cjets_emu
     - Sh_2211_Wjets_bjets_emu
     - Sh_2211_Wjets_light_emu
+    - Sh_2211_Wjets_tau
   subtract:
   lineColor: "ROOT.kRed"
   legendLabel: "Sh2.2.11 W+jets"

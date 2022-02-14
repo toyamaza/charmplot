@@ -99,14 +99,16 @@ def main(options):
         else:
             replacement_samples = {'MG_Wjets_Matched': '<charge>_Replacement_Matched'}
         replacement_samples.update({
-            'MG_Wjets_411MisMatched': '<charge>_Replacement_411MisMatched',
             'MG_Wjets_Charm': '<charge>_Replacement_CharmMisMatched',
             'MG_Wjets_MisMatched': '<charge>_Replacement_MisMatched',
             'MG_Wjets_Rest': '<charge>_Replacement_Rest',
             'Sherpa2211_Wjets_MisMatched': '<charge>_Replacement_MisMatched',
             'Sherpa2211_Wjets_Rest': '<charge>_Replacement_Rest',
-            'DibosonZjets': '<charge>_Replacement_DibosonZjets',
         })
+        if options.decay_mode == "Dstar":
+            replacement_samples.update({
+                'DibosonZjets': '<charge>_Replacement_DibosonZjets',
+            })
 
     # systematics
     systematics = []
@@ -119,6 +121,10 @@ def main(options):
             'ttbar_theory_pdf',
             'ttbar_theory_qcd',
             'wjets_theory',
+            'wjets_theory_madgraph',
+            'sherpa2211_theory_qcd_fit',
+            'sherpa2211_theory_as',
+            'sherpa2211_theory_pdf',
         ]
         if options.decay_mode == "Dstar":
             systematics += [
@@ -128,8 +134,7 @@ def main(options):
             ]
         else:
             systematics += [
-                'wjets_bkg_alt_samples_pre',
-                'wjets_bkg_alt_samples_1tag',
+                'wjets_bkg_alt_samples',
             ]
 
     if options.sys_configs:

@@ -104,7 +104,7 @@ def main(options, args):
         meson = re.findall("Dplus_|Dstar_", data)[0]
         var = "Dmeson_" + data.split("Dmeson_")[-1].replace("_fit", "")
         ptbin = ""
-        if re.search("pt_bin", data):
+        if "pt_bin" in data:
             ptbin = re.findall("_pt_bin[1-5]", data)[0]
         h_symm_OS_name = f"{flavor}{charge}SR{btag}{meson}OS_Mock_MC{ptbin}__{var}"
         h_symm_SS_name = f"{flavor}{charge}SR{btag}{meson}SS_Mock_MC{ptbin}__{var}"

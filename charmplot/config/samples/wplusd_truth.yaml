@@ -58,6 +58,7 @@ Sherpa2211_Wjets:
     - Sh_2211_Wjets_cjets_emu
     - Sh_2211_Wjets_bjets_emu
     - Sh_2211_Wjets_light_emu
+    - Sh_2211_Wjets_tau
   subtract:
   lineColor: "ROOT.kGreen"
   legendLabel: "Sh2.2.11 W+jets"

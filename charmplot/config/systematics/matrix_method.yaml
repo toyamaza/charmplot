@@ -8,15 +8,15 @@ affecting:
 variations:
   - MM_EL_RR_STAT__1up
   - MM_EL_RR_STAT__1down
+  - MM_EL_RR_MadGraph_Var
   - MM_EL_FR_STAT__1up
   - MM_EL_FR_STAT__1down
-  - MM_EL_FR__Wjets_MadGraph_Up
-  - MM_EL_FR__Wjets_MadGraph_Dn
+  - MM_EL_FR__Wjets_MadGraph_Var
   - MM_EL_NON_CLOSURE
   - MM_MU_RR_STAT__1up
   - MM_MU_RR_STAT__1down
+  - MM_MU_RR_MadGraph_Var
   - MM_MU_FR_STAT__1up
   - MM_MU_FR_STAT__1down
-  - MM_MU_FR__Wjets_MadGraph_Up
-  - MM_MU_FR__Wjets_MadGraph_Dn
+  - MM_MU_FR__Wjets_MadGraph_Var
   - MM_MU_NON_CLOSURE

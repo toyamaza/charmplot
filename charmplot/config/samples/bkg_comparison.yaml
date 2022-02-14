@@ -214,6 +214,7 @@ Sherpa2211_Wjets_Rest:
     - Sh_2211_Wjets_cjets_emu
     - Sh_2211_Wjets_bjets_emu
     - Sh_2211_Wjets_light_emu
+    - Sh_2211_Wjets_tau
   subtract:
   lineColor: "ROOT.kBlue+2"
   legendLabel: "Sh W+jets (LIS)"
@@ -233,6 +234,7 @@ Sherpa2211_Wjets_Rest_Plain:
     - Sh_2211_Wjets_cjets_emu
     - Sh_2211_Wjets_bjets_emu
     - Sh_2211_Wjets_light_emu
+    - Sh_2211_Wjets_tau
   subtract:
   lineColor: "ROOT.kGreen"
   legendLabel: "Sh W+jets"
@@ -243,6 +245,7 @@ Sherpa2211_Wjets_MisMatched:
     - Sh_2211_Wjets_cjets_emu
     - Sh_2211_Wjets_bjets_emu
     - Sh_2211_Wjets_light_emu
+    - Sh_2211_Wjets_tau
   subtract:
   lineColor: "ROOT.kBlue+2"
   lineStyle: 9
@@ -262,6 +265,7 @@ Sherpa2211_Wjets_MisMatched_Plain:
     - Sh_2211_Wjets_cjets_emu
     - Sh_2211_Wjets_bjets_emu
     - Sh_2211_Wjets_light_emu
+    - Sh_2211_Wjets_tau
   subtract:
   lineColor: "ROOT.kGreen"
   legendLabel: "Sh W+c"

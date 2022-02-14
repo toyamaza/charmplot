@@ -1,24 +1,20 @@
 type: updown
 affecting:
-  - Wjets_emu_Matched
-  - Wjets_emu_Matched_truth_pt_bin1
-  - Wjets_emu_Matched_truth_pt_bin2
-  - Wjets_emu_Matched_truth_pt_bin3
-  - Wjets_emu_Matched_truth_pt_bin4
-  - Wjets_emu_Matched_truth_pt_bin5
-  - Wjets_emu_411MisMatched
-  - Wjets_emu_413MisMatched
-  - Wjets_emu_Charm
-  - Wjets_emu_MisMatched
+  - Sherpa2211_WplusD_Matched
+  - Sherpa2211_WplusD_Matched_truth_pt_bin1
+  - Sherpa2211_WplusD_Matched_truth_pt_bin2
+  - Sherpa2211_WplusD_Matched_truth_pt_bin3
+  - Sherpa2211_WplusD_Matched_truth_pt_bin4
+  - Sherpa2211_WplusD_Matched_truth_pt_bin5
+  - Sherpa2211_Wjets_MisMatched
 variations:
   - PROD_FRAC_EIG_1
   - PROD_FRAC_EIG_2
   - PROD_FRAC_EIG_3
-  # - PROD_FRAC_NOWEIGHT
-  # - WJETS_THEORY_NOWEIGHT
-  - WJETS_THEORY_PDF
-  - WJETS_THEORY_QCD_SCALE
-  - WJETS_THEORY_SHERPA_PT
-  - FID_EFF_WPLUSD_SHERPA
+  - FID_EFF_WPLUSD_MG
   - FID_EFF_WPLUSD_QCD__1up
   - FID_EFF_WPLUSD_QCD__1down
+  - FID_EFF_WPLUSD_PDF__1up
+  - FID_EFF_WPLUSD_PDF__1down
+  - FID_EFF_WPLUSD_AS__1up
+  - FID_EFF_WPLUSD_AS__1down

@@ -50,7 +50,7 @@ class ChannelTemplate:
 class WDTruthSamples(ChannelTemplate):
 
     # base class
-    samplesConf = "madgraph_truth"
+    samplesConf = "dplus_fit"
     data = "Data"
 
     # new objects
@@ -83,15 +83,15 @@ class WDTruthSamples(ChannelTemplate):
 
         # signal sample
         if self.truthDiffBins:
-            self.samples += [[f'Wjets_emu_{slice}', proxies.Matched(os_ss_sub=self.os_ss_sub, ptbin=i + 1)] for i, slice in enumerate(self.truthSlices)]
+            self.samples += [[f'Sherpa2211_WplusD_{slice}', proxies.Matched(os_ss_sub=self.os_ss_sub, ptbin=i + 1)] for i, slice in enumerate(self.truthSlices)]
         else:
-            self.samples += [['Wjets_emu_Matched', proxies.GenericChannel(region=self.truthSlices, name="Matched", os_ss_sub=self.os_ss_sub)]]
+            self.samples += [['Sherpa2211_WplusD_Matched', proxies.GenericChannel(region=self.truthSlices, name="Matched", os_ss_sub=self.os_ss_sub)]]
 
         # backgrdound from other than the signal decay modes
         self.samples += [
-            ['Wjets_emu_Charm', proxies.GenericChannel(region=["411MisMatched", "413MisMatched", "421MisMatched", "431MisMatched", "BaryonMisMatched", "Wjets_emu_Charm"], name="MatchedCharm")],
-            ['Wjets_emu_MisMatched', proxies.GenericChannel(name="MisMatched", os_ss_sub=self.os_ss_sub, region=["MisMatched", "MatchedNoFid"])],
-            ['Wjets_emu_Rest', proxies.GenericChannel(name="Rest", os_ss_sub=self.os_ss_sub, region=["Other", "HardMisMatched"])],
+            ['MG_Wjets_Charm', proxies.GenericChannel(region=["411MisMatched", "413MisMatched", "421MisMatched", "431MisMatched", "BaryonMisMatched", "MG_Wjets_Charm"], name="MatchedCharm")],
+            ['Sherpa2211_Wjets_MisMatched', proxies.GenericChannel(name="MisMatched", os_ss_sub=self.os_ss_sub, region=["MisMatched", "MatchedNoFid"])],
+            ['Sherpa2211_Wjets_Rest', proxies.GenericChannel(name="Rest", os_ss_sub=self.os_ss_sub, region=["Other", "HardMisMatched"])],
             ['Top', proxies.PlainChannel(os_ss_sub=self.os_ss_sub)],
             ['DibosonZjets', proxies.PlainChannel(os_ss_sub=self.os_ss_sub)],
         ]
@@ -378,6 +378,10 @@ class ReplacementSamples(ChannelTemplate):
                     })
 
         self.samples.update({
+            'CharmMisMatched': [
+                ['SPG_CharmMisMatched', proxies.SPGChannel(name="CharmMisMatched", regions_OS=[
+                    f"inclusive_{self.decay_mode}_OS"], regions_SS=[f"inclusive_{self.decay_mode}_SS"])],
+            ],
             'MisMatched': [
                 ['MG_Wjets_MisMatched_PostProc', proxies.GenericChannel(name="MG_Wjets_MisMatched", regions_OS=[
                     "MG_Wjets_MisMatched_OS"], regions_SS=["MG_Wjets_MisMatched_SS"])],

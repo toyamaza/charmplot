@@ -1,5 +1,5 @@
 type: alt_sample
 affecting:
-  - Wjets_emu_Rest
+  - Sherpa2211_Wjets_Rest
 variations:
-  - Sherpa_Wjets_emu_Rest
+  - MG_Wjets_Rest

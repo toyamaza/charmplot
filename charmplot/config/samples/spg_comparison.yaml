@@ -497,6 +497,7 @@ Sherpa2211_Wjets:
     - Sh_2211_Wjets_cjets_emu
     - Sh_2211_Wjets_bjets_emu
     - Sh_2211_Wjets_light_emu
+    - Sh_2211_Wjets_tau
   subtract:
   lineColor: "ROOT.kBlue"
   legendLabel: "Sh2.2.11 W+jets"
@@ -507,6 +508,7 @@ Sherpa2211_Wjets_truth_pt_bin1:
     - Sh_2211_Wjets_cjets_emu
     - Sh_2211_Wjets_bjets_emu
     - Sh_2211_Wjets_light_emu
+    - Sh_2211_Wjets_tau
   subtract:
   lineColor: "ROOT.kBlue"
   legendLabel: "Sh2.2.11 W+jets (bin 1)"
@@ -517,6 +519,7 @@ Sherpa2211_Wjets_truth_pt_bin2:
     - Sh_2211_Wjets_cjets_emu
     - Sh_2211_Wjets_bjets_emu
     - Sh_2211_Wjets_light_emu
+    - Sh_2211_Wjets_tau
   subtract:
   lineColor: "ROOT.kBlue"
   legendLabel: "Sh2.2.11 W+jets (bin 2)"
@@ -527,6 +530,7 @@ Sherpa2211_Wjets_truth_pt_bin3:
     - Sh_2211_Wjets_cjets_emu
     - Sh_2211_Wjets_bjets_emu
     - Sh_2211_Wjets_light_emu
+    - Sh_2211_Wjets_tau
   subtract:
   lineColor: "ROOT.kBlue"
   legendLabel: "Sh2.2.11 W+jets (bin 3)"
@@ -537,6 +541,7 @@ Sherpa2211_Wjets_truth_pt_bin4:
     - Sh_2211_Wjets_cjets_emu
     - Sh_2211_Wjets_bjets_emu
     - Sh_2211_Wjets_light_emu
+    - Sh_2211_Wjets_tau
   subtract:
   lineColor: "ROOT.kBlue"
   legendLabel: "Sh2.2.11 W+jets (bin 4)"
@@ -547,6 +552,7 @@ Sherpa2211_Wjets_truth_pt_bin5:
     - Sh_2211_Wjets_cjets_emu
     - Sh_2211_Wjets_bjets_emu
     - Sh_2211_Wjets_light_emu
+    - Sh_2211_Wjets_tau
   subtract:
   lineColor: "ROOT.kBlue"
   legendLabel: "Sh2.2.11 W+jets (bin 5)"
@@ -557,6 +563,7 @@ Sherpa2211_Wjets_411MisMatched:
     - Sh_2211_Wjets_cjets_emu
     - Sh_2211_Wjets_bjets_emu
     - Sh_2211_Wjets_light_emu
+    - Sh_2211_Wjets_tau
   subtract:
   lineColor: "ROOT.kBlue"
   legendLabel: "Sh W+#it{D}(other)"
@@ -567,6 +574,7 @@ Sherpa2211_Wjets_421MisMatched:
     - Sh_2211_Wjets_cjets_emu
     - Sh_2211_Wjets_bjets_emu
     - Sh_2211_Wjets_light_emu
+    - Sh_2211_Wjets_tau
   subtract:
   lineColor: "ROOT.kBlue"
   legendLabel: "Sh W+#it{D}0/#it{D}*"
@@ -577,6 +585,7 @@ Sherpa2211_Wjets_431MisMatched:
     - Sh_2211_Wjets_cjets_emu
     - Sh_2211_Wjets_bjets_emu
     - Sh_2211_Wjets_light_emu
+    - Sh_2211_Wjets_tau
   subtract:
   lineColor: "ROOT.kBlue"
   legendLabel: "Sh W+#it{D}_{S}"
@@ -587,6 +596,7 @@ Sherpa2211_Wjets_BaryonMisMatched:
     - Sh_2211_Wjets_cjets_emu
     - Sh_2211_Wjets_bjets_emu
     - Sh_2211_Wjets_light_emu
+    - Sh_2211_Wjets_tau
   subtract:
   lineColor: "ROOT.kBlue"
   legendLabel: "Sh W+Baryon"
@@ -597,6 +607,7 @@ Sherpa2211_Wjets_CharmMisMatched:
     - Sh_2211_Wjets_cjets_emu
     - Sh_2211_Wjets_bjets_emu
     - Sh_2211_Wjets_light_emu
+    - Sh_2211_Wjets_tau
   subtract:
   lineColor: "ROOT.kBlue"
   legendLabel: "Sh W+Charm"

@@ -209,8 +209,9 @@ def process_channel(options, conf, c):
                             sys_hists = [mc_map_sys[group][syst][s] for syst in variations]
                             nominal_hist = mc_map[s]
                             gr_mc_sys_err, _ = utils.make_minmax_err(nominal_hist, sys_hists)
-                            h_up, _ = utils.sys_graph_to_hists(gr_mc_sys_err, nominal_hist, group)
+                            h_up, h_dn = utils.sys_graph_to_hists(gr_mc_sys_err, nominal_hist, group)
                             utils.save_histograms_to_trex_file(trex_folder, c, var, h_up, s, trex_histograms, f"{group}_up")
+                            utils.save_histograms_to_trex_file(trex_folder, c, var, h_dn, s, trex_histograms, f"{group}_dn")
                     else:
                         for s in mc_map:
                             if affecting and s.shortName not in affecting:
