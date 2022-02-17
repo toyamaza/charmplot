@@ -142,7 +142,7 @@ def main(options, conf, reader):
 
             # canvas
             yaxis_label = "Entries"
-            if not options.normalize:
+            if options.normalize:
                 yaxis_label = "Normalized Entries"
 
             # ratio range
