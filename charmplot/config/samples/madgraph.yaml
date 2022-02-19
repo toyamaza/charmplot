@@ -58,8 +58,26 @@ Wjets_bjets_emu:
   fillColor: "10001"
   legendLabel: "W#rightarrowl#nu + b"
 
-Wjets_cjets_emu:
+Wjets_FxFx_cjets_emu:
   add: MG_Wjets_cjets_emu
+  subtract:
+  fillColor: "10002"
+  legendLabel: "W#rightarrowl#nu + c"
+
+Wjets_FxFx_light_emu:
+  add: MG_FxFx_Wjets_light_emu
+  subtract:
+  fillColor: "10000"
+  legendLabel: "W#rightarrowl#nu + u"
+
+Wjets_FxFx_bjets_emu:
+  add: MG_FxFx_Wjets_bjets_emu
+  subtract:
+  fillColor: "10001"
+  legendLabel: "W#rightarrowl#nu + b"
+
+Wjets_cjets_emu:
+  add: MG_FxFx_Wjets_cjets_emu
   subtract:
   fillColor: "10002"
   legendLabel: "W#rightarrowl#nu + c"

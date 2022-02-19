@@ -1,0 +1,43 @@
+colorScheme: gemstone_hues
+
+variablesConf: inclusive_wjets
+
+samplesConf: madgraph
+
+data: Data
+
+systematics:
+  - experimental
+
+samples:
+  - Wjets_FxFx_light_emu
+  - Wjets_FxFx_bjets_emu
+  - Wjets_FxFx_cjets_emu
+  - Wjets_tau
+  - Zjets_emu
+  - Zjets_tau
+  - Diboson
+  - Top
+
+channels:
+  el:
+    regions:
+      - el_minus_SR_0tag
+      - el_plus_SR_0tag
+      - el_minus_SR_1tag
+      - el_plus_SR_1tag
+    label:
+      - "e^{#pm} inclusive"
+      - "MadGraph FxFx"
+    lumi: "2015+2016A-B+2016C-L+2017+2018"
+
+  mu:
+    regions:
+      - mu_minus_SR_0tag
+      - mu_plus_SR_0tag
+      - mu_minus_SR_1tag
+      - mu_plus_SR_1tag
+    label:
+      - "#mu^{#pm} inclusive"
+      - "MadGraph FxFx"
+    lumi: "2015+2016A-B+2016C-L+2017+2018"

@@ -109,7 +109,7 @@ def process_channel(options, conf, c):
     systematics = conf.get_systematics()
 
     # no sys if TREx import
-    if options.trex_input:
+    if options.trex_input or options.no_sys:
         systematics = None
 
     for v in variables:
@@ -179,8 +179,9 @@ def process_channel(options, conf, c):
         # save histograms to root file
         if c.save_to_file and not options.trex:
             utils.save_to_file(out_file_name, c, var, h_data, mc_map, h_mc_tot)
-            for group in systematics:
-                utils.save_to_file_sys(out_file_name, c, var, mc_map_sys[group], systematics[group]['variations'])
+            if systematics:
+                for group in systematics:
+                    utils.save_to_file_sys(out_file_name, c, var, mc_map_sys[group], systematics[group]['variations'])
 
         # continue if not make plots
         if not c.make_plots or not var.make_plots:
@@ -415,6 +416,7 @@ if __name__ == "__main__":
                       action="store", dest="threads",
                       help="number of threads",
                       default=8)
+    parser.add_option('--no-sys', action="store_true", dest="no_sys")
 
     # parse input arguments
     options, args = parser.parse_args()

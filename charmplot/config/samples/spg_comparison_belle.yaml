@@ -1,0 +1,65 @@
+colorScheme: gemstone_hues
+
+SPG_Matched:
+  add:
+    - SPG_Dminus
+  subtract:
+  lineColor: "ROOT.kRed"
+  legendLabel: "EvtGen 2010"
+  shortName: SPG_411MisMatched
+
+II_SPG_Matched:
+  add:
+    - II_SPG_Dminus
+  subtract:
+  lineColor: "ROOT.kBlue"
+  legendLabel: "Belle II"
+  shortName: II_SPG_411MisMatched
+
+SPG_411MisMatched:
+  add:
+    - SPG_Dminus
+  subtract:
+  lineColor: "ROOT.kRed"
+  legendLabel: "EvtGen 2010"
+  shortName: SPG_411MisMatched
+
+II_SPG_411MisMatched:
+  add:
+    - II_SPG_Dminus
+  subtract:
+  lineColor: "ROOT.kBlue"
+  legendLabel: "Belle II"
+  shortName: II_SPG_411MisMatched
+
+SPG_431MisMatched:
+  add:
+    - SPG_Dsminus
+  subtract:
+  lineColor: "ROOT.kRed"
+  legendLabel: "EvtGen 2010"
+  shortName: SPG_431MisMatched
+
+II_SPG_431MisMatched:
+  add:
+    - II_SPG_Dsminus
+  subtract:
+  lineColor: "ROOT.kBlue"
+  legendLabel: "Belle II"
+  shortName: II_SPG_431MisMatched
+
+SPG_421MisMatched:
+  add:
+    - SPG_D0_Dstar_bar
+  subtract:
+  lineColor: "ROOT.kRed"
+  legendLabel: "EvtGen 2010"
+  shortName: SPG_421MisMatched
+
+II_SPG_421MisMatched:
+  add:
+    - II_SPG_D0_Dstar_bar
+  subtract:
+  lineColor: "ROOT.kBlue"
+  legendLabel: "Belle II"
+  shortName: II_SPG_421MisMatched

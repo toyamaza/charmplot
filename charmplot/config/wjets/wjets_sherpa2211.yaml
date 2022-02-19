@@ -1,0 +1,39 @@
+colorScheme: gemstone_hues
+
+variablesConf: inclusive_wjets
+
+samplesConf: sherpa2211
+
+data: Data
+
+samples:
+  - Wjets_light_emu
+  - Wjets_bjets_emu
+  - Wjets_cjets_emu
+  - Wjets_tau
+  - Zjets
+  - Top
+  - Diboson
+
+channels:
+  2018_el:
+    regions:
+      - el_minus_SR_0tag
+      - el_plus_SR_0tag
+      - el_minus_SR_1tag
+      - el_plus_SR_1tag
+    label:
+      - "e^{#pm} inclusive"
+      - "Sherpa2.2.11"
+    lumi: "2015+2016A-B+2016C-L+2017+2018"
+
+  2018_mu:
+    regions:
+      - mu_minus_SR_0tag
+      - mu_plus_SR_0tag
+      - mu_minus_SR_1tag
+      - mu_plus_SR_1tag
+    label:
+      - "#mu^{#pm} inclusive"
+      - "Sherpa2.2.11"
+    lumi: "2015+2016A-B+2016C-L+2017+2018"
