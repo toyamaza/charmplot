@@ -1,0 +1,5 @@
+type: alt_sample
+affecting:
+  - Sherpa2211_Wjets_MisMatched
+variations:
+  - MG_Wjets_MisMatched

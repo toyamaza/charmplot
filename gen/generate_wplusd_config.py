@@ -123,8 +123,9 @@ def main(options):
             'wjets_theory',
             'wjets_theory_madgraph',
             'sherpa2211_theory_qcd_fit',
-            'sherpa2211_theory_as',
+            'sherpa2211_theory_as_fit',
             'sherpa2211_theory_pdf',
+            'wplusd_mismatch_alt_samples',
         ]
         if options.decay_mode == "Dstar":
             systematics += [
