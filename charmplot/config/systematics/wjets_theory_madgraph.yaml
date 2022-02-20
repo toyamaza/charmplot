@@ -9,3 +9,6 @@ variations:
   - WJETS_THEORY_ALPHA_S
   - WJETS_THEORY_PDF
   - WJETS_THEORY_QCD_SCALE
+  - DPLUS_BKG_BR_Dplus
+  - DPLUS_BKG_BR_Dsubs
+  - DPLUS_BKG_BR_Dzero
