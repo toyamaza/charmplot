@@ -207,7 +207,7 @@ def main(options, args):
             # if "Kpipi" in c:
             #     for s in h_pt_truth:
             #         if "WplusD" in s:
-            #             h_pt_truth_tmp[s].Scale(0.096)
+            #             h_pt_truth_tmp[s].Scale(0.094)
 
             # calculate fiducial efficiency per bin
             h_fid_eff[s] = ROOT.TH2D(f"{s}_{c}_fid_eff", f"{s}_{c}_fid_eff", nbins + 1, xbins, nbins + 1, xbins)
