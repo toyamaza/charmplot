@@ -116,6 +116,7 @@ def main(options):
         systematics = [
             'experimental',
             'matrix_method',
+            'theory_prod_frac',
             'ttbar_theory_alt_samples',
             'ttbar_theory_choice',
             'ttbar_theory_pdf',

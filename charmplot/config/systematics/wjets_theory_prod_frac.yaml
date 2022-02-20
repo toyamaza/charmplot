@@ -1,6 +1,0 @@
-type: updown
-variations:
-  # - PROD_FRAC_EIG_1
-  # - PROD_FRAC_EIG_2
-  # - PROD_FRAC_EIG_3
-  - PROD_FRAC_NOWEIGHT
