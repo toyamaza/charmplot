@@ -17,14 +17,14 @@ def main(options, args):
         "SS_mu_plus_1tag_Dplus_Dmeson_m_fit",
     ]
     dstar_histo_list = [
-        "SS_el_minus_0tag_Dstar_Dmeson_mdiff",
-        "SS_el_minus_1tag_Dstar_Dmeson_mdiff",
-        "SS_el_plus_0tag_Dstar_Dmeson_mdiff",
-        "SS_el_plus_1tag_Dstar_Dmeson_mdiff",
-        "SS_mu_minus_0tag_Dstar_Dmeson_mdiff",
-        "SS_mu_minus_1tag_Dstar_Dmeson_mdiff",
-        "SS_mu_plus_0tag_Dstar_Dmeson_mdiff",
-        "SS_mu_plus_1tag_Dstar_Dmeson_mdiff",
+        "SS_el_minus_0tag_Dstar_Dmeson_mdiff_fit",
+        "SS_el_minus_1tag_Dstar_Dmeson_mdiff_fit",
+        "SS_el_plus_0tag_Dstar_Dmeson_mdiff_fit",
+        "SS_el_plus_1tag_Dstar_Dmeson_mdiff_fit",
+        "SS_mu_minus_0tag_Dstar_Dmeson_mdiff_fit",
+        "SS_mu_minus_1tag_Dstar_Dmeson_mdiff_fit",
+        "SS_mu_plus_0tag_Dstar_Dmeson_mdiff_fit",
+        "SS_mu_plus_1tag_Dstar_Dmeson_mdiff_fit",
     ]
 
     pt_bin = ["pt_bin1", "pt_bin2", "pt_bin3", "pt_bin4", "pt_bin5"]
@@ -41,14 +41,15 @@ def main(options, args):
         mc_list += ["MC_TOT_" + x for x in dstar_histo_list]
 
     # Create histogram names with pt bins included and add to data and mc list
-    if (options.decay_mode == "Dplus"):
-        for bin in pt_bin:
-            data_list += ["Data_" + x.split("Dmeson")[0] + bin + x.split("Dplus")[-1] for x in dplus_histo_list]
-            mc_list += ["MC_TOT_" + x.split("Dmeson")[0] + bin + x.split("Dplus")[-1] for x in dplus_histo_list]
-    else:
-        for bin in pt_bin:
-            data_list += ["Data_" + x.split("Dmeson")[0] + bin + x.split("Dstar")[-1] for x in dstar_histo_list]
-            mc_list += ["MC_TOT_" + x.split("Dmeson")[0] + bin + x.split("Dstar")[-1] for x in dstar_histo_list]
+    if (options.differential_bins):
+        if (options.decay_mode == "Dplus"):
+            for bin in pt_bin:
+                data_list += ["Data_" + x.split("Dmeson")[0] + bin + x.split("Dplus")[-1] for x in dplus_histo_list]
+                mc_list += ["MC_TOT_" + x.split("Dmeson")[0] + bin + x.split("Dplus")[-1] for x in dplus_histo_list]
+        else:
+            for bin in pt_bin:
+                data_list += ["Data_" + x.split("Dmeson")[0] + bin + x.split("Dstar")[-1] for x in dstar_histo_list]
+                mc_list += ["MC_TOT_" + x.split("Dmeson")[0] + bin + x.split("Dstar")[-1] for x in dstar_histo_list]
 
     # input file
     f = ROOT.TFile(options.input, "READ")
@@ -59,6 +60,9 @@ def main(options, args):
 
     # loop
     for data, mc in zip(data_list, mc_list):
+
+        print(f"data = {data}")
+        print(f"mc = {mc}")
 
         # Get the histogram
         f.cd()
@@ -150,6 +154,9 @@ if __name__ == "__main__":
     parser.add_option('-d', '--decay',
                       action="store", dest="decay_mode",
                       help="Decay Mode, ie. Dplus, Dstar")
+    parser.add_option('--differential-bins',
+                      action="store_true", dest="differential_bins",
+                      default=False)
 
     # parse input arguments
     options, args = parser.parse_args()

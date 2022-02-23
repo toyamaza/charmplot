@@ -20,24 +20,18 @@ if not os.path.isdir("fits_bkg"):
 
 # histogram names
 names = [
-    "Wjets_emu_Rest_PostProc_OS_0tag_Dstar_Wjets_emu_Rest_Dmeson_mdiff",
-    "Wjets_emu_Rest_PostProc_OS_0tag_Dstar_Wjets_emu_Rest_pt_bin1_Dmeson_mdiff",
-    "Wjets_emu_Rest_PostProc_OS_0tag_Dstar_Wjets_emu_Rest_pt_bin2_Dmeson_mdiff",
-    "Wjets_emu_Rest_PostProc_OS_0tag_Dstar_Wjets_emu_Rest_pt_bin3_Dmeson_mdiff",
-    "Wjets_emu_Rest_PostProc_OS_0tag_Dstar_Wjets_emu_Rest_pt_bin4_Dmeson_mdiff",
-    "Wjets_emu_Rest_PostProc_OS_0tag_Dstar_Wjets_emu_Rest_pt_bin5_Dmeson_mdiff",
-    "Wjets_emu_Rest_PostProc_Loose_OS_0tag_Dstar_Wjets_emu_Rest_Dmeson_mdiff",
-    "Wjets_emu_Rest_PostProc_Loose_OS_0tag_Dstar_Wjets_emu_Rest_pt_bin1_Dmeson_mdiff",
-    "Wjets_emu_Rest_PostProc_Loose_OS_0tag_Dstar_Wjets_emu_Rest_pt_bin2_Dmeson_mdiff",
-    "Wjets_emu_Rest_PostProc_Loose_OS_0tag_Dstar_Wjets_emu_Rest_pt_bin3_Dmeson_mdiff",
-    "Wjets_emu_Rest_PostProc_Loose_OS_0tag_Dstar_Wjets_emu_Rest_pt_bin4_Dmeson_mdiff",
-    "Wjets_emu_Rest_PostProc_Loose_OS_0tag_Dstar_Wjets_emu_Rest_pt_bin5_Dmeson_mdiff",
-    # "Sherpa_Wjets_emu_Rest_PostProc_OS_0tag_Dstar_Wjets_emu_Rest_Dmeson_mdiff",
-    # "Sherpa_Wjets_emu_Rest_PostProc_OS_0tag_Dstar_Wjets_emu_Rest_pt_bin1_Dmeson_mdiff",
-    # "Sherpa_Wjets_emu_Rest_PostProc_OS_0tag_Dstar_Wjets_emu_Rest_pt_bin2_Dmeson_mdiff",
-    # "Sherpa_Wjets_emu_Rest_PostProc_OS_0tag_Dstar_Wjets_emu_Rest_pt_bin3_Dmeson_mdiff",
-    # "Sherpa_Wjets_emu_Rest_PostProc_OS_0tag_Dstar_Wjets_emu_Rest_pt_bin4_Dmeson_mdiff",
-    # "Sherpa_Wjets_emu_Rest_PostProc_OS_0tag_Dstar_Wjets_emu_Rest_pt_bin5_Dmeson_mdiff",
+    "MG_Wjets_Rest_PostProc_OS_0tag_Dstar_Rest_Dmeson_mdiff",
+    "MG_Wjets_Rest_PostProc_OS_0tag_Dstar_Rest_pt_bin1_Dmeson_mdiff",
+    "MG_Wjets_Rest_PostProc_OS_0tag_Dstar_Rest_pt_bin2_Dmeson_mdiff",
+    "MG_Wjets_Rest_PostProc_OS_0tag_Dstar_Rest_pt_bin3_Dmeson_mdiff",
+    "MG_Wjets_Rest_PostProc_OS_0tag_Dstar_Rest_pt_bin4_Dmeson_mdiff",
+    "MG_Wjets_Rest_PostProc_OS_0tag_Dstar_Rest_pt_bin5_Dmeson_mdiff",
+    "Sherpa2211_Wjets_Rest_PostProc_OS_0tag_Dstar_Rest_Dmeson_mdiff",
+    "Sherpa2211_Wjets_Rest_PostProc_OS_0tag_Dstar_Rest_pt_bin1_Dmeson_mdiff",
+    "Sherpa2211_Wjets_Rest_PostProc_OS_0tag_Dstar_Rest_pt_bin2_Dmeson_mdiff",
+    "Sherpa2211_Wjets_Rest_PostProc_OS_0tag_Dstar_Rest_pt_bin3_Dmeson_mdiff",
+    "Sherpa2211_Wjets_Rest_PostProc_OS_0tag_Dstar_Rest_pt_bin4_Dmeson_mdiff",
+    "Sherpa2211_Wjets_Rest_PostProc_OS_0tag_Dstar_Rest_pt_bin5_Dmeson_mdiff",
     # "Powheg_Wjets_emu_Rest_PostProc_OS_0tag_Dstar_Wjets_emu_Rest_Dmeson_mdiff",
     # "Powheg_Wjets_emu_Rest_PostProc_OS_0tag_Dstar_Wjets_emu_Rest_pt_bin1_Dmeson_mdiff",
     # "Powheg_Wjets_emu_Rest_PostProc_OS_0tag_Dstar_Wjets_emu_Rest_pt_bin2_Dmeson_mdiff",
@@ -54,9 +48,9 @@ def main(options, args):
 
     # output file
     out = ROOT.TFile("fits_bkg/Dstar_mass_fit_bkg.root", "RECREATE")
-    out_gen = ROOT.TFile("wjets_bkg_fit.root", "RECREATE")
-    out_var = ROOT.TFile("wjets_bkg_fit_var.root", "RECREATE")
-    out_sherpa = ROOT.TFile("sherpa_wjets_bkg_fit.root", "RECREATE")
+    out_sherpa = ROOT.TFile("sherpa2211_wjets_bkg_fit.root", "RECREATE")
+    out_var = ROOT.TFile("sherpa2211_wjets_bkg_fit_var.root", "RECREATE")
+    out_mg = ROOT.TFile("mg_wjets_bkg_fit.root", "RECREATE")
     out_powheg = ROOT.TFile("powheg_wjets_bkg_fit.root", "RECREATE")
 
     # Create pdf
@@ -71,41 +65,29 @@ def main(options, args):
         # print
         print(f"\n\nXXX {name} XXX\n\n")
 
-        # Get pt bin
-        if re.search("pt_bin", name):
-            pt_bin = (name.split("_Dmeson")[0]).split("Rest_")[-1]
-        else:
-            pt_bin = ''
+        ptbin = ""
+        mc_string = "Sherpa2211"
+        sherpa = True
+        mg = False
+        powheg = False
+        loose = False
 
         # Get pt bin
-        if re.search("pt_bin", name):
-            pt_bin = (name.split("_Dmeson")[0]).split("Rest_")[-1]
-        else:
-            pt_bin = ''
+        if "pt_bin" in name:
+            ptbin = re.findall("pt_bin[1-5]", name)[0]
 
-        # Get pt bin
-        if re.search("pt_bin", name):
-            pt_bin = (name.split("_Dmeson")[0]).split("Rest_")[-1]
-        else:
-            pt_bin = ''
-
-        # Get Sherpa or Madgraph
-        if re.search("Sherpa", name):
-            sherpa = True
-            powheg = False
-            mc_string = "Sherpa_"
-        elif re.search("Powheg", name):
+        # Get Sherpa, MG, Powheg
+        if "MG" in name:
+            sherpa = False
+            mg = True
+            mc_string = "MG"
+        if "Powheg" in name:
+            sherpa = False
             powheg = True
-            sherpa = False
-            mc_string = "Powheg_"
-        else:
-            sherpa = False
-            powheg = False
+            mc_string = "Powheg"
 
-        if re.search("Loose", name):
+        if "Loose" in name:
             loose = True
-        else:
-            loose = False
 
         # Get the histogram
         f.cd()
@@ -157,7 +139,7 @@ def main(options, args):
         frame.Draw()
         frame.SetMaximum(1.5 * h.GetMaximum())
 
-        # pint text
+        # print text
         ROOT.ATLASLabel(0.17, 0.90, "Internal", 1)
         ROOT.myText(0.17, 0.9 - 1 * 0.06, 1, "#sqrt{s} = 13 TeV")
         ROOT.myText(0.17, 0.9 - 2 * 0.06, 1, "D*#rightarrowK#pi#pi")
@@ -181,9 +163,9 @@ def main(options, args):
         out.cd()
         h_out.Write()
 
-        if pt_bin:
-            c.Print(f"fits_bkg/{name}_{pt_bin}.pdf")
-            c.Print(f"fits_bkg/{name}_{pt_bin}.png")
+        if ptbin:
+            c.Print(f"fits_bkg/{name}_{ptbin}.pdf")
+            c.Print(f"fits_bkg/{name}_{ptbin}.png")
         else:
             c.Print(f"fits_bkg/{name}.pdf")
             c.Print(f"fits_bkg/{name}.png")
@@ -257,33 +239,28 @@ def main(options, args):
         ROOT.myText(0.17, 0.9 - 4 * 0.06, 1, (name.split("_Dmeson_mdiff")[0]).split("Dstar_")[-1])
         if sherpa:
             out_sherpa.cd()
-        elif powheg:
+        if powheg:
             out_powheg.cd()
-        else:
-            out_gen.cd()
+        if mg:
+            out_mg.cd()
 
-        if sherpa or powheg:
-            if pt_bin:
-                h_gen.Write(f"{mc_string}Wjets_emu_Rest_Fit_{pt_bin}__Dmeson_mdiff")
+        if loose:
+            if ptbin:
+                h_gen.Write(f"{mc_string}_Wjets_Rest_Fit_Loose_{ptbin}__Dmeson_mdiff")
             else:
-                h_gen.Write(f"{mc_string}Wjets_emu_Rest_Fit__Dmeson_mdiff")
-        elif loose:
-            if pt_bin:
-                h_gen.Write(f"Wjets_emu_Rest_Fit_Loose_{pt_bin}__Dmeson_mdiff")
-            else:
-                h_gen.Write("Wjets_emu_Rest_Fit_Loose__Dmeson_mdiff")
+                h_gen.Write(f"{mc_string}_Wjets_Rest_Fit_Loose__Dmeson_mdiff")
         else:
-            if pt_bin:
-                h_gen.Write(f"Wjets_emu_Rest_Fit_{pt_bin}__Dmeson_mdiff")
+            if ptbin:
+                h_gen.Write(f"{mc_string}_Wjets_Rest_Fit_{ptbin}__Dmeson_mdiff")
             else:
-                h_gen.Write("Wjets_emu_Rest_Fit__Dmeson_mdiff")
+                h_gen.Write(f"{mc_string}_Wjets_Rest_Fit__Dmeson_mdiff")
 
-        if pt_bin:
-            c_gen.Print(f"fits_bkg/{name}_{pt_bin}_gen.pdf")
-            c_gen.Print(f"fits_bkg/{name}_{pt_bin}_gen.png")
+        if ptbin:
+            c_gen.Print(f"fits_bkg/{name}_{ptbin}_gen.pdf")
+            c_gen.Print(f"fits_bkg/{name}_{ptbin}_gen.png")
         else:
-            c_gen.Print(f"fits_bkg/{name}_{pt_bin}_gen.pdf")
-            c_gen.Print(f"fits_bkg/{name}_{pt_bin}_gen.png")
+            c_gen.Print(f"fits_bkg/{name}_{ptbin}_gen.pdf")
+            c_gen.Print(f"fits_bkg/{name}_{ptbin}_gen.png")
 
         # Plot upward variation
         c_var_up = ROOT.TCanvas(name + '_1up', name + '_1up', 1000, 1000)
@@ -295,26 +272,21 @@ def main(options, args):
         ROOT.myText(0.17, 0.9 - 3 * 0.06, 1, (name.split("_Wjets")[0]).split("PostProc_")[-1])
         ROOT.myText(0.17, 0.9 - 4 * 0.06, 1, (name.split("_Dmeson_mdiff")[0]).split("Dstar_")[-1])
         out_var.cd()
-        if sherpa or powheg:
-            if pt_bin:
-                h_var_up.Write(f"{mc_string}Wjets_emu_Rest_Fit_{pt_bin}__Dmeson_mdiff")
-            else:
-                h_var_up.Write(f"{mc_string}Wjets_emu_Rest_Fit__Dmeson_mdiff")
-        elif not loose:
-            if pt_bin:
-                h_var_up.Write(f"Wjets_emu_Rest_Fit_{pt_bin}__Dmeson_mdiff")
-            else:
-                h_var_up.Write("Wjets_emu_Rest_Fit__Dmeson_mdiff")
 
-        if pt_bin:
-            c_var_up.Print(f"fits_bkg/{name}_{pt_bin}_1up.pdf")
-            c_var_up.Print(f"fits_bkg/{name}_{pt_bin}_1up.png")
+        if ptbin:
+            h_var_up.Write(f"{mc_string}_Wjets_Rest_Fit_{ptbin}__Dmeson_mdiff")
         else:
-            c_var_up.Print(f"fits_bkg/{name}_{pt_bin}_1up.pdf")
-            c_var_up.Print(f"fits_bkg/{name}_{pt_bin}_1up.png")
+            h_var_up.Write(f"{mc_string}_Wjets_Rest_Fit__Dmeson_mdiff")
+
+        if ptbin:
+            c_var_up.Print(f"fits_bkg/{name}_{ptbin}_1up.pdf")
+            c_var_up.Print(f"fits_bkg/{name}_{ptbin}_1up.png")
+        else:
+            c_var_up.Print(f"fits_bkg/{name}_{ptbin}_1up.pdf")
+            c_var_up.Print(f"fits_bkg/{name}_{ptbin}_1up.png")
 
     out_var.Close()
-    out_gen.Close()
+    out_mg.Close()
     out_sherpa.Close()
     out_powheg.Close()
     out.Close()

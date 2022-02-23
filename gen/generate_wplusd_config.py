@@ -90,16 +90,17 @@ def main(options):
     if options.replacement_samples:
         if options.truth_differential_bins:
             replacement_samples = {
-                'MG_Wjets_Matched_truth_pt_bin1': '<charge>_Replacement_Matched_truth_pt_bin1',
-                'MG_Wjets_Matched_truth_pt_bin2': '<charge>_Replacement_Matched_truth_pt_bin2',
-                'MG_Wjets_Matched_truth_pt_bin3': '<charge>_Replacement_Matched_truth_pt_bin3',
-                'MG_Wjets_Matched_truth_pt_bin4': '<charge>_Replacement_Matched_truth_pt_bin4',
-                'MG_Wjets_Matched_truth_pt_bin5': '<charge>_Replacement_Matched_truth_pt_bin5',
+                'Sherpa2211_WplusD_Matched_truth_pt_bin1': '<charge>_Replacement_Matched_truth_pt_bin1',
+                'Sherpa2211_WplusD_Matched_truth_pt_bin2': '<charge>_Replacement_Matched_truth_pt_bin2',
+                'Sherpa2211_WplusD_Matched_truth_pt_bin3': '<charge>_Replacement_Matched_truth_pt_bin3',
+                'Sherpa2211_WplusD_Matched_truth_pt_bin4': '<charge>_Replacement_Matched_truth_pt_bin4',
+                'Sherpa2211_WplusD_Matched_truth_pt_bin5': '<charge>_Replacement_Matched_truth_pt_bin5',
             }
         else:
-            replacement_samples = {'MG_Wjets_Matched': '<charge>_Replacement_Matched'}
+            replacement_samples = {'Sherpa2211_WplusD_Matched': '<charge>_Replacement_Matched'}
         replacement_samples.update({
             'MG_Wjets_Charm': '<charge>_Replacement_CharmMisMatched',
+            'Sherpa2211_Wjets_Charm': '<charge>_Replacement_CharmMisMatched',
             'MG_Wjets_MisMatched': '<charge>_Replacement_MisMatched',
             'MG_Wjets_Rest': '<charge>_Replacement_Rest',
             'Sherpa2211_Wjets_MisMatched': '<charge>_Replacement_MisMatched',
@@ -126,17 +127,13 @@ def main(options):
             'sherpa2211_theory_qcd_fit',
             'sherpa2211_theory_as_fit',
             'sherpa2211_theory_pdf',
-            'wplusd_mismatch_alt_samples',
+            'wjets_bkg_alt_samples',
+            'wjets_mismatch_alt_samples',
         ]
         if options.decay_mode == "Dstar":
             systematics += [
-                'wjets_bkg_alt_samples',
                 'wjets_bkg_alt_samples_1tag',
                 'wjets_bkg_fit',
-            ]
-        else:
-            systematics += [
-                'wjets_bkg_alt_samples',
             ]
 
     if options.sys_configs:
