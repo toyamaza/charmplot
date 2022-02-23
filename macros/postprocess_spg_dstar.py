@@ -93,14 +93,18 @@ def main(options, args):
                     scale_var = "Dmeson_mdiff"
 
                 # print out
-                print(obj_name, pt_bin, charge, flavor)
+                print(name, obj_name, pt_bin, charge, flavor)
+
+                if (flavor == "Baryon" and pt_bin == 5):
+                    sf = 0.0
+                    continue
 
                 # scale factors
                 sf = 1.0
                 if options.scale_factors:
                     print(f"Getting scale-factors for {flavor}_{charge} in pt_bin{pt_bin}")
-                    name_spg = f"SPG_{name_map[flavor]}_{charge}_{decay_mode}_{name_map[flavor]}_pt_bin{pt_bin}_{scale_var}"
-                    name_mg = f"Wjets_emu_{name_map[flavor]}_{charge}_{decay_mode}_{name_map[flavor]}_pt_bin{pt_bin}_{scale_var}"
+                    name_spg = f"SPG_{name_map[flavor]}_{charge}_0tag_{decay_mode}_{name_map[flavor]}_pt_bin{pt_bin}_{scale_var}"
+                    name_mg = f"MG_Wjets_{name_map[flavor]}_{charge}_0tag_{decay_mode}_{name_map[flavor]}_pt_bin{pt_bin}_{scale_var}"
                     h_mg = f_scale_factors.Get(name_mg)
                     h_spg = f_scale_factors.Get(name_spg)
                     if not (h_spg and h_mg):

@@ -36,6 +36,12 @@ def main(options, args):
         # },
     }
 
+    if (options.decay_mode == "Dstar"):
+        backgrounds["Other"] = {
+            "inputs": ["Diboson", "MG_Zjets_light_emu", "MG_Zjets_cjets_emu", "MG_Zjets_bjets_emu", "MG_Zjets_tau"],
+            "regions": [""],
+        }
+
     # multijet
     # matrix_method = {}
 
