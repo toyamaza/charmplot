@@ -9,6 +9,7 @@ affecting:
   - Sherpa2211_WplusD_Matched_truth_pt_bin3
   - Sherpa2211_WplusD_Matched_truth_pt_bin4
   - Sherpa2211_WplusD_Matched_truth_pt_bin5
+  - Sherpa2211_Wjets_Charm
   - Sherpa2211_Wjets_MisMatched
   - Sherpa2211_Wjets_Rest
 variations:
