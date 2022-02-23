@@ -235,6 +235,21 @@ MG_Wjets_Charm:
   legendLabel: "W+c^{match}"
   shortName: MG_Wjets_Charm
 
+# ---------------------------------------------
+# NLO MadGraph
+# ---------------------------------------------
+MGPy8EG_NLO_WplusD_Matched:
+  add:
+    - MG_NLO_WplusD
+  subtract:
+  fillColor: "10004"
+  legendLabel: "W+#it{D}(#it{K}#pi#pi)"
+  shortName: MGPy8EG_NLO_WplusD_Matched
+  scaleMC: 0.094
+
+# ---------------------------------------------
+# Other
+# ---------------------------------------------
 Top_Matched:
   add:
     - Top_ttbar
