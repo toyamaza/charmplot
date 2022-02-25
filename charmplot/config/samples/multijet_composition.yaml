@@ -1,12 +1,5 @@
 colorScheme: gemstone_hues
 
-Multijet:
-  add: mj
-  subtract:
-  lineColor: "14003"
-  legendLabel: "Multijet MC"
-  shortName: Multijet
-
 Multijet_MatrixMethod:
   add: data
   subtract:

@@ -146,7 +146,7 @@ def main(options, conf, reader):
                 yaxis_label = "Normalized Entries"
 
             # ratio range
-            ratio_range = [max(0.01, 1.01 - float(options.ratio_range) / 100.), 0.99 + float(options.ratio_range) / 100.]
+            ratio_range = [1.01 - float(options.ratio_range) / 100., 0.99 + float(options.ratio_range) / 100.]
             canv = utils.make_canvas_mc_ratio(mc_map[samples[0]], var, c, ratio_title=options.ratio_title, x=800, y=800,
                                               events=yaxis_label, ratio_range=ratio_range, y_split=float(options.y_split),
                                               bottom_margin=float(options.bottom_margin))

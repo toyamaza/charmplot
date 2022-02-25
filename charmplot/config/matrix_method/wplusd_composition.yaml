@@ -1,0 +1,168 @@
+samplesConf: multijet_composition
+variablesConf: charmed_wjets
+systematics:
+  - matrix_method
+
+channels:
+  # Signal Region
+  OS_lep_0tag_Dplus:
+    label:
+    - W#rightarrowl#nu+D, D#rightarrowK#pi#pi, OS
+    - W^{#pm} channel, 0tag
+    lumi: 2015+2016A-B+2016C-L+2017+2018
+    regions:
+    - el_minus_SR_0tag_Dplus_OS
+    - el_plus_SR_0tag_Dplus_OS
+    - mu_minus_SR_0tag_Dplus_OS
+    - mu_plus_SR_0tag_Dplus_OS
+    samples:
+    - Multijet_MatrixMethod_AntiTight | OS_lep_0tag_Dplus_MatrixMethod_AntiTight
+    - Multijet_MatrixMethod_Tight | OS_lep_0tag_Dplus_MatrixMethod_Tight
+    - Multijet_MatrixMethod | OS_lep_0tag_Dplus_MatrixMethod
+    save_to_file: true
+
+  SS_lep_0tag_Dplus:
+    label:
+    - W#rightarrowl#nu+D, D#rightarrowK#pi#pi, SS
+    - W^{#pm} channel, 0tag
+    lumi: 2015+2016A-B+2016C-L+2017+2018
+    regions:
+    - el_minus_SR_0tag_Dplus_SS
+    - el_plus_SR_0tag_Dplus_SS
+    - mu_minus_SR_0tag_Dplus_SS
+    - mu_plus_SR_0tag_Dplus_SS
+    samples:
+    - Multijet_MatrixMethod_AntiTight | SS_lep_0tag_Dplus_MatrixMethod_AntiTight
+    - Multijet_MatrixMethod_Tight | SS_lep_0tag_Dplus_MatrixMethod_Tight
+    - Multijet_MatrixMethod | SS_lep_0tag_Dplus_MatrixMethod
+    save_to_file: true
+
+  OS-SS_lep_0tag_Dplus:
+    label:
+    - W#rightarrowl#nu+D, D#rightarrowK#pi#pi, OS-SS
+    - W^{#pm} channel, 0tag
+    lumi: 2015+2016A-B+2016C-L+2017+2018
+    regions:
+    - el_minus_SR_0tag_Dplus_OS
+    - el_plus_SR_0tag_Dplus_OS
+    - mu_minus_SR_0tag_Dplus_OS
+    - mu_plus_SR_0tag_Dplus_OS
+    - -el_minus_SR_0tag_Dplus_SS
+    - -el_plus_SR_0tag_Dplus_SS
+    - -mu_minus_SR_0tag_Dplus_SS
+    - -mu_plus_SR_0tag_Dplus_SS
+    samples:
+    - Multijet_MatrixMethod_AntiTight | OS-SS_lep_0tag_Dplus_MatrixMethod_AntiTight
+    - Multijet_MatrixMethod_Tight | OS-SS_lep_0tag_Dplus_MatrixMethod_Tight
+    - Multijet_MatrixMethod | OS-SS_lep_0tag_Dplus_MatrixMethod
+    save_to_file: true
+
+  # Matrix Method
+  OS_lep_0tag_Dplus_MatrixMethod:
+    make_plots: false
+    regions:
+    - AntiTight_el_minus_SR_0tag_Dplus_OS
+    - AntiTight_el_plus_SR_0tag_Dplus_OS
+    - AntiTight_mu_minus_SR_0tag_Dplus_OS
+    - AntiTight_mu_plus_SR_0tag_Dplus_OS
+    - -Tight_el_minus_SR_0tag_Dplus_OS
+    - -Tight_el_plus_SR_0tag_Dplus_OS
+    - -Tight_mu_minus_SR_0tag_Dplus_OS
+    - -Tight_mu_plus_SR_0tag_Dplus_OS
+    save_to_file: false
+
+  OS_lep_0tag_Dplus_MatrixMethod_Tight:
+    make_plots: false
+    regions:
+    - Tight_el_minus_SR_0tag_Dplus_OS
+    - Tight_el_plus_SR_0tag_Dplus_OS
+    - Tight_mu_minus_SR_0tag_Dplus_OS
+    - Tight_mu_plus_SR_0tag_Dplus_OS
+    save_to_file: false
+
+  OS_lep_0tag_Dplus_MatrixMethod_AntiTight:
+    make_plots: false
+    regions:
+    - AntiTight_el_minus_SR_0tag_Dplus_OS
+    - AntiTight_el_plus_SR_0tag_Dplus_OS
+    - AntiTight_mu_minus_SR_0tag_Dplus_OS
+    - AntiTight_mu_plus_SR_0tag_Dplus_OS
+    save_to_file: false
+
+  SS_lep_0tag_Dplus_MatrixMethod:
+    make_plots: false
+    regions:
+    - AntiTight_el_minus_SR_0tag_Dplus_SS
+    - AntiTight_el_plus_SR_0tag_Dplus_SS
+    - AntiTight_mu_minus_SR_0tag_Dplus_SS
+    - AntiTight_mu_plus_SR_0tag_Dplus_SS
+    - -Tight_el_minus_SR_0tag_Dplus_SS
+    - -Tight_el_plus_SR_0tag_Dplus_SS
+    - -Tight_mu_minus_SR_0tag_Dplus_SS
+    - -Tight_mu_plus_SR_0tag_Dplus_SS
+    save_to_file: false
+
+  SS_lep_0tag_Dplus_MatrixMethod_Tight:
+    make_plots: false
+    regions:
+    - Tight_el_minus_SR_0tag_Dplus_SS
+    - Tight_el_plus_SR_0tag_Dplus_SS
+    - Tight_mu_minus_SR_0tag_Dplus_SS
+    - Tight_mu_plus_SR_0tag_Dplus_SS
+    save_to_file: false
+
+  SS_lep_0tag_Dplus_MatrixMethod_AntiTight:
+    make_plots: false
+    regions:
+    - AntiTight_el_minus_SR_0tag_Dplus_SS
+    - AntiTight_el_plus_SR_0tag_Dplus_SS
+    - AntiTight_mu_minus_SR_0tag_Dplus_SS
+    - AntiTight_mu_plus_SR_0tag_Dplus_SS
+    save_to_file: false
+
+  OS-SS_lep_0tag_Dplus_MatrixMethod:
+    make_plots: false
+    regions:
+    - AntiTight_el_minus_SR_0tag_Dplus_OS
+    - AntiTight_el_plus_SR_0tag_Dplus_OS
+    - AntiTight_mu_minus_SR_0tag_Dplus_OS
+    - AntiTight_mu_plus_SR_0tag_Dplus_OS
+    - -Tight_el_minus_SR_0tag_Dplus_OS
+    - -Tight_el_plus_SR_0tag_Dplus_OS
+    - -Tight_mu_minus_SR_0tag_Dplus_OS
+    - -Tight_mu_plus_SR_0tag_Dplus_OS
+    - -AntiTight_el_minus_SR_0tag_Dplus_SS
+    - -AntiTight_el_plus_SR_0tag_Dplus_SS
+    - -AntiTight_mu_minus_SR_0tag_Dplus_SS
+    - -AntiTight_mu_plus_SR_0tag_Dplus_SS
+    - Tight_el_minus_SR_0tag_Dplus_SS
+    - Tight_el_plus_SR_0tag_Dplus_SS
+    - Tight_mu_minus_SR_0tag_Dplus_SS
+    - Tight_mu_plus_SR_0tag_Dplus_SS
+    save_to_file: false
+
+  OS-SS_lep_0tag_Dplus_MatrixMethod_Tight:
+    make_plots: false
+    regions:
+    - Tight_el_minus_SR_0tag_Dplus_OS
+    - Tight_el_plus_SR_0tag_Dplus_OS
+    - Tight_mu_minus_SR_0tag_Dplus_OS
+    - Tight_mu_plus_SR_0tag_Dplus_OS
+    - -Tight_el_minus_SR_0tag_Dplus_SS
+    - -Tight_el_plus_SR_0tag_Dplus_SS
+    - -Tight_mu_minus_SR_0tag_Dplus_SS
+    - -Tight_mu_plus_SR_0tag_Dplus_SS
+    save_to_file: false
+
+  OS-SS_lep_0tag_Dplus_MatrixMethod_AntiTight:
+    make_plots: false
+    regions:
+    - AntiTight_el_minus_SR_0tag_Dplus_OS
+    - AntiTight_el_plus_SR_0tag_Dplus_OS
+    - AntiTight_mu_minus_SR_0tag_Dplus_OS
+    - AntiTight_mu_plus_SR_0tag_Dplus_OS
+    - -AntiTight_el_minus_SR_0tag_Dplus_SS
+    - -AntiTight_el_plus_SR_0tag_Dplus_SS
+    - -AntiTight_mu_minus_SR_0tag_Dplus_SS
+    - -AntiTight_mu_plus_SR_0tag_Dplus_SS
+    save_to_file: false
