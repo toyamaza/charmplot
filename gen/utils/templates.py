@@ -91,13 +91,14 @@ class WDTruthSamples(ChannelTemplate):
 
         if self.decayMode == "Dstar":
             self.samples += [['Sherpa2211_Wjets_Charm', proxies.GenericChannel(region=["411MisMatched", "413MisMatched", "421MisMatched", "431MisMatched", "BaryonMisMatched", "MG_Wjets_Charm"], name="MatchedCharm")]]
+            self.samples += [['MG_Wjets_Rest', proxies.GenericChannel(name="Rest", os_ss_sub=self.os_ss_sub, region=["Other", "HardMisMatched"])]]
         else:
             self.samples += [['MG_Wjets_Charm', proxies.GenericChannel(region=["411MisMatched", "413MisMatched", "421MisMatched", "431MisMatched", "BaryonMisMatched", "MG_Wjets_Charm"], name="MatchedCharm")]]
+            self.samples += [['Sherpa2211_Wjets_Rest', proxies.GenericChannel(name="Rest", os_ss_sub=self.os_ss_sub, region=["Other", "HardMisMatched"])]]
 
         # backgrdound from other than the signal decay modes
         self.samples += [
             ['Sherpa2211_Wjets_MisMatched', proxies.GenericChannel(name="MisMatched", os_ss_sub=self.os_ss_sub, region=["MisMatched", "MatchedNoFid"])],
-            ['Sherpa2211_Wjets_Rest', proxies.GenericChannel(name="Rest", os_ss_sub=self.os_ss_sub, region=["Other", "HardMisMatched"])],
             ['Top', proxies.PlainChannel(os_ss_sub=self.os_ss_sub)],
             ['DibosonZjets', proxies.PlainChannel(os_ss_sub=self.os_ss_sub)],
         ]
