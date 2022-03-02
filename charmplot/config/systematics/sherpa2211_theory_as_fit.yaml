@@ -11,6 +11,7 @@ affecting:
   - Sherpa2211_Wjets_Charm
   - Sherpa2211_Wjets_MisMatched
   - Sherpa2211_Wjets_Rest
+  - MG_Wjets_Rest
 variations:
   - GEN_MUR1_MUF1_PDF269000
   - GEN_MUR1_MUF1_PDF270000

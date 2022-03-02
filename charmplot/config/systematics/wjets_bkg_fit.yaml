@@ -1,5 +1,5 @@
 type: fit
 affecting:
-  - Sherpa2211_Wjets_Rest
+  - MG_Wjets_Rest
 variations:
   - stat_up
