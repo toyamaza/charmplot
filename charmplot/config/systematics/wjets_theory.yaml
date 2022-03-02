@@ -8,7 +8,8 @@ affecting:
   - Sherpa2211_WplusD_Matched_truth_pt_bin5
   - Sherpa2211_Wjets_MisMatched
 variations:
-  - FID_EFF_WPLUSD_MG
+  - FID_EFF_WPLUSD_MG_Wminus
+  - FID_EFF_WPLUSD_MG_Wplus
   - FID_EFF_WPLUSD_QCD__1up
   - FID_EFF_WPLUSD_QCD__1down
   - FID_EFF_WPLUSD_PDF__1up
