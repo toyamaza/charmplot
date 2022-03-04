@@ -243,8 +243,53 @@ MGPy8EG_NLO_WplusD_Matched:
     - MG_NLO_WplusD
   subtract:
   fillColor: "10004"
-  legendLabel: "W+#it{D}(#it{K}#pi#pi)"
+  legendLabel: "W+#it{D}"
   shortName: MGPy8EG_NLO_WplusD_Matched
+  scaleMC: 0.094
+
+MGPy8EG_NLO_WplusD_Matched_truth_pt_bin1:
+  add:
+    - MG_NLO_WplusD
+  subtract:
+  fillColor: "10004"
+  legendLabel: "W+#it{D} (bin 1)"
+  shortName: MGPy8EG_NLO_WplusD_Matched_truth_pt_bin1
+  scaleMC: 0.094
+
+MGPy8EG_NLO_WplusD_Matched_truth_pt_bin2:
+  add:
+    - MG_NLO_WplusD
+  subtract:
+  fillColor: "10004"
+  legendLabel: "W+#it{D} (bin 2)"
+  shortName: MGPy8EG_NLO_WplusD_Matched_truth_pt_bin2
+  scaleMC: 0.094
+
+MGPy8EG_NLO_WplusD_Matched_truth_pt_bin3:
+  add:
+    - MG_NLO_WplusD
+  subtract:
+  fillColor: "10004"
+  legendLabel: "W+#it{D} (bin 3)"
+  shortName: MGPy8EG_NLO_WplusD_Matched_truth_pt_bin3
+  scaleMC: 0.094
+
+MGPy8EG_NLO_WplusD_Matched_truth_pt_bin4:
+  add:
+    - MG_NLO_WplusD
+  subtract:
+  fillColor: "10004"
+  legendLabel: "W+#it{D} (bin 4)"
+  shortName: MGPy8EG_NLO_WplusD_Matched_truth_pt_bin4
+  scaleMC: 0.094
+
+MGPy8EG_NLO_WplusD_Matched_truth_pt_bin5:
+  add:
+    - MG_NLO_WplusD
+  subtract:
+  fillColor: "10004"
+  legendLabel: "W+#it{D} (bin 5)"
+  shortName: MGPy8EG_NLO_WplusD_Matched_truth_pt_bin5
   scaleMC: 0.094
 
 # ---------------------------------------------
