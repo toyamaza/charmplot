@@ -1,0 +1,7 @@
+type: alt_sample
+affecting:
+  - Sherpa2211_WplusD_Matched
+variations:
+  - Sherpa2211_WplusD_Matched_Fit
+  - Sherpa2211_WplusD_Matched_Fit_up
+  - Sherpa2211_WplusD_Matched_Fit_dn

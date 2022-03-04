@@ -5,6 +5,14 @@ Dmeson_m:
   x_range: [1.7, 2.2]
   ratio_range: [0.5, 1.49]
 
+Dmeson_m_norebin:
+  name_override: Dmeson_m
+  label: 'D^{#pm} m'
+  unit: 'GeV'
+  rebin: 1
+  x_range: [1.7, 2.2]
+  ratio_range: [0.5, 1.49]
+
 Dmeson_m_fit:
   name_override: Dmeson_m
   label: 'D^{#pm} m'

@@ -689,3 +689,60 @@ DibosonZjets_PostProc:
   lineColor: "21000"
   legendLabel: Loose Other
   shortName: DibosonZjets_Loose
+
+# ---------------------------------------------
+# Mass shape uncertainties
+# ---------------------------------------------
+Sherpa2211_WplusD_Matched_Fit:
+  add:
+    - Sh_2211_WplusD
+  subtract:
+  lineColor: "ROOT.kGray+2"
+  legendLabel: "Sh (Fit)"
+  shortName: Sherpa2211_WplusD_Matched_Fit
+  scaleMC: 0.094
+
+Sherpa2211_WplusD_Matched_Fit_up:
+  add:
+    - Sh_2211_WplusD
+  subtract:
+  lineColor: "ROOT.kRed"
+  legendLabel: "Sh (Fit +1 #sigma)"
+  shortName: Sherpa2211_WplusD_Matched_Fit_up
+  scaleMC: 0.094
+
+Sherpa2211_WplusD_Matched_Fit_dn:
+  add:
+    - Sh_2211_WplusD
+  subtract:
+  lineColor: "ROOT.kBlue"
+  legendLabel: "Sh (Fit -1 #sigma)"
+  shortName: Sherpa2211_WplusD_Matched_Fit_dn
+  scaleMC: 0.094
+
+Matched_Fit:
+  add:
+    - DplusMassFit
+  subtract:
+  lineColor: "ROOT.kGray"
+  legendLabel: "fit"
+  shortName: Matched_Fit
+  statError: False
+
+Matched_Fit_up:
+  add:
+    - DplusMassFit
+  subtract:
+  lineColor: "ROOT.kRed"
+  legendLabel: "fit"
+  shortName: Matched_Fit_up
+  statError: False
+
+Matched_Fit_dn:
+  add:
+    - DplusMassFit
+  subtract:
+  lineColor: "ROOT.kBlue"
+  legendLabel: "fit"
+  shortName: Matched_Fit_dn
+  statError: False

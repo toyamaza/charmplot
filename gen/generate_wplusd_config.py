@@ -105,6 +105,9 @@ def main(options):
             'MG_Wjets_Rest': '<charge>_Replacement_Rest',
             'Sherpa2211_Wjets_MisMatched': '<charge>_Replacement_MisMatched',
             'Sherpa2211_Wjets_Rest': '<charge>_Replacement_Rest',
+            'Sherpa2211_WplusD_Matched_Fit': '<charge>_Replacement_MassFit',
+            'Sherpa2211_WplusD_Matched_Fit_up': '<charge>_Replacement_MassFit_up',
+            'Sherpa2211_WplusD_Matched_Fit_dn': '<charge>_Replacement_MassFit_dn',
         })
         if options.decay_mode == "Dstar":
             replacement_samples.update({
@@ -129,6 +132,7 @@ def main(options):
             'sherpa2211_theory_pdf',
             'wjets_bkg_alt_samples',
             'wjets_mismatch_alt_samples',
+            'wplusd_signal_shape',
         ]
         if options.decay_mode == "Dstar":
             systematics += [
