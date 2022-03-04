@@ -130,12 +130,16 @@ def main(options):
             'sherpa2211_theory_qcd_fit',
             'sherpa2211_theory_as_fit',
             'sherpa2211_theory_pdf',
-            'wjets_bkg_alt_samples',
             'wjets_mismatch_alt_samples',
             'wplusd_signal_shape',
         ]
-        if options.decay_mode == "Dstar":
+        if options.decay_mode == "Dplus":
             systematics += [
+                'sherpa2211_wjets_bkg_alt_samples',
+            ]
+        elif options.decay_mode == "Dstar":
+            systematics += [
+                'wjets_bkg_alt_samples',
                 'wjets_bkg_alt_samples_1tag',
                 'wjets_bkg_fit',
             ]
