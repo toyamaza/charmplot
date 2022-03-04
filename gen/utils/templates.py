@@ -389,7 +389,7 @@ class ReplacementSamples(ChannelTemplate):
                         #         ] for slice in self.truthSlices
                         slice: [[f'MGPy8EG_NLO_WplusD_{slice}', proxies.SPGChannel(name=f"{slice}",
                                                                                    regions_OS=[f"{flavor}_SR_0tag_{self.decay_mode}_OS_{slice}" for flavor in FLAVORS],
-                                                                                   regions_SS=[f"{flavor}_SR_0tag_{self.decay_mode}_SS_{slice}" for flavor in FLAVORS])]
+                                                                                   regions_SS=[f"{flavor}_SR_0tag_{self.decay_mode}_OS_{slice}" for flavor in FLAVORS])]
                                 ] for slice in self.truthSlices
                     })
 
