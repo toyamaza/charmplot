@@ -36,11 +36,11 @@ def main(options, args):
     if (options.decay_mode == "Dplus"):
         data_list += ["Data_" + x for x in dplus_histo_list]
         mc_list += ["MC_TOT_" + x for x in dplus_histo_list]
-        sig_list += ["Sherpa2211_WplusD_Matched_" + x for x in dplus_histo_list]
+        sig_list += ["MGPy8EG_NLO_WplusD_Matched_" + x for x in dplus_histo_list]
     else:
         data_list += ["Data_" + x for x in dstar_histo_list]
         mc_list += ["MC_TOT_" + x for x in dstar_histo_list]
-        sig_list += ["Sherpa2211_WplusD_Matched_" + x for x in dstar_histo_list]
+        sig_list += ["MGPy8EG_NLO_WplusD_Matched_" + x for x in dstar_histo_list]
 
     # Create histogram names with pt bins included and add to data and mc list
     if (options.differential_bins):
@@ -48,12 +48,12 @@ def main(options, args):
             for bin in pt_bin:
                 data_list += ["Data_" + x.split("Dmeson")[0] + bin + x.split("Dplus")[-1] for x in dplus_histo_list]
                 mc_list += ["MC_TOT_" + x.split("Dmeson")[0] + bin + x.split("Dplus")[-1] for x in dplus_histo_list]
-                sig_list += ["Sherpa2211_WplusD_Matched_" + x.split("Dmeson")[0] + bin + x.split("Dplus")[-1] for x in dplus_histo_list]
+                sig_list += ["MGPy8EG_NLO_WplusD_Matched_" + x.split("Dmeson")[0] + bin + x.split("Dplus")[-1] for x in dplus_histo_list]
         else:
             for bin in pt_bin:
                 data_list += ["Data_" + x.split("Dmeson")[0] + bin + x.split("Dstar")[-1] for x in dstar_histo_list]
                 mc_list += ["MC_TOT_" + x.split("Dmeson")[0] + bin + x.split("Dstar")[-1] for x in dstar_histo_list]
-                sig_list += ["Sherpa2211_WplusD_Matched_" + x.split("Dmeson")[0] + bin + x.split("Dstar")[-1] for x in dstar_histo_list]
+                sig_list += ["MGPy8EG_NLO_WplusD_Matched_" + x.split("Dmeson")[0] + bin + x.split("Dstar")[-1] for x in dstar_histo_list]
 
     # input file
     f = ROOT.TFile(options.input, "READ")
@@ -80,8 +80,11 @@ def main(options, args):
         h_data_OS = f.Get(data_OS).Clone(data_OS)
         h_mc = f.Get(mc).Clone(mc)
         h_mc_OS = f.Get(mc_OS).Clone(mc_OS)
-        h_sig = f.Get(sig).Clone(sig)
-        h_sig_OS = f.Get(sig_OS).Clone(sig_OS)
+        h_sig_SS = None
+        h_sig_OS = None
+        if f.Get(sig):
+            h_sig_SS = f.Get(sig).Clone(sig)
+            h_sig_OS = f.Get(sig_OS).Clone(sig_OS)
 
         # Create the Mock and Offset histograms
         h_symm_name = "Mock_MC_" + data.split("SS_")[-1]
@@ -99,13 +102,14 @@ def main(options, args):
         h_diff.Add(h_mc, -1)
 
         # Create Sig Histograms
-        h_sig_bkg_diff_SS = h_diff.Clone()
-        h_sig_bkg_diff_SS.SetNameTitle(h_sig_bkg_diff_SS_name, h_sig_bkg_diff_SS_name)
-        h_sig_bkg_diff_SS.Add(h_sig,-1)
-        h_sig_bkg_diff_OS = h_data_OS.Clone()
-        h_sig_bkg_diff_OS.Add(h_mc_OS,-1)
-        h_sig_bkg_diff_OS.Add(h_sig_OS,-1)
-        h_sig_bkg_diff_OS.SetNameTitle(h_sig_bkg_diff_OS_name, h_sig_bkg_diff_OS_name)
+        if h_sig_SS:
+            h_sig_bkg_diff_SS = h_diff.Clone()
+            h_sig_bkg_diff_SS.SetNameTitle(h_sig_bkg_diff_SS_name, h_sig_bkg_diff_SS_name)
+            h_sig_bkg_diff_SS.Add(h_sig_SS, +1)
+            h_sig_bkg_diff_OS = h_data_OS.Clone()
+            h_sig_bkg_diff_OS.Add(h_mc_OS, -1)
+            h_sig_bkg_diff_OS.Add(h_sig_OS, +1)
+            h_sig_bkg_diff_OS.SetNameTitle(h_sig_bkg_diff_OS_name, h_sig_bkg_diff_OS_name)
 
         # Fill histograms
         for i in range(1, h_data.GetNbinsX() + 1):
@@ -151,10 +155,12 @@ def main(options, args):
         h_offset_OS.SetNameTitle(h_offset_OS_name, h_offset_OS_name)
         h_offset_SS = h_offset.Clone()
         h_offset_SS.SetNameTitle(h_offset_SS_name, h_offset_SS_name)
-        h_sig_res_OS = h_sig_bkg_diff_OS.Clone()
-        h_offset_SS.SetNameTitle(h_sig_res_OS_name, h_sig_res_OS_name)
-        h_sig_res_SS = h_sig_bkg_diff_SS.Clone()
-        h_offset_SS.SetNameTitle(h_sig_res_SS_name, h_sig_res_SS_name)
+
+        if h_sig_SS:
+            h_sig_res_OS = h_sig_bkg_diff_OS.Clone()
+            h_sig_res_OS.SetNameTitle(h_sig_res_OS_name, h_sig_res_OS_name)
+            h_sig_res_SS = h_sig_bkg_diff_SS.Clone()
+            h_sig_res_SS.SetNameTitle(h_sig_res_SS_name, h_sig_res_SS_name)
 
         # Save the Mock MC histogram
         out_symm.cd()
@@ -167,9 +173,10 @@ def main(options, args):
         h_offset_SS.Write()
 
         # Save the signal resolution histogram
-        out_sig_res.cd()
-        h_sig_res_OS.Write()
-        h_sig_res_SS.Write()
+        if h_sig_SS:
+            out_sig_res.cd()
+            h_sig_res_OS.Write()
+            h_sig_res_SS.Write()
 
     out_symm.Close()
     out_offset.Close()
