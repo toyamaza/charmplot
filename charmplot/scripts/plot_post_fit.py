@@ -111,7 +111,7 @@ def main(options, conf):
         # labels
         labels = []
         for label in channel_temp.label:
-            if len(channels_all) > 2 and "pt_bin" in label:
+            if len(channels_all) > 2 and "bin" in label:
                 label = "inclusive"
             if len(plot['-']) > 0:
                 label = label.replace("OS", "OS-SS")
