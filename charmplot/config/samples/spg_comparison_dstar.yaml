@@ -547,6 +547,54 @@ Sherpa2211_WplusD_Matched_truth_pt_bin5:
   legendLabel: "Sh2.2.11 (bin 5)"
   shortName: Sherpa2211_WplusD_Matched_truth_pt_bin5
 
+Sherpa2211_WplusD_Matched_Plain:
+  add:
+    - Sh_2211_WplusD
+  subtract:
+  lineColor: "ROOT.kGreen"
+  legendLabel: "Sh2.2.11 W+D*"
+  shortName: Sherpa2211_WplusD_Matched_Plain
+
+Sherpa2211_WplusD_Matched_truth_pt_bin1_Plain:
+  add:
+    - Sh_2211_WplusD
+  subtract:
+  lineColor: "ROOT.kGreen"
+  legendLabel: "Sh2.2.11 W+D* (bin 1)"
+  shortName: Sherpa2211_WplusD_Matched_truth_pt_bin1_Plain
+
+Sherpa2211_WplusD_Matched_truth_pt_bin2_Plain:
+  add:
+    - Sh_2211_WplusD
+  subtract:
+  lineColor: "ROOT.kGreen"
+  legendLabel: "Sh2.2.11 W+D* (bin 2)"
+  shortName: Sherpa2211_WplusD_Matched_truth_pt_bin2_Plain
+
+Sherpa2211_WplusD_Matched_truth_pt_bin3_Plain:
+  add:
+    - Sh_2211_WplusD
+  subtract:
+  lineColor: "ROOT.kGreen"
+  legendLabel: "Sh2.2.11 W+D* (bin 3)"
+  shortName: Sherpa2211_WplusD_Matched_truth_pt_bin3_Plain
+
+Sherpa2211_WplusD_Matched_truth_pt_bin4_Plain:
+  add:
+    - Sh_2211_WplusD
+  subtract:
+  lineColor: "ROOT.kGreen"
+  legendLabel: "Sh2.2.11 W+D* (bin 4)"
+  shortName: Sherpa2211_WplusD_Matched_truth_pt_bin4_Plain
+
+Sherpa2211_WplusD_Matched_truth_pt_bin5_Plain:
+  add:
+    - Sh_2211_WplusD
+  subtract:
+  lineColor: "ROOT.kGreen"
+  legendLabel: "Sh2.2.11 W+D* (bin 5)"
+  shortName: Sherpa2211_WplusD_Matched_truth_pt_bin5_Plain
+
 Sherpa2211_Wjets:
   add:
     - Sh_2211_Wjets_cjets_emu

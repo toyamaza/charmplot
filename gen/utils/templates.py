@@ -378,29 +378,30 @@ class ReplacementSamples(ChannelTemplate):
             #                                                    regions_SS=[f"inclusive_{self.decay_mode}_SS_{slice}" for slice in self.truthSlices])]]
             # })
             self.samples.update({
-                'Matched': [['MGPy8EG_NLO_WplusD_Matched', proxies.SPGChannel(name="Matched",
-                                                                              regions_OS=[f"{flavor}_SR_0tag_{self.decay_mode}_OS_{slice}" for slice in self.truthSlices for flavor in FLAVORS],
-                                                                              regions_SS=[f"{flavor}_SR_0tag_{self.decay_mode}_OS_{slice}" for slice in self.truthSlices for flavor in FLAVORS])]]
+                'Matched': [['MGPy8EG_NLO_WplusD_Matched', proxies.GenericChannel(name="Matched",
+                                                                                  regions_OS=[f"{flavor}_SR_0tag_{self.decay_mode}_OS_{slice}" for slice in self.truthSlices for flavor in FLAVORS],
+                                                                                  regions_SS=[f"{flavor}_SR_0tag_{self.decay_mode}_OS_{slice}" for slice in self.truthSlices for flavor in FLAVORS])]]
             })
 
             # Dmeson mass fit
-            self.samples.update({
-                "MassFit": [
-                    ['Matched_Fit', proxies.GenericChannel(name="Matched_Fit",
-                                                           regions_OS=["MGPy8EG_NLO_WplusD_Matched_OS_0tag_Dplus"],
-                                                           regions_SS=["MGPy8EG_NLO_WplusD_Matched_OS_0tag_Dplus"])],
-                ],
-                "MassFit_up": [
-                    ['Matched_Fit_up', proxies.GenericChannel(name="Matched_Fit_up",
-                                                              regions_OS=["sigma_up_MGPy8EG_NLO_WplusD_Matched_OS_0tag_Dplus"],
-                                                              regions_SS=["sigma_up_MGPy8EG_NLO_WplusD_Matched_OS_0tag_Dplus"])],
-                ],
-                "MassFit_dn": [
-                    ['Matched_Fit_dn', proxies.GenericChannel(name="Matched_Fit_dn",
-                                                              regions_OS=["sigma_dn_MGPy8EG_NLO_WplusD_Matched_OS_0tag_Dplus"],
-                                                              regions_SS=["sigma_dn_MGPy8EG_NLO_WplusD_Matched_OS_0tag_Dplus"])],
-                ],
-            })
+            if self.decay_mode == "Dplus":
+                self.samples.update({
+                    "MassFit": [
+                        ['Matched_Fit', proxies.GenericChannel(name="Matched_Fit",
+                                                               regions_OS=["MGPy8EG_NLO_WplusD_Matched_OS_0tag_Dplus"],
+                                                               regions_SS=["MGPy8EG_NLO_WplusD_Matched_OS_0tag_Dplus"])],
+                    ],
+                    "MassFit_up": [
+                        ['Matched_Fit_up', proxies.GenericChannel(name="Matched_Fit_up",
+                                                                  regions_OS=["sigma_up_MGPy8EG_NLO_WplusD_Matched_OS_0tag_Dplus"],
+                                                                  regions_SS=["sigma_up_MGPy8EG_NLO_WplusD_Matched_OS_0tag_Dplus"])],
+                    ],
+                    "MassFit_dn": [
+                        ['Matched_Fit_dn', proxies.GenericChannel(name="Matched_Fit_dn",
+                                                                  regions_OS=["sigma_dn_MGPy8EG_NLO_WplusD_Matched_OS_0tag_Dplus"],
+                                                                  regions_SS=["sigma_dn_MGPy8EG_NLO_WplusD_Matched_OS_0tag_Dplus"])],
+                    ],
+                })
 
             # signal samples in truth differential bins
             if self.truthDiffBins:
@@ -410,9 +411,9 @@ class ReplacementSamples(ChannelTemplate):
                         #                                             regions_OS=[f"inclusive_{self.decay_mode}_OS_{slice}"],
                         #                                             regions_SS=[f"inclusive_{self.decay_mode}_SS_{slice}"])],
                         #         ] for slice in self.truthSlices
-                        slice: [[f'MGPy8EG_NLO_WplusD_{slice}', proxies.SPGChannel(name=f"{slice}",
-                                                                                   regions_OS=[f"{flavor}_SR_0tag_{self.decay_mode}_OS_{slice}" for flavor in FLAVORS],
-                                                                                   regions_SS=[f"{flavor}_SR_0tag_{self.decay_mode}_OS_{slice}" for flavor in FLAVORS])]
+                        slice: [[f'MGPy8EG_NLO_WplusD_{slice}', proxies.GenericChannel(name=f"{slice}",
+                                                                                       regions_OS=[f"{flavor}_SR_0tag_{self.decay_mode}_OS_{slice}" for flavor in FLAVORS],
+                                                                                       regions_SS=[f"{flavor}_SR_0tag_{self.decay_mode}_OS_{slice}" for flavor in FLAVORS])]
                                 ] for slice in self.truthSlices
                     })
 
