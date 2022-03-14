@@ -37,6 +37,14 @@ Dmeson_mdiff_fit:
   ratio_range: [0.5, 1.49]
   per_unit: True
 
+Dmeson_mdiff_norebin:
+  name_override: Dmeson_mdiff
+  label: 'm(D*-D^{0})'
+  unit: 'MeV'
+  do_overflow: False
+  do_underflow: False
+  ratio_range: [0.5, 1.49]
+
 Dmeson_mdiff_impact_sig:
   label: 'm(D*-D^{0}) (w/o ImpSig)'
   unit: 'MeV'

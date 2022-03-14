@@ -131,10 +131,10 @@ def main(options):
             'sherpa2211_theory_as_fit',
             'sherpa2211_theory_pdf',
             'wjets_mismatch_alt_samples',
-            'wplusd_signal_shape',
         ]
         if options.decay_mode == "Dplus":
             systematics += [
+                'wplusd_signal_shape',
                 'sherpa2211_wjets_bkg_alt_samples',
             ]
         elif options.decay_mode == "Dstar":
