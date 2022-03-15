@@ -23,9 +23,11 @@ channels:
       - Sherpa2211_WplusD
       - Sherpa2211_Wjets
       - MGPy8EG_NLO_WplusD
+      - MGFxFx_Wjets
+      - MGFxFx_WplusD
     label:
-      - W#rightarrowl#nu+D
-      - inclusive OS-SS, Truth-level
+      - W#rightarrowl#nu+D, Truth-level
+      - inclusive OS-SS
   OS-SS_el_minus_Dplus:
     regions:
       - el_minus_Dplus_OS
@@ -35,9 +37,11 @@ channels:
       - Sherpa2211_WplusD
       - Sherpa2211_Wjets
       - MGPy8EG_NLO_WplusD
+      - MGFxFx_Wjets
+      - MGFxFx_WplusD
     label:
-      - W#rightarrowe#nu+D
-      - inclusive OS-SS, Truth-level
+      - W#rightarrowe#nu+D, Truth-level
+      - inclusive OS-SS
   OS-SS_el_plus_Dplus:
     regions:
       - el_plus_Dplus_OS
@@ -47,9 +51,11 @@ channels:
       - Sherpa2211_WplusD
       - Sherpa2211_Wjets
       - MGPy8EG_NLO_WplusD
+      - MGFxFx_Wjets
+      - MGFxFx_WplusD
     label:
-      - W#rightarrowe#nu+D
-      - inclusive OS-SS, Truth-level
+      - W#rightarrowe#nu+D, Truth-level
+      - inclusive OS-SS
   OS-SS_mu_minus_Dplus:
     regions:
       - mu_minus_Dplus_OS
@@ -59,9 +65,11 @@ channels:
       - Sherpa2211_WplusD
       - Sherpa2211_Wjets
       - MGPy8EG_NLO_WplusD
+      - MGFxFx_Wjets
+      - MGFxFx_WplusD
     label:
-      - W#rightarrow#mu#nu+D
-      - inclusive OS-SS, Truth-level
+      - W#rightarrow#mu#nu+D, Truth-level
+      - inclusive OS-SS
   OS-SS_mu_plus_Dplus:
     regions:
       - mu_plus_Dplus_OS
@@ -71,9 +79,11 @@ channels:
       - Sherpa2211_WplusD
       - Sherpa2211_Wjets
       - MGPy8EG_NLO_WplusD
+      - MGFxFx_Wjets
+      - MGFxFx_WplusD
     label:
-      - W#rightarrow#mu#nu+D
-      - inclusive OS-SS, Truth-level
+      - W#rightarrow#mu#nu+D, Truth-level
+      - inclusive OS-SS
 
   Dmeson:
     regions:
@@ -89,11 +99,12 @@ channels:
       - Sherpa2211_Wjets
       - MG_Wjets
       - MGPy8EG_NLO_WplusD
+      - MGFxFx_Wjets
+      - MGFxFx_WplusD
       - Sherpa2211_WplusD
-      # - Sherpa_Wjets
     label:
-      - W#rightarrowl#nu+D
-      - inclusive OS+SS, Truth-level
+      - W#rightarrowl#nu+D, Truth-level
+      - inclusive OS+SS
   OS-SS_Dmeson:
     regions:
       - el_minus_Dmeson_OS
@@ -108,11 +119,12 @@ channels:
       - Sherpa2211_Wjets
       - MG_Wjets
       - MGPy8EG_NLO_WplusD
+      - MGFxFx_Wjets
+      - MGFxFx_WplusD
       - Sherpa2211_WplusD
-      # - Sherpa_Wjets
     label:
-      - W#rightarrowl#nu+D
-      - inclusive OS-SS, Truth-level
+      - W#rightarrowl#nu+D, Truth-level
+      - inclusive OS-SS
 
   # D+ -> Kpipi
   OS-SS_Dplus_Kpipi:
@@ -128,12 +140,13 @@ channels:
     samples:
       - MG_Wjets
       - MGPy8EG_NLO_WplusD
+      - MGFxFx_Wjets
+      - MGFxFx_WplusD
       - Sherpa2211_WplusD
       - Sherpa2211_Wjets
-      # - Sherpa_Wjets
     label:
-      - W#rightarrowl#nu+D, D#rightarrowK#pi#pi
-      - inclusive OS-SS, Truth-level
+      - W#rightarrowl#nu+D, D#rightarrowK#pi#pi, Truth-level
+      - inclusive OS-SS
   OS-SS_el_minus_Dplus_Kpipi:
     regions:
       - el_minus_Dplus_OS_Kpipi
@@ -141,12 +154,13 @@ channels:
     samples:
       - MG_Wjets
       - MGPy8EG_NLO_WplusD
+      - MGFxFx_Wjets
+      - MGFxFx_WplusD
       - Sherpa2211_WplusD
       - Sherpa2211_Wjets
-      # - Sherpa_Wjets
     label:
-      - W#rightarrowe#nu+D, D#rightarrowK#pi#pi
-      - inclusive OS-SS, Truth-level
+      - W#rightarrowe#nu+D, D#rightarrowK#pi#pi, Truth-level
+      - inclusive OS-SS
   OS-SS_el_plus_Dplus_Kpipi:
     regions:
       - el_plus_Dplus_OS_Kpipi
@@ -154,12 +168,13 @@ channels:
     samples:
       - MG_Wjets
       - MGPy8EG_NLO_WplusD
+      - MGFxFx_Wjets
+      - MGFxFx_WplusD
       - Sherpa2211_WplusD
       - Sherpa2211_Wjets
-      # - Sherpa_Wjets
     label:
-      - W#rightarrore#nu+D, D#rightarrowK#pi#pi
-      - inclusive OS-SS, Truth-level
+      - W#rightarrore#nu+D, D#rightarrowK#pi#pi, Truth-level
+      - inclusive OS-SS
   OS-SS_mu_minus_Dplus_Kpipi:
     regions:
       - mu_minus_Dplus_OS_Kpipi
@@ -167,12 +182,13 @@ channels:
     samples:
       - MG_Wjets
       - MGPy8EG_NLO_WplusD
+      - MGFxFx_Wjets
+      - MGFxFx_WplusD
       - Sherpa2211_WplusD
       - Sherpa2211_Wjets
-      # - Sherpa_Wjets
     label:
-      - W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi
-      - inclusive OS-SS, Truth-level
+      - W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, Truth-level
+      - inclusive OS-SS
   OS-SS_mu_plus_Dplus_Kpipi:
     regions:
       - mu_plus_Dplus_OS_Kpipi
@@ -180,12 +196,13 @@ channels:
     samples:
       - MG_Wjets
       - MGPy8EG_NLO_WplusD
+      - MGFxFx_Wjets
+      - MGFxFx_WplusD
       - Sherpa2211_WplusD
       - Sherpa2211_Wjets
-      # - Sherpa_Wjets
     label:
-      - W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi
-      - inclusive OS-SS, Truth-level
+      - W#rightarrow#mu#nu+D, D#rightarrowK#pi#pi, Truth-level
+      - inclusive OS-SS
   OS-SS_lep_plus_Dplus_Kpipi:
     regions:
       - mu_plus_Dplus_OS_Kpipi
@@ -195,12 +212,13 @@ channels:
     samples:
       - MG_Wjets
       - MGPy8EG_NLO_WplusD
+      - MGFxFx_Wjets
+      - MGFxFx_WplusD
       - Sherpa2211_WplusD
       - Sherpa2211_Wjets
-      # - Sherpa_Wjets
     label:
-      - W#rightarrowl#nu+D, D#rightarrowK#pi#pi
-      - inclusive OS-SS, Truth-level
+      - W#rightarrowl#nu+D, D#rightarrowK#pi#pi, Truth-level
+      - inclusive OS-SS
   OS-SS_lep_minus_Dplus_Kpipi:
     regions:
       - mu_minus_Dplus_OS_Kpipi
@@ -210,12 +228,13 @@ channels:
     samples:
       - MG_Wjets
       - MGPy8EG_NLO_WplusD
+      - MGFxFx_Wjets
+      - MGFxFx_WplusD
       - Sherpa2211_WplusD
       - Sherpa2211_Wjets
-      # - Sherpa_Wjets
     label:
-      - W#rightarrowl#nu+D, D#rightarrowK#pi#pi
-      - inclusive OS-SS, Truth-level
+      - W#rightarrowl#nu+D, D#rightarrowK#pi#pi, Truth-level
+      - inclusive OS-SS
 
   # W+D*
   OS-SS_Dstar:
@@ -233,9 +252,11 @@ channels:
       - Sherpa2211_WplusD
       - Sherpa2211_Wjets
       - MGPy8EG_NLO_WplusD
+      - MGFxFx_Wjets
+      - MGFxFx_WplusD
     label:
-      - W#rightarrowl#nu+D*
-      - inclusive OS-SS, Truth-level
+      - W#rightarrowl#nu+D*, Truth-level
+      - inclusive OS-SS
   OS-SS_el_minus_Dstar:
     regions:
       - el_minus_Dstar_OS
@@ -245,9 +266,11 @@ channels:
       - Sherpa2211_WplusD
       - Sherpa2211_Wjets
       - MGPy8EG_NLO_WplusD
+      - MGFxFx_Wjets
+      - MGFxFx_WplusD
     label:
-      - W#rightarrowe#nu+D*
-      - inclusive OS-SS, Truth-level
+      - W#rightarrowe#nu+D*, Truth-level
+      - inclusive OS-SS
   OS-SS_el_plus_Dstar:
     regions:
       - el_plus_Dstar_OS
@@ -257,9 +280,11 @@ channels:
       - Sherpa2211_WplusD
       - Sherpa2211_Wjets
       - MGPy8EG_NLO_WplusD
+      - MGFxFx_Wjets
+      - MGFxFx_WplusD
     label:
-      - W#rightarrowe#nu+D*
-      - inclusive OS-SS, Truth-level
+      - W#rightarrowe#nu+D*, Truth-level
+      - inclusive OS-SS
   OS-SS_mu_minus_Dstar:
     regions:
       - mu_minus_Dstar_OS
@@ -269,9 +294,11 @@ channels:
       - Sherpa2211_WplusD
       - Sherpa2211_Wjets
       - MGPy8EG_NLO_WplusD
+      - MGFxFx_Wjets
+      - MGFxFx_WplusD
     label:
-      - W#rightarrow#mu#nu+D*
-      - inclusive OS-SS, Truth-level
+      - W#rightarrow#mu#nu+D*, Truth-level
+      - inclusive OS-SS
   OS-SS_mu_plus_Dstar:
     regions:
       - mu_plus_Dstar_OS
@@ -281,9 +308,11 @@ channels:
       - Sherpa2211_WplusD
       - Sherpa2211_Wjets
       - MGPy8EG_NLO_WplusD
+      - MGFxFx_Wjets
+      - MGFxFx_WplusD
     label:
-      - W#rightarrow#mu#nu+D*
-      - inclusive OS-SS, Truth-level
+      - W#rightarrow#mu#nu+D*, Truth-level
+      - inclusive OS-SS
 
   # D* -> Kpipi
   OS-SS_Dstar_Kpipi:
@@ -299,12 +328,13 @@ channels:
     samples:
       - MG_Wjets
       - MGPy8EG_NLO_WplusD
+      - MGFxFx_Wjets
+      - MGFxFx_WplusD
       - Sherpa2211_WplusD
       - Sherpa2211_Wjets
-      # - Sherpa_Wjets
     label:
-      - W#rightarrowl#nu+D, D*#rightarrowK#pi#pi
-      - inclusive OS-SS, Truth-level
+      - W#rightarrowl#nu+D, D*#rightarrowK#pi#pi, Truth-level
+      - inclusive OS-SS
   OS-SS_el_minus_Dstar_Kpipi:
     regions:
       - el_minus_Dstar_OS_Kpipi
@@ -312,12 +342,13 @@ channels:
     samples:
       - MG_Wjets
       - MGPy8EG_NLO_WplusD
+      - MGFxFx_Wjets
+      - MGFxFx_WplusD
       - Sherpa2211_WplusD
       - Sherpa2211_Wjets
-      # - Sherpa_Wjets
     label:
-      - W#rightarrowe#nu+D, D*#rightarrowK#pi#pi
-      - inclusive OS-SS, Truth-level
+      - W#rightarrowe#nu+D, D*#rightarrowK#pi#pi, Truth-level
+      - inclusive OS-SS
   OS-SS_el_plus_Dstar_Kpipi:
     regions:
       - el_plus_Dstar_OS_Kpipi
@@ -325,12 +356,13 @@ channels:
     samples:
       - MG_Wjets
       - MGPy8EG_NLO_WplusD
+      - MGFxFx_Wjets
+      - MGFxFx_WplusD
       - Sherpa2211_WplusD
       - Sherpa2211_Wjets
-      # - Sherpa_Wjets
     label:
-      - W#rightarrore#nu+D, D*#rightarrowK#pi#pi
-      - inclusive OS-SS, Truth-level
+      - W#rightarrore#nu+D, D*#rightarrowK#pi#pi, Truth-level
+      - inclusive OS-SS
   OS-SS_mu_minus_Dstar_Kpipi:
     regions:
       - mu_minus_Dstar_OS_Kpipi
@@ -338,12 +370,13 @@ channels:
     samples:
       - MG_Wjets
       - MGPy8EG_NLO_WplusD
+      - MGFxFx_Wjets
+      - MGFxFx_WplusD
       - Sherpa2211_WplusD
       - Sherpa2211_Wjets
-      # - Sherpa_Wjets
     label:
-      - W#rightarrow#mu#nu+D, D*#rightarrowK#pi#pi
-      - inclusive OS-SS, Truth-level
+      - W#rightarrow#mu#nu+D, D*#rightarrowK#pi#pi, Truth-level
+      - inclusive OS-SS
   OS-SS_mu_plus_Dstar_Kpipi:
     regions:
       - mu_plus_Dstar_OS_Kpipi
@@ -351,12 +384,13 @@ channels:
     samples:
       - MG_Wjets
       - MGPy8EG_NLO_WplusD
+      - MGFxFx_Wjets
+      - MGFxFx_WplusD
       - Sherpa2211_WplusD
       - Sherpa2211_Wjets
-      # - Sherpa_Wjets
     label:
-      - W#rightarrow#mu#nu+D, D*#rightarrowK#pi#pi
-      - inclusive OS-SS, Truth-level
+      - W#rightarrow#mu#nu+D, D*#rightarrowK#pi#pi, Truth-level
+      - inclusive OS-SS
   OS-SS_lep_plus_Dstar_Kpipi:
     regions:
       - mu_plus_Dstar_OS_Kpipi
@@ -366,12 +400,13 @@ channels:
     samples:
       - MG_Wjets
       - MGPy8EG_NLO_WplusD
+      - MGFxFx_Wjets
+      - MGFxFx_WplusD
       - Sherpa2211_WplusD
       - Sherpa2211_Wjets
-      # - Sherpa_Wjets
     label:
-      - W#rightarrowl#nu+D, D#rightarrowK#pi#pi
-      - inclusive OS-SS, Truth-level
+      - W#rightarrowl#nu+D, D#rightarrowK#pi#pi, Truth-level
+      - inclusive OS-SS
   OS-SS_lep_minus_Dstar_Kpipi:
     regions:
       - mu_minus_Dstar_OS_Kpipi
@@ -381,9 +416,10 @@ channels:
     samples:
       - MG_Wjets
       - MGPy8EG_NLO_WplusD
+      - MGFxFx_Wjets
+      - MGFxFx_WplusD
       - Sherpa2211_WplusD
       - Sherpa2211_Wjets
-      # - Sherpa_Wjets
     label:
-      - W#rightarrowl#nu+D, D#rightarrowK#pi#pi
-      - inclusive OS-SS, Truth-level
+      - W#rightarrowl#nu+D, D#rightarrowK#pi#pi, Truth-level
+      - inclusive OS-SS

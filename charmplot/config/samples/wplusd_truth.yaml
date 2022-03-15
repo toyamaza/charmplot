@@ -39,11 +39,22 @@ Sherpa2210_Wjets:
 
 MGFxFx_Wjets:
   add:
-    - MG_FxFx_Wjets_emu
+    - MG_FxFx_Wjets_cjets_emu
+    - MG_FxFx_Wjets_bjets_emu
+    - MG_FxFx_Wjets_light_emu
   subtract:
   lineColor: "15002"
-  legendLabel: "MG FxFx"
+  legendLabel: "FxFx W+jets"
   shortName: MGFxFx_Wjets
+
+MGFxFx_WplusD:
+  add:
+    - MG_FxFx_WplusD
+  subtract:
+  lineColor: "15004"
+  legendLabel: "FxFx W+D"
+  shortName: MGFxFx_WplusD
+  scaleMC: 3.8380044444
 
 Sherpa2211_WplusD:
   add:
@@ -58,7 +69,6 @@ Sherpa2211_Wjets:
     - Sh_2211_Wjets_cjets_emu
     - Sh_2211_Wjets_bjets_emu
     - Sh_2211_Wjets_light_emu
-    - Sh_2211_Wjets_tau
   subtract:
   lineColor: "ROOT.kGreen"
   legendLabel: "Sh2.2.11 W+jets"
