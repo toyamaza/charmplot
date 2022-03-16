@@ -32,7 +32,7 @@ colors = {
     "Sherpa2211_WplusD": ROOT.kBlue,
     "MGPy8EG_NLO_WplusD": ROOT.kRed,
     "MGFxFx_Wjets": ROOT.kViolet,
-    "MGFxFx_WplusD": ROOT.kViolet+2,
+    "MGFxFx_WplusD": ROOT.kViolet + 2,
 }
 
 # bin shift
@@ -372,7 +372,8 @@ def main(options, args):
             reco_sys_band, reco_sys_band_ratio = utils.make_pdf_err(sherpa_nominal, sherpa_sys, "NNPDF30_nnlo_as_0118_hessian")
         h_pt[samples_sys[0]].GetXaxis().SetNoExponent()
 
-        canv2 = utils.make_canvas_mc_ratio(h_pt[samples_sys[0]], reco_pt, chan, f"Ratio to {legend_names[samples[0]].split()[0]}", x=800, y=800, events="Entries", suffix="reco")
+        canv2 = utils.make_canvas_mc_ratio(h_pt[samples_sys[0]], reco_pt, chan,
+                                           f"Ratio to {legend_names[samples[0]].split()[0]}", x=800, y=800, events="Entries", suffix="reco")
         canv2.pad1.cd()
         canv2.pad1.SetLogx()
         if options.sherpa_pdf:
@@ -494,7 +495,8 @@ def main(options, args):
         ROOT.gStyle.SetPaintTextFormat(".5f")
 
         # canvas
-        canv4 = utils.make_canvas_mc_ratio(proxy_axis[samples[0]], truth_pt, chan, f"Ratio to {legend_names[samples[0]].split()[0]}", x=800, y=800, events="fiducial efficiency")
+        canv4 = utils.make_canvas_mc_ratio(proxy_axis[samples[0]], truth_pt, chan,
+                                           f"Ratio to {legend_names[samples[0]].split()[0]}", x=800, y=800, events="fiducial efficiency")
         canv4.pad1.cd()
         canv4.pad1.SetLogx()
         # if len(samples) < 2:
