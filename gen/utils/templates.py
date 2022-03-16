@@ -472,6 +472,8 @@ class WDComparisonSamples(ChannelTemplate):
             ['MGPy8EG_NLO_WplusD', proxies.GenericChannel(name="Matched", region="Matched")],
             ['Sherpa2211_WplusD', proxies.GenericChannel(name="Matched", region="Matched")],
             ['Sherpa2211_Wjets', proxies.GenericChannel(name="Matched", region="Matched")],
+            ['MGFxFx_Wjets', proxies.GenericChannel(name="Matched", region="Matched")],
+            ['MGFxFx_WplusD', proxies.GenericChannel(name="Matched", region="Matched")],
         ]
     }
 

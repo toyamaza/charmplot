@@ -4,7 +4,7 @@ MG_Wjets:
   add:
     - MG_Wjets_emu
   subtract:
-  lineColor: "ROOT.kBlue"
+  lineColor: "21000"
   legendLabel: "LO MG"
   shortName: MG_Wjets
 
@@ -58,10 +58,9 @@ Sherpa2211_Wjets:
     - Sh_2211_Wjets_cjets_emu
     - Sh_2211_Wjets_bjets_emu
     - Sh_2211_Wjets_light_emu
-    - Sh_2211_Wjets_tau
   subtract:
-  lineColor: "ROOT.kRed"
-  legendLabel: "Sherpa2.2.11"
+  lineColor: "ROOT.kGreen"
+  legendLabel: "Sh2.2.11 W+jets"
   shortName: Sherpa2211_Wjets
 
 Sherpa2211_Wjets_emu_Matched:
@@ -69,10 +68,9 @@ Sherpa2211_Wjets_emu_Matched:
     - Sh_2211_Wjets_cjets_emu
     - Sh_2211_Wjets_bjets_emu
     - Sh_2211_Wjets_light_emu
-    - Sh_2211_Wjets_tau
   subtract:
   lineColor: "ROOT.kGreen"
-  legendLabel: "Sherpa2.2.11"
+  legendLabel: "Sh2.2.11 W+jets"
   shortName: Sherpa2211_Wjets_emu_Matched
 
 Sherpa2211_Wjets_emu_411MisMatched:
@@ -80,9 +78,8 @@ Sherpa2211_Wjets_emu_411MisMatched:
     - Sh_2211_Wjets_cjets_emu
     - Sh_2211_Wjets_bjets_emu
     - Sh_2211_Wjets_light_emu
-    - Sh_2211_Wjets_tau
   subtract:
-  lineColor: "ROOT.kRed"
+  lineColor: "ROOT.kGreen"
   legendLabel: "Sh2.2.11 W+jets"
   shortName: Sherpa2211_Wjets_emu_411MisMatched
 
@@ -90,7 +87,7 @@ Sherpa2211_WplusD:
   add:
     - Sh_2211_WplusD
   subtract:
-  lineColor: "ROOT.kRed"
+  lineColor: "ROOT.kBlue"
   legendLabel: "Sh2.2.11 W+D"
   shortName: Sherpa2211_WplusD
 
@@ -130,7 +127,7 @@ Sherpa2211_WplusD_Loose:
   add:
     - Sh_2211_WplusD
   subtract:
-  lineColor: "ROOT.kBlue+2"
+  lineColor: "ROOT.kBlue"
   legendLabel: "Sh2.2.11 W+D Loose"
   shortName: Sherpa2211_WplusD_Loose
 
@@ -180,3 +177,22 @@ Sh2211_Wjets_emu_Matched_Loose:
   lineColor: "ROOT.kGreen+2"
   legendLabel: "Sh2.2.11"
   shortName: Sh2211_Wjets_emu_Matched_Loose
+
+MGFxFx_Wjets:
+  add:
+    - MG_FxFx_Wjets_cjets_emu
+    - MG_FxFx_Wjets_bjets_emu
+    - MG_FxFx_Wjets_light_emu
+  subtract:
+  lineColor: "15002"
+  legendLabel: "FxFx W+jets"
+  shortName: MGFxFx_Wjets
+
+MGFxFx_WplusD:
+  add:
+    - MG_FxFx_WplusD
+  subtract:
+  lineColor: "15004"
+  legendLabel: "FxFx W+D"
+  shortName: MGFxFx_WplusD
+  scaleMC: 3.8380044444
