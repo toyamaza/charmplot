@@ -29,9 +29,10 @@ colors = {
     "Powheg_Wjets": ROOT.kBlue,
     "Sherpa_Wjets": ROOT.kRed,
     "Sherpa2211_Wjets": ROOT.kGreen,
-    "MGFxFx_Wjets": ROOT.kViolet,
     "Sherpa2211_WplusD": ROOT.kBlue,
     "MGPy8EG_NLO_WplusD": ROOT.kRed,
+    "MGFxFx_Wjets": ROOT.kViolet,
+    "MGFxFx_WplusD": ROOT.kViolet+2,
 }
 
 # bin shift
@@ -40,9 +41,10 @@ bin_shift = {
     "Powheg_Wjets": 1.05,
     "Sherpa_Wjets": 0.95,
     "Sherpa2211_Wjets": 1.00,
-    "MGFxFx_Wjets": 1.25,
     "Sherpa2211_WplusD": 1.00,
     "MGPy8EG_NLO_WplusD": 1.00,
+    "MGFxFx_Wjets": 1.00,
+    "MGFxFx_WplusD": 1.00,
 }
 
 # legend
@@ -51,9 +53,10 @@ legend_names = {
     "Powheg_Wjets": "Powheg",
     "Sherpa_Wjets": "Sherpa2.2.1",
     "Sherpa2211_Wjets": "Sh2.2.11 W+jets",
-    "MGFxFx_Wjets": "MG FxFx",
     "Sherpa2211_WplusD": "Sh2.2.11 W+D",
     "MGPy8EG_NLO_WplusD": "NLO MG W+D",
+    "MGFxFx_Wjets": "FxFx W+jets",
+    "MGFxFx_WplusD": "FxFx W+D",
 }
 
 # variables
@@ -95,17 +98,8 @@ def main(options, args):
     # systematics
     systematics = [""]
     if options.sherpa_pdf:
-        systematics += [f"GEN_ME_ONLY_MUR1_MUF1_PDF{N}" for N in range(303200, 303301)]
+        systematics += [f"GEN_MUR1_MUF1_PDF{N}" for N in range(303200, 303301)]
     elif options.sherpa_qcd:
-        systematics += [
-            "GEN_ME_ONLY_MUR05_MUF05_PDF303200_PSMUR05_PSMUF05",
-            "GEN_ME_ONLY_MUR05_MUF1_PDF303200_PSMUR05_PSMUF1",
-            "GEN_ME_ONLY_MUR1_MUF05_PDF303200_PSMUR1_PSMUF05",
-            "GEN_ME_ONLY_MUR1_MUF2_PDF303200_PSMUR1_PSMUF2",
-            "GEN_ME_ONLY_MUR2_MUF1_PDF303200_PSMUR2_PSMUF1",
-            "GEN_ME_ONLY_MUR2_MUF2_PDF303200_PSMUR2_PSMUF2",
-        ]
-    elif options.sherpa_qcd_me_ps:
         systematics += [
             "GEN_MUR05_MUF05_PDF303200_PSMUR05_PSMUF05",
             "GEN_MUR05_MUF1_PDF303200_PSMUR05_PSMUF1",
@@ -116,23 +110,23 @@ def main(options, args):
         ]
     elif options.sherpa_as:
         systematics += [
-            "GEN_ME_ONLY_MUR1_MUF1_PDF270000",
-            "GEN_ME_ONLY_MUR1_MUF1_PDF269000",
+            "GEN_MUR1_MUF1_PDF270000",
+            "GEN_MUR1_MUF1_PDF269000",
         ]
     elif options.sherpa_ew:
         systematics += [
-            "GEN_ME_ONLY_MUR1_MUF1_PDF303200_ASSEW",
-            "GEN_ME_ONLY_MUR1_MUF1_PDF303200_ASSEWLO1",
-            "GEN_ME_ONLY_MUR1_MUF1_PDF303200_ASSEWLO1LO2",
-            "GEN_ME_ONLY_MUR1_MUF1_PDF303200_ASSEWLO1LO2LO3",
-            "GEN_ME_ONLY_MUR1_MUF1_PDF303200_EXPASSEW",
-            "GEN_ME_ONLY_MUR1_MUF1_PDF303200_EXPASSEWLO1",
-            "GEN_ME_ONLY_MUR1_MUF1_PDF303200_EXPASSEWLO1LO2",
-            "GEN_ME_ONLY_MUR1_MUF1_PDF303200_EXPASSEWLO1LO2LO3",
-            "GEN_ME_ONLY_MUR1_MUF1_PDF303200_MULTIASSEW",
-            "GEN_ME_ONLY_MUR1_MUF1_PDF303200_MULTIASSEWLO1",
-            "GEN_ME_ONLY_MUR1_MUF1_PDF303200_MULTIASSEWLO1LO2",
-            "GEN_ME_ONLY_MUR1_MUF1_PDF303200_MULTIASSEWLO1LO2LO3",
+            "GEN_MUR1_MUF1_PDF303200_ASSEW",
+            "GEN_MUR1_MUF1_PDF303200_ASSEWLO1",
+            "GEN_MUR1_MUF1_PDF303200_ASSEWLO1LO2",
+            "GEN_MUR1_MUF1_PDF303200_ASSEWLO1LO2LO3",
+            "GEN_MUR1_MUF1_PDF303200_EXPASSEW",
+            "GEN_MUR1_MUF1_PDF303200_EXPASSEWLO1",
+            "GEN_MUR1_MUF1_PDF303200_EXPASSEWLO1LO2",
+            "GEN_MUR1_MUF1_PDF303200_EXPASSEWLO1LO2LO3",
+            "GEN_MUR1_MUF1_PDF303200_MULTIASSEW",
+            "GEN_MUR1_MUF1_PDF303200_MULTIASSEWLO1",
+            "GEN_MUR1_MUF1_PDF303200_MULTIASSEWLO1LO2",
+            "GEN_MUR1_MUF1_PDF303200_MULTIASSEWLO1LO2LO3",
         ]
 
     # samples sys
@@ -378,7 +372,7 @@ def main(options, args):
             reco_sys_band, reco_sys_band_ratio = utils.make_pdf_err(sherpa_nominal, sherpa_sys, "NNPDF30_nnlo_as_0118_hessian")
         h_pt[samples_sys[0]].GetXaxis().SetNoExponent()
 
-        canv2 = utils.make_canvas_mc_ratio(h_pt[samples_sys[0]], reco_pt, chan, "Ratio", x=800, y=800, events="Entries", suffix="reco")
+        canv2 = utils.make_canvas_mc_ratio(h_pt[samples_sys[0]], reco_pt, chan, f"Ratio to {legend_names[samples[0]].split()[0]}", x=800, y=800, events="Entries", suffix="reco")
         canv2.pad1.cd()
         canv2.pad1.SetLogx()
         if options.sherpa_pdf:
@@ -434,7 +428,7 @@ def main(options, args):
             truth_sys_band, truth_sys_band_ratio = utils.make_pdf_err(sherpa_nominal, sherpa_sys, "NNPDF30_nnlo_as_0118_hessian")
         h_pt_truth[samples_sys[0]].GetXaxis().SetNoExponent()
 
-        canv3 = utils.make_canvas_mc_ratio(h_pt_truth[samples_sys[0]], truth_pt, chan, "Ratio", x=800,
+        canv3 = utils.make_canvas_mc_ratio(h_pt_truth[samples_sys[0]], truth_pt, chan, f"Ratio to {legend_names[samples[0]].split()[0]}", x=800,
                                            y=800, events="d#sigma / dp_{T}(D) [pb]", suffix="truth")
         canv3.pad1.cd()
         canv3.pad1.SetLogx()
@@ -474,11 +468,16 @@ def main(options, args):
         canv3.set_ratio_range(0.71, 1.29, override=True)
         canv3.print(f"{options.output}/{c}_truth.pdf")
         h_pt_truth[samples[0]].Write()
+        # if options.sherpa_pdf:
+        #     truth_sys_band_ratio.Write()
+        # elif options.sherpa_qcd or options.sherpa_as:
+        #     for s in samples_sys:
+        #         h_pt_truth[s].Write()
 
         # -------------------
         # draw fiducial efficiency
         # -------------------
-        if options.sherpa_pdf or options.sherpa_qcd or options.sherpa_qcd_me_ps or options.sherpa_as or options.sherpa_ew:
+        if options.sherpa_pdf or options.sherpa_qcd or options.sherpa_as or options.sherpa_ew:
             sherpa_nominal = None
             sherpa_sys = []
             for key, gr in fid_eff_gr.items():
@@ -490,12 +489,12 @@ def main(options, args):
                     sherpa_sys += [gr]
             if options.sherpa_pdf:
                 sys_band, sys_band_ratio = utils.make_pdf_err(sherpa_nominal, sherpa_sys, "NNPDF30_nnlo_as_0118_hessian")
-            elif options.sherpa_qcd or options.sherpa_qcd_me_ps or options.sherpa_as or options.sherpa_ew:
+            elif options.sherpa_qcd or options.sherpa_as or options.sherpa_ew:
                 sys_band, sys_band_ratio = utils.make_minmax_err(sherpa_nominal, sherpa_sys)
         ROOT.gStyle.SetPaintTextFormat(".5f")
 
         # canvas
-        canv4 = utils.make_canvas_mc_ratio(proxy_axis[samples[0]], truth_pt, chan, "Ratio", x=800, y=800, events="fiducial efficiency")
+        canv4 = utils.make_canvas_mc_ratio(proxy_axis[samples[0]], truth_pt, chan, f"Ratio to {legend_names[samples[0]].split()[0]}", x=800, y=800, events="fiducial efficiency")
         canv4.pad1.cd()
         canv4.pad1.SetLogx()
         # if len(samples) < 2:
@@ -508,7 +507,7 @@ def main(options, args):
         # eff_err = (fid_eff_inclusive[s].GetEfficiencyErrorUp(1) + fid_eff_inclusive[s].GetEfficiencyErrorLow(1)) / 2
         # ROOT.myText(0.18, 0.72 - 0.10 * (j + 1), 1, f"{s}: {eff:1.5f} #pm {eff_err:1.5f} ({100 * eff_err / eff:1.3f}%)")
 
-        if options.sherpa_pdf or options.sherpa_qcd or options.sherpa_qcd_me_ps or options.sherpa_as or options.sherpa_ew:
+        if options.sherpa_pdf or options.sherpa_qcd or options.sherpa_as or options.sherpa_ew:
             sys_band.SetFillColor(colors[options.sys_sample] + 2)
             sys_band.Draw("e2")
         for s in samples_sys:
@@ -538,7 +537,7 @@ def main(options, args):
             h.Write()
 
         # draw Sherpa errors
-        if options.sherpa_pdf or options.sherpa_qcd or options.sherpa_qcd_me_ps or options.sherpa_as or options.sherpa_ew:
+        if options.sherpa_pdf or options.sherpa_qcd or options.sherpa_as or options.sherpa_ew:
 
             # adjust the central values
             sys_band_ratio_clone = sys_band_ratio.Clone()
@@ -547,8 +546,8 @@ def main(options, args):
             sys_band_ratio_clone.Draw("e2")
             sys_band_ratio_clone.SetFillColor(colors[options.sys_sample] + 2)
 
-            if options.sherpa_qcd or options.sherpa_qcd_me_ps or options.sherpa_as or options.sherpa_ew:
-                if options.sherpa_qcd or options.sherpa_qcd_me_ps:
+            if options.sherpa_qcd or options.sherpa_as or options.sherpa_ew:
+                if options.sherpa_qcd:
                     _, h_up, h_dn = utils.get_hist_from_gr(sys_band_ratio, f"{s}_{c}_fid_eff_ratio_qcd_err")
                 elif options.sherpa_as:
                     _, h_up, h_dn = utils.get_hist_from_gr(sys_band_ratio, f"{s}_{c}_fid_eff_ratio_as")
@@ -677,9 +676,6 @@ if __name__ == "__main__":
     parser.add_option('--sherpa-qcd',
                       action="store_true", dest="sherpa_qcd",
                       default=False, help="Sherpa QCD systematics.")
-    parser.add_option('--sherpa-qcd-me-ps',
-                      action="store_true", dest="sherpa_qcd_me_ps",
-                      default=False, help="Sherpa QCD ME+_S systematics.")
     parser.add_option('--sherpa-as',
                       action="store_true", dest="sherpa_as",
                       default=False, help="Sherpa Alpha_S systematics.")
