@@ -66,8 +66,8 @@ def createCanvasPads(name):
 # --------------------------------------------
 # Step 0: get cross section priors
 # --------------------------------------------
-dir = "/global/cfs/cdirs/atlas/wcharm/charmplot_output/Dmeson_2022_02_02/fid_eff_dplus_stat"
-f = ROOT.TFile(os.path.join(dir, "unfolding.root"))
+dir_prior = "/global/cfs/cdirs/atlas/wcharm/charmplot_output/Dmeson_2022_03_15/"
+f = ROOT.TFile(os.path.join(dir_prior, "fid_eff_dplus_stat", "unfolding.root"))
 h_minus = f.Get("Sherpa2211_WplusD_OS-SS_lep_plus_0tag_Dplus_Kpipi_truth_differential_pt")
 h_plus = f.Get("Sherpa2211_WplusD_OS-SS_lep_plus_0tag_Dplus_Kpipi_truth_differential_pt")
 priors = {
@@ -113,6 +113,7 @@ for lep in ["minus", "plus"]:
     gr_obs_norm = ROOT.TGraphAsymmErrors()
     gr_obs_ratio = ROOT.TGraphAsymmErrors()
     gr_obs_norm_ratio = ROOT.TGraphAsymmErrors()
+    gr_obs_norm_ratio_stat = ROOT.TGraphAsymmErrors()
     gr_obs_sys = ROOT.TGraphAsymmErrors()
     gr_obs_norm_sys = ROOT.TGraphAsymmErrors()
     for i in range(len(PT_BINS) - 1):
@@ -138,8 +139,8 @@ for lep in ["minus", "plus"]:
             y_norm = float(POIs_obs[f"mu_W{lep}_rel_{i + 1}"][0]) * y_rel
             y_norm_up = float(POIs_obs[f"mu_W{lep}_rel_{i + 1}"][1]) * y_rel
             y_norm_dn = float(POIs_obs[f"mu_W{lep}_rel_{i + 1}"][2]) * y_rel
-            y_norm_up_sys = (y_norm_up**2 - (float(POIs_stat[f"mu_W{lep}_rel_{i + 1}"][1]) * y_rel)**2)**(0.5)
-            y_norm_dn_sys = (y_norm_dn**2 - (float(POIs_stat[f"mu_W{lep}_rel_{i + 1}"][1]) * y_rel)**2)**(0.5)
+            y_norm_up_stat = float(POIs_stat[f"mu_W{lep}_rel_{i + 1}"][1]) * y_rel
+            y_norm_dn_stat = float(POIs_stat[f"mu_W{lep}_rel_{i + 1}"][2]) * y_rel
         else:
             y = float(POIs_obs[f"expr_mu_W{lep}_rel_{i + 1}"][0]) * y_tot
             y_up = ((float(POIs_obs[f"expr_mu_W{lep}_rel_{i + 1}"][1]) * y_tot)**2 + (float(POIs_obs[f"{expr}mu_W{lep}_tot"][1]) * y_prior)**2)**(0.5)
@@ -151,8 +152,10 @@ for lep in ["minus", "plus"]:
             y_norm = float(POIs_obs[f"expr_mu_W{lep}_rel_{i + 1}"][0]) * y_rel
             y_norm_up = float(POIs_obs[f"expr_mu_W{lep}_rel_{i + 1}"][1]) * y_rel
             y_norm_dn = float(POIs_obs[f"expr_mu_W{lep}_rel_{i + 1}"][1]) * y_rel
-            y_norm_up_sys = (y_norm_up**2 - (float(POIs_stat[f"expr_mu_W{lep}_rel_{i + 1}"][1]) * y_rel)**2)**(0.5)
-            y_norm_dn_sys = (y_norm_dn**2 - (float(POIs_stat[f"expr_mu_W{lep}_rel_{i + 1}"][1]) * y_rel)**2)**(0.5)
+            y_norm_up_stat = float(POIs_stat[f"expr_mu_W{lep}_rel_{i + 1}"][1]) * y_rel
+            y_norm_dn_stat = float(POIs_stat[f"expr_mu_W{lep}_rel_{i + 1}"][1]) * y_rel
+        y_norm_up_sys = (y_norm_up**2 - y_norm_up_stat**2)**(0.5)
+        y_norm_dn_sys = (y_norm_dn**2 - y_norm_dn_stat**2)**(0.5)
 
         # fill graphs
         # xc = xl + w / 2.
@@ -167,6 +170,8 @@ for lep in ["minus", "plus"]:
         gr_obs_ratio.SetPointError(i, xc_dn, xc_up, abs(y_dn / y), abs(y_up / y))
         gr_obs_norm_ratio.SetPoint(i, xc, 1.0)
         gr_obs_norm_ratio.SetPointError(i, xc_dn, xc_up, abs(y_norm_dn / y_norm), abs(y_norm_up / y_norm))
+        gr_obs_norm_ratio_stat.SetPoint(i, xc, 1.0)
+        gr_obs_norm_ratio_stat.SetPointError(i, xc_dn, xc_up, abs(y_norm_dn_stat / y_norm), abs(y_norm_up_stat / y_norm))
         gr_obs_sys.SetPoint(i, xc, y)
         gr_obs_sys.SetPointError(i, w / 10., w / 10., abs(y_dn_sys), abs(y_up_sys))
         gr_obs_norm_sys.SetPoint(i, xc, y_norm)
@@ -184,25 +189,20 @@ for lep in ["minus", "plus"]:
     gr_obs_sys.SetLineColor(ROOT.kBlack)
     gr_obs_norm_sys.SetLineColor(ROOT.kBlack)
     gr_obs_ratio.SetFillColor(ROOT.kGray)
-    gr_obs_norm_ratio.SetFillColor(ROOT.kGray + 1)
+    # gr_obs_norm_ratio.SetFillColor(ROOT.kGray + 1)
+    gr_obs_norm_ratio.SetFillColor(ROOT.kGray)
+    gr_obs_norm_ratio_stat.SetFillColor(ROOT.kGray + 1)
+    gr_obs_norm_ratio_stat.SetLineColor(ROOT.kGray + 1)
 
     # multigraph
     mg_obs = ROOT.TMultiGraph()
     mg_obs_norm = ROOT.TMultiGraph()
     mg_obs_ratio = ROOT.TMultiGraph()
 
-    # add graphs
-    mg_obs.Add(gr_obs_sys, "e5")
-    mg_obs.Add(gr_obs, "pe")
-    mg_obs_norm.Add(gr_obs_norm_sys, "e5")
-    mg_obs_norm.Add(gr_obs_norm, "pe")
-    mg_obs_ratio.Add(gr_obs_ratio, "e2")
-    mg_obs_ratio.Add(gr_obs_norm_ratio, "e2")
-
     # axis title
     mg_obs.GetYaxis().SetTitle("d#sigma/d#it{p}_{T}^{#it{D}} [pb]")
     mg_obs_norm.GetYaxis().SetTitle("1/#sigma^{tot.}_{fid.} d#sigma/d#it{p}_{T}^{#it{D}}")
-    mg_obs_ratio.GetYaxis().SetTitle("Theory / Data")
+    mg_obs_ratio.GetYaxis().SetTitle("#frac{Theory}{1/#sigma^{tot.}_{fid.} d#sigma/d#it{p}_{T}^{#it{D}}}")
     mg_obs_ratio.GetXaxis().SetTitle("#it{p}_{T}(#it{D}) [GeV]")
 
     # label and title size
@@ -218,7 +218,7 @@ for lep in ["minus", "plus"]:
 
     SF = 0.55 / 0.30
     mg_obs_ratio.GetYaxis().SetTitleSize(mg_obs_ratio.GetYaxis().GetTitleSize() * SF * GLOBAL_SF)
-    mg_obs_ratio.GetYaxis().SetTitleOffset(mg_obs_ratio.GetYaxis().GetTitleOffset() * (1 / (GLOBAL_SF * 1.1 * SF)))
+    mg_obs_ratio.GetYaxis().SetTitleOffset(mg_obs_ratio.GetYaxis().GetTitleOffset() * (1 / (GLOBAL_SF * 1.0 * SF)))
     mg_obs_ratio.GetXaxis().SetTitleSize(mg_obs_ratio.GetXaxis().GetTitleSize() * SF * GLOBAL_SF)
     mg_obs_ratio.GetXaxis().SetTitleOffset(mg_obs_ratio.GetXaxis().GetTitleOffset() * (1 / (GLOBAL_SF * 0.5 * SF)))
     mg_obs_ratio.GetYaxis().SetLabelSize(mg_obs_ratio.GetYaxis().GetLabelSize() * SF * GLOBAL_SF)
@@ -226,7 +226,7 @@ for lep in ["minus", "plus"]:
 
     # tick marks
     mg_obs.GetYaxis().SetNdivisions(506)
-    mg_obs_norm.GetYaxis().SetNdivisions(503)
+    mg_obs_norm.GetYaxis().SetNdivisions(504)
     mg_obs_ratio.GetYaxis().SetNdivisions(306)
 
     # log x-axis
@@ -243,12 +243,74 @@ for lep in ["minus", "plus"]:
     leg.SetTextFont(43)
     leg.AddEntry(gr_obs, "Data", "pe")
     leg.AddEntry(gr_obs_sys, "Syst. Unc.", "f")
-    leg.AddEntry(gr_obs_ratio, "Syst. #oplus Stat. Unc.", "f")
-    leg.AddEntry(gr_obs_norm_ratio, "1/#sigma^{tot.}_{fid.} Unc.", "f")
+    leg.AddEntry(gr_obs_norm_ratio_stat, "Stat. Unc.", "f")
+    leg.AddEntry(gr_obs_norm_ratio, "Syst. #oplus Stat. Unc.", "f")
+
+    # --------------------------------------------
+    # Step 2.5: theory comparisons
+    # --------------------------------------------
+    f_theory = ROOT.TFile(os.path.join(dir_prior, "histograms.root"))
+    h = f_theory.Get(f"Sherpa2211_WplusD_OS-SS_lep_{lep}_Dplus_Kpipi_D_pt_fit")
+    gr_qcd = f_theory.Get(f"Sherpa2211_WplusD_OS-SS_lep_{lep}_Dplus_Kpipi_D_pt_fit_ratio_sherpa2211_theory_qcd")
+    gr_pdf = f_theory.Get(f"Sherpa2211_WplusD_OS-SS_lep_{lep}_Dplus_Kpipi_D_pt_fit_ratio_sherpa2211_theory_pdf")
+    gr_as = f_theory.Get(f"Sherpa2211_WplusD_OS-SS_lep_{lep}_Dplus_Kpipi_D_pt_fit_ratio_sherpa2211_theory_as")
+    gr_theory = gr_obs.Clone()
+    total_xsec = 0.
+    total_xsec_up = 0.
+    total_xsec_dn = 0.
+    for i in range(h.GetNbinsX()):
+        gr_theory.GetY()[i] = h.GetBinContent(i + 1)
+        gr_theory.GetX()[i] = gr_theory.GetX()[i] + 0.50 * gr_theory.GetEXhigh()[i]
+        gr_theory.GetEXhigh()[i] = gr_theory.GetEXhigh()[i] / 10.
+        gr_theory.GetEXlow()[i] = gr_theory.GetEXlow()[i] / 10.
+        gr_theory.GetEYhigh()[i] = ((gr_qcd.GetEYhigh()[i] * gr_theory.GetY()[i])**2 +
+                                    (gr_pdf.GetEYhigh()[i] * gr_theory.GetY()[i])**2 +
+                                    (gr_as.GetEYhigh()[i] * gr_theory.GetY()[i])**2)**(0.5)
+        gr_theory.GetEYlow()[i] = ((gr_qcd.GetEYlow()[i] * gr_theory.GetY()[i])**2 +
+                                   (gr_pdf.GetEYlow()[i] * gr_theory.GetY()[i])**2 +
+                                   (gr_as.GetEYlow()[i] * gr_theory.GetY()[i])**2)**(0.5)
+        total_xsec += gr_theory.GetY()[i]
+        total_xsec_up += gr_theory.GetY()[i] + gr_theory.GetEYhigh()[i]
+        total_xsec_dn += gr_theory.GetY()[i] - gr_theory.GetEYlow()[i]
+
+    # style
+    gr_theory.SetLineColor(ROOT.kCyan + 2)
+    gr_theory.SetMarkerColor(ROOT.kCyan + 2)
+    gr_theory.SetFillColor(ROOT.kCyan - 4)
+    gr_theory.SetMarkerStyle(110)
+
+    # normalized cross section
+    gr_theory_norm = gr_theory.Clone()
+    for i in range(h.GetNbinsX()):
+        gr_theory_norm.GetY()[i] = gr_theory_norm.GetY()[i] / total_xsec
+        gr_theory_norm.GetEYhigh()[i] = (gr_theory.GetY()[i] + gr_theory.GetEYhigh()[i]) / total_xsec_up - gr_theory_norm.GetY()[i]
+        gr_theory_norm.GetEYlow()[i] = gr_theory_norm.GetY()[i] - (gr_theory.GetY()[i] - gr_theory.GetEYlow()[i]) / total_xsec_dn
+
+    # ratio plot
+    gr_theory_ratio = gr_theory_norm.Clone()
+    for i in range(h.GetNbinsX()):
+        gr_theory_ratio.GetY()[i] = gr_theory_norm.GetY()[i] / gr_obs_norm.GetY()[i]
+        gr_theory_ratio.GetEYhigh()[i] = gr_theory_norm.GetEYhigh()[i] / gr_obs_norm.GetY()[i]
+        gr_theory_ratio.GetEYlow()[i] = gr_theory_norm.GetEYlow()[i] / gr_obs_norm.GetY()[i]
+
+    # add to legend
+    leg.AddEntry(gr_theory_ratio, "Sherpa2.2.11 W+D", "pf")
 
     # --------------------------------------------
     # Step 3: make plots
     # --------------------------------------------
+    # add graphs
+    mg_obs.Add(gr_theory, "pe5")
+    mg_obs.Add(gr_obs_sys, "e5")
+    mg_obs.Add(gr_obs, "pe")
+    mg_obs_norm.Add(gr_theory_norm, "pe5")
+    mg_obs_norm.Add(gr_obs_norm_sys, "e5")
+    mg_obs_norm.Add(gr_obs_norm, "pe")
+    # mg_obs_ratio.Add(gr_obs_ratio, "e2")
+    mg_obs_ratio.Add(gr_obs_norm_ratio, "e2")
+    mg_obs_ratio.Add(gr_obs_norm_ratio_stat, "e2")
+    mg_obs_ratio.Add(gr_theory_ratio, "pe5")
+
     # Plot histograms: first canvas, draw OS and SS on the same plot
     c1, pad1, pad2, pad3 = createCanvasPads(f"W{lep}")
 
@@ -278,26 +340,30 @@ for lep in ["minus", "plus"]:
     ROOT.gPad.RedrawAxis()
     pad2.cd()
     pad2.SetLogx()
-    pad2.SetLogy()
+    # pad2.SetLogy()
     mg_obs_norm.Draw("a")
     mg_obs_norm.GetXaxis().SetLimits(8, 120)
-    mg_obs_norm.SetMinimum(0.015)
-    mg_obs_norm.SetMaximum(0.4)
+    # mg_obs_norm.SetMinimum(0.015)
+    mg_obs_norm.SetMinimum(1e-3)
+    mg_obs_norm.SetMaximum(0.35)
 
     ROOT.gPad.RedrawAxis()
     pad3.cd()
     pad3.SetLogx()
     mg_obs_ratio.Draw("a")
     mg_obs_ratio.GetXaxis().SetLimits(8, 120)
-    mg_obs_ratio.SetMinimum(0.91)
-    mg_obs_ratio.SetMaximum(1.09)
+    mg_obs_ratio.SetMinimum(0.83)
+    mg_obs_ratio.SetMaximum(1.17)
     line3 = ROOT.TLine(8, 1, 120, 1)
     line3.SetLineStyle(2)
     line3.Draw()
 
     ROOT.gPad.RedrawAxis()
     c1.Print(f"fit_results/W{lep}.pdf")
+    c1.Print(f"fit_results/W{lep}.png")
 
     trash += [mg_obs]
     trash += [mg_obs_norm]
     trash += [mg_obs_ratio]
+
+f.Close()
