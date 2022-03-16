@@ -84,44 +84,35 @@ channels:
     label:
       - W#rightarrow#mu#nu+D, Truth-level
       - inclusive OS-SS
-
-  Dmeson:
+  OS-SS_lep_minus_Dplus:
     regions:
-      - el_minus_Dmeson_OS
-      - el_plus_Dmeson_OS
-      - mu_minus_Dmeson_OS
-      - mu_plus_Dmeson_OS
-      - el_minus_Dmeson_SS
-      - el_plus_Dmeson_SS
-      - mu_minus_Dmeson_SS
-      - mu_plus_Dmeson_SS
+      - el_minus_Dplus_OS
+      - -el_minus_Dplus_SS
+      - mu_minus_Dplus_OS
+      - -mu_minus_Dplus_SS
     samples:
-      - Sherpa2211_Wjets
       - MG_Wjets
+      - Sherpa2211_WplusD
+      - Sherpa2211_Wjets
       - MGPy8EG_NLO_WplusD
       - MGFxFx_Wjets
       - MGFxFx_WplusD
-      - Sherpa2211_WplusD
     label:
       - W#rightarrowl#nu+D, Truth-level
-      - inclusive OS+SS
-  OS-SS_Dmeson:
+      - inclusive OS-SS
+  OS-SS_lep_plus_Dplus:
     regions:
-      - el_minus_Dmeson_OS
-      - el_plus_Dmeson_OS
-      - mu_minus_Dmeson_OS
-      - mu_plus_Dmeson_OS
-      - -el_minus_Dmeson_SS
-      - -el_plus_Dmeson_SS
-      - -mu_minus_Dmeson_SS
-      - -mu_plus_Dmeson_SS
+      - el_plus_Dplus_OS
+      - -el_plus_Dplus_SS
+      - mu_plus_Dplus_OS
+      - -mu_plus_Dplus_SS
     samples:
-      - Sherpa2211_Wjets
       - MG_Wjets
+      - Sherpa2211_WplusD
+      - Sherpa2211_Wjets
       - MGPy8EG_NLO_WplusD
       - MGFxFx_Wjets
       - MGFxFx_WplusD
-      - Sherpa2211_WplusD
     label:
       - W#rightarrowl#nu+D, Truth-level
       - inclusive OS-SS

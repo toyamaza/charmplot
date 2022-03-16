@@ -16,7 +16,39 @@ ROOT.SetAtlasStyle()
 PT_BINS = [8, 12, 20, 40, 80, 120]
 
 # max y for differential cross sections [pb]
-Y_MAX = 50
+Y_MAX = 75
+
+# theory prediction style
+THEORY_DICT = {
+    "MG_Wjets": {
+        "lineColor": ROOT.kBlue,
+        "fillColor": ROOT.kBlue - 9,
+        "markerStyle": 32,
+        "legendLabel": "LO MG",
+        "offset": -0.70,
+    },
+    "MGPy8EG_NLO_WplusD": {
+        "lineColor": ROOT.kRed,
+        "fillColor": ROOT.kRed - 9,
+        "markerStyle": 26,
+        "legendLabel": "NLO MG #it{W}+#it{D}",
+        "offset": -0.35,
+    },
+    "Sherpa2211_WplusD": {
+        "lineColor": ROOT.kCyan + 2,
+        "fillColor": ROOT.kCyan - 4,
+        "markerStyle": 27,
+        "legendLabel": "Sh2.2.11 #it{W}+#it{D}",
+        "offset": 0.35,
+    },
+    "MGFxFx_WplusD": {
+        "lineColor": ROOT.kMagenta + 1,
+        "fillColor": ROOT.kMagenta - 9,
+        "markerStyle": 4,
+        "legendLabel": "MG FxFx #it{W}+#it{D}",
+        "offset": 0.70,
+    },
+}
 
 # make output folder
 if not os.path.isdir("fit_results"):
@@ -234,8 +266,8 @@ for lep in ["minus", "plus"]:
     mg_obs_ratio.GetXaxis().SetNoExponent()
 
     # legend
-    N = 4
-    leg = ROOT.TLegend(0.60, 0.87 - N * (0.067), 0.95, 0.87)
+    N = 3 + len(THEORY_DICT)
+    leg = ROOT.TLegend(0.66, 0.87 - N * (0.067), 0.98, 0.87)
     leg.SetBorderSize(0)
     leg.SetFillColor(0)
     leg.SetFillStyle(0)
@@ -244,72 +276,84 @@ for lep in ["minus", "plus"]:
     leg.AddEntry(gr_obs, "Data", "pe")
     leg.AddEntry(gr_obs_sys, "Syst. Unc.", "f")
     leg.AddEntry(gr_obs_norm_ratio_stat, "Stat. Unc.", "f")
-    leg.AddEntry(gr_obs_norm_ratio, "Syst. #oplus Stat. Unc.", "f")
+    leg.AddEntry(gr_obs_norm_ratio, "Syst. #oplus Stat.", "f")
+
+    # add to ratio multigraph
+    mg_obs_ratio.Add(gr_obs_norm_ratio, "e2")
+    mg_obs_ratio.Add(gr_obs_norm_ratio_stat, "e2")
 
     # --------------------------------------------
     # Step 2.5: theory comparisons
     # --------------------------------------------
-    f_theory = ROOT.TFile(os.path.join(dir_prior, "histograms.root"))
-    h = f_theory.Get(f"Sherpa2211_WplusD_OS-SS_lep_{lep}_Dplus_Kpipi_D_pt_fit")
-    gr_qcd = f_theory.Get(f"Sherpa2211_WplusD_OS-SS_lep_{lep}_Dplus_Kpipi_D_pt_fit_ratio_sherpa2211_theory_qcd")
-    gr_pdf = f_theory.Get(f"Sherpa2211_WplusD_OS-SS_lep_{lep}_Dplus_Kpipi_D_pt_fit_ratio_sherpa2211_theory_pdf")
-    gr_as = f_theory.Get(f"Sherpa2211_WplusD_OS-SS_lep_{lep}_Dplus_Kpipi_D_pt_fit_ratio_sherpa2211_theory_as")
-    gr_theory = gr_obs.Clone()
-    total_xsec = 0.
-    total_xsec_up = 0.
-    total_xsec_dn = 0.
-    for i in range(h.GetNbinsX()):
-        gr_theory.GetY()[i] = h.GetBinContent(i + 1)
-        gr_theory.GetX()[i] = gr_theory.GetX()[i] + 0.50 * gr_theory.GetEXhigh()[i]
-        gr_theory.GetEXhigh()[i] = gr_theory.GetEXhigh()[i] / 10.
-        gr_theory.GetEXlow()[i] = gr_theory.GetEXlow()[i] / 10.
-        gr_theory.GetEYhigh()[i] = ((gr_qcd.GetEYhigh()[i] * gr_theory.GetY()[i])**2 +
-                                    (gr_pdf.GetEYhigh()[i] * gr_theory.GetY()[i])**2 +
-                                    (gr_as.GetEYhigh()[i] * gr_theory.GetY()[i])**2)**(0.5)
-        gr_theory.GetEYlow()[i] = ((gr_qcd.GetEYlow()[i] * gr_theory.GetY()[i])**2 +
-                                   (gr_pdf.GetEYlow()[i] * gr_theory.GetY()[i])**2 +
-                                   (gr_as.GetEYlow()[i] * gr_theory.GetY()[i])**2)**(0.5)
-        total_xsec += gr_theory.GetY()[i]
-        total_xsec_up += gr_theory.GetY()[i] + gr_theory.GetEYhigh()[i]
-        total_xsec_dn += gr_theory.GetY()[i] - gr_theory.GetEYlow()[i]
+    for prediction in ["MG_Wjets", "MGPy8EG_NLO_WplusD", "Sherpa2211_WplusD", "MGFxFx_WplusD"]:
+        f_theory = ROOT.TFile(os.path.join(dir_prior, "histograms.root"))
+        h = f_theory.Get(f"{prediction}_OS-SS_lep_{lep}_Dplus_D_pt_fit")
+        gr_qcd = f_theory.Get(f"{prediction}_OS-SS_lep_{lep}_Dplus_D_pt_fit_ratio_sherpa2211_theory_qcd")
+        gr_pdf = f_theory.Get(f"{prediction}_OS-SS_lep_{lep}_Dplus_D_pt_fit_ratio_sherpa2211_theory_pdf")
+        gr_as = f_theory.Get(f"{prediction}_OS-SS_lep_{lep}_Dplus_D_pt_fit_ratio_sherpa2211_theory_as")
+        gr_theory = gr_obs.Clone()
+        total_xsec = 0.
+        total_xsec_up = 0.
+        total_xsec_dn = 0.
+        BR = 1.0
+        # if prediction == "MG_Wjets":
+        #     BR = 0.094
+        for i in range(h.GetNbinsX()):
+            gr_theory.GetY()[i] = h.GetBinContent(i + 1) / BR
+            if THEORY_DICT[prediction]["offset"] > 0:
+                gr_theory.GetX()[i] = gr_theory.GetX()[i] + THEORY_DICT[prediction]["offset"] * gr_theory.GetEXhigh()[i]
+            else:
+                gr_theory.GetX()[i] = gr_theory.GetX()[i] + THEORY_DICT[prediction]["offset"] * gr_theory.GetEXlow()[i]
+            gr_theory.GetEXhigh()[i] = gr_theory.GetEXhigh()[i] / 10.
+            gr_theory.GetEXlow()[i] = gr_theory.GetEXlow()[i] / 10.
+            gr_theory.GetEYhigh()[i] = ((h.GetBinError(i + 1) / BR)**2 +
+                                        (gr_qcd.GetEYhigh()[i] * gr_theory.GetY()[i])**2 +
+                                        (gr_pdf.GetEYhigh()[i] * gr_theory.GetY()[i])**2 +
+                                        (gr_as.GetEYhigh()[i] * gr_theory.GetY()[i])**2)**(0.5)
+            gr_theory.GetEYlow()[i] = ((h.GetBinError(i + 1) / BR)**2 +
+                                       (gr_qcd.GetEYlow()[i] * gr_theory.GetY()[i])**2 +
+                                       (gr_pdf.GetEYlow()[i] * gr_theory.GetY()[i])**2 +
+                                       (gr_as.GetEYlow()[i] * gr_theory.GetY()[i])**2)**(0.5)
+            total_xsec += gr_theory.GetY()[i]
+            total_xsec_up += gr_theory.GetY()[i] + gr_theory.GetEYhigh()[i]
+            total_xsec_dn += gr_theory.GetY()[i] - gr_theory.GetEYlow()[i]
 
-    # style
-    gr_theory.SetLineColor(ROOT.kCyan + 2)
-    gr_theory.SetMarkerColor(ROOT.kCyan + 2)
-    gr_theory.SetFillColor(ROOT.kCyan - 4)
-    gr_theory.SetMarkerStyle(110)
+        # style
+        gr_theory.SetLineColor(THEORY_DICT[prediction]["lineColor"])
+        gr_theory.SetMarkerColor(THEORY_DICT[prediction]["lineColor"])
+        gr_theory.SetFillColor(THEORY_DICT[prediction]["fillColor"])
+        gr_theory.SetMarkerStyle(THEORY_DICT[prediction]["markerStyle"])
 
-    # normalized cross section
-    gr_theory_norm = gr_theory.Clone()
-    for i in range(h.GetNbinsX()):
-        gr_theory_norm.GetY()[i] = gr_theory_norm.GetY()[i] / total_xsec
-        gr_theory_norm.GetEYhigh()[i] = (gr_theory.GetY()[i] + gr_theory.GetEYhigh()[i]) / total_xsec_up - gr_theory_norm.GetY()[i]
-        gr_theory_norm.GetEYlow()[i] = gr_theory_norm.GetY()[i] - (gr_theory.GetY()[i] - gr_theory.GetEYlow()[i]) / total_xsec_dn
+        # normalized cross section
+        gr_theory_norm = gr_theory.Clone()
+        for i in range(h.GetNbinsX()):
+            gr_theory_norm.GetY()[i] = gr_theory_norm.GetY()[i] / total_xsec
+            gr_theory_norm.GetEYhigh()[i] = (gr_theory.GetY()[i] + gr_theory.GetEYhigh()[i]) / total_xsec_up - gr_theory_norm.GetY()[i]
+            gr_theory_norm.GetEYlow()[i] = gr_theory_norm.GetY()[i] - (gr_theory.GetY()[i] - gr_theory.GetEYlow()[i]) / total_xsec_dn
 
-    # ratio plot
-    gr_theory_ratio = gr_theory_norm.Clone()
-    for i in range(h.GetNbinsX()):
-        gr_theory_ratio.GetY()[i] = gr_theory_norm.GetY()[i] / gr_obs_norm.GetY()[i]
-        gr_theory_ratio.GetEYhigh()[i] = gr_theory_norm.GetEYhigh()[i] / gr_obs_norm.GetY()[i]
-        gr_theory_ratio.GetEYlow()[i] = gr_theory_norm.GetEYlow()[i] / gr_obs_norm.GetY()[i]
+        # ratio plot
+        gr_theory_ratio = gr_theory_norm.Clone()
+        for i in range(h.GetNbinsX()):
+            gr_theory_ratio.GetY()[i] = gr_theory_norm.GetY()[i] / gr_obs_norm.GetY()[i]
+            gr_theory_ratio.GetEYhigh()[i] = gr_theory_norm.GetEYhigh()[i] / gr_obs_norm.GetY()[i]
+            gr_theory_ratio.GetEYlow()[i] = gr_theory_norm.GetEYlow()[i] / gr_obs_norm.GetY()[i]
 
-    # add to legend
-    leg.AddEntry(gr_theory_ratio, "Sherpa2.2.11 W+D", "pf")
+        # add to legend
+        leg.AddEntry(gr_theory_ratio, THEORY_DICT[prediction]["legendLabel"], "pf")
+
+        # add to multigraph
+        mg_obs.Add(gr_theory, "pe5")
+        mg_obs_norm.Add(gr_theory_norm, "pe5")
+        mg_obs_ratio.Add(gr_theory_ratio, "pe5")
 
     # --------------------------------------------
     # Step 3: make plots
     # --------------------------------------------
     # add graphs
-    mg_obs.Add(gr_theory, "pe5")
     mg_obs.Add(gr_obs_sys, "e5")
     mg_obs.Add(gr_obs, "pe")
-    mg_obs_norm.Add(gr_theory_norm, "pe5")
     mg_obs_norm.Add(gr_obs_norm_sys, "e5")
     mg_obs_norm.Add(gr_obs_norm, "pe")
-    # mg_obs_ratio.Add(gr_obs_ratio, "e2")
-    mg_obs_ratio.Add(gr_obs_norm_ratio, "e2")
-    mg_obs_ratio.Add(gr_obs_norm_ratio_stat, "e2")
-    mg_obs_ratio.Add(gr_theory_ratio, "pe5")
 
     # Plot histograms: first canvas, draw OS and SS on the same plot
     c1, pad1, pad2, pad3 = createCanvasPads(f"W{lep}")
