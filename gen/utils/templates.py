@@ -188,9 +188,8 @@ class SPGComparison(ChannelTemplate):
                                 [f'Sherpa2211_WplusD_{slice}', proxies.GenericChannel(region=slice, name=slice)],
                                 [f'Sherpa2211_WplusD_{slice}_Plain', proxies.GenericChannel(region=slice, name=slice)],
                                 # [f'Sherpa2211_Wjets_{slice}', proxies.GenericChannel(region=slice, name=slice)],
-                                # [f'SPG_Matched', proxies.SPGChannel(name=f"SPG_{slice}",
-                                #                                     regions_OS=["inclusive_" + self.decay_mode + f"_OS_{slice}"],
-                                #                                     regions_SS=["inclusive_" + self.decay_mode + f"_SS_{slice}"])],
+                                # [f'SPG_Matched', proxies.GenericChannel(name=f"SPG_{slice}",
+                                #                                         regions_override=["inclusive_" + self.decay_mode + f"_OS_{slice}"])],
                             ]
                         }
                     )
@@ -199,16 +198,12 @@ class SPGComparison(ChannelTemplate):
                     {
                         'Matched': [
                             # ['MG_Wjets_Matched', proxies.GenericChannel(region=self.truthSlices, name="Matched")],
-                            # ['MGPy8EG_NLO_WplusD_Matched', proxies.GenericChannel(region=self.truthSlices, name="Matched")],
+                            ['MGPy8EG_NLO_WplusD_Matched', proxies.GenericChannel(region=self.truthSlices, name="Matched")],
                             ['Sherpa2211_WplusD_Matched', proxies.GenericChannel(region=self.truthSlices, name="Matched")],
-                            # ['Sherpa2211_WplusD_Matched_Plain', proxies.GenericChannel(region=self.truthSlices, name="Matched")],
-                            ['Sherpa2211_WplusD_Matched_Fit', proxies.GenericChannel(region=self.truthSlices, name="Matched")],
-                            ['Sherpa2211_WplusD_Matched_Fit_up', proxies.GenericChannel(region=self.truthSlices, name="Matched")],
-                            ['Sherpa2211_WplusD_Matched_Fit_dn', proxies.GenericChannel(region=self.truthSlices, name="Matched")],
+                            ['Sherpa2211_WplusD_Matched_Plain', proxies.GenericChannel(region=self.truthSlices, name="Matched")],
                             # ['Sherpa2211_Wjets_Matched', proxies.GenericChannel(region=self.truthSlices, name="Matched")],
-                            # ['SPG_Matched', proxies.SPGChannel(name="SPG_Matched",
-                            #                                 regions_OS=["inclusive_" + self.decay_mode + f"_OS_{slice}" for slice in self.truthSlices],
-                            #                                 regions_SS=["inclusive_" + self.decay_mode + f"_SS_{slice}" for slice in self.truthSlices])],
+                            # ['SPG_Matched', proxies.GenericChannel(name="SPG_Matched",
+                            #                                        regions_override=["inclusive_" + self.decay_mode + f"_OS_{slice}" for slice in self.truthSlices])],
                         ]
                     }
                 )
@@ -372,48 +367,21 @@ class ReplacementSamples(ChannelTemplate):
 
         # signal samples
         if comparison != "bkg_comparison":
-            # self.samples.update({
-            #     'Matched': [['SPG_Matched', proxies.SPGChannel(name="SPG_Matched",
-            #                                                    regions_OS=[f"inclusive_{self.decay_mode}_OS_{slice}" for slice in self.truthSlices],
-            #                                                    regions_SS=[f"inclusive_{self.decay_mode}_SS_{slice}" for slice in self.truthSlices])]]
-            # })
             self.samples.update({
-                'Matched': [['MGPy8EG_NLO_WplusD_Matched', proxies.GenericChannel(name="Matched",
-                                                                                  regions_OS=[f"{flavor}_SR_0tag_{self.decay_mode}_OS_{slice}" for slice in self.truthSlices for flavor in FLAVORS],
-                                                                                  regions_SS=[f"{flavor}_SR_0tag_{self.decay_mode}_OS_{slice}" for slice in self.truthSlices for flavor in FLAVORS])]]
+                'Matched': [['MGPy8EG_NLO_WplusD_Matched',
+                             proxies.GenericChannel(name="Matched",
+                                                    regions_override=[
+                                                        f"{flavor}_SR_0tag_{self.decay_mode}_OS_{slice}" for slice in self.truthSlices for flavor in FLAVORS])]]
             })
-
-            # Dmeson mass fit
-            if self.decay_mode == "Dplus":
-                self.samples.update({
-                    "MassFit": [
-                        ['Matched_Fit', proxies.GenericChannel(name="Matched_Fit",
-                                                               regions_OS=["MGPy8EG_NLO_WplusD_Matched_OS_0tag_Dplus"],
-                                                               regions_SS=["MGPy8EG_NLO_WplusD_Matched_OS_0tag_Dplus"])],
-                    ],
-                    "MassFit_up": [
-                        ['Matched_Fit_up', proxies.GenericChannel(name="Matched_Fit_up",
-                                                                  regions_OS=["sigma_up_MGPy8EG_NLO_WplusD_Matched_OS_0tag_Dplus"],
-                                                                  regions_SS=["sigma_up_MGPy8EG_NLO_WplusD_Matched_OS_0tag_Dplus"])],
-                    ],
-                    "MassFit_dn": [
-                        ['Matched_Fit_dn', proxies.GenericChannel(name="Matched_Fit_dn",
-                                                                  regions_OS=["sigma_dn_MGPy8EG_NLO_WplusD_Matched_OS_0tag_Dplus"],
-                                                                  regions_SS=["sigma_dn_MGPy8EG_NLO_WplusD_Matched_OS_0tag_Dplus"])],
-                    ],
-                })
 
             # signal samples in truth differential bins
             if self.truthDiffBins:
                 self.samples.update(
                     {
-                        # slice: [[f'SPG_{slice}', proxies.SPGChannel(name=f"SPG_{slice}",
-                        #                                             regions_OS=[f"inclusive_{self.decay_mode}_OS_{slice}"],
-                        #                                             regions_SS=[f"inclusive_{self.decay_mode}_SS_{slice}"])],
-                        #         ] for slice in self.truthSlices
-                        slice: [[f'MGPy8EG_NLO_WplusD_{slice}', proxies.GenericChannel(name=f"{slice}",
-                                                                                       regions_OS=[f"{flavor}_SR_0tag_{self.decay_mode}_OS_{slice}" for flavor in FLAVORS],
-                                                                                       regions_SS=[f"{flavor}_SR_0tag_{self.decay_mode}_OS_{slice}" for flavor in FLAVORS])]
+                        slice: [[f'MGPy8EG_NLO_WplusD_{slice}',
+                                 proxies.GenericChannel(name=f"{slice}",
+                                                        regions_override=[
+                                                            f"{flavor}_SR_0tag_{self.decay_mode}_OS_{slice}" for flavor in FLAVORS])]
                                 ] for slice in self.truthSlices
                     })
 
