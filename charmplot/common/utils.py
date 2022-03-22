@@ -1067,6 +1067,31 @@ def average_content(h, i):
         return val
 
 
+def get_replacement_histogram(reader: inputDataReader.InputDataReader, h_current: ROOT.TH1,
+                              sample_replacement: sample.Sample, channel_replacement: sample.Sample,
+                              var: variable.Variable, integral_OS: float, integral_SS: float, sys: str = "") -> ROOT.TH1:
+    h_replacement = reader.get_histogram(sample_replacement, channel_replacement, var, channel_replacement.force_positive,
+                                         integral_OS=integral_OS, integral_SS=integral_SS, sys=sys)
+
+    # Scale replacement histogram to current sample
+    SF = h_current.GetSumOfWeights() / h_replacement.GetSumOfWeights()
+    h_replacement.Scale(SF)
+    logging.debug(f"Scaled replacement histogram {h_replacement.GetName()}"
+                  f" to the itegral of histogram {h_current.GetName()}: {h_current.GetSumOfWeights()}."
+                  f" Scale factor was {SF}")
+    if h_replacement.GetNbinsX() > h_current.GetNbinsX():
+        logging.critical(f"Replacement sample has more bins: {h_replacement.GetNbinsX()} -> {h_current.GetNbinsX()}")
+        raise Exception("Invalid binning")
+
+    # smooth any bins with very low bin content in the nominal replacement histogram
+    original_norm = h_replacement.GetSumOfWeights()
+    for i in range(1, h_replacement.GetNbinsX() + 1):
+        if abs(h_replacement.GetBinContent(i)) < h_replacement.GetMaximum() / 1000.:
+            h_replacement.SetBinContent(i, 1e-5)
+    h_replacement.Scale(original_norm / h_replacement.GetSumOfWeights())
+    return h_replacement
+
+
 def replace_sample(conf: globalConfig.GlobalConfig, mc_map: MC_Map, reader: inputDataReader.InputDataReader,
                    c: channel.Channel, var: variable.Variable, sample: str, channel: str, mc_map_sys: Dict[str, MC_Map] = None,
                    relative_unc: bool = True, current_sample: str = ""):
@@ -1090,29 +1115,13 @@ def replace_sample(conf: globalConfig.GlobalConfig, mc_map: MC_Map, reader: inpu
     if len(channel_replacement.samples) == 1:
         sample_replacement = conf.get_sample(channel_replacement.samples[0])
     else:
-        sample_replacement = [conf.get_sample(s) for s in channel_replacement.samples if conf.get_sample(s).shortName in [f"{sample}_PostProc", f"{sample}_Fit"]]
+        sample_replacement = [conf.get_sample(s) for s in channel_replacement.samples if conf.get_sample(
+            s).shortName in [f"{sample}_PostProc", f"{sample}_Fit"]]
         assert len(sample_replacement) == 1, (sample_replacement, sample, [conf.get_sample(s).shortName for s in channel_replacement.samples])
         sample_replacement = sample_replacement[0]
-    h_replacement = reader.get_histogram(sample_replacement, channel_replacement, var, channel_replacement.force_positive,
-                                         integral_OS=integral_OS, integral_SS=integral_SS)
 
-    # Scale replacement histogram to current sample
-    SF = h_current.GetSumOfWeights() / h_replacement.GetSumOfWeights()
-    h_replacement.Scale(SF)
-    logging.debug(f"Scaled replacement histogram {h_replacement.GetName()}"
-                  f" to the itegral of histogram {h_current.GetName()}: {h_current.GetSumOfWeights()}."
-                  f" Scale factor was {SF}")
-    if h_replacement.GetNbinsX() > h_current.GetNbinsX():
-        logging.critical(f"Replacement sample has more bins: {h_replacement.GetNbinsX()} -> {h_current.GetNbinsX()}")
-        raise Exception("Invalid binning")
-        h_replacement.Rebin(int(h_replacement.GetNbinsX() / h_current.GetNbinsX()))
-
-    # smooth any bins with very low bin content in the nominal replacement histogram
-    original_norm = h_replacement.GetSumOfWeights()
-    for i in range(1, h_replacement.GetNbinsX() + 1):
-        if abs(h_replacement.GetBinContent(i)) < h_replacement.GetMaximum() / 1000.:
-            h_replacement.SetBinContent(i, 1e-5)
-    h_replacement.Scale(original_norm / h_replacement.GetSumOfWeights())
+    # construct the replacement hisgotram
+    h_replacement = get_replacement_histogram(reader, h_current, sample_replacement, channel_replacement, var, integral_OS, integral_SS)
 
     # transfer systematics
     if mc_map_sys:
@@ -1120,29 +1129,34 @@ def replace_sample(conf: globalConfig.GlobalConfig, mc_map: MC_Map, reader: inpu
             if group in ["wjets_rest_bkg_samples"]:
                 continue
             for syst, map_sys in systematics.items():
-                h_sys_replaced = map_sys[sample_current].Clone(f"{map_sys[sample_current].GetName()}_replaced")
 
-                # (sys - nominal) / nominal
-                for i in range(1, h_sys_replaced.GetNbinsX() + 1):
-                    y_sys = h_sys_replaced.GetBinContent(i)
-                    y_nominal = h_current.GetBinContent(i)
-                    if y_nominal > 0:
-                        if y_sys <= 0:
-                            y_sys = 0
-                        y_err = y_sys - y_nominal
-                        y_err_rel = y_err / y_nominal
-                        if (relative_unc or "PROXY_NORM" in syst) and y_err_rel < 1.0:
-                            h_sys_replaced.SetBinContent(i, y_err_rel * h_replacement.GetBinContent(i))
+                # take signal mass width from replacement sample
+                if "use_replacement" in conf.get_systematics()[group] and conf.get_systematics()[group]["use_replacement"]:
+                    h_replacement = get_replacement_histogram(reader, h_current, sample_replacement, channel_replacement, var, integral_OS, integral_SS, syst)
+                    h_sys_replaced = h_replacement.Clone(f"{map_sys[sample_current].GetName()}_replaced")
+                else:
+                    # (sys - nominal) / nominal
+                    h_sys_replaced = map_sys[sample_current].Clone(f"{map_sys[sample_current].GetName()}_replaced")
+                    for i in range(1, h_sys_replaced.GetNbinsX() + 1):
+                        y_sys = h_sys_replaced.GetBinContent(i)
+                        y_nominal = h_current.GetBinContent(i)
+                        if y_nominal > 0:
+                            if y_sys <= 0:
+                                y_sys = 0
+                            y_err = y_sys - y_nominal
+                            y_err_rel = y_err / y_nominal
+                            if (relative_unc or "PROXY_NORM" in syst) and y_err_rel < 1.0:
+                                h_sys_replaced.SetBinContent(i, y_err_rel * h_replacement.GetBinContent(i))
+                            else:
+                                h_sys_replaced.SetBinContent(i, y_err)
                         else:
-                            h_sys_replaced.SetBinContent(i, y_err)
-                    else:
-                        h_sys_replaced.SetBinContent(i, 0.0)
+                            h_sys_replaced.SetBinContent(i, 0.0)
 
-                h_sys_replaced.Add(h_replacement)
+                    h_sys_replaced.Add(h_replacement)
 
-                # set the stat error of the sys template to the stat error of the nominal tempalte
-                for i in range(1, h_sys_replaced.GetNbinsX() + 1):
-                    h_sys_replaced.SetBinError(i, h_current.GetBinError(i))
+                    # set the stat error of the sys template to the stat error of the nominal tempalte
+                    for i in range(1, h_sys_replaced.GetNbinsX() + 1):
+                        h_sys_replaced.SetBinError(i, h_current.GetBinError(i))
 
                 # save in map
                 map_sys[sample_current] = h_sys_replaced
