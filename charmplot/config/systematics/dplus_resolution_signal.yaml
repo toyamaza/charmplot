@@ -1,0 +1,25 @@
+type: updown
+affecting:
+  - Sherpa2211_WplusD_Matched
+  - Sherpa2211_WplusD_Matched_truth_pt_bin1
+  - Sherpa2211_WplusD_Matched_truth_pt_bin2
+  - Sherpa2211_WplusD_Matched_truth_pt_bin3
+  - Sherpa2211_WplusD_Matched_truth_pt_bin4
+  - Sherpa2211_WplusD_Matched_truth_pt_bin5
+  - MGPy8EG_NLO_WplusD_Matched
+  - MGPy8EG_NLO_WplusD_Matched_truth_pt_bin1
+  - MGPy8EG_NLO_WplusD_Matched_truth_pt_bin2
+  - MGPy8EG_NLO_WplusD_Matched_truth_pt_bin3
+  - MGPy8EG_NLO_WplusD_Matched_truth_pt_bin4
+  - MGPy8EG_NLO_WplusD_Matched_truth_pt_bin5
+use_replacement: True
+variations:
+  - DMESON_RESO_IBL
+  - DMESON_RESO_Overal
+  - DMESON_RESO_PP0
+  - DMESON_RESO_QGSP
+  - DMESON_RESO_TEST
+  # - DMESON_RESO_TRK_RES_D0_DEAD
+  # - DMESON_RESO_TRK_RES_D0_MEAS
+  # - DMESON_RESO_TRK_RES_Z0_DEAD
+  # - DMESON_RESO_TRK_RES_Z0_MEAS

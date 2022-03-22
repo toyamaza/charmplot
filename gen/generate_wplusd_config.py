@@ -128,6 +128,8 @@ def main(options):
             'sherpa2211_theory_as_fit',
             'sherpa2211_theory_pdf',
             'wjets_mismatch_alt_samples',
+            'dplus_resolution_signal',
+            'dplus_resolution_background',
         ]
         if options.decay_mode == "Dplus":
             systematics += [

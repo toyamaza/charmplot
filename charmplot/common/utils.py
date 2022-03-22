@@ -1068,7 +1068,7 @@ def average_content(h, i):
 
 
 def get_replacement_histogram(reader: inputDataReader.InputDataReader, h_current: ROOT.TH1,
-                              sample_replacement: sample.Sample, channel_replacement: sample.Sample,
+                              sample_replacement: sample.Sample, channel_replacement: channel.Channel,
                               var: variable.Variable, integral_OS: float, integral_SS: float, sys: str = "") -> ROOT.TH1:
     h_replacement = reader.get_histogram(sample_replacement, channel_replacement, var, channel_replacement.force_positive,
                                          integral_OS=integral_OS, integral_SS=integral_SS, sys=sys)
@@ -1132,8 +1132,8 @@ def replace_sample(conf: globalConfig.GlobalConfig, mc_map: MC_Map, reader: inpu
 
                 # take signal mass width from replacement sample
                 if "use_replacement" in conf.get_systematics()[group] and conf.get_systematics()[group]["use_replacement"]:
-                    h_replacement = get_replacement_histogram(reader, h_current, sample_replacement, channel_replacement, var, integral_OS, integral_SS, syst)
-                    h_sys_replaced = h_replacement.Clone(f"{map_sys[sample_current].GetName()}_replaced")
+                    h_temp = get_replacement_histogram(reader, h_current, sample_replacement, channel_replacement, var, integral_OS, integral_SS, syst)
+                    h_sys_replaced = h_temp.Clone(f"{map_sys[sample_current].GetName()}_replaced")
                 else:
                     # (sys - nominal) / nominal
                     h_sys_replaced = map_sys[sample_current].Clone(f"{map_sys[sample_current].GetName()}_replaced")

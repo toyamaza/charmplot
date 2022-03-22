@@ -198,9 +198,11 @@ class SPGComparison(ChannelTemplate):
                     {
                         'Matched': [
                             # ['MG_Wjets_Matched', proxies.GenericChannel(region=self.truthSlices, name="Matched")],
-                            ['MGPy8EG_NLO_WplusD_Matched', proxies.GenericChannel(region=self.truthSlices, name="Matched")],
-                            ['Sherpa2211_WplusD_Matched', proxies.GenericChannel(region=self.truthSlices, name="Matched")],
                             ['Sherpa2211_WplusD_Matched_Plain', proxies.GenericChannel(region=self.truthSlices, name="Matched")],
+                            ['Sherpa2211_WplusD_Matched', proxies.GenericChannel(region=self.truthSlices, name="Matched")],
+                            ['MGPy8EG_NLO_WplusD_Matched', proxies.GenericChannel(region=self.truthSlices, name="Matched")],
+                            # ['Sherpa2211_WplusD_Matched_Plain_SS', proxies.GenericChannel(name="MatchedSS",
+                            #     regions_override=[f"{flavor}_SR_0tag_{self.decay_mode}_SS_{slice}" for slice in self.truthSlices for flavor in FLAVORS])],
                             # ['Sherpa2211_Wjets_Matched', proxies.GenericChannel(region=self.truthSlices, name="Matched")],
                             # ['SPG_Matched', proxies.GenericChannel(name="SPG_Matched",
                             #                                        regions_override=["inclusive_" + self.decay_mode + f"_OS_{slice}" for slice in self.truthSlices])],
