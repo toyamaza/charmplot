@@ -157,8 +157,19 @@ def main(options):
             systematics += [
                 'wplusd_signal_shape',
                 'sherpa2211_wjets_bkg_alt_samples',
-                'wplusd_signal_alt_samples',
             ]
+            if options.truth_differential_bins:
+                systematics += [
+                    'wplusd_signal_alt_samples_pt_bin1',
+                    'wplusd_signal_alt_samples_pt_bin2',
+                    'wplusd_signal_alt_samples_pt_bin3',
+                    'wplusd_signal_alt_samples_pt_bin4',
+                    'wplusd_signal_alt_samples_pt_bin5',
+                ]
+            else:
+                systematics += [
+                    'wplusd_signal_alt_samples',
+                ]
         elif options.decay_mode == "Dstar":
             systematics += [
                 'wjets_bkg_alt_samples',

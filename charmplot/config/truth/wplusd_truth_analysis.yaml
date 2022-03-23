@@ -5,6 +5,10 @@ systematics:
   - sherpa2211_theory_qcd
   - sherpa2211_theory_as
   - sherpa2211_theory_pdf
+  - mg_fxfx_theory_pdf
+  - mg_fxfx_theory_qcd
+  - mg_nlo_theory_pdf
+  - mg_nlo_theory_qcd
   # - sherpa2211_theory_ew
 
 channels:

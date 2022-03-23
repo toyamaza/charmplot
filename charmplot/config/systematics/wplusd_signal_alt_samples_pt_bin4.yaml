@@ -1,0 +1,5 @@
+type: alt_sample
+affecting:
+  - Sherpa2211_WplusD_Matched_truth_pt_bin4
+variations:
+  - MGPy8EG_NLO_WplusD_Matched_truth_pt_bin4
