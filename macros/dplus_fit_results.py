@@ -35,8 +35,8 @@ THEORY_DICT = {
         "offset": -0.35,
     },
     "Sherpa2211_WplusD": {
-        "lineColor": ROOT.kCyan + 2,
-        "fillColor": ROOT.kCyan - 4,
+        "lineColor": ROOT.kGreen + 2,
+        "fillColor": ROOT.kGreen - 6,
         "markerStyle": 27,
         "legendLabel": "Sh2.2.11 #it{W}+#it{D}",
         "offset": 0.35,
@@ -148,6 +148,7 @@ for lep in ["minus", "plus"]:
     gr_obs_norm_ratio_stat = ROOT.TGraphAsymmErrors()
     gr_obs_sys = ROOT.TGraphAsymmErrors()
     gr_obs_norm_sys = ROOT.TGraphAsymmErrors()
+    w_tot = PT_BINS[-1] - PT_BINS[0]
     for i in range(len(PT_BINS) - 1):
         xl = PT_BINS[i]
         xh = PT_BINS[i + 1]
@@ -194,6 +195,8 @@ for lep in ["minus", "plus"]:
         xc = ROOT.TMath.Power(10, ROOT.TMath.Log10(xl) + (ROOT.TMath.Log10(xl + w) - ROOT.TMath.Log10(xl)) / 2.)
         xc_up = xl + w - xc
         xc_dn = xc - xl
+        x_err_up = ROOT.TMath.Power(10, ROOT.TMath.Log10(xc) + (ROOT.TMath.Log10(PT_BINS[-1]) - ROOT.TMath.Log10(PT_BINS[0])) / 100.) - xc
+        x_err_dn = xc - ROOT.TMath.Power(10, ROOT.TMath.Log10(xc) - (ROOT.TMath.Log10(PT_BINS[-1]) - ROOT.TMath.Log10(PT_BINS[0])) / 100.)
         gr_obs.SetPoint(i, xc, y)
         gr_obs.SetPointError(i, xc_dn, xc_up, abs(y_dn), abs(y_up))
         gr_obs_norm.SetPoint(i, xc, y_norm)
@@ -205,9 +208,9 @@ for lep in ["minus", "plus"]:
         gr_obs_norm_ratio_stat.SetPoint(i, xc, 1.0)
         gr_obs_norm_ratio_stat.SetPointError(i, xc_dn, xc_up, abs(y_norm_dn_stat / y_norm), abs(y_norm_up_stat / y_norm))
         gr_obs_sys.SetPoint(i, xc, y)
-        gr_obs_sys.SetPointError(i, w / 10., w / 10., abs(y_dn_sys), abs(y_up_sys))
+        gr_obs_sys.SetPointError(i, x_err_dn, x_err_up, abs(y_dn_sys), abs(y_up_sys))
         gr_obs_norm_sys.SetPoint(i, xc, y_norm)
-        gr_obs_norm_sys.SetPointError(i, w / 10., w / 10., abs(y_norm_dn_sys), abs(y_norm_up_sys))
+        gr_obs_norm_sys.SetPointError(i, x_err_dn, x_err_up, abs(y_norm_dn_sys), abs(y_norm_up_sys))
 
     # line width
     gr_obs.SetLineWidth(2)
@@ -220,11 +223,11 @@ for lep in ["minus", "plus"]:
     # fill
     gr_obs_sys.SetLineColor(ROOT.kBlack)
     gr_obs_norm_sys.SetLineColor(ROOT.kBlack)
-    gr_obs_ratio.SetFillColor(ROOT.kGray)
+    gr_obs_ratio.SetFillColor(ROOT.kGray + 1)
     # gr_obs_norm_ratio.SetFillColor(ROOT.kGray + 1)
-    gr_obs_norm_ratio.SetFillColor(ROOT.kGray)
-    gr_obs_norm_ratio_stat.SetFillColor(ROOT.kGray + 1)
-    gr_obs_norm_ratio_stat.SetLineColor(ROOT.kGray + 1)
+    gr_obs_norm_ratio.SetFillColor(ROOT.kGray + 1)
+    gr_obs_norm_ratio_stat.SetFillColor(ROOT.kGray + 2)
+    gr_obs_norm_ratio_stat.SetLineColor(ROOT.kGray + 2)
 
     # multigraph
     mg_obs = ROOT.TMultiGraph()
@@ -288,8 +291,15 @@ for lep in ["minus", "plus"]:
     for prediction in ["MG_Wjets", "MGPy8EG_NLO_WplusD", "Sherpa2211_WplusD", "MGFxFx_WplusD"]:
         f_theory = ROOT.TFile(os.path.join(dir_prior, "histograms.root"))
         h = f_theory.Get(f"{prediction}_OS-SS_lep_{lep}_Dplus_D_pt_fit")
-        gr_qcd = f_theory.Get(f"{prediction}_OS-SS_lep_{lep}_Dplus_D_pt_fit_ratio_sherpa2211_theory_qcd")
-        gr_pdf = f_theory.Get(f"{prediction}_OS-SS_lep_{lep}_Dplus_D_pt_fit_ratio_sherpa2211_theory_pdf")
+        if prediction == "MGFxFx_WplusD":
+            gr_qcd = f_theory.Get(f"{prediction}_OS-SS_lep_{lep}_Dplus_D_pt_fit_ratio_mg_fxfx_theory_qcd")
+            gr_pdf = f_theory.Get(f"{prediction}_OS-SS_lep_{lep}_Dplus_D_pt_fit_ratio_mg_fxfx_theory_pdf")
+        elif prediction == "MGPy8EG_NLO_WplusD":
+            gr_qcd = f_theory.Get(f"{prediction}_OS-SS_lep_{lep}_Dplus_D_pt_fit_ratio_mg_nlo_theory_qcd")
+            gr_pdf = f_theory.Get(f"{prediction}_OS-SS_lep_{lep}_Dplus_D_pt_fit_ratio_mg_nlo_theory_pdf")
+        else:
+            gr_qcd = f_theory.Get(f"{prediction}_OS-SS_lep_{lep}_Dplus_D_pt_fit_ratio_sherpa2211_theory_qcd")
+            gr_pdf = f_theory.Get(f"{prediction}_OS-SS_lep_{lep}_Dplus_D_pt_fit_ratio_sherpa2211_theory_pdf")
         gr_as = f_theory.Get(f"{prediction}_OS-SS_lep_{lep}_Dplus_D_pt_fit_ratio_sherpa2211_theory_as")
         gr_theory = gr_obs.Clone()
         total_xsec = 0.
@@ -301,11 +311,14 @@ for lep in ["minus", "plus"]:
         for i in range(h.GetNbinsX()):
             gr_theory.GetY()[i] = h.GetBinContent(i + 1) / BR
             if THEORY_DICT[prediction]["offset"] > 0:
-                gr_theory.GetX()[i] = gr_theory.GetX()[i] + THEORY_DICT[prediction]["offset"] * gr_theory.GetEXhigh()[i]
+                xc = gr_theory.GetX()[i] + THEORY_DICT[prediction]["offset"] * gr_theory.GetEXhigh()[i]
             else:
-                gr_theory.GetX()[i] = gr_theory.GetX()[i] + THEORY_DICT[prediction]["offset"] * gr_theory.GetEXlow()[i]
-            gr_theory.GetEXhigh()[i] = gr_theory.GetEXhigh()[i] / 10.
-            gr_theory.GetEXlow()[i] = gr_theory.GetEXlow()[i] / 10.
+                xc = gr_theory.GetX()[i] + THEORY_DICT[prediction]["offset"] * gr_theory.GetEXlow()[i]
+            gr_theory.GetX()[i] = xc
+            x_err_up = ROOT.TMath.Power(10, ROOT.TMath.Log10(xc) + (ROOT.TMath.Log10(PT_BINS[-1]) - ROOT.TMath.Log10(PT_BINS[0])) / 100.) - xc
+            x_err_dn = xc - ROOT.TMath.Power(10, ROOT.TMath.Log10(xc) - (ROOT.TMath.Log10(PT_BINS[-1]) - ROOT.TMath.Log10(PT_BINS[0])) / 100.)
+            gr_theory.GetEXhigh()[i] = x_err_up
+            gr_theory.GetEXlow()[i] = x_err_dn
             gr_theory.GetEYhigh()[i] = ((h.GetBinError(i + 1) / BR)**2 +
                                         (gr_qcd.GetEYhigh()[i] * gr_theory.GetY()[i])**2 +
                                         (gr_pdf.GetEYhigh()[i] * gr_theory.GetY()[i])**2 +
@@ -319,6 +332,7 @@ for lep in ["minus", "plus"]:
             total_xsec_dn += gr_theory.GetY()[i] - gr_theory.GetEYlow()[i]
 
         # style
+        gr_theory.SetLineWidth(1)
         gr_theory.SetLineColor(THEORY_DICT[prediction]["lineColor"])
         gr_theory.SetMarkerColor(THEORY_DICT[prediction]["lineColor"])
         gr_theory.SetFillColor(THEORY_DICT[prediction]["fillColor"])
@@ -394,6 +408,7 @@ for lep in ["minus", "plus"]:
     ROOT.gPad.RedrawAxis()
     pad3.cd()
     pad3.SetLogx()
+    pad3.SetGridy()
     mg_obs_ratio.Draw("a")
     mg_obs_ratio.GetXaxis().SetLimits(8, 120)
     mg_obs_ratio.SetMinimum(0.83)
