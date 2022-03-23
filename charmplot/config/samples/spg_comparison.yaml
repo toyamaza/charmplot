@@ -322,6 +322,14 @@ Sherpa2211_WplusD_Matched_Plain:
   legendLabel: "Sh2.2.11 W+D"
   shortName: Sherpa2211_WplusD_Matched_Plain
 
+Sherpa2211_WplusD_Matched_Plain_SS:
+  add:
+    - Sh_2211_WplusD
+  subtract:
+  lineColor: "ROOT.kRed"
+  legendLabel: "Sh2.2.11 W+D (SS)"
+  shortName: Sherpa2211_WplusD_Matched_Plain_SS
+
 Sherpa2211_WplusD_Matched_truth_pt_bin1_Plain:
   add:
     - Sh_2211_WplusD

@@ -89,15 +89,37 @@ def main(options):
     replacement_samples = {}
     if options.replacement_samples:
         if options.truth_differential_bins:
-            replacement_samples = {
-                'Sherpa2211_WplusD_Matched_truth_pt_bin1': '<charge>_Replacement_Matched_truth_pt_bin1',
-                'Sherpa2211_WplusD_Matched_truth_pt_bin2': '<charge>_Replacement_Matched_truth_pt_bin2',
-                'Sherpa2211_WplusD_Matched_truth_pt_bin3': '<charge>_Replacement_Matched_truth_pt_bin3',
-                'Sherpa2211_WplusD_Matched_truth_pt_bin4': '<charge>_Replacement_Matched_truth_pt_bin4',
-                'Sherpa2211_WplusD_Matched_truth_pt_bin5': '<charge>_Replacement_Matched_truth_pt_bin5',
-            }
+            if options.decay_mode == "Dplus":
+                replacement_samples = {
+                    'Sherpa2211_WplusD_Matched_truth_pt_bin1': '<charge>_Replacement_MatchedSh_truth_pt_bin1',
+                    'Sherpa2211_WplusD_Matched_truth_pt_bin2': '<charge>_Replacement_MatchedSh_truth_pt_bin2',
+                    'Sherpa2211_WplusD_Matched_truth_pt_bin3': '<charge>_Replacement_MatchedSh_truth_pt_bin3',
+                    'Sherpa2211_WplusD_Matched_truth_pt_bin4': '<charge>_Replacement_MatchedSh_truth_pt_bin4',
+                    'Sherpa2211_WplusD_Matched_truth_pt_bin5': '<charge>_Replacement_MatchedSh_truth_pt_bin5',
+                    'MGPy8EG_NLO_WplusD_Matched_truth_pt_bin1': '<charge>_Replacement_MatchedMG_truth_pt_bin1',
+                    'MGPy8EG_NLO_WplusD_Matched_truth_pt_bin2': '<charge>_Replacement_MatchedMG_truth_pt_bin2',
+                    'MGPy8EG_NLO_WplusD_Matched_truth_pt_bin3': '<charge>_Replacement_MatchedMG_truth_pt_bin3',
+                    'MGPy8EG_NLO_WplusD_Matched_truth_pt_bin4': '<charge>_Replacement_MatchedMG_truth_pt_bin4',
+                    'MGPy8EG_NLO_WplusD_Matched_truth_pt_bin5': '<charge>_Replacement_MatchedMG_truth_pt_bin5',
+                }
+            else:
+                replacement_samples = {
+                    'Sherpa2211_WplusD_Matched_truth_pt_bin1': '<charge>_Replacement_MatchedMG_truth_pt_bin1',
+                    'Sherpa2211_WplusD_Matched_truth_pt_bin2': '<charge>_Replacement_MatchedMG_truth_pt_bin2',
+                    'Sherpa2211_WplusD_Matched_truth_pt_bin3': '<charge>_Replacement_MatchedMG_truth_pt_bin3',
+                    'Sherpa2211_WplusD_Matched_truth_pt_bin4': '<charge>_Replacement_MatchedMG_truth_pt_bin4',
+                    'Sherpa2211_WplusD_Matched_truth_pt_bin5': '<charge>_Replacement_MatchedMG_truth_pt_bin5',
+                }
         else:
-            replacement_samples = {'Sherpa2211_WplusD_Matched': '<charge>_Replacement_Matched'}
+            if options.decay_mode == "Dplus":
+                replacement_samples = {
+                    'Sherpa2211_WplusD_Matched': '<charge>_Replacement_MatchedSh',
+                    'MGPy8EG_NLO_WplusD_Matched': '<charge>_Replacement_MatchedMG',
+                }
+            else:
+                replacement_samples = {
+                    'Sherpa2211_WplusD_Matched': '<charge>_Replacement_MatchedMG',
+                }
         replacement_samples.update({
             'MG_Wjets_Charm': '<charge>_Replacement_CharmMisMatched',
             'Sherpa2211_Wjets_Charm': '<charge>_Replacement_CharmMisMatched',
@@ -135,6 +157,7 @@ def main(options):
             systematics += [
                 'wplusd_signal_shape',
                 'sherpa2211_wjets_bkg_alt_samples',
+                'wplusd_signal_alt_samples',
             ]
         elif options.decay_mode == "Dstar":
             systematics += [

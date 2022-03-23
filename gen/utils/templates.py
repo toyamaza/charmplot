@@ -370,22 +370,32 @@ class ReplacementSamples(ChannelTemplate):
         # signal samples
         if comparison != "bkg_comparison":
             self.samples.update({
-                'Matched': [['MGPy8EG_NLO_WplusD_Matched',
-                             proxies.GenericChannel(name="Matched",
-                                                    regions_override=[
-                                                        f"{flavor}_SR_0tag_{self.decay_mode}_OS_{slice}" for slice in self.truthSlices for flavor in FLAVORS])]]
+                'MatchedMG': [['MGPy8EG_NLO_WplusD_Matched',
+                                proxies.GenericChannel(name="Matched",
+                                                       regions_override=[
+                                                            f"{flavor}_SR_0tag_{self.decay_mode}_OS_{slice}" for slice in self.truthSlices for flavor in FLAVORS])]],
+                'MatchedSh': [['Sherpa2211_WplusD_Matched',
+                               proxies.GenericChannel(name="Matched",
+                                                      regions_override=[
+                                                           f"{flavor}_SR_0tag_{self.decay_mode}_OS_{slice}" for slice in self.truthSlices for flavor in FLAVORS])]]
             })
 
             # signal samples in truth differential bins
             if self.truthDiffBins:
-                self.samples.update(
-                    {
-                        slice: [[f'MGPy8EG_NLO_WplusD_{slice}',
-                                 proxies.GenericChannel(name=f"{slice}",
-                                                        regions_override=[
-                                                            f"{flavor}_SR_0tag_{self.decay_mode}_OS_{slice}" for flavor in FLAVORS])]
-                                ] for slice in self.truthSlices
-                    })
+                self.samples.update({
+                    slice.replace("Matched", "MatchedMG"): [[f'MGPy8EG_NLO_WplusD_{slice}',
+                                                             proxies.GenericChannel(name=f"{slice}",
+                                                                                    regions_override=[
+                                                                                        f"{flavor}_SR_0tag_{self.decay_mode}_OS_{slice}" for flavor in FLAVORS])]
+                                                            ] for slice in self.truthSlices
+                })
+                self.samples.update({
+                    slice.replace("Matched", "MatchedSh"): [[f'Sherpa2211_WplusD_{slice}',
+                                                             proxies.GenericChannel(name=f"{slice}",
+                                                                                    regions_override=[
+                                                                                        f"{flavor}_SR_0tag_{self.decay_mode}_OS_{slice}" for flavor in FLAVORS])]
+                                                            ] for slice in self.truthSlices
+                })
 
         if comparison != "spg_comparison":
             self.samples.update({
