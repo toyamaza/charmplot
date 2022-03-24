@@ -38,6 +38,10 @@ def main(options, args):
 
     if (options.decay_mode == "Dstar"):
         backgrounds["Other"] = {
+            "inputs": ["Diboson", "Sh_2211_Zjets_light_emu", "Sh_2211_Zjets_cjets_emu", "Sh_2211_Zjets_bjets_emu", "Sh_2211_Zjets_tau"],
+            "regions": [""],
+        }
+        backgrounds["MG_Other"] = {
             "inputs": ["Diboson", "MG_Zjets_light_emu", "MG_Zjets_cjets_emu", "MG_Zjets_bjets_emu", "MG_Zjets_tau"],
             "regions": [""],
         }
