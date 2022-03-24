@@ -255,6 +255,8 @@ class InputDataReader(object):
         return all_vars
 
     def read_input_file(self, sample):
+        if not sample:
+            return None
         for input_file in sample.get_all():
             if input_file in self.input_files:
                 continue

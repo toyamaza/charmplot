@@ -270,10 +270,14 @@ class SPGComparison(ChannelTemplate):
                             "inclusive_" + self.decay_mode + "_OS"], regions_SS=["inclusive_" + self.decay_mode + "_SS"])],
                     ],
                     'CharmMisMatched': [
-                        ['MG_Wjets_CharmMisMatched', proxies.MatchedCharm(name="CharmMisMatched")],
-                        ['Sherpa2211_Wjets_CharmMisMatched', proxies.MatchedCharm(name="CharmMisMatched")],
+                        ['MG_Wjets_CharmPlain', proxies.MatchedCharm(name="CharmMisMatched")],
+                        ['Sherpa2211_Wjets_CharmPlain', proxies.MatchedCharm(name="CharmMisMatched")],
                         ['SPG_CharmMisMatched', proxies.SPGChannel(name="CharmMisMatchedInclusiveSPG", regions_OS=[
                             "inclusive_" + self.decay_mode + "_OS"], regions_SS=["inclusive_" + self.decay_mode + "_SS"])],
+                    ],
+                    'CharmMisMatchedReplaced': [
+                        ['MG_Wjets_Charm', proxies.MatchedCharm(name="CharmMisMatched")],
+                        ['MG_Wjets_CharmPlain', proxies.MatchedCharm(name="CharmMisMatched")],
                     ],
                 })
 
@@ -310,6 +314,12 @@ class BKGComparison(ChannelTemplate):
                 #                                                          "MG_Wjets_MisMatched_OS"], regions_SS=["MG_Wjets_MisMatched_SS"])],
                 # ['Sherpa2211_Wjets_MisMatched_PostProc', proxies.GenericChannel(name="Sh_Wjets_MisMatched", regions_OS=[
                 #                                                          "Sh_Wjets_MisMatched_OS"], regions_SS=["Sh_Wjets_MisMatched_SS"])],
+            ],
+            'Other': [
+                ['DibosonZjets', proxies.GenericChannel(name="DibosonZjets")],
+            ],
+            'Top': [
+                ['Top', proxies.GenericChannel(name="DibosonZjets")],
             ],
         }
 
@@ -368,75 +378,74 @@ class ReplacementSamples(ChannelTemplate):
         self.samples = {}
 
         # signal samples
-        if comparison != "bkg_comparison":
+        self.samples.update({
+            'MatchedMG': [['MGPy8EG_NLO_WplusD_Matched',
+                            proxies.GenericChannel(name="Matched",
+                                                    regions_override=[
+                                                        f"{flavor}_SR_0tag_{self.decay_mode}_OS_{slice}" for slice in self.truthSlices for flavor in FLAVORS])]],
+            'MatchedSh': [['Sherpa2211_WplusD_Matched',
+                            proxies.GenericChannel(name="Matched",
+                                                    regions_override=[
+                                                        f"{flavor}_SR_0tag_{self.decay_mode}_OS_{slice}" for slice in self.truthSlices for flavor in FLAVORS])]]
+        })
+
+        # signal samples in truth differential bins
+        if self.truthDiffBins:
             self.samples.update({
-                'MatchedMG': [['MGPy8EG_NLO_WplusD_Matched',
-                                proxies.GenericChannel(name="Matched",
-                                                       regions_override=[
-                                                            f"{flavor}_SR_0tag_{self.decay_mode}_OS_{slice}" for slice in self.truthSlices for flavor in FLAVORS])]],
-                'MatchedSh': [['Sherpa2211_WplusD_Matched',
-                               proxies.GenericChannel(name="Matched",
-                                                      regions_override=[
-                                                           f"{flavor}_SR_0tag_{self.decay_mode}_OS_{slice}" for slice in self.truthSlices for flavor in FLAVORS])]]
+                slice.replace("Matched", "MatchedMG"): [[f'MGPy8EG_NLO_WplusD_{slice}',
+                                                            proxies.GenericChannel(name=f"{slice}",
+                                                                                regions_override=[
+                                                                                    f"{flavor}_SR_0tag_{self.decay_mode}_OS_{slice}" for flavor in FLAVORS])]
+                                                        ] for slice in self.truthSlices
+            })
+            self.samples.update({
+                slice.replace("Matched", "MatchedSh"): [[f'Sherpa2211_WplusD_{slice}',
+                                                            proxies.GenericChannel(name=f"{slice}",
+                                                                                regions_override=[
+                                                                                    f"{flavor}_SR_0tag_{self.decay_mode}_OS_{slice}" for flavor in FLAVORS])]
+                                                        ] for slice in self.truthSlices
             })
 
-            # signal samples in truth differential bins
-            if self.truthDiffBins:
-                self.samples.update({
-                    slice.replace("Matched", "MatchedMG"): [[f'MGPy8EG_NLO_WplusD_{slice}',
-                                                             proxies.GenericChannel(name=f"{slice}",
-                                                                                    regions_override=[
-                                                                                        f"{flavor}_SR_0tag_{self.decay_mode}_OS_{slice}" for flavor in FLAVORS])]
-                                                            ] for slice in self.truthSlices
-                })
-                self.samples.update({
-                    slice.replace("Matched", "MatchedSh"): [[f'Sherpa2211_WplusD_{slice}',
-                                                             proxies.GenericChannel(name=f"{slice}",
-                                                                                    regions_override=[
-                                                                                        f"{flavor}_SR_0tag_{self.decay_mode}_OS_{slice}" for flavor in FLAVORS])]
-                                                            ] for slice in self.truthSlices
-                })
+        # if comparison != "spg_comparison":
+        self.samples.update({
+            'CharmMisMatched': [
+                ['SPG_CharmMisMatched', proxies.SPGChannel(name="CharmMisMatched", regions_OS=[
+                    f"inclusive_{self.decay_mode}_OS"], regions_SS=[f"inclusive_{self.decay_mode}_SS"])],
+            ],
+            'MisMatched': [
+                ['MG_Wjets_MisMatched_PostProc', proxies.GenericChannel(name="MG_Wjets_MisMatched", regions_OS=[
+                    "MG_Wjets_MisMatched_OS"], regions_SS=["MG_Wjets_MisMatched_SS"])],
+                ['Sherpa2211_Wjets_MisMatched_PostProc', proxies.GenericChannel(name="Sherpa2211_Wjets_MisMatched", regions_OS=[
+                    "Sh_Wjets_MisMatched_OS"], regions_SS=["Sh_Wjets_MisMatched_SS"])],
+            ],
+        })
 
-        if comparison != "spg_comparison":
-            self.samples.update({
-                'CharmMisMatched': [
-                    ['SPG_CharmMisMatched', proxies.SPGChannel(name="CharmMisMatched", regions_OS=[
-                        f"inclusive_{self.decay_mode}_OS"], regions_SS=[f"inclusive_{self.decay_mode}_SS"])],
-                ],
-                'MisMatched': [
-                    ['MG_Wjets_MisMatched_PostProc', proxies.GenericChannel(name="MG_Wjets_MisMatched", regions_OS=[
-                        "MG_Wjets_MisMatched_OS"], regions_SS=["MG_Wjets_MisMatched_SS"])],
-                    ['Sherpa2211_Wjets_MisMatched_PostProc', proxies.GenericChannel(name="Sherpa2211_Wjets_MisMatched", regions_OS=[
-                        "Sh_Wjets_MisMatched_OS"], regions_SS=["Sh_Wjets_MisMatched_SS"])],
-                ],
-            })
+        if self.decay_mode == "Dplus":
+            self.samples.update(
+                {
+                    'Rest': [
+                        ['MG_Wjets_Rest_PostProc', proxies.GenericChannel(name="MG_Wjets_Rest", regions_OS=[
+                            "MG_Wjets_Rest_OS", "MG_Wjets_Rest_SS"], regions_SS=["MG_Wjets_Rest_OS", "MG_Wjets_Rest_SS"])],
+                        ['Sherpa2211_Wjets_Rest_PostProc', proxies.GenericChannel(name="Sh_Wjets_Rest", regions_OS=[
+                            "Sh_Wjets_Rest_OS", "Sh_Wjets_Rest_SS"], regions_SS=["Sh_Wjets_Rest_OS", "Sh_Wjets_Rest_SS"])],
+                    ],
+                }
+            )
 
-            if self.decay_mode == "Dplus":
-                self.samples.update(
-                    {
-                        'Rest': [
-                            ['MG_Wjets_Rest_PostProc', proxies.GenericChannel(name="MG_Wjets_Rest", regions_OS=[
-                                "MG_Wjets_Rest_OS", "MG_Wjets_Rest_SS"], regions_SS=["MG_Wjets_Rest_OS", "MG_Wjets_Rest_SS"])],
-                            ['Sherpa2211_Wjets_Rest_PostProc', proxies.GenericChannel(name="Sh_Wjets_Rest", regions_OS=[
-                                "Sh_Wjets_Rest_OS", "Sh_Wjets_Rest_SS"], regions_SS=["Sh_Wjets_Rest_OS", "Sh_Wjets_Rest_SS"])],
-                        ],
-                    }
-                )
-
-            if self.decay_mode == "Dstar":
-                self.samples.update(
-                    {
-                        'Rest': [
-                            ['MG_Wjets_Rest_Fit', proxies.GenericChannel(name="MG_Wjets_Rest", regions_OS=[
-                                                                         "MG_Wjets_Rest_Fit"], regions_SS=["MG_Wjets_Rest_Fit"])],
-                            ['Sherpa2211_Wjets_Rest_Fit', proxies.GenericChannel(name="Sherpa2211_Wjets_Rest", regions_OS=[
-                                                                                 "Sherpa2211_Wjets_Rest_Fit"], regions_SS=["Sherpa2211_Wjets_Rest_Fit"])],
-                        ],
-                        'DibosonZjets': [
-                            ['DibosonZjets_PostProc', proxies.GenericChannel(name="DibosonZjets", regions_OS=["Other_OS"], regions_SS=["Other_SS"])],
-                        ],
-                    }
-                )
+        if self.decay_mode == "Dstar":
+            self.samples.update(
+                {
+                    'Rest': [
+                        ['MG_Wjets_Rest_Fit', proxies.GenericChannel(name="MG_Wjets_Rest", regions_OS=[
+                                                                        "MG_Wjets_Rest_Fit"], regions_SS=["MG_Wjets_Rest_Fit"])],
+                        ['Sherpa2211_Wjets_Rest_Fit', proxies.GenericChannel(name="Sherpa2211_Wjets_Rest", regions_OS=[
+                                                                                "Sherpa2211_Wjets_Rest_Fit"], regions_SS=["Sherpa2211_Wjets_Rest_Fit"])],
+                    ],
+                    'DibosonZjets': [
+                        ['DibosonZjets_PostProc', proxies.GenericChannel(name="DibosonZjets", regions_OS=["Other_OS"], regions_SS=["Other_SS"])],
+                    ],
+                }
+            )
 
     def get(self):
         return self.samples
@@ -484,10 +493,10 @@ class WjetsSherpaSys(ChannelTemplate):
 
 class SignalComparison(ChannelTemplate):
 
-    samplesConf = "madgraph_truth"
+    # base class
+    samplesConf = "spg_comparison"
 
-    samples = {}
-
+    # new objects
     truthSlices = [
         "Matched_truth_pt_bin1",
         "Matched_truth_pt_bin2",
@@ -496,19 +505,56 @@ class SignalComparison(ChannelTemplate):
         "Matched_truth_pt_bin5",
     ]
 
-    def __init__(self, decay_mode="Dplus"):
+    def __init__(self, truthDiffBins=False, decay_mode="Dplus"):
+        self.truthDiffBins = truthDiffBins
         self.decay_mode = decay_mode
 
         if self.decay_mode == "Dstar":
-            self.samplesConf = "madgraph_truth_dstar"
+            self.samplesConf = "spg_comparison_dstar"
 
+        self.samples = {}
         self.samples.update(
             {
-                'Matched': [
-                    # ['Wjets_emu_Matched_1tag', proxies.GenericChannel(region=self.truthSlices, name="Matched_1tag", force_1tag=True)],
-                    # ['Wjets_emu_Matched_1tag', proxies.GenericChannel(region=self.truthSlices, name="Matched_1tag", add_1tag=True)],
-                    ['Wjets_emu_Matched', proxies.GenericChannel(region=self.truthSlices, name="Matched")],
-                    ['Wjets_emu_Matched_Loose', proxies.GenericChannel(region=self.truthSlices, name="Matched_Loose", loose_sr=True, loose_sr_only=True)],
+                'LOMG': [
+                    ['MG_Wjets_Matched', proxies.GenericChannel(region="Matched", name="Matched")],
+                    ['MG_Wjets_Matched_Wm', proxies.GenericChannel(name="MatchedWm",
+                        regions_OS=[f"{flavor}_SR_0tag_{self.decay_mode}_OS_Matched" for flavor in ["el_minus", "mu_minus"]],
+                        regions_SS=[f"{flavor}_SR_0tag_{self.decay_mode}_SS_Matched" for flavor in ["el_minus", "mu_minus"]],
+                    )],
+                    ['MG_Wjets_Matched_Wp', proxies.GenericChannel(name="MatchedWp",
+                        regions_OS=[f"{flavor}_SR_0tag_{self.decay_mode}_OS_Matched" for flavor in ["el_plus", "mu_plus"]],
+                        regions_SS=[f"{flavor}_SR_0tag_{self.decay_mode}_SS_Matched" for flavor in ["el_plus", "mu_plus"]],
+                    )],
+                ]
+            }
+        )
+        self.samples.update(
+            {
+                'NLOMG': [
+                    ['MGPy8EG_NLO_WplusD_Matched_W', proxies.GenericChannel(region=self.truthSlices, name="Matched")],
+                    ['MGPy8EG_NLO_WplusD_Matched_Wm', proxies.GenericChannel(name="MatchedWm",
+                        regions_OS=[f"{flavor}_SR_0tag_{self.decay_mode}_OS_{slice}" for slice in self.truthSlices for flavor in ["el_minus", "mu_minus"]],
+                        regions_SS=[f"{flavor}_SR_0tag_{self.decay_mode}_SS_{slice}" for slice in self.truthSlices for flavor in ["el_minus", "mu_minus"]],
+                    )],
+                    ['MGPy8EG_NLO_WplusD_Matched_Wp', proxies.GenericChannel(name="MatchedWp",
+                        regions_OS=[f"{flavor}_SR_0tag_{self.decay_mode}_OS_{slice}" for slice in self.truthSlices for flavor in ["el_plus", "mu_plus"]],
+                        regions_SS=[f"{flavor}_SR_0tag_{self.decay_mode}_SS_{slice}" for slice in self.truthSlices for flavor in ["el_plus", "mu_plus"]],
+                    )],
+                ]
+            }
+        )
+        self.samples.update(
+            {
+                'Sh2211': [
+                    ['Sherpa2211_WplusD_Matched_W', proxies.GenericChannel(region=self.truthSlices, name="Matched")],
+                    ['Sherpa2211_WplusD_Matched_Wm', proxies.GenericChannel(name="MatchedWm",
+                        regions_OS=[f"{flavor}_SR_0tag_{self.decay_mode}_OS_{slice}" for slice in self.truthSlices for flavor in ["el_minus", "mu_minus"]],
+                        regions_SS=[f"{flavor}_SR_0tag_{self.decay_mode}_SS_{slice}" for slice in self.truthSlices for flavor in ["el_minus", "mu_minus"]],
+                    )],
+                    ['Sherpa2211_WplusD_Matched_Wp', proxies.GenericChannel(name="MatchedWp",
+                        regions_OS=[f"{flavor}_SR_0tag_{self.decay_mode}_OS_{slice}" for slice in self.truthSlices for flavor in ["el_plus", "mu_plus"]],
+                        regions_SS=[f"{flavor}_SR_0tag_{self.decay_mode}_SS_{slice}" for slice in self.truthSlices for flavor in ["el_plus", "mu_plus"]],
+                    )],
                 ]
             }
         )
@@ -574,7 +620,7 @@ class ChannelGenerator:
                 }
 
                 # SPG samples
-                if btag == '0tag':
+                if btag != '1tag':
                     if channel_name.startswith("OS-SS"):
                         replacement_channel_sign = "OS-SS"
                     elif channel_name.startswith("OS"):
