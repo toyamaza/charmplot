@@ -41,6 +41,7 @@ Dmeson_mdiff_norebin:
   name_override: Dmeson_mdiff
   label: 'm(D*-D^{0})'
   unit: 'MeV'
+  x_range: [140,180]
   do_overflow: False
   do_underflow: False
   ratio_range: [0.5, 1.49]
