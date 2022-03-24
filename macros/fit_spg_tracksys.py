@@ -60,7 +60,6 @@ def main():
 
     # loop
     for sys in spg_dict.keys():
-
         for ptbin in ptbins:
 
             print(f'\n\nXXX sys key = {sys} XXX\n\n')
