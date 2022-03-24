@@ -320,6 +320,8 @@ class Canvas2(CanvasBase):
         max_left_ = 0
         max_right_ = 0
         for h in histograms:
+            if not h:
+                continue
             max_left = utils.get_maximum(h, x_min, x_min + self.legx_x1 * (x_max - x_min))
             max_right = utils.get_maximum(h, x_min + self.legx_x1 * (x_max - x_min), x_max)
             # max_right = utils.get_maximum(h, x_min + self.legx_x1 * (x_max - x_min), x_max - h.GetBinWidth(h.GetNbinsX()))
@@ -512,6 +514,8 @@ class CanvasMCRatio(Canvas2):
         leg.SetTextSize(28)
         leg.SetTextFont(43)
         for s in samples:
+            if not mc_map[s]:
+                continue
             name = s.name
             if hasattr(s, "legendLabel"):
                 if not s.legendLabel:
@@ -535,6 +539,8 @@ class CanvasMCRatio(Canvas2):
 
     def configure_histograms(self, mc_map: MC_Map):
         for s, h in mc_map.items():
+            if not h:
+                continue
             logger.debug(f"configuring {s} {h}")
             h.SetFillStyle(0)
             if s.lineColor:
