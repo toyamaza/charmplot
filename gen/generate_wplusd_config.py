@@ -110,13 +110,14 @@ def main(options):
             'MG_Wjets_Charm': '<charge>_Replacement_CharmMisMatched',
             'Sherpa2211_Wjets_Charm': '<charge>_Replacement_CharmMisMatched',
             'MG_Wjets_MisMatched': '<charge>_Replacement_MisMatched',
-            'MG_Wjets_Rest': '<charge>_Replacement_Rest',
             'Sherpa2211_Wjets_MisMatched': '<charge>_Replacement_MisMatched',
+            'MG_Wjets_Rest': '<charge>_Replacement_Rest',
             'Sherpa2211_Wjets_Rest': '<charge>_Replacement_Rest',
         })
         if options.decay_mode == "Dstar":
             replacement_samples.update({
                 'DibosonZjets': '<charge>_Replacement_DibosonZjets',
+                'MG_DibosonZjets': '<charge>_Replacement_DibosonZjets',
             })
 
     # systematics

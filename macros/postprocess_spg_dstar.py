@@ -104,13 +104,18 @@ def main(options, args):
                 if options.scale_factors:
                     print(f"Getting scale-factors for {flavor}_{charge} in pt_bin{pt_bin}")
                     name_spg = f"SPG_{name_map[flavor]}_{charge}_0tag_{decay_mode}_{name_map[flavor]}_pt_bin{pt_bin}_{scale_var}"
-                    name_mg = f"MG_Wjets_{name_map[flavor]}_{charge}_0tag_{decay_mode}_{name_map[flavor]}_pt_bin{pt_bin}_{scale_var}"
-                    h_mg = f_scale_factors.Get(name_mg)
+                    # name_mg = f"MG_Wjets_{name_map[flavor]}_{charge}_0tag_{decay_mode}_{name_map[flavor]}_pt_bin{pt_bin}_{scale_var}"
+                    # h_mg = f_scale_factors.Get(name_mg)
+                    name_sh = f"Sherpa2211_Wjets_{name_map[flavor]}_{charge}_0tag_{decay_mode}_{name_map[flavor]}_pt_bin{pt_bin}_{scale_var}"
+                    h_sh = f_scale_factors.Get(name_sh)
                     h_spg = f_scale_factors.Get(name_spg)
-                    if not (h_spg and h_mg):
-                        print(f"Unable to retreive histograms {name_spg} and {name_mg} from file {f_scale_factors}! Exiting!")
+                    # if not (h_spg and h_mg):
+                    if not (h_spg and h_sh):
+                        # print(f"Unable to retreive histograms {name_spg} and {name_mg} from file {f_scale_factors}! Exiting!")
+                        print(f"Unable to retreive histograms {name_spg} and {name_sh} from file {f_scale_factors}! Exiting!")
                         sys.exit(1)
-                    sf = h_mg.GetSumOfWeights() / h_spg.GetSumOfWeights()
+                    # sf = h_mg.GetSumOfWeights() / h_spg.GetSumOfWeights()
+                    sf = h_sh.GetSumOfWeights() / h_spg.GetSumOfWeights()
 
                 # scale and save
                 if not OS_only:
