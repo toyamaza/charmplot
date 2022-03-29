@@ -7,7 +7,7 @@ MG_Wjets_Rest:
     - MG_Wjets_light_emu
     - MG_Wjets_tau
   subtract:
-  fillColor: "21000"
+  lineColor: "21000"
   legendLabel: "MG W+jets (LIS)"
   lineStyle: 9
   shortName: MG_Wjets_Rest
@@ -19,7 +19,7 @@ MG_Wjets_Rest_Plain:
     - MG_Wjets_light_emu
     - MG_Wjets_tau
   subtract:
-  fillColor: "ROOT.kRed"
+  lineColor: "ROOT.kRed"
   legendLabel: "MG W+jets"
   shortName: MG_Wjets_Rest_Plain
 
@@ -41,7 +41,7 @@ MG_Wjets_MisMatched:
     - MG_Wjets_light_emu
     - MG_Wjets_tau
   subtract:
-  fillColor: "21000"
+  lineColor: "21000"
   legendLabel: "MG W+c (LIS)"
   lineStyle: 9
   shortName: MG_Wjets_MisMatched
@@ -53,7 +53,7 @@ MG_Wjets_MisMatched_Plain:
     - MG_Wjets_light_emu
     - MG_Wjets_tau
   subtract:
-  fillColor: "ROOT.kRed"
+  lineColor: "ROOT.kRed"
   legendLabel: "MG W+c"
   shortName: MG_Wjets_MisMatched_Plain
 
@@ -71,13 +71,28 @@ MG_Wjets_MisMatched_Loose:
 DibosonZjets:
   add:
     - Diboson
-    - Sherpa2211_Zjets
+    - Sh_2211_Zjets_light_emu
+    - Sh_2211_Zjets_cjets_emu
+    - Sh_2211_Zjets_bjets_emu
+    - Sh_2211_Zjets_tau
   subtract:
-  lineColor: "15002"
-  legendLabel: "Other"
+  lineColor: "21000"
+  legendLabel: Other
   shortName: DibosonZjets
 
-DibosonZjets_Loose:
+DibosonZjets_Plain:
+  add:
+    - Diboson
+    - Sh_2211_Zjets_light_emu
+    - Sh_2211_Zjets_cjets_emu
+    - Sh_2211_Zjets_bjets_emu
+    - Sh_2211_Zjets_tau
+  subtract:
+  lineColor: "15002"
+  legendLabel: Other
+  shortName: DibosonZjets_Plain
+
+MG_DibosonZjets:
   add:
     - Diboson
     - MG_Zjets_light_emu
@@ -85,7 +100,31 @@ DibosonZjets_Loose:
     - MG_Zjets_bjets_emu
     - MG_Zjets_tau
   subtract:
-  lineColor: "21000"
+  lineColor: "ROOT.kOrange"
+  legendLabel: MG Other
+  shortName: MG_DibosonZjets
+
+MG_DibosonZjets_Plain:
+  add:
+    - Diboson
+    - MG_Zjets_light_emu
+    - MG_Zjets_cjets_emu
+    - MG_Zjets_bjets_emu
+    - MG_Zjets_tau
+  subtract:
+  lineColor: "ROOT.kRed"
+  legendLabel: MG Other
+  shortName: MG_DibosonZjets_Plain
+
+DibosonZjets_Loose:
+  add:
+    - Diboson
+    - Sh_2211_Zjets_light_emu
+    - Sh_2211_Zjets_cjets_emu
+    - Sh_2211_Zjets_bjets_emu
+    - Sh_2211_Zjets_tau
+  subtract:
+  lineColor: "ROOT.kBlue"
   legendLabel: "Loose Other"
   shortName: DibosonZjets_Loose
 
@@ -156,8 +195,16 @@ DibosonZjets_PostProc:
     - inclusive_bkg
   subtract:
   lineColor: "21000"
-  legendLabel: "Other (LIS)"
+  legendLabel: Other (LIS)
   shortName: DibosonZjets_PostProc
+
+MG_DibosonZjets_PostProc:
+  add:
+    - inclusive_bkg
+  subtract:
+  lineColor: "ROOT.kOrange"
+  legendLabel: MG Other (LIS)
+  shortName: MG_DibosonZjets_PostProc
 
 MultiJet_PostProc:
   add:
@@ -203,8 +250,6 @@ Powheg_MG_Wjets_Rest_PostProc:
   lineColor: "11004"
   legendLabel: "Powheg W+jets"
   shortName: Powheg_MG_Wjets_Rest_PostProc
-
-
 
 Sherpa2211_Wjets_Rest:
   add:
@@ -291,6 +336,6 @@ Top:
     - Top_single_top
     - Top_ttx
   subtract:
-  fillColor: "12001"
+  lineColor: "12001"
   legendLabel: Top
   shortName: Top
