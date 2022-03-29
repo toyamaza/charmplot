@@ -298,41 +298,52 @@ class BKGComparison(ChannelTemplate):
         self.samples = {
             'Rest': [
                 ['Sherpa2211_Wjets_Rest_Plain', proxies.NoMatchBackground()],
-                # ['Sherpa2211_Wjets_Rest', proxies.NoMatchBackground()],
+                ['Sherpa2211_Wjets_Rest', proxies.NoMatchBackground()],
                 ['MG_Wjets_Rest_Plain', proxies.NoMatchBackground()],
-                # ['MG_Wjets_Rest', proxies.NoMatchBackground()],
-                ['MG_Wjets_Rest_PostProc', proxies.GenericChannel(name="MG_Wjets_Rest",
-                                                                   regions_OS=["MG_Wjets_Rest_OS", "MG_Wjets_Rest_SS"],
-                                                                   regions_SS=["MG_Wjets_Rest_OS", "MG_Wjets_Rest_SS"])],
-                ['Sherpa2211_Wjets_Rest_PostProc', proxies.GenericChannel(name="Sh_Wjets_Rest",
-                                                                   regions_OS=["Sh_Wjets_Rest_OS", "Sh_Wjets_Rest_SS"],
-                                                                   regions_SS=["Sh_Wjets_Rest_OS", "Sh_Wjets_Rest_SS"])],
+                ['MG_Wjets_Rest', proxies.NoMatchBackground()],
+                # ['MG_Wjets_Rest_PostProc', proxies.GenericChannel(name="MG_Wjets_Rest",
+                #                                                    regions_OS=["MG_Wjets_Rest_OS", "MG_Wjets_Rest_SS"],
+                #                                                    regions_SS=["MG_Wjets_Rest_OS", "MG_Wjets_Rest_SS"])],
+                # ['Sherpa2211_Wjets_Rest_PostProc', proxies.GenericChannel(name="Sh_Wjets_Rest",
+                #                                                    regions_OS=["Sh_Wjets_Rest_OS", "Sh_Wjets_Rest_SS"],
+                                                                #    regions_SS=["Sh_Wjets_Rest_OS", "Sh_Wjets_Rest_SS"])],
             ],
             'MisMatched': [
                 ['Sherpa2211_Wjets_MisMatched_Plain', proxies.GenericChannel(name="MisMatched", region=["MisMatched", "MatchedNoFid"])],
-                # ['Sherpa2211_Wjets_MisMatched', proxies.GenericChannel(name="MisMatched", region=["MisMatched", "MatchedNoFid"])],
+                ['Sherpa2211_Wjets_MisMatched', proxies.GenericChannel(name="MisMatched", region=["MisMatched", "MatchedNoFid"])],
                 ['MG_Wjets_MisMatched_Plain', proxies.GenericChannel(name="MisMatched", region=["MisMatched", "MatchedNoFid"])],
-                # ['MG_Wjets_MisMatched', proxies.GenericChannel(name="MisMatched", region=["MisMatched", "MatchedNoFid"])],
-                ['MG_Wjets_MisMatched_PostProc', proxies.GenericChannel(name="MG_Wjets_MisMatched", regions_OS=[
-                                                                         "MG_Wjets_MisMatched_OS"], regions_SS=["MG_Wjets_MisMatched_SS"])],
-                ['Sherpa2211_Wjets_MisMatched_PostProc', proxies.GenericChannel(name="Sh_Wjets_MisMatched", regions_OS=[
-                                                                         "Sh_Wjets_MisMatched_OS"], regions_SS=["Sh_Wjets_MisMatched_SS"])],
-            ],
-            'Other': [
-                ['DibosonZjets', proxies.GenericChannel(name="DibosonZjets")],
+                ['MG_Wjets_MisMatched', proxies.GenericChannel(name="MisMatched", region=["MisMatched", "MatchedNoFid"])],
+                # ['MG_Wjets_MisMatched_PostProc', proxies.GenericChannel(name="MG_Wjets_MisMatched", regions_OS=[
+                #                                                          "MG_Wjets_MisMatched_OS"], regions_SS=["MG_Wjets_MisMatched_SS"])],
+                # ['Sherpa2211_Wjets_MisMatched_PostProc', proxies.GenericChannel(name="Sh_Wjets_MisMatched", regions_OS=[
+                #                                                          "Sh_Wjets_MisMatched_OS"], regions_SS=["Sh_Wjets_MisMatched_SS"])],
             ],
             'Top': [
-                ['Top', proxies.GenericChannel(name="DibosonZjets")],
+                ['Top', proxies.GenericChannel(name="Top")],
             ],
         }
+
+        if self.decay_mode == "Dplus":
+            self.samples.update(
+                {
+                    'Other': [
+                        ['DibosonZjets', proxies.GenericChannel(name="DibosonZjets")],
+                    ],
+                }
+            )
 
         if self.decay_mode == "Dstar":
             self.samples.update(
                 {
                     'Other': [
+                        ['DibosonZjets_Plain', proxies.GenericChannel(name="DibosonZjets")],
                         ['DibosonZjets', proxies.GenericChannel(name="DibosonZjets")],
-                        ['DibosonZjets_PostProc', proxies.GenericChannel(name="DibosonZjets_PostProc", regions_OS=[
-                                                                         "Other_OS"], regions_SS=["Other_SS"])],
+                        # ['DibosonZjets_PostProc', proxies.GenericChannel(name="DibosonZjets", regions_OS=[
+                        #                                                  "Other_OS"], regions_SS=["Other_SS"])],
+                        ['MG_DibosonZjets_Plain', proxies.GenericChannel(name="MG_DibosonZjets")],
+                        ['MG_DibosonZjets', proxies.GenericChannel(name="MG_DibosonZjets")],
+                        # ['MG_DibosonZjets_PostProc', proxies.GenericChannel(name="MG_DibosonZjets", regions_OS=[
+                        #                                                  "MG_Other_OS"], regions_SS=["MG_Other_SS"])],
                     ],
                     'Rest_Fit': [
                         ['MG_Wjets_Rest_Plain', proxies.NoMatchBackground()],
@@ -446,6 +457,7 @@ class ReplacementSamples(ChannelTemplate):
                     ],
                     'DibosonZjets': [
                         ['DibosonZjets_PostProc', proxies.GenericChannel(name="DibosonZjets", regions_OS=["Other_OS"], regions_SS=["Other_SS"])],
+                        ['MG_DibosonZjets_PostProc', proxies.GenericChannel(name="MG_DibosonZjets", regions_OS=["MG_Other_OS"], regions_SS=["MG_Other_SS"])],
                     ],
                 }
             )

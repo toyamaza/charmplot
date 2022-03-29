@@ -560,23 +560,20 @@ Top_ttx:
   fillColor: "12003"
   legendLabel: t#bar{t}X
 
-Diboson:
-  add: Diboson
-  subtract:
-  fillColor: "13000"
-  legendLabel: Diboson
-  shortName: Diboson
-
-Other:
+DibosonZjets:
   add:
     - Diboson
-    - MG_Zjets_tau
+    - Sh_2211_Zjets_light_emu
+    - Sh_2211_Zjets_cjets_emu
+    - Sh_2211_Zjets_bjets_emu
+    - Sh_2211_Zjets_tau
   subtract:
   fillColor: "15000"
   legendLabel: Other
-  shortName: Other
+  shortName: DibosonZjets
+  makeGhostSample: True
 
-DibosonZjets:
+MG_DibosonZjets:
   add:
     - Diboson
     - MG_Zjets_light_emu
@@ -584,9 +581,9 @@ DibosonZjets:
     - MG_Zjets_bjets_emu
     - MG_Zjets_tau
   subtract:
-  fillColor: "15000"
-  legendLabel: Other
-  shortName: DibosonZjets
+  fillColor: "15001"
+  legendLabel: MG Other
+  shortName: MG_DibosonZjets
   makeGhostSample: True
 
 Multijet:
@@ -777,7 +774,15 @@ DibosonZjets_PostProc:
   subtract:
   lineColor: "21000"
   legendLabel: Loose Other
-  shortName: DibosonZjets_Loose
+  shortName: DibosonZjets_PostProc
+
+MG_DibosonZjets_PostProc:
+  add:
+    - inclusive_bkg
+  subtract:
+  lineColor: "21001"
+  legendLabel: MG Loose Other
+  shortName: MG_DibosonZjets_PostProc
 
 MultiJet_PostProc:
   add:
