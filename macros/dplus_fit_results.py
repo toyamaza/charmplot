@@ -9,6 +9,16 @@ ROOT.gROOT.LoadMacro(os.path.join(dirname, "AtlasStyle.C"))
 ROOT.gROOT.LoadMacro(os.path.join(dirname, "AtlasLabels.C"))
 ROOT.gROOT.LoadMacro(os.path.join(dirname, "AtlasUtils.C"))
 ROOT.SetAtlasStyle()
+trash = []
+
+# cross section priors
+DIR_PRIORS = "/global/cfs/cdirs/atlas/wcharm/charmplot_output/Dmeson_2022_03_22/"
+
+# fit results
+DIR_FIT = "/global/cfs/cdirs/atlas/wcharm/TRExFitter/Output/Dplus_2022_03_25/WCharm_lep_OSSS_complete_all"
+
+# theory predictions
+THEORY = ["MG_Wjets", "MGPy8EG_NLO_WplusD", "Sherpa2211_WplusD", "MGFxFx_WplusD"]
 
 # pT(D) bins
 # last bin extends to infinity
@@ -24,28 +34,36 @@ THEORY_DICT = {
         "lineColor": ROOT.kBlue,
         "fillColor": ROOT.kBlue - 9,
         "markerStyle": 32,
+        "markerStyleFull": 23,
         "legendLabel": "LO MG",
+        "legendLabelFull": "LO MG",
         "offset": -0.70,
     },
     "MGPy8EG_NLO_WplusD": {
         "lineColor": ROOT.kRed,
         "fillColor": ROOT.kRed - 9,
         "markerStyle": 26,
+        "markerStyleFull": 22,
         "legendLabel": "NLO MG #it{W}+#it{D}",
+        "legendLabelFull": "NLO MG (NNPDF30_nnlo)",
         "offset": -0.35,
     },
     "Sherpa2211_WplusD": {
         "lineColor": ROOT.kGreen + 2,
         "fillColor": ROOT.kGreen - 6,
         "markerStyle": 27,
+        "markerStyleFull": 33,
         "legendLabel": "Sh2.2.11 #it{W}+#it{D}",
+        "legendLabelFull": "Sh2.2.11 (NNPDF30_nnlo)",
         "offset": 0.35,
     },
     "MGFxFx_WplusD": {
         "lineColor": ROOT.kMagenta + 1,
         "fillColor": ROOT.kMagenta - 9,
         "markerStyle": 4,
+        "markerStyleFull": 20,
         "legendLabel": "MG FxFx #it{W}+#it{D}",
+        "legendLabelFull": "MG FxFx (NNPDF31_nnlo)",
         "offset": 0.70,
     },
 }
@@ -98,8 +116,7 @@ def createCanvasPads(name):
 # --------------------------------------------
 # Step 0: get cross section priors
 # --------------------------------------------
-dir_prior = "/global/cfs/cdirs/atlas/wcharm/charmplot_output/Dmeson_2022_03_15/"
-f = ROOT.TFile(os.path.join(dir_prior, "fid_eff_dplus_stat", "unfolding.root"))
+f = ROOT.TFile(os.path.join(DIR_PRIORS, "fid_eff_dplus_stat", "unfolding.root"))
 h_minus = f.Get("Sherpa2211_WplusD_OS-SS_lep_plus_0tag_Dplus_Kpipi_truth_differential_pt")
 h_plus = f.Get("Sherpa2211_WplusD_OS-SS_lep_plus_0tag_Dplus_Kpipi_truth_differential_pt")
 priors = {
@@ -124,22 +141,18 @@ priors = {
 stat_only = "WCharm_lep_obs_stat_only_OSSS_complete"
 obs = "WCharm_lep_obs_OSSS_complete"
 
-# input path
-dir = "/global/cfs/cdirs/atlas/wcharm/TRExFitter/Output/Dplus_2022_03_07/WCharm_lep_OSSS_complete_all"
-
 # stat-only
-POIs_stat = extract_pois(os.path.join(dir, stat_only, "Fits", f"{stat_only}.txt"))
-POIs_stat.update(extract_pois(os.path.join(dir, stat_only, "Fits", f"{stat_only}_expr.txt")))
+POIs_stat = extract_pois(os.path.join(DIR_FIT, stat_only, "Fits", f"{stat_only}.txt"))
+POIs_stat.update(extract_pois(os.path.join(DIR_FIT, stat_only, "Fits", f"{stat_only}_expr.txt")))
 
 # observed
-POIs_obs = extract_pois(os.path.join(dir, obs, "Fits", f"{obs}.txt"))
-POIs_obs.update(extract_pois(os.path.join(dir, obs, "Fits", f"{obs}_expr.txt")))
+POIs_obs = extract_pois(os.path.join(DIR_FIT, obs, "Fits", f"{obs}.txt"))
+POIs_obs.update(extract_pois(os.path.join(DIR_FIT, obs, "Fits", f"{obs}_expr.txt")))
 print(POIs_obs)
 
 # --------------------------------------------
 # Step 2: make TGraph objects
 # --------------------------------------------
-trash = []
 for lep in ["minus", "plus"]:
     gr_obs = ROOT.TGraphAsymmErrors()
     gr_obs_norm = ROOT.TGraphAsymmErrors()
@@ -288,8 +301,8 @@ for lep in ["minus", "plus"]:
     # --------------------------------------------
     # Step 2.5: theory comparisons
     # --------------------------------------------
-    for prediction in ["MG_Wjets", "MGPy8EG_NLO_WplusD", "Sherpa2211_WplusD", "MGFxFx_WplusD"]:
-        f_theory = ROOT.TFile(os.path.join(dir_prior, "histograms.root"))
+    for prediction in THEORY:
+        f_theory = ROOT.TFile(os.path.join(DIR_PRIORS, "histograms.root"))
         h = f_theory.Get(f"{prediction}_OS-SS_lep_{lep}_Dplus_D_pt_fit")
         if prediction == "MGFxFx_WplusD":
             gr_qcd = f_theory.Get(f"{prediction}_OS-SS_lep_{lep}_Dplus_D_pt_fit_ratio_mg_fxfx_theory_qcd")
@@ -305,11 +318,8 @@ for lep in ["minus", "plus"]:
         total_xsec = 0.
         total_xsec_up = 0.
         total_xsec_dn = 0.
-        BR = 1.0
-        # if prediction == "MG_Wjets":
-        #     BR = 0.094
         for i in range(h.GetNbinsX()):
-            gr_theory.GetY()[i] = h.GetBinContent(i + 1) / BR
+            gr_theory.GetY()[i] = h.GetBinContent(i + 1)
             if THEORY_DICT[prediction]["offset"] > 0:
                 xc = gr_theory.GetX()[i] + THEORY_DICT[prediction]["offset"] * gr_theory.GetEXhigh()[i]
             else:
@@ -319,11 +329,11 @@ for lep in ["minus", "plus"]:
             x_err_dn = xc - ROOT.TMath.Power(10, ROOT.TMath.Log10(xc) - (ROOT.TMath.Log10(PT_BINS[-1]) - ROOT.TMath.Log10(PT_BINS[0])) / 100.)
             gr_theory.GetEXhigh()[i] = x_err_up
             gr_theory.GetEXlow()[i] = x_err_dn
-            gr_theory.GetEYhigh()[i] = ((h.GetBinError(i + 1) / BR)**2 +
+            gr_theory.GetEYhigh()[i] = ((h.GetBinError(i + 1))**2 +
                                         (gr_qcd.GetEYhigh()[i] * gr_theory.GetY()[i])**2 +
                                         (gr_pdf.GetEYhigh()[i] * gr_theory.GetY()[i])**2 +
                                         (gr_as.GetEYhigh()[i] * gr_theory.GetY()[i])**2)**(0.5)
-            gr_theory.GetEYlow()[i] = ((h.GetBinError(i + 1) / BR)**2 +
+            gr_theory.GetEYlow()[i] = ((h.GetBinError(i + 1))**2 +
                                        (gr_qcd.GetEYlow()[i] * gr_theory.GetY()[i])**2 +
                                        (gr_pdf.GetEYlow()[i] * gr_theory.GetY()[i])**2 +
                                        (gr_as.GetEYlow()[i] * gr_theory.GetY()[i])**2)**(0.5)
@@ -419,10 +429,272 @@ for lep in ["minus", "plus"]:
 
     ROOT.gPad.RedrawAxis()
     c1.Print(f"fit_results/W{lep}.pdf")
-    c1.Print(f"fit_results/W{lep}.png")
+    c1.Print(f"fit_results/W{lep}.pdf")
 
     trash += [mg_obs]
     trash += [mg_obs_norm]
     trash += [mg_obs_ratio]
 
+# --------------------------------------------
+# Ladder plots
+# --------------------------------------------
+ROOT.gStyle.SetEndErrorSize(8)
+proxy_pdf = ROOT.TGraph()
+proxy_pdf.SetLineColor(ROOT.kBlack)
+proxy_pdf.SetLineWidth(2)
+proxy_total = ROOT.TGraph()
+proxy_total.SetLineColor(ROOT.kRed)
+proxy_total.SetLineWidth(2)
+
+# divide by 2 for inclusive W- and W+
+SF = 0.5
+
+# save for Rc plot
+data = {}
+
+for lep in ["minus", "plus"]:
+    data[lep] = {}
+
+    # data
+    if lep == "minus":
+        xsec = float(POIs_obs[f"mu_W{lep}_tot"][0]) * priors[f"W{lep}"] * SF
+        xsec_err_up = float(POIs_obs[f"mu_W{lep}_tot"][1]) * priors[f"W{lep}"] * SF
+        xsec_err_dn = abs(float(POIs_obs[f"mu_W{lep}_tot"][2]) * priors[f"W{lep}"]) * SF
+        xsec_err_stat_up = float(POIs_stat[f"mu_W{lep}_tot"][1]) * priors[f"W{lep}"] * SF
+        xsec_err_stat_dn = abs(float(POIs_stat[f"mu_W{lep}_tot"][2]) * priors[f"W{lep}"]) * SF
+    else:
+        xsec = float(POIs_obs[f"expr_mu_W{lep}_tot"][0]) * priors[f"W{lep}"] * SF
+        xsec_err_up = float(POIs_obs[f"expr_mu_W{lep}_tot"][1]) * priors[f"W{lep}"] * SF
+        xsec_err_dn = abs(float(POIs_obs[f"expr_mu_W{lep}_tot"][1]) * priors[f"W{lep}"]) * SF
+        xsec_err_stat_up = float(POIs_stat[f"expr_mu_W{lep}_tot"][1]) * priors[f"W{lep}"] * SF
+        xsec_err_stat_dn = abs(float(POIs_stat[f"expr_mu_W{lep}_tot"][1]) * priors[f"W{lep}"]) * SF
+
+    gr = ROOT.TGraph()
+    gr.SetPoint(0, xsec, 1.0)
+    gr.SetPoint(1, xsec, -1.0)
+    gr.SetLineColor(ROOT.kBlack)
+    gr.SetLineStyle(2)
+    gr.SetLineWidth(2)
+
+    gr_tot = ROOT.TGraphAsymmErrors()
+    gr_tot.SetPoint(0, xsec, 0.0)
+    gr_tot.SetPointError(0, xsec_err_up, xsec_err_dn, 1.0, 1.0)
+    gr_tot.SetFillColor(ROOT.kGray + 1)
+    gr_tot.SetLineWidth(0)
+
+    gr_stat = ROOT.TGraphAsymmErrors()
+    gr_stat.SetPoint(0, xsec, 0.0)
+    gr_stat.SetPointError(0, xsec_err_stat_up, xsec_err_stat_dn, 1.0, 1.0)
+    gr_stat.SetFillColor(ROOT.kGray + 2)
+    gr_stat.SetLineWidth(0)
+
+    # multi graph
+    mg = ROOT.TMultiGraph()
+    mg.Add(gr_tot, "e2")
+    mg.Add(gr_stat, "e2")
+    mg.Add(gr, "l")
+
+    # legend
+    N = 5 + len(THEORY_DICT)
+    leg = ROOT.TLegend(0.42, 0.80 - N * (0.045), 0.98, 0.80)
+    leg.SetBorderSize(0)
+    leg.SetFillColor(0)
+    leg.SetFillStyle(0)
+    leg.SetTextSize(42)
+    leg.SetTextFont(43)
+    leg.AddEntry(gr, "Data", "l")
+    leg.AddEntry(gr_stat, "Stat. Unc.", "f")
+    leg.AddEntry(gr_tot, "Syst. #oplus Stat.", "f")
+
+    # theory
+    for k, prediction in enumerate(THEORY):
+        h = f_theory.Get(f"{prediction}_OS-SS_lep_{lep}_Dplus_D_pt_fit")
+        if prediction == "MGFxFx_WplusD":
+            gr_qcd = f_theory.Get(f"{prediction}_OS-SS_lep_{lep}_Dplus_D_pt_fit_ratio_mg_fxfx_theory_qcd")
+            gr_pdf = f_theory.Get(f"{prediction}_OS-SS_lep_{lep}_Dplus_D_pt_fit_ratio_mg_fxfx_theory_pdf")
+        elif prediction == "MGPy8EG_NLO_WplusD":
+            gr_qcd = f_theory.Get(f"{prediction}_OS-SS_lep_{lep}_Dplus_D_pt_fit_ratio_mg_nlo_theory_qcd")
+            gr_pdf = f_theory.Get(f"{prediction}_OS-SS_lep_{lep}_Dplus_D_pt_fit_ratio_mg_nlo_theory_pdf")
+        else:
+            gr_qcd = f_theory.Get(f"{prediction}_OS-SS_lep_{lep}_Dplus_D_pt_fit_ratio_sherpa2211_theory_qcd")
+            gr_pdf = f_theory.Get(f"{prediction}_OS-SS_lep_{lep}_Dplus_D_pt_fit_ratio_sherpa2211_theory_pdf")
+        gr_as = f_theory.Get(f"{prediction}_OS-SS_lep_{lep}_Dplus_D_pt_fit_ratio_sherpa2211_theory_as")
+        xsec = 0.
+        xsec_up = 0.
+        xsec_dn = 0.
+        xsec_pdf_up = 0.
+        xsec_pdf_dn = 0.
+        for i in range(h.GetNbinsX()):
+            xsec += h.GetBinContent(i + 1) * SF
+            qcd_err_up = gr_qcd.GetEYhigh()[i] * h.GetBinContent(i + 1) * SF
+            pdf_err_up = gr_pdf.GetEYhigh()[i] * h.GetBinContent(i + 1) * SF
+            as_err_up = gr_as.GetEYhigh()[i] * h.GetBinContent(i + 1) * SF
+            qcd_err_dn = gr_qcd.GetEYlow()[i] * h.GetBinContent(i + 1) * SF
+            pdf_err_dn = gr_pdf.GetEYlow()[i] * h.GetBinContent(i + 1) * SF
+            as_err_dn = gr_as.GetEYlow()[i] * h.GetBinContent(i + 1) * SF
+            total_err_up = (qcd_err_up**2 + pdf_err_up**2 + as_err_up**2)**(0.5)
+            total_err_dn = (qcd_err_dn**2 + pdf_err_dn**2 + as_err_dn**2)**(0.5)
+            xsec_up += total_err_up
+            xsec_dn += total_err_dn
+            xsec_pdf_up += pdf_err_up
+            xsec_pdf_dn += pdf_err_dn
+
+        # save
+        data[lep][prediction] = [xsec, xsec_up, xsec_dn, xsec_pdf_up, xsec_pdf_dn]
+
+        # style
+        gr_theory_marker = ROOT.TGraph()
+        gr_theory_marker.SetPoint(0, xsec, 1 - 0.2 * (k + 1))
+        gr_theory_marker.SetMarkerSize(3)
+        gr_theory_marker.SetMarkerColor(THEORY_DICT[prediction]["lineColor"])
+        gr_theory_marker.SetMarkerStyle(THEORY_DICT[prediction]["markerStyleFull"])
+
+        gr_theory = ROOT.TGraphAsymmErrors()
+        gr_theory.SetPoint(0, xsec, 1 - 0.2 * (k + 1))
+        gr_theory.SetPointError(0, xsec_up, xsec_dn, 0.0, 0.0)
+        gr_theory.SetLineWidth(4)
+        gr_theory.SetLineColor(ROOT.kRed)
+
+        gr_theory_pdf = ROOT.TGraphAsymmErrors()
+        gr_theory_pdf.SetPoint(0, xsec, 1 - 0.2 * (k + 1))
+        gr_theory_pdf.SetPointError(0, xsec_pdf_up, xsec_pdf_dn, 0.0, 0.0)
+        gr_theory_pdf.SetLineWidth(4)
+        gr_theory_pdf.SetLineColor(ROOT.kBlack)
+
+        mg.Add(gr_theory, "e")
+        mg.Add(gr_theory_pdf, "e")
+        mg.Add(gr_theory_marker, "p")
+        leg.AddEntry(gr_theory_marker, THEORY_DICT[prediction]["legendLabel"], "p")
+
+    leg.AddEntry(proxy_pdf, "PDF Unc.", "l")
+    leg.AddEntry(proxy_total, "Total Unc.", "l")
+
+    # canvas
+    c = ROOT.TCanvas(f"W{lep}Total", f"W{lep}Total", 1200, 1200)
+    c.SetLeftMargin(0.05)
+    mg.Draw("a")
+    mg.GetYaxis().SetLabelSize(0)
+    mg.GetXaxis().SetTitle("#sigma^{tot.}_{fid.} [pb]")
+    mg.GetXaxis().SetLimits(30, 100)
+    mg.SetMinimum(-1)
+    mg.SetMaximum(1)
+
+    # ATLAS label
+    l1 = ROOT.TLatex()
+    l1.SetTextFont(73)
+    l1.SetTextSize(42)
+    l1.DrawLatex(60, 0.85, "ATLAS")
+    l2 = ROOT.TLatex()
+    l2.SetTextFont(43)
+    l2.SetTextSize(42)
+    l2.DrawLatex(73, 0.85 - 0 * 0.10, "Internal")
+    l2.DrawLatex(60, 0.85 - 1 * 0.10, "#sqrt{s} = 13 TeV, 139 fb^{-1}")
+    l2.DrawLatex(60, 0.85 - 2 * 0.10, "#it{W}+#it{D}(#rightarrowK#pi#pi), #it{W%s} channel" % ("-" if lep == "minus" else "+"))
+
+    # legend
+    leg.Draw()
+
+    # print
+    ROOT.gPad.RedrawAxis()
+    c.Print(f"fit_results/W{lep}_tot.pdf")
+    trash += [mg]
+
+# ratio plot
+Rc = float(POIs_obs["mu_Rc"][0])
+Rc_up = float(POIs_obs["mu_Rc"][1])
+Rc_dn = abs(float(POIs_obs["mu_Rc"][2]))
+Rc_stat_up = float(POIs_stat["mu_Rc"][1])
+Rc_stat_dn = abs(float(POIs_stat["mu_Rc"][2]))
+
+gr = ROOT.TGraph()
+gr.SetPoint(0, Rc, 1.0)
+gr.SetPoint(1, Rc, -1.0)
+gr.SetLineColor(ROOT.kBlack)
+gr.SetLineStyle(2)
+gr.SetLineWidth(2)
+
+gr_tot = ROOT.TGraphAsymmErrors()
+gr_tot.SetPoint(0, Rc, 0.0)
+gr_tot.SetPointError(0, Rc_up, Rc_dn, 1.0, 1.0)
+gr_tot.SetFillColor(ROOT.kGray + 1)
+gr_tot.SetLineWidth(0)
+
+gr_stat = ROOT.TGraphAsymmErrors()
+gr_stat.SetPoint(0, Rc, 0.0)
+gr_stat.SetPointError(0, Rc_stat_up, Rc_stat_dn, 1.0, 1.0)
+gr_stat.SetFillColor(ROOT.kGray + 2)
+gr_stat.SetLineWidth(0)
+
+# multi graph
+mg = ROOT.TMultiGraph()
+mg.Add(gr_tot, "e2")
+mg.Add(gr_stat, "e2")
+mg.Add(gr, "l")
+
+# theory
+for k, prediction in enumerate(THEORY):
+    xsec = data["plus"][prediction][0] / data["minus"][prediction][0]
+    xsec_up = (data["plus"][prediction][0] + data["plus"][prediction][1]) / (
+        data["minus"][prediction][0] + data["minus"][prediction][1])
+    xsec_dn = (data["plus"][prediction][0] - data["plus"][prediction][2]) / (
+        data["minus"][prediction][0] - data["minus"][prediction][2])
+    xsec_pdf_up = (data["plus"][prediction][0] + data["plus"][prediction][3]) / (
+        data["minus"][prediction][0] + data["minus"][prediction][3])
+    xsec_pdf_dn = (data["plus"][prediction][0] - data["plus"][prediction][4]) / (
+        data["minus"][prediction][0] - data["minus"][prediction][4])
+
+    # style
+    gr_theory_marker = ROOT.TGraph()
+    gr_theory_marker.SetPoint(0, xsec, 1 - 0.2 * (k + 1))
+    gr_theory_marker.SetMarkerSize(3)
+    gr_theory_marker.SetMarkerColor(THEORY_DICT[prediction]["lineColor"])
+    gr_theory_marker.SetMarkerStyle(THEORY_DICT[prediction]["markerStyleFull"])
+
+    gr_theory = ROOT.TGraphAsymmErrors()
+    gr_theory.SetPoint(0, xsec, 1 - 0.2 * (k + 1))
+    gr_theory.SetPointError(0, xsec_up - xsec, xsec - xsec_dn, 0.0, 0.0)
+    gr_theory.SetLineWidth(4)
+    gr_theory.SetLineColor(ROOT.kRed)
+
+    gr_theory_pdf = ROOT.TGraphAsymmErrors()
+    gr_theory_pdf.SetPoint(0, xsec, 1 - 0.2 * (k + 1))
+    gr_theory_pdf.SetPointError(0, xsec_pdf_up - xsec, xsec - xsec_pdf_dn, 0.0, 0.0)
+    gr_theory_pdf.SetLineWidth(4)
+    gr_theory_pdf.SetLineColor(ROOT.kBlack)
+
+    mg.Add(gr_theory, "e")
+    mg.Add(gr_theory_pdf, "e")
+    mg.Add(gr_theory_marker, "p")
+
+# canvas
+c = ROOT.TCanvas(f"W{lep}Rc", f"W{lep}Rc", 1200, 1200)
+c.SetLeftMargin(0.05)
+mg.Draw("a")
+mg.GetYaxis().SetLabelSize(0)
+mg.GetXaxis().SetTitle("Rc")
+mg.GetXaxis().SetLimits(0.94, 1.2)
+mg.SetMinimum(-1)
+mg.SetMaximum(1)
+
+# ATLAS label
+l1 = ROOT.TLatex()
+l1.SetTextFont(73)
+l1.SetTextSize(42)
+l1.DrawLatex(0.94 + 30 / 70 * (1.2 - 0.94), 0.85, "ATLAS")
+l2 = ROOT.TLatex()
+l2.SetTextFont(43)
+l2.SetTextSize(42)
+l2.DrawLatex(0.94 + 42 / 70 * (1.2 - 0.94), 0.85 - 0 * 0.10, "Internal")
+l2.DrawLatex(0.94 + 30 / 70 * (1.2 - 0.94), 0.85 - 1 * 0.10, "#sqrt{s} = 13 TeV, 139 fb^{-1}")
+l2.DrawLatex(0.94 + 30 / 70 * (1.2 - 0.94), 0.85 - 2 * 0.10, "#it{W}+#it{D}(#rightarrowK#pi#pi)")
+
+# legend
+leg.Draw()
+
+# print
+ROOT.gPad.RedrawAxis()
+c.Print("fit_results/Rc.pdf")
+
+
 f.Close()
+f_theory.Close()
