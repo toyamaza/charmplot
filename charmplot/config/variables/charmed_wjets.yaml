@@ -959,3 +959,13 @@ truth_Dmeson_mu_pt:
   unit: 'GeV'
   rebin: 1
   x_range: [0, 40]
+
+Dmeson_zt:
+  label: 'z_{T, D^{#pm}}^{ch}'
+  rebin: 1
+  x_range: [0, 1]
+
+Dmeson_zl:
+  label: 'z_{L, D^{#pm}}^{ch}'
+  rebin: 1
+  x_range: [0, 1]
