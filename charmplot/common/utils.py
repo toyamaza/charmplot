@@ -112,7 +112,7 @@ def normalize_to_unit(stack: ROOT.THStack = None, hists: List[ROOT.TH1] = [], gr
         for h in stack.GetStack():
             if h:
                 if not h_ref:
-                    h_ref = h
+                    h_ref = h.Clone(f"{h.GetName()}_ref")
                 normalize_histo_to_unit(h)
 
     # hists
@@ -130,33 +130,20 @@ def read_sys_histograms_alt_samples(conf, reader, c, var, samples, fit, systemat
         variations = systematics[group].get('variations')
         affecting = systematics[group].get('affecting')
         sys_type = systematics[group].get('type')
-        # print("Outside of if statement")
         if sys_type == 'fit':
-            # print("Entered the if statement")
-            # start with nominal for all samples
             mc_map_sys[group] = {syst: read_samples(conf, reader, c, var, samples, fit,
                                                     force_positive=c.force_positive, sys=syst,
                                                     affecting=[''], fallback=mc_map) for syst in variations}
             for syst in variations:
-                # print(syst)
                 for s in affecting:
-                    # print(s)
                     sample = next((x for x in samples if x.shortName == s), None)
                     if not sample:
                         continue
-                    # print("x")
                     if sample not in mc_map:
                         continue
-                    # print("y")
                     h_nominal = mc_map[sample]
                     if not h_nominal:
                         continue
-                    # print("z")
-                    # print(h_nominal.GetName())
-                    # for i in range(1, h_nominal.GetNbinsX() + 1):
-                    #     print(h_nominal.GetBinContent(i))
-                    #     print(h_nominal.GetBinError(i))
-                    # sys.exit(1)
                     h_sys = h_nominal.Clone(f"{h_nominal.GetName()}_{syst}")
                     for i in range(1, h_sys.GetNbinsX() + 1):
                         h_sys.SetBinContent(i, h_sys.GetBinContent(i) + h_sys.GetBinError(i))
@@ -667,13 +654,13 @@ def make_stat_err_and_nominal(h: ROOT.TH1) -> List[Union[ROOT.TGraphErrors, ROOT
     return gr_val_only, gr, gr_err_only
 
 
-def make_sys_err(h: ROOT.TH1, h_sys: List) -> List[Union[ROOT.TGraphErrors, ROOT.TGraphErrors]]:
+def make_sys_err(h: ROOT.TH1, h_sys_list: List) -> List[Union[ROOT.TGraphErrors, ROOT.TGraphErrors]]:
     gr = ROOT.TGraphAsymmErrors()
     gr_err_only = ROOT.TGraphAsymmErrors()
     for i in range(1, h.GetNbinsX() + 1):
         x = h.GetBinCenter(i)
         y = h.GetBinContent(i)
-        sys = [h_sys.GetBinContent(i) for h_sys in h_sys]
+        sys = [h_sys.GetBinContent(i) for h_sys in h_sys_list]
         y_err_up = 0
         y_err_dn = 0
         for y_sys in sys:
@@ -941,7 +928,6 @@ def make_stack(samples: List, mc_map: MC_Map):
         if s.ghost:
             continue
         h = mc_map[s]
-        logger.debug(f"adding {h}")
         hs.Add(h)
     return hs
 

@@ -227,9 +227,8 @@ def process_channel(options, conf, c):
         # Multiply Offset by -1 for visual purposes
         for s in mc_map:
             if s.shortName == "Offset":
-                h_mc_tot.Add(mc_map[s], -1.0)
+                h_mc_tot.Add(mc_map[s], -2.0)
                 mc_map[s].Scale(-1.0)
-                h_mc_tot.Add(mc_map[s], 1.0)
                 hs = utils.make_stack(samples, mc_map)
                 break
 
@@ -238,8 +237,17 @@ def process_channel(options, conf, c):
             h_mc_tot_sys = {}
             for group in systematics:
                 variations = systematics[group]['variations']
-                h_mc_tot_sys[group] = [utils.make_mc_tot(utils.make_stack(samples, mc_map_sys[group][syst]),
-                                                         f"{c}_{v}_{group}_{syst}_mc_tot") for syst in variations]
+                h_mc_tot_sys[group] = []
+
+                for syst in variations:
+                    # Multiply Offset by -1 for visual purposes
+                    for s in mc_map_sys[group][syst]:
+                        if s.shortName == "Offset":
+                            mc_map_sys[group][syst][s].Scale(-1.0)
+                            break
+
+                    # make mc tot for sys
+                    h_mc_tot_sys[group] += [utils.make_mc_tot(utils.make_stack(samples, mc_map_sys[group][syst]), f"{c}_{v}_{group}_{syst}_mc_tot")]
 
         # ratio
         h_ratio = utils.make_ratio(h_data, h_mc_tot)
@@ -261,7 +269,6 @@ def process_channel(options, conf, c):
                 elif sys_type == 'minmax':
                     gr_mc_sys_err, gr_mc_sys_err_only = utils.make_minmax_err(h_mc_tot, h_mc_tot_sys[group])
                 else:
-                    print(sys_type, " ", len(h_mc_tot_sys[group]))
                     gr_mc_sys_err, gr_mc_sys_err_only = utils.make_pdf_err(h_mc_tot, h_mc_tot_sys[group], sys_type)
                 gr_mc_sys_err_map += [gr_mc_sys_err]
                 gr_mc_sys_err_only_map += [gr_mc_sys_err_only]
@@ -286,7 +293,10 @@ def process_channel(options, conf, c):
 
         # normalize bins to unity
         if var.per_unit:
-            utils.normalize_to_unit(hs, hists=[h_data, h_mc_tot], grs=[gr_mc_tot_err])
+            if options.separate_sys_band:
+                utils.normalize_to_unit(hs, hists=[h_data, h_mc_tot], grs=[gr_mc_tot_err, gr_mc_tot_sys_err])
+            else:
+                utils.normalize_to_unit(hs, hists=[h_data, h_mc_tot], grs=[gr_mc_tot_err])
 
         hs.Draw("same hist")
         h_mc_tot.Draw("same hist")
