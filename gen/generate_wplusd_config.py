@@ -90,18 +90,7 @@ def main(options):
     if options.replacement_samples:
         if options.truth_differential_bins:
             if options.decay_mode == "Dplus":
-                replacement_samples = {
-                    'Sherpa2211_WplusD_Matched_truth_pt_bin1': '<charge>_Replacement_MatchedSh_truth_pt_bin1',
-                    'Sherpa2211_WplusD_Matched_truth_pt_bin2': '<charge>_Replacement_MatchedSh_truth_pt_bin2',
-                    'Sherpa2211_WplusD_Matched_truth_pt_bin3': '<charge>_Replacement_MatchedSh_truth_pt_bin3',
-                    'Sherpa2211_WplusD_Matched_truth_pt_bin4': '<charge>_Replacement_MatchedSh_truth_pt_bin4',
-                    'Sherpa2211_WplusD_Matched_truth_pt_bin5': '<charge>_Replacement_MatchedSh_truth_pt_bin5',
-                    'MGPy8EG_NLO_WplusD_Matched_truth_pt_bin1': '<charge>_Replacement_MatchedMG_truth_pt_bin1',
-                    'MGPy8EG_NLO_WplusD_Matched_truth_pt_bin2': '<charge>_Replacement_MatchedMG_truth_pt_bin2',
-                    'MGPy8EG_NLO_WplusD_Matched_truth_pt_bin3': '<charge>_Replacement_MatchedMG_truth_pt_bin3',
-                    'MGPy8EG_NLO_WplusD_Matched_truth_pt_bin4': '<charge>_Replacement_MatchedMG_truth_pt_bin4',
-                    'MGPy8EG_NLO_WplusD_Matched_truth_pt_bin5': '<charge>_Replacement_MatchedMG_truth_pt_bin5',
-                }
+                pass
             else:
                 replacement_samples = {
                     'Sherpa2211_WplusD_Matched_truth_pt_bin1': '<charge>_Replacement_MatchedMG_truth_pt_bin1',
@@ -112,10 +101,7 @@ def main(options):
                 }
         else:
             if options.decay_mode == "Dplus":
-                replacement_samples = {
-                    'Sherpa2211_WplusD_Matched': '<charge>_Replacement_MatchedSh',
-                    'MGPy8EG_NLO_WplusD_Matched': '<charge>_Replacement_MatchedMG',
-                }
+                pass
             else:
                 replacement_samples = {
                     'Sherpa2211_WplusD_Matched': '<charge>_Replacement_MatchedMG',
