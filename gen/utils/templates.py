@@ -397,6 +397,14 @@ class ReplacementSamples(ChannelTemplate):
                             proxies.GenericChannel(name="Matched",
                                                    regions_override=[
                                                         f"{flavor}_SR_0tag_{self.decay_mode}_OS_{slice}" for slice in self.truthSlices for flavor in FLAVORS])]],
+            'MatchedMG_minus': [['MGPy8EG_NLO_WplusD_Matched',
+                            proxies.GenericChannel(name="Matched_minus",
+                                                   regions_override=[
+                                                        f"{flavor}_SR_0tag_{self.decay_mode}_OS_{slice}" for slice in self.truthSlices for flavor in ["el_minus","mu_minus"]])]],
+            'MatchedMG_plus': [['MGPy8EG_NLO_WplusD_Matched',
+                            proxies.GenericChannel(name="Matched_plus",
+                                                   regions_override=[
+                                                        f"{flavor}_SR_0tag_{self.decay_mode}_OS_{slice}" for slice in self.truthSlices for flavor in ["el_plus","mu_plus"]])]],
             'MatchedSh': [['Sherpa2211_WplusD_Matched',
                            proxies.GenericChannel(name="Matched",
                                                   regions_override=[
@@ -410,6 +418,20 @@ class ReplacementSamples(ChannelTemplate):
                                                          proxies.GenericChannel(name=f"{slice}",
                                                                                 regions_override=[
                                                                                     f"{flavor}_SR_0tag_{self.decay_mode}_OS_{slice}" for flavor in FLAVORS])]
+                                                        ] for slice in self.truthSlices
+            })
+            self.samples.update({
+                slice.replace("Matched", "MatchedMG_minus"): [[f'MGPy8EG_NLO_WplusD_{slice}',
+                                                         proxies.GenericChannel(name=f"{slice}_minus",
+                                                                                regions_override=[
+                                                                                    f"{flavor}_SR_0tag_{self.decay_mode}_OS_{slice}" for flavor in ["el_minus","mu_minus"]])]
+                                                        ] for slice in self.truthSlices
+            })
+            self.samples.update({
+                slice.replace("Matched", "MatchedMG_plus"): [[f'MGPy8EG_NLO_WplusD_{slice}',
+                                                         proxies.GenericChannel(name=f"{slice}_plus",
+                                                                                regions_override=[
+                                                                                    f"{flavor}_SR_0tag_{self.decay_mode}_OS_{slice}" for flavor in ["el_plus","mu_plus"]])]
                                                         ] for slice in self.truthSlices
             })
             self.samples.update({
@@ -454,10 +476,6 @@ class ReplacementSamples(ChannelTemplate):
                             "MG_Wjets_Rest_Fit"], regions_SS=["MG_Wjets_Rest_Fit"])],
                         ['Sherpa2211_Wjets_Rest_Fit', proxies.GenericChannel(name="Sherpa2211_Wjets_Rest", regions_OS=[
                             "Sherpa2211_Wjets_Rest_Fit"], regions_SS=["Sherpa2211_Wjets_Rest_Fit"])],
-                    ],
-                    'DibosonZjets': [
-                        ['DibosonZjets_PostProc', proxies.GenericChannel(name="DibosonZjets", regions_OS=["Other_OS"], regions_SS=["Other_SS"])],
-                        ['MG_DibosonZjets_PostProc', proxies.GenericChannel(name="MG_DibosonZjets", regions_OS=["MG_Other_OS"], regions_SS=["MG_Other_SS"])],
                     ],
                 }
             )
@@ -632,7 +650,15 @@ class ChannelGenerator:
                         replacement_channel_sign = "SS"
                     else:
                         raise Exception(f"Unrecognised charge in {channel_name}")
-                    channel['replacement_samples'] = {k: v.replace("<charge>", replacement_channel_sign) for k, v in self.replacement_samples.items()}
+
+                    if self.replacement_samples:
+                        channel['replacement_samples'] = {}
+                        for k, v in self.replacement_samples.items():
+                            channel['replacement_samples'][k] = v.replace("<sign>", replacement_channel_sign)
+                            if charge != '':
+                                channel['replacement_samples'][k] = channel['replacement_samples'][k].replace("<charge>", "_" + charge)
+                            else:
+                                channel['replacement_samples'][k] = channel['replacement_samples'][k].replace("<charge>", charge)
 
                 # pt bins for SPG samples
                 if 'replacement_samples' in channel:

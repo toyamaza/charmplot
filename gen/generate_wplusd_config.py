@@ -93,32 +93,27 @@ def main(options):
                 pass
             else:
                 replacement_samples = {
-                    'Sherpa2211_WplusD_Matched_truth_pt_bin1': '<charge>_Replacement_MatchedMG_truth_pt_bin1',
-                    'Sherpa2211_WplusD_Matched_truth_pt_bin2': '<charge>_Replacement_MatchedMG_truth_pt_bin2',
-                    'Sherpa2211_WplusD_Matched_truth_pt_bin3': '<charge>_Replacement_MatchedMG_truth_pt_bin3',
-                    'Sherpa2211_WplusD_Matched_truth_pt_bin4': '<charge>_Replacement_MatchedMG_truth_pt_bin4',
-                    'Sherpa2211_WplusD_Matched_truth_pt_bin5': '<charge>_Replacement_MatchedMG_truth_pt_bin5',
+                    'Sherpa2211_WplusD_Matched_truth_pt_bin1': '<sign>_Replacement_MatchedMG<charge>_truth_pt_bin1',
+                    'Sherpa2211_WplusD_Matched_truth_pt_bin2': '<sign>_Replacement_MatchedMG<charge>_truth_pt_bin2',
+                    'Sherpa2211_WplusD_Matched_truth_pt_bin3': '<sign>_Replacement_MatchedMG<charge>_truth_pt_bin3',
+                    'Sherpa2211_WplusD_Matched_truth_pt_bin4': '<sign>_Replacement_MatchedMG<charge>_truth_pt_bin4',
+                    'Sherpa2211_WplusD_Matched_truth_pt_bin5': '<sign>_Replacement_MatchedMG<charge>_truth_pt_bin5',
                 }
         else:
             if options.decay_mode == "Dplus":
                 pass
             else:
                 replacement_samples = {
-                    'Sherpa2211_WplusD_Matched': '<charge>_Replacement_MatchedMG',
+                    'Sherpa2211_WplusD_Matched': '<sign>_Replacement_MatchedMG<charge>',
                 }
         replacement_samples.update({
-            'MG_Wjets_Charm': '<charge>_Replacement_CharmMisMatched',
-            'Sherpa2211_Wjets_Charm': '<charge>_Replacement_CharmMisMatched',
-            'MG_Wjets_MisMatched': '<charge>_Replacement_MisMatched',
-            'Sherpa2211_Wjets_MisMatched': '<charge>_Replacement_MisMatched',
-            'MG_Wjets_Rest': '<charge>_Replacement_Rest',
-            'Sherpa2211_Wjets_Rest': '<charge>_Replacement_Rest',
+            'MG_Wjets_Charm': '<sign>_Replacement_CharmMisMatched',
+            'Sherpa2211_Wjets_Charm': '<sign>_Replacement_CharmMisMatched',
+            'MG_Wjets_MisMatched': '<sign>_Replacement_MisMatched',
+            'Sherpa2211_Wjets_MisMatched': '<sign>_Replacement_MisMatched',
+            'MG_Wjets_Rest': '<sign>_Replacement_Rest',
+            'Sherpa2211_Wjets_Rest': '<sign>_Replacement_Rest',
         })
-        if options.decay_mode == "Dstar":
-            replacement_samples.update({
-                'DibosonZjets': '<charge>_Replacement_DibosonZjets',
-                'MG_DibosonZjets': '<charge>_Replacement_DibosonZjets',
-            })
 
     # systematics
     systematics = []
