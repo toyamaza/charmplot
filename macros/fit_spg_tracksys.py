@@ -177,7 +177,7 @@ def main():
             ROOT.myText(0.68, 0.9 - 5 * 0.06, 1, f"sigma: {sigma.getVal():.4f}")
 
             # save to output
-            h_out = ROOT.TH1D(f"pars_{sys}", f"pars_{sys}", 6, -0.5, 5.5)
+            h_out = ROOT.TH1D(f"pars_{sys}_{ptbin}", f"pars_{sys}_{ptbin}", 6, -0.5, 5.5)
             h_out.SetBinContent(1, aHi.getVal())
             h_out.SetBinContent(2, aLo.getVal())
             h_out.SetBinContent(3, mean.getVal())
@@ -225,20 +225,28 @@ def main():
                 sigma_diff = ROOT.TMath.Sqrt(abs(spg_dict[sys][i]**2 - spg_dict["DstarPlus_nominal"][i]**2))
                 sigma_diff_var = ROOT.RooRealVar(f"{sys}_{ptbins[i-2]}_sigma_diff",f"{sys}_{ptbins[i-2]}_sigma_diff", sigma_diff)
                 sigma_diff_var.Write()
-                print(sigma_diff)
+                print(f'nominal sigma = {spg_dict["DstarPlus_nominal"][i]}')
+                print(f'sys sigma = {spg_dict[sys][i]}')
+                print(f'sigma diff = {sigma_diff}')
             elif "DstarMinus" in sys:
                 sigma_diff = ROOT.TMath.Sqrt(abs(spg_dict[sys][i]**2 - spg_dict["DstarMinus_nominal"][i]**2))
                 sigma_diff_var = ROOT.RooRealVar(f"{sys}_{ptbins[i-2]}_sigma_diff",f"{sys}_{ptbins[i-2]}_sigma_diff", sigma_diff)
                 sigma_diff_var.Write()
+                print(f'nominal sigma = {spg_dict["DstarMinus_nominal"][i]}')
+                print(f'sys sigma = {spg_dict[sys][i]}')
                 print(sigma_diff)
             elif "DPlus" in sys:
                 sigma_diff = ROOT.TMath.Sqrt(abs((spg_dict[sys][i]*1000)**2 - (spg_dict["DPlus_nominal"][i]*1000)**2))
                 sigma_diff_var = ROOT.RooRealVar(f"{sys}_{ptbins[i-2]}_sigma_diff",f"{sys}_{ptbins[i-2]}_sigma_diff", sigma_diff)
                 sigma_diff_var.Write()
+                print(f'nominal sigma = {spg_dict["DPlus_nominal"][i]*1000}')
+                print(f'sys sigma = {spg_dict[sys][i]*1000}')
                 print(sigma_diff)
             elif "DMinus" in sys:
                 sigma_diff = ROOT.TMath.Sqrt(abs((spg_dict[sys][i]*1000)**2 - (spg_dict["DMinus_nominal"][i]*1000)**2))
                 sigma_diff_var = ROOT.RooRealVar(f"{sys}_{ptbins[i-2]}_sigma_diff",f"{sys}_{ptbins[i-2]}_sigma_diff", sigma_diff)
+                print(f'nominal sigma = {spg_dict["DMinus_nominal"][i]*1000}')
+                print(f'sys sigma = {spg_dict[sys][i]*1000}')
                 sigma_diff_var.Write()
                 print(sigma_diff)
     out.Close()
