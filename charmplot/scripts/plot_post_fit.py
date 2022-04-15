@@ -40,28 +40,49 @@ def get_err_hist(f, par, variation, default):
             h_err = h_mc_default.Clone(f"{h_mc_default.GetName()}_err_{variation}")
     return h_err
 
+def channel_suffix(channel_name):
+    l_suffix = []
+    if channel_name.endswith("zt"):
+        channel_name = channel_name.replace("_zt", "")
+        l_suffix.append("_zt")
+        print("Second print (zt): ", channel_name)
+    elif channel_name.endswith("zl"):
+        channel_name = channel_name.replace("_zl", "")
+        l_suffix.append("_zl")
+        print("Second print (zl): ", channel_name)
+    else:
+        l_suffix.append("")
+        pass
+    return l_suffix, channel_name
 
 def main(options, conf):
     trex_histogram_folder = os.path.join(options.trex_input, "Histograms")
 
     # channels
     channels = []
+    suffixes = []
 
     # fitted variable
     var = conf.get_var(options.var)
-    logging.info(f"Got variable {var}")
+    logging.info(f"Got variable {var.name}")
 
-    # parse input
+    # parse input 
     for file in os.listdir(trex_histogram_folder):
         if file.endswith("postFit.root"):
             channel_name = file.replace("_postFit.root", "")
+            print("First print: ", channel_name)
+            l_suffix, channel_name = channel_suffix(channel_name)
             logging.info(f"Searching for channel {channel_name}...")
             channel = conf.get_channel(channel_name)
+            print("Print channel: ", channel)
             if not channel:
                 logging.error(f"Channel not found for string {channel_name}")
             else:
                 logging.info(f"Found channel {channel_name}")
             channels += [channel]
+            print(channels)
+            suffixes += l_suffix
+            print (suffixes)
 
     # sort channels
     individual_plots = []
@@ -127,8 +148,17 @@ def main(options, conf):
 
         # read files
         files = {}
+        j = 0
         for channel in channels_all:
-            files[channel] = ROOT.TFile(os.path.join(trex_histogram_folder, f"{channel.name}_postFit.root"))
+            if var.name == "Dmeson_m":
+                files[channel] = ROOT.TFile(os.path.join(trex_histogram_folder, f"{channel.name}_postFit.root"))
+            elif var.name == "Dmeson_zt":
+                files[channel] = ROOT.TFile(os.path.join(trex_histogram_folder, f"{channel.name}_zt_postFit.root"))
+            elif var.name == "Dmeson_zl":
+                files[channel] = ROOT.TFile(os.path.join(trex_histogram_folder, f"{channel.name}_zl_postFit.root"))
+            j += 1
+            print("Print for files[channel]: ", files[channel])
+        print("Print files: ", files)
 
         # samples
         sample_names = []
