@@ -81,29 +81,54 @@ def main(options, conf):
                 logging.info(f"Found channel {channel_name}")
             channels += [channel]
             print(channels)
+            print(len(channels))
             suffixes += l_suffix
-            print (suffixes)
+            print ("Suffixes: ", suffixes)
+            print(len(channels))
 
     # sort channels
     individual_plots = []
     OS_minus_SS_plots = []
     OS_minus_SS_total = {'+': [], '-': []}
+    OS_minus_SS_plots_zt = []
+    OS_minus_SS_total_zt = {'+': [], '-': []}
+    OS_minus_SS_plots_zl = []
+    OS_minus_SS_total_zl = {'+': [], '-': []}
     for channel in channels:
         individual_plots += [{'+': [channel], '-': []}]
+        print("[Channel]: ",[channel])
+        print("Individual plots: ", individual_plots)
         logging.info(f"Added channel {channel.name}..")
-    for channel_OS in channels:
-        if "OS_" not in channel_OS.name:
+
+    for k in range(len(channels)):
+        if "OS_" not in channels[k].name:
             continue
         # if "1tag" not in channel_OS.name:
         #     continue
-        for channel_SS in channels:
-            if channel_SS.name == channel_OS.name.replace("OS_", "SS_"):
-                OS_minus_SS_plots += [{'+': [channel_OS], '-': [channel_SS]}]
-                if "0tag" in channel_SS.name:
-                    OS_minus_SS_total['+'] += [channel_OS]
-                    OS_minus_SS_total['-'] += [channel_SS]
-                break
+        for j in range(len(channels)):
+            if channels[j].name == channels[k].name.replace("OS_", "SS_") and suffixes[j] == "":
+                OS_minus_SS_plots += [{'+': [channels[k]], '-': [channels[j]]}]
+                if "0tag" in channels[j].name:
+                    OS_minus_SS_total['+'] += [channels[k]]
+                    OS_minus_SS_total['-'] += [channels[j]]
+            elif channels[j].name == channels[k].name.replace("OS_", "SS_") and suffixes[j] == "_zt":
+                OS_minus_SS_plots_zt += [{'+': [channels[k]], '-': [channels[j]]}]
+                if "0tag" in channels[j].name:
+                    OS_minus_SS_total['+'] += [channels[k]]
+                    OS_minus_SS_total['-'] += [channels[j]]
+            elif channels[j].name == channels[k].name.replace("OS_", "SS_") and suffixes[j] == "_zl":
+                OS_minus_SS_plots_zl += [{'+': [channels[k]], '-': [channels[j]]}]
+                if "0tag" in channels[j].name:
+                    OS_minus_SS_total['+'] += [channels[k]]
+                    OS_minus_SS_total['-'] += [channels[j]]
 
+    print("Individual plots: " ,individual_plots)
+    print("OS-SS plots: ", OS_minus_SS_plots)
+    print("OS-SS total: ", OS_minus_SS_total)
+    print("OS-SS zt plots: ",OS_minus_SS_plots_zt)
+    print("OS-SS zt total: ",OS_minus_SS_total_zt)
+    print("OS-SS zl plots: ",OS_minus_SS_plots_zl)
+    print("OS-SS zl total: ",OS_minus_SS_total_zl)
     # get correlation matrix
     logging.info("Loading correlation matrix...")
     corr_dict = tools.parse_yaml_file(os.path.join(options.trex_input, "CorrelationMatrix.yaml"))
@@ -116,7 +141,8 @@ def main(options, conf):
             corr_correlation_rows = x['correlation_rows']
     n_pars = len(corr_parameters)
 
-    plots = individual_plots + OS_minus_SS_plots + [OS_minus_SS_total]
+    plots = individual_plots + OS_minus_SS_plots + [OS_minus_SS_total] #+ OS_minus_SS_plots_zt  + OS_minus_SS_plots_zl 
+    print("Len plots: ", len(plots))
     # plots = individual_plots + OS_minus_SS_plots
     # plots = OS_minus_SS_plots
 
@@ -148,7 +174,6 @@ def main(options, conf):
 
         # read files
         files = {}
-        j = 0
         for channel in channels_all:
             if var.name == "Dmeson_m":
                 files[channel] = ROOT.TFile(os.path.join(trex_histogram_folder, f"{channel.name}_postFit.root"))
@@ -156,7 +181,6 @@ def main(options, conf):
                 files[channel] = ROOT.TFile(os.path.join(trex_histogram_folder, f"{channel.name}_zt_postFit.root"))
             elif var.name == "Dmeson_zl":
                 files[channel] = ROOT.TFile(os.path.join(trex_histogram_folder, f"{channel.name}_zl_postFit.root"))
-            j += 1
             print("Print for files[channel]: ", files[channel])
         print("Print files: ", files)
 
