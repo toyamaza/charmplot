@@ -58,10 +58,10 @@ def main(options, conf):
             logging.info(f"Searching for channel {channel_name}...")
             channel = conf.get_channel(channel_name)
             if not channel:
-                logging.error(f"Channel not found for string {channel_name}")
+                logging.warning(f"Channel not found for string {channel_name}")
             else:
                 logging.info(f"Found channel {channel_name}")
-            channels += [channel]
+                channels += [channel]
 
     # sort channels
     individual_plots = []
@@ -126,9 +126,12 @@ def main(options, conf):
         chan = Channel(channel_name, labels, channel_temp.lumi, [], [])
 
         # read files
+        file_suffix = ""
+        if var.name not in ["Dmeson_m", "Dmeson_mdiff"]:
+            file_suffix = f"{var.name.replace('Dmeson', '')}"
         files = {}
         for channel in channels_all:
-            files[channel] = ROOT.TFile(os.path.join(trex_histogram_folder, f"{channel.name}_postFit.root"))
+            files[channel] = ROOT.TFile(os.path.join(trex_histogram_folder, f"{channel.name}{file_suffix}_postFit.root"))
 
         # samples
         sample_names = []
