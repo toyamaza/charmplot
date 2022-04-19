@@ -295,7 +295,6 @@ def main():
                 print(f'nominal sigma = {spg_dict["DMinus_nominal"][i] * 1000}')
                 print(f'sys sigma = {spg_dict[sys][i] * 1000}')
                 print(f'sigma diff = {sigma_diff}')
-
     i_sigma_diff = 0
     dstar_tot_sigma_diff = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
     dplus_tot_sigma_diff = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]

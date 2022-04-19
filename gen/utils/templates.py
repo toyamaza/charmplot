@@ -306,7 +306,7 @@ class BKGComparison(ChannelTemplate):
                 #                                                    regions_SS=["MG_Wjets_Rest_OS", "MG_Wjets_Rest_SS"])],
                 # ['Sherpa2211_Wjets_Rest_PostProc', proxies.GenericChannel(name="Sh_Wjets_Rest",
                 #                                                    regions_OS=["Sh_Wjets_Rest_OS", "Sh_Wjets_Rest_SS"],
-                                                                #    regions_SS=["Sh_Wjets_Rest_OS", "Sh_Wjets_Rest_SS"])],
+                #                                                    regions_SS=["Sh_Wjets_Rest_OS", "Sh_Wjets_Rest_SS"])],
             ],
             'MisMatched': [
                 ['Sherpa2211_Wjets_MisMatched_Plain', proxies.GenericChannel(name="MisMatched", region=["MisMatched", "MatchedNoFid"])],
