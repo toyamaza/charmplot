@@ -36,7 +36,7 @@ spg_dict = {
     "DstarMinus_TRACK_EFF_IBL": ['test999971_01_00_03_FTFP', 'Dstar_pTVsDeltaM', 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
     "DstarMinus_TRACK_EFF_PP0": ['test999971_01_00_04_FTFP', 'Dstar_pTVsDeltaM', 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
     "DstarMinus_TRACK_EFF_QGSP": ['test999971_01_00_01_QGSP', 'Dstar_pTVsDeltaM', 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
-    "DPlus_nominal": ['test999964_01_00_01_FTFP','Dplus_pTVsM', 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+    "DPlus_nominal": ['test999964_01_00_01_FTFP', 'Dplus_pTVsM', 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
     "DPlus_TRACK_EFF_Overal": ['test999964_01_00_02_FTFP', 'Dplus_pTVsM', 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
     "DPlus_TRACK_EFF_IBL": ['test999964_01_00_03_FTFP', 'Dplus_pTVsM', 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
     "DPlus_TRACK_EFF_PP0": ['test999964_01_00_04_FTFP', 'Dplus_pTVsM', 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
@@ -296,7 +296,7 @@ def main():
                 print(f'nominal sigma = {spg_dict["DMinus_nominal"][i] * 1000}')
                 print(f'sys sigma = {spg_dict[sys][i] * 1000}')
                 print(f'sigma diff = {sigma_diff}')
-    
+
     i_sigma_diff = 0
     dstar_tot_sigma_diff = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
     dplus_tot_sigma_diff = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]

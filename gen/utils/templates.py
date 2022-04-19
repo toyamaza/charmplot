@@ -395,20 +395,20 @@ class ReplacementSamples(ChannelTemplate):
         self.samples.update({
             'MatchedMG': [['MGPy8EG_NLO_WplusD_Matched',
                            proxies.GenericChannel(name="Matched",
-                                                   regions_override=[
-                                                        f"{flavor}_SR_0tag_{self.decay_mode}_OS_{slice}" for slice in self.truthSlices for flavor in FLAVORS])]],
+                                                  regions_override=[
+                                                      f"{flavor}_SR_0tag_{self.decay_mode}_OS_{slice}" for slice in self.truthSlices for flavor in FLAVORS])]],
             'MatchedMG_minus': [['MGPy8EG_NLO_WplusD_Matched',
                                  proxies.GenericChannel(name="Matched_minus",
-                                                   regions_override=[
-                                                        f"{flavor}_SR_0tag_{self.decay_mode}_OS_{slice}" for slice in self.truthSlices for flavor in ["el_minus", "mu_minus"]])]],
+                                                        regions_override=[
+                                                            f"{flavor}_SR_0tag_{self.decay_mode}_OS_{slice}" for slice in self.truthSlices for flavor in ["el_minus", "mu_minus"]])]],
             'MatchedMG_plus': [['MGPy8EG_NLO_WplusD_Matched',
                                 proxies.GenericChannel(name="Matched_plus",
-                                                   regions_override=[
-                                                        f"{flavor}_SR_0tag_{self.decay_mode}_OS_{slice}" for slice in self.truthSlices for flavor in ["el_plus", "mu_plus"]])]],
+                                                       regions_override=[
+                                                           f"{flavor}_SR_0tag_{self.decay_mode}_OS_{slice}" for slice in self.truthSlices for flavor in ["el_plus", "mu_plus"]])]],
             'MatchedSh': [['Sherpa2211_WplusD_Matched',
                            proxies.GenericChannel(name="Matched",
                                                   regions_override=[
-                                                       f"{flavor}_SR_0tag_{self.decay_mode}_OS_{slice}" for slice in self.truthSlices for flavor in FLAVORS])]]
+                                                      f"{flavor}_SR_0tag_{self.decay_mode}_OS_{slice}" for slice in self.truthSlices for flavor in FLAVORS])]]
         })
 
         # signal samples in truth differential bins
@@ -423,15 +423,15 @@ class ReplacementSamples(ChannelTemplate):
             self.samples.update({
                 slice.replace("Matched", "MatchedMG_minus"): [[f'MGPy8EG_NLO_WplusD_{slice}',
                                                                proxies.GenericChannel(name=f"{slice}_minus",
-                                                                                regions_override=[
-                                                                                    f"{flavor}_SR_0tag_{self.decay_mode}_OS_{slice}" for flavor in ["el_minus", "mu_minus"]])]
+                                                                                      regions_override=[
+                                                                                          f"{flavor}_SR_0tag_{self.decay_mode}_OS_{slice}" for flavor in ["el_minus", "mu_minus"]])]
                                                               ] for slice in self.truthSlices
             })
             self.samples.update({
                 slice.replace("Matched", "MatchedMG_plus"): [[f'MGPy8EG_NLO_WplusD_{slice}',
                                                               proxies.GenericChannel(name=f"{slice}_plus",
-                                                                                regions_override=[
-                                                                                    f"{flavor}_SR_0tag_{self.decay_mode}_OS_{slice}" for flavor in ["el_plus", "mu_plus"]])]
+                                                                                     regions_override=[
+                                                                                         f"{flavor}_SR_0tag_{self.decay_mode}_OS_{slice}" for flavor in ["el_plus", "mu_plus"]])]
                                                              ] for slice in self.truthSlices
             })
             self.samples.update({
