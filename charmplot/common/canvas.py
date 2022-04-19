@@ -540,6 +540,7 @@ class CanvasMCRatio(Canvas2):
     def configure_histograms(self, mc_map: MC_Map):
         for s, h in mc_map.items():
             if not h:
+                logger.warning(f"Missing histogram (will be skipped) in sample: {s} {h}")
                 continue
             logger.debug(f"configuring {s} {h}")
             h.SetFillStyle(0)

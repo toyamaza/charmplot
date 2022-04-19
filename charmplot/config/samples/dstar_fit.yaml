@@ -573,19 +573,6 @@ DibosonZjets:
   shortName: DibosonZjets
   makeGhostSample: True
 
-MG_DibosonZjets:
-  add:
-    - Diboson
-    - MG_Zjets_light_emu
-    - MG_Zjets_cjets_emu
-    - MG_Zjets_bjets_emu
-    - MG_Zjets_tau
-  subtract:
-  fillColor: "15001"
-  legendLabel: MG Other
-  shortName: MG_DibosonZjets
-  makeGhostSample: True
-
 Multijet:
   add: data
   subtract:
@@ -767,22 +754,6 @@ MG_Wjets_Bkg_PostProc:
   lineColor: "21000"
   legendLabel: "Loose W+jets"
   shortName: MG_Wjets_Bkg_PostProc
-
-DibosonZjets_PostProc:
-  add:
-    - inclusive_bkg
-  subtract:
-  lineColor: "21000"
-  legendLabel: Loose Other
-  shortName: DibosonZjets_PostProc
-
-MG_DibosonZjets_PostProc:
-  add:
-    - inclusive_bkg
-  subtract:
-  lineColor: "21001"
-  legendLabel: MG Loose Other
-  shortName: MG_DibosonZjets_PostProc
 
 MultiJet_PostProc:
   add:

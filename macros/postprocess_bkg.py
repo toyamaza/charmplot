@@ -21,33 +21,7 @@ def main(options, args):
             "inputs": ["Sh_2211_Wjets_light_emu", "Sh_2211_Wjets_cjets_emu", "Sh_2211_Wjets_bjets_emu", "Sh_2211_Wjets_tau"],
             "regions": ["MisMatched", "MatchedNoFid"],
         },
-        # "MG_Wjets_Bkg": {
-        #     "inputs": ["MG_Wjets_cjets_emu", "MG_Wjets_bjets_emu", "MG_Wjets_light_emu"],
-        #     "regions": ["MisMatched", "MatchedNoFid", "HardMisMatched", "Other", "411MisMatched", "413MisMatched", "421MisMatched", "431MisMatched", "BaryonMisMatched"],
-        # },
-        # "Other": {
-        #     "inputs": ["Diboson", "MG_Zjets_light_emu", "MG_Zjets_cjets_emu", "MG_Zjets_bjets_emu", "MG_Zjets_tau"],
-        #     "regions": [""],
-        # },
-        # "MultiJet": {
-        #     "inputs": ["data"],
-        #     "regions": [""],
-        #     "matrix_method": True,
-        # },
     }
-
-    # if (options.decay_mode == "Dstar"):
-    #     backgrounds["Other"] = {
-    #         "inputs": ["Diboson", "Sh_2211_Zjets_light_emu", "Sh_2211_Zjets_cjets_emu", "Sh_2211_Zjets_bjets_emu", "Sh_2211_Zjets_tau"],
-    #         "regions": [""],
-    #     }
-    #     backgrounds["MG_Other"] = {
-    #         "inputs": ["Diboson", "MG_Zjets_light_emu", "MG_Zjets_cjets_emu", "MG_Zjets_bjets_emu", "MG_Zjets_tau"],
-    #         "regions": [""],
-    #     }
-
-    # multijet
-    # matrix_method = {}
 
     # scale factors
     channels = [f"el_minus_SR_0tag_{options.decay_mode}", f"el_plus_SR_0tag_{options.decay_mode}", f"mu_minus_SR_0tag_{options.decay_mode}", f"mu_plus_SR_0tag_{options.decay_mode}"]

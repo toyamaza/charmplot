@@ -104,17 +104,12 @@ def main(options, args):
                 if options.scale_factors:
                     print(f"Getting scale-factors for {flavor}_{charge} in pt_bin{pt_bin}")
                     name_spg = f"SPG_{name_map[flavor]}_{charge}_0tag_{decay_mode}_{name_map[flavor]}_pt_bin{pt_bin}_{scale_var}"
-                    # name_mg = f"MG_Wjets_{name_map[flavor]}_{charge}_0tag_{decay_mode}_{name_map[flavor]}_pt_bin{pt_bin}_{scale_var}"
-                    # h_mg = f_scale_factors.Get(name_mg)
                     name_sh = f"Sherpa2211_Wjets_{name_map[flavor]}_{charge}_0tag_{decay_mode}_{name_map[flavor]}_pt_bin{pt_bin}_{scale_var}"
                     h_sh = f_scale_factors.Get(name_sh)
                     h_spg = f_scale_factors.Get(name_spg)
-                    # if not (h_spg and h_mg):
                     if not (h_spg and h_sh):
-                        # print(f"Unable to retreive histograms {name_spg} and {name_mg} from file {f_scale_factors}! Exiting!")
                         print(f"Unable to retreive histograms {name_spg} and {name_sh} from file {f_scale_factors}! Exiting!")
                         sys.exit(1)
-                    # sf = h_mg.GetSumOfWeights() / h_spg.GetSumOfWeights()
                     sf = h_sh.GetSumOfWeights() / h_spg.GetSumOfWeights()
 
                 # scale and save
@@ -127,9 +122,7 @@ def main(options, args):
                     if not (f_in.Get(obj_name.replace("SS", "OS")) and f_in.Get(obj_name.replace("OS", "SS"))):
                         continue
                     h_OS = f_in.Get(obj_name.replace("SS", "OS")).Clone(f"{obj_name}_OS")
-                    # h_SS = f_in.Get(obj_name.replace("OS", "SS")).Clone(f"{obj_name}_SS")
                     h_scaled = h_OS.Clone(f"{obj_name}_OS_only")
-                    # h_scaled.Add(h_SS, -1.0)
                     print(f"created {h_scaled} from {h_OS}")
                     if options.scale_factors:
                         print(f"sf: {sf}")

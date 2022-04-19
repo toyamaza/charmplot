@@ -71,62 +71,11 @@ MG_Wjets_MisMatched_Loose:
 DibosonZjets:
   add:
     - Diboson
-    - Sh_2211_Zjets_light_emu
-    - Sh_2211_Zjets_cjets_emu
-    - Sh_2211_Zjets_bjets_emu
-    - Sh_2211_Zjets_tau
-  subtract:
-  lineColor: "21000"
-  legendLabel: Other
-  shortName: DibosonZjets
-
-DibosonZjets_Plain:
-  add:
-    - Diboson
-    - Sh_2211_Zjets_light_emu
-    - Sh_2211_Zjets_cjets_emu
-    - Sh_2211_Zjets_bjets_emu
-    - Sh_2211_Zjets_tau
+    - Sherpa2211_Zjets
   subtract:
   lineColor: "15002"
   legendLabel: Other
-  shortName: DibosonZjets_Plain
-
-MG_DibosonZjets:
-  add:
-    - Diboson
-    - MG_Zjets_light_emu
-    - MG_Zjets_cjets_emu
-    - MG_Zjets_bjets_emu
-    - MG_Zjets_tau
-  subtract:
-  lineColor: "ROOT.kOrange"
-  legendLabel: MG Other
-  shortName: MG_DibosonZjets
-
-MG_DibosonZjets_Plain:
-  add:
-    - Diboson
-    - MG_Zjets_light_emu
-    - MG_Zjets_cjets_emu
-    - MG_Zjets_bjets_emu
-    - MG_Zjets_tau
-  subtract:
-  lineColor: "ROOT.kRed"
-  legendLabel: MG Other
-  shortName: MG_DibosonZjets_Plain
-
-DibosonZjets_Loose:
-  add:
-    - Diboson
-    - Sh_2211_Zjets_light_emu
-    - Sh_2211_Zjets_cjets_emu
-    - Sh_2211_Zjets_bjets_emu
-    - Sh_2211_Zjets_tau
-  subtract:
-  lineColor: "ROOT.kBlue"
-  legendLabel: "Loose Other"
-  shortName: DibosonZjets_Loose
+  shortName: DibosonZjets
 
 Multijet_MatrixMethod:
   add: data
