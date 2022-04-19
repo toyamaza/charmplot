@@ -321,30 +321,14 @@ class BKGComparison(ChannelTemplate):
             'Top': [
                 ['Top', proxies.GenericChannel(name="Top")],
             ],
+            'Other': [
+                ['DibosonZjets', proxies.GenericChannel(name="DibosonZjets")],
+            ],
         }
-
-        if self.decay_mode == "Dplus":
-            self.samples.update(
-                {
-                    'Other': [
-                        ['DibosonZjets', proxies.GenericChannel(name="DibosonZjets")],
-                    ],
-                }
-            )
 
         if self.decay_mode == "Dstar":
             self.samples.update(
                 {
-                    'Other': [
-                        ['DibosonZjets_Plain', proxies.GenericChannel(name="DibosonZjets")],
-                        ['DibosonZjets', proxies.GenericChannel(name="DibosonZjets")],
-                        # ['DibosonZjets_PostProc', proxies.GenericChannel(name="DibosonZjets", regions_OS=[
-                        #                                                  "Other_OS"], regions_SS=["Other_SS"])],
-                        ['MG_DibosonZjets_Plain', proxies.GenericChannel(name="MG_DibosonZjets")],
-                        ['MG_DibosonZjets', proxies.GenericChannel(name="MG_DibosonZjets")],
-                        # ['MG_DibosonZjets_PostProc', proxies.GenericChannel(name="MG_DibosonZjets", regions_OS=[
-                        #                                                  "MG_Other_OS"], regions_SS=["MG_Other_SS"])],
-                    ],
                     'Rest_Fit': [
                         ['MG_Wjets_Rest_Plain', proxies.NoMatchBackground()],
                         ['MG_Wjets_Rest_Fit', proxies.GenericChannel(name="MG_Wjets_Rest_Fit", regions_OS=["MG_Wjets_Rest_Fit"], regions_SS=["MG_Wjets_Rest_Fit"])],
