@@ -129,7 +129,7 @@ def main(options, conf):
 
         # read files
         file_suffix = ""
-        if var.name not in ["Dmeson_m", "Dmeson_mdiff"]:
+        if var.name not in ["Dmeson_m", "Dmeson_mdiff", "Dmeson_m_fit", "Dmeson_mdiff_fit"]:
             file_suffix = f"{var.name.replace('Dmeson', '')}"
         files = {}
         for channel in channels_all:
