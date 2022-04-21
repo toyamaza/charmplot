@@ -68,13 +68,14 @@ def main(options, conf):
     OS_minus_SS_plots = []
     OS_minus_SS_total = {'+': [], '-': []}
     for channel in channels:
+        # # skip 1-tag regions..
+        # if "1tag" in channel.name:
+        #     continue
         individual_plots += [{'+': [channel], '-': []}]
         logging.info(f"Added channel {channel.name}..")
     for channel_OS in channels:
         if "OS_" not in channel_OS.name:
             continue
-        # if "1tag" not in channel_OS.name:
-        #     continue
         for channel_SS in channels:
             if channel_SS.name == channel_OS.name.replace("OS_", "SS_"):
                 OS_minus_SS_plots += [{'+': [channel_OS], '-': [channel_SS]}]
@@ -98,6 +99,7 @@ def main(options, conf):
     plots = individual_plots + OS_minus_SS_plots + [OS_minus_SS_total]
     # plots = individual_plots + OS_minus_SS_plots
     # plots = OS_minus_SS_plots
+    # plots = [OS_minus_SS_total]
 
     subtract_manually = True
 
