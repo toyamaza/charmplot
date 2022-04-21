@@ -7,7 +7,6 @@ from charmplot.control import tools
 import logging
 import math
 import os
-import re
 import ROOT
 import sys
 
