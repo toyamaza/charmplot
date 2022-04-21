@@ -143,6 +143,7 @@ def main(options, conf):
                     samples.append(sample)
 
         # get mc samples
+        h_bkg = None
         mc_map = {}
         for sample in samples:
             h_sum = None
@@ -155,6 +156,11 @@ def main(options, conf):
                         h_sum = h_temp.Clone(f"{h_temp.GetName()}_{chan.name}")
                     else:
                         h_sum.Add(h_temp)
+                    if options.subtract_background and "WplusD" not in sample.shortName:
+                        if h_bkg is None:
+                            h_bkg = h_temp.Clone(f"{chan.name}_bkg")
+                        else:
+                            h_bkg.Add(h_temp)
 
             # negative channels
             for channel in plot['-']:
@@ -165,9 +171,16 @@ def main(options, conf):
                         h_sum.Scale(-1.)
                     else:
                         h_sum.Add(h_temp, -1)
+                    if options.subtract_background and "WplusD" not in sample.shortName:
+                        if h_bkg is None:
+                            h_bkg = h_temp.Clone(f"{chan.name}_bkg")
+                            h_bkg.Scale(-1.)
+                        else:
+                            h_bkg.Add(h_temp, -1)
 
             if h_sum and abs(h_sum.GetSum()) > 1e-2:
-                mc_map[sample] = h_sum
+                if (options.subtract_background and "WplusD" in sample.shortName) or not options.subtract_background:
+                    mc_map[sample] = h_sum
 
         # get data
         h_data = None
@@ -182,6 +195,8 @@ def main(options, conf):
                     if channel_SS.name == channel.name.replace("OS_", "SS_"):
                         h_temp_SS = files[channel_SS].Get("h_Data")
                         h_data.Add(h_temp_SS, -1)
+        if options.subtract_background and h_bkg:
+            h_data.Add(h_bkg, -1)
 
         # get mc tot
         h_mc_tot = None
@@ -196,6 +211,8 @@ def main(options, conf):
                     if channel_SS.name == channel.name.replace("OS_", "SS_"):
                         h_temp_SS = files[channel_SS].Get("h_tot_postFit")
                         h_mc_tot.Add(h_temp_SS, -1)
+        if options.subtract_background and h_bkg:
+            h_mc_tot.Add(h_bkg, -1)
 
         # canvas
         canv = utils.make_canvas(h_data, var, chan, x=800, y=800)
@@ -219,13 +236,11 @@ def main(options, conf):
                 h_temp_up = get_err_hist(files[channel], par, "Up", "h_tot_postFit")
                 h_temp_dn = get_err_hist(files[channel], par, "Down", "h_tot_postFit")
                 if h_temp_up:
-                    # print (f"plus up {h_temp_up.GetSumOfWeights()}")
                     if not h_mc_tot_Up:
                         h_mc_tot_Up = h_temp_up.Clone(f"{h_temp_up.GetName()}_{chan.name}_err_up")
                     else:
                         h_mc_tot_Up.Add(h_temp_up)
                 if h_temp_dn:
-                    # print (f"plus dn {h_temp_dn.GetSumOfWeights()}")
                     if not h_mc_tot_Dn:
                         h_mc_tot_Dn = h_temp_dn.Clone(f"{h_temp_dn.GetName()}_{chan.name}_err_dn")
                     else:
@@ -234,14 +249,12 @@ def main(options, conf):
                 h_temp_up = get_err_hist(files[channel], par, "Up", "h_tot_postFit")
                 h_temp_dn = get_err_hist(files[channel], par, "Down", "h_tot_postFit")
                 if h_temp_up:
-                    # print (f"minus up {h_temp_up.GetSumOfWeights()}")
                     if not h_mc_tot_Up:
                         h_mc_tot_Up = h_temp_up.Clone(f"{h_temp_up.GetName()}_{chan.name}_err_up")
                         h_mc_tot_Up.Scale(-1.)
                     else:
                         h_mc_tot_Up.Add(h_temp_up, -1)
                 if h_temp_dn:
-                    # print (f"minus dn {h_temp_dn.GetSumOfWeights()}")
                     if not h_mc_tot_Dn:
                         h_mc_tot_Dn = h_temp_dn.Clone(f"{h_temp_dn.GetName()}_{chan.name}_err_dn")
                         h_mc_tot_Dn.Scale(-1)
@@ -249,6 +262,9 @@ def main(options, conf):
                         h_mc_tot_Dn.Add(h_temp_dn, -1)
 
             # subtract nominal
+            if options.subtract_background and h_bkg:
+                h_mc_tot_Up.Add(h_bkg, -1)
+                h_mc_tot_Dn.Add(h_bkg, -1)
             h_mc_tot_Up.Add(h_mc_tot, -1)
             h_mc_tot_Dn.Add(h_mc_tot, -1)
             h_mc_tot_err_histograms_Up += [h_mc_tot_Up]
@@ -360,6 +376,9 @@ if __name__ == "__main__":
     parser.add_option('-a', '--analysis-config',
                       action="store", dest="analysis_config",
                       help="analysis config file")
+    parser.add_option('-b', '--subtract-background',
+                      action="store_true", dest="subtract_background",
+                      help="subtract background from data and total MC")
     parser.add_option('-v', '--var',
                       action="store", dest="var",
                       help="fitted variable",
