@@ -156,7 +156,7 @@ def main(options, conf):
                         h_sum = h_temp.Clone(f"{h_temp.GetName()}_{chan.name}")
                     else:
                         h_sum.Add(h_temp)
-                    if options.subtract_background and "WplusD" not in sample.shortName:
+                    if options.subtract_background and options.signal not in sample.shortName:
                         if h_bkg is None:
                             h_bkg = h_temp.Clone(f"{chan.name}_bkg")
                         else:
@@ -171,7 +171,7 @@ def main(options, conf):
                         h_sum.Scale(-1.)
                     else:
                         h_sum.Add(h_temp, -1)
-                    if options.subtract_background and "WplusD" not in sample.shortName:
+                    if options.subtract_background and options.signal not in sample.shortName:
                         if h_bkg is None:
                             h_bkg = h_temp.Clone(f"{chan.name}_bkg")
                             h_bkg.Scale(-1.)
@@ -179,7 +179,7 @@ def main(options, conf):
                             h_bkg.Add(h_temp, -1)
 
             if h_sum and abs(h_sum.GetSum()) > 1e-2:
-                if (options.subtract_background and "WplusD" in sample.shortName) or not options.subtract_background:
+                if (options.subtract_background and options.signal in sample.shortName) or not options.subtract_background:
                     mc_map[sample] = h_sum
 
         # get data
@@ -379,6 +379,10 @@ if __name__ == "__main__":
     parser.add_option('-b', '--subtract-background',
                       action="store_true", dest="subtract_background",
                       help="subtract background from data and total MC")
+    parser.add_option('-s', '--signal',
+                      action="store", dest="signal",
+                      default="WplusD",
+                      help="name of the signal sample (to be used with '-b')")
     parser.add_option('-v', '--var',
                       action="store", dest="var",
                       help="fitted variable",
