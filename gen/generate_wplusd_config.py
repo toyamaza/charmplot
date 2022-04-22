@@ -141,7 +141,6 @@ def main(options):
         ]
         if options.decay_mode == "Dplus":
             systematics += [
-                'wplusd_signal_shape',
                 'sherpa2211_wjets_bkg_alt_samples',
             ]
             if options.truth_differential_bins:
