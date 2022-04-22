@@ -43,6 +43,9 @@ def get_err_hist(f, par, variation, default):
 def main(options, conf):
     trex_histogram_folder = os.path.join(options.trex_input, "Histograms")
 
+    # out root file
+    outfile = ROOT.TFile(f"post_fit/{conf.out_name}/outpoot.root", "RECREATE")
+
     # channels
     channels = []
 
@@ -361,9 +364,14 @@ def main(options, conf):
 
         # Print out
         canv.print(f"post_fit/{conf.out_name}/{chan.name}_{var.name}.pdf")
-        canv.print(f"post_fit/{conf.out_name}/{chan.name}_{var.name}.png")
+        outfile.cd()
+        gr_data.Write(f"{h_mc_tot.GetName()}_data")
+        h_mc_tot.Write()
 
         logging.info(f"finished processing channel {channel.name}")
+
+    # close output file
+    outfile.Close()
 
 
 if __name__ == "__main__":
