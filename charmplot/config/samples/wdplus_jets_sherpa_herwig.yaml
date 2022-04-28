@@ -41,7 +41,7 @@ Top_Shower:
   add: Top_ttbar_Shower
   subtract:
   fillColor: "12001"
-  legendLabel: "t#bar{t} shower"
+  legendLabel: "t#bar{t} Herwig"
 
 Top_single_top:
   add: 
