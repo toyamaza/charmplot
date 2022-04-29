@@ -138,6 +138,7 @@ def main(options):
             'wjets_mismatch_alt_samples',
             'dplus_resolution_signal',
             'dplus_resolution_background',
+            'dplus_signal_morphing',
         ]
         if options.decay_mode == "Dplus":
             systematics += [

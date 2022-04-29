@@ -26,6 +26,15 @@ handler.setFormatter(formatter)
 root.addHandler(handler)
 
 
+def modify_sample_name(sample_name, channel):
+    # if "WplusD_Matched" in sample_name:
+    #     if "minus" in channel.name:
+    #         sample_name += "_minus"
+    #     elif "plus" in channel.name:
+    #         sample_name += "_plus"
+    return sample_name
+
+
 def get_err_hist(f, par, variation, default):
     h_err = None
     name = default.split("postFit")[0]
@@ -70,9 +79,9 @@ def main(options, conf):
     OS_minus_SS_plots = []
     OS_minus_SS_total = {'+': [], '-': []}
     for channel in channels:
-        # # skip 1-tag regions..
-        # if "1tag" in channel.name:
-        #     continue
+        # skip 1-tag regions..
+        if "1tag" in channel.name:
+            continue
         individual_plots += [{'+': [channel], '-': []}]
         logging.info(f"Added channel {channel.name}..")
     for channel_OS in channels:
@@ -98,8 +107,8 @@ def main(options, conf):
             corr_correlation_rows = x['correlation_rows']
     n_pars = len(corr_parameters)
 
-    plots = individual_plots + OS_minus_SS_plots + [OS_minus_SS_total]
-    # plots = individual_plots + OS_minus_SS_plots
+    # plots = individual_plots + OS_minus_SS_plots + [OS_minus_SS_total]
+    plots = individual_plots + OS_minus_SS_plots
     # plots = OS_minus_SS_plots
     # plots = [OS_minus_SS_total]
 
@@ -150,16 +159,19 @@ def main(options, conf):
         mc_map = {}
         for sample in samples:
             h_sum = None
+            sample_name = sample.shortName
 
             # positive channels
             for channel in plot['+']:
-                h_temp = files[channel].Get(f"h_{sample.shortName}_postFit")
+
+                h_temp = files[channel].Get(f"h_{modify_sample_name(sample_name, channel)}_postFit")
+                # print(files[channel].GetName()," ",h_temp," ",modify_sample_name(sample_name, channel)," ",channel.name)
                 if h_temp:
                     if h_sum is None:
                         h_sum = h_temp.Clone(f"{h_temp.GetName()}_{chan.name}")
                     else:
                         h_sum.Add(h_temp)
-                    if options.subtract_background and options.signal not in sample.shortName:
+                    if options.subtract_background and options.signal not in modify_sample_name(sample_name, channel):
                         if h_bkg is None:
                             h_bkg = h_temp.Clone(f"{chan.name}_bkg")
                         else:
@@ -167,14 +179,14 @@ def main(options, conf):
 
             # negative channels
             for channel in plot['-']:
-                h_temp = files[channel].Get(f"h_{sample.shortName}_postFit")
+                h_temp = files[channel].Get(f"h_{modify_sample_name(sample_name, channel)}_postFit")
                 if h_temp:
                     if h_sum is None:
                         h_sum = h_temp.Clone(f"{h_temp.GetName()}_{chan.name}")
                         h_sum.Scale(-1.)
                     else:
                         h_sum.Add(h_temp, -1)
-                    if options.subtract_background and options.signal not in sample.shortName:
+                    if options.subtract_background and options.signal not in modify_sample_name(sample_name, channel):
                         if h_bkg is None:
                             h_bkg = h_temp.Clone(f"{chan.name}_bkg")
                             h_bkg.Scale(-1.)
@@ -182,7 +194,7 @@ def main(options, conf):
                             h_bkg.Add(h_temp, -1)
 
             if h_sum and abs(h_sum.GetSum()) > 1e-2:
-                if (options.subtract_background and options.signal in sample.shortName) or not options.subtract_background:
+                if (options.subtract_background and options.signal in modify_sample_name(sample_name, channel)) or not options.subtract_background:
                     mc_map[sample] = h_sum
 
         # get data

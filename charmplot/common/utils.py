@@ -358,7 +358,7 @@ def read_trex_input(channel: channel.Channel, var: variable.Variable, mc_map: MC
     return h_data_trex, trex_mc_tot, trex_mc_stat_err, trex_mc_stat_err_only
 
 
-def save_to_trex_file(trex_folder: str, channel: channel.Channel, var: variable.Variable,
+def save_to_trex_file(channel: channel.Channel, var: variable.Variable,
                       h_data: ROOT.TH1, mc_map: MC_Map, trex_histograms: Dict, sys: str = None, affecting: str = ""):
     logging.info(f"Saving histograms to trex root files for channel {channel} for sys {sys}")
     out_name = f"{channel.name}_{var.name}"
@@ -378,13 +378,23 @@ def save_to_trex_file(trex_folder: str, channel: channel.Channel, var: variable.
         out_file.Close()
 
 
-def save_histograms_to_trex_file(trex_folder: str, channel: channel.Channel, var: variable.Variable,
+def save_histograms_to_trex_file(channel: channel.Channel, var: variable.Variable,
                                  h: ROOT.TH1, s: sample.Sample, trex_histograms: Dict, sys: str = None):
     logging.info(f"Saving histogram {h} to trex root files for channel {channel} for sys {sys}")
     out_name = f"{channel.name}_{var.name}"
     if sys:
         out_name += f"_{sys}"
     out_file = ROOT.TFile(trex_histograms[s.shortName], "UPDATE")
+    out_file.cd()
+    h.Write(out_name)
+    out_file.Close()
+
+
+def save_morphing_histogram_to_trex_file(channel: channel.Channel, var: variable.Variable,
+                                         h: ROOT.TH1, s: sample.Sample, trex_histograms: Dict, sys: str):
+    logging.info(f"Saving morphing histogram {h} to trex root files for channel {channel} for sys {sys}")
+    out_name = f"{channel.name}_{var.name}"
+    out_file = ROOT.TFile(trex_histograms[f"{s.shortName}_Morphing_{sys}"], "UPDATE")
     out_file.cd()
     h.Write(out_name)
     out_file.Close()

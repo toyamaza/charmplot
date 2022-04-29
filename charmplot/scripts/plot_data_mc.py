@@ -59,6 +59,9 @@ def process_channel(options, conf, c):
     # read inputs
     reader = inputDataReader.InputDataReader(conf)
 
+    # systematics
+    systematics = conf.get_systematics()
+
     # read trex input
     trex_post_fit_histograms = {}
     if options.trex_input:
@@ -66,7 +69,7 @@ def process_channel(options, conf, c):
 
     # trex histogram files (one per sample)
     trex_histograms = {}
-    if (options.trex):
+    if options.trex:
         trex_folder = os.path.join(conf.out_name, options.trex)
 
     # output root file
@@ -95,6 +98,29 @@ def process_channel(options, conf, c):
                 sample_out_file.Close()
                 logging.info(f"created file for trex input {sample_file_name}")
 
+                # check if any morphing samples
+                if systematics:
+                    for group in systematics:
+                        if systematics[group].get('type') == 'morphing':
+                            if systematics[group].get('affecting') and s.shortName not in systematics[group].get('affecting'):
+                                continue
+                            for var in systematics[group]['variations']:
+                                morph_dir = os.path.join(trex_folder, "Morphing", group, var)
+                                if not os.path.isdir(morph_dir):
+                                    try:
+                                        os.makedirs(morph_dir)
+                                    except Exception as e:
+                                        print(e)
+                                        pass
+                                sample_file_name_morph = os.path.join(morph_dir, f"{s.shortName}_tmp_{c.name}.root")
+                                key_name = f"{s.shortName}_Morphing_{group}_{var}"
+                                if key_name not in trex_histograms:
+                                    time.sleep(random.random())
+                                    sample_out_file = ROOT.TFile(sample_file_name_morph, "RECREATE")
+                                    trex_histograms[key_name] = sample_file_name_morph
+                                    sample_out_file.Close()
+                                    logging.info(f"created file for trex input {sample_file_name_morph}")
+
     # perform likelihood fit
     fit = utils.likelihood_fit(conf, reader, c, samples)
 
@@ -104,9 +130,6 @@ def process_channel(options, conf, c):
     # list of variables
     variables = utils.get_variables(options, conf, reader, c)
     assert len(variables) > 0
-
-    # systematics
-    systematics = conf.get_systematics()
 
     # no sys if TREx import
     if options.trex_input or options.no_sys:
@@ -194,7 +217,8 @@ def process_channel(options, conf, c):
 
         # save histograms to root file
         if options.trex:
-            utils.save_to_trex_file(trex_folder, c, var, h_data, mc_map, trex_histograms)
+            if not options.trex_no_nominal:
+                utils.save_to_trex_file(c, var, h_data, mc_map, trex_histograms)
             if systematics:
                 for group in systematics:
                     variations = systematics[group].get('variations')
@@ -202,8 +226,15 @@ def process_channel(options, conf, c):
                     sys_type = systematics[group].get('type')
                     if sys_type in ['updown', 'alt_sample', 'overall', 'pre_computed', 'fit']:
                         for syst in variations:
-                            utils.save_to_trex_file(trex_folder, c, var, None, mc_map_sys[group][syst], trex_histograms, syst, affecting)
-                    elif sys_type == 'minmax':
+                            utils.save_to_trex_file(c, var, None, mc_map_sys[group][syst], trex_histograms, syst, affecting)
+                    elif sys_type in ['morphing']:
+                        for s in mc_map:
+                            if affecting and s.shortName not in affecting:
+                                continue
+                            for syst in variations:
+                                sys_hist = mc_map_sys[group][syst][s]
+                                utils.save_morphing_histogram_to_trex_file(c, var, sys_hist, s, trex_histograms, f"{group}_{syst}")
+                    elif sys_type in ['minmax']:
                         for s in mc_map:
                             if affecting and s.shortName not in affecting:
                                 continue
@@ -211,8 +242,8 @@ def process_channel(options, conf, c):
                             nominal_hist = mc_map[s]
                             gr_mc_sys_err, _ = utils.make_minmax_err(nominal_hist, sys_hists)
                             h_up, h_dn = utils.sys_graph_to_hists(gr_mc_sys_err, nominal_hist, group)
-                            utils.save_histograms_to_trex_file(trex_folder, c, var, h_up, s, trex_histograms, f"{group}_up")
-                            utils.save_histograms_to_trex_file(trex_folder, c, var, h_dn, s, trex_histograms, f"{group}_dn")
+                            utils.save_histograms_to_trex_file(c, var, h_up, s, trex_histograms, f"{group}_up")
+                            utils.save_histograms_to_trex_file(c, var, h_dn, s, trex_histograms, f"{group}_dn")
                     else:
                         for s in mc_map:
                             if affecting and s.shortName not in affecting:
@@ -221,8 +252,8 @@ def process_channel(options, conf, c):
                             nominal_hist = mc_map[s]
                             gr_mc_sys_err, _ = utils.make_pdf_err(nominal_hist, sys_hists, sys_type)
                             h_up, h_dn = utils.sys_graph_to_hists(gr_mc_sys_err, nominal_hist, group)
-                            utils.save_histograms_to_trex_file(trex_folder, c, var, h_up, s, trex_histograms, f"{group}_up")
-                            utils.save_histograms_to_trex_file(trex_folder, c, var, h_dn, s, trex_histograms, f"{group}_dn")
+                            utils.save_histograms_to_trex_file(c, var, h_up, s, trex_histograms, f"{group}_up")
+                            utils.save_histograms_to_trex_file(c, var, h_dn, s, trex_histograms, f"{group}_dn")
 
         # Multiply Offset by -1 for visual purposes
         for s in mc_map:
@@ -264,6 +295,8 @@ def process_channel(options, conf, c):
         if systematics:
             for group in systematics:
                 sys_type = systematics[group]['type']
+                if sys_type == "morphing":
+                    continue
                 if sys_type in ['updown', 'alt_sample', 'overall', 'pre_computed', 'fit']:
                     gr_mc_sys_err, gr_mc_sys_err_only = utils.make_sys_err(h_mc_tot, h_mc_tot_sys[group])
                 elif sys_type == 'minmax':
@@ -416,6 +449,9 @@ if __name__ == "__main__":
     parser.add_option('--trex-input',
                       action="store", dest="trex_input",
                       help="import post-fit trex plots")
+    parser.add_option('--trex-no-nominal',
+                      action="store_true", dest="trex_no_nominal",
+                      help="don't save nominal to trex output")
     parser.add_option('--nology',
                       action="store_true", dest="nology",
                       help="no log-y plots")
@@ -464,17 +500,37 @@ if __name__ == "__main__":
         trex_folder = os.path.join(conf.out_name, options.trex)
         for r, d, f in os.walk(trex_folder):
             for file in f:
+                if "Morphing" in r:
+                    continue
                 if '.root' in file and '_tmp_' in file:
                     sample = file.split("_tmp_")[0]
                     if sample not in samples:
                         samples[sample] = []
                     samples[sample] += [os.path.join(trex_folder, file)]
         jobs = [[os.path.join(trex_folder, f"{sample}.root")] + samples[sample] for sample in samples]
-        print(jobs)
-        p = Pool(1)
+        p = Pool(4)
         for i, _ in enumerate(p.imap_unordered(utils.hadd_wrapper, jobs)):
             print("done processing hadd job %s/%s" % (i + 1, len(jobs)))
         os.system(f"rm {trex_folder}/*_tmp_*")
+
+        # morphing samples
+        if os.path.isdir(os.path.join(trex_folder, "Morphing")):
+            morphing = {}
+            for r, d, f in os.walk(os.path.join(trex_folder, "Morphing")):
+                for file in f:
+                    if '.root' in file and '_tmp_' in file:
+                        sample = file.split("_tmp_")[0]
+                        if r not in morphing:
+                            morphing[r] = {}
+                        if sample not in morphing[r]:
+                            morphing[r][sample] = []
+                        morphing[r][sample] += [os.path.join(r, file)]
+            for r in morphing:
+                jobs = [[os.path.join(r, f"{sample}.root")] + morphing[r][sample] for sample in morphing[r]]
+                p = Pool(4)
+                for i, _ in enumerate(p.imap_unordered(utils.hadd_wrapper, jobs)):
+                    print("done processing hadd job %s/%s" % (i + 1, len(jobs)))
+                os.system(f"rm {r}/*_tmp_*")
 
     # merge regular output
     out_files = []
@@ -482,6 +538,8 @@ if __name__ == "__main__":
     files_exist = False
     for r, d, f in os.walk(out_folder):
         for file in f:
+            if "Morphing" in r:
+                continue
             if '.root' in file and '_tmp_' in file:
                 out_files += [os.path.join(out_folder, file)]
                 files_exist = True
