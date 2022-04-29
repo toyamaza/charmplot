@@ -66,8 +66,8 @@ variations:
   - FT_EFF_extrapolation__1up
   - FT_EFF_extrapolation_from_charm__1down
   - FT_EFF_extrapolation_from_charm__1up
-  - JET_BJES_Response__1down
-  - JET_BJES_Response__1up
+  # - JET_BJES_Response__1down
+  # - JET_BJES_Response__1up
   - JET_EffectiveNP_1__1down
   - JET_EffectiveNP_1__1up
   - JET_EffectiveNP_2__1down
@@ -118,8 +118,8 @@ variations:
   - JET_Pileup_RhoTopology__1up
   - JET_PunchThrough_MC16__1down
   - JET_PunchThrough_MC16__1up
-  - JET_SingleParticle_HighPt__1down
-  - JET_SingleParticle_HighPt__1up
+  # - JET_SingleParticle_HighPt__1down
+  # - JET_SingleParticle_HighPt__1up
   - MET_SoftTrk_ResoPara
   - MET_SoftTrk_ResoPerp
   - MET_SoftTrk_Scale__1down
