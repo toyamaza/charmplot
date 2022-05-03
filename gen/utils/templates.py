@@ -187,6 +187,7 @@ class SPGComparison(ChannelTemplate):
                             pt_bin_name: [
                                 # [f'MG_Wjets_{slice}', proxies.GenericChannel(region=slice, name=slice)],
                                 [f'MGPy8EG_NLO_WplusD_{slice}', proxies.GenericChannel(region=slice, name=slice)],
+                                # [f'MGPy8EG_FxFx_WplusD_{slice}', proxies.GenericChannel(region=slice, name=slice)],
                                 [f'Sherpa2211_WplusD_{slice}', proxies.GenericChannel(region=slice, name=slice)],
                                 [f'Sherpa2211_WplusD_{slice}_Plain', proxies.GenericChannel(region=slice, name=slice)],
                                 # [f'Sherpa2211_Wjets_{slice}', proxies.GenericChannel(region=slice, name=slice)],
@@ -228,6 +229,10 @@ class SPGComparison(ChannelTemplate):
                             ['SPG_421MisMatched', proxies.SPGChannel(name="421MisMatchedInclusiveSPG", regions_OS=[
                                 "inclusive_Dplus_OS"], regions_SS=["inclusive_Dplus_SS"])],
                         ],
+                        'CharmMisMatchedReplaced': [
+                            ['MG_Wjets_Charm', proxies.MatchedCharm(name="CharmMisMatched")],
+                            ['MG_Wjets_CharmPlain', proxies.MatchedCharm(name="CharmMisMatched")],
+                        ],
                     }
                 )
         elif self.decay_mode == "Dstar":
@@ -251,6 +256,10 @@ class SPGComparison(ChannelTemplate):
                             ['Sherpa2211_Wjets_421MisMatched', proxies.GenericChannel(region="421MisMatched", name="421MisMatched")],
                             ['SPG_421MisMatched', proxies.SPGChannel(name="421MisMatchedInclusiveSPG", regions_OS=[
                                                                      "inclusive_Dstar_OS"], regions_SS=["inclusive_Dstar_SS"])],
+                        ],
+                        'CharmMisMatchedReplaced': [
+                            ['Sherpa2211_Wjets_Charm', proxies.MatchedCharm(name="CharmMisMatched")],
+                            ['Sherpa2211_Wjets_CharmPlain', proxies.MatchedCharm(name="CharmMisMatched")],
                         ],
                     }
                 )
@@ -276,10 +285,6 @@ class SPGComparison(ChannelTemplate):
                         ['Sherpa2211_Wjets_CharmPlain', proxies.MatchedCharm(name="CharmMisMatched")],
                         ['SPG_CharmMisMatched', proxies.SPGChannel(name="CharmMisMatchedInclusiveSPG", regions_OS=[
                             "inclusive_" + self.decay_mode + "_OS"], regions_SS=["inclusive_" + self.decay_mode + "_SS"])],
-                    ],
-                    'CharmMisMatchedReplaced': [
-                        ['MG_Wjets_Charm', proxies.MatchedCharm(name="CharmMisMatched")],
-                        ['MG_Wjets_CharmPlain', proxies.MatchedCharm(name="CharmMisMatched")],
                     ],
                 })
 
@@ -317,30 +322,13 @@ class BKGComparison(ChannelTemplate):
                 # ['Sherpa2211_Wjets_MisMatched_PostProc', proxies.GenericChannel(name="Sh_Wjets_MisMatched", regions_OS=[
                 #                                                          "Sh_Wjets_MisMatched_OS"], regions_SS=["Sh_Wjets_MisMatched_SS"])],
             ],
+            'Top': [
+                ['Top', proxies.GenericChannel(name="Top")],
+            ],
             'Other': [
                 ['DibosonZjets', proxies.GenericChannel(name="DibosonZjets")],
             ],
-            'Top': [
-                ['Top', proxies.GenericChannel(name="DibosonZjets")],
-            ],
         }
-
-        if self.decay_mode == "Dstar":
-            self.samples.update(
-                {
-                    'Other': [
-                        ['DibosonZjets', proxies.GenericChannel(name="DibosonZjets")],
-                        ['DibosonZjets_PostProc', proxies.GenericChannel(name="DibosonZjets_PostProc", regions_OS=[
-                                                                         "Other_OS"], regions_SS=["Other_SS"])],
-                    ],
-                    'Rest_Fit': [
-                        ['MG_Wjets_Rest_Plain', proxies.NoMatchBackground()],
-                        ['MG_Wjets_Rest_Fit', proxies.GenericChannel(name="MG_Wjets_Rest_Fit", regions_OS=["MG_Wjets_Rest_Fit"], regions_SS=["MG_Wjets_Rest_Fit"])],
-                        ['Sherpa2211_Wjets_Rest_Plain', proxies.NoMatchBackground()],
-                        ['Sherpa2211_Wjets_Rest_Fit', proxies.GenericChannel(name="Sherpa2211_Wjets_Rest_Fit", regions_OS=["Sherpa2211_Wjets_Rest_Fit"], regions_SS=["Sherpa2211_Wjets_Rest_Fit"])],
-                    ],
-                }
-            )
 
     def get(self):
         return self.samples
@@ -382,13 +370,21 @@ class ReplacementSamples(ChannelTemplate):
         # signal samples
         self.samples.update({
             'MatchedMG': [['MGPy8EG_NLO_WplusD_Matched',
-                            proxies.GenericChannel(name="Matched",
-                                                   regions_override=[
-                                                        f"{flavor}_SR_0tag_{self.decay_mode}_OS_{slice}" for slice in self.truthSlices for flavor in FLAVORS])]],
+                           proxies.GenericChannel(name="Matched",
+                                                  regions_override=[
+                                                      f"{flavor}_SR_0tag_{self.decay_mode}_OS_{slice}" for slice in self.truthSlices for flavor in FLAVORS])]],
+            'MatchedMG_minus': [['MGPy8EG_NLO_WplusD_Matched',
+                                 proxies.GenericChannel(name="Matched_minus",
+                                                        regions_override=[
+                                                            f"{flavor}_SR_0tag_{self.decay_mode}_OS_{slice}" for slice in self.truthSlices for flavor in ["el_minus", "mu_minus"]])]],
+            'MatchedMG_plus': [['MGPy8EG_NLO_WplusD_Matched',
+                                proxies.GenericChannel(name="Matched_plus",
+                                                       regions_override=[
+                                                           f"{flavor}_SR_0tag_{self.decay_mode}_OS_{slice}" for slice in self.truthSlices for flavor in ["el_plus", "mu_plus"]])]],
             'MatchedSh': [['Sherpa2211_WplusD_Matched',
                            proxies.GenericChannel(name="Matched",
                                                   regions_override=[
-                                                       f"{flavor}_SR_0tag_{self.decay_mode}_OS_{slice}" for slice in self.truthSlices for flavor in FLAVORS])]]
+                                                      f"{flavor}_SR_0tag_{self.decay_mode}_OS_{slice}" for slice in self.truthSlices for flavor in FLAVORS])]]
         })
 
         # signal samples in truth differential bins
@@ -399,6 +395,20 @@ class ReplacementSamples(ChannelTemplate):
                                                                                 regions_override=[
                                                                                     f"{flavor}_SR_0tag_{self.decay_mode}_OS_{slice}" for flavor in FLAVORS])]
                                                         ] for slice in self.truthSlices
+            })
+            self.samples.update({
+                slice.replace("Matched", "MatchedMG_minus"): [[f'MGPy8EG_NLO_WplusD_{slice}',
+                                                               proxies.GenericChannel(name=f"{slice}_minus",
+                                                                                      regions_override=[
+                                                                                          f"{flavor}_SR_0tag_{self.decay_mode}_OS_{slice}" for flavor in ["el_minus", "mu_minus"]])]
+                                                              ] for slice in self.truthSlices
+            })
+            self.samples.update({
+                slice.replace("Matched", "MatchedMG_plus"): [[f'MGPy8EG_NLO_WplusD_{slice}',
+                                                              proxies.GenericChannel(name=f"{slice}_plus",
+                                                                                     regions_override=[
+                                                                                         f"{flavor}_SR_0tag_{self.decay_mode}_OS_{slice}" for flavor in ["el_plus", "mu_plus"]])]
+                                                             ] for slice in self.truthSlices
             })
             self.samples.update({
                 slice.replace("Matched", "MatchedSh"): [[f'Sherpa2211_WplusD_{slice}',
@@ -442,9 +452,6 @@ class ReplacementSamples(ChannelTemplate):
                             "MG_Wjets_Rest_Fit"], regions_SS=["MG_Wjets_Rest_Fit"])],
                         ['Sherpa2211_Wjets_Rest_Fit', proxies.GenericChannel(name="Sherpa2211_Wjets_Rest", regions_OS=[
                             "Sherpa2211_Wjets_Rest_Fit"], regions_SS=["Sherpa2211_Wjets_Rest_Fit"])],
-                    ],
-                    'DibosonZjets': [
-                        ['DibosonZjets_PostProc', proxies.GenericChannel(name="DibosonZjets", regions_OS=["Other_OS"], regions_SS=["Other_SS"])],
                     ],
                 }
             )
@@ -619,7 +626,15 @@ class ChannelGenerator:
                         replacement_channel_sign = "SS"
                     else:
                         raise Exception(f"Unrecognised charge in {channel_name}")
-                    channel['replacement_samples'] = {k: v.replace("<charge>", replacement_channel_sign) for k, v in self.replacement_samples.items()}
+
+                    if self.replacement_samples:
+                        channel['replacement_samples'] = {}
+                        for k, v in self.replacement_samples.items():
+                            channel['replacement_samples'][k] = v.replace("<sign>", replacement_channel_sign)
+                            if charge != '':
+                                channel['replacement_samples'][k] = channel['replacement_samples'][k].replace("<charge>", "_" + charge)
+                            else:
+                                channel['replacement_samples'][k] = channel['replacement_samples'][k].replace("<charge>", charge)
 
                 # pt bins for SPG samples
                 if 'replacement_samples' in channel:
