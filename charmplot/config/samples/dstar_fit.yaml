@@ -353,6 +353,58 @@ MGPy8EG_NLO_WplusD_Matched_truth_pt_bin5:
   legendLabel: "NLO MG (bin 5)"
   shortName: MGPy8EG_NLO_WplusD_Matched_truth_pt_bin5 
 
+# ---------------------------------------------
+# FxFx MadGraph
+# ---------------------------------------------
+
+MGPy8EG_FxFx_WplusD_Matched:
+  add:
+    - MG_FxFx_WplusD
+  subtract:
+  lineColor: "ROOT.kOrange"
+  legendLabel: "FxFx MG"
+  shortName: MGPy8EG_FxFx_WplusD_Matched
+
+MGPy8EG_FxFx_WplusD_Matched_truth_pt_bin1:
+  add:
+    - MG_FxFx_WplusD
+  subtract:
+  lineColor: "ROOT.kOrange"
+  legendLabel: "FxFx MG (bin 1)"
+  shortName: MGPy8EG_FxFx_WplusD_Matched_truth_pt_bin1
+
+MGPy8EG_FxFx_WplusD_Matched_truth_pt_bin2:
+  add:
+    - MG_FxFx_WplusD
+  subtract:
+  lineColor: "ROOT.kOrange"
+  legendLabel: "FxFx MG (bin 2)"
+  shortName: MGPy8EG_FxFx_WplusD_Matched_truth_pt_bin2
+
+MGPy8EG_FxFx_WplusD_Matched_truth_pt_bin3:
+  add:
+    - MG_FxFx_WplusD
+  subtract:
+  lineColor: "ROOT.kOrange"
+  legendLabel: "FxFx MG (bin 3)"
+  shortName: MGPy8EG_FxFx_WplusD_Matched_truth_pt_bin3
+
+MGPy8EG_FxFx_WplusD_Matched_truth_pt_bin4:
+  add:
+    - MG_FxFx_WplusD
+  subtract:
+  lineColor: "ROOT.kOrange"
+  legendLabel: "FxFx MG (bin 4)"
+  shortName: MGPy8EG_FxFx_WplusD_Matched_truth_pt_bin4
+
+MGPy8EG_FxFx_WplusD_Matched_truth_pt_bin5:
+  add:
+    - MG_FxFx_WplusD
+  subtract:
+  lineColor: "ROOT.kOrange"
+  legendLabel: "FxFx MG (bin 5)"
+  shortName: MGPy8EG_FxFx_WplusD_Matched_truth_pt_bin5 
+
 Top_Matched:
   add:
     - Top_ttbar
@@ -508,29 +560,13 @@ Top_ttx:
   fillColor: "12003"
   legendLabel: t#bar{t}X
 
-Diboson:
-  add: Diboson
-  subtract:
-  fillColor: "13000"
-  legendLabel: Diboson
-  shortName: Diboson
-
-Other:
-  add:
-    - Diboson
-    - MG_Zjets_tau
-  subtract:
-  fillColor: "15000"
-  legendLabel: Other
-  shortName: Other
-
 DibosonZjets:
   add:
     - Diboson
-    - MG_Zjets_light_emu
-    - MG_Zjets_cjets_emu
-    - MG_Zjets_bjets_emu
-    - MG_Zjets_tau
+    - Sh_2211_Zjets_light_emu
+    - Sh_2211_Zjets_cjets_emu
+    - Sh_2211_Zjets_bjets_emu
+    - Sh_2211_Zjets_tau
   subtract:
   fillColor: "15000"
   legendLabel: Other
@@ -718,14 +754,6 @@ MG_Wjets_Bkg_PostProc:
   lineColor: "21000"
   legendLabel: "Loose W+jets"
   shortName: MG_Wjets_Bkg_PostProc
-
-DibosonZjets_PostProc:
-  add:
-    - inclusive_bkg
-  subtract:
-  lineColor: "21000"
-  legendLabel: Loose Other
-  shortName: DibosonZjets_Loose
 
 MultiJet_PostProc:
   add:

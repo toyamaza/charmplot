@@ -195,6 +195,8 @@ def main(options, conf, reader):
 
             # plot
             for s in samples:
+                if not mc_map[s]:
+                    continue
                 mc_map[s].SetLineStyle(s.lineStyle)
                 if mc_map[s].GetLineColor() > 1:
                     fcolor = mc_map[s].GetLineColor()
@@ -245,6 +247,8 @@ def main(options, conf, reader):
             for i in range(0, len(samples)):
 
                 # get the histogram
+                if not mc_map[samples[i]]:
+                    continue
                 h = mc_map[samples[i]].Clone(f"{mc_map[samples[i]].GetName()}_ratio")
 
                 # chi2 test
