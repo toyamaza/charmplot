@@ -187,7 +187,7 @@ class SPGComparison(ChannelTemplate):
                             pt_bin_name: [
                                 # [f'MG_Wjets_{slice}', proxies.GenericChannel(region=slice, name=slice)],
                                 [f'MGPy8EG_NLO_WplusD_{slice}', proxies.GenericChannel(region=slice, name=slice)],
-                                [f'MGPy8EG_FxFx_WplusD_{slice}', proxies.GenericChannel(region=slice, name=slice)],
+                                # [f'MGPy8EG_FxFx_WplusD_{slice}', proxies.GenericChannel(region=slice, name=slice)],
                                 [f'Sherpa2211_WplusD_{slice}', proxies.GenericChannel(region=slice, name=slice)],
                                 [f'Sherpa2211_WplusD_{slice}_Plain', proxies.GenericChannel(region=slice, name=slice)],
                                 # [f'Sherpa2211_Wjets_{slice}', proxies.GenericChannel(region=slice, name=slice)],
@@ -229,6 +229,10 @@ class SPGComparison(ChannelTemplate):
                             ['SPG_421MisMatched', proxies.SPGChannel(name="421MisMatchedInclusiveSPG", regions_OS=[
                                 "inclusive_Dplus_OS"], regions_SS=["inclusive_Dplus_SS"])],
                         ],
+                        'CharmMisMatchedReplaced': [
+                            ['MG_Wjets_Charm', proxies.MatchedCharm(name="CharmMisMatched")],
+                            ['MG_Wjets_CharmPlain', proxies.MatchedCharm(name="CharmMisMatched")],
+                        ],
                     }
                 )
         elif self.decay_mode == "Dstar":
@@ -252,6 +256,10 @@ class SPGComparison(ChannelTemplate):
                             ['Sherpa2211_Wjets_421MisMatched', proxies.GenericChannel(region="421MisMatched", name="421MisMatched")],
                             ['SPG_421MisMatched', proxies.SPGChannel(name="421MisMatchedInclusiveSPG", regions_OS=[
                                                                      "inclusive_Dstar_OS"], regions_SS=["inclusive_Dstar_SS"])],
+                        ],
+                        'CharmMisMatchedReplaced': [
+                            ['Sherpa2211_Wjets_Charm', proxies.MatchedCharm(name="CharmMisMatched")],
+                            ['Sherpa2211_Wjets_CharmPlain', proxies.MatchedCharm(name="CharmMisMatched")],
                         ],
                     }
                 )
@@ -277,10 +285,6 @@ class SPGComparison(ChannelTemplate):
                         ['Sherpa2211_Wjets_CharmPlain', proxies.MatchedCharm(name="CharmMisMatched")],
                         ['SPG_CharmMisMatched', proxies.SPGChannel(name="CharmMisMatchedInclusiveSPG", regions_OS=[
                             "inclusive_" + self.decay_mode + "_OS"], regions_SS=["inclusive_" + self.decay_mode + "_SS"])],
-                    ],
-                    'CharmMisMatchedReplaced': [
-                        ['MG_Wjets_Charm', proxies.MatchedCharm(name="CharmMisMatched")],
-                        ['MG_Wjets_CharmPlain', proxies.MatchedCharm(name="CharmMisMatched")],
                     ],
                 })
 
@@ -325,18 +329,6 @@ class BKGComparison(ChannelTemplate):
                 ['DibosonZjets', proxies.GenericChannel(name="DibosonZjets")],
             ],
         }
-
-        if self.decay_mode == "Dstar":
-            self.samples.update(
-                {
-                    'Rest_Fit': [
-                        ['MG_Wjets_Rest_Plain', proxies.NoMatchBackground()],
-                        ['MG_Wjets_Rest_Fit', proxies.GenericChannel(name="MG_Wjets_Rest_Fit", regions_OS=["MG_Wjets_Rest_Fit"], regions_SS=["MG_Wjets_Rest_Fit"])],
-                        ['Sherpa2211_Wjets_Rest_Plain', proxies.NoMatchBackground()],
-                        ['Sherpa2211_Wjets_Rest_Fit', proxies.GenericChannel(name="Sherpa2211_Wjets_Rest_Fit", regions_OS=["Sherpa2211_Wjets_Rest_Fit"], regions_SS=["Sherpa2211_Wjets_Rest_Fit"])],
-                    ],
-                }
-            )
 
     def get(self):
         return self.samples

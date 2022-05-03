@@ -79,6 +79,7 @@ MG_Wjets_CharmPlain:
     - MG_Wjets_cjets_emu
     - MG_Wjets_bjets_emu
     - MG_Wjets_light_emu
+    - MG_Wjets_tau
   subtract:
   lineColor: "21000"
   legendLabel: "MG W+Charm"
