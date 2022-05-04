@@ -14,6 +14,13 @@ affecting:
   - MGPy8EG_NLO_WplusD_Matched_truth_pt_bin5
 use_replacement: True
 variations:
-  - DMESON_RESO_ADHOC
-  - DMESON_MASS_ADHOC_UP
-  - DMESON_MASS_ADHOC_DN
+  - RESO_ADHOC_1
+  - RESO_ADHOC_2
+  - RESO_ADHOC_4
+  # - DMESON_RESO_ADHOC_1
+  # - DMESON_RESO_ADHOC_2
+  # - DMESON_RESO_ADHOC_4
+  # - DMESON_MASS_ADHOC_UP
+  # - DMESON_MASS_ADHOC_DN
+  # - DMESON_MASS_ADHOC_2UP
+  # - DMESON_MASS_ADHOC_2DN
