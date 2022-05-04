@@ -78,6 +78,8 @@ def main(options, conf):
     individual_plots = []
     OS_minus_SS_plots = []
     OS_minus_SS_total = {'+': [], '-': []}
+    OS_minus_SS_total_minus = {'+': [], '-': []}
+    OS_minus_SS_total_plus = {'+': [], '-': []}
     for channel in channels:
         # skip 1-tag regions..
         if "1tag" in channel.name:
@@ -93,6 +95,12 @@ def main(options, conf):
                 if "0tag" in channel_SS.name:
                     OS_minus_SS_total['+'] += [channel_OS]
                     OS_minus_SS_total['-'] += [channel_SS]
+                    if "minus" in channel_SS.name:
+                        OS_minus_SS_total_minus['+'] += [channel_OS]
+                        OS_minus_SS_total_minus['-'] += [channel_SS]
+                    elif "plus" in channel_SS.name:
+                        OS_minus_SS_total_plus['+'] += [channel_OS]
+                        OS_minus_SS_total_plus['-'] += [channel_SS]
                 break
 
     # get correlation matrix
@@ -108,8 +116,8 @@ def main(options, conf):
     n_pars = len(corr_parameters)
 
     # plots = individual_plots + OS_minus_SS_plots + [OS_minus_SS_total]
-    plots = individual_plots + OS_minus_SS_plots
-    # plots = OS_minus_SS_plots
+    # plots = individual_plots + OS_minus_SS_plots
+    plots = OS_minus_SS_plots + [OS_minus_SS_total, OS_minus_SS_total_minus, OS_minus_SS_total_plus]
     # plots = [OS_minus_SS_total]
 
     for plot in plots:
@@ -119,11 +127,32 @@ def main(options, conf):
         channels_all = plot['+'] + plot['-']
         channel_name = "_".join([channel.name for channel in channels_all])
 
+        # inclusive?
+        minus = False
+        plus = False
+        inclusive = False
+        inclusive_minus = False
+        inclusive_plus = False
+        if len(channels_all) > 2:
+            for c in channels_all:
+                if "minus" in c.name:
+                    minus = True
+                elif "plus" in c.name:
+                    plus = True
+            if minus and plus:
+                inclusive = True
+            elif minus and not plus:
+                inclusive_minus = True
+            elif plus and not minus:
+                inclusive_plus = True
+
         # labels
         labels = []
         for label in channel_temp.label:
+            if inclusive and "channel" in label:
+                label = "W^{#pm} channel"
             if len(channels_all) > 2 and "bin" in label:
-                label = "inclusive"
+                label = "inclusive 0-tag"
             if len(plot['-']) > 0:
                 label = label.replace("OS", "OS-SS")
             if len(plot['+']) > 1 and "tag" in label:
@@ -131,8 +160,12 @@ def main(options, conf):
             labels += [label]
         labels[-1] += ', post-fit'
 
-        if len(channels_all) > 2:
+        if inclusive:
             channel_name = "0tag_inclusive"
+        elif inclusive_minus:
+            channel_name = "0tag_inclusive_minus"
+        elif inclusive_plus:
+            channel_name = "0tag_inclusive_plus"
 
         chan = Channel(channel_name, labels, channel_temp.lumi, [], [])
 
