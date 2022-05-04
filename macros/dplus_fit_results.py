@@ -15,7 +15,7 @@ trash = []
 DIR_PRIORS = "/global/cfs/cdirs/atlas/wcharm/charmplot_output/Dmeson_2022_03_22/"
 
 # fit results
-DIR_FIT = "/global/cfs/cdirs/atlas/wcharm/TRExFitter/Output/Dplus_2022_03_25/WCharm_lep_OSSS_complete_all"
+DIR_FIT = "/global/cfs/cdirs/atlas/wcharm/TRExFitter/Output/Dplus_2022_05_03/"
 
 # theory predictions
 THEORY = ["MG_Wjets", "MGPy8EG_NLO_WplusD", "Sherpa2211_WplusD", "MGFxFx_WplusD"]
