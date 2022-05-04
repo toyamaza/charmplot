@@ -15,7 +15,7 @@ affecting:
 use_replacement: True
 variations:
   - RESO_TOT
-  # - DMESON_RESO_TOT
+  - DMESON_RESO_TOT
   # - DMESON_RESO_IBL
   # - DMESON_RESO_Overal
   # - DMESON_RESO_PP0
