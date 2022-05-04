@@ -30,6 +30,27 @@ def createCanvasPads(name):
     return c, pad1, pad2
 
 
+def configure_axis(h_up, h_dn):
+    GLOBAL_SF = 1.0
+    h_up.GetYaxis().SetTitleSize(h_up.GetYaxis().GetTitleSize() * GLOBAL_SF)
+    h_up.GetYaxis().SetTitleOffset(h_up.GetYaxis().GetTitleOffset() * (1 / (GLOBAL_SF * 1.1)))
+    h_up.GetYaxis().SetLabelSize(h_up.GetYaxis().GetLabelSize() * GLOBAL_SF)
+    h_up.GetXaxis().SetLabelSize(0)
+
+    SF = 0.70 / 0.40
+    h_dn.GetYaxis().SetTitleSize(h_dn.GetYaxis().GetTitleSize() * SF * GLOBAL_SF)
+    h_dn.GetYaxis().SetTitleOffset(h_dn.GetYaxis().GetTitleOffset() * (1 / (GLOBAL_SF * 1.06 * SF)))
+    h_dn.GetXaxis().SetTitleSize(h_dn.GetXaxis().GetTitleSize() * SF * GLOBAL_SF)
+    h_dn.GetXaxis().SetTitleOffset(h_dn.GetXaxis().GetTitleOffset() * (1 / (GLOBAL_SF * 0.6 * SF)))
+    h_dn.GetXaxis().SetLabelOffset(h_dn.GetXaxis().GetLabelOffset() * 4.0)
+    h_dn.GetYaxis().SetLabelSize(h_dn.GetYaxis().GetLabelSize() * SF * GLOBAL_SF)
+    h_dn.GetXaxis().SetLabelSize(h_dn.GetXaxis().GetLabelSize() * SF * GLOBAL_SF * 1.2)
+
+    # tick marks
+    h_up.GetYaxis().SetNdivisions(506)
+    h_dn.GetYaxis().SetNdivisions(306)
+
+
 def main(options):
     f = ROOT.TFile(f"{options.input}/outpoot.root", "READ")
 
@@ -46,7 +67,7 @@ def main(options):
         gr_plus.SetMarkerColor(ROOT.kBlue)
         gr_plus.SetLineColor(ROOT.kBlue)
 
-        gr_ratio = gr_minus.Clone()
+        gr_ratio = gr_plus.Clone()
         for i in range(gr_ratio.GetN()):
             y_minus = gr_minus.GetY()[i] / h_minus.Integral()
             y_plus = gr_plus.GetY()[i] / h_plus.Integral()
@@ -74,24 +95,7 @@ def main(options):
             h_proxy_dn.SetBinContent(i, -1e5)
             h_proxy_dn.SetBinError(i, 0)
 
-        GLOBAL_SF = 1.0
-        h_proxy_up.GetYaxis().SetTitleSize(h_proxy_up.GetYaxis().GetTitleSize() * GLOBAL_SF)
-        h_proxy_up.GetYaxis().SetTitleOffset(h_proxy_up.GetYaxis().GetTitleOffset() * (1 / (GLOBAL_SF * 1.1)))
-        h_proxy_up.GetYaxis().SetLabelSize(h_proxy_up.GetYaxis().GetLabelSize() * GLOBAL_SF)
-        h_proxy_up.GetXaxis().SetLabelSize(0)
-
-        SF = 0.70 / 0.40
-        h_proxy_dn.GetYaxis().SetTitleSize(h_proxy_dn.GetYaxis().GetTitleSize() * SF * GLOBAL_SF)
-        h_proxy_dn.GetYaxis().SetTitleOffset(h_proxy_dn.GetYaxis().GetTitleOffset() * (1 / (GLOBAL_SF * 1.06 * SF)))
-        h_proxy_dn.GetXaxis().SetTitleSize(h_proxy_dn.GetXaxis().GetTitleSize() * SF * GLOBAL_SF)
-        h_proxy_dn.GetXaxis().SetTitleOffset(h_proxy_dn.GetXaxis().GetTitleOffset() * (1 / (GLOBAL_SF * 0.6 * SF)))
-        h_proxy_dn.GetXaxis().SetLabelOffset(h_proxy_dn.GetXaxis().GetLabelOffset() * 4.0)
-        h_proxy_dn.GetYaxis().SetLabelSize(h_proxy_dn.GetYaxis().GetLabelSize() * SF * GLOBAL_SF)
-        h_proxy_dn.GetXaxis().SetLabelSize(h_proxy_dn.GetXaxis().GetLabelSize() * SF * GLOBAL_SF * 1.2)
-
-        # tick marks
-        h_proxy_up.GetYaxis().SetNdivisions(506)
-        h_proxy_dn.GetYaxis().SetNdivisions(306)
+        configure_axis(h_proxy_up, h_proxy_dn)
 
         # title and range
         h_proxy_up.GetYaxis().SetRangeUser(1e-6, 0.5)
