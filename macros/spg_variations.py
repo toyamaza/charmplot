@@ -13,9 +13,10 @@ ROOT.gStyle.SetEndErrorSize(8)
 
 rand = ROOT.TRandom3()
 
-parameters = ROOT.TFile("/global/cfs/cdirs/atlas/wcharm/charmpp_data/systematics/track_eff_systematics.v3.root", "READ")
+# parameters = ROOT.TFile("/global/cfs/cdirs/atlas/wcharm/charmpp_data/systematics/track_eff_systematics.v3.root", "READ")
+parameters = ROOT.TFile("/global/cfs/cdirs/atlas/wcharm/charmpp_data/systematics/spg_fit_track_eff_sys.root", "READ")
 
-VARIATIONS = ["nominal", "TRACK_EFF_Overal", "TRACK_EFF_IBL", "TRACK_EFF_PP0", "TRACK_EFF_QGSP"]
+VARIATIONS = ["nominal", "TRACK_EFF_Overal", "TRACK_EFF_IBL", "TRACK_EFF_PP0", "TRACK_EFF_QGSP", "TOTAL"]
 
 
 def createCanvasPads(name):
@@ -85,6 +86,9 @@ def main():
 
     garbage = []
 
+    #
+    # mean
+    #
     for meson in ["DMinus", "DPlus", "DstarPlus", "DstarMinus"]:
 
         gr_mean = {var: ROOT.TGraphErrors() for var in VARIATIONS}
@@ -98,43 +102,70 @@ def main():
         }[meson]
 
         MeV = 1000.0
+        inclusive_meson_lab = "Dplus"
         if "star" in meson:
             MeV = 1.0
+            inclusive_meson_lab = "Dstar"
 
         for j, var in enumerate(VARIATIONS):
 
-            gr_mean[var].SetMarkerColor([ROOT.kBlack, ROOT.kRed, ROOT.kBlue, ROOT.kGreen + 2, ROOT.kGray + 1][j])
-            gr_mean[var].SetLineColor([ROOT.kBlack, ROOT.kRed, ROOT.kBlue, ROOT.kGreen + 2, ROOT.kGray + 1][j])
-            gr_mean_diff[var].SetMarkerColor([ROOT.kBlack, ROOT.kRed, ROOT.kBlue, ROOT.kGreen + 2, ROOT.kGray + 1][j])
-            gr_mean_diff[var].SetLineColor([ROOT.kBlack, ROOT.kRed, ROOT.kBlue, ROOT.kGreen + 2, ROOT.kGray + 1][j])
+            if var != "TOTAL":
+                gr_mean[var].SetMarkerColor([ROOT.kBlack, ROOT.kRed, ROOT.kBlue, ROOT.kGreen + 2, ROOT.kGray + 1, ROOT.kBlack][j])
+                gr_mean[var].SetLineColor([ROOT.kBlack, ROOT.kRed, ROOT.kBlue, ROOT.kGreen + 2, ROOT.kGray + 1, ROOT.kBlack][j])
+                gr_mean_diff[var].SetMarkerColor([ROOT.kBlack, ROOT.kRed, ROOT.kBlue, ROOT.kGreen + 2, ROOT.kGray + 1, ROOT.kBlack][j])
+                gr_mean_diff[var].SetLineColor([ROOT.kBlack, ROOT.kRed, ROOT.kBlue, ROOT.kGreen + 2, ROOT.kGray + 1, ROOT.kBlack][j])
 
-            gr_mean[var].SetLineWidth(2)
-            gr_mean_diff[var].SetLineWidth(2)
+                gr_mean[var].SetLineWidth(2)
+                gr_mean_diff[var].SetLineWidth(2)
+            else:
+                gr_mean[var].SetLineWidth(0)
+                gr_mean[var].SetLineColor(ROOT.kWhite)
+                gr_mean[var].SetFillColor(ROOT.kGray + 2)
+                gr_mean[var].SetFillStyle(3356)
+                gr_mean_diff[var].SetLineWidth(0)
+                gr_mean_diff[var].SetLineColor(ROOT.kWhite)
+                gr_mean_diff[var].SetFillColor(ROOT.kGray + 2)
+                gr_mean_diff[var].SetFillStyle(3356)
 
             for i in range(1, 6):
 
                 print(f"pars_{meson}_{var}_pt_bin{i}")
                 pars_nominal = parameters.Get(f"pars_{meson}_nominal_pt_bin{i}")
                 pars = parameters.Get(f"pars_{meson}_{var}_pt_bin{i}")
+                pars_total = parameters.Get(f"{inclusive_meson_lab}_TRACK_EFF_TOT_pt_bin{i}_mean_diff")
 
                 if j == 0:
                     gr_mean[var].SetPoint(gr_mean[var].GetN(), i, pars_nominal.GetBinContent(3))
                     gr_mean[var].SetPointError(gr_mean[var].GetN() - 1, 0.5, pars_nominal.GetBinError(3))
                     gr_mean_diff[var].SetPoint(gr_mean_diff[var].GetN(), i, 0)
                     gr_mean_diff[var].SetPointError(gr_mean_diff[var].GetN() - 1, 0.5, 0)
-                else:
+                elif j != len(VARIATIONS) - 1:
                     gr_mean[var].SetPoint(gr_mean[var].GetN(), i + 0.5 - 0.2 * j, pars.GetBinContent(3))
                     gr_mean[var].SetPointError(gr_mean[var].GetN() - 1, 0, pars.GetBinError(3))
                     gr_mean_diff[var].SetPoint(gr_mean_diff[var].GetN(), i + 0.5 - 0.2 * j, MeV * (pars.GetBinContent(3) - pars_nominal.GetBinContent(3)))
                     gr_mean_diff[var].SetPointError(gr_mean_diff[var].GetN() - 1, 0, MeV * (pars.GetBinError(3)**2 + pars_nominal.GetBinError(3)**2)**0.5)
+                else:
+                    gr_mean[var].SetPoint(gr_mean[var].GetN(), i, pars_nominal.GetBinContent(3))
+                    gr_mean[var].SetPointError(gr_mean[var].GetN() - 1, 0.5, pars_total.getVal() / MeV)
+                    gr_mean_diff[var].SetPoint(gr_mean_diff[var].GetN(), i, 0)
+                    gr_mean_diff[var].SetPointError(gr_mean_diff[var].GetN() - 1, 0.5, pars_total.getVal())
 
         leg = make_legend(len(VARIATIONS), 0.17, 0.50, 0.70, size=38)
         mg_mean = ROOT.TMultiGraph()
         mg_mean_diff = ROOT.TMultiGraph()
         for var in VARIATIONS:
-            mg_mean.Add(gr_mean[var], "pe")
-            mg_mean_diff.Add(gr_mean_diff[var], "pe")
-            leg.AddEntry(gr_mean[var], var, "pe")
+            if var != "TOTAL":
+                leg.AddEntry(gr_mean[var], var, "pe")
+            else:
+                leg.AddEntry(gr_mean_diff[var], var, "f")
+
+        for var in reversed(["TRACK_EFF_Overal", "TRACK_EFF_IBL", "TRACK_EFF_PP0", "TRACK_EFF_QGSP", "nominal", "TOTAL"]):
+            if var != "TOTAL":
+                mg_mean.Add(gr_mean[var], "pe")
+                mg_mean_diff.Add(gr_mean_diff[var], "pe")
+            else:
+                mg_mean.Add(gr_mean[var], "e5")
+                mg_mean_diff.Add(gr_mean_diff[var], "e5")
 
         garbage += [mg_mean]
         garbage += [mg_mean_diff]
@@ -143,7 +174,6 @@ def main():
 
         pad1.cd()
         pad1.SetGridy()
-        mg_mean.Draw("a")
 
         # white box
         if "star" not in meson:
@@ -154,8 +184,11 @@ def main():
         box.SetFillColor(ROOT.kWhite)
         box.Draw()
 
+        mg_mean.Draw("a")
+
         atlas_label(["SPG material variations", f"{meson_lab} meson"], "Simulation Internal")
         leg.Draw()
+        ROOT.gPad.RedrawAxis()
 
         pad2.cd()
         pad2.SetGridy()
@@ -184,6 +217,9 @@ def main():
         ROOT.gPad.RedrawAxis()
         c.Print(f"spg_variations/{meson}_mean.pdf")
 
+    #
+    # resolution
+    #
     for meson in ["DMinus", "DPlus", "DstarPlus", "DstarMinus"]:
 
         gr_sigma = {var: ROOT.TGraphErrors() for var in VARIATIONS}
@@ -197,31 +233,44 @@ def main():
         }[meson]
 
         MeV = 1000.0
+        inclusive_meson_lab = "Dplus"
         if "star" in meson:
             MeV = 1.0
+            inclusive_meson_lab = "Dstar"
 
         for j, var in enumerate(VARIATIONS):
 
-            gr_sigma[var].SetMarkerColor([ROOT.kBlack, ROOT.kRed, ROOT.kBlue, ROOT.kGreen + 2, ROOT.kGray + 1][j])
-            gr_sigma[var].SetLineColor([ROOT.kBlack, ROOT.kRed, ROOT.kBlue, ROOT.kGreen + 2, ROOT.kGray + 1][j])
-            gr_sigma_diff[var].SetMarkerColor([ROOT.kBlack, ROOT.kRed, ROOT.kBlue, ROOT.kGreen + 2, ROOT.kGray + 1][j])
-            gr_sigma_diff[var].SetLineColor([ROOT.kBlack, ROOT.kRed, ROOT.kBlue, ROOT.kGreen + 2, ROOT.kGray + 1][j])
+            if var != "TOTAL":
+                gr_sigma[var].SetMarkerColor([ROOT.kBlack, ROOT.kRed, ROOT.kBlue, ROOT.kGreen + 2, ROOT.kGray + 1, ROOT.kBlack][j])
+                gr_sigma[var].SetLineColor([ROOT.kBlack, ROOT.kRed, ROOT.kBlue, ROOT.kGreen + 2, ROOT.kGray + 1, ROOT.kBlack][j])
+                gr_sigma_diff[var].SetMarkerColor([ROOT.kBlack, ROOT.kRed, ROOT.kBlue, ROOT.kGreen + 2, ROOT.kGray + 1, ROOT.kBlack][j])
+                gr_sigma_diff[var].SetLineColor([ROOT.kBlack, ROOT.kRed, ROOT.kBlue, ROOT.kGreen + 2, ROOT.kGray + 1, ROOT.kBlack][j])
 
-            gr_sigma[var].SetLineWidth(2)
-            gr_sigma_diff[var].SetLineWidth(2)
+                gr_sigma[var].SetLineWidth(2)
+                gr_sigma_diff[var].SetLineWidth(2)
+            else:
+                gr_sigma[var].SetLineWidth(0)
+                gr_sigma[var].SetLineColor(ROOT.kWhite)
+                gr_sigma[var].SetFillColor(ROOT.kGray + 2)
+                gr_sigma[var].SetFillStyle(3356)
+                gr_sigma_diff[var].SetLineWidth(0)
+                gr_sigma_diff[var].SetLineColor(ROOT.kWhite)
+                gr_sigma_diff[var].SetFillColor(ROOT.kGray + 2)
+                gr_sigma_diff[var].SetFillStyle(3356)
 
             for i in range(1, 6):
 
                 print(f"pars_{meson}_{var}_pt_bin{i}")
                 pars_nominal = parameters.Get(f"pars_{meson}_nominal_pt_bin{i}")
                 pars = parameters.Get(f"pars_{meson}_{var}_pt_bin{i}")
+                pars_total = parameters.Get(f"{inclusive_meson_lab}_TRACK_EFF_TOT_pt_bin{i}_sigma_diff")
 
                 if j == 0:
                     gr_sigma[var].SetPoint(i - 1, i, MeV * pars_nominal.GetBinContent(6))
                     gr_sigma[var].SetPointError(i - 1, 0.5, MeV * pars_nominal.GetBinError(6))
                     gr_sigma_diff[var].SetPoint(i - 1, i, 0)
                     gr_sigma_diff[var].SetPointError(i - 1, 0.5, 0)
-                else:
+                elif j != len(VARIATIONS) - 1:
                     gr_sigma[var].SetPoint(i - 1, i + 0.5 - 0.2 * j, MeV * pars.GetBinContent(6))
                     gr_sigma[var].SetPointError(i - 1, 0, MeV * pars.GetBinError(6))
 
@@ -232,14 +281,29 @@ def main():
                            pars_nominal.GetBinError(6)**2 * pars_nominal.GetBinContent(6)**2 / absdiff**2)**0.5
                     gr_sigma_diff[var].SetPoint(i - 1, i + 0.5 - 0.2 * j, MeV * sign * absdiff)
                     gr_sigma_diff[var].SetPointError(i - 1, 0, MeV * err)
+                else:
+                    print(pars_total.getVal(), f"{inclusive_meson_lab}_TRACK_EFF_TOT_pt_bin{i}_sigma_diff")
+                    gr_sigma[var].SetPoint(gr_sigma[var].GetN(), i, MeV * pars_nominal.GetBinContent(6))
+                    gr_sigma[var].SetPointError(gr_sigma[var].GetN() - 1, 0.5, ((MeV * pars_nominal.GetBinContent(6))**2 + pars_total.getVal()**2)**0.5 - MeV * pars_nominal.GetBinContent(6))
+                    gr_sigma_diff[var].SetPoint(gr_sigma_diff[var].GetN(), i, 0)
+                    gr_sigma_diff[var].SetPointError(gr_sigma_diff[var].GetN() - 1, 0.5, pars_total.getVal())
 
         leg = make_legend(len(VARIATIONS), 0.17, 0.50, 0.70, size=38)
         mg_sigma = ROOT.TMultiGraph()
         mg_sigma_diff = ROOT.TMultiGraph()
         for var in VARIATIONS:
-            mg_sigma.Add(gr_sigma[var], "pe")
-            mg_sigma_diff.Add(gr_sigma_diff[var], "pe")
-            leg.AddEntry(gr_sigma[var], var, "pe")
+            if var != "TOTAL":
+                leg.AddEntry(gr_sigma[var], var, "pe")
+            else:
+                leg.AddEntry(gr_sigma_diff[var], var, "f")
+
+        for var in reversed(["TRACK_EFF_Overal", "TRACK_EFF_IBL", "TRACK_EFF_PP0", "TRACK_EFF_QGSP", "nominal", "TOTAL"]):
+            if var != "TOTAL":
+                mg_sigma.Add(gr_sigma[var], "pe")
+                mg_sigma_diff.Add(gr_sigma_diff[var], "pe")
+            else:
+                mg_sigma.Add(gr_sigma[var], "e5")
+                mg_sigma_diff.Add(gr_sigma_diff[var], "e5")
 
         garbage += [mg_sigma]
         garbage += [mg_sigma_diff]
@@ -248,8 +312,6 @@ def main():
 
         pad1.cd()
         pad1.SetGridy()
-        mg_sigma.Draw("a")
-
         # white box
         if "star" not in meson:
             box = ROOT.TBox(0.4, 21, 3.0, 28.5)
@@ -258,6 +320,8 @@ def main():
         box.SetLineWidth(0)
         box.SetFillColor(ROOT.kWhite)
         box.Draw()
+
+        mg_sigma.Draw("a")
 
         atlas_label(["SPG material variations", f"{meson_lab} meson"], "Simulation Internal")
         leg.Draw()
