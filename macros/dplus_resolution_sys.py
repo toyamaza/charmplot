@@ -81,10 +81,20 @@ def make_legend(N):
 
 def main(options):
 
-    shutil.copy("Sh_2211_WplusD.root", "Sh_2211_WplusD.root.BAK")
-    shutil.copy("Sh_2211_WplusD.root", "Sh_2211_WplusD_2.root")
+    if "Dplus" in options.decay:
+        shutil.copy("Sh_2211_WplusD.root", "Sh_2211_WplusD.root.BAK")
+        shutil.copy("Sh_2211_WplusD.root", "Sh_2211_WplusD_2.root")
 
-    f = ROOT.TFile("Sh_2211_WplusD_2.root", "UPDATE")
+        f = ROOT.TFile("Sh_2211_WplusD_2.root", "UPDATE")
+
+        var = "m"
+    else:
+        shutil.copy("MG_NLO_WplusD.root", "MG_NLO_WplusD.root.BAK")
+        shutil.copy("MG_NLO_WplusD.root", "MG_NLO_WplusD_2.root")
+
+        f = ROOT.TFile("MG_NLO_WplusD_2.root", "UPDATE")
+
+        var = "mdiff"
 
     for i in range(1, 6):
         for sign in ["OS", "SS"]:
@@ -93,8 +103,9 @@ def main(options):
                     for pt_bin in [f"pt_bin{j}" for j in range(1, 6)]:
 
                         f.cd()
-                        name = f"{lep}_{charge}_SR_0tag_Dplus_{sign}_Matched_truth_pt_bin{i}_{pt_bin}__Dmeson_m"
+                        name = f"{lep}_{charge}_SR_0tag_{options.decay}_{sign}_Matched_truth_pt_bin{i}_{pt_bin}__Dmeson_{var}"
                         h = f.Get(name)
+                        print(f"histogram name = {name}")
                         if not h:
                             continue
 
@@ -104,14 +115,22 @@ def main(options):
                         h_tot = f.Get(f"DMESON_RESO_TOT_-_{name}")
                         h_tot.SetLineColor(ROOT.kBlue)
 
-                        if charge == "minus":
-                            resolution = parameters.Get(f"pars_DPlus_nominal_{pt_bin}").GetBinContent(6)
+                        if "Dplus" in options.decay:
+                            if charge == "minus":
+                                resolution = parameters.Get(f"pars_DPlus_nominal_{pt_bin}").GetBinContent(6)
+                            else:
+                                resolution = parameters.Get(f"pars_DMinus_nominal_{pt_bin}").GetBinContent(6)
+
+                            smear = parameters.Get(f"Dplus_TRACK_EFF_TOT_{pt_bin}_sigma_diff").getVal() / 1000.
                         else:
-                            resolution = parameters.Get(f"pars_DMinus_nominal_{pt_bin}").GetBinContent(6)
+                            if charge == "minus":
+                                resolution = parameters.Get(f"pars_DstarPlus_nominal_{pt_bin}").GetBinContent(6)
+                            else:
+                                resolution = parameters.Get(f"pars_DstarMinus_nominal_{pt_bin}").GetBinContent(6)
 
-                        smear = parameters.Get(f"Dplus_TRACK_EFF_TOT_{pt_bin}_sigma_diff").getVal() / 1000.
+                            smear = parameters.Get(f"Dstar_TRACK_EFF_TOT_{pt_bin}_sigma_diff").getVal() / 1000.
 
-                        print(f"Smearing {sign} {lep} {charge} {pt_bin}: {resolution} {smear}")
+                        print(f"Smearing {options.decay} {sign} {lep} {charge} {pt_bin}: {resolution} {smear}")
 
                         # ad-hoc uncertainty
                         for sigma in [1, 2, 4]:
@@ -190,7 +209,10 @@ def main(options):
                         h_tot_ratio.Draw("hist same")
                         h_sys_ratio.GetYaxis().SetRangeUser(0.81, 1.19)
 
-                        c.Print(f"dplus_reso/{name}_truth_pt_bin{i}.pdf")
+                        if "Dplus" in options.decay:
+                            c.Print(f"dplus_reso/{name}_truth_pt_bin{i}.pdf")
+                        else:
+                            c.Print(f"dstar_reso/{name}_truth_pt_bin{i}.pdf")
 
 
 if __name__ == "__main__":
@@ -202,13 +224,19 @@ if __name__ == "__main__":
     # ----------------------------------------------------
     parser.add_option('-i', '--input',
                       action="store", dest="input")
+    parser.add_option('-d', '--decay',
+                      action="store", dest="decay")
 
     # parse input arguments
     options, _ = parser.parse_args()
 
     # make output dir
-    if not os.path.isdir("dplus_reso"):
-        os.makedirs("dplus_reso")
+    if "Dplus" in options.decay:
+        if not os.path.isdir("dplus_reso"):
+            os.makedirs("dplus_reso")
+    if "Dstar" in options.decay:
+        if not os.path.isdir("dstar_reso"):
+            os.makedirs("dstar_reso")
 
     # run
     main(options)
