@@ -48,6 +48,30 @@ spg_dict = {
     "DMinus_TRACK_EFF_QGSP": ['test999974_01_00_01_QGSP', 'Dplus_pTVsM', 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
 }
 
+# spg dict map -> systematic : [root_file, distribution_name, inclusive mean, pt_bin1 mean, ...]
+spg_mean_dict = {
+    "DstarPlus_nominal": ['test999961_01_00_01_FTFP', 'Dstar_pTVsDeltaM', 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+    "DstarPlus_TRACK_EFF_Overal": ['test999961_01_00_02_FTFP', 'Dstar_pTVsDeltaM', 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+    "DstarPlus_TRACK_EFF_IBL": ['test999961_01_00_03_FTFP', 'Dstar_pTVsDeltaM', 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+    "DstarPlus_TRACK_EFF_PP0": ['test999961_01_00_04_FTFP', 'Dstar_pTVsDeltaM', 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+    "DstarPlus_TRACK_EFF_QGSP": ['test999961_01_00_01_QGSP', 'Dstar_pTVsDeltaM', 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+    "DstarMinus_nominal": ['test999971_01_00_01_FTFP', 'Dstar_pTVsDeltaM', 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+    "DstarMinus_TRACK_EFF_Overal": ['test999971_01_00_02_FTFP', 'Dstar_pTVsDeltaM', 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+    "DstarMinus_TRACK_EFF_IBL": ['test999971_01_00_03_FTFP', 'Dstar_pTVsDeltaM', 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+    "DstarMinus_TRACK_EFF_PP0": ['test999971_01_00_04_FTFP', 'Dstar_pTVsDeltaM', 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+    "DstarMinus_TRACK_EFF_QGSP": ['test999971_01_00_01_QGSP', 'Dstar_pTVsDeltaM', 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+    "DPlus_nominal": ['test999964_01_00_01_FTFP', 'Dplus_pTVsM', 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+    "DPlus_TRACK_EFF_Overal": ['test999964_01_00_02_FTFP', 'Dplus_pTVsM', 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+    "DPlus_TRACK_EFF_IBL": ['test999964_01_00_03_FTFP', 'Dplus_pTVsM', 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+    "DPlus_TRACK_EFF_PP0": ['test999964_01_00_04_FTFP', 'Dplus_pTVsM', 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+    "DPlus_TRACK_EFF_QGSP": ['test999964_01_00_01_QGSP', 'Dplus_pTVsM', 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+    "DMinus_nominal": ['test999974_01_00_01_FTFP', 'Dplus_pTVsM', 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+    "DMinus_TRACK_EFF_Overal": ['test999974_01_00_02_FTFP', 'Dplus_pTVsM', 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+    "DMinus_TRACK_EFF_IBL": ['test999974_01_00_03_FTFP', 'Dplus_pTVsM', 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+    "DMinus_TRACK_EFF_PP0": ['test999974_01_00_04_FTFP', 'Dplus_pTVsM', 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+    "DMinus_TRACK_EFF_QGSP": ['test999974_01_00_01_QGSP', 'Dplus_pTVsM', 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+}
+
 ptbins = ["inclusive", "pt_bin1", "pt_bin2", "pt_bin3", "pt_bin4", "pt_bin5"]
 
 
@@ -215,12 +239,29 @@ def main():
             # Save sigma value
             spg_dict[sys][dict_pt_index] = sigma.getVal()
 
+            # Save mean value
+            spg_mean_dict[sys][dict_pt_index] = mean.getVal()
+
             f.Close()
         # ptbin end
     # sys end
 
-    # inclusive_sys - sys : [inclusive sigma, pt_bin1 sigma, ...]
-    inclusive_sys = {
+    # inc_sigma_sys - sys : [inclusive sigma, pt_bin1 sigma, ...]
+    inc_sigma_sys = {
+        "Dstar_nominal": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+        "Dstar_TRACK_EFF_Overal": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+        "Dstar_TRACK_EFF_IBL": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+        "Dstar_TRACK_EFF_PP0": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+        "Dstar_TRACK_EFF_QGSP": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+        "Dplus_nominal": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+        "Dplus_TRACK_EFF_Overal": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+        "Dplus_TRACK_EFF_IBL": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+        "Dplus_TRACK_EFF_PP0": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+        "Dplus_TRACK_EFF_QGSP": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+    }
+
+    # inc_mean_sys - sys : [inclusive mean, pt_bin1 mean, ...]
+    inc_mean_sys = {
         "Dstar_nominal": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
         "Dstar_TRACK_EFF_Overal": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
         "Dstar_TRACK_EFF_IBL": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
@@ -234,6 +275,7 @@ def main():
     }
 
     sigma_diff = 0
+    mean_diff = 0
 
     # Calculate sigma diff for systematic variations
     for sys in spg_dict.keys():
@@ -245,91 +287,131 @@ def main():
                 continue
             if "nominal" in sys:
                 if "Dstar" in sys:
-                    inclusive_sys["Dstar_nominal"][i - 2] += 0.5 * spg_dict[sys][i]
+                    inc_sigma_sys["Dstar_nominal"][i - 2] += 0.5 * spg_dict[sys][i]
                 elif "DPlus" in sys:
-                    inclusive_sys["Dplus_nominal"][i - 2] += 0.5 * 1000 * spg_dict[sys][i]
+                    inc_sigma_sys["Dplus_nominal"][i - 2] += 0.5 * 1000 * spg_dict[sys][i]
                 elif "DMinus" in sys:
-                    inclusive_sys["Dplus_nominal"][i - 2] += 0.5 * 1000 * spg_dict[sys][i]
+                    inc_sigma_sys["Dplus_nominal"][i - 2] += 0.5 * 1000 * spg_dict[sys][i]
                 continue
             print(ptbins[i - 2])
 
             # Get name of systematic for inclusive sys dictionary
             if "Overal" in sys:
-                i_sys = "TRACK_EFF_Overal"
+                inc_sys = "TRACK_EFF_Overal"
             elif "IBL" in sys:
-                i_sys = "TRACK_EFF_IBL"
+                inc_sys = "TRACK_EFF_IBL"
             elif "PP0" in sys:
-                i_sys = "TRACK_EFF_PP0"
+                inc_sys = "TRACK_EFF_PP0"
             elif "QGSP" in sys:
-                i_sys = "TRACK_EFF_QGSP"
+                inc_sys = "TRACK_EFF_QGSP"
 
             if "DstarPlus" in sys:
+                # Mean
+                mean_diff = abs(spg_mean_dict[sys][i] - spg_mean_dict["DstarPlus_nominal"][i])
+                inc_mean_sys["Dstar_" + inc_sys][i - 2] += 0.5 * mean_diff
+                print(f'nominal mean = {spg_mean_dict["DstarPlus_nominal"][i]}')
+                print(f'sys mean = {spg_mean_dict[sys][i]}')
+                print(f'mean diff = {mean_diff}')
+                # Sigma
                 sigma_diff = ROOT.TMath.Sqrt(abs(spg_dict[sys][i]**2 - spg_dict["DstarPlus_nominal"][i]**2))
-                # sigma_diff_var = ROOT.RooRealVar(f"{sys}_{ptbins[i - 2]}_sigma_diff", f"{sys}_{ptbins[i - 2]}_sigma_diff", sigma_diff)
-                # sigma_diff_var.Write()
-                inclusive_sys["Dstar_" + i_sys][i - 2] += 0.5 * spg_dict[sys][i]
+                inc_sigma_sys["Dstar_" + inc_sys][i - 2] += 0.5 * spg_dict[sys][i]
                 print(f'nominal sigma = {spg_dict["DstarPlus_nominal"][i]}')
                 print(f'sys sigma = {spg_dict[sys][i]}')
                 print(f'sigma diff = {sigma_diff}')
             elif "DstarMinus" in sys:
+                # Mean
+                mean_diff = abs(spg_mean_dict[sys][i] - spg_mean_dict["DstarMinus_nominal"][i])
+                inc_mean_sys["Dstar_" + inc_sys][i - 2] += 0.5 * mean_diff
+                print(f'nominal mean = {spg_mean_dict["DstarMinus_nominal"][i]}')
+                print(f'sys mean = {spg_mean_dict[sys][i]}')
+                print(f'mean diff = {mean_diff}')
+                # Sigma
                 sigma_diff = ROOT.TMath.Sqrt(abs(spg_dict[sys][i]**2 - spg_dict["DstarMinus_nominal"][i]**2))
-                # sigma_diff_var = ROOT.RooRealVar(f"{sys}_{ptbins[i - 2]}_sigma_diff", f"{sys}_{ptbins[i - 2]}_sigma_diff", sigma_diff)
-                # sigma_diff_var.Write()
-                inclusive_sys["Dstar_" + i_sys][i - 2] += 0.5 * spg_dict[sys][i]
+                inc_sigma_sys["Dstar_" + inc_sys][i - 2] += 0.5 * spg_dict[sys][i]
                 print(f'nominal sigma = {spg_dict["DstarMinus_nominal"][i]}')
                 print(f'sys sigma = {spg_dict[sys][i]}')
                 print(f'sigma diff = {sigma_diff}')
             elif "DPlus" in sys:
+                # Mean
+                mean_diff = abs(spg_mean_dict[sys][i] * 1000 - spg_mean_dict["DPlus_nominal"][i] * 1000)
+                inc_mean_sys["Dplus_" + inc_sys][i - 2] += 0.5 * mean_diff
+                print(f'nominal mean = {spg_mean_dict["DPlus_nominal"][i] * 1000}')
+                print(f'sys mean = {spg_mean_dict[sys][i] * 1000}')
+                print(f'mean diff = {mean_diff}')
+                # Sigma
                 sigma_diff = ROOT.TMath.Sqrt(abs((spg_dict[sys][i] * 1000)**2 - (spg_dict["DPlus_nominal"][i] * 1000)**2))
-                # sigma_diff_var = ROOT.RooRealVar(f"{sys}_{ptbins[i - 2]}_sigma_diff", f"{sys}_{ptbins[i - 2]}_sigma_diff", sigma_diff)
-                # sigma_diff_var.Write()
-                inclusive_sys["Dplus_" + i_sys][i - 2] += 0.5 * 1000 * spg_dict[sys][i]
+                inc_sigma_sys["Dplus_" + inc_sys][i - 2] += 0.5 * 1000 * spg_dict[sys][i]
                 print(f'nominal sigma = {spg_dict["DPlus_nominal"][i] * 1000}')
                 print(f'sys sigma = {spg_dict[sys][i] * 1000}')
                 print(f'sigma diff = {sigma_diff}')
             elif "DMinus" in sys:
+                # Mean
+                mean_diff = abs(spg_mean_dict[sys][i] * 1000 - spg_mean_dict["DMinus_nominal"][i] * 1000)
+                inc_mean_sys["Dplus_" + inc_sys][i - 2] += 0.5 * mean_diff
+                print(f'nominal mean = {spg_mean_dict["DMinus_nominal"][i] * 1000}')
+                print(f'sys mean = {spg_mean_dict[sys][i] * 1000}')
+                print(f'mean diff = {mean_diff}')
+                # Sigma
                 sigma_diff = ROOT.TMath.Sqrt(abs((spg_dict[sys][i] * 1000)**2 - (spg_dict["DMinus_nominal"][i] * 1000)**2))
-                # sigma_diff_var = ROOT.RooRealVar(f"{sys}_{ptbins[i - 2]}_sigma_diff", f"{sys}_{ptbins[i - 2]}_sigma_diff", sigma_diff)
-                # sigma_diff_var.Write()
-                inclusive_sys["Dplus_" + i_sys][i - 2] += 0.5 * 1000 * spg_dict[sys][i]
+                inc_sigma_sys["Dplus_" + inc_sys][i - 2] += 0.5 * 1000 * spg_dict[sys][i]
                 print(f'nominal sigma = {spg_dict["DMinus_nominal"][i] * 1000}')
                 print(f'sys sigma = {spg_dict[sys][i] * 1000}')
                 print(f'sigma diff = {sigma_diff}')
-    i_sigma_diff = 0
+
+    inc_sigma_diff = 0.
+    dstar_tot_mean_diff = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+    dplus_tot_mean_diff = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
     dstar_tot_sigma_diff = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
     dplus_tot_sigma_diff = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
 
-    for sys in inclusive_sys.keys():
+    for sys in inc_sigma_sys.keys():
         print("\n")
         print(sys)
-        for i in range(len(inclusive_sys[sys])):
+        for i in range(len(inc_sigma_sys[sys])):
             print(ptbins[i])
             if "nominal" in sys:
-                print(f"sigma = {inclusive_sys[sys][i]}")
+                print(f"sigma = {inc_sigma_sys[sys][i]}")
                 continue
             if "Dstar" in sys:
-                print(f"sigma = {inclusive_sys[sys][i]}")
-                i_sigma_diff = ROOT.TMath.Sqrt(abs((inclusive_sys[sys][i])**2 - (inclusive_sys["Dstar_nominal"][i])**2))
-                dstar_tot_sigma_diff[i] += i_sigma_diff**2
-                print(f"sigma diff = {i_sigma_diff}")
+                # mean
+                print(f"mean diff = {inc_mean_sys[sys][i]}")
+                dstar_tot_mean_diff[i] += inc_mean_sys[sys][i]**2
+                # sigma
+                print(f"sigma = {inc_sigma_sys[sys][i]}")
+                inc_sigma_diff = ROOT.TMath.Sqrt(abs((inc_sigma_sys[sys][i])**2 - (inc_sigma_sys["Dstar_nominal"][i])**2))
+                dstar_tot_sigma_diff[i] += inc_sigma_diff**2
+                print(f"sigma diff = {inc_sigma_diff}")
             elif "Dplus" in sys:
-                print(f"sigma = {inclusive_sys[sys][i]}")
-                i_sigma_diff = ROOT.TMath.Sqrt(abs((inclusive_sys[sys][i])**2 - (inclusive_sys["Dplus_nominal"][i])**2))
-                dplus_tot_sigma_diff[i] += i_sigma_diff**2
-                print(f"sigma diff = {i_sigma_diff}")
+                # mean
+                print(f"mean diff = {inc_mean_sys[sys][i]}")
+                dplus_tot_mean_diff[i] += inc_mean_sys[sys][i]**2
+                # sigma
+                print(f"sigma = {inc_sigma_sys[sys][i]}")
+                inc_sigma_diff = ROOT.TMath.Sqrt(abs((inc_sigma_sys[sys][i])**2 - (inc_sigma_sys["Dplus_nominal"][i])**2))
+                dplus_tot_sigma_diff[i] += inc_sigma_diff**2
+                print(f"sigma diff = {inc_sigma_diff}")
 
+    dstar_tot_mean_diff = [ROOT.TMath.Sqrt(diff) for diff in dstar_tot_mean_diff]
+    dplus_tot_mean_diff = [ROOT.TMath.Sqrt(diff) for diff in dplus_tot_mean_diff]
     dstar_tot_sigma_diff = [ROOT.TMath.Sqrt(diff) for diff in dstar_tot_sigma_diff]
     dplus_tot_sigma_diff = [ROOT.TMath.Sqrt(diff) for diff in dplus_tot_sigma_diff]
 
+    print("\n")
+    print(f"dstar total mean diff = {dstar_tot_mean_diff}")
+    print(f"dplus total mean diff = {dplus_tot_mean_diff}")
     print("\n")
     print(f"dstar total sigma diff = {dstar_tot_sigma_diff}")
     print(f"dplus total sigma diff = {dplus_tot_sigma_diff}")
 
     for i in range(len(dstar_tot_sigma_diff)):
+        mean_diff_var = ROOT.RooRealVar(f"Dstar_TRACK_EFF_TOT_{ptbins[i]}_mean_diff", f"Dstar_TRACK_EFF_TOT_{ptbins[i]}_mean_diff", dstar_tot_mean_diff[i])
+        mean_diff_var.Write()
         sigma_diff_var = ROOT.RooRealVar(f"Dstar_TRACK_EFF_TOT_{ptbins[i]}_sigma_diff", f"Dstar_TRACK_EFF_TOT_{ptbins[i]}_sigma_diff", dstar_tot_sigma_diff[i])
         sigma_diff_var.Write()
 
     for i in range(len(dplus_tot_sigma_diff)):
+        mean_diff_var = ROOT.RooRealVar(f"Dplus_TRACK_EFF_TOT_{ptbins[i]}_mean_diff", f"Dplus_TRACK_EFF_TOT_{ptbins[i]}_mean_diff", dplus_tot_mean_diff[i])
+        mean_diff_var.Write()
         sigma_diff_var = ROOT.RooRealVar(f"Dplus_TRACK_EFF_TOT_{ptbins[i]}_sigma_diff", f"Dplus_TRACK_EFF_TOT_{ptbins[i]}_sigma_diff", dplus_tot_sigma_diff[i])
         sigma_diff_var.Write()
 
