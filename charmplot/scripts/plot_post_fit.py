@@ -122,6 +122,10 @@ def main(options, conf):
 
     for plot in plots:
 
+        # Skip channel if list in dict empty
+        if not plot['+']:
+            continue
+
         # create channel
         channel_temp = plot['+'][0]
         channels_all = plot['+'] + plot['-']
