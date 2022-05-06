@@ -26,7 +26,7 @@ channels:
     label:
       - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, 0 tag"
       - "Sh2211+Hw, OS, Bin 1"
-      - "Isolation cut: ON"
+      - "Isolation cut: OFF"
     lumi: "2015+2016A-B+2016C-L+2017+2018"
 
   OS_0tag_inclusive_has_jet_bin2:
@@ -47,7 +47,7 @@ channels:
     label:
       - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, 0 tag"
       - "Sh2211+Hw, OS, Bin 2"
-      - "Isolation cut: ON"
+      - "Isolation cut: OFF"
     lumi: "2015+2016A-B+2016C-L+2017+2018"
 
   OS_0tag_inclusive_has_jet_bin3:
@@ -59,7 +59,7 @@ channels:
     label:
       - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, 0 tag"
       - "Sh2211+Hw, OS, Bin 3"
-      - "Isolation cut: ON"
+      - "Isolation cut: OFF"
     samples:
       - Wjets_cjets_emu
       - Wjets_bjets_emu
@@ -89,7 +89,7 @@ channels:
     label:
       - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, 0 tag"
       - "Sh2211+Hw, OS, Bin 4"
-      - "Isolation cut: ON"
+      - "Isolation cut: OFF"
     lumi: "2015+2016A-B+2016C-L+2017+2018"
 
   SS_0tag_inclusive_has_jet_bin1:
@@ -110,7 +110,7 @@ channels:
     label:
       - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, 0 tag"
       - "Sh2211+Hw, SS, Bin 1"
-      - "Isolation cut: ON"
+      - "Isolation cut: OFF"
     lumi: "2015+2016A-B+2016C-L+2017+2018"
 
   SS_0tag_inclusive_has_jet_bin2:
@@ -131,7 +131,7 @@ channels:
     label:
       - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, 0 tag"
       - "Sh2211+Hw, SS, Bin 2"
-      - "Isolation cut: ON"
+      - "Isolation cut: OFF"
     lumi: "2015+2016A-B+2016C-L+2017+2018"
 
   SS_0tag_inclusive_has_jet_bin3:
@@ -152,7 +152,7 @@ channels:
     label:
       - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, 0 tag"
       - "Sh2211+Hw, SS, Bin 3"
-      - "Isolation cut: ON"
+      - "Isolation cut: OFF"
     lumi: "2015+2016A-B+2016C-L+2017+2018"
 
   SS_0tag_inclusive_has_jet_bin4:
@@ -173,7 +173,7 @@ channels:
     label:
       - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, 0 tag"
       - "Sh2211+Hw, SS, Bin 4"
-      - "Isolation cut: ON"
+      - "Isolation cut: OFF"
     lumi: "2015+2016A-B+2016C-L+2017+2018"
 
   OS-SS_0tag_inclusive_has_jet_bin1:
@@ -197,7 +197,7 @@ channels:
     label:
       - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, 0 tag"
       - "Sh2211+Hw, OS-SS, Bin 1"
-      - "Isolation cut: ON"
+      - "Isolation cut: OFF"
     lumi: "2015+2016A-B+2016C-L+2017+2018"
 
   OS-SS_0tag_inclusive_has_jet_bin2:
@@ -221,7 +221,7 @@ channels:
     label:
       - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, 0 tag"
       - "Sh2211+Hw, OS-SS, Bin 2"
-      - "Isolation cut: ON"
+      - "Isolation cut: OFF"
     lumi: "2015+2016A-B+2016C-L+2017+2018"
 
   OS-SS_0tag_inclusive_has_jet_bin3:
@@ -245,7 +245,7 @@ channels:
     label:
       - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, 0 tag"
       - "Sh2211+Hw, OS-SS, Bin 3"
-      - "Isolation cut: ON"
+      - "Isolation cut: OFF"
     lumi: "2015+2016A-B+2016C-L+2017+2018"
 
   OS-SS_0tag_inclusive_has_jet_bin4:
@@ -269,7 +269,7 @@ channels:
     label:
       - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, 0 tag"
       - "Sh2211+Hw, OS-SS, Bin 4"
-      - "Isolation cut: ON"
+      - "Isolation cut: OFF"
     lumi: "2015+2016A-B+2016C-L+2017+2018"
 
   OS_1tag_inclusive_has_jet_bin1:
@@ -290,7 +290,7 @@ channels:
     label:
       - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, 1 tag"
       - "Sh2211+Hw, OS, Bin 1"
-      - "Isolation cut: ON"
+      - "Isolation cut: OFF"
     lumi: "2015+2016A-B+2016C-L+2017+2018"
 
   OS_1tag_inclusive_has_jet_bin2:
@@ -311,7 +311,7 @@ channels:
     label:
       - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, 1 tag"
       - "Sh2211+Hw, OS, Bin 2"
-      - "Isolation cut: ON"
+      - "Isolation cut: OFF"
     lumi: "2015+2016A-B+2016C-L+2017+2018"
 
   OS_1tag_inclusive_has_jet_bin3:
@@ -332,7 +332,7 @@ channels:
     label:
       - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, 1 tag"
       - "Sh2211+Hw, OS, Bin 3"
-      - "Isolation cut: ON"
+      - "Isolation cut: OFF"
     lumi: "2015+2016A-B+2016C-L+2017+2018"
 
   OS_1tag_inclusive_has_jet_bin4:
@@ -353,7 +353,7 @@ channels:
     label:
       - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, 1 tag"
       - "Sh2211+Hw, OS, Bin 4"
-      - "Isolation cut: ON"
+      - "Isolation cut: OFF"
     lumi: "2015+2016A-B+2016C-L+2017+2018"
 
   SS_1tag_inclusive_has_jet_bin1:
@@ -374,7 +374,7 @@ channels:
     label:
       - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, 1 tag"
       - "Sh2211+Hw, SS, Bin 1"
-      - "Isolation cut: ON"
+      - "Isolation cut: OFF"
     lumi: "2015+2016A-B+2016C-L+2017+2018"
 
   SS_1tag_inclusive_has_jet_bin2:
@@ -395,7 +395,7 @@ channels:
     label:
       - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, 1 tag"
       - "Sh2211+Hw, SS, Bin 2"
-      - "Isolation cut: ON"
+      - "Isolation cut: OFF"
     lumi: "2015+2016A-B+2016C-L+2017+2018"
 
   SS_1tag_inclusive_has_jet_bin3:
@@ -416,7 +416,7 @@ channels:
     label:
       - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, 1 tag"
       - "Sh2211+Hw, SS, Bin 3"
-      - "Isolation cut: ON"
+      - "Isolation cut: OFF"
     lumi: "2015+2016A-B+2016C-L+2017+2018"
 
   SS_1tag_inclusive_has_jet_bin4:
@@ -437,7 +437,7 @@ channels:
     label:
       - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, 1 tag"
       - "Sh2211+Hw, SS, Bin 4"
-      - "Isolation cut: ON"
+      - "Isolation cut: OFF"
     lumi: "2015+2016A-B+2016C-L+2017+2018"
 
   OS-SS_1tag_inclusive_has_jet_bin1:
@@ -461,7 +461,7 @@ channels:
     label:
       - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, 1 tag"
       - "Sh2211+Hw, OS-SS, Bin 1"
-      - "Isolation cut: ON"
+      - "Isolation cut: OFF"
     lumi: "2015+2016A-B+2016C-L+2017+2018"
 
   OS-SS_1tag_inclusive_has_jet_bin2:
@@ -485,7 +485,7 @@ channels:
     label:
       - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, 1 tag"
       - "Sh2211+Hw, OS-SS, Bin 2"
-      - "Isolation cut: ON"
+      - "Isolation cut: OFF"
     lumi: "2015+2016A-B+2016C-L+2017+2018"
 
   OS-SS_1tag_inclusive_has_jet_bin3:
@@ -509,7 +509,7 @@ channels:
     label:
       - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, 1 tag"
       - "Sh2211+Hw, OS-SS, Bin 3"
-      - "Isolation cut: ON"
+      - "Isolation cut: OFF"
     lumi: "2015+2016A-B+2016C-L+2017+2018"
 
   OS-SS_1tag_inclusive_has_jet_bin4:
@@ -533,7 +533,7 @@ channels:
     label:
       - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, 1 tag"
       - "Sh2211+Hw, OS-SS, Bin 4"
-      - "Isolation cut: ON"
+      - "Isolation cut: OFF"
     lumi: "2015+2016A-B+2016C-L+2017+2018"
 
   OS_0tag_inclusive_has_jet_bin1_MatrixMethod:

@@ -38,7 +38,7 @@ channels:
     label:
       - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, 0 tag"
       - "Sherpa 2.2.11, OS"
-      - "Isolation cut: ON"
+      - "Isolation cut: OFF"
     lumi: "2015+2016A-B+2016C-L+2017+2018"
 
   SS_0tag_inclusive_has_jet:
@@ -71,7 +71,7 @@ channels:
     label:
       - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, 0 tag"
       - "Sherpa 2.2.11, SS"
-      - "Isolation cut: ON"
+      - "Isolation cut: OFF"
     lumi: "2015+2016A-B+2016C-L+2017+2018"
 
   OS-SS_0tag_inclusive_has_jet:
@@ -119,7 +119,7 @@ channels:
     label:
       - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, 0 tag"
       - "Sherpa 2.2.11, OS-SS"
-      - "Isolation cut: ON"
+      - "Isolation cut: OFF"
     lumi: "2015+2016A-B+2016C-L+2017+2018"
 
   OS_1tag_inclusive_has_jet:
@@ -152,7 +152,7 @@ channels:
     label:
       - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, 1 tag"
       - "Sherpa 2.2.11, OS"
-      - "Isolation cut: ON"
+      - "Isolation cut: OFF"
     lumi: "2015+2016A-B+2016C-L+2017+2018"
 
   SS_1tag_inclusive_has_jet:
@@ -185,7 +185,7 @@ channels:
     label:
       - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, 1 tag"
       - "Sherpa 2.2.11, SS"
-      - "Isolation cut: ON"
+      - "Isolation cut: OFF"
     lumi: "2015+2016A-B+2016C-L+2017+2018"
 
   OS-SS_1tag_inclusive_has_jet:
@@ -233,7 +233,7 @@ channels:
     label:
       - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, 1 tag"
       - "Sherpa 2.2.11, OS-SS"
-      - "Isolation cut: ON"
+      - "Isolation cut: OFF"
     lumi: "2015+2016A-B+2016C-L+2017+2018"
 
   OS_0tag_inclusive_has_jet_MatrixMethod:
