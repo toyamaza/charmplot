@@ -19,27 +19,56 @@ if not os.path.isdir("fits"):
 
 # histogram names
 names = [
-    "MGPy8EG_NLO_WplusD_Matched_OS_0tag_Dplus_Dmeson_m_norebin",
-    # "SPG_Matched_truth_pt_bin1_OS_Dplus_Matched_truth_pt_bin1_pt_bin1_Dmeson_m",
-    # "SPG_Matched_truth_pt_bin2_OS_Dplus_Matched_truth_pt_bin2_pt_bin2_Dmeson_m",
-    # "SPG_Matched_truth_pt_bin3_OS_Dplus_Matched_truth_pt_bin3_pt_bin3_Dmeson_m",
-    # "SPG_Matched_truth_pt_bin4_OS_Dplus_Matched_truth_pt_bin4_pt_bin4_Dmeson_m",
-    # "SPG_Matched_truth_pt_bin5_OS_Dplus_Matched_truth_pt_bin5_pt_bin5_Dmeson_m",
-    # "SPG_Matched_truth_pt_bin1_SS_Dplus_Matched_truth_pt_bin1_pt_bin1_Dmeson_m",
-    # "SPG_Matched_truth_pt_bin2_SS_Dplus_Matched_truth_pt_bin2_pt_bin2_Dmeson_m",
-    # "SPG_Matched_truth_pt_bin3_SS_Dplus_Matched_truth_pt_bin3_pt_bin3_Dmeson_m",
-    # "SPG_Matched_truth_pt_bin4_SS_Dplus_Matched_truth_pt_bin4_pt_bin4_Dmeson_m",
-    # "SPG_Matched_truth_pt_bin5_SS_Dplus_Matched_truth_pt_bin5_pt_bin5_Dmeson_m",
-    # "Wjets_emu_Matched_truth_pt_bin1_OS_Dplus_Matched_truth_pt_bin1_pt_bin1_Dmeson_m",
-    # "Wjets_emu_Matched_truth_pt_bin2_OS_Dplus_Matched_truth_pt_bin2_pt_bin2_Dmeson_m",
-    # "Wjets_emu_Matched_truth_pt_bin3_OS_Dplus_Matched_truth_pt_bin3_pt_bin3_Dmeson_m",
-    # "Wjets_emu_Matched_truth_pt_bin4_OS_Dplus_Matched_truth_pt_bin4_pt_bin4_Dmeson_m",
-    # "Wjets_emu_Matched_truth_pt_bin5_OS_Dplus_Matched_truth_pt_bin5_pt_bin5_Dmeson_m",
-    # "Wjets_emu_Matched_truth_pt_bin1_SS_Dplus_Matched_truth_pt_bin1_pt_bin1_Dmeson_m",
-    # "Wjets_emu_Matched_truth_pt_bin2_SS_Dplus_Matched_truth_pt_bin2_pt_bin2_Dmeson_m",
-    # "Wjets_emu_Matched_truth_pt_bin3_SS_Dplus_Matched_truth_pt_bin3_pt_bin3_Dmeson_m",
-    # "Wjets_emu_Matched_truth_pt_bin4_SS_Dplus_Matched_truth_pt_bin4_pt_bin4_Dmeson_m",
-    # "Wjets_emu_Matched_truth_pt_bin5_SS_Dplus_Matched_truth_pt_bin5_pt_bin5_Dmeson_m",
+    "MGPy8EG_NLO_WplusD_Matched_truth_pt_bin1_OS-SS_lep_plus_Dplus_truth_pt_bin1_pt_bin1_Dmeson_m_norebin",
+    "MGPy8EG_NLO_WplusD_Matched_truth_pt_bin2_OS-SS_lep_plus_Dplus_truth_pt_bin2_pt_bin2_Dmeson_m_norebin",
+    "MGPy8EG_NLO_WplusD_Matched_truth_pt_bin3_OS-SS_lep_plus_Dplus_truth_pt_bin3_pt_bin3_Dmeson_m_norebin",
+    "MGPy8EG_NLO_WplusD_Matched_truth_pt_bin4_OS-SS_lep_plus_Dplus_truth_pt_bin4_pt_bin4_Dmeson_m_norebin",
+    "MGPy8EG_NLO_WplusD_Matched_truth_pt_bin5_OS-SS_lep_plus_Dplus_truth_pt_bin5_pt_bin5_Dmeson_m_norebin",
+    "MGPy8EG_NLO_WplusD_Matched_truth_pt_bin1_OS-SS_lep_minus_Dplus_truth_pt_bin1_pt_bin1_Dmeson_m_norebin",
+    "MGPy8EG_NLO_WplusD_Matched_truth_pt_bin2_OS-SS_lep_minus_Dplus_truth_pt_bin2_pt_bin2_Dmeson_m_norebin",
+    "MGPy8EG_NLO_WplusD_Matched_truth_pt_bin3_OS-SS_lep_minus_Dplus_truth_pt_bin3_pt_bin3_Dmeson_m_norebin",
+    "MGPy8EG_NLO_WplusD_Matched_truth_pt_bin4_OS-SS_lep_minus_Dplus_truth_pt_bin4_pt_bin4_Dmeson_m_norebin",
+    "MGPy8EG_NLO_WplusD_Matched_truth_pt_bin5_OS-SS_lep_minus_Dplus_truth_pt_bin5_pt_bin5_Dmeson_m_norebin",
+    "MGPy8EG_FxFx_WplusD_Matched_truth_pt_bin1_OS-SS_lep_plus_Dplus_truth_pt_bin1_pt_bin1_Dmeson_m_norebin",
+    "MGPy8EG_FxFx_WplusD_Matched_truth_pt_bin2_OS-SS_lep_plus_Dplus_truth_pt_bin2_pt_bin2_Dmeson_m_norebin",
+    "MGPy8EG_FxFx_WplusD_Matched_truth_pt_bin3_OS-SS_lep_plus_Dplus_truth_pt_bin3_pt_bin3_Dmeson_m_norebin",
+    "MGPy8EG_FxFx_WplusD_Matched_truth_pt_bin4_OS-SS_lep_plus_Dplus_truth_pt_bin4_pt_bin4_Dmeson_m_norebin",
+    "MGPy8EG_FxFx_WplusD_Matched_truth_pt_bin5_OS-SS_lep_plus_Dplus_truth_pt_bin5_pt_bin5_Dmeson_m_norebin",
+    "MGPy8EG_FxFx_WplusD_Matched_truth_pt_bin1_OS-SS_lep_minus_Dplus_truth_pt_bin1_pt_bin1_Dmeson_m_norebin",
+    "MGPy8EG_FxFx_WplusD_Matched_truth_pt_bin2_OS-SS_lep_minus_Dplus_truth_pt_bin2_pt_bin2_Dmeson_m_norebin",
+    "MGPy8EG_FxFx_WplusD_Matched_truth_pt_bin3_OS-SS_lep_minus_Dplus_truth_pt_bin3_pt_bin3_Dmeson_m_norebin",
+    "MGPy8EG_FxFx_WplusD_Matched_truth_pt_bin4_OS-SS_lep_minus_Dplus_truth_pt_bin4_pt_bin4_Dmeson_m_norebin",
+    "MGPy8EG_FxFx_WplusD_Matched_truth_pt_bin5_OS-SS_lep_minus_Dplus_truth_pt_bin5_pt_bin5_Dmeson_m_norebin",
+    "MG_Wjets_Matched_truth_pt_bin1_OS-SS_lep_plus_Dplus_truth_pt_bin1_pt_bin1_Dmeson_m_norebin",
+    "MG_Wjets_Matched_truth_pt_bin2_OS-SS_lep_plus_Dplus_truth_pt_bin2_pt_bin2_Dmeson_m_norebin",
+    "MG_Wjets_Matched_truth_pt_bin3_OS-SS_lep_plus_Dplus_truth_pt_bin3_pt_bin3_Dmeson_m_norebin",
+    "MG_Wjets_Matched_truth_pt_bin4_OS-SS_lep_plus_Dplus_truth_pt_bin4_pt_bin4_Dmeson_m_norebin",
+    "MG_Wjets_Matched_truth_pt_bin5_OS-SS_lep_plus_Dplus_truth_pt_bin5_pt_bin5_Dmeson_m_norebin",
+    "MG_Wjets_Matched_truth_pt_bin1_OS-SS_lep_minus_Dplus_truth_pt_bin1_pt_bin1_Dmeson_m_norebin",
+    "MG_Wjets_Matched_truth_pt_bin2_OS-SS_lep_minus_Dplus_truth_pt_bin2_pt_bin2_Dmeson_m_norebin",
+    "MG_Wjets_Matched_truth_pt_bin3_OS-SS_lep_minus_Dplus_truth_pt_bin3_pt_bin3_Dmeson_m_norebin",
+    "MG_Wjets_Matched_truth_pt_bin4_OS-SS_lep_minus_Dplus_truth_pt_bin4_pt_bin4_Dmeson_m_norebin",
+    "MG_Wjets_Matched_truth_pt_bin5_OS-SS_lep_minus_Dplus_truth_pt_bin5_pt_bin5_Dmeson_m_norebin",
+    "Sherpa2211_WplusD_Matched_truth_pt_bin1_OS-SS_lep_plus_Dplus_truth_pt_bin1_pt_bin1_Dmeson_m_norebin",
+    "Sherpa2211_WplusD_Matched_truth_pt_bin2_OS-SS_lep_plus_Dplus_truth_pt_bin2_pt_bin2_Dmeson_m_norebin",
+    "Sherpa2211_WplusD_Matched_truth_pt_bin3_OS-SS_lep_plus_Dplus_truth_pt_bin3_pt_bin3_Dmeson_m_norebin",
+    "Sherpa2211_WplusD_Matched_truth_pt_bin4_OS-SS_lep_plus_Dplus_truth_pt_bin4_pt_bin4_Dmeson_m_norebin",
+    "Sherpa2211_WplusD_Matched_truth_pt_bin5_OS-SS_lep_plus_Dplus_truth_pt_bin5_pt_bin5_Dmeson_m_norebin",
+    "Sherpa2211_WplusD_Matched_truth_pt_bin1_OS-SS_lep_minus_Dplus_truth_pt_bin1_pt_bin1_Dmeson_m_norebin",
+    "Sherpa2211_WplusD_Matched_truth_pt_bin2_OS-SS_lep_minus_Dplus_truth_pt_bin2_pt_bin2_Dmeson_m_norebin",
+    "Sherpa2211_WplusD_Matched_truth_pt_bin3_OS-SS_lep_minus_Dplus_truth_pt_bin3_pt_bin3_Dmeson_m_norebin",
+    "Sherpa2211_WplusD_Matched_truth_pt_bin4_OS-SS_lep_minus_Dplus_truth_pt_bin4_pt_bin4_Dmeson_m_norebin",
+    "Sherpa2211_WplusD_Matched_truth_pt_bin5_OS-SS_lep_minus_Dplus_truth_pt_bin5_pt_bin5_Dmeson_m_norebin",
+    "Sherpa2211_Wjets_Matched_truth_pt_bin1_OS-SS_lep_plus_Dplus_truth_pt_bin1_pt_bin1_Dmeson_m_norebin",
+    "Sherpa2211_Wjets_Matched_truth_pt_bin2_OS-SS_lep_plus_Dplus_truth_pt_bin2_pt_bin2_Dmeson_m_norebin",
+    "Sherpa2211_Wjets_Matched_truth_pt_bin3_OS-SS_lep_plus_Dplus_truth_pt_bin3_pt_bin3_Dmeson_m_norebin",
+    "Sherpa2211_Wjets_Matched_truth_pt_bin4_OS-SS_lep_plus_Dplus_truth_pt_bin4_pt_bin4_Dmeson_m_norebin",
+    "Sherpa2211_Wjets_Matched_truth_pt_bin5_OS-SS_lep_plus_Dplus_truth_pt_bin5_pt_bin5_Dmeson_m_norebin",
+    "Sherpa2211_Wjets_Matched_truth_pt_bin1_OS-SS_lep_minus_Dplus_truth_pt_bin1_pt_bin1_Dmeson_m_norebin",
+    "Sherpa2211_Wjets_Matched_truth_pt_bin2_OS-SS_lep_minus_Dplus_truth_pt_bin2_pt_bin2_Dmeson_m_norebin",
+    "Sherpa2211_Wjets_Matched_truth_pt_bin3_OS-SS_lep_minus_Dplus_truth_pt_bin3_pt_bin3_Dmeson_m_norebin",
+    "Sherpa2211_Wjets_Matched_truth_pt_bin4_OS-SS_lep_minus_Dplus_truth_pt_bin4_pt_bin4_Dmeson_m_norebin",
+    "Sherpa2211_Wjets_Matched_truth_pt_bin5_OS-SS_lep_minus_Dplus_truth_pt_bin5_pt_bin5_Dmeson_m_norebin",
 ]
 
 
@@ -52,7 +81,7 @@ def main(options, args):
     out = ROOT.TFile("fits/Dplus_mass_fit.root", "RECREATE")
 
     # output file for histograms
-    out_histo = ROOT.TFile("DplusMassFit.root", "RECREATE")
+    out_histo = ROOT.TFile("fits/DplusMassFit.root", "RECREATE")
 
     # loop
     for name in names:
@@ -64,27 +93,29 @@ def main(options, args):
         f.cd()
         h_tmp = f.Get(name)
         h = h_tmp.Clone(f"{h_tmp.GetName()}_clone")
-        h.Scale(100. / h.GetSumOfWeights())
 
         # Observable, i.e. the invariant mass
-        x = ROOT.RooRealVar("x", "m(D^{+})", 1.7, 2.15, "GeV")
+        # x = ROOT.RooRealVar("x", "m(D^{+})", 1.7, 2.15, "GeV")
+        x = ROOT.RooRealVar("x", "m(D^{+})", 1.75, 2.05, "GeV")
         x_arg_list = ROOT.RooArgList(x)
 
         # Create a binned dataset that imports contents of TH1 and associates its contents to observable 'x'
         dh = ROOT.RooDataHist("dh", "dh", x_arg_list, ROOT.RooFit.Import(h))
 
         # Signal
-        if "pt_bin5" not in name:
-            mean = ROOT.RooRealVar("mean", "mean", 1.870, 1.869, 1.871)
+        if "pt_bin5" not in name and "pt_bin4" not in name:
+            aLo = ROOT.RooRealVar("aLo", "aLo", 1.25, 1.25, 1.25)
+            aHi = ROOT.RooRealVar("aHi", "aHi", 1.25, 1.25, 1.25)
+        elif "pt_bin4" in name:
+            aLo = ROOT.RooRealVar("aLo", "aLo", 1.21, 1.21, 1.21)
+            aHi = ROOT.RooRealVar("aHi", "aHi", 1.21, 1.21, 1.21)
+        elif "pt_bin5" in name:
             aLo = ROOT.RooRealVar("aLo", "aLo", 1.4, 1.4, 1.4)
             aHi = ROOT.RooRealVar("aHi", "aHi", 1.4, 1.4, 1.4)
-        else:
-            mean = ROOT.RooRealVar("mean", "mean", 1.873, 1.865, 1.875)
-            aLo = ROOT.RooRealVar("aLo", "aLo", 1.30, 1.2, 1.4)
-            aHi = ROOT.RooRealVar("aHi", "aHi", 1.30, 1.2, 1.4)
-        sigma = ROOT.RooRealVar("sigma", "sigma", 0.021, 0.01, 0.03)
+        mean = ROOT.RooRealVar("mean", "mean", 1.870, 1.86, 1.88)
+        sigma = ROOT.RooRealVar("sigma", "sigma", 0.021, 0.01, 0.05)
         nLo = ROOT.RooRealVar("nLo", "nLo", 4, 1, 10)
-        nHi = ROOT.RooRealVar("nHi", "nHi", 4, 1, 10)
+        nHi = ROOT.RooRealVar("nHi", "nHi", 5, 1, 10)
         sig = ROOT.RooTwoSidedCBShape("signal", "signal", x, mean, sigma, aLo, nLo, aHi, nHi)
 
         # Do the fit
@@ -93,26 +124,17 @@ def main(options, args):
                       ROOT.RooFit.Save(),
                       ROOT.RooFit.PrintLevel(1))
 
-        # set n
-        nLo = ROOT.RooRealVar("nLo", "nLo", nLo.getVal(), nLo.getVal(), nLo.getVal())
-        nHi = ROOT.RooRealVar("nHi", "nHi", nHi.getVal(), nHi.getVal(), nHi.getVal())
-        aLo = ROOT.RooRealVar("aLo", "aLo", 1.4, 1.2, 1.8)
-        aHi = ROOT.RooRealVar("aHi", "aHi", 1.4, 1.2, 1.8)
-        sig = ROOT.RooTwoSidedCBShape("signal", "signal", x, mean, sigma, aLo, nLo, aHi, nHi)
+        # # set n
+        # nLo = ROOT.RooRealVar("nLo", "nLo", nLo.getVal(), nLo.getVal(), nLo.getVal())
+        # nHi = ROOT.RooRealVar("nHi", "nHi", nHi.getVal(), nHi.getVal(), nHi.getVal())
+        # sig = ROOT.RooTwoSidedCBShape("signal", "signal", x, mean, sigma, aLo, nLo, aHi, nHi)
 
-        # Do the fit again
-        _ = sig.fitTo(dh, ROOT.RooFit.Minimizer("Minuit2", "Migrad"),
-                      ROOT.RooFit.SumW2Error(ROOT.kTRUE),
-                      ROOT.RooFit.Save(),
-                      ROOT.RooFit.PrintLevel(1))
+        # # Do the fit again
+        # _ = sig.fitTo(dh,
+        #               ROOT.RooFit.SumW2Error(ROOT.kTRUE),
+        #               ROOT.RooFit.Save(),
+        #               ROOT.RooFit.PrintLevel(1))
 
-        # up / down resolution
-        sigma_up_val = sigma.getVal() * 1.05
-        sigma_dn_val = sigma.getVal() * 0.95
-        sigma_up = ROOT.RooRealVar("sigma_up", "sigma_up", sigma_up_val, sigma_up_val, sigma_up_val)
-        sigma_dn = ROOT.RooRealVar("sigma_dn", "sigma_dn", sigma_dn_val, sigma_dn_val, sigma_dn_val)
-        sig_up = ROOT.RooTwoSidedCBShape("signal_up", "signal_up", x, mean, sigma_up, aLo, nLo, aHi, nHi)
-        sig_dn = ROOT.RooTwoSidedCBShape("signal_dn", "signal_dn", x, mean, sigma_dn, aLo, nLo, aHi, nHi)
         frame = x.frame(ROOT.RooFit.Title("Fit D+ mass"))
 
         # data
@@ -120,10 +142,6 @@ def main(options, args):
 
         # signal
         sig.plotOn(frame, ROOT.RooFit.LineColor(ROOT.kBlack), ROOT.RooFit.Name("s"))
-
-        # signal up/dn
-        sig_up.plotOn(frame, ROOT.RooFit.LineColor(ROOT.kRed), ROOT.RooFit.LineStyle(ROOT.kDashed), ROOT.RooFit.Name("s_up"))
-        sig_dn.plotOn(frame, ROOT.RooFit.LineColor(ROOT.kBlue), ROOT.RooFit.LineStyle(ROOT.kDashed), ROOT.RooFit.Name("s_dn"))
 
         # canvas
         c = ROOT.TCanvas(name, name, 1000, 1000)
@@ -134,7 +152,6 @@ def main(options, args):
         ROOT.ATLASLabel(0.17, 0.90, "Internal", 1)
         ROOT.myText(0.17, 0.9 - 1 * 0.06, 1, "#sqrt{s} = 13 TeV")
         ROOT.myText(0.17, 0.9 - 2 * 0.06, 1, f"D#rightarrowK#pi#pi {name.split('_WplusD_Matched')[0]}")
-        ROOT.myText(0.17, 0.9 - 3 * 0.06, 1, (name.split("_Dmeson_m")[0]).split("_WplusD_Matched_")[-1])
         ROOT.myText(0.68, 0.9 - 0 * 0.06, 1, f"aHi: {aHi.getVal():.4f}")
         ROOT.myText(0.68, 0.9 - 1 * 0.06, 1, f"aLo: {aLo.getVal():.4f}")
         ROOT.myText(0.68, 0.9 - 2 * 0.06, 1, f"mean: {mean.getVal():.4f}")
@@ -174,15 +191,11 @@ def main(options, args):
         # save mass histograms
         out_histo.cd()
         f_sig = sig.asTF(x)
-        f_sig_up = sig_up.asTF(x)
-        f_sig_dn = sig_dn.asTF(x)
         h_sig = h.Clone(name.replace("_Dmeson_m_norebin", "__Dmeson_m"))
         h_sig_up = h.Clone("sigma_up_" + name.replace("_Dmeson_m_norebin", "__Dmeson_m"))
         h_sig_dn = h.Clone("sigma_dn_" + name.replace("_Dmeson_m_norebin", "__Dmeson_m"))
         for i in range(1, h_sig.GetNbinsX() + 1):
             h_sig.SetBinContent(i, f_sig.Integral(h.GetBinCenter(i) - 0.5 * h.GetBinWidth(i), h.GetBinCenter(i) + 0.5 * h.GetBinWidth(i)) / h.GetBinWidth(i))
-            h_sig_up.SetBinContent(i, f_sig_up.Integral(h.GetBinCenter(i) - 0.5 * h.GetBinWidth(i), h.GetBinCenter(i) + 0.5 * h.GetBinWidth(i)) / h.GetBinWidth(i))
-            h_sig_dn.SetBinContent(i, f_sig_dn.Integral(h.GetBinCenter(i) - 0.5 * h.GetBinWidth(i), h.GetBinCenter(i) + 0.5 * h.GetBinWidth(i)) / h.GetBinWidth(i))
         h_sig.Write()
         h_sig_up.Write()
         h_sig_dn.Write()
