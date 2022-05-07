@@ -117,7 +117,7 @@ def createCanvasPads(name):
 # Step 0: get cross section priors
 # --------------------------------------------
 f = ROOT.TFile(os.path.join(DIR_PRIORS, "fid_eff_dplus_stat", "unfolding.root"))
-h_minus = f.Get("Sherpa2211_WplusD_OS-SS_lep_plus_0tag_Dplus_Kpipi_truth_differential_pt")
+h_minus = f.Get("Sherpa2211_WplusD_OS-SS_lep_minus_0tag_Dplus_Kpipi_truth_differential_pt")
 h_plus = f.Get("Sherpa2211_WplusD_OS-SS_lep_plus_0tag_Dplus_Kpipi_truth_differential_pt")
 priors = {
     "Wminus": h_minus.Integral(),
