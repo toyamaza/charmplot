@@ -32,7 +32,7 @@ colors = {
     "Sherpa2211_WplusD": ROOT.kBlue,
     "MGPy8EG_NLO_WplusD": ROOT.kRed,
     "MGFxFx_Wjets": ROOT.kViolet,
-    "MGFxFx_WplusD": ROOT.kViolet + 2,
+    "MGFxFx_WplusD": ROOT.kGreen + 2,
 }
 
 # bin shift
@@ -204,8 +204,8 @@ def main(options, args):
             #             h_pt_truth_tmp[s].Scale(0.094)
 
             # calculate fiducial efficiency per bin
-            h_fid_eff[s] = ROOT.TH2D(f"{s}_{c}_fid_eff", f"{s}_{c}_fid_eff", nbins + 1, xbins, nbins + 1, xbins)
-            h_fid_eff_inv[s] = ROOT.TH2D(f"{s}_{c}_fid_eff_inv", f"{s}_{c}_fid_eff_inv", nbins + 1, xbins, nbins + 1, xbins)
+            h_fid_eff[s] = ROOT.TH2D(f"{s}_{c}_fid_eff_pt", f"{s}_{c}_fid_eff_pt", nbins + 1, xbins, nbins + 1, xbins)
+            h_fid_eff_inv[s] = ROOT.TH2D(f"{s}_{c}_fid_eff_pt_inv", f"{s}_{c}_fid_eff_pt_inv", nbins + 1, xbins, nbins + 1, xbins)
 
         # numpy matrix
         np_matrix = np.identity(nbins + 1)
@@ -522,7 +522,7 @@ def main(options, args):
         canv4.pad2.cd()
         canv4.pad2.SetLogx()
         if len(samples) > 1:
-            canv4.set_ratio_range(0.81, 1.19, override=True)
+            canv4.set_ratio_range(0.91, 1.09, override=True)
         else:
             canv4.set_ratio_range(0.951, 1.049, override=True)
         fid_eff_gr_ratio = {s: fid_eff_gr[s].Clone(f"{fid_eff_gr[s].GetName()}_ratio") for s in samples_sys}
@@ -535,7 +535,7 @@ def main(options, args):
             if "_GEN_" in s:
                 continue
 
-            h, _, _ = utils.get_hist_from_gr(fid_eff_gr_ratio[s], f"{s}_{c}_fid_eff_ratio")
+            h, _, _ = utils.get_hist_from_gr(fid_eff_gr_ratio[s], f"{s}_{c}_fid_eff_pt_ratio")
             h.Write()
 
         # draw Sherpa errors
@@ -550,22 +550,22 @@ def main(options, args):
 
             if options.sherpa_qcd or options.sherpa_as or options.sherpa_ew:
                 if options.sherpa_qcd:
-                    _, h_up, h_dn = utils.get_hist_from_gr(sys_band_ratio, f"{s}_{c}_fid_eff_ratio_qcd_err")
+                    _, h_up, h_dn = utils.get_hist_from_gr(sys_band_ratio, f"{s}_{c}_fid_eff_pt_ratio_qcd_err")
                 elif options.sherpa_as:
-                    _, h_up, h_dn = utils.get_hist_from_gr(sys_band_ratio, f"{s}_{c}_fid_eff_ratio_as")
+                    _, h_up, h_dn = utils.get_hist_from_gr(sys_band_ratio, f"{s}_{c}_fid_eff_pt_ratio_as")
                 elif options.sherpa_ew:
-                    _, h_up, h_dn = utils.get_hist_from_gr(sys_band_ratio, f"{s}_{c}_fid_eff_ratio_ew")
-                sys_band_ratio.Write(f"gr_{s}_{c}_fid_eff_ratio_qcd_err")
+                    _, h_up, h_dn = utils.get_hist_from_gr(sys_band_ratio, f"{s}_{c}_fid_eff_pt_ratio_ew")
+                sys_band_ratio.Write(f"gr_{s}_{c}_fid_eff_pt_ratio_qcd_err")
                 h_up.Write()
                 h_dn.Write()
             elif options.sherpa_pdf:
-                _, h_up, h_dn = utils.get_hist_from_gr(sys_band_ratio, f"{s}_{c}_fid_eff_ratio_pdf_err")
-                sys_band_ratio.Write(f"gr_{s}_{c}_fid_eff_ratio_pdf_err")
+                _, h_up, h_dn = utils.get_hist_from_gr(sys_band_ratio, f"{s}_{c}_fid_eff_pt_ratio_pdf_err")
+                sys_band_ratio.Write(f"gr_{s}_{c}_fid_eff_pt_ratio_pdf_err")
                 h_up.Write()
                 h_dn.Write()
         else:
             for s in samples_sys:
-                h, _, _ = utils.get_hist_from_gr(fid_eff_gr_ratio[s], f"{s}_{c}_fid_eff_ratio")
+                h, _, _ = utils.get_hist_from_gr(fid_eff_gr_ratio[s], f"{s}_{c}_fid_eff_pt_ratio")
                 h.Write()
 
         # draw all graphs
