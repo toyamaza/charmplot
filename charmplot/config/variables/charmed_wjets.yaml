@@ -907,11 +907,23 @@ Dmeson_transfer_matrix:
   make_plots: False
   allow_rebin: False
 
+Dmeson_transfer_matrix_eta:
+  make_plots: False
+  allow_rebin: False
+
 Dmeson_differential_pt:
   make_plots: True
   allow_rebin: False
 
+Dmeson_differential_lep_eta:
+  make_plots: True
+  allow_rebin: False
+
 Dmeson_truth_differential_pt:
+  make_plots: True
+  allow_rebin: False
+
+Dmeson_truth_differential_lep_eta:
   make_plots: True
   allow_rebin: False
 

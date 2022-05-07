@@ -51,6 +51,10 @@ D_differential_pt:
   unit: "GeV"
   allow_rebin: False
 
+D_differential_lep_eta:
+  label: "|#eta(lep)|"
+  allow_rebin: False
+
 D_eta:
   label: "D^{#pm} #eta"
   rebin: 2
