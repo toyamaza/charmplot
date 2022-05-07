@@ -13,7 +13,7 @@ ROOT.gROOT.LoadMacro(os.path.join(dirname, "AtlasUtils.C"))
 ROOT.SetAtlasStyle()
 
 # input file
-f = ROOT.TFile("/global/cscratch1/sd/mmuskinj/charmpp/v12/truth/truth/wplusd_truth_analysis/histograms.root", "READ")
+f = ROOT.TFile("truth/wplusd_truth_analysis/histograms.root", "READ")
 
 # channel
 for s in ["Sherpa2211_Wjets", "Sherpa2211_WplusD", "MGFxFx_Wjets", "MGFxFx_WplusD", "MGPy8EG_NLO_WplusD", "MG_Wjets"]:
