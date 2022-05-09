@@ -37,15 +37,6 @@ D_pt_fit:
   ratio_range: [0.5, 1.49]
   per_unit: False
 
-D_pt_fit:
-  name_override: D_pt
-  label: "D^{#pm} p_{T}"
-  unit: "GeV"
-  rebin: 1
-  xbins: [8, 12, 20, 40, 80, 150]
-  ratio_range: [0.5, 1.49]
-  per_unit: True
-
 D_differential_pt:
   label: "D^{#pm} p_{T}"
   unit: "GeV"

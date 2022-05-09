@@ -3,7 +3,7 @@ import ROOT
 import re
 
 
-def main(options, args):
+def main(options):
 
     # histogram names
     dplus_histo_list = [
@@ -28,6 +28,8 @@ def main(options, args):
     ]
 
     pt_bin = ["pt_bin1", "pt_bin2", "pt_bin3", "pt_bin4", "pt_bin5"]
+    if options.eta_bins:
+        pt_bin = ["eta_bin1", "eta_bin2", "eta_bin3", "eta_bin4", "eta_bin5"]
 
     data_list = []
     mc_list = []
@@ -110,6 +112,8 @@ def main(options, args):
         ptbin = ""
         if "pt_bin" in data:
             ptbin = re.findall("_pt_bin[1-5]", data)[0]
+        elif "eta_bin" in data:
+            ptbin = re.findall("_eta_bin[1-5]", data)[0]
         h_symm_OS_name = f"{flavor}{charge}SR{btag}{meson}OS_Mock_MC{ptbin}__{var}"
         h_symm_SS_name = f"{flavor}{charge}SR{btag}{meson}SS_Mock_MC{ptbin}__{var}"
         h_offset_OS_name = f"{flavor}{charge}SR{btag}{meson}OS_Offset{ptbin}__{var}"
@@ -154,12 +158,14 @@ if __name__ == "__main__":
     parser.add_option('-d', '--decay',
                       action="store", dest="decay_mode",
                       help="Decay Mode, ie. Dplus, Dstar")
+    parser.add_option('-e', '--eta-bins',
+                      action="store_true", dest="eta_bins")
     parser.add_option('--differential-bins',
                       action="store_true", dest="differential_bins",
                       default=False)
 
     # parse input arguments
-    options, args = parser.parse_args()
+    options, _ = parser.parse_args()
 
     # run
-    main(options, args)
+    main(options)

@@ -29,6 +29,8 @@ def main(options, args):
 
     # pt bins
     ptbins = ['pt_bin1', 'pt_bin2', 'pt_bin3', 'pt_bin4', 'pt_bin5', '']
+    if options.eta_bins:
+        ptbins = ['eta_bin1', 'eta_bin2', 'eta_bin3', 'eta_bin4', 'eta_bin5', '']
 
     # var
     if (options.decay_mode == "Dplus"):
@@ -132,6 +134,8 @@ if __name__ == "__main__":
     parser.add_option('-d', '--decay-mode',
                       action="store", dest="decay_mode",
                       default="", help="Decay Mode: Dplus, Dstar, etc.")
+    parser.add_option('-e', '--eta-bins',
+                      action="store_true", dest="eta_bins")
 
     # parse input arguments
     options, args = parser.parse_args()
