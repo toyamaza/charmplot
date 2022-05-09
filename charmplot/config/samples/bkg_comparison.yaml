@@ -1,5 +1,28 @@
 colorScheme: gemstone_hues
 
+MG_Wjets_Charm:
+  add:
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_bjets_emu
+    - MG_Wjets_light_emu
+    - MG_Wjets_tau
+  subtract:
+  lineColor: "21000"
+  legendLabel: "MG W+c^{match} (LIS)"
+  lineStyle: 9
+  shortName: MG_Wjets_Rest
+
+MG_Wjets_Charm_Plain:
+  add:
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_bjets_emu
+    - MG_Wjets_light_emu
+    - MG_Wjets_tau
+  subtract:
+  lineColor: "ROOT.kRed"
+  legendLabel: "MG W+c^{match}"
+  shortName: MG_Wjets_Rest_Plain
+
 MG_Wjets_Rest:
   add:
     - MG_Wjets_cjets_emu
@@ -138,6 +161,14 @@ MG_Wjets_MisMatched_PostProc:
   lineColor: "21000"
   legendLabel: "MG W+c (LIS)"
   shortName: MG_Wjets_MisMatched_PostProc
+
+MG_Wjets_Charm_PostProc:
+  add:
+    - inclusive_bkg
+  subtract:
+  lineColor: "21000"
+  legendLabel: "MG W+c^{matched} (LIS)"
+  shortName: MG_Wjets_Charm_PostProc
 
 DibosonZjets_PostProc:
   add:

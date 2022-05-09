@@ -168,19 +168,6 @@ class MatrixMethod(ProxyChannel):
         return self.format(out)
 
 
-class Matched(ProxyChannel):
-    name = 'Matched'
-
-    def __init__(self, os_ss_sub: bool = False, loose_sr: bool = False, ptbin: int = -1):
-        super().__init__(os_ss_sub=os_ss_sub, loose_sr=loose_sr)
-        self.ptbin = ptbin
-        if self.ptbin >= 0:
-            self.name += f"_truth_pt_bin{self.ptbin}"
-
-    def get_regions(self, regions):
-        return self.format([reg + f"_{self.name}" for reg in regions])
-
-
 class SPGChannel(ProxyChannel):
     name = ""
 
