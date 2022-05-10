@@ -1,0 +1,13 @@
+colorScheme: cheer_up_emo_kid
+
+Sh_2211_Wjets_cjets_emu:
+  add: Sh_2211_Wjets_cjets_emu
+  subtract:
+  fillColor: "ROOT.kRed"
+  legendLabel: "Sh2211 W#rightarrowl#nu + c"
+
+MG_Wjets_cjets_emu:
+  add: MG_Wjets_cjets_emu
+  subtract:
+  fillColor: "ROOT.kBlue"
+  legendLabel: "LO MG W#rightarrowl#nu + c"
