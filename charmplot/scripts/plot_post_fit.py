@@ -115,9 +115,9 @@ def main(options, conf):
             corr_correlation_rows = x['correlation_rows']
     n_pars = len(corr_parameters)
 
-    # plots = individual_plots + OS_minus_SS_plots + [OS_minus_SS_total]
+    plots = individual_plots + OS_minus_SS_plots + [OS_minus_SS_total]
     # plots = individual_plots + OS_minus_SS_plots
-    plots = OS_minus_SS_plots + [OS_minus_SS_total, OS_minus_SS_total_minus, OS_minus_SS_total_plus]
+    #plots = OS_minus_SS_plots + [OS_minus_SS_total, OS_minus_SS_total_minus, OS_minus_SS_total_plus]
     # plots = [OS_minus_SS_total]
 
     for plot in plots:
@@ -350,6 +350,9 @@ def main(options, conf):
                     g_mc_tot_err.GetEYlow()[x - 1] += err_dn
 
             # final
+            if g_mc_tot_err.GetEYhigh()[x - 1] <= 0 or g_mc_tot_err.GetEYlow()[x - 1] <= 0: 
+                g_mc_tot_err.GetEYhigh()[x - 1] = 0
+                g_mc_tot_err.GetEYlow()[x - 1] = 0
             g_mc_tot_err.GetEYhigh()[x - 1] = math.sqrt(g_mc_tot_err.GetEYhigh()[x - 1])
             g_mc_tot_err.GetEYlow()[x - 1] = math.sqrt(g_mc_tot_err.GetEYlow()[x - 1])
             if h_mc_tot.GetBinContent(x) > 0:
