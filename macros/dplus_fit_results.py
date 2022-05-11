@@ -443,6 +443,17 @@ for obs_name, obs in OBSERVABLES.items():
         l2.DrawLatex(0.19, 0.8 - 1 * 0.08, "#sqrt{s} = 13 TeV, 139 fb^{-1}")
         l2.DrawLatex(0.19, 0.8 - 2 * 0.08, "#it{W}+#it{D}(#rightarrowK#pi#pi), #it{W%s} channel" % ("-" if lep == "minus" else "+"))
 
+        # vertical lines
+        lines = []
+        for i, x in enumerate(obs["bins"][1:-1]):
+            y = 40
+            if i > 2:
+                y = 20
+            line = ROOT.TLine(x, 1e-3, x, y)
+            line.SetLineStyle(2)
+            line.Draw()
+            lines += [line]
+
         # legend
         leg.Draw()
 
@@ -457,6 +468,13 @@ for obs_name, obs in OBSERVABLES.items():
         mg_obs_norm.SetMinimum(1e-3)
         mg_obs_norm.SetMaximum(0.35)
 
+        # vertical lines
+        for x in obs["bins"][1:-1]:
+            line = ROOT.TLine(x, 1e-3, x, 0.35)
+            line.SetLineStyle(2)
+            line.Draw()
+            lines += [line]
+
         ROOT.gPad.RedrawAxis()
         pad3.cd()
         if obs["logx"]:
@@ -469,6 +487,13 @@ for obs_name, obs in OBSERVABLES.items():
         line3 = ROOT.TLine(obs["bins"][0], 1, obs["bins"][-1], 1)
         line3.SetLineStyle(2)
         line3.Draw()
+
+        # vertical lines
+        for x in obs["bins"][1:-1]:
+            line = ROOT.TLine(x, 0.83, x, 1.17)
+            line.SetLineStyle(2)
+            line.Draw()
+            lines += [line]
 
         ROOT.gPad.RedrawAxis()
         c1.Print(f"fit_results/W{lep}_{obs_name}.pdf")
