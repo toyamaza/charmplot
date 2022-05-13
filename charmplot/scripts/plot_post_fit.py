@@ -72,7 +72,7 @@ def main(options, conf):
                 logging.warning(f"Channel not found for string {channel_name}")
             else:
                 logging.info(f"Found channel {channel_name}")
-                if not options.skip_channel in channel.name:
+                if options.skip_channel not in channel.name:
                     channels += [channel]
 
     # sort channels
