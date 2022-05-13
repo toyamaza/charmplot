@@ -72,7 +72,8 @@ def main(options, conf):
                 logging.warning(f"Channel not found for string {channel_name}")
             else:
                 logging.info(f"Found channel {channel_name}")
-                channels += [channel]
+                if options.skip_channel not in channel.name:
+                    channels += [channel]
 
     # sort channels
     individual_plots = []
@@ -81,9 +82,6 @@ def main(options, conf):
     OS_minus_SS_total_minus = {'+': [], '-': []}
     OS_minus_SS_total_plus = {'+': [], '-': []}
     for channel in channels:
-        # skip 1-tag regions..
-        if "1tag" in channel.name:
-            continue
         individual_plots += [{'+': [channel], '-': []}]
         logging.info(f"Added channel {channel.name}..")
     for channel_OS in channels:
@@ -121,6 +119,10 @@ def main(options, conf):
     # plots = [OS_minus_SS_total]
 
     for plot in plots:
+
+        # Skip channel if list in dict empty
+        if not plot['+']:
+            continue
 
         # create channel
         channel_temp = plot['+'][0]
@@ -320,8 +322,13 @@ def main(options, conf):
 
         # calculate error bands
         for x in range(1, h_mc_tot.GetNbinsX() + 1):
-            g_mc_tot_err.GetEYlow()[x - 1] = 0.
-            g_mc_tot_err.GetEYhigh()[x - 1] = 0.
+            # add stat uncertaitny from the histogram
+            if file_suffix:
+                g_mc_tot_err.GetEYlow()[x - 1] = g_mc_tot_err.GetEYlow()[x - 1]**2
+                g_mc_tot_err.GetEYhigh()[x - 1] = g_mc_tot_err.GetEYhigh()[x - 1]**2
+            else:
+                g_mc_tot_err.GetEYlow()[x - 1] = 0.
+                g_mc_tot_err.GetEYhigh()[x - 1] = 0.
             # off diagonal
             for i in range(n_pars):
                 for j in range(i):
@@ -447,6 +454,10 @@ if __name__ == "__main__":
                       action="store", dest="ratio_range",
                       default=50,
                       help="range of the ratio y-axis")
+    parser.add_option('-k', '--skip-channel',
+                      action="store", dest="skip_channel",
+                      default="1tag",
+                      help="skip channels that include this in the name")
     parser.add_option('--suffix',
                       action="store", dest="suffix",
                       help="suffix for the output name")

@@ -55,22 +55,29 @@ class WDTruthSamples(ChannelTemplate):
     samplesConf = "dplus_fit"
     data = "Data"
 
-    # new objects
-    truthSlices = [
-        "Matched_truth_pt_bin1",
-        "Matched_truth_pt_bin2",
-        "Matched_truth_pt_bin3",
-        "Matched_truth_pt_bin4",
-        "Matched_truth_pt_bin5",
-    ]
-
-    def __init__(self, fitType="", MockMC=True, decayMode="Dplus", truthDiffBins=False, samplesConfOverride=None):
+    def __init__(self, fitType="", MockMC=True, decayMode="Dplus", truthDiffBins=False, samplesConfOverride=None, eta_bins=False):
         self.os_ss_sub = fitType == "OS-SS"
         self.MockMC = MockMC
         self.decayMode = decayMode
         self.truthDiffBins = truthDiffBins
         self.samples = []
         self.samplesConfOverride = samplesConfOverride
+
+        self.truthSlices = [
+            "Matched_truth_pt_bin1",
+            "Matched_truth_pt_bin2",
+            "Matched_truth_pt_bin3",
+            "Matched_truth_pt_bin4",
+            "Matched_truth_pt_bin5",
+        ]
+        if eta_bins:
+            self.truthSlices = [
+                "Matched_truth_eta_bin1",
+                "Matched_truth_eta_bin2",
+                "Matched_truth_eta_bin3",
+                "Matched_truth_eta_bin4",
+                "Matched_truth_eta_bin5",
+            ]
 
         if self.decayMode == "Dstar":
             self.samplesConf = "dstar_fit"
@@ -85,7 +92,7 @@ class WDTruthSamples(ChannelTemplate):
 
         # signal sample
         if self.truthDiffBins:
-            self.samples += [[f'Sherpa2211_WplusD_{slice}', proxies.Matched(os_ss_sub=self.os_ss_sub, ptbin=i + 1)] for i, slice in enumerate(self.truthSlices)]
+            self.samples += [[f'Sherpa2211_WplusD_{slice}', proxies.GenericChannel(region=slice, name=slice)] for slice in self.truthSlices]
         else:
             self.samples += [['Sherpa2211_WplusD_Matched', proxies.GenericChannel(region=self.truthSlices, name="Matched", os_ss_sub=self.os_ss_sub)]]
 
@@ -563,7 +570,7 @@ class SignalComparison(ChannelTemplate):
 class ChannelGenerator:
 
     def __init__(self, config, samples, signs, years, leptons, charges,
-                 btags, ptbins=[""], sample_config="", decay_mode="", process_string="",
+                 btags, differential_bins=[""], sample_config="", decay_mode="", process_string="",
                  force_positive=False, replacement_samples={}, os_ss_sub=False, make_plots=True, save_to_file=True):
         self.config = config
         self.decay_mode = decay_mode
@@ -572,7 +579,7 @@ class ChannelGenerator:
         self.leptons = leptons
         self.charges = charges
         self.btags = btags
-        self.ptbins = ptbins
+        self.differential_bins = differential_bins
         self.process_string = process_string
         self.sample_config = sample_config
         self.force_positive = force_positive
@@ -596,7 +603,7 @@ class ChannelGenerator:
         return self.config
 
     def make_channel(self, lumi, sign='', year='', lepton='', charge='', btag='', extra_rebin=1):
-        for ptbin in self.ptbins:
+        for ptbin in self.differential_bins:
             for suffix, samples in self.samples.items():
                 channel_name = self.generate_channel_name(sign=sign, year=year, lepton=lepton, charge=charge, btag=btag, suffix=suffix)
                 if ptbin:
@@ -605,7 +612,7 @@ class ChannelGenerator:
                 if ptbin and ptbin != "inc":
                     regions_modified = [f"{x}_{ptbin}" for x in regions]
                 elif ptbin == "inc":
-                    regions_modified = [f"{x}_{pt}" for x in regions for pt in self.ptbins]
+                    regions_modified = [f"{x}_{pt}" for x in regions for pt in self.differential_bins]
                 channel = {
                     'regions': regions_modified if ptbin else regions,
                     'label': self.generate_channel_labels(sign=sign, lepton=lepton, charge=charge, btag=btag, extra=ptbin),
@@ -673,7 +680,7 @@ class ChannelGenerator:
                         if ptbin and ptbin != "inc":
                             proxy_regions_modified = [f"{x}_{ptbin}" for x in proxy.get_regions(regions)]
                         elif ptbin == "inc":
-                            proxy_regions_modified = [f"{x}_{pt}" for x in proxy.get_regions(regions) for pt in self.ptbins]
+                            proxy_regions_modified = [f"{x}_{pt}" for x in proxy.get_regions(regions) for pt in self.differential_bins]
                         proxy_channel = {
                             'make_plots': False,
                             'save_to_file': False,

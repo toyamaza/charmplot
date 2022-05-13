@@ -141,9 +141,9 @@ def main():
                     gr_mean_diff[var].SetPointError(gr_mean_diff[var].GetN() - 1, 0.5, 0)
                 elif j != len(VARIATIONS) - 1:
                     gr_mean[var].SetPoint(gr_mean[var].GetN(), i + 0.5 - 0.2 * j, pars.GetBinContent(3))
-                    gr_mean[var].SetPointError(gr_mean[var].GetN() - 1, 0, pars.GetBinError(3))
+                    gr_mean[var].SetPointError(gr_mean[var].GetN() - 1, 0.08, pars.GetBinError(3))
                     gr_mean_diff[var].SetPoint(gr_mean_diff[var].GetN(), i + 0.5 - 0.2 * j, MeV * (pars.GetBinContent(3) - pars_nominal.GetBinContent(3)))
-                    gr_mean_diff[var].SetPointError(gr_mean_diff[var].GetN() - 1, 0, MeV * (pars.GetBinError(3)**2 + pars_nominal.GetBinError(3)**2)**0.5)
+                    gr_mean_diff[var].SetPointError(gr_mean_diff[var].GetN() - 1, 0.08, MeV * (pars.GetBinError(3)**2 + pars_nominal.GetBinError(3)**2)**0.5)
                 else:
                     gr_mean[var].SetPoint(gr_mean[var].GetN(), i, pars_nominal.GetBinContent(3))
                     gr_mean[var].SetPointError(gr_mean[var].GetN() - 1, 0.5, pars_total.getVal() / MeV)
@@ -188,7 +188,7 @@ def main():
 
         atlas_label(["SPG material variations", f"{meson_lab} meson"], "Simulation Internal")
         leg.Draw()
-        ROOT.gPad.RedrawAxis()
+        # ROOT.gPad.RedrawAxis()
 
         pad2.cd()
         pad2.SetGridy()
@@ -272,7 +272,7 @@ def main():
                     gr_sigma_diff[var].SetPointError(i - 1, 0.5, 0)
                 elif j != len(VARIATIONS) - 1:
                     gr_sigma[var].SetPoint(i - 1, i + 0.5 - 0.2 * j, MeV * pars.GetBinContent(6))
-                    gr_sigma[var].SetPointError(i - 1, 0, MeV * pars.GetBinError(6))
+                    gr_sigma[var].SetPointError(i - 1, 0.08, MeV * pars.GetBinError(6))
 
                     # error
                     absdiff = (abs(pars.GetBinContent(6)**2 - pars_nominal.GetBinContent(6)**2))**0.5
@@ -280,7 +280,7 @@ def main():
                     err = (pars.GetBinError(6)**2 * pars.GetBinContent(6)**2 / absdiff**2 +
                            pars_nominal.GetBinError(6)**2 * pars_nominal.GetBinContent(6)**2 / absdiff**2)**0.5
                     gr_sigma_diff[var].SetPoint(i - 1, i + 0.5 - 0.2 * j, MeV * sign * absdiff)
-                    gr_sigma_diff[var].SetPointError(i - 1, 0, MeV * err)
+                    gr_sigma_diff[var].SetPointError(i - 1, 0.08, MeV * err)
                 else:
                     print(pars_total.getVal(), f"{inclusive_meson_lab}_TRACK_EFF_TOT_pt_bin{i}_sigma_diff")
                     gr_sigma[var].SetPoint(gr_sigma[var].GetN(), i, MeV * pars_nominal.GetBinContent(6))

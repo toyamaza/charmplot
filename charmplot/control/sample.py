@@ -80,7 +80,10 @@ class Sample(object):
             self.statError = kwargs.pop('statError')
 
         if 'scaleMC' in kwargs:
-            self.scaleMC = float(kwargs.pop('scaleMC'))
+            if type(kwargs['scaleMC']) == str:
+                self.scaleMC = float(eval(kwargs.pop('scaleMC')))
+            else:
+                self.scaleMC = float(kwargs.pop('scaleMC'))
 
         if 'fit' in kwargs:
             self.fit = str(kwargs.pop('fit'))

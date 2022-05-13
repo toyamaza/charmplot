@@ -6,12 +6,22 @@ affecting:
   - Sherpa2211_WplusD_Matched_truth_pt_bin3
   - Sherpa2211_WplusD_Matched_truth_pt_bin4
   - Sherpa2211_WplusD_Matched_truth_pt_bin5
+  - Sherpa2211_WplusD_Matched_truth_eta_bin1
+  - Sherpa2211_WplusD_Matched_truth_eta_bin2
+  - Sherpa2211_WplusD_Matched_truth_eta_bin3
+  - Sherpa2211_WplusD_Matched_truth_eta_bin4
+  - Sherpa2211_WplusD_Matched_truth_eta_bin5
   - MGPy8EG_NLO_WplusD_Matched
   - MGPy8EG_NLO_WplusD_Matched_truth_pt_bin1
   - MGPy8EG_NLO_WplusD_Matched_truth_pt_bin2
   - MGPy8EG_NLO_WplusD_Matched_truth_pt_bin3
   - MGPy8EG_NLO_WplusD_Matched_truth_pt_bin4
   - MGPy8EG_NLO_WplusD_Matched_truth_pt_bin5
+  - MGPy8EG_NLO_WplusD_Matched_truth_eta_bin1
+  - MGPy8EG_NLO_WplusD_Matched_truth_eta_bin2
+  - MGPy8EG_NLO_WplusD_Matched_truth_eta_bin3
+  - MGPy8EG_NLO_WplusD_Matched_truth_eta_bin4
+  - MGPy8EG_NLO_WplusD_Matched_truth_eta_bin5
 use_replacement: True
 variations:
   - RESO_TOT

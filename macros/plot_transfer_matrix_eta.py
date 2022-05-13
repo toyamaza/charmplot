@@ -60,13 +60,11 @@ legend_names = {
 }
 
 # variables
-truth_pt = variable.Variable("D_pt", **{
-    "label": "p^{truth}_{T}(D)",
-    "unit": "GeV"})
+truth_eta = variable.Variable("lep_eta", **{
+    "label": "|#eta^{truth}|(lep)"})
 
-reco_pt = variable.Variable("D_pt", **{
-    "label": "p^{reco}_{T}(D)",
-    "unit": "GeV"})
+reco_eta = variable.Variable("lep_eta", **{
+    "label": "|#eta^{truth}|(lep)"})
 
 
 def shifted_bins(xbins, r):
@@ -148,12 +146,12 @@ def main(options, args):
         # reco
         h_tmp = {}
         h = {}
-        h_pt_tmp = {}
-        h_pt = {}
+        h_eta_tmp = {}
+        h_eta = {}
 
         # truth
-        h_pt_truth_tmp = {}
-        h_pt_truth = {}
+        h_eta_truth_tmp = {}
+        h_eta_truth = {}
         truth_projection_tmp = {}
         truth_projection = {}
         h_fid_eff = {}
@@ -174,42 +172,42 @@ def main(options, args):
                 sys = ""
 
             # histogram name
-            print(f"{name_reco}_{c.replace('_Kpipi', '')}_Matched_Dmeson_transfer_matrix{sys}")
+            print(f"{name_reco}_{c.replace('_Kpipi', '')}_Matched_Dmeson_transfer_matrix_eta{sys}")
 
-            h_tmp[s] = f.Get(f"{name_reco}_{c.replace('_Kpipi', '')}_Matched_Dmeson_transfer_matrix{sys}")
+            h_tmp[s] = f.Get(f"{name_reco}_{c.replace('_Kpipi', '')}_Matched_Dmeson_transfer_matrix_eta{sys}")
             nbins = h_tmp[s].GetNbinsX()
-            xbins = array('d', [h_tmp[s].GetXaxis().GetBinLowEdge(i) for i in range(1, nbins + 3)])
-            xbins[-1] = xbins[-2] + 2 * xbins[-3]
-            h[s] = ROOT.TH2D(f"{s}_{c}_transfer_matrix", f"{s}_{c}_transfer_matrix", nbins + 1, xbins, nbins + 1, xbins)
+            xbins = array('d', [h_tmp[s].GetXaxis().GetBinLowEdge(i) for i in range(1, nbins + 2)])
+            print(nbins, xbins)
+            h[s] = ROOT.TH2D(f"{s}_{c}_transfer_matrix", f"{s}_{c}_transfer_matrix", nbins, xbins, nbins, xbins)
 
             # differential bins
-            h_pt_tmp[s] = f.Get(f"{name_reco}_{c.replace('_Kpipi', '')}_Matched_Dmeson_differential_pt{sys}")
-            h_pt[s] = ROOT.TH1D(f"{s}_{c}_differential_pt", f"{s}_{c}_differential_pt", nbins + 1, xbins)
+            h_eta_tmp[s] = f.Get(f"{name_reco}_{c.replace('_Kpipi', '')}_Matched_Dmeson_differential_lep_eta{sys}")
+            h_eta[s] = ROOT.TH1D(f"{s}_{c}_differential_eta", f"{s}_{c}_differential_eta", nbins, xbins)
 
             # truth histogram name
-            print(f"{name}_{c.replace('_0tag', '')}_D_differential_pt{sys}")
+            print(f"{name}_{c.replace('_0tag', '')}_D_differential_lep_eta{sys}")
 
-            h_pt_truth_tmp[s] = f_truth.Get(f"{name}_{c.replace('_0tag', '')}_D_differential_pt{sys}")
-            h_pt_truth[s] = ROOT.TH1D(f"{s}_{c}_truth_differential_pt", f"{s}_{c}_truth_differential_pt", nbins + 1, xbins)
+            h_eta_truth_tmp[s] = f_truth.Get(f"{name}_{c.replace('_0tag', '')}_D_differential_lep_eta{sys}")
+            h_eta_truth[s] = ROOT.TH1D(f"{s}_{c}_truth_differential_eta", f"{s}_{c}_truth_differential_lep_eta", nbins, xbins)
 
             # calculate fiducial efficiency
             truth_projection_tmp[s] = h_tmp[s].ProjectionY(f"{s}_{c}_truth_projection_tmp", 0, nbins + 1)
             truth_projection_tmp[s].Scale(1. / LUMI_RUN2)
-            truth_projection[s] = ROOT.TH1D(f"{s}_{c}_truth_projection", f"{s}_{c}_truth_projection", nbins + 1, xbins)
+            truth_projection[s] = ROOT.TH1D(f"{s}_{c}_truth_projection", f"{s}_{c}_truth_projection", nbins, xbins)
 
             # # account for forced decay samples
             # if "Kpipi" in c:
-            #     for s in h_pt_truth:
+            #     for s in h_eta_truth:
             #         if "WplusD" in s:
-            #             h_pt_truth_tmp[s].Scale(0.094)
+            #             h_eta_truth_tmp[s].Scale(0.094)
 
             # calculate fiducial efficiency per bin
-            h_fid_eff[s] = ROOT.TH2D(f"{s}_{c}_fid_eff_pt", f"{s}_{c}_fid_eff_pt", nbins + 1, xbins, nbins + 1, xbins)
-            h_fid_eff_inv[s] = ROOT.TH2D(f"{s}_{c}_fid_eff_pt_inv", f"{s}_{c}_fid_eff_pt_inv", nbins + 1, xbins, nbins + 1, xbins)
+            h_fid_eff[s] = ROOT.TH2D(f"{s}_{c}_fid_eff_eta", f"{s}_{c}_fid_eff_eta", nbins, xbins, nbins, xbins)
+            h_fid_eff_inv[s] = ROOT.TH2D(f"{s}_{c}_fid_eff_eta_inv", f"{s}_{c}_fid_eff_eta_inv", nbins, xbins, nbins, xbins)
 
         # numpy matrix
-        np_matrix = np.identity(nbins + 1)
-        np_truth = np.ones(nbins + 1)
+        np_matrix = np.identity(nbins)
+        np_truth = np.ones(nbins)
 
         # fill
         proxy_axis = {}
@@ -217,55 +215,55 @@ def main(options, args):
         fid_eff_gr = {}
         fid_eff_inclusive = {}
         for s in samples_sys:
-            for i in range(1, nbins + 2):
-                h_pt[s].SetBinContent(i, h_pt_tmp[s].GetBinContent(i))
-                h_pt[s].SetBinError(i, h_pt_tmp[s].GetBinError(i))
-                h_pt_truth[s].SetBinContent(i, h_pt_truth_tmp[s].GetBinContent(i))
-                h_pt_truth[s].SetBinError(i, h_pt_truth_tmp[s].GetBinError(i))
+            for i in range(1, nbins + 1):
+                h_eta[s].SetBinContent(i, h_eta_tmp[s].GetBinContent(i))
+                h_eta[s].SetBinError(i, h_eta_tmp[s].GetBinError(i))
+                h_eta_truth[s].SetBinContent(i, h_eta_truth_tmp[s].GetBinContent(i))
+                h_eta_truth[s].SetBinError(i, h_eta_truth_tmp[s].GetBinError(i))
                 truth_projection[s].SetBinContent(i, truth_projection_tmp[s].GetBinContent(i))
                 truth_projection[s].SetBinError(i, truth_projection_tmp[s].GetBinError(i))
-                for j in range(1, nbins + 2):
+                for j in range(1, nbins + 1):
                     h[s].SetBinContent(i, j, h_tmp[s].GetBinContent(i, j))
                     h[s].SetBinError(i, j, h_tmp[s].GetBinError(i, j))
 
             # axis title
-            h[s].GetXaxis().SetTitle("p_{T}^{reco}(D) [GeV]")
-            h[s].GetYaxis().SetTitle("p_{T}^{truth}(D) [GeV]")
+            h[s].GetXaxis().SetTitle("|#eta^{reco}|(lep)")
+            h[s].GetYaxis().SetTitle("|#eta^{truth}|(lep)")
             h[s].SetMarkerSize(1.4)
 
-            h_pt[s].GetXaxis().SetTitle("p_{T}^{reco}(D) [GeV]")
-            h_pt[s].GetYaxis().SetTitle("Entries / (bin)")
-            h_pt[s].SetMarkerSize(1.4)
+            h_eta[s].GetXaxis().SetTitle("|#eta^{reco}|(lep)")
+            h_eta[s].GetYaxis().SetTitle("Entries / (bin)")
+            h_eta[s].SetMarkerSize(1.4)
 
-            h_pt_truth[s].GetXaxis().SetTitle("p_{T}^{truth}(D) [GeV]")
-            h_pt_truth[s].GetYaxis().SetTitle("d#sigma / dp_{T}(D) [pb]")
-            h_pt_truth[s].SetMarkerSize(1.4)
+            h_eta_truth[s].GetXaxis().SetTitle("|#eta^{truth}|(lep)")
+            h_eta_truth[s].GetYaxis().SetTitle("d#sigma / d|#eta|(lep) [pb]")
+            h_eta_truth[s].SetMarkerSize(1.4)
 
-            h_fid_eff[s].GetXaxis().SetTitle("p_{T}^{reco}(D) [GeV]")
-            h_fid_eff[s].GetYaxis().SetTitle("p_{T}^{truth}(D) [GeV]")
+            h_fid_eff[s].GetXaxis().SetTitle("|#eta^{reco}|(lep)")
+            h_fid_eff[s].GetYaxis().SetTitle("|#eta^{truth}|(lep)")
             h_fid_eff[s].SetMarkerSize(1.4)
             h_fid_eff[s].SetMarkerColor(ROOT.kWhite)
 
-            h_fid_eff_inv[s].GetXaxis().SetTitle("p_{T}^{reco}(D) [GeV]")
-            h_fid_eff_inv[s].GetYaxis().SetTitle("p_{T}^{truth}(D) [GeV]")
+            h_fid_eff_inv[s].GetXaxis().SetTitle("|#eta^{reco}|(lep)")
+            h_fid_eff_inv[s].GetYaxis().SetTitle("|#eta^{truth}|(lep)")
             h_fid_eff_inv[s].SetMarkerSize(1.4)
             h_fid_eff_inv[s].SetMarkerColor(ROOT.kWhite)
 
             # calculate fiducial efficiency
-            fid_eff[s] = ROOT.TEfficiency(truth_projection[s], h_pt_truth[s])
+            fid_eff[s] = ROOT.TEfficiency(truth_projection[s], h_eta_truth[s])
             fid_eff_gr[s] = fid_eff[s].CreateGraph()
 
             # color
             if "_GEN_" not in s:
-                h_pt[s].SetMarkerColor(colors[s])
-                h_pt[s].SetLineColor(colors[s])
-                h_pt_truth[s].SetMarkerColor(colors[s])
-                h_pt_truth[s].SetLineColor(colors[s])
+                h_eta[s].SetMarkerColor(colors[s])
+                h_eta[s].SetLineColor(colors[s])
+                h_eta_truth[s].SetMarkerColor(colors[s])
+                h_eta_truth[s].SetLineColor(colors[s])
                 fid_eff_gr[s].SetMarkerColor(colors[s])
                 fid_eff_gr[s].SetLineColor(colors[s])
 
                 # proxy axis for fiducil efficinecy
-                proxy_axis[s] = ROOT.TH1D(f"{s}_{c}_proxy_axis", f"{s}_{c}_proxy_axis", nbins + 1, shifted_bins(xbins, bin_shift[s]))
+                proxy_axis[s] = ROOT.TH1D(f"{s}_{c}_proxy_axis", f"{s}_{c}_proxy_axis", nbins, shifted_bins(xbins, bin_shift[s]))
                 proxy_axis[s].GetXaxis().SetNoExponent()
                 proxy_axis[s].SetLineWidth(0)
                 proxy_axis[s].SetLineWidth(0)
@@ -276,27 +274,27 @@ def main(options, args):
                 proxy_axis[s].SetMarkerSize(1.4)
                 proxy_axis[s].SetMarkerColor(colors[s])
             else:
-                h_pt[s].SetMarkerColor(colors[s.split("_GEN_")[0]] + 2)
-                h_pt[s].SetLineColor(colors[s.split("_GEN_")[0]] + 2)
-                h_pt_truth[s].SetMarkerColor(colors[s.split("_GEN_")[0]] + 2)
-                h_pt_truth[s].SetLineColor(colors[s.split("_GEN_")[0]] + 2)
+                h_eta[s].SetMarkerColor(colors[s.split("_GEN_")[0]] + 2)
+                h_eta[s].SetLineColor(colors[s.split("_GEN_")[0]] + 2)
+                h_eta_truth[s].SetMarkerColor(colors[s.split("_GEN_")[0]] + 2)
+                h_eta_truth[s].SetLineColor(colors[s.split("_GEN_")[0]] + 2)
                 fid_eff_gr[s].SetMarkerColor(colors[s.split("_GEN_")[0]] + 2)
                 fid_eff_gr[s].SetLineColor(colors[s.split("_GEN_")[0]] + 2)
 
             if "_GEN_" not in s:
                 # calculate fiducial efficiency per bin
-                for i in range(1, nbins + 2):
-                    for j in range(1, nbins + 2):
+                for i in range(1, nbins + 1):
+                    for j in range(1, nbins + 1):
                         tmp_num = ROOT.TH1D(f"{h[s].GetName()}_tmp_{i}_{j}", f"{h[s].GetName()}_tmp_{i}_{j}", 1, 0, 1)
                         tmp_num.SetBinContent(1, h[s].GetBinContent(i, j))
                         tmp_num.SetBinError(1, h[s].GetBinError(i, j))
                         tmp_den = ROOT.TH1D(f"{h[s].GetName()}_tmp_{j}", f"{h[s].GetName()}_tmp_{j}", 1, 0, 1)
-                        tmp_den.SetBinContent(1, LUMI_RUN2 * h_pt_truth[s].GetBinContent(j))
-                        tmp_den.SetBinError(1, LUMI_RUN2 * h_pt_truth[s].GetBinError(j))
+                        tmp_den.SetBinContent(1, LUMI_RUN2 * h_eta_truth[s].GetBinContent(j))
+                        tmp_den.SetBinError(1, LUMI_RUN2 * h_eta_truth[s].GetBinError(j))
                         tmp_eff = ROOT.TEfficiency(tmp_num, tmp_den)
                         h_fid_eff[s].SetBinContent(i, j, 100 * tmp_eff.GetEfficiency(1))
                         np_matrix[i - 1][j - 1] = tmp_eff.GetEfficiency(1)
-                        np_truth[j - 1] = LUMI_RUN2 * h_pt_truth[s].GetBinContent(j)
+                        np_truth[j - 1] = LUMI_RUN2 * h_eta_truth[s].GetBinContent(j)
                         if tmp_eff.GetEfficiency(1) > 0:
                             h_fid_eff[s].SetBinError(i, j, 100 * ((tmp_eff.GetEfficiencyErrorUp(1) +
                                                                    tmp_eff.GetEfficiencyErrorLow(1)) / 2) / tmp_eff.GetEfficiency(1))
@@ -304,7 +302,7 @@ def main(options, args):
 
             # inclusive efficiency
             inclusive_num = truth_projection[s].Clone(f"{truth_projection[s].GetName()}_inclusive")
-            inclusive_den = h_pt_truth[s].Clone(f"{h_pt_truth[s].GetName()}_inclusive")
+            inclusive_den = h_eta_truth[s].Clone(f"{h_eta_truth[s].GetName()}_inclusive")
             inclusive_num.Rebin(inclusive_num.GetNbinsX())
             inclusive_den.Rebin(inclusive_den.GetNbinsX())
             fid_eff_inclusive[s] = ROOT.TEfficiency(inclusive_num, inclusive_den)
@@ -316,8 +314,6 @@ def main(options, args):
         # -------------------
         canv1 = ROOT.TCanvas(f"{c}_matrix", f"{c}_matrix", 1000, 800)
         canv1.SetRightMargin(0.15)
-        canv1.SetLogy()
-        canv1.SetLogx()
         h[samples[0]].GetXaxis().SetMoreLogLabels()
         h[samples[0]].GetXaxis().SetNoExponent()
         h[samples[0]].GetYaxis().SetMoreLogLabels()
@@ -362,7 +358,7 @@ def main(options, args):
         if options.sherpa_pdf:
             sherpa_nominal = None
             sherpa_sys = []
-            for key, h_sys in h_pt.items():
+            for key, h_sys in h_eta.items():
                 if options.sys_sample not in key:
                     continue
                 if key == options.sys_sample:
@@ -370,39 +366,37 @@ def main(options, args):
                 else:
                     sherpa_sys += [h_sys]
             reco_sys_band, reco_sys_band_ratio = utils.make_pdf_err(sherpa_nominal, sherpa_sys, "NNPDF30_nnlo_as_0118_hessian")
-        h_pt[samples_sys[0]].GetXaxis().SetNoExponent()
+        h_eta[samples_sys[0]].GetXaxis().SetNoExponent()
 
-        canv2 = utils.make_canvas_mc_ratio(h_pt[samples_sys[0]], reco_pt, chan,
+        canv2 = utils.make_canvas_mc_ratio(h_eta[samples_sys[0]], reco_eta, chan,
                                            f"Ratio to {legend_names[samples[0]].split()[0]}", x=800, y=800, events="Entries", suffix="reco")
         canv2.pad1.cd()
-        canv2.pad1.SetLogx()
         if options.sherpa_pdf:
             reco_sys_band.SetFillColor(colors[options.sys_sample] + 2)
             reco_sys_band.Draw("e2")
         for s in reversed(samples_sys):
             if (len(samples) > 1 or options.sherpa_pdf) and "_GEN_" in s:
                 continue
-            h_pt[s].Draw("hist same")
+            h_eta[s].Draw("hist same")
         leg.Draw()
 
         # set maximum after creating legend
-        canv2.proxy_up.SetMaximum(2 * max([h_pt[s].GetMaximum() for s in h_pt]))
+        canv2.proxy_up.SetMaximum(2 * max([h_eta[s].GetMaximum() for s in h_eta]))
 
         # ratio
         ROOT.gPad.RedrawAxis()
         canv2.pad2.cd()
-        canv2.pad2.SetLogx()
         if options.sherpa_pdf:
             reco_sys_band_ratio.SetFillColor(colors[options.sys_sample] + 2)
             reco_sys_band_ratio.Draw("e2")
-        denum = h_pt[samples_sys[0]].Clone("reco_denum")
+        denum = h_eta[samples_sys[0]].Clone("reco_denum")
         for i in range(1, denum.GetNbinsX() + 1):
             denum.SetBinError(i, 0)
         ratios = []
         for s in reversed(samples_sys):
             if (len(samples) > 1 or options.sherpa_pdf) and "_GEN_" in s:
                 continue
-            h_pt_r = h_pt[s].Clone(f"{h_pt[s].GetName()}_r")
+            h_pt_r = h_eta[s].Clone(f"{h_eta[s].GetName()}_r")
             h_pt_r.Divide(denum)
             h_pt_r.Draw("hist same")
             ratios += [h_pt_r]
@@ -411,7 +405,7 @@ def main(options, args):
         ROOT.gPad.RedrawAxis()
         canv2.set_ratio_range(0.71, 1.29, override=True)
         canv2.print(f"{options.output}/{c}_reco.pdf")
-        h_pt[samples[0]].Write()
+        h_eta[samples[0]].Write()
 
         # -------------------
         # draw truth
@@ -419,7 +413,7 @@ def main(options, args):
         if options.sherpa_pdf:
             sherpa_nominal = None
             sherpa_sys = []
-            for key, h_sys in h_pt_truth.items():
+            for key, h_sys in h_eta_truth.items():
                 if options.sys_sample not in key:
                     continue
                 if key == options.sys_sample:
@@ -427,39 +421,37 @@ def main(options, args):
                 else:
                     sherpa_sys += [h_sys]
             truth_sys_band, truth_sys_band_ratio = utils.make_pdf_err(sherpa_nominal, sherpa_sys, "NNPDF30_nnlo_as_0118_hessian")
-        h_pt_truth[samples_sys[0]].GetXaxis().SetNoExponent()
+        h_eta_truth[samples_sys[0]].GetXaxis().SetNoExponent()
 
-        canv3 = utils.make_canvas_mc_ratio(h_pt_truth[samples_sys[0]], truth_pt, chan, f"Ratio to {legend_names[samples[0]].split()[0]}", x=800,
-                                           y=800, events="d#sigma / dp_{T}(D) [pb]", suffix="truth")
+        canv3 = utils.make_canvas_mc_ratio(h_eta_truth[samples_sys[0]], truth_eta, chan, f"Ratio to {legend_names[samples[0]].split()[0]}", x=800,
+                                           y=800, events="d#sigma / d|#eta|(lep) [pb]", suffix="truth")
         canv3.pad1.cd()
-        canv3.pad1.SetLogx()
         if options.sherpa_pdf:
             truth_sys_band.SetFillColor(colors[options.sys_sample] + 2)
             truth_sys_band.Draw("e2")
         for s in reversed(samples_sys):
             if (len(samples) > 1 or options.sherpa_pdf) and "_GEN_" in s:
                 continue
-            h_pt_truth[s].Draw("hist same")
+            h_eta_truth[s].Draw("hist same")
         leg.Draw()
 
         # set maximum after creating legend
-        canv3.proxy_up.SetMaximum(2 * max([h_pt_truth[s].GetMaximum() for s in h_pt_truth]))
+        canv3.proxy_up.SetMaximum(2 * max([h_eta_truth[s].GetMaximum() for s in h_eta_truth]))
 
         # ratio
         ROOT.gPad.RedrawAxis()
         canv3.pad2.cd()
-        canv3.pad2.SetLogx()
         if options.sherpa_pdf:
             truth_sys_band_ratio.SetFillColor(colors[options.sys_sample] + 2)
             truth_sys_band_ratio.Draw("e2")
-        denum = h_pt_truth[samples_sys[0]].Clone("truth_denum")
+        denum = h_eta_truth[samples_sys[0]].Clone("truth_denum")
         for i in range(1, denum.GetNbinsX() + 1):
             denum.SetBinError(i, 0)
         ratios = []
         for s in reversed(samples_sys):
             if (len(samples) > 1 or options.sherpa_pdf) and "_GEN_" in s:
                 continue
-            h_pt_truth_r = h_pt_truth[s].Clone(f"{h_pt_truth[s].GetName()}_r")
+            h_pt_truth_r = h_eta_truth[s].Clone(f"{h_eta_truth[s].GetName()}_r")
             h_pt_truth_r.Divide(denum)
             h_pt_truth_r.Draw("hist same")
             ratios += [h_pt_truth_r]
@@ -468,12 +460,12 @@ def main(options, args):
         ROOT.gPad.RedrawAxis()
         canv3.set_ratio_range(0.71, 1.29, override=True)
         canv3.print(f"{options.output}/{c}_truth.pdf")
-        h_pt_truth[samples[0]].Write()
+        h_eta_truth[samples[0]].Write()
         # if options.sherpa_pdf:
         #     truth_sys_band_ratio.Write()
         # elif options.sherpa_qcd or options.sherpa_as:
         #     for s in samples_sys:
-        #         h_pt_truth[s].Write()
+        #         h_eta_truth[s].Write()
 
         # -------------------
         # draw fiducial efficiency
@@ -495,10 +487,9 @@ def main(options, args):
         ROOT.gStyle.SetPaintTextFormat(".5f")
 
         # canvas
-        canv4 = utils.make_canvas_mc_ratio(proxy_axis[samples[0]], truth_pt, chan,
+        canv4 = utils.make_canvas_mc_ratio(proxy_axis[samples[0]], truth_eta, chan,
                                            f"Ratio to {legend_names[samples[0]].split()[0]}", x=800, y=800, events="fiducial efficiency")
         canv4.pad1.cd()
-        canv4.pad1.SetLogx()
         # if len(samples) < 2:
         #     for j, s in enumerate(samples):
         #         for i in range(1, nbins + 2):
@@ -520,7 +511,6 @@ def main(options, args):
 
         # ratio
         canv4.pad2.cd()
-        canv4.pad2.SetLogx()
         if len(samples) > 1:
             canv4.set_ratio_range(0.91, 1.09, override=True)
         else:
@@ -535,7 +525,7 @@ def main(options, args):
             if "_GEN_" in s:
                 continue
 
-            h, _, _ = utils.get_hist_from_gr(fid_eff_gr_ratio[s], f"{s}_{c}_fid_eff_pt_ratio")
+            h, _, _ = utils.get_hist_from_gr(fid_eff_gr_ratio[s], f"{s}_{c}_fid_eff_eta_ratio")
             h.Write()
 
         # draw Sherpa errors
@@ -550,22 +540,22 @@ def main(options, args):
 
             if options.sherpa_qcd or options.sherpa_as or options.sherpa_ew:
                 if options.sherpa_qcd:
-                    _, h_up, h_dn = utils.get_hist_from_gr(sys_band_ratio, f"{s}_{c}_fid_eff_pt_ratio_qcd_err")
+                    _, h_up, h_dn = utils.get_hist_from_gr(sys_band_ratio, f"{s}_{c}_fid_eff_eta_ratio_qcd_err")
                 elif options.sherpa_as:
-                    _, h_up, h_dn = utils.get_hist_from_gr(sys_band_ratio, f"{s}_{c}_fid_eff_pt_ratio_as")
+                    _, h_up, h_dn = utils.get_hist_from_gr(sys_band_ratio, f"{s}_{c}_fid_eff_eta_ratio_as")
                 elif options.sherpa_ew:
-                    _, h_up, h_dn = utils.get_hist_from_gr(sys_band_ratio, f"{s}_{c}_fid_eff_pt_ratio_ew")
-                sys_band_ratio.Write(f"gr_{s}_{c}_fid_eff_pt_ratio_qcd_err")
+                    _, h_up, h_dn = utils.get_hist_from_gr(sys_band_ratio, f"{s}_{c}_fid_eff_eta_ratio_ew")
+                sys_band_ratio.Write(f"gr_{s}_{c}_fid_eff_eta_ratio_qcd_err")
                 h_up.Write()
                 h_dn.Write()
             elif options.sherpa_pdf:
-                _, h_up, h_dn = utils.get_hist_from_gr(sys_band_ratio, f"{s}_{c}_fid_eff_pt_ratio_pdf_err")
-                sys_band_ratio.Write(f"gr_{s}_{c}_fid_eff_pt_ratio_pdf_err")
+                _, h_up, h_dn = utils.get_hist_from_gr(sys_band_ratio, f"{s}_{c}_fid_eff_eta_ratio_pdf_err")
+                sys_band_ratio.Write(f"gr_{s}_{c}_fid_eff_eta_ratio_pdf_err")
                 h_up.Write()
                 h_dn.Write()
         else:
             for s in samples_sys:
-                h, _, _ = utils.get_hist_from_gr(fid_eff_gr_ratio[s], f"{s}_{c}_fid_eff_pt_ratio")
+                h, _, _ = utils.get_hist_from_gr(fid_eff_gr_ratio[s], f"{s}_{c}_fid_eff_eta_ratio")
                 h.Write()
 
         # draw all graphs
@@ -585,8 +575,6 @@ def main(options, args):
         ROOT.gStyle.SetPalette(ROOT.kCMYK)
         canv5 = ROOT.TCanvas(f"{c}_matrix", f"{c}_matrix", 1000, 800)
         canv5.SetRightMargin(0.20)
-        canv5.SetLogy()
-        canv5.SetLogx()
         h_fid_eff[samples[0]].GetXaxis().SetMoreLogLabels()
         h_fid_eff[samples[0]].GetXaxis().SetNoExponent()
         h_fid_eff[samples[0]].GetYaxis().SetMoreLogLabels()
@@ -625,8 +613,6 @@ def main(options, args):
         ROOT.gStyle.SetPaintTextFormat(".3f")
         canv6 = ROOT.TCanvas(f"{c}_matrix_inv", f"{c}_matrix_inv", 1000, 800)
         canv6.SetRightMargin(0.15)
-        canv6.SetLogy()
-        canv6.SetLogx()
         h_fid_eff_inv[samples[0]].GetXaxis().SetMoreLogLabels()
         h_fid_eff_inv[samples[0]].GetXaxis().SetNoExponent()
         h_fid_eff_inv[samples[0]].GetYaxis().SetMoreLogLabels()

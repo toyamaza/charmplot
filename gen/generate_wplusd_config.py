@@ -22,7 +22,8 @@ def main(options):
                                            MockMC=options.fit_type != '',
                                            decayMode=options.decay_mode,
                                            truthDiffBins=options.truth_differential_bins,
-                                           samplesConfOverride=options.samples_config)
+                                           samplesConfOverride=options.samples_config,
+                                           eta_bins=options.differential_eta)
     elif options.samples.lower() == 'flavor' or options.samples.lower() == 'flavour':
         samples = templates.WDFlavourSamples()
     elif options.samples.lower() == 'fit':
@@ -61,9 +62,12 @@ def main(options):
     leptons = ['mu', 'el']
     charges = ['minus', 'plus']
     btags = ['0tag', '1tag']
-    ptbins = ['']
+    differential_bins = ['']
     if options.differential_bins:
-        ptbins = ['pt_bin1', 'pt_bin2', 'pt_bin3', 'pt_bin4', 'pt_bin5', '']
+        if options.differential_eta:
+            differential_bins = ['eta_bin1', 'eta_bin2', 'eta_bin3', 'eta_bin4', 'eta_bin5', '']
+        else:
+            differential_bins = ['pt_bin1', 'pt_bin2', 'pt_bin3', 'pt_bin4', 'pt_bin5', '']
 
     # override from CLI
     if options.btags:
@@ -92,13 +96,22 @@ def main(options):
             if options.decay_mode == "Dplus":
                 pass
             else:
-                replacement_samples = {
-                    'Sherpa2211_WplusD_Matched_truth_pt_bin1': '<sign>_Replacement_MatchedMG<charge>_truth_pt_bin1',
-                    'Sherpa2211_WplusD_Matched_truth_pt_bin2': '<sign>_Replacement_MatchedMG<charge>_truth_pt_bin2',
-                    'Sherpa2211_WplusD_Matched_truth_pt_bin3': '<sign>_Replacement_MatchedMG<charge>_truth_pt_bin3',
-                    'Sherpa2211_WplusD_Matched_truth_pt_bin4': '<sign>_Replacement_MatchedMG<charge>_truth_pt_bin4',
-                    'Sherpa2211_WplusD_Matched_truth_pt_bin5': '<sign>_Replacement_MatchedMG<charge>_truth_pt_bin5',
-                }
+                if options.differential_eta:
+                    replacement_samples = {
+                        'Sherpa2211_WplusD_Matched_truth_eta_bin1': '<sign>_Replacement_MatchedMG<charge>_truth_eta_bin1',
+                        'Sherpa2211_WplusD_Matched_truth_eta_bin2': '<sign>_Replacement_MatchedMG<charge>_truth_eta_bin2',
+                        'Sherpa2211_WplusD_Matched_truth_eta_bin3': '<sign>_Replacement_MatchedMG<charge>_truth_eta_bin3',
+                        'Sherpa2211_WplusD_Matched_truth_eta_bin4': '<sign>_Replacement_MatchedMG<charge>_truth_eta_bin4',
+                        'Sherpa2211_WplusD_Matched_truth_eta_bin5': '<sign>_Replacement_MatchedMG<charge>_truth_eta_bin5',
+                    }
+                else:
+                    replacement_samples = {
+                        'Sherpa2211_WplusD_Matched_truth_pt_bin1': '<sign>_Replacement_MatchedMG<charge>_truth_pt_bin1',
+                        'Sherpa2211_WplusD_Matched_truth_pt_bin2': '<sign>_Replacement_MatchedMG<charge>_truth_pt_bin2',
+                        'Sherpa2211_WplusD_Matched_truth_pt_bin3': '<sign>_Replacement_MatchedMG<charge>_truth_pt_bin3',
+                        'Sherpa2211_WplusD_Matched_truth_pt_bin4': '<sign>_Replacement_MatchedMG<charge>_truth_pt_bin4',
+                        'Sherpa2211_WplusD_Matched_truth_pt_bin5': '<sign>_Replacement_MatchedMG<charge>_truth_pt_bin5',
+                    }
         else:
             if options.decay_mode == "Dplus":
                 pass
@@ -107,8 +120,7 @@ def main(options):
                     'Sherpa2211_WplusD_Matched': '<sign>_Replacement_MatchedMG<charge>',
                 }
         replacement_samples.update({
-            'MG_Wjets_Charm': '<sign>_Replacement_CharmMisMatched',
-            'Sherpa2211_Wjets_Charm': '<sign>_Replacement_CharmMisMatched',
+            # 'MG_Wjets_Charm': '<sign>_Replacement_CharmMisMatched',
             'MG_Wjets_MisMatched': '<sign>_Replacement_MisMatched',
             'Sherpa2211_Wjets_MisMatched': '<sign>_Replacement_MisMatched',
             'MG_Wjets_Rest': '<sign>_Replacement_Rest',
@@ -140,18 +152,27 @@ def main(options):
             systematics += [
                 'sherpa2211_wjets_bkg_alt_samples',
             ]
-            if options.truth_differential_bins:
-                systematics += [
-                    'wplusd_signal_alt_samples_pt_bin1',
-                    'wplusd_signal_alt_samples_pt_bin2',
-                    'wplusd_signal_alt_samples_pt_bin3',
-                    'wplusd_signal_alt_samples_pt_bin4',
-                    'wplusd_signal_alt_samples_pt_bin5',
-                ]
-            else:
-                systematics += [
-                    'wplusd_signal_alt_samples',
-                ]
+            # if options.truth_differential_bins:
+            #     if options.differential_eta:
+            #         systematics += [
+            #             'wplusd_signal_alt_samples_eta_bin1',
+            #             'wplusd_signal_alt_samples_eta_bin2',
+            #             'wplusd_signal_alt_samples_eta_bin3',
+            #             'wplusd_signal_alt_samples_eta_bin4',
+            #             'wplusd_signal_alt_samples_eta_bin5',
+            #         ]
+            #     else:
+            #         systematics += [
+            #             'wplusd_signal_alt_samples_pt_bin1',
+            #             'wplusd_signal_alt_samples_pt_bin2',
+            #             'wplusd_signal_alt_samples_pt_bin3',
+            #             'wplusd_signal_alt_samples_pt_bin4',
+            #             'wplusd_signal_alt_samples_pt_bin5',
+            #         ]
+            # else:
+            #     systematics += [
+            #         'wplusd_signal_alt_samples',
+            #     ]
         elif options.decay_mode == "Dstar":
             systematics += [
                 'wjets_bkg_alt_samples',
@@ -175,7 +196,7 @@ def main(options):
                                                   leptons=leptons,
                                                   charges=charges,
                                                   btags=btags,
-                                                  ptbins=ptbins,
+                                                  differential_bins=differential_bins,
                                                   process_string=options.process_string,
                                                   force_positive=force_positive,
                                                   replacement_samples=replacement_samples,
@@ -195,7 +216,7 @@ def main(options):
                                                                  leptons=leptons,
                                                                  charges=[""],
                                                                  btags="",
-                                                                 ptbins=ptbins)
+                                                                 differential_bins=differential_bins)
 
     # replacement samples
     if options.replacement_samples:
@@ -344,6 +365,9 @@ if __name__ == "__main__":
                       default=False)
     parser.add_option('--truth-differential-bins',
                       action="store_true", dest="truth_differential_bins",
+                      default=False)
+    parser.add_option('--differential-eta',
+                      action="store_true", dest="differential_eta",
                       default=False)
     parser.add_option('--spg-signal-only',
                       action="store_true", dest="spg_signal_only",
