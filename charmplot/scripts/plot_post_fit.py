@@ -353,6 +353,9 @@ def main(options, conf):
                     g_mc_tot_err.GetEYlow()[x - 1] += err_dn
 
             # final
+            if g_mc_tot_err.GetEYhigh()[x - 1] <= 0 or g_mc_tot_err.GetEYlow()[x - 1] <= 0:
+                g_mc_tot_err.GetEYhigh()[x - 1] = 0
+                g_mc_tot_err.GetEYlow()[x - 1] = 0
             g_mc_tot_err.GetEYhigh()[x - 1] = math.sqrt(g_mc_tot_err.GetEYhigh()[x - 1])
             g_mc_tot_err.GetEYlow()[x - 1] = math.sqrt(g_mc_tot_err.GetEYlow()[x - 1])
             if h_mc_tot.GetBinContent(x) > 0:
