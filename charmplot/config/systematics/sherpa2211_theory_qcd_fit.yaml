@@ -1,4 +1,4 @@
-type: minmax
+type: updown
 affecting:
   - Sherpa2211_WplusD
   - Sherpa2211_Wjets
