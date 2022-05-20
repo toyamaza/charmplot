@@ -62,6 +62,51 @@ Sherpa2211_WplusD_Matched_truth_pt_bin5:
   shortName: Sherpa2211_WplusD_Matched_truth_pt_bin5
   scaleMC: 0.0395
 
+Sherpa2211_WplusD_Matched_truth_eta_bin1:
+  add:
+    - Sh_2211_WplusD
+  subtract:
+  fillColor: "14000"
+  legendLabel: "W+#it{D*} (bin 1)"
+  shortName: Sherpa2211_WplusD_Matched_truth_eta_bin1
+  scaleMC: 0.0395
+
+Sherpa2211_WplusD_Matched_truth_eta_bin2:
+  add:
+    - Sh_2211_WplusD
+  subtract:
+  fillColor: "14001"
+  legendLabel: "W+#it{D*} (bin 2)"
+  shortName: Sherpa2211_WplusD_Matched_truth_eta_bin2
+  scaleMC: 0.0395
+
+Sherpa2211_WplusD_Matched_truth_eta_bin3:
+  add:
+    - Sh_2211_WplusD
+  subtract:
+  fillColor: "14002"
+  legendLabel: "W+#it{D*} (bin 3)"
+  shortName: Sherpa2211_WplusD_Matched_truth_eta_bin3
+  scaleMC: 0.0395
+
+Sherpa2211_WplusD_Matched_truth_eta_bin4:
+  add:
+    - Sh_2211_WplusD
+  subtract:
+  fillColor: "14003"
+  legendLabel: "W+#it{D*} (bin 4)"
+  shortName: Sherpa2211_WplusD_Matched_truth_eta_bin4
+  scaleMC: 0.0395
+
+Sherpa2211_WplusD_Matched_truth_eta_bin5:
+  add:
+    - Sh_2211_WplusD
+  subtract:
+  fillColor: "14004"
+  legendLabel: "W+#it{D*} (bin 5)"
+  shortName: Sherpa2211_WplusD_Matched_truth_eta_bin5
+  scaleMC: 0.0395
+
 Sherpa2211_WplusD_Matched_Plain:
   add:
     - Sh_2211_WplusD
@@ -114,6 +159,51 @@ Sherpa2211_WplusD_Matched_truth_pt_bin5_Plain:
   fillColor: "14004"
   legendLabel: "W+#it{D*} (bin 5)"
   shortName: Sherpa2211_WplusD_Matched_truth_pt_bin5_Plain
+  scaleMC: 0.0395
+
+Sherpa2211_WplusD_Matched_truth_eta_bin1_Plain:
+  add:
+    - Sh_2211_WplusD
+  subtract:
+  fillColor: "14000"
+  legendLabel: "W+#it{D*} (bin 1)"
+  shortName: Sherpa2211_WplusD_Matched_truth_eta_bin1_Plain
+  scaleMC: 0.0395
+
+Sherpa2211_WplusD_Matched_truth_eta_bin2_Plain:
+  add:
+    - Sh_2211_WplusD
+  subtract:
+  fillColor: "14001"
+  legendLabel: "W+#it{D*} (bin 2)"
+  shortName: Sherpa2211_WplusD_Matched_truth_eta_bin2_Plain
+  scaleMC: 0.0395
+
+Sherpa2211_WplusD_Matched_truth_eta_bin3_Plain:
+  add:
+    - Sh_2211_WplusD
+  subtract:
+  fillColor: "14002"
+  legendLabel: "W+#it{D*} (bin 3)"
+  shortName: Sherpa2211_WplusD_Matched_truth_eta_bin3_Plain
+  scaleMC: 0.0395
+
+Sherpa2211_WplusD_Matched_truth_eta_bin4_Plain:
+  add:
+    - Sh_2211_WplusD
+  subtract:
+  fillColor: "14003"
+  legendLabel: "W+#it{D*} (bin 4)"
+  shortName: Sherpa2211_WplusD_Matched_truth_eta_bin4_Plain
+  scaleMC: 0.0395
+
+Sherpa2211_WplusD_Matched_truth_eta_bin5_Plain:
+  add:
+    - Sh_2211_WplusD
+  subtract:
+  fillColor: "14004"
+  legendLabel: "W+#it{D*} (bin 5)"
+  shortName: Sherpa2211_WplusD_Matched_truth_eta_bin5_Plain
   scaleMC: 0.0395
 
 Sherpa2211_Wjets_MisMatched:
@@ -228,6 +318,46 @@ MG_Wjets_Matched_truth_pt_bin5:
   fillColor: "14004"
   legendLabel: "W+#it{D*} (bin 5)"
   shortName: MG_Wjets_Matched_truth_pt_bin5
+
+MG_Wjets_Matched_truth_eta_bin1:
+  add:
+    - MG_Wjets_emu
+  subtract:
+  fillColor: "14000"
+  legendLabel: "W+#it{D*} (bin 1)"
+  shortName: MG_Wjets_Matched_truth_eta_bin1
+
+MG_Wjets_Matched_truth_eta_bin2:
+  add:
+    - MG_Wjets_emu
+  subtract:
+  fillColor: "14001"
+  legendLabel: "W+#it{D*} (bin 2)"
+  shortName: MG_Wjets_Matched_truth_eta_bin2
+
+MG_Wjets_Matched_truth_eta_bin3:
+  add:
+    - MG_Wjets_emu
+  subtract:
+  fillColor: "14002"
+  legendLabel: "W+#it{D*} (bin 3)"
+  shortName: MG_Wjets_Matched_truth_eta_bin3
+
+MG_Wjets_Matched_truth_eta_bin4:
+  add:
+    - MG_Wjets_emu
+  subtract:
+  fillColor: "14003"
+  legendLabel: "W+#it{D*} (bin 4)"
+  shortName: MG_Wjets_Matched_truth_eta_bin4
+
+MG_Wjets_Matched_truth_eta_bin5:
+  add:
+    - MG_Wjets_emu
+  subtract:
+  fillColor: "14004"
+  legendLabel: "W+#it{D*} (bin 5)"
+  shortName: MG_Wjets_Matched_truth_eta_bin5
 
 MG_Wjets_413MisMatched:
   add:
@@ -352,6 +482,46 @@ MGPy8EG_NLO_WplusD_Matched_truth_pt_bin5:
   lineColor: "ROOT.kRed"
   legendLabel: "NLO MG (bin 5)"
   shortName: MGPy8EG_NLO_WplusD_Matched_truth_pt_bin5 
+
+MGPy8EG_NLO_WplusD_Matched_truth_eta_bin1:
+  add:
+    - MG_NLO_WplusD
+  subtract:
+  lineColor: "ROOT.kRed"
+  legendLabel: "NLO MG (bin 1)"
+  shortName: MGPy8EG_NLO_WplusD_Matched_truth_eta_bin1
+
+MGPy8EG_NLO_WplusD_Matched_truth_eta_bin2:
+  add:
+    - MG_NLO_WplusD
+  subtract:
+  lineColor: "ROOT.kRed"
+  legendLabel: "NLO MG (bin 2)"
+  shortName: MGPy8EG_NLO_WplusD_Matched_truth_eta_bin2
+
+MGPy8EG_NLO_WplusD_Matched_truth_eta_bin3:
+  add:
+    - MG_NLO_WplusD
+  subtract:
+  lineColor: "ROOT.kRed"
+  legendLabel: "NLO MG (bin 3)"
+  shortName: MGPy8EG_NLO_WplusD_Matched_truth_eta_bin3
+
+MGPy8EG_NLO_WplusD_Matched_truth_eta_bin4:
+  add:
+    - MG_NLO_WplusD
+  subtract:
+  lineColor: "ROOT.kRed"
+  legendLabel: "NLO MG (bin 4)"
+  shortName: MGPy8EG_NLO_WplusD_Matched_truth_eta_bin4
+
+MGPy8EG_NLO_WplusD_Matched_truth_eta_bin5:
+  add:
+    - MG_NLO_WplusD
+  subtract:
+  lineColor: "ROOT.kRed"
+  legendLabel: "NLO MG (bin 5)"
+  shortName: MGPy8EG_NLO_WplusD_Matched_truth_eta_bin5 
 
 # ---------------------------------------------
 # FxFx MadGraph

@@ -361,18 +361,26 @@ class SPGSysComparison(ChannelTemplate):
 
 class ReplacementSamples(ChannelTemplate):
 
-    truthSlices = [
-        "Matched_truth_pt_bin1",
-        "Matched_truth_pt_bin2",
-        "Matched_truth_pt_bin3",
-        "Matched_truth_pt_bin4",
-        "Matched_truth_pt_bin5",
-    ]
-
-    def __init__(self, truthDiffBins=False, decay_mode="Dplus", comparison=""):
+    def __init__(self, truthDiffBins=False, decay_mode="Dplus", comparison="", eta_bins=False):
         self.truthDiffBins = truthDiffBins
         self.decay_mode = decay_mode
         self.samples = {}
+
+        self.truthSlices = [
+            "Matched_truth_pt_bin1",
+            "Matched_truth_pt_bin2",
+            "Matched_truth_pt_bin3",
+            "Matched_truth_pt_bin4",
+            "Matched_truth_pt_bin5",
+        ]
+        if eta_bins:
+            self.truthSlices = [
+                "Matched_truth_eta_bin1",
+                "Matched_truth_eta_bin2",
+                "Matched_truth_eta_bin3",
+                "Matched_truth_eta_bin4",
+                "Matched_truth_eta_bin5",
+            ]
 
         # signal samples
         self.samples.update({

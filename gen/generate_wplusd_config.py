@@ -53,7 +53,8 @@ def main(options):
     if options.replacement_samples:
         samples_replacement = templates.ReplacementSamples(truthDiffBins=options.truth_differential_bins,
                                                            decay_mode=options.decay_mode,
-                                                           comparison=options.samples.lower())
+                                                           comparison=options.samples.lower(),
+                                                           eta_bins=options.differential_eta)
 
     # TODO: make configurable?
     signs = ['OS', 'SS']
