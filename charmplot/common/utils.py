@@ -553,7 +553,7 @@ def set_under_over_flow(h: ROOT.TH1, x_range: list, do_overflow: bool, do_underf
         x_range = [h.GetBinCenter(1) - h.GetBinWidth(1) * 0.5, h.GetBinCenter(N) + h.GetBinWidth(N) * 0.5]
     x_range_bins = [h.FindBin(x_range[0] + width * 0.1), h.FindBin(x_range[1] - width * 0.1)]
 
-    h_new = ROOT.TH1F(f"{h.GetName()}_rebined", f"{h.GetName()}_rebined", x_range_bins[1] - x_range_bins[0] + 1, x_range[0], x_range[1])
+    h_new = ROOT.TH1D(f"{h.GetName()}_rebined", f"{h.GetName()}_rebined", x_range_bins[1] - x_range_bins[0] + 1, x_range[0], x_range[1])
 
     err0 = c_double()
     err1 = c_double()
