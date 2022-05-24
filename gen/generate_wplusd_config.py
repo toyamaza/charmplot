@@ -153,27 +153,27 @@ def main(options):
             systematics += [
                 'sherpa2211_wjets_bkg_alt_samples',
             ]
-            # if options.truth_differential_bins:
-            #     if options.differential_eta:
-            #         systematics += [
-            #             'wplusd_signal_alt_samples_eta_bin1',
-            #             'wplusd_signal_alt_samples_eta_bin2',
-            #             'wplusd_signal_alt_samples_eta_bin3',
-            #             'wplusd_signal_alt_samples_eta_bin4',
-            #             'wplusd_signal_alt_samples_eta_bin5',
-            #         ]
-            #     else:
-            #         systematics += [
-            #             'wplusd_signal_alt_samples_pt_bin1',
-            #             'wplusd_signal_alt_samples_pt_bin2',
-            #             'wplusd_signal_alt_samples_pt_bin3',
-            #             'wplusd_signal_alt_samples_pt_bin4',
-            #             'wplusd_signal_alt_samples_pt_bin5',
-            #         ]
-            # else:
-            #     systematics += [
-            #         'wplusd_signal_alt_samples',
-            #     ]
+            if options.truth_differential_bins:
+                if options.differential_eta:
+                    systematics += [
+                        'wplusd_signal_alt_samples_eta_bin1',
+                        'wplusd_signal_alt_samples_eta_bin2',
+                        'wplusd_signal_alt_samples_eta_bin3',
+                        'wplusd_signal_alt_samples_eta_bin4',
+                        'wplusd_signal_alt_samples_eta_bin5',
+                    ]
+                else:
+                    systematics += [
+                        'wplusd_signal_alt_samples_pt_bin1',
+                        'wplusd_signal_alt_samples_pt_bin2',
+                        'wplusd_signal_alt_samples_pt_bin3',
+                        'wplusd_signal_alt_samples_pt_bin4',
+                        'wplusd_signal_alt_samples_pt_bin5',
+                    ]
+            else:
+                systematics += [
+                    'wplusd_signal_alt_samples',
+                ]
         elif options.decay_mode == "Dstar":
             systematics += [
                 'wjets_bkg_alt_samples',
