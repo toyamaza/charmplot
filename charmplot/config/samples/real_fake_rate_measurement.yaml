@@ -38,6 +38,7 @@ MG_Multijet:
     - MG_Wjets_cjets_emu
     - MG_Wjets_bjets_emu
     - MG_Wjets_tau
+#    - Sh_2211_Zjets
     - MG_Zjets_light_emu
     - MG_Zjets_cjets_emu
     - MG_Zjets_bjets_emu
@@ -58,14 +59,11 @@ Sh_2211_Multijet:
     - Sh_2211_Wjets_bjets_emu
     - Sh_2211_Wjets_tau
 #    - Sh_Wjets_highpt_emu
-    - MG_Zjets_light_emu
-    - MG_Zjets_cjets_emu
-    - MG_Zjets_bjets_emu
-    - MG_Zjets_tau
-    #- Sh_Zjets_light_emu
-    #- Sh_Zjets_cjets_emu
-    #- Sh_Zjets_bjets_emu
-    #- Sh_Zjets_tau
+#    - Sh_2211_Zjets
+    - Sh_2211_Zjets_light_emu
+    - Sh_2211_Zjets_cjets_emu
+    - Sh_2211_Zjets_bjets_emu
+    - Sh_2211_Zjets_tau
     #- Sh_Zjets_highpt_emu
     #- Sh_Zjets_lowmass_emu
     - Top_ttbar
@@ -74,7 +72,7 @@ Sh_2211_Multijet:
     - Diboson
   lineColor: "14002"
   legendLabel: 'Multijet (Sh)'
-  shortName: Sh_Multijet
+  shortName: Sh_2211_Multijet
 
 MG_Multijet_Up:
   add: data
@@ -83,10 +81,11 @@ MG_Multijet_Up:
     - MG_Wjets_cjets_emu
     - MG_Wjets_bjets_emu
     - MG_Wjets_tau
-    - MG_Zjets_light_emu
-    - MG_Zjets_cjets_emu
-    - MG_Zjets_bjets_emu
-    - MG_Zjets_tau
+    - Sh_2211_Zjets
+#    - MG_Zjets_light_emu
+#    - MG_Zjets_cjets_emu
+#    - MG_Zjets_bjets_emu
+#    - MG_Zjets_tau
     - Top_ttbar
     - Top_single_top
     - Top_ttx
@@ -124,14 +123,11 @@ Sh_2211_Multijet_Up:
     - Sh_2211_Wjets_bjets_emu
     - Sh_2211_Wjets_tau
 #    - Sh_Wjets_highpt_emu
-    - MG_Zjets_light_emu
-    - MG_Zjets_cjets_emu
-    - MG_Zjets_bjets_emu
-    - MG_Zjets_tau
-    #- Sh_Zjets_light_emu
-    #- Sh_Zjets_cjets_emu
-    #- Sh_Zjets_bjets_emu
-    #- Sh_Zjets_tau
+#    - Sh_2211_Zjets
+    - Sh_2211_Zjets_light_emu
+    - Sh_2211_Zjets_cjets_emu
+    - Sh_2211_Zjets_bjets_emu
+    - Sh_2211_Zjets_tau
     #- Sh_Zjets_highpt_emu
     #- Sh_Zjets_lowmass_emu
     - Top_ttbar
@@ -140,7 +136,7 @@ Sh_2211_Multijet_Up:
     - Diboson
   lineColor: "15002"
   legendLabel: 'Multijet (Sh, +10%)'
-  shortName: Sh_Multijet
+  shortName: Sh_Multijet_Var
   scaleMC: 1.1
 
 Sh_2211_Multijet_Dn:
@@ -151,14 +147,10 @@ Sh_2211_Multijet_Dn:
     - Sh_2211_Wjets_bjets_emu
     - Sh_2211_Wjets_tau
 #    - Sh_Wjets_highpt_emu
-    - MG_Zjets_light_emu
-    - MG_Zjets_cjets_emu
-    - MG_Zjets_bjets_emu
-    - MG_Zjets_tau
-    #- Sh_Zjets_light_emu
-    #- Sh_Zjets_cjets_emu
-    #- Sh_Zjets_bjets_emu
-    #- Sh_Zjets_tau
+    - Sh_2211_Zjets_light_emu
+    - Sh_2211_Zjets_cjets_emu
+    - Sh_2211_Zjets_bjets_emu
+    - Sh_2211_Zjets_tau
     #- Sh_Zjets_highpt_emu
     #- Sh_Zjets_lowmass_emu
     - Top_ttbar
@@ -167,7 +159,7 @@ Sh_2211_Multijet_Dn:
     - Diboson
   lineColor: "15004"
   legendLabel: 'Multijet (Sh, -10%)'
-  shortName: Sh_Multijet
+  shortName: Sh_Multijet_Var
   scaleMC: 0.9
 
 #samples conf for special fake rate measurement
@@ -177,6 +169,13 @@ MC_Comb:
   subtract:
   lineColor: "11004"
   legendLabel: 'W + D All'
+
+MC_Comb_sys_var:
+  add:
+    - MG_all
+  subtract:
+  lineColor: "11006"
+  legendLabel: 'W + D MG var'
 
 MG_Wjets_emu_0tag_Dplus:
   add:
@@ -323,7 +322,7 @@ Top_ttbar_1tag:
   legendLabel: 't#bar{t} + D, 1tag'
 
 #Scale variations to be made into systematics 
-Sh_2211_Wjets_emu_GEN_MUR2_MUF2_PDF303200_PSMUR2_PSMUF2:
+Sh_2211_Multijet_GEN_MUR2_MUF2_PDF303200_PSMUR2_PSMUF2:
   add: data
   subtract:
     - Sh_2211_Wjets_light_emu
@@ -331,26 +330,22 @@ Sh_2211_Wjets_emu_GEN_MUR2_MUF2_PDF303200_PSMUR2_PSMUF2:
     - Sh_2211_Wjets_bjets_emu
     - Sh_2211_Wjets_tau
 #    - Sh_Wjets_highpt_emu
-    - MG_Zjets_light_emu
-    - MG_Zjets_cjets_emu
-    - MG_Zjets_bjets_emu
-    - MG_Zjets_tau
-    #- Sh_Zjets_light_emu
-    #- Sh_Zjets_cjets_emu
-    #- Sh_Zjets_bjets_emu
-    #- Sh_Zjets_tau
+    - Sh_2211_Zjets_light_emu
+    - Sh_2211_Zjets_cjets_emu
+    - Sh_2211_Zjets_bjets_emu
+    - Sh_2211_Zjets_tau
     #- Sh_Zjets_highpt_emu
     #- Sh_Zjets_lowmass_emu
     - Top_ttbar
     - Top_single_top
     - Top_ttx
     - Diboson
-  subtract:
   lineColor: "10004"
   legendLabel: 'Sherpa W#rightarrowl#nu MUR2_MUF2'
+  shortName: Sh_Multijet_Var
 
 #Scale variations to be made into systematics 
-Sh_2211_Wjets_emu_GEN_MUR05_MUF1_PDF303200_PSMUR05_PSMUF1:
+Sh_2211_Multijet_GEN_MUR05_MUF1_PDF303200_PSMUR05_PSMUF1:
   add: data
   subtract:
     - Sh_2211_Wjets_light_emu
@@ -358,26 +353,22 @@ Sh_2211_Wjets_emu_GEN_MUR05_MUF1_PDF303200_PSMUR05_PSMUF1:
     - Sh_2211_Wjets_bjets_emu
     - Sh_2211_Wjets_tau
 #    - Sh_Wjets_highpt_emu
-    - MG_Zjets_light_emu
-    - MG_Zjets_cjets_emu
-    - MG_Zjets_bjets_emu
-    - MG_Zjets_tau
-    #- Sh_Zjets_light_emu
-    #- Sh_Zjets_cjets_emu
-    #- Sh_Zjets_bjets_emu
-    #- Sh_Zjets_tau
+    - Sh_2211_Zjets_light_emu
+    - Sh_2211_Zjets_cjets_emu
+    - Sh_2211_Zjets_bjets_emu
+    - Sh_2211_Zjets_tau
     #- Sh_Zjets_highpt_emu
     #- Sh_Zjets_lowmass_emu
     - Top_ttbar
     - Top_single_top
     - Top_ttx
     - Diboson
-  subtract:
   lineColor: "10006"
   legendLabel: 'Sherpa W#rightarrowl#nu MUR05_MUF1'
+  shortName: Sh_Multijet_Var
 
 #Scale variations to be made into systematics 
-Sh_2211_Wjets_emu_GEN_MUR2_MUF1_PDF303200_PSMUR2_PSMUF1:
+Sh_2211_Multijet_GEN_MUR2_MUF1_PDF303200_PSMUR2_PSMUF1:
   add: data
   subtract:
     - Sh_2211_Wjets_light_emu
@@ -385,26 +376,22 @@ Sh_2211_Wjets_emu_GEN_MUR2_MUF1_PDF303200_PSMUR2_PSMUF1:
     - Sh_2211_Wjets_bjets_emu
     - Sh_2211_Wjets_tau
 #    - Sh_Wjets_highpt_emu
-    - MG_Zjets_light_emu
-    - MG_Zjets_cjets_emu
-    - MG_Zjets_bjets_emu
-    - MG_Zjets_tau
-    #- Sh_Zjets_light_emu
-    #- Sh_Zjets_cjets_emu
-    #- Sh_Zjets_bjets_emu
-    #- Sh_Zjets_tau
+    - Sh_2211_Zjets_light_emu
+    - Sh_2211_Zjets_cjets_emu
+    - Sh_2211_Zjets_bjets_emu
+    - Sh_2211_Zjets_tau
     #- Sh_Zjets_highpt_emu
     #- Sh_Zjets_lowmass_emu
     - Top_ttbar
     - Top_single_top
     - Top_ttx
     - Diboson
-  subtract:
   lineColor: "11002"
   legendLabel: 'Sherpa W#rightarrowl#nu MUR2_MUF1'
+  shortName: Sh_Multijet_Var
 
 #Scale variations to be made into systematics 
-Sh_2211_Wjets_emu_GEN_MUR1_MUF2_PDF303200_PSMUR1_PSMUF2:
+Sh_2211_Multijet_GEN_MUR1_MUF2_PDF303200_PSMUR1_PSMUF2:
   add: data
   subtract:
     - Sh_2211_Wjets_light_emu
@@ -412,26 +399,22 @@ Sh_2211_Wjets_emu_GEN_MUR1_MUF2_PDF303200_PSMUR1_PSMUF2:
     - Sh_2211_Wjets_bjets_emu
     - Sh_2211_Wjets_tau
 #    - Sh_Wjets_highpt_emu
-    - MG_Zjets_light_emu
-    - MG_Zjets_cjets_emu
-    - MG_Zjets_bjets_emu
-    - MG_Zjets_tau
-    #- Sh_Zjets_light_emu
-    #- Sh_Zjets_cjets_emu
-    #- Sh_Zjets_bjets_emu
-    #- Sh_Zjets_tau
+    - Sh_2211_Zjets_light_emu
+    - Sh_2211_Zjets_cjets_emu
+    - Sh_2211_Zjets_bjets_emu
+    - Sh_2211_Zjets_tau
     #- Sh_Zjets_highpt_emu
     #- Sh_Zjets_lowmass_emu
     - Top_ttbar
     - Top_single_top
     - Top_ttx
     - Diboson
-  subtract:
   lineColor: "11004"
   legendLabel: 'Sherpa W#rightarrowl#nu MUR1_MUF2'
+  shortName: Sh_Multijet_Var
 
 #Scale variations to be made into systematics 
-Sh_2211_Wjets_emu_GEN_MUR05_MUF05_PDF303200_PSMUR05_PSMUF05:
+Sh_2211_Multijet_GEN_MUR05_MUF05_PDF303200_PSMUR05_PSMUF05:
   add: data
   subtract:
     - Sh_2211_Wjets_light_emu
@@ -439,26 +422,22 @@ Sh_2211_Wjets_emu_GEN_MUR05_MUF05_PDF303200_PSMUR05_PSMUF05:
     - Sh_2211_Wjets_bjets_emu
     - Sh_2211_Wjets_tau
 #    - Sh_Wjets_highpt_emu
-    - MG_Zjets_light_emu
-    - MG_Zjets_cjets_emu
-    - MG_Zjets_bjets_emu
-    - MG_Zjets_tau
-    #- Sh_Zjets_light_emu
-    #- Sh_Zjets_cjets_emu
-    #- Sh_Zjets_bjets_emu
-    #- Sh_Zjets_tau
+    - Sh_2211_Zjets_light_emu
+    - Sh_2211_Zjets_cjets_emu
+    - Sh_2211_Zjets_bjets_emu
+    - Sh_2211_Zjets_tau
     #- Sh_Zjets_highpt_emu
     #- Sh_Zjets_lowmass_emu
     - Top_ttbar
     - Top_single_top
     - Top_ttx
     - Diboson
-  subtract:
   lineColor: "10006"
   legendLabel: 'Sherpa W#rightarrowl#nu MUR05_MUF05'
+  shortName: Sh_Multijet_Var
 
 #Scale variations to be made into systematics 
-Sh_2211_Wjets_emu_GEN_MUR1_MUF05_PDF303200_PSMUR1_PSMUF05:
+Sh_2211_Multijet_GEN_MUR1_MUF05_PDF303200_PSMUR1_PSMUF05:
   add: data
   subtract:
     - Sh_2211_Wjets_light_emu
@@ -466,20 +445,16 @@ Sh_2211_Wjets_emu_GEN_MUR1_MUF05_PDF303200_PSMUR1_PSMUF05:
     - Sh_2211_Wjets_bjets_emu
     - Sh_2211_Wjets_tau
 #    - Sh_Wjets_highpt_emu
-    - MG_Zjets_light_emu
-    - MG_Zjets_cjets_emu
-    - MG_Zjets_bjets_emu
-    - MG_Zjets_tau
-    #- Sh_Zjets_light_emu
-    #- Sh_Zjets_cjets_emu
-    #- Sh_Zjets_bjets_emu
-    #- Sh_Zjets_tau
+    - Sh_2211_Zjets_light_emu
+    - Sh_2211_Zjets_cjets_emu
+    - Sh_2211_Zjets_bjets_emu
+    - Sh_2211_Zjets_tau
     #- Sh_Zjets_highpt_emu
     #- Sh_Zjets_lowmass_emu
     - Top_ttbar
     - Top_single_top
     - Top_ttx
     - Diboson
-  subtract:
   lineColor: "12002"
-  legendLabel: 'Sherpa W#rightarrowl#nu MUR1_MUF05'
+  legendLabel: 'Sh MUR1_MUF05'
+  shortName: Sh_Multijet_Var

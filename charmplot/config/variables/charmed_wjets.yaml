@@ -451,7 +451,7 @@ met_para_met:
   unit: GeV
   rebin: 4
   x_range: [-200, 200]
-  ratio_range: [0.5, 1.49]
+  ratio_range: [0.75, 1.24]
 
 met_mt:
   label: m_{T}
