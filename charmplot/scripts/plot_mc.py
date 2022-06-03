@@ -85,7 +85,8 @@ def main(options, conf, reader):
             fit = utils.likelihood_fit(conf, reader, c, samples)
             if systematics:
                 mc_map_sys = utils.read_sys_histograms(conf, reader, c, var, samples, fit, systematics, mc_map)
-
+                print("mc_map_sys", mc_map_sys)
+            
             # save histograms to root file
             if c.save_to_file:
                 utils.save_to_file(out_file_name, c, var, None, mc_map)

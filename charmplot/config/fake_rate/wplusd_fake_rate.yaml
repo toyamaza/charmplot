@@ -7,650 +7,657 @@ samplesConf: real_fake_rate_measurement
 systematics:
   - sherpa2211_theory_qcd_me_ps
 
+#channelVariables:
+#  lep_pt:
+#    label: lepton p_{T}
+#    unit: GeV
+#    x_bins: [0.0, 30., 36., 42., 48., 54., 90.]
+#    ratio_range: [0.5, 1.49]
+
 channels:
-  Tight_2018_el_QCD_mtCtrl_metSig_0tag_Dplus:
-    regions:
-      - Tight_2018_el_QCD_mtCtrl_metSig_0tag_Dplus
-    samples:
-      - Sh_2211_Multijet
-      - MG_Multijet
-      #- Sh_2211_Multijet_Up
-      #- Sh_2211_Multijet_Dn
-    label:
-      - "el QCD Tight"
-      - "MET > 30 GeV, mT < 40 GeV"
-    lumi: "2018"
-    save_to_file: True
-
-  Tight_2018_el_QCD_mtCtrl_metSig_1tag_Dplus:
-    regions:
-      - Tight_2018_el_QCD_mtCtrl_metSig_1tag_Dplus
-      - Tight_2018_el_QCD_mtCtrl_metSig_2tag_Dplus
-    samples:
-      - Sh_2211_Multijet
-      - MG_Multijet
-      #- Sh_2211_Multijet_Up
-      #- Sh_2211_Multijet_Dn
-    label:
-      - "el QCD Tight"
-      - "MET > 30 GeV, mT < 40 GeV"
-    lumi: "2018"
-    save_to_file: True
-
-  Tight_2018_mu_QCD_mtCtrl_metSig_0tag_Dplus:
-    regions:
-      - Tight_2018_mu_QCD_mtCtrl_metSig_0tag_Dplus
-    samples:
-      - Sh_2211_Multijet
-      - MG_Multijet
-      #- Sh_2211_Multijet_Up
-      #- Sh_2211_Multijet_Dn
-    label:
-      - "mu QCD Tight"
-      - "MET > 30 GeV, mT < 40 GeV"
-    lumi: "2018"
-    save_to_file: True
-
-  Tight_2018_mu_QCD_mtCtrl_metSig_1tag_Dplus:
-    regions:
-      - Tight_2018_mu_QCD_mtCtrl_metSig_1tag_Dplus
-      - Tight_2018_mu_QCD_mtCtrl_metSig_2tag_Dplus
-    samples:
-      - Sh_2211_Multijet
-      - MG_Multijet
-      #- Sh_2211_Multijet_Up
-      #- Sh_2211_Multijet_Dn
-    label:
-      - "mu QCD Tight"
-      - "MET > 30 GeV, mT < 40 GeV"
-    lumi: "2018"
-    save_to_file: True
-
-  AntiTight_2018_el_QCD_mtCtrl_metSig_0tag_Dplus:
-    regions:
-      - AntiTight_2018_el_QCD_mtCtrl_metSig_0tag_Dplus
-    samples:
-      - Sh_2211_Multijet
-      - MG_Multijet
-      #- Sh_2211_Multijet_Up
-      #- Sh_2211_Multijet_Dn
-    label:
-      - "el QCD AntiTight"
-      - "MET > 30 GeV, mT < 40 GeV"
-    lumi: "2018"
-    save_to_file: True
-
-  AntiTight_2018_el_QCD_mtCtrl_metSig_1tag_Dplus:
-    regions:
-      - AntiTight_2018_el_QCD_mtCtrl_metSig_1tag_Dplus
-      - AntiTight_2018_el_QCD_mtCtrl_metSig_2tag_Dplus
-    samples:
-      - Sh_2211_Multijet
-      - MG_Multijet
-      #- Sh_2211_Multijet_Up
-      #- Sh_2211_Multijet_Dn
-    label:
-      - "el QCD AntiTight"
-      - "MET > 30 GeV, mT < 40 GeV"
-    lumi: "2018"
-    save_to_file: True
-
-  AntiTight_2018_mu_QCD_mtCtrl_metSig_0tag_Dplus:
-    regions:
-      - AntiTight_2018_mu_QCD_mtCtrl_metSig_0tag_Dplus
-    samples:
-      - Sh_2211_Multijet
-      - MG_Multijet
-      #- Sh_2211_Multijet_Up
-      #- Sh_2211_Multijet_Dn
-    label:
-      - "mu QCD AntiTight"
-      - "MET > 30 GeV, mT < 40 GeV"
-    lumi: "2018"
-    save_to_file: True
-
-  AntiTight_2018_mu_QCD_mtCtrl_metSig_1tag_Dplus:
-    regions:
-      - AntiTight_2018_mu_QCD_mtCtrl_metSig_1tag_Dplus
-      - AntiTight_2018_mu_QCD_mtCtrl_metSig_2tag_Dplus
-    samples:
-      - Sh_2211_Multijet
-      - MG_Multijet
-      #- Sh_2211_Multijet_Up
-      #- Sh_2211_Multijet_Dn
-    label:
-      - "mu QCD AntiTight"
-      - "MET > 30 GeV, mT < 40 GeV"
-    lumi: "2018"
-    save_to_file: True
-
-  Tight_2017_el_QCD_mtCtrl_metSig_0tag_Dplus:
-    regions:
-      - Tight_2017_el_QCD_mtCtrl_metSig_0tag_Dplus
-      - Tight_2016A-B_el_QCD_mtCtrl_metSig_0tag_Dplus
-      - Tight_2016C-L_el_QCD_mtCtrl_metSig_0tag_Dplus
-    samples:
-      - Sh_2211_Multijet
-      - MG_Multijet
-      #- Sh_2211_Multijet_Up
-      #- Sh_2211_Multijet_Dn
-    label:
-      - "el QCD Tight"
-      - "MET > 30 GeV, mT < 40 GeV"
-    lumi: "2017"
-    save_to_file: True
-
-  Tight_2017_el_QCD_mtCtrl_metSig_1tag_Dplus:
-    regions:
-      - Tight_2017_el_QCD_mtCtrl_metSig_1tag_Dplus
-      - Tight_2016A-B_el_QCD_mtCtrl_metSig_1tag_Dplus
-      - Tight_2016C-L_el_QCD_mtCtrl_metSig_1tag_Dplus
-      - Tight_2017_el_QCD_mtCtrl_metSig_2tag_Dplus
-      - Tight_2016A-B_el_QCD_mtCtrl_metSig_2tag_Dplus
-      - Tight_2016C-L_el_QCD_mtCtrl_metSig_2tag_Dplus
-    samples:
-      - Sh_2211_Multijet
-      - MG_Multijet
-      #- Sh_2211_Multijet_Up
-      #- Sh_2211_Multijet_Dn
-    label:
-      - "el QCD Tight"
-      - "MET > 30 GeV, mT < 40 GeV"
-    lumi: "2017"
-    save_to_file: True
-
-  Tight_2017_mu_QCD_mtCtrl_metSig_0tag_Dplus:
-    regions:
-      - Tight_2017_mu_QCD_mtCtrl_metSig_0tag_Dplus
-      - Tight_2016A-B_mu_QCD_mtCtrl_metSig_0tag_Dplus
-      - Tight_2016C-L_mu_QCD_mtCtrl_metSig_0tag_Dplus
-    samples:
-      - Sh_2211_Multijet
-      - MG_Multijet
-      #- Sh_2211_Multijet_Up
-      #- Sh_2211_Multijet_Dn
-    label:
-      - "mu QCD Tight"
-      - "MET > 30 GeV, mT < 40 GeV"
-    lumi: "2017"
-    save_to_file: True
-
-  Tight_2017_mu_QCD_mtCtrl_metSig_1tag_Dplus:
-    regions:
-      - Tight_2017_mu_QCD_mtCtrl_metSig_1tag_Dplus
-      - Tight_2016A-B_mu_QCD_mtCtrl_metSig_1tag_Dplus
-      - Tight_2016C-L_mu_QCD_mtCtrl_metSig_1tag_Dplus
-      - Tight_2017_mu_QCD_mtCtrl_metSig_2tag_Dplus
-      - Tight_2016A-B_mu_QCD_mtCtrl_metSig_2tag_Dplus
-      - Tight_2016C-L_mu_QCD_mtCtrl_metSig_2tag_Dplus
-    samples:
-      - Sh_2211_Multijet
-      - MG_Multijet
-      #- Sh_2211_Multijet_Up
-      #- Sh_2211_Multijet_Dn
-    label:
-      - "mu QCD Tight"
-      - "MET > 30 GeV, mT < 40 GeV"
-    lumi: "2017"
-    save_to_file: True
-
-  AntiTight_2017_el_QCD_mtCtrl_metSig_0tag_Dplus:
-    regions:
-      - AntiTight_2017_el_QCD_mtCtrl_metSig_0tag_Dplus
-      - AntiTight_2016A-B_el_QCD_mtCtrl_metSig_0tag_Dplus
-      - AntiTight_2016C-L_el_QCD_mtCtrl_metSig_0tag_Dplus
-    samples:
-      - Sh_2211_Multijet
-      - MG_Multijet
-      #- Sh_2211_Multijet_Up
-      #- Sh_2211_Multijet_Dn
-    label:
-      - "el QCD AntiTight"
-      - "MET > 30 GeV, mT < 40 GeV"
-    lumi: "2017"
-    save_to_file: True
-
-  AntiTight_2017_el_QCD_mtCtrl_metSig_1tag_Dplus:
-    regions:
-      - AntiTight_2017_el_QCD_mtCtrl_metSig_1tag_Dplus
-      - AntiTight_2016A-B_el_QCD_mtCtrl_metSig_1tag_Dplus
-      - AntiTight_2016C-L_el_QCD_mtCtrl_metSig_1tag_Dplus
-      - AntiTight_2017_el_QCD_mtCtrl_metSig_2tag_Dplus
-      - AntiTight_2016A-B_el_QCD_mtCtrl_metSig_2tag_Dplus
-      - AntiTight_2016C-L_el_QCD_mtCtrl_metSig_2tag_Dplus
-    samples:
-      - Sh_2211_Multijet
-      - MG_Multijet
-      #- Sh_2211_Multijet_Up
-      #- Sh_2211_Multijet_Dn
-    label:
-      - "el QCD AntiTight"
-      - "MET > 30 GeV, mT < 40 GeV"
-    lumi: "2017"
-    save_to_file: True
-
-  AntiTight_2017_mu_QCD_mtCtrl_metSig_0tag_Dplus:
-    regions:
-      - AntiTight_2017_mu_QCD_mtCtrl_metSig_0tag_Dplus
-      - AntiTight_2016A-B_mu_QCD_mtCtrl_metSig_0tag_Dplus
-      - AntiTight_2016C-L_mu_QCD_mtCtrl_metSig_0tag_Dplus
-    samples:
-      - Sh_2211_Multijet
-      - MG_Multijet
-      #- Sh_2211_Multijet_Up
-      #- Sh_2211_Multijet_Dn
-    label:
-      - "mu QCD AntiTight"
-      - "MET > 30 GeV, mT < 40 GeV"
-    lumi: "2017"
-    save_to_file: True
-
-  AntiTight_2017_mu_QCD_mtCtrl_metSig_1tag_Dplus:
-    regions:
-      - AntiTight_2017_mu_QCD_mtCtrl_metSig_1tag_Dplus
-      - AntiTight_2016A-B_mu_QCD_mtCtrl_metSig_1tag_Dplus
-      - AntiTight_2016C-L_mu_QCD_mtCtrl_metSig_1tag_Dplus
-      - AntiTight_2017_mu_QCD_mtCtrl_metSig_2tag_Dplus
-      - AntiTight_2016A-B_mu_QCD_mtCtrl_metSig_2tag_Dplus
-      - AntiTight_2016C-L_mu_QCD_mtCtrl_metSig_2tag_Dplus
-    samples:
-      - Sh_2211_Multijet
-      - MG_Multijet
-      #- Sh_2211_Multijet_Up
-      #- Sh_2211_Multijet_Dn
-    label:
-      - "mu QCD AntiTight"
-      - "MET > 30 GeV, mT < 40 GeV"
-    lumi: "2017"
-    save_to_file: True
-
-    #xyz
-  Tight_2015_el_QCD_mtCtrl_metSig_0tag_Dplus:
-    regions:
-      - Tight_2015_el_QCD_mtCtrl_metSig_0tag_Dplus
-    samples:
-      - Sh_2211_Multijet
-      - MG_Multijet
-      #- Sh_2211_Multijet_Up
-      #- Sh_2211_Multijet_Dn
-    label:
-      - "el QCD Tight"
-      - "MET > 30 GeV, mT < 40 GeV"
-    lumi: "2015"
-    save_to_file: True
-
-  Tight_2015_el_QCD_mtCtrl_metSig_1tag_Dplus:
-    regions:
-      - Tight_2015_el_QCD_mtCtrl_metSig_1tag_Dplus
-      - Tight_2015_el_QCD_mtCtrl_metSig_2tag_Dplus
-    samples:
-      - Sh_2211_Multijet
-      - MG_Multijet
-      #- Sh_2211_Multijet_Up
-      #- Sh_2211_Multijet_Dn
-    label:
-      - "el QCD Tight"
-      - "MET > 30 GeV, mT < 40 GeV"
-    lumi: "2015"
-    save_to_file: True
-
-  Tight_2015_mu_QCD_mtCtrl_metSig_0tag_Dplus:
-    regions:
-      - Tight_2015_mu_QCD_mtCtrl_metSig_0tag_Dplus
-    samples:
-      - Sh_2211_Multijet
-      - MG_Multijet
-      #- Sh_2211_Multijet_Up
-      #- Sh_2211_Multijet_Dn
-    label:
-      - "mu QCD Tight"
-      - "MET > 30 GeV, mT < 40 GeV"
-    lumi: "2015"
-    save_to_file: True
-
-  Tight_2015_mu_QCD_mtCtrl_metSig_1tag_Dplus:
-    regions:
-      - Tight_2015_mu_QCD_mtCtrl_metSig_1tag_Dplus
-      - Tight_2015_mu_QCD_mtCtrl_metSig_2tag_Dplus
-    samples:
-      - Sh_2211_Multijet
-      - MG_Multijet
-      #- Sh_2211_Multijet_Up
-      #- Sh_2211_Multijet_Dn
-    label:
-      - "mu QCD Tight"
-      - "MET > 30 GeV, mT < 40 GeV"
-    lumi: "2015"
-    save_to_file: True
-
-  AntiTight_2015_el_QCD_mtCtrl_metSig_0tag_Dplus:
-    regions:
-      - AntiTight_2015_el_QCD_mtCtrl_metSig_0tag_Dplus
-    samples:
-      - Sh_2211_Multijet
-      - MG_Multijet
-      #- Sh_2211_Multijet_Up
-      #- Sh_2211_Multijet_Dn
-    label:
-      - "el QCD AntiTight"
-      - "MET > 30 GeV, mT < 40 GeV"
-    lumi: "2015"
-    save_to_file: True
-
-  AntiTight_2015_el_QCD_mtCtrl_metSig_1tag_Dplus:
-    regions:
-      - AntiTight_2015_el_QCD_mtCtrl_metSig_1tag_Dplus
-      - AntiTight_2015_el_QCD_mtCtrl_metSig_2tag_Dplus
-    samples:
-      - Sh_2211_Multijet
-      - MG_Multijet
-      #- Sh_2211_Multijet_Up
-      #- Sh_2211_Multijet_Dn
-    label:
-      - "el QCD AntiTight"
-      - "MET > 30 GeV, mT < 40 GeV"
-    lumi: "2015"
-    save_to_file: True
-
-  AntiTight_2015_mu_QCD_mtCtrl_metSig_0tag_Dplus:
-    regions:
-      - AntiTight_2015_mu_QCD_mtCtrl_metSig_0tag_Dplus
-    samples:
-      - Sh_2211_Multijet
-      - MG_Multijet
-      #- Sh_2211_Multijet_Up
-      #- Sh_2211_Multijet_Dn
-    label:
-      - "mu QCD AntiTight"
-      - "MET > 30 GeV, mT < 40 GeV"
-    lumi: "2015"
-    save_to_file: True
-
-  AntiTight_2015_mu_QCD_mtCtrl_metSig_1tag_Dplus:
-    regions:
-      - AntiTight_2015_mu_QCD_mtCtrl_metSig_1tag_Dplus
-      - AntiTight_2015_mu_QCD_mtCtrl_metSig_2tag_Dplus
-    samples:
-      - Sh_2211_Multijet
-      - MG_Multijet
-      #- Sh_2211_Multijet_Up
-      #- Sh_2211_Multijet_Dn
-    label:
-      - "mu QCD AntiTight"
-      - "MET > 30 GeV, mT < 40 GeV"
-    lumi: "2015"
-    save_to_file: True
-
-        #xyz
-  Tight_2016_el_QCD_mtCtrl_metSig_0tag_Dplus:
-    regions:
-      - Tight_2016A-B_el_QCD_mtCtrl_metSig_0tag_Dplus
-      - Tight_2016C-L_el_QCD_mtCtrl_metSig_0tag_Dplus
-    samples:
-      - Sh_2211_Multijet
-      - MG_Multijet
-      #- Sh_2211_Multijet_Up
-      #- Sh_2211_Multijet_Dn
-    label:
-      - "el QCD Tight"
-      - "MET > 30 GeV, mT < 40 GeV"
-    lumi: "2016"
-    save_to_file: True
-
-  Tight_2016_el_QCD_mtCtrl_metSig_1tag_Dplus:
-    regions:
-      - Tight_2016A-B_el_QCD_mtCtrl_metSig_1tag_Dplus
-      - Tight_2016A-B_el_QCD_mtCtrl_metSig_2tag_Dplus
-      - Tight_2016C-L_el_QCD_mtCtrl_metSig_1tag_Dplus
-      - Tight_2016C-L_el_QCD_mtCtrl_metSig_2tag_Dplus
-    samples:
-      - Sh_2211_Multijet
-      - MG_Multijet
-      #- Sh_2211_Multijet_Up
-      #- Sh_2211_Multijet_Dn
-    label:
-      - "el QCD Tight"
-      - "MET > 30 GeV, mT < 40 GeV"
-    lumi: "2016"
-    save_to_file: True
-
-  Tight_2016_mu_QCD_mtCtrl_metSig_0tag_Dplus:
-    regions:
-      - Tight_2016A-B_mu_QCD_mtCtrl_metSig_0tag_Dplus
-      - Tight_2016C-L_mu_QCD_mtCtrl_metSig_0tag_Dplus
-    samples:
-      - Sh_2211_Multijet
-      - MG_Multijet
-      #- Sh_2211_Multijet_Up
-      #- Sh_2211_Multijet_Dn
-    label:
-      - "mu QCD Tight"
-      - "MET > 30 GeV, mT < 40 GeV"
-    lumi: "2016"
-    save_to_file: True
-
-  Tight_2016_mu_QCD_mtCtrl_metSig_1tag_Dplus:
-    regions:
-      - Tight_2016A-B_mu_QCD_mtCtrl_metSig_1tag_Dplus
-      - Tight_2016A-B_mu_QCD_mtCtrl_metSig_2tag_Dplus
-      - Tight_2016C-L_mu_QCD_mtCtrl_metSig_1tag_Dplus
-      - Tight_2016C-L_mu_QCD_mtCtrl_metSig_2tag_Dplus
-    samples:
-      - Sh_2211_Multijet
-      - MG_Multijet
-      #- Sh_2211_Multijet_Up
-      #- Sh_2211_Multijet_Dn
-    label:
-      - "mu QCD Tight"
-      - "MET > 30 GeV, mT < 40 GeV"
-    lumi: "2016"
-    save_to_file: True
-
-  AntiTight_2016_el_QCD_mtCtrl_metSig_0tag_Dplus:
-    regions:
-      - AntiTight_2016A-B_el_QCD_mtCtrl_metSig_0tag_Dplus
-      - AntiTight_2016C-L_el_QCD_mtCtrl_metSig_0tag_Dplus
-    samples:
-      - Sh_2211_Multijet
-      - MG_Multijet
-      #- Sh_2211_Multijet_Up
-      #- Sh_2211_Multijet_Dn
-    label:
-      - "el QCD AntiTight"
-      - "MET > 30 GeV, mT < 40 GeV"
-    lumi: "2016"
-    save_to_file: True
-
-  AntiTight_2016_el_QCD_mtCtrl_metSig_1tag_Dplus:
-    regions:
-      - AntiTight_2016A-B_el_QCD_mtCtrl_metSig_1tag_Dplus
-      - AntiTight_2016A-B_el_QCD_mtCtrl_metSig_2tag_Dplus
-      - AntiTight_2016C-L_el_QCD_mtCtrl_metSig_1tag_Dplus
-      - AntiTight_2016C-L_el_QCD_mtCtrl_metSig_2tag_Dplus
-    samples:
-      - Sh_2211_Multijet
-      - MG_Multijet
-      #- Sh_2211_Multijet_Up
-      #- Sh_2211_Multijet_Dn
-    label:
-      - "el QCD AntiTight"
-      - "MET > 30 GeV, mT < 40 GeV"
-    lumi: "2016"
-    save_to_file: True
-
-  AntiTight_2016_mu_QCD_mtCtrl_metSig_0tag_Dplus:
-    regions:
-      - AntiTight_2016A-B_mu_QCD_mtCtrl_metSig_0tag_Dplus
-      - AntiTight_2016C-L_mu_QCD_mtCtrl_metSig_0tag_Dplus
-    samples:
-      - Sh_2211_Multijet
-      - MG_Multijet
-      #- Sh_2211_Multijet_Up
-      #- Sh_2211_Multijet_Dn
-    label:
-      - "mu QCD AntiTight"
-      - "MET > 30 GeV, mT < 40 GeV"
-    lumi: "2016"
-    save_to_file: True
-
-  AntiTight_2016_mu_QCD_mtCtrl_metSig_1tag_Dplus:
-    regions:
-      - AntiTight_2016A-B_mu_QCD_mtCtrl_metSig_1tag_Dplus
-      - AntiTight_2016A-B_mu_QCD_mtCtrl_metSig_2tag_Dplus
-      - AntiTight_2016C-L_mu_QCD_mtCtrl_metSig_1tag_Dplus
-      - AntiTight_2016C-L_mu_QCD_mtCtrl_metSig_2tag_Dplus
-    samples:
-      - Sh_2211_Multijet
-      - MG_Multijet
-      #- Sh_2211_Multijet_Up
-      #- Sh_2211_Multijet_Dn
-    label:
-      - "mu QCD AntiTight"
-      - "MET > 30 GeV, mT < 40 GeV"
-    lumi: "2016"
-    save_to_file: True
-
-    #xyz
-  Tight_2015-16_el_QCD_mtCtrl_metSig_0tag_Dplus:
-    regions:
-      - Tight_2015_el_QCD_mtCtrl_metSig_0tag_Dplus
-      - Tight_2016A-B_el_QCD_mtCtrl_metSig_0tag_Dplus
-      - Tight_2016C-L_el_QCD_mtCtrl_metSig_0tag_Dplus
-    samples:
-      - Sh_2211_Multijet
-      - MG_Multijet
-      #- Sh_2211_Multijet_Up
-      #- Sh_2211_Multijet_Dn
-    label:
-      - "el QCD Tight"
-      - "MET > 30 GeV, mT < 40 GeV"
-    lumi: "2015+2016"
-    save_to_file: True
-
-  Tight_2015-16_el_QCD_mtCtrl_metSig_1tag_Dplus:
-    regions:
-      - Tight_2015_el_QCD_mtCtrl_metSig_1tag_Dplus
-      - Tight_2015_el_QCD_mtCtrl_metSig_2tag_Dplus
-      - Tight_2016A-B_el_QCD_mtCtrl_metSig_1tag_Dplus
-      - Tight_2016A-B_el_QCD_mtCtrl_metSig_2tag_Dplus
-      - Tight_2016C-L_el_QCD_mtCtrl_metSig_1tag_Dplus
-      - Tight_2016C-L_el_QCD_mtCtrl_metSig_2tag_Dplus
-    samples:
-      - Sh_2211_Multijet
-      - MG_Multijet
-      #- Sh_2211_Multijet_Up
-      #- Sh_2211_Multijet_Dn
-    label:
-      - "el QCD Tight"
-      - "MET > 30 GeV, mT < 40 GeV"
-    lumi: "2015+2016"
-    save_to_file: True
-
-  Tight_2015-16_mu_QCD_mtCtrl_metSig_0tag_Dplus:
-    regions:
-      - Tight_2015_mu_QCD_mtCtrl_metSig_0tag_Dplus
-      - Tight_2016A-B_mu_QCD_mtCtrl_metSig_0tag_Dplus
-      - Tight_2016C-L_mu_QCD_mtCtrl_metSig_0tag_Dplus
-    samples:
-      - Sh_2211_Multijet
-      - MG_Multijet
-      #- Sh_2211_Multijet_Up
-      #- Sh_2211_Multijet_Dn
-    label:
-      - "mu QCD Tight"
-      - "MET > 30 GeV, mT < 40 GeV"
-    lumi: "2015+2016"
-    save_to_file: True
-
-  Tight_2015-16_mu_QCD_mtCtrl_metSig_1tag_Dplus:
-    regions:
-      - Tight_2015_mu_QCD_mtCtrl_metSig_1tag_Dplus
-      - Tight_2015_mu_QCD_mtCtrl_metSig_2tag_Dplus
-      - Tight_2016A-B_mu_QCD_mtCtrl_metSig_1tag_Dplus
-      - Tight_2016A-B_mu_QCD_mtCtrl_metSig_2tag_Dplus
-      - Tight_2016C-L_mu_QCD_mtCtrl_metSig_1tag_Dplus
-      - Tight_2016C-L_mu_QCD_mtCtrl_metSig_2tag_Dplus
-    samples:
-      - Sh_2211_Multijet
-      - MG_Multijet
-      #- Sh_2211_Multijet_Up
-      #- Sh_2211_Multijet_Dn
-    label:
-      - "mu QCD Tight"
-      - "MET > 30 GeV, mT < 40 GeV"
-    lumi: "2015+2016"
-    save_to_file: True
-
-  AntiTight_2015-16_el_QCD_mtCtrl_metSig_0tag_Dplus:
-    regions:
-      - AntiTight_2015_el_QCD_mtCtrl_metSig_0tag_Dplus
-      - AntiTight_2016A-B_el_QCD_mtCtrl_metSig_0tag_Dplus
-      - AntiTight_2016C-L_el_QCD_mtCtrl_metSig_0tag_Dplus
-    samples:
-      - Sh_2211_Multijet
-      - MG_Multijet
-      #- Sh_2211_Multijet_Up
-      #- Sh_2211_Multijet_Dn
-    label:
-      - "el QCD AntiTight"
-      - "MET > 30 GeV, mT < 40 GeV"
-    lumi: "2015+2016"
-    save_to_file: True
-
-  AntiTight_2015-16_el_QCD_mtCtrl_metSig_1tag_Dplus:
-    regions:
-      - AntiTight_2015_el_QCD_mtCtrl_metSig_1tag_Dplus
-      - AntiTight_2015_el_QCD_mtCtrl_metSig_2tag_Dplus
-      - AntiTight_2016A-B_el_QCD_mtCtrl_metSig_1tag_Dplus
-      - AntiTight_2016A-B_el_QCD_mtCtrl_metSig_2tag_Dplus
-      - AntiTight_2016C-L_el_QCD_mtCtrl_metSig_1tag_Dplus
-      - AntiTight_2016C-L_el_QCD_mtCtrl_metSig_2tag_Dplus
-    samples:
-      - Sh_2211_Multijet
-      - MG_Multijet
-      #- Sh_2211_Multijet_Up
-      #- Sh_2211_Multijet_Dn
-    label:
-      - "el QCD AntiTight"
-      - "MET > 30 GeV, mT < 40 GeV"
-    lumi: "2015+2016"
-    save_to_file: True
-
-  AntiTight_2015-16_mu_QCD_mtCtrl_metSig_0tag_Dplus:
-    regions:
-      - AntiTight_2015_mu_QCD_mtCtrl_metSig_0tag_Dplus
-      - AntiTight_2016A-B_mu_QCD_mtCtrl_metSig_0tag_Dplus
-      - AntiTight_2016C-L_mu_QCD_mtCtrl_metSig_0tag_Dplus
-    samples:
-      - Sh_2211_Multijet
-      - MG_Multijet
-      #- Sh_2211_Multijet_Up
-      #- Sh_2211_Multijet_Dn
-    label:
-      - "mu QCD AntiTight"
-      - "MET > 30 GeV, mT < 40 GeV"
-    lumi: "2015+2016"
-    save_to_file: True
-
-  AntiTight_2015-16_mu_QCD_mtCtrl_metSig_1tag_Dplus:
-    regions:
-      - AntiTight_2015_mu_QCD_mtCtrl_metSig_1tag_Dplus
-      - AntiTight_2015_mu_QCD_mtCtrl_metSig_2tag_Dplus
-      - AntiTight_2016A-B_mu_QCD_mtCtrl_metSig_1tag_Dplus
-      - AntiTight_2016A-B_mu_QCD_mtCtrl_metSig_2tag_Dplus
-      - AntiTight_2016C-L_mu_QCD_mtCtrl_metSig_1tag_Dplus
-      - AntiTight_2016C-L_mu_QCD_mtCtrl_metSig_2tag_Dplus
-    samples:
-      - Sh_2211_Multijet
-      - MG_Multijet
-      #- Sh_2211_Multijet_Up
-      #- Sh_2211_Multijet_Dn
-    label:
-      - "mu QCD AntiTight"
-      - "MET > 30 GeV, mT < 40 GeV"
-    lumi: "2015+2016"
-    save_to_file: True
-
+#  Tight_2018_el_QCD_mtCtrl_metSig_0tag_Dplus:
+#    regions:
+#      - Tight_2018_el_QCD_mtCtrl_metSig_0tag_Dplus
+#    samples:
+#      - Sh_2211_Multijet
+#      - MG_Multijet
+#      #- Sh_2211_Multijet_Up
+#      #- Sh_2211_Multijet_Dn
+#    label:
+#      - "el QCD Tight"
+#      - "MET > 30 GeV, mT < 40 GeV"
+#    lumi: "2018"
+#    save_to_file: True
+#
+#  Tight_2018_el_QCD_mtCtrl_metSig_1tag_Dplus:
+#    regions:
+#      - Tight_2018_el_QCD_mtCtrl_metSig_1tag_Dplus
+#      - Tight_2018_el_QCD_mtCtrl_metSig_2tag_Dplus
+#    samples:
+#      - Sh_2211_Multijet
+#      - MG_Multijet
+#      #- Sh_2211_Multijet_Up
+#      #- Sh_2211_Multijet_Dn
+#    label:
+#      - "el QCD Tight"
+#      - "MET > 30 GeV, mT < 40 GeV"
+#    lumi: "2018"
+#    save_to_file: True
+#
+#  Tight_2018_mu_QCD_mtCtrl_metSig_0tag_Dplus:
+#    regions:
+#      - Tight_2018_mu_QCD_mtCtrl_metSig_0tag_Dplus
+#    samples:
+#      - Sh_2211_Multijet
+#      - MG_Multijet
+#      #- Sh_2211_Multijet_Up
+#      #- Sh_2211_Multijet_Dn
+#    label:
+#      - "mu QCD Tight"
+#      - "MET > 30 GeV, mT < 40 GeV"
+#    lumi: "2018"
+#    save_to_file: True
+#
+#  Tight_2018_mu_QCD_mtCtrl_metSig_1tag_Dplus:
+#    regions:
+#      - Tight_2018_mu_QCD_mtCtrl_metSig_1tag_Dplus
+#      - Tight_2018_mu_QCD_mtCtrl_metSig_2tag_Dplus
+#    samples:
+#      - Sh_2211_Multijet
+#      - MG_Multijet
+#      #- Sh_2211_Multijet_Up
+#      #- Sh_2211_Multijet_Dn
+#    label:
+#      - "mu QCD Tight"
+#      - "MET > 30 GeV, mT < 40 GeV"
+#    lumi: "2018"
+#    save_to_file: True
+#
+#  AntiTight_2018_el_QCD_mtCtrl_metSig_0tag_Dplus:
+#    regions:
+#      - AntiTight_2018_el_QCD_mtCtrl_metSig_0tag_Dplus
+#    samples:
+#      - Sh_2211_Multijet
+#      - MG_Multijet
+#      #- Sh_2211_Multijet_Up
+#      #- Sh_2211_Multijet_Dn
+#    label:
+#      - "el QCD AntiTight"
+#      - "MET > 30 GeV, mT < 40 GeV"
+#    lumi: "2018"
+#    save_to_file: True
+#
+#  AntiTight_2018_el_QCD_mtCtrl_metSig_1tag_Dplus:
+#    regions:
+#      - AntiTight_2018_el_QCD_mtCtrl_metSig_1tag_Dplus
+#      - AntiTight_2018_el_QCD_mtCtrl_metSig_2tag_Dplus
+#    samples:
+#      - Sh_2211_Multijet
+#      - MG_Multijet
+#      #- Sh_2211_Multijet_Up
+#      #- Sh_2211_Multijet_Dn
+#    label:
+#      - "el QCD AntiTight"
+#      - "MET > 30 GeV, mT < 40 GeV"
+#    lumi: "2018"
+#    save_to_file: True
+#
+#  AntiTight_2018_mu_QCD_mtCtrl_metSig_0tag_Dplus:
+#    regions:
+#      - AntiTight_2018_mu_QCD_mtCtrl_metSig_0tag_Dplus
+#    samples:
+#      - Sh_2211_Multijet
+#      - MG_Multijet
+#      #- Sh_2211_Multijet_Up
+#      #- Sh_2211_Multijet_Dn
+#    label:
+#      - "mu QCD AntiTight"
+#      - "MET > 30 GeV, mT < 40 GeV"
+#    lumi: "2018"
+#    save_to_file: True
+#
+#  AntiTight_2018_mu_QCD_mtCtrl_metSig_1tag_Dplus:
+#    regions:
+#      - AntiTight_2018_mu_QCD_mtCtrl_metSig_1tag_Dplus
+#      - AntiTight_2018_mu_QCD_mtCtrl_metSig_2tag_Dplus
+#    samples:
+#      - Sh_2211_Multijet
+#      - MG_Multijet
+#      #- Sh_2211_Multijet_Up
+#      #- Sh_2211_Multijet_Dn
+#    label:
+#      - "mu QCD AntiTight"
+#      - "MET > 30 GeV, mT < 40 GeV"
+#    lumi: "2018"
+#    save_to_file: True
+#
+#  Tight_2017_el_QCD_mtCtrl_metSig_0tag_Dplus:
+#    regions:
+#      - Tight_2017_el_QCD_mtCtrl_metSig_0tag_Dplus
+#      - Tight_2016A-B_el_QCD_mtCtrl_metSig_0tag_Dplus
+#      - Tight_2016C-L_el_QCD_mtCtrl_metSig_0tag_Dplus
+#    samples:
+#      - Sh_2211_Multijet
+#      - MG_Multijet
+#      #- Sh_2211_Multijet_Up
+#      #- Sh_2211_Multijet_Dn
+#    label:
+#      - "el QCD Tight"
+#      - "MET > 30 GeV, mT < 40 GeV"
+#    lumi: "2017"
+#    save_to_file: True
+#
+#  Tight_2017_el_QCD_mtCtrl_metSig_1tag_Dplus:
+#    regions:
+#      - Tight_2017_el_QCD_mtCtrl_metSig_1tag_Dplus
+#      - Tight_2016A-B_el_QCD_mtCtrl_metSig_1tag_Dplus
+#      - Tight_2016C-L_el_QCD_mtCtrl_metSig_1tag_Dplus
+#      - Tight_2017_el_QCD_mtCtrl_metSig_2tag_Dplus
+#      - Tight_2016A-B_el_QCD_mtCtrl_metSig_2tag_Dplus
+#      - Tight_2016C-L_el_QCD_mtCtrl_metSig_2tag_Dplus
+#    samples:
+#      - Sh_2211_Multijet
+#      - MG_Multijet
+#      #- Sh_2211_Multijet_Up
+#      #- Sh_2211_Multijet_Dn
+#    label:
+#      - "el QCD Tight"
+#      - "MET > 30 GeV, mT < 40 GeV"
+#    lumi: "2017"
+#    save_to_file: True
+#
+#  Tight_2017_mu_QCD_mtCtrl_metSig_0tag_Dplus:
+#    regions:
+#      - Tight_2017_mu_QCD_mtCtrl_metSig_0tag_Dplus
+#      - Tight_2016A-B_mu_QCD_mtCtrl_metSig_0tag_Dplus
+#      - Tight_2016C-L_mu_QCD_mtCtrl_metSig_0tag_Dplus
+#    samples:
+#      - Sh_2211_Multijet
+#      - MG_Multijet
+#      #- Sh_2211_Multijet_Up
+#      #- Sh_2211_Multijet_Dn
+#    label:
+#      - "mu QCD Tight"
+#      - "MET > 30 GeV, mT < 40 GeV"
+#    lumi: "2017"
+#    save_to_file: True
+#
+#  Tight_2017_mu_QCD_mtCtrl_metSig_1tag_Dplus:
+#    regions:
+#      - Tight_2017_mu_QCD_mtCtrl_metSig_1tag_Dplus
+#      - Tight_2016A-B_mu_QCD_mtCtrl_metSig_1tag_Dplus
+#      - Tight_2016C-L_mu_QCD_mtCtrl_metSig_1tag_Dplus
+#      - Tight_2017_mu_QCD_mtCtrl_metSig_2tag_Dplus
+#      - Tight_2016A-B_mu_QCD_mtCtrl_metSig_2tag_Dplus
+#      - Tight_2016C-L_mu_QCD_mtCtrl_metSig_2tag_Dplus
+#    samples:
+#      - Sh_2211_Multijet
+#      - MG_Multijet
+#      #- Sh_2211_Multijet_Up
+#      #- Sh_2211_Multijet_Dn
+#    label:
+#      - "mu QCD Tight"
+#      - "MET > 30 GeV, mT < 40 GeV"
+#    lumi: "2017"
+#    save_to_file: True
+#
+#  AntiTight_2017_el_QCD_mtCtrl_metSig_0tag_Dplus:
+#    regions:
+#      - AntiTight_2017_el_QCD_mtCtrl_metSig_0tag_Dplus
+#      - AntiTight_2016A-B_el_QCD_mtCtrl_metSig_0tag_Dplus
+#      - AntiTight_2016C-L_el_QCD_mtCtrl_metSig_0tag_Dplus
+#    samples:
+#      - Sh_2211_Multijet
+#      - MG_Multijet
+#      #- Sh_2211_Multijet_Up
+#      #- Sh_2211_Multijet_Dn
+#    label:
+#      - "el QCD AntiTight"
+#      - "MET > 30 GeV, mT < 40 GeV"
+#    lumi: "2017"
+#    save_to_file: True
+#
+#  AntiTight_2017_el_QCD_mtCtrl_metSig_1tag_Dplus:
+#    regions:
+#      - AntiTight_2017_el_QCD_mtCtrl_metSig_1tag_Dplus
+#      - AntiTight_2016A-B_el_QCD_mtCtrl_metSig_1tag_Dplus
+#      - AntiTight_2016C-L_el_QCD_mtCtrl_metSig_1tag_Dplus
+#      - AntiTight_2017_el_QCD_mtCtrl_metSig_2tag_Dplus
+#      - AntiTight_2016A-B_el_QCD_mtCtrl_metSig_2tag_Dplus
+#      - AntiTight_2016C-L_el_QCD_mtCtrl_metSig_2tag_Dplus
+#    samples:
+#      - Sh_2211_Multijet
+#      - MG_Multijet
+#      #- Sh_2211_Multijet_Up
+#      #- Sh_2211_Multijet_Dn
+#    label:
+#      - "el QCD AntiTight"
+#      - "MET > 30 GeV, mT < 40 GeV"
+#    lumi: "2017"
+#    save_to_file: True
+#
+#  AntiTight_2017_mu_QCD_mtCtrl_metSig_0tag_Dplus:
+#    regions:
+#      - AntiTight_2017_mu_QCD_mtCtrl_metSig_0tag_Dplus
+#      - AntiTight_2016A-B_mu_QCD_mtCtrl_metSig_0tag_Dplus
+#      - AntiTight_2016C-L_mu_QCD_mtCtrl_metSig_0tag_Dplus
+#    samples:
+#      - Sh_2211_Multijet
+#      - MG_Multijet
+#      #- Sh_2211_Multijet_Up
+#      #- Sh_2211_Multijet_Dn
+#    label:
+#      - "mu QCD AntiTight"
+#      - "MET > 30 GeV, mT < 40 GeV"
+#    lumi: "2017"
+#    save_to_file: True
+#
+#  AntiTight_2017_mu_QCD_mtCtrl_metSig_1tag_Dplus:
+#    regions:
+#      - AntiTight_2017_mu_QCD_mtCtrl_metSig_1tag_Dplus
+#      - AntiTight_2016A-B_mu_QCD_mtCtrl_metSig_1tag_Dplus
+#      - AntiTight_2016C-L_mu_QCD_mtCtrl_metSig_1tag_Dplus
+#      - AntiTight_2017_mu_QCD_mtCtrl_metSig_2tag_Dplus
+#      - AntiTight_2016A-B_mu_QCD_mtCtrl_metSig_2tag_Dplus
+#      - AntiTight_2016C-L_mu_QCD_mtCtrl_metSig_2tag_Dplus
+#    samples:
+#      - Sh_2211_Multijet
+#      - MG_Multijet
+#      #- Sh_2211_Multijet_Up
+#      #- Sh_2211_Multijet_Dn
+#    label:
+#      - "mu QCD AntiTight"
+#      - "MET > 30 GeV, mT < 40 GeV"
+#    lumi: "2017"
+#    save_to_file: True
+#
+#    #xyz
+#  Tight_2015_el_QCD_mtCtrl_metSig_0tag_Dplus:
+#    regions:
+#      - Tight_2015_el_QCD_mtCtrl_metSig_0tag_Dplus
+#    samples:
+#      - Sh_2211_Multijet
+#      - MG_Multijet
+#      #- Sh_2211_Multijet_Up
+#      #- Sh_2211_Multijet_Dn
+#    label:
+#      - "el QCD Tight"
+#      - "MET > 30 GeV, mT < 40 GeV"
+#    lumi: "2015"
+#    save_to_file: True
+#
+#  Tight_2015_el_QCD_mtCtrl_metSig_1tag_Dplus:
+#    regions:
+#      - Tight_2015_el_QCD_mtCtrl_metSig_1tag_Dplus
+#      - Tight_2015_el_QCD_mtCtrl_metSig_2tag_Dplus
+#    samples:
+#      - Sh_2211_Multijet
+#      - MG_Multijet
+#      #- Sh_2211_Multijet_Up
+#      #- Sh_2211_Multijet_Dn
+#    label:
+#      - "el QCD Tight"
+#      - "MET > 30 GeV, mT < 40 GeV"
+#    lumi: "2015"
+#    save_to_file: True
+#
+#  Tight_2015_mu_QCD_mtCtrl_metSig_0tag_Dplus:
+#    regions:
+#      - Tight_2015_mu_QCD_mtCtrl_metSig_0tag_Dplus
+#    samples:
+#      - Sh_2211_Multijet
+#      - MG_Multijet
+#      #- Sh_2211_Multijet_Up
+#      #- Sh_2211_Multijet_Dn
+#    label:
+#      - "mu QCD Tight"
+#      - "MET > 30 GeV, mT < 40 GeV"
+#    lumi: "2015"
+#    save_to_file: True
+#
+#  Tight_2015_mu_QCD_mtCtrl_metSig_1tag_Dplus:
+#    regions:
+#      - Tight_2015_mu_QCD_mtCtrl_metSig_1tag_Dplus
+#      - Tight_2015_mu_QCD_mtCtrl_metSig_2tag_Dplus
+#    samples:
+#      - Sh_2211_Multijet
+#      - MG_Multijet
+#      #- Sh_2211_Multijet_Up
+#      #- Sh_2211_Multijet_Dn
+#    label:
+#      - "mu QCD Tight"
+#      - "MET > 30 GeV, mT < 40 GeV"
+#    lumi: "2015"
+#    save_to_file: True
+#
+#  AntiTight_2015_el_QCD_mtCtrl_metSig_0tag_Dplus:
+#    regions:
+#      - AntiTight_2015_el_QCD_mtCtrl_metSig_0tag_Dplus
+#    samples:
+#      - Sh_2211_Multijet
+#      - MG_Multijet
+#      #- Sh_2211_Multijet_Up
+#      #- Sh_2211_Multijet_Dn
+#    label:
+#      - "el QCD AntiTight"
+#      - "MET > 30 GeV, mT < 40 GeV"
+#    lumi: "2015"
+#    save_to_file: True
+#
+#  AntiTight_2015_el_QCD_mtCtrl_metSig_1tag_Dplus:
+#    regions:
+#      - AntiTight_2015_el_QCD_mtCtrl_metSig_1tag_Dplus
+#      - AntiTight_2015_el_QCD_mtCtrl_metSig_2tag_Dplus
+#    samples:
+#      - Sh_2211_Multijet
+#      - MG_Multijet
+#      #- Sh_2211_Multijet_Up
+#      #- Sh_2211_Multijet_Dn
+#    label:
+#      - "el QCD AntiTight"
+#      - "MET > 30 GeV, mT < 40 GeV"
+#    lumi: "2015"
+#    save_to_file: True
+#
+#  AntiTight_2015_mu_QCD_mtCtrl_metSig_0tag_Dplus:
+#    regions:
+#      - AntiTight_2015_mu_QCD_mtCtrl_metSig_0tag_Dplus
+#    samples:
+#      - Sh_2211_Multijet
+#      - MG_Multijet
+#      #- Sh_2211_Multijet_Up
+#      #- Sh_2211_Multijet_Dn
+#    label:
+#      - "mu QCD AntiTight"
+#      - "MET > 30 GeV, mT < 40 GeV"
+#    lumi: "2015"
+#    save_to_file: True
+#
+#  AntiTight_2015_mu_QCD_mtCtrl_metSig_1tag_Dplus:
+#    regions:
+#      - AntiTight_2015_mu_QCD_mtCtrl_metSig_1tag_Dplus
+#      - AntiTight_2015_mu_QCD_mtCtrl_metSig_2tag_Dplus
+#    samples:
+#      - Sh_2211_Multijet
+#      - MG_Multijet
+#      #- Sh_2211_Multijet_Up
+#      #- Sh_2211_Multijet_Dn
+#    label:
+#      - "mu QCD AntiTight"
+#      - "MET > 30 GeV, mT < 40 GeV"
+#    lumi: "2015"
+#    save_to_file: True
+#
+#        #xyz
+#  Tight_2016_el_QCD_mtCtrl_metSig_0tag_Dplus:
+#    regions:
+#      - Tight_2016A-B_el_QCD_mtCtrl_metSig_0tag_Dplus
+#      - Tight_2016C-L_el_QCD_mtCtrl_metSig_0tag_Dplus
+#    samples:
+#      - Sh_2211_Multijet
+#      - MG_Multijet
+#      #- Sh_2211_Multijet_Up
+#      #- Sh_2211_Multijet_Dn
+#    label:
+#      - "el QCD Tight"
+#      - "MET > 30 GeV, mT < 40 GeV"
+#    lumi: "2016"
+#    save_to_file: True
+#
+#  Tight_2016_el_QCD_mtCtrl_metSig_1tag_Dplus:
+#    regions:
+#      - Tight_2016A-B_el_QCD_mtCtrl_metSig_1tag_Dplus
+#      - Tight_2016A-B_el_QCD_mtCtrl_metSig_2tag_Dplus
+#      - Tight_2016C-L_el_QCD_mtCtrl_metSig_1tag_Dplus
+#      - Tight_2016C-L_el_QCD_mtCtrl_metSig_2tag_Dplus
+#    samples:
+#      - Sh_2211_Multijet
+#      - MG_Multijet
+#      #- Sh_2211_Multijet_Up
+#      #- Sh_2211_Multijet_Dn
+#    label:
+#      - "el QCD Tight"
+#      - "MET > 30 GeV, mT < 40 GeV"
+#    lumi: "2016"
+#    save_to_file: True
+#
+#  Tight_2016_mu_QCD_mtCtrl_metSig_0tag_Dplus:
+#    regions:
+#      - Tight_2016A-B_mu_QCD_mtCtrl_metSig_0tag_Dplus
+#      - Tight_2016C-L_mu_QCD_mtCtrl_metSig_0tag_Dplus
+#    samples:
+#      - Sh_2211_Multijet
+#      - MG_Multijet
+#      #- Sh_2211_Multijet_Up
+#      #- Sh_2211_Multijet_Dn
+#    label:
+#      - "mu QCD Tight"
+#      - "MET > 30 GeV, mT < 40 GeV"
+#    lumi: "2016"
+#    save_to_file: True
+#
+#  Tight_2016_mu_QCD_mtCtrl_metSig_1tag_Dplus:
+#    regions:
+#      - Tight_2016A-B_mu_QCD_mtCtrl_metSig_1tag_Dplus
+#      - Tight_2016A-B_mu_QCD_mtCtrl_metSig_2tag_Dplus
+#      - Tight_2016C-L_mu_QCD_mtCtrl_metSig_1tag_Dplus
+#      - Tight_2016C-L_mu_QCD_mtCtrl_metSig_2tag_Dplus
+#    samples:
+#      - Sh_2211_Multijet
+#      - MG_Multijet
+#      #- Sh_2211_Multijet_Up
+#      #- Sh_2211_Multijet_Dn
+#    label:
+#      - "mu QCD Tight"
+#      - "MET > 30 GeV, mT < 40 GeV"
+#    lumi: "2016"
+#    save_to_file: True
+#
+#  AntiTight_2016_el_QCD_mtCtrl_metSig_0tag_Dplus:
+#    regions:
+#      - AntiTight_2016A-B_el_QCD_mtCtrl_metSig_0tag_Dplus
+#      - AntiTight_2016C-L_el_QCD_mtCtrl_metSig_0tag_Dplus
+#    samples:
+#      - Sh_2211_Multijet
+#      - MG_Multijet
+#      #- Sh_2211_Multijet_Up
+#      #- Sh_2211_Multijet_Dn
+#    label:
+#      - "el QCD AntiTight"
+#      - "MET > 30 GeV, mT < 40 GeV"
+#    lumi: "2016"
+#    save_to_file: True
+#
+#  AntiTight_2016_el_QCD_mtCtrl_metSig_1tag_Dplus:
+#    regions:
+#      - AntiTight_2016A-B_el_QCD_mtCtrl_metSig_1tag_Dplus
+#      - AntiTight_2016A-B_el_QCD_mtCtrl_metSig_2tag_Dplus
+#      - AntiTight_2016C-L_el_QCD_mtCtrl_metSig_1tag_Dplus
+#      - AntiTight_2016C-L_el_QCD_mtCtrl_metSig_2tag_Dplus
+#    samples:
+#      - Sh_2211_Multijet
+#      - MG_Multijet
+#      #- Sh_2211_Multijet_Up
+#      #- Sh_2211_Multijet_Dn
+#    label:
+#      - "el QCD AntiTight"
+#      - "MET > 30 GeV, mT < 40 GeV"
+#    lumi: "2016"
+#    save_to_file: True
+#
+#  AntiTight_2016_mu_QCD_mtCtrl_metSig_0tag_Dplus:
+#    regions:
+#      - AntiTight_2016A-B_mu_QCD_mtCtrl_metSig_0tag_Dplus
+#      - AntiTight_2016C-L_mu_QCD_mtCtrl_metSig_0tag_Dplus
+#    samples:
+#      - Sh_2211_Multijet
+#      - MG_Multijet
+#      #- Sh_2211_Multijet_Up
+#      #- Sh_2211_Multijet_Dn
+#    label:
+#      - "mu QCD AntiTight"
+#      - "MET > 30 GeV, mT < 40 GeV"
+#    lumi: "2016"
+#    save_to_file: True
+#
+#  AntiTight_2016_mu_QCD_mtCtrl_metSig_1tag_Dplus:
+#    regions:
+#      - AntiTight_2016A-B_mu_QCD_mtCtrl_metSig_1tag_Dplus
+#      - AntiTight_2016A-B_mu_QCD_mtCtrl_metSig_2tag_Dplus
+#      - AntiTight_2016C-L_mu_QCD_mtCtrl_metSig_1tag_Dplus
+#      - AntiTight_2016C-L_mu_QCD_mtCtrl_metSig_2tag_Dplus
+#    samples:
+#      - Sh_2211_Multijet
+#      - MG_Multijet
+#      #- Sh_2211_Multijet_Up
+#      #- Sh_2211_Multijet_Dn
+#    label:
+#      - "mu QCD AntiTight"
+#      - "MET > 30 GeV, mT < 40 GeV"
+#    lumi: "2016"
+#    save_to_file: True
+#
+#    #xyz
+#  Tight_2015-16_el_QCD_mtCtrl_metSig_0tag_Dplus:
+#    regions:
+#      - Tight_2015_el_QCD_mtCtrl_metSig_0tag_Dplus
+#      - Tight_2016A-B_el_QCD_mtCtrl_metSig_0tag_Dplus
+#      - Tight_2016C-L_el_QCD_mtCtrl_metSig_0tag_Dplus
+#    samples:
+#      - Sh_2211_Multijet
+#      - MG_Multijet
+#      #- Sh_2211_Multijet_Up
+#      #- Sh_2211_Multijet_Dn
+#    label:
+#      - "el QCD Tight"
+#      - "MET > 30 GeV, mT < 40 GeV"
+#    lumi: "2015+2016"
+#    save_to_file: True
+#
+#  Tight_2015-16_el_QCD_mtCtrl_metSig_1tag_Dplus:
+#    regions:
+#      - Tight_2015_el_QCD_mtCtrl_metSig_1tag_Dplus
+#      - Tight_2015_el_QCD_mtCtrl_metSig_2tag_Dplus
+#      - Tight_2016A-B_el_QCD_mtCtrl_metSig_1tag_Dplus
+#      - Tight_2016A-B_el_QCD_mtCtrl_metSig_2tag_Dplus
+#      - Tight_2016C-L_el_QCD_mtCtrl_metSig_1tag_Dplus
+#      - Tight_2016C-L_el_QCD_mtCtrl_metSig_2tag_Dplus
+#    samples:
+#      - Sh_2211_Multijet
+#      - MG_Multijet
+#      #- Sh_2211_Multijet_Up
+#      #- Sh_2211_Multijet_Dn
+#    label:
+#      - "el QCD Tight"
+#      - "MET > 30 GeV, mT < 40 GeV"
+#    lumi: "2015+2016"
+#    save_to_file: True
+#
+#  Tight_2015-16_mu_QCD_mtCtrl_metSig_0tag_Dplus:
+#    regions:
+#      - Tight_2015_mu_QCD_mtCtrl_metSig_0tag_Dplus
+#      - Tight_2016A-B_mu_QCD_mtCtrl_metSig_0tag_Dplus
+#      - Tight_2016C-L_mu_QCD_mtCtrl_metSig_0tag_Dplus
+#    samples:
+#      - Sh_2211_Multijet
+#      - MG_Multijet
+#      #- Sh_2211_Multijet_Up
+#      #- Sh_2211_Multijet_Dn
+#    label:
+#      - "mu QCD Tight"
+#      - "MET > 30 GeV, mT < 40 GeV"
+#    lumi: "2015+2016"
+#    save_to_file: True
+#
+#  Tight_2015-16_mu_QCD_mtCtrl_metSig_1tag_Dplus:
+#    regions:
+#      - Tight_2015_mu_QCD_mtCtrl_metSig_1tag_Dplus
+#      - Tight_2015_mu_QCD_mtCtrl_metSig_2tag_Dplus
+#      - Tight_2016A-B_mu_QCD_mtCtrl_metSig_1tag_Dplus
+#      - Tight_2016A-B_mu_QCD_mtCtrl_metSig_2tag_Dplus
+#      - Tight_2016C-L_mu_QCD_mtCtrl_metSig_1tag_Dplus
+#      - Tight_2016C-L_mu_QCD_mtCtrl_metSig_2tag_Dplus
+#    samples:
+#      - Sh_2211_Multijet
+#      - MG_Multijet
+#      #- Sh_2211_Multijet_Up
+#      #- Sh_2211_Multijet_Dn
+#    label:
+#      - "mu QCD Tight"
+#      - "MET > 30 GeV, mT < 40 GeV"
+#    lumi: "2015+2016"
+#    save_to_file: True
+#
+#  AntiTight_2015-16_el_QCD_mtCtrl_metSig_0tag_Dplus:
+#    regions:
+#      - AntiTight_2015_el_QCD_mtCtrl_metSig_0tag_Dplus
+#      - AntiTight_2016A-B_el_QCD_mtCtrl_metSig_0tag_Dplus
+#      - AntiTight_2016C-L_el_QCD_mtCtrl_metSig_0tag_Dplus
+#    samples:
+#      - Sh_2211_Multijet
+#      - MG_Multijet
+#      #- Sh_2211_Multijet_Up
+#      #- Sh_2211_Multijet_Dn
+#    label:
+#      - "el QCD AntiTight"
+#      - "MET > 30 GeV, mT < 40 GeV"
+#    lumi: "2015+2016"
+#    save_to_file: True
+#
+#  AntiTight_2015-16_el_QCD_mtCtrl_metSig_1tag_Dplus:
+#    regions:
+#      - AntiTight_2015_el_QCD_mtCtrl_metSig_1tag_Dplus
+#      - AntiTight_2015_el_QCD_mtCtrl_metSig_2tag_Dplus
+#      - AntiTight_2016A-B_el_QCD_mtCtrl_metSig_1tag_Dplus
+#      - AntiTight_2016A-B_el_QCD_mtCtrl_metSig_2tag_Dplus
+#      - AntiTight_2016C-L_el_QCD_mtCtrl_metSig_1tag_Dplus
+#      - AntiTight_2016C-L_el_QCD_mtCtrl_metSig_2tag_Dplus
+#    samples:
+#      - Sh_2211_Multijet
+#      - MG_Multijet
+#      #- Sh_2211_Multijet_Up
+#      #- Sh_2211_Multijet_Dn
+#    label:
+#      - "el QCD AntiTight"
+#      - "MET > 30 GeV, mT < 40 GeV"
+#    lumi: "2015+2016"
+#    save_to_file: True
+#
+#  AntiTight_2015-16_mu_QCD_mtCtrl_metSig_0tag_Dplus:
+#    regions:
+#      - AntiTight_2015_mu_QCD_mtCtrl_metSig_0tag_Dplus
+#      - AntiTight_2016A-B_mu_QCD_mtCtrl_metSig_0tag_Dplus
+#      - AntiTight_2016C-L_mu_QCD_mtCtrl_metSig_0tag_Dplus
+#    samples:
+#      - Sh_2211_Multijet
+#      - MG_Multijet
+#      #- Sh_2211_Multijet_Up
+#      #- Sh_2211_Multijet_Dn
+#    label:
+#      - "mu QCD AntiTight"
+#      - "MET > 30 GeV, mT < 40 GeV"
+#    lumi: "2015+2016"
+#    save_to_file: True
+#
+#  AntiTight_2015-16_mu_QCD_mtCtrl_metSig_1tag_Dplus:
+#    regions:
+#      - AntiTight_2015_mu_QCD_mtCtrl_metSig_1tag_Dplus
+#      - AntiTight_2015_mu_QCD_mtCtrl_metSig_2tag_Dplus
+#      - AntiTight_2016A-B_mu_QCD_mtCtrl_metSig_1tag_Dplus
+#      - AntiTight_2016A-B_mu_QCD_mtCtrl_metSig_2tag_Dplus
+#      - AntiTight_2016C-L_mu_QCD_mtCtrl_metSig_1tag_Dplus
+#      - AntiTight_2016C-L_mu_QCD_mtCtrl_metSig_2tag_Dplus
+#    samples:
+#      - Sh_2211_Multijet
+#      - MG_Multijet
+#      #- Sh_2211_Multijet_Up
+#      #- Sh_2211_Multijet_Dn
+#    label:
+#      - "mu QCD AntiTight"
+#      - "MET > 30 GeV, mT < 40 GeV"
+#    lumi: "2015+2016"
+#    save_to_file: True
+#
   Tight_el_QCD_mtCtrl_metSig_0tag_Dplus:
     regions:
       - Tight_2018_el_QCD_mtCtrl_metSig_0tag_Dplus
@@ -804,10 +811,12 @@ channels:
     save_to_file: True
 
   #xyz
-  Tight_2017-18_el_QCD_mtCtrl_metSig_0tag_Dplus:
+  Tight_el_QCD_mtCtrl_metCtrl_0tag_Dplus:
     regions:
-      - Tight_2018_el_QCD_mtCtrl_metSig_0tag_Dplus
-      - Tight_2017_el_QCD_mtCtrl_metSig_0tag_Dplus
+      - Tight_2018_el_QCD_mtCtrl_metCtrl_0tag_Dplus
+      - Tight_2017_el_QCD_mtCtrl_metCtrl_0tag_Dplus
+      - Tight_2016A-B_el_QCD_mtCtrl_metCtrl_0tag_Dplus
+      - Tight_2016C-L_el_QCD_mtCtrl_metCtrl_0tag_Dplus
     samples:
       - Sh_2211_Multijet
       - MG_Multijet
@@ -816,15 +825,19 @@ channels:
     label:
       - "el QCD Tight"
       - "MET > 30 GeV, mT < 40 GeV"
-    lumi: "2017+2018"
+    lumi: "2016+2017+2018"
     save_to_file: True
 
-  Tight_2017-18_el_QCD_mtCtrl_metSig_1tag_Dplus:
+  Tight_el_QCD_mtCtrl_metCtrl_1tag_Dplus:
     regions:
-      - Tight_2018_el_QCD_mtCtrl_metSig_1tag_Dplus
-      - Tight_2018_el_QCD_mtCtrl_metSig_2tag_Dplus
-      - Tight_2017_el_QCD_mtCtrl_metSig_1tag_Dplus
-      - Tight_2017_el_QCD_mtCtrl_metSig_2tag_Dplus
+      - Tight_2018_el_QCD_mtCtrl_metCtrl_1tag_Dplus
+      - Tight_2018_el_QCD_mtCtrl_metCtrl_2tag_Dplus
+      - Tight_2017_el_QCD_mtCtrl_metCtrl_1tag_Dplus
+      - Tight_2016A-B_el_QCD_mtCtrl_metCtrl_1tag_Dplus
+      - Tight_2016C-L_el_QCD_mtCtrl_metCtrl_1tag_Dplus
+      - Tight_2017_el_QCD_mtCtrl_metCtrl_2tag_Dplus
+      - Tight_2016A-B_el_QCD_mtCtrl_metCtrl_2tag_Dplus
+      - Tight_2016C-L_el_QCD_mtCtrl_metCtrl_2tag_Dplus
     samples:
       - Sh_2211_Multijet
       - MG_Multijet
@@ -833,13 +846,15 @@ channels:
     label:
       - "el QCD Tight"
       - "MET > 30 GeV, mT < 40 GeV"
-    lumi: "2017+2018"
+    lumi: "2016+2017+2018"
     save_to_file: True
 
-  Tight_2017-18_mu_QCD_mtCtrl_metSig_0tag_Dplus:
+  Tight_mu_QCD_mtCtrl_metCtrl_0tag_Dplus:
     regions:
-      - Tight_2018_mu_QCD_mtCtrl_metSig_0tag_Dplus
-      - Tight_2017_mu_QCD_mtCtrl_metSig_0tag_Dplus
+      - Tight_2018_mu_QCD_mtCtrl_metCtrl_0tag_Dplus
+      - Tight_2017_mu_QCD_mtCtrl_metCtrl_0tag_Dplus
+      - Tight_2016A-B_mu_QCD_mtCtrl_metCtrl_0tag_Dplus
+      - Tight_2016C-L_mu_QCD_mtCtrl_metCtrl_0tag_Dplus
     samples:
       - Sh_2211_Multijet
       - MG_Multijet
@@ -848,15 +863,19 @@ channels:
     label:
       - "mu QCD Tight"
       - "MET > 30 GeV, mT < 40 GeV"
-    lumi: "2017+2018"
+    lumi: "2016+2017+2018"
     save_to_file: True
 
-  Tight_2017-18_mu_QCD_mtCtrl_metSig_1tag_Dplus:
+  Tight_mu_QCD_mtCtrl_metCtrl_1tag_Dplus:
     regions:
-      - Tight_2018_mu_QCD_mtCtrl_metSig_1tag_Dplus
-      - Tight_2018_mu_QCD_mtCtrl_metSig_2tag_Dplus
-      - Tight_2017_mu_QCD_mtCtrl_metSig_1tag_Dplus
-      - Tight_2017_mu_QCD_mtCtrl_metSig_2tag_Dplus
+      - Tight_2018_mu_QCD_mtCtrl_metCtrl_1tag_Dplus
+      - Tight_2018_mu_QCD_mtCtrl_metCtrl_2tag_Dplus
+      - Tight_2017_mu_QCD_mtCtrl_metCtrl_1tag_Dplus
+      - Tight_2016A-B_mu_QCD_mtCtrl_metCtrl_1tag_Dplus
+      - Tight_2016C-L_mu_QCD_mtCtrl_metCtrl_1tag_Dplus
+      - Tight_2017_mu_QCD_mtCtrl_metCtrl_2tag_Dplus
+      - Tight_2016A-B_mu_QCD_mtCtrl_metCtrl_2tag_Dplus
+      - Tight_2016C-L_mu_QCD_mtCtrl_metCtrl_2tag_Dplus
     samples:
       - Sh_2211_Multijet
       - MG_Multijet
@@ -865,13 +884,15 @@ channels:
     label:
       - "mu QCD Tight"
       - "MET > 30 GeV, mT < 40 GeV"
-    lumi: "2017+2018"
+    lumi: "2016+2017+2018"
     save_to_file: True
 
-  AntiTight_2017-18_el_QCD_mtCtrl_metSig_0tag_Dplus:
+  AntiTight_el_QCD_mtCtrl_metCtrl_0tag_Dplus:
     regions:
-      - AntiTight_2018_el_QCD_mtCtrl_metSig_0tag_Dplus
-      - AntiTight_2017_el_QCD_mtCtrl_metSig_0tag_Dplus
+      - AntiTight_2018_el_QCD_mtCtrl_metCtrl_0tag_Dplus
+      - AntiTight_2017_el_QCD_mtCtrl_metCtrl_0tag_Dplus
+      - AntiTight_2016A-B_el_QCD_mtCtrl_metCtrl_0tag_Dplus
+      - AntiTight_2016C-L_el_QCD_mtCtrl_metCtrl_0tag_Dplus
     samples:
       - Sh_2211_Multijet
       - MG_Multijet
@@ -880,15 +901,19 @@ channels:
     label:
       - "el QCD AntiTight"
       - "MET > 30 GeV, mT < 40 GeV"
-    lumi: "2017+2018"
+    lumi: "2016+2017+2018"
     save_to_file: True
 
-  AntiTight_2017-18_el_QCD_mtCtrl_metSig_1tag_Dplus:
+  AntiTight_el_QCD_mtCtrl_metCtrl_1tag_Dplus:
     regions:
-      - AntiTight_2018_el_QCD_mtCtrl_metSig_1tag_Dplus
-      - AntiTight_2018_el_QCD_mtCtrl_metSig_2tag_Dplus
-      - AntiTight_2017_el_QCD_mtCtrl_metSig_1tag_Dplus
-      - AntiTight_2017_el_QCD_mtCtrl_metSig_2tag_Dplus
+      - AntiTight_2018_el_QCD_mtCtrl_metCtrl_1tag_Dplus
+      - AntiTight_2018_el_QCD_mtCtrl_metCtrl_2tag_Dplus
+      - AntiTight_2017_el_QCD_mtCtrl_metCtrl_1tag_Dplus
+      - AntiTight_2016A-B_el_QCD_mtCtrl_metCtrl_1tag_Dplus
+      - AntiTight_2016C-L_el_QCD_mtCtrl_metCtrl_1tag_Dplus
+      - AntiTight_2017_el_QCD_mtCtrl_metCtrl_2tag_Dplus
+      - AntiTight_2016A-B_el_QCD_mtCtrl_metCtrl_2tag_Dplus
+      - AntiTight_2016C-L_el_QCD_mtCtrl_metCtrl_2tag_Dplus
     samples:
       - Sh_2211_Multijet
       - MG_Multijet
@@ -897,13 +922,15 @@ channels:
     label:
       - "el QCD AntiTight"
       - "MET > 30 GeV, mT < 40 GeV"
-    lumi: "2017+2018"
+    lumi: "2016+2017+2018"
     save_to_file: True
 
-  AntiTight_2017-18_mu_QCD_mtCtrl_metSig_0tag_Dplus:
+  AntiTight_mu_QCD_mtCtrl_metCtrl_0tag_Dplus:
     regions:
-      - AntiTight_2018_mu_QCD_mtCtrl_metSig_0tag_Dplus
-      - AntiTight_2017_mu_QCD_mtCtrl_metSig_0tag_Dplus
+      - AntiTight_2018_mu_QCD_mtCtrl_metCtrl_0tag_Dplus
+      - AntiTight_2017_mu_QCD_mtCtrl_metCtrl_0tag_Dplus
+      - AntiTight_2016A-B_mu_QCD_mtCtrl_metCtrl_0tag_Dplus
+      - AntiTight_2016C-L_mu_QCD_mtCtrl_metCtrl_0tag_Dplus
     samples:
       - Sh_2211_Multijet
       - MG_Multijet
@@ -912,15 +939,19 @@ channels:
     label:
       - "mu QCD AntiTight"
       - "MET > 30 GeV, mT < 40 GeV"
-    lumi: "2017+2018"
+    lumi: "2016+2017+2018"
     save_to_file: True
 
-  AntiTight_2017-18_mu_QCD_mtCtrl_metSig_1tag_Dplus:
+  AntiTight_mu_QCD_mtCtrl_metCtrl_1tag_Dplus:
     regions:
-      - AntiTight_2018_mu_QCD_mtCtrl_metSig_1tag_Dplus
-      - AntiTight_2018_mu_QCD_mtCtrl_metSig_2tag_Dplus
-      - AntiTight_2017_mu_QCD_mtCtrl_metSig_1tag_Dplus
-      - AntiTight_2017_mu_QCD_mtCtrl_metSig_2tag_Dplus
+      - AntiTight_2018_mu_QCD_mtCtrl_metCtrl_1tag_Dplus
+      - AntiTight_2018_mu_QCD_mtCtrl_metCtrl_2tag_Dplus
+      - AntiTight_2017_mu_QCD_mtCtrl_metCtrl_1tag_Dplus
+      - AntiTight_2016A-B_mu_QCD_mtCtrl_metCtrl_1tag_Dplus
+      - AntiTight_2016C-L_mu_QCD_mtCtrl_metCtrl_1tag_Dplus
+      - AntiTight_2017_mu_QCD_mtCtrl_metCtrl_2tag_Dplus
+      - AntiTight_2016A-B_mu_QCD_mtCtrl_metCtrl_2tag_Dplus
+      - AntiTight_2016C-L_mu_QCD_mtCtrl_metCtrl_2tag_Dplus
     samples:
       - Sh_2211_Multijet
       - MG_Multijet
@@ -929,5 +960,133 @@ channels:
     label:
       - "mu QCD AntiTight"
       - "MET > 30 GeV, mT < 40 GeV"
-    lumi: "2017+2018"
+    lumi: "2016+2017+2018"
     save_to_file: True
+
+#  Tight_2017-18_el_QCD_mtCtrl_metSig_0tag_Dplus:
+#    regions:
+#      - Tight_2018_el_QCD_mtCtrl_metSig_0tag_Dplus
+#      - Tight_2017_el_QCD_mtCtrl_metSig_0tag_Dplus
+#    samples:
+#      - Sh_2211_Multijet
+#      - MG_Multijet
+#      #- Sh_2211_Multijet_Up
+#      #- Sh_2211_Multijet_Dn
+#    label:
+#      - "el QCD Tight"
+#      - "MET > 30 GeV, mT < 40 GeV"
+#    lumi: "2017+2018"
+#    save_to_file: True
+#
+#  Tight_2017-18_el_QCD_mtCtrl_metSig_1tag_Dplus:
+#    regions:
+#      - Tight_2018_el_QCD_mtCtrl_metSig_1tag_Dplus
+#      - Tight_2018_el_QCD_mtCtrl_metSig_2tag_Dplus
+#      - Tight_2017_el_QCD_mtCtrl_metSig_1tag_Dplus
+#      - Tight_2017_el_QCD_mtCtrl_metSig_2tag_Dplus
+#    samples:
+#      - Sh_2211_Multijet
+#      - MG_Multijet
+#      #- Sh_2211_Multijet_Up
+#      #- Sh_2211_Multijet_Dn
+#    label:
+#      - "el QCD Tight"
+#      - "MET > 30 GeV, mT < 40 GeV"
+#    lumi: "2017+2018"
+#    save_to_file: True
+#
+#  Tight_2017-18_mu_QCD_mtCtrl_metSig_0tag_Dplus:
+#    regions:
+#      - Tight_2018_mu_QCD_mtCtrl_metSig_0tag_Dplus
+#      - Tight_2017_mu_QCD_mtCtrl_metSig_0tag_Dplus
+#    samples:
+#      - Sh_2211_Multijet
+#      - MG_Multijet
+#      #- Sh_2211_Multijet_Up
+#      #- Sh_2211_Multijet_Dn
+#    label:
+#      - "mu QCD Tight"
+#      - "MET > 30 GeV, mT < 40 GeV"
+#    lumi: "2017+2018"
+#    save_to_file: True
+#
+#  Tight_2017-18_mu_QCD_mtCtrl_metSig_1tag_Dplus:
+#    regions:
+#      - Tight_2018_mu_QCD_mtCtrl_metSig_1tag_Dplus
+#      - Tight_2018_mu_QCD_mtCtrl_metSig_2tag_Dplus
+#      - Tight_2017_mu_QCD_mtCtrl_metSig_1tag_Dplus
+#      - Tight_2017_mu_QCD_mtCtrl_metSig_2tag_Dplus
+#    samples:
+#      - Sh_2211_Multijet
+#      - MG_Multijet
+#      #- Sh_2211_Multijet_Up
+#      #- Sh_2211_Multijet_Dn
+#    label:
+#      - "mu QCD Tight"
+#      - "MET > 30 GeV, mT < 40 GeV"
+#    lumi: "2017+2018"
+#    save_to_file: True
+#
+#  AntiTight_2017-18_el_QCD_mtCtrl_metSig_0tag_Dplus:
+#    regions:
+#      - AntiTight_2018_el_QCD_mtCtrl_metSig_0tag_Dplus
+#      - AntiTight_2017_el_QCD_mtCtrl_metSig_0tag_Dplus
+#    samples:
+#      - Sh_2211_Multijet
+#      - MG_Multijet
+#      #- Sh_2211_Multijet_Up
+#      #- Sh_2211_Multijet_Dn
+#    label:
+#      - "el QCD AntiTight"
+#      - "MET > 30 GeV, mT < 40 GeV"
+#    lumi: "2017+2018"
+#    save_to_file: True
+#
+#  AntiTight_2017-18_el_QCD_mtCtrl_metSig_1tag_Dplus:
+#    regions:
+#      - AntiTight_2018_el_QCD_mtCtrl_metSig_1tag_Dplus
+#      - AntiTight_2018_el_QCD_mtCtrl_metSig_2tag_Dplus
+#      - AntiTight_2017_el_QCD_mtCtrl_metSig_1tag_Dplus
+#      - AntiTight_2017_el_QCD_mtCtrl_metSig_2tag_Dplus
+#    samples:
+#      - Sh_2211_Multijet
+#      - MG_Multijet
+#      #- Sh_2211_Multijet_Up
+#      #- Sh_2211_Multijet_Dn
+#    label:
+#      - "el QCD AntiTight"
+#      - "MET > 30 GeV, mT < 40 GeV"
+#    lumi: "2017+2018"
+#    save_to_file: True
+#
+#  AntiTight_2017-18_mu_QCD_mtCtrl_metSig_0tag_Dplus:
+#    regions:
+#      - AntiTight_2018_mu_QCD_mtCtrl_metSig_0tag_Dplus
+#      - AntiTight_2017_mu_QCD_mtCtrl_metSig_0tag_Dplus
+#    samples:
+#      - Sh_2211_Multijet
+#      - MG_Multijet
+#      #- Sh_2211_Multijet_Up
+#      #- Sh_2211_Multijet_Dn
+#    label:
+#      - "mu QCD AntiTight"
+#      - "MET > 30 GeV, mT < 40 GeV"
+#    lumi: "2017+2018"
+#    save_to_file: True
+#
+#  AntiTight_2017-18_mu_QCD_mtCtrl_metSig_1tag_Dplus:
+#    regions:
+#      - AntiTight_2018_mu_QCD_mtCtrl_metSig_1tag_Dplus
+#      - AntiTight_2018_mu_QCD_mtCtrl_metSig_2tag_Dplus
+#      - AntiTight_2017_mu_QCD_mtCtrl_metSig_1tag_Dplus
+#      - AntiTight_2017_mu_QCD_mtCtrl_metSig_2tag_Dplus
+#    samples:
+#      - Sh_2211_Multijet
+#      - MG_Multijet
+#      #- Sh_2211_Multijet_Up
+#      #- Sh_2211_Multijet_Dn
+#    label:
+#      - "mu QCD AntiTight"
+#      - "MET > 30 GeV, mT < 40 GeV"
+#    lumi: "2017+2018"
+#    save_to_file: True

@@ -54,8 +54,18 @@ def make_fake_rate_histogram_2D(h, histograms, ybins, xbins):
 def make_fake_rate_histogram_2D_TEff(eff, xbins, ybins, name, tag_index):
 
     graphs = []
-    for i in range(len(eff)):
-        graphs += [eff[i][tag_index].CreateGraph()]
+    if tag_index < 0:
+        first_eff = True
+        for i in range(len(eff)):
+            for j in range(len(eff[0])):
+                if first_eff:
+                    eff_tmp = eff[i][j].Clone(f"new_name_{i}_{j}")
+                else:
+                    eff_tmp += eff[i][j]
+            graphs += [eff_tmp.CreateGraph()]
+    else:
+        for i in range(len(eff)):
+            graphs += [eff[i][tag_index].CreateGraph()]
 
     hout = ROOT.TH2D(name + "_final", "", len(xbins) - 1, array('d', xbins), len(ybins) - 1, array('d', ybins))
 
@@ -168,8 +178,13 @@ def main(conf, options, args):
     # input file
     f = ROOT.TFile(options.input, "READ")
 
+    #systematic variations
+    samples_sys = options.samples_sys.split(",")
+
     # samples
     samples = options.samples.split(",")
+    # samples must include systematics
+    samples += samples_sys
 
     # channels
     channels = options.channels.split(",")
@@ -179,9 +194,6 @@ def main(conf, options, args):
 
     # split tags
     tags = options.tags.split(",")
-
-    #skip systematic variation
-    sys_var_skip = options.sys_var_skip
 
     # out plots
     plots_folder = os.path.join(os.path.dirname(options.input), f"{options.output}")
@@ -296,6 +308,7 @@ def main(conf, options, args):
         # plot fake rates
 
         eff_sums = []
+        eff_sums_sys = []
         for y in fake_rate_map:
 
             # mc_map
@@ -305,12 +318,14 @@ def main(conf, options, args):
             fake_rate_map_comb = {}
 
             eff_sums_tmp = []
+            eff_sums_tmp_sys = []
 
             for t in tags:
                 first_sample = True
+                first_sys_sample = True
                 # eff_sum = ROOT.TEfficiency()
                 for s in samples:
-                    print(f"look here: {s}_{sys_var_skip}")
+                    print(f"look here: {s}_{samples_sys}")
                     first_d_species = True
                     # eff_tmp = ROOT.TEfficiency()
                     for d in dspecies:
@@ -329,19 +344,26 @@ def main(conf, options, args):
                     fake_rate_map_comb[f"{s}_{t}"].SetLineColor(sample_config.lineColor)
                     mc_map[sample_config] = fake_rate_map_comb[f"{s}_{t}"]
 
-                    # skip the systematic variation in the average
-                    if s == sys_var_skip:
-                        continue
-                    # Prepping sum for output
-                    if first_sample:
-                        eff_sum = eff_tmp.Clone(f"{s}_{t}_Comb")
-                        first_sample = False
+                    # skip the systematic variation in the average, make own avg
+                    if s in samples_sys:
+                        if first_sys_sample:
+                            eff_sum_sys = eff_tmp.Clone(f"{s}_{t}_Comb")
+                            first_sys_sample = False
+                        else:
+                            eff_sum_sys.Add(eff_tmp)
                     else:
-                        eff_sum.Add(eff_tmp)
+                        # Prepping sum for output
+                        if first_sample:
+                            eff_sum = eff_tmp.Clone(f"{s}_{t}_Comb")
+                            first_sample = False
+                        else:
+                            eff_sum.Add(eff_tmp)
                 # for all tags, summing efficiences
                 eff_sums_tmp += [eff_sum]
+                eff_sums_tmp_sys += [eff_sum_sys]
             # add all tags into eta list to be exported
             eff_sums += [eff_sums_tmp]
+            eff_sums_sys += [eff_sums_tmp_sys]
 
             sample_config = conf.get_sample("MC_Comb")
             eff_sum.SetMarkerColor(sample_config.lineColor)
@@ -382,9 +404,17 @@ def main(conf, options, args):
             canv.print(os.path.join(plots_folder, f"{options.output}_{channel_name}_{y}.pdf"))
             canv.print(os.path.join(plots_folder, f"{options.output}_{channel_name}_{y}.png"))
 
+        first_tag = True
         for t, i in zip(tags, range(len(tags))):
             hf_2D_eff = make_fake_rate_histogram_2D_TEff(eff_sums, xbins_pt_chan, ybins_eta_chan, f"Fake_Rate_{channel_name}_{t}", i)
             hf_2D_eff.Write()
+            hf_2D_eff_sys = make_fake_rate_histogram_2D_TEff(eff_sums_sys, xbins_pt_chan, ybins_eta_chan, f"Fake_Rate_{channel_name}_{t}_sys", i)
+            hf_2D_eff_sys.Write()
+
+        eff_tag_sum = make_fake_rate_histogram_2D_TEff(eff_sums, xbins_pt_chan, ybins_eta_chan, f"Fake_Rate_{channel_name}", -1)
+        eff_tag_sum_sys = make_fake_rate_histogram_2D_TEff(eff_sums_sys, xbins_pt_chan, ybins_eta_chan, f"Fake_Rate_{channel_name}_sys", -1)
+        eff_tag_sum.Write()
+        eff_tag_sum_sys.Write()
 
     # close out file
     out.Close()
@@ -427,9 +457,9 @@ if __name__ == "__main__":
                       action="store", dest="tags",
                       help="comma separated list tags to be compared",
                       default="0tag")
-    parser.add_option('-k', '--sys-var-skip',
-                      action="store", dest="sys_var_skip",
-                      help="MC that will be used as systematic variation, not to be included in sum",
+    parser.add_option('-k', '--samples_sys',
+                      action="store", dest="samples_sys",
+                      help="MC that will be used as systematic variation, not to be included in general sum",
                       default="MG_Wjets_emu")
 
     # parse input arguments
