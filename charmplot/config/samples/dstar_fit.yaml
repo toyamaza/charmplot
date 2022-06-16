@@ -17,6 +17,24 @@ Sherpa2211_WplusD_Matched:
   shortName: Sherpa2211_WplusD_Matched
   scaleMC: 0.0395
 
+Sherpa2211_WplusD_Matched_Minus:
+  add:
+    - Sh_2211_WplusD
+  subtract:
+  fillColor: "10004"
+  legendLabel: "W+#it{D}(#it{K}#pi#pi)"
+  shortName: Sherpa2211_WplusD_Matched_Minus
+  scaleMC: 0.039285555 #0.0395 * 0.994571
+
+Sherpa2211_WplusD_Matched_Plus:
+  add:
+    - Sh_2211_WplusD
+  subtract:
+  fillColor: "10004"
+  legendLabel: "W+#it{D}(#it{K}#pi#pi)"
+  shortName: Sherpa2211_WplusD_Matched_Plus
+  scaleMC: 0.038677492 #0.0395 * 0.979177
+
 Sherpa2211_WplusD_Matched_truth_pt_bin1:
   add:
     - Sh_2211_WplusD
@@ -218,6 +236,30 @@ Sherpa2211_Wjets_MisMatched:
   legendLabel: "W+c^{mis-match}"
   shortName: Sherpa2211_Wjets_MisMatched
 
+Sherpa2211_Wjets_MisMatched_Minus:
+  add:
+    - Sh_2211_Wjets_cjets_emu
+    - Sh_2211_Wjets_bjets_emu
+    - Sh_2211_Wjets_light_emu
+    - Sh_2211_Wjets_tau
+  subtract:
+  fillColor: "11004"
+  legendLabel: "W+c^{mis-match}"
+  scaleMC:  1.58/1.51 #0.994571
+  shortName: Sherpa2211_Wjets_MisMatched_Minus
+
+Sherpa2211_Wjets_MisMatched_Plus:
+  add:
+    - Sh_2211_Wjets_cjets_emu
+    - Sh_2211_Wjets_bjets_emu
+    - Sh_2211_Wjets_light_emu
+    - Sh_2211_Wjets_tau
+  subtract:
+  fillColor: "11004"
+  legendLabel: "W+c^{mis-match}"
+  scaleMC: 1.38/1.34 #0.979177
+  shortName: Sherpa2211_Wjets_MisMatched_Plus
+
 Sherpa2211_Wjets_Rest:
   add:
     - Sh_2211_Wjets
@@ -230,6 +272,30 @@ Sherpa2211_Wjets_Rest:
   legendLabel: "W+jets"
   shortName: Sherpa2211_Wjets_Rest
 
+Sherpa2211_Wjets_Rest_Minus:
+  add:
+    - Sh_2211_Wjets_cjets_emu
+    - Sh_2211_Wjets_bjets_emu
+    - Sh_2211_Wjets_light_emu
+    - Sh_2211_Wjets_tau
+  subtract:
+  fillColor: "11002"
+  scaleMC: 3.26/3.07
+  legendLabel: "W+jets"
+  shortName: Sherpa2211_Wjets_Rest
+
+Sherpa2211_Wjets_Rest_Plus:
+  add:
+    - Sh_2211_Wjets_cjets_emu
+    - Sh_2211_Wjets_bjets_emu
+    - Sh_2211_Wjets_light_emu
+    - Sh_2211_Wjets_tau
+  subtract:
+  fillColor: "11002"
+  scaleMC: 2.95/2.66
+  legendLabel: "W+jets"
+  shortName: Sherpa2211_Wjets_Rest
+
 Sherpa2211_Wjets_Charm:
   add:
     - Sh_2211_Wjets
@@ -239,6 +305,30 @@ Sherpa2211_Wjets_Charm:
     # - Sh_2211_Wjets_tau
   subtract:
   fillColor: "10001"
+  legendLabel: "W+c^{match}"
+  shortName: Sherpa2211_Wjets_Charm
+
+Sherpa2211_Wjets_Charm_Minus:
+  add:
+    - Sh_2211_Wjets_cjets_emu
+    - Sh_2211_Wjets_bjets_emu
+    - Sh_2211_Wjets_light_emu
+    - Sh_2211_Wjets_tau
+  subtract:
+  fillColor: "10001"
+  scaleMC: 2.93/2.91 #0.994571
+  legendLabel: "W+c^{match}"
+  shortName: Sherpa2211_Wjets_Charm
+
+Sherpa2211_Wjets_Charm_Plus:
+  add:
+    - Sh_2211_Wjets_cjets_emu
+    - Sh_2211_Wjets_bjets_emu
+    - Sh_2211_Wjets_light_emu
+    - Sh_2211_Wjets_tau
+  subtract:
+  fillColor: "10001"
+  scaleMC: 2.94/2.83 
   legendLabel: "W+c^{match}"
   shortName: Sherpa2211_Wjets_Charm
 
@@ -407,6 +497,26 @@ MG_Wjets_Rest:
   legendLabel: "W+jets"
   shortName: MG_Wjets_Rest
 
+MG_Wjets_Rest_Minus:
+  add:
+    - MG_Wjets_emu
+    - MG_Wjets_tau
+  subtract:
+  fillColor: "11002"
+  legendLabel: "W+jets"
+  scaleMC: 3.26/3.07
+  shortName: MG_Wjets_Rest
+
+MG_Wjets_Rest_Plus:
+  add:
+    - MG_Wjets_emu
+    - MG_Wjets_tau
+  subtract:
+  fillColor: "11002"
+  scaleMC: 2.95/2.66
+  legendLabel: "W+jets"
+  shortName: MG_Wjets_Rest
+
 MG_Wjets_MisMatched:
   add:
     - MG_Wjets_emu
@@ -432,6 +542,26 @@ MG_Wjets_Charm:
   subtract:
   fillColor: "10001"
   legendLabel: "W+c^{match}"
+  shortName: MG_Wjets_Charm
+
+MG_Wjets_Charm_Minus:
+  add:
+    - MG_Wjets_emu
+    - MG_Wjets_tau
+  subtract:
+  fillColor: "10001"
+  legendLabel: "W+c^{match}"
+  scaleMC: 2.93/2.91 #0.994571
+  shortName: MG_Wjets_Charm
+
+MG_Wjets_Charm_Plus:
+  add:
+    - MG_Wjets_emu
+    - MG_Wjets_tau
+  subtract:
+  fillColor: "10001"
+  legendLabel: "W+c^{match}"
+  scaleMC: 2.94/2.83 #0.979177
   shortName: MG_Wjets_Charm
 
 # ---------------------------------------------
@@ -684,6 +814,30 @@ Top:
   fillColor: "12001"
   legendLabel: Top
   shortName: Top
+
+Top_Minus:
+  add:
+    - Top_ttbar
+    - Top_single_top
+    - Top_ttx
+  subtract:
+  fillColor: "12001"
+  legendLabel: Top
+  scaleMC: 1.54/1.39  
+  shortName: Top
+  makeGhostSample: True
+
+Top_Plus:
+  add:
+    - Top_ttbar
+    - Top_single_top
+    - Top_ttx
+  subtract:
+  fillColor: "12001"
+  legendLabel: Top
+  scaleMC: 1.31/1.25
+  shortName: Top
+  makeGhostSample: True
 
 Top_HS:
   add:

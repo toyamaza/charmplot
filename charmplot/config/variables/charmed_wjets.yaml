@@ -231,7 +231,7 @@ Dmeson_Lxy:
   label: 'D^{#pm} L_{xy}'
   unit: 'mm'
   rebin: 5
-  x_range: [0., 30]
+  x_range: [1., 10]
   ratio_range: [0.5, 1.49]
   do_overflow: False
   do_underflow: False
@@ -287,8 +287,8 @@ Dmeson_Lxy4:
 
 Dmeson_impact_sig:
   label: 'D^{#pm} 3D Impact Significance'
-  rebin: 1
-  x_range: [0.0, 10.0]
+  rebin: 4
+  x_range: [0.0, 6.0]
   ratio_range: [0.5, 1.49]
 
 Dmeson_impact_sig_inSB:
@@ -316,6 +316,7 @@ Dmeson_cTau:
 Dmeson_chi2:
   label: 'D^{#pm} #chi^{2}'
   rebin: 4
+  x_range: [0.0,10.5]
   ratio_range: [0.5, 1.49]
 
 Dmeson_chi2_inSB:
@@ -463,7 +464,7 @@ met_mt:
 lep_pt:
   label: lepton p_{T}
   unit: GeV
-  rebin: 2
+  rebin: 8
   x_range: [0, 200]
   ratio_range: [0.5, 1.49]
 
@@ -581,7 +582,10 @@ Dmeson_SVr:
 
 Dmeson_ptcone40_pt:
   label: 'D^{#pm} ptcone40/p_{T}'
-  rebin: 1
+  rebin: 2
+  #xbins: [0.0, 0.01, 0.02, 0.0, 0.08, 1.0, 1.5, 2.0, 4.0, 10.0]
+  #per_unit: True
+  x_range: [0,2.0]
   ratio_range: [0.5, 1.49]
 
 Dmeson_ptcone40_pt_inSB:

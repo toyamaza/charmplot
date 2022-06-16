@@ -16,6 +16,24 @@ Sherpa2211_WplusD_Matched:
   shortName: Sherpa2211_WplusD_Matched
   scaleMC: 0.094
 
+Sherpa2211_WplusD_Matched_Minus:
+  add:
+    - Sh_2211_WplusD
+  subtract:
+  fillColor: "10004"
+  legendLabel: "W+#it{D}(#it{K}#pi#pi)"
+  shortName: Sherpa2211_WplusD_Matched
+  scaleMC: 0.10639954 #0.094 * 1.13191
+
+Sherpa2211_WplusD_Matched_Plus:
+  add:
+    - Sh_2211_WplusD
+  subtract:
+  fillColor: "10004"
+  legendLabel: "W+#it{D}(#it{K}#pi#pi)"
+  shortName: Sherpa2211_WplusD_Matched
+  scaleMC: 0.10371678 #0.094 * 1.10337
+
 Sherpa2211_WplusD_Matched_truth_pt_bin1:
   add:
     - Sh_2211_WplusD
@@ -115,6 +133,30 @@ Sherpa2211_Wjets_MisMatched:
   subtract:
   fillColor: "11004"
   legendLabel: "W+c^{mis-match}"
+  shortName: Sherpa2211_Wjets_MisMatched
+
+Sherpa2211_Wjets_MisMatched_Minus:
+  add:
+    - Sh_2211_Wjets_cjets_emu
+    - Sh_2211_Wjets_bjets_emu
+    - Sh_2211_Wjets_light_emu
+    - Sh_2211_Wjets_tau
+  subtract:
+  fillColor: "11004"
+  legendLabel: "W+c^{mis-match}"
+  scaleMC: 1.13191
+  shortName: Sherpa2211_Wjets_MisMatched
+
+Sherpa2211_Wjets_MisMatched_Plus:
+  add:
+    - Sh_2211_Wjets_cjets_emu
+    - Sh_2211_Wjets_bjets_emu
+    - Sh_2211_Wjets_light_emu
+    - Sh_2211_Wjets_tau
+  subtract:
+  fillColor: "11004"
+  legendLabel: "W+c^{mis-match}"
+  scaleMC: 1.10337
   shortName: Sherpa2211_Wjets_MisMatched
 
 Sherpa2211_Wjets_Rest:
@@ -279,6 +321,37 @@ MG_Wjets_Charm:
   fillColor: "10001"
   legendLabel: "W+c^{match}"
   shortName: MG_Wjets_Charm
+
+MG_Wjets_Charm_Minus:
+  add:
+    - MG_Wjets_emu
+    - MG_Wjets_tau
+  subtract:
+  fillColor: "10001"
+  legendLabel: "W+c^{match}"
+  scaleMC: 1.13191
+  shortName: MG_Wjets_Charm
+
+MG_Wjets_Charm_Plus:
+  add:
+    - MG_Wjets_emu
+    - MG_Wjets_tau
+  subtract:
+  fillColor: "10001"
+  legendLabel: "W+c^{match}"
+  scaleMC: 1.10337
+  shortName: MG_Wjets_Charm
+
+Sherpa2211_Wjets_Charm:
+  add:
+    - Sh_2211_Wjets_cjets_emu
+    - Sh_2211_Wjets_bjets_emu
+    - Sh_2211_Wjets_light_emu
+    - Sh_2211_Wjets_tau
+  subtract:
+  fillColor: "10001"
+  legendLabel: "W+c^{match}"
+  shortName: Sh2211_Wjets_Charm
 
 # ---------------------------------------------
 # NLO MadGraph

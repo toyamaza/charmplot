@@ -64,11 +64,7 @@ class WDTruthSamples(ChannelTemplate):
         self.samplesConfOverride = samplesConfOverride
 
         self.truthSlices = [
-            "Matched_truth_pt_bin1",
-            "Matched_truth_pt_bin2",
-            "Matched_truth_pt_bin3",
-            "Matched_truth_pt_bin4",
-            "Matched_truth_pt_bin5",
+            "Matched",
         ]
         if eta_bins:
             self.truthSlices = [
@@ -384,11 +380,12 @@ class ReplacementSamples(ChannelTemplate):
         self.samples = {}
 
         self.truthSlices = [
-            "Matched_truth_pt_bin1",
-            "Matched_truth_pt_bin2",
-            "Matched_truth_pt_bin3",
-            "Matched_truth_pt_bin4",
-            "Matched_truth_pt_bin5",
+            "Matched",
+            #"Matched_truth_pt_bin1",
+            #"Matched_truth_pt_bin2",
+            #"Matched_truth_pt_bin3",
+            #"Matched_truth_pt_bin4",
+            #"Matched_truth_pt_bin5",
         ]
         if eta_bins:
             self.truthSlices = [
