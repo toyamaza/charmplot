@@ -1,6 +1,8 @@
 type: updown
 affecting:
   - MG_Wjets_Charm
+  - MG_Wjets_Charm_Minus
+  - MG_Wjets_Charm_Plus
 variations:
   - WJETS_THEORY_NOWEIGHT
   - WJETS_THEORY_ALPHA_S

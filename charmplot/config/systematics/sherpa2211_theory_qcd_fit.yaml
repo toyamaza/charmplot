@@ -1,6 +1,8 @@
 type: minmax
 affecting:
-  - Sherpa2211_WplusD
+  - Sherpa2211_WplusD_Matched
+  - Sherpa2211_WplusD_Matched_Minus
+  - Sherpa2211_WplusD_Matched_Plus
   - Sherpa2211_Wjets
   - Sherpa2211_WplusD_Matched
   - Sherpa2211_WplusD_Matched_truth_pt_bin1
@@ -14,7 +16,11 @@ affecting:
   - Sherpa2211_WplusD_Matched_truth_eta_bin4
   - Sherpa2211_WplusD_Matched_truth_eta_bin5
   - Sherpa2211_Wjets_Charm
+  - Sherpa2211_Wjets_Charm_Minus
+  - Sherpa2211_Wjets_Charm_Plus
   - Sherpa2211_Wjets_MisMatched
+  - Sherpa2211_Wjets_MisMatched_Minus
+  - Sherpa2211_Wjets_MisMatched_Plus
   - Sherpa2211_Wjets_Rest
   - MG_Wjets_Rest
 variations:

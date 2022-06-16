@@ -121,13 +121,13 @@ def main(options):
                 replacement_samples = {
                     'Sherpa2211_WplusD_Matched': '<sign>_Replacement_MatchedMG<charge>',
                 }
-        replacement_samples.update({
-            # 'MG_Wjets_Charm': '<sign>_Replacement_CharmMisMatched',
-            'MG_Wjets_MisMatched': '<sign>_Replacement_MisMatched',
-            'Sherpa2211_Wjets_MisMatched': '<sign>_Replacement_MisMatched',
-            'MG_Wjets_Rest': '<sign>_Replacement_Rest',
-            'Sherpa2211_Wjets_Rest': '<sign>_Replacement_Rest',
-        })
+        #replacement_samples.update({
+        #    # 'MG_Wjets_Charm': '<sign>_Replacement_CharmMisMatched',
+        #    'MG_Wjets_MisMatched': '<sign>_Replacement_MisMatched',
+        #    'Sherpa2211_Wjets_MisMatched': '<sign>_Replacement_MisMatched',
+        #    'MG_Wjets_Rest': '<sign>_Replacement_Rest',
+        #    'Sherpa2211_Wjets_Rest': '<sign>_Replacement_Rest',
+        #})
 
     # systematics
     systematics = []

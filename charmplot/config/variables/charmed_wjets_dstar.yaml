@@ -10,6 +10,15 @@ Dmeson_pt:
   rebin: 2
   ratio_range: [0.5, 1.49]
 
+Dmeson_pt_var:
+  name_override: Dmeson_pt
+  label: 'D^{*#pm} p_{T}'
+  unit: "GeV"
+  rebin: 1
+  xbins: [0, 8, 12, 20, 40, 80, 150]
+  ratio_range: [0.5, 1.49]
+  per_unit: false
+
 Dmeson_eta:
   label: 'D* #eta'
   rebin: 2
@@ -46,6 +55,12 @@ Dmeson_mdiff_norebin:
   do_underflow: False
   ratio_range: [0.5, 1.49]
 
+Dmeson_impact_sig:
+  label: 'D^{#pm} 3D Impact Significance'
+  rebin: 4
+  x_range: [0.0, 6.0]
+  ratio_range: [0.5, 1.49]
+
 Dmeson_mdiff_impact_sig:
   label: 'm(D*-D^{0}) (w/o ImpSig)'
   unit: 'MeV'
@@ -63,7 +78,8 @@ Dmeson_phi:
 Dmeson_Lxy:
   label: 'D* L_{xy}'
   unit: 'mm'
-  rebin: 2
+  rebin: 5
+  x_range: [0.0,10]
   ratio_range: [0.5, 1.49]
 
 Dmeson_cTau:
@@ -73,7 +89,8 @@ Dmeson_cTau:
 
 Dmeson_chi2:
   label: 'D* #chi^{2}'
-  rebin: 2
+  rebin: 4
+  x_range: [0.0,10.5]
   ratio_range: [0.5, 1.49]
 
 met_met:
@@ -93,7 +110,7 @@ met_mt:
 lep_pt:
   label: lepton p_{T}
   unit: GeV
-  rebin: 2
+  rebin: 8
   x_range: [0, 200]
   ratio_range: [0.5, 1.49]
 
@@ -206,6 +223,9 @@ Dmeson_SVr:
 Dmeson_ptcone40_pt:
   label: 'D* ptcone40/p_{T}'
   rebin: 2
+  #xbins: [0.0, 0.02, 0.04, 0.06, 0.08, 1.0, 1.5, 2.0, 4.0, 10.0]
+  x_range: [0,2.0]
+  #per_unit: True
   ratio_range: [0.5, 1.49]
 
 Dmeson_max_trackZ0PV:
