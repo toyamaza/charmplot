@@ -418,3 +418,35 @@ channels:
     label:
       - W#rightarrowl#nu+D, D#rightarrowK#pi#pi, Truth-level
       - inclusive OS-SS
+  OS-SS_lep_minus_Dstar:
+    regions:
+      - el_minus_Dstar_OS
+      - -el_minus_Dstar_SS
+      - mu_minus_Dstar_OS
+      - -mu_minus_Dstar_SS
+    samples:
+      - MG_Wjets
+      - Sherpa2211_WplusD
+      - Sherpa2211_Wjets
+      - MGPy8EG_NLO_WplusD
+      - MGFxFx_Wjets
+      - MGFxFx_WplusD
+    label:
+      - W#rightarrowl#nu+D, Truth-level
+      - inclusive OS-SS
+  OS-SS_lep_plus_Dstar:
+    regions:
+      - el_plus_Dstar_OS
+      - -el_plus_Dstar_SS
+      - mu_plus_Dstar_OS
+      - -mu_plus_Dstar_SS
+    samples:
+      - MG_Wjets
+      - Sherpa2211_WplusD
+      - Sherpa2211_Wjets
+      - MGPy8EG_NLO_WplusD
+      - MGFxFx_Wjets
+      - MGFxFx_WplusD
+    label:
+      - W#rightarrowl#nu+D, Truth-level
+      - inclusive OS-SS
