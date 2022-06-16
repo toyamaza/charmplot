@@ -24,6 +24,6 @@ for s in ["Sherpa2211_Wjets", "Sherpa2211_WplusD", "MGFxFx_Wjets", "MGFxFx_Wplus
             err = c_double(0)
             integral = h.IntegralAndError(0, h.GetNbinsX() + 1, err)
             if d == "Dstar":
-                err.value = err.value / 0.647
-                integral = integral / 0.647
+                err.value = err.value / 0.677
+                integral = integral / 0.677
             print(f"{integral}\t{err.value}")
