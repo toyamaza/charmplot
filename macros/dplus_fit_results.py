@@ -23,14 +23,14 @@ Y_MAX = 75
 # observables
 OBSERVABLES = {
     "pt": {
-        "fit_results": "/global/cfs/cdirs/atlas/wcharm/TRExFitter/Output/Dplus_2022_05_09_pt/",
+        "fit_results": "/global/cfs/cdirs/atlas/wcharm/TRExFitter/Output/Dplus_2022_05_30_pt/",
         "label": "#it{p}_{T}^{#it{D}}",
         "prior_var": "D_pt_fit",
         "bins": [8, 12, 20, 40, 80, 120],
         "logx": True,
     },
     "eta": {
-        "fit_results": "/global/cfs/cdirs/atlas/wcharm/TRExFitter/Output/Dplus_2022_05_09_eta/",
+        "fit_results": "/global/cfs/cdirs/atlas/wcharm/TRExFitter/Output/Dplus_2022_05_30_eta/",
         "label": "|#eta(#it{l})|",
         "prior_var": "D_differential_lep_eta",
         "bins": [0.0, 0.5, 1.0, 1.5, 2.0, 2.5],
@@ -156,8 +156,8 @@ for obs_name, obs in OBSERVABLES.items():
     # Step 1: parse fit results from txt files
     # --------------------------------------------
     # folder names
-    stat_only = "WCharm_lep_obs_stat_only_OSSS_complete"
-    obs_fit = "WCharm_lep_obs_OSSS_complete"
+    stat_only = f"WCharm_lep_obs_stat_only_OSSS_complete_{obs_name}"
+    obs_fit = f"WCharm_lep_obs_OSSS_complete_{obs_name}"
 
     # stat-only
     POIs_stat = extract_pois(os.path.join(obs["fit_results"], stat_only, "Fits", f"{stat_only}.txt"))
@@ -535,6 +535,11 @@ for obs_name, obs in OBSERVABLES.items():
             xsec_err_dn = abs(float(POIs_obs[f"expr_mu_W{lep}_tot"][1]) * priors[f"W{lep}"]) * SF
             xsec_err_stat_up = float(POIs_stat[f"expr_mu_W{lep}_tot"][1]) * priors[f"W{lep}"] * SF
             xsec_err_stat_dn = abs(float(POIs_stat[f"expr_mu_W{lep}_tot"][1]) * priors[f"W{lep}"]) * SF
+
+        print(f"--- total cross section for {lep} ---")
+        print(f"{xsec} +{xsec_err_stat_up} -{xsec_err_stat_dn} (stat)")
+        print(f"{xsec} +{xsec_err_up} -{xsec_err_dn} (sys + stat)")
+        print(f"{xsec} +{(xsec_err_up**2 - xsec_err_stat_up**2)**0.5} -{(xsec_err_dn**2 - xsec_err_stat_dn**2)**0.5} (sys only)")
 
         gr = ROOT.TGraph()
         gr.SetPoint(0, xsec, 1.0)
