@@ -175,6 +175,8 @@ def main():
         pad1.cd()
         pad1.SetGridy()
 
+        mg_mean.Draw("a")
+
         # white box
         if "star" not in meson:
             box = ROOT.TBox(0.4, 1.8705, 3.0, 1.8745)
@@ -184,7 +186,7 @@ def main():
         box.SetFillColor(ROOT.kWhite)
         box.Draw()
 
-        mg_mean.Draw("a")
+        mg_mean.Draw()
 
         atlas_label(["SPG material variations", f"{meson_lab} meson"], "Simulation Internal")
         leg.Draw()
@@ -312,6 +314,9 @@ def main():
 
         pad1.cd()
         pad1.SetGridy()
+
+        mg_sigma.Draw("a")
+
         # white box
         if "star" not in meson:
             box = ROOT.TBox(0.4, 21, 3.0, 28.5)
@@ -321,7 +326,7 @@ def main():
         box.SetFillColor(ROOT.kWhite)
         box.Draw()
 
-        mg_sigma.Draw("a")
+        mg_sigma.Draw()
 
         atlas_label(["SPG material variations", f"{meson_lab} meson"], "Simulation Internal")
         leg.Draw()
