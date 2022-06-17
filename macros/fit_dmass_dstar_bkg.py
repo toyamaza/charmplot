@@ -18,30 +18,35 @@ ROOT.SetAtlasStyle()
 if not os.path.isdir("fits_bkg"):
     os.makedirs("fits_bkg")
 
-# histogram names
-names = [
-    "MG_Wjets_Rest_PostProc_OS_0tag_Dstar_Rest_Dmeson_mdiff_norebin",
-    "MG_Wjets_Rest_PostProc_OS_0tag_Dstar_Rest_pt_bin1_Dmeson_mdiff_norebin",
-    "MG_Wjets_Rest_PostProc_OS_0tag_Dstar_Rest_pt_bin2_Dmeson_mdiff_norebin",
-    "MG_Wjets_Rest_PostProc_OS_0tag_Dstar_Rest_pt_bin3_Dmeson_mdiff_norebin",
-    "MG_Wjets_Rest_PostProc_OS_0tag_Dstar_Rest_pt_bin4_Dmeson_mdiff_norebin",
-    "MG_Wjets_Rest_PostProc_OS_0tag_Dstar_Rest_pt_bin5_Dmeson_mdiff_norebin",
-    "Sherpa2211_Wjets_Rest_PostProc_OS_0tag_Dstar_Rest_Dmeson_mdiff_norebin",
-    "Sherpa2211_Wjets_Rest_PostProc_OS_0tag_Dstar_Rest_pt_bin1_Dmeson_mdiff_norebin",
-    "Sherpa2211_Wjets_Rest_PostProc_OS_0tag_Dstar_Rest_pt_bin2_Dmeson_mdiff_norebin",
-    "Sherpa2211_Wjets_Rest_PostProc_OS_0tag_Dstar_Rest_pt_bin3_Dmeson_mdiff_norebin",
-    "Sherpa2211_Wjets_Rest_PostProc_OS_0tag_Dstar_Rest_pt_bin4_Dmeson_mdiff_norebin",
-    "Sherpa2211_Wjets_Rest_PostProc_OS_0tag_Dstar_Rest_pt_bin5_Dmeson_mdiff_norebin",
-    # "Powheg_Wjets_emu_Rest_PostProc_OS_0tag_Dstar_Wjets_emu_Rest_Dmeson_mdiff_norebin",
-    # "Powheg_Wjets_emu_Rest_PostProc_OS_0tag_Dstar_Wjets_emu_Rest_pt_bin1_Dmeson_mdiff_norebin",
-    # "Powheg_Wjets_emu_Rest_PostProc_OS_0tag_Dstar_Wjets_emu_Rest_pt_bin2_Dmeson_mdiff_norebin",
-    # "Powheg_Wjets_emu_Rest_PostProc_OS_0tag_Dstar_Wjets_emu_Rest_pt_bin3_Dmeson_mdiff_norebin",
-    # "Powheg_Wjets_emu_Rest_PostProc_OS_0tag_Dstar_Wjets_emu_Rest_pt_bin4_Dmeson_mdiff_norebin",
-    # "Powheg_Wjets_emu_Rest_PostProc_OS_0tag_Dstar_Wjets_emu_Rest_pt_bin5_Dmeson_mdiff_norebin",
-]
-
 
 def main(options, args):
+
+    diff_var = 'pt'
+
+    if options.eta_bins:
+        diff_var = 'eta'
+
+    # histogram names
+    names = [
+        "MG_Wjets_Rest_PostProc_OS_0tag_Dstar_Rest_Dmeson_mdiff_norebin",
+        f"MG_Wjets_Rest_PostProc_OS_0tag_Dstar_Rest_{diff_var}_bin1_Dmeson_mdiff_norebin",
+        f"MG_Wjets_Rest_PostProc_OS_0tag_Dstar_Rest_{diff_var}_bin2_Dmeson_mdiff_norebin",
+        f"MG_Wjets_Rest_PostProc_OS_0tag_Dstar_Rest_{diff_var}_bin3_Dmeson_mdiff_norebin",
+        f"MG_Wjets_Rest_PostProc_OS_0tag_Dstar_Rest_{diff_var}_bin4_Dmeson_mdiff_norebin",
+        f"MG_Wjets_Rest_PostProc_OS_0tag_Dstar_Rest_{diff_var}_bin5_Dmeson_mdiff_norebin",
+        "Sherpa2211_Wjets_Rest_PostProc_OS_0tag_Dstar_Rest_Dmeson_mdiff_norebin",
+        f"Sherpa2211_Wjets_Rest_PostProc_OS_0tag_Dstar_Rest_{diff_var}_bin1_Dmeson_mdiff_norebin",
+        f"Sherpa2211_Wjets_Rest_PostProc_OS_0tag_Dstar_Rest_{diff_var}_bin2_Dmeson_mdiff_norebin",
+        f"Sherpa2211_Wjets_Rest_PostProc_OS_0tag_Dstar_Rest_{diff_var}_bin3_Dmeson_mdiff_norebin",
+        f"Sherpa2211_Wjets_Rest_PostProc_OS_0tag_Dstar_Rest_{diff_var}_bin4_Dmeson_mdiff_norebin",
+        f"Sherpa2211_Wjets_Rest_PostProc_OS_0tag_Dstar_Rest_{diff_var}_bin5_Dmeson_mdiff_norebin",
+        # "Powheg_Wjets_emu_Rest_PostProc_OS_0tag_Dstar_Wjets_emu_Rest_Dmeson_mdiff_norebin",
+        # "Powheg_Wjets_emu_Rest_PostProc_OS_0tag_Dstar_Wjets_emu_Rest_pt_bin1_Dmeson_mdiff_norebin",
+        # "Powheg_Wjets_emu_Rest_PostProc_OS_0tag_Dstar_Wjets_emu_Rest_pt_bin2_Dmeson_mdiff_norebin",
+        # "Powheg_Wjets_emu_Rest_PostProc_OS_0tag_Dstar_Wjets_emu_Rest_pt_bin3_Dmeson_mdiff_norebin",
+        # "Powheg_Wjets_emu_Rest_PostProc_OS_0tag_Dstar_Wjets_emu_Rest_pt_bin4_Dmeson_mdiff_norebin",
+        # "Powheg_Wjets_emu_Rest_PostProc_OS_0tag_Dstar_Wjets_emu_Rest_pt_bin5_Dmeson_mdiff_norebin",
+    ]
 
     # input file
     f = ROOT.TFile(options.input, "READ")
@@ -75,6 +80,9 @@ def main(options, args):
         # Get pt bin
         if "pt_bin" in name:
             ptbin = re.findall("pt_bin[1-5]", name)[0]
+
+        if "eta_bin" in name:
+            ptbin = re.findall("eta_bin[1-5]", name)[0]
 
         # Get Sherpa, MG, Powheg
         if "MG" in name:
@@ -303,7 +311,8 @@ if __name__ == "__main__":
     parser.add_option('-i', '--input',
                       action="store", dest="input",
                       help="Path to the histograms.root file from the initial spg comparison.")
-
+    parser.add_option('-e', '--eta-bins',
+                      action="store_true", dest="eta_bins")
     # parse input arguments
     options, args = parser.parse_args()
 
