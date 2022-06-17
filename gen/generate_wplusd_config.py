@@ -34,7 +34,8 @@ def main(options):
         samples = templates.SPGComparison(truthDiffBins=options.truth_differential_bins,
                                           decay_mode=options.decay_mode,
                                           signal_only=options.spg_signal_only,
-                                          background_only=options.spg_background_only)
+                                          background_only=options.spg_background_only,
+                                          eta_bins=options.differential_eta)
     elif options.samples.lower() == 'bkg_comparison':
         samples = templates.BKGComparison(decay_mode=options.decay_mode)
     elif options.samples.lower() == 'signal_comparison':

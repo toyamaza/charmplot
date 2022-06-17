@@ -162,20 +162,28 @@ class SPGComparison(ChannelTemplate):
     # base class
     samplesConf = "spg_comparison"
 
-    # new objects
-    truthSlices = [
-        "Matched_truth_pt_bin1",
-        "Matched_truth_pt_bin2",
-        "Matched_truth_pt_bin3",
-        "Matched_truth_pt_bin4",
-        "Matched_truth_pt_bin5",
-    ]
-
-    def __init__(self, truthDiffBins=False, decay_mode="Dplus", signal_only=False, background_only=False):
+    def __init__(self, truthDiffBins=False, decay_mode="Dplus", signal_only=False, background_only=False, eta_bins=False):
         self.truthDiffBins = truthDiffBins
         self.decay_mode = decay_mode
         self.signal_only = signal_only
         self.background_only = background_only
+
+        # new objects
+        self.truthSlices = [
+            "Matched_truth_pt_bin1",
+            "Matched_truth_pt_bin2",
+            "Matched_truth_pt_bin3",
+            "Matched_truth_pt_bin4",
+            "Matched_truth_pt_bin5",
+        ]
+        if eta_bins:
+            self.truthSlices = [
+                "Matched_truth_eta_bin1",
+                "Matched_truth_eta_bin2",
+                "Matched_truth_eta_bin3",
+                "Matched_truth_eta_bin4",
+                "Matched_truth_eta_bin5",
+            ]
 
         if self.decay_mode == "Dstar":
             self.samplesConf = "spg_comparison_dstar"
