@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-from charmplot.common import www
 from charmplot.control import globalConfig
 from charmplot.control import tools
 from charmplot.control.channel import Channel
@@ -346,74 +345,69 @@ def main(options, conf):
         # sys for signal
         s_signal1 = [x for x in samples if x.shortName == f"Sherpa2211_WplusD_Matched_truth_{options.diff}_bin1"][0]
         if s_signal1 in mc_map:
-            signal1_err_low, signal1_err_high, _ = get_yield_error(
+            _, signal1_err_high, _ = get_yield_error(
                 plot, chan, corr_parameters, corr_correlation_rows, files, mc_map[s_signal1], h_name=f"h_Sherpa2211_WplusD_Matched_truth_{options.diff}_bin1")
         else:
-            signal1_err_low = 0
             signal1_err_high = 0
 
         # sys for signal
         s_signal2 = [x for x in samples if x.shortName == f"Sherpa2211_WplusD_Matched_truth_{options.diff}_bin2"][0]
         if s_signal2 in mc_map:
-            signal2_err_low, signal2_err_high, _ = get_yield_error(
+            _, signal2_err_high, _ = get_yield_error(
                 plot, chan, corr_parameters, corr_correlation_rows, files, mc_map[s_signal2], h_name=f"h_Sherpa2211_WplusD_Matched_truth_{options.diff}_bin2")
         else:
-            signal2_err_low = 0
             signal2_err_high = 0
 
         # sys for signal
         s_signal3 = [x for x in samples if x.shortName == f"Sherpa2211_WplusD_Matched_truth_{options.diff}_bin3"][0]
         if s_signal3 in mc_map:
-            signal3_err_low, signal3_err_high, _ = get_yield_error(
+            _, signal3_err_high, _ = get_yield_error(
                 plot, chan, corr_parameters, corr_correlation_rows, files, mc_map[s_signal3], h_name=f"h_Sherpa2211_WplusD_Matched_truth_{options.diff}_bin3")
         else:
-            signal3_err_low = 0
             signal3_err_high = 0
 
         # sys for signal
         s_signal4 = [x for x in samples if x.shortName == f"Sherpa2211_WplusD_Matched_truth_{options.diff}_bin4"][0]
         if s_signal4 in mc_map:
-            signal4_err_low, signal4_err_high, _ = get_yield_error(
+            _, signal4_err_high, _ = get_yield_error(
                 plot, chan, corr_parameters, corr_correlation_rows, files, mc_map[s_signal4], h_name=f"h_Sherpa2211_WplusD_Matched_truth_{options.diff}_bin4")
         else:
-            signal4_err_low = 0
             signal4_err_high = 0
 
         # sys for signal
         s_signal5 = [x for x in samples if x.shortName == f"Sherpa2211_WplusD_Matched_truth_{options.diff}_bin5"][0]
         if s_signal5 in mc_map:
-            signal5_err_low, signal5_err_high, _ = get_yield_error(
+            _, signal5_err_high, _ = get_yield_error(
                 plot, chan, corr_parameters, corr_correlation_rows, files, mc_map[s_signal5], h_name=f"h_Sherpa2211_WplusD_Matched_truth_{options.diff}_bin5")
         else:
-            signal5_err_low = 0
             signal5_err_high = 0
 
         # sys W+c(match)
         s_wcmatch = [x for x in samples if x.shortName == "MG_Wjets_Charm"][0]
-        wcmatch_err_low, wcmatch_err_high, _ = get_yield_error(
+        _, wcmatch_err_high, _ = get_yield_error(
             plot, chan, corr_parameters, corr_correlation_rows, files, mc_map[s_wcmatch], h_name="h_MG_Wjets_Charm")
 
         # sys W+c(mis-match)
         s_wcmismatch = [x for x in samples if x.shortName == "Sherpa2211_Wjets_MisMatched"][0]
-        wcmismatch_err_low, wcmismatch_err_high, _ = get_yield_error(
+        _, wcmismatch_err_high, _ = get_yield_error(
             plot, chan, corr_parameters, corr_correlation_rows, files, mc_map[s_wcmismatch], h_name="h_Sherpa2211_Wjets_MisMatched")
 
         # sys W+jets
         s_wjets = [x for x in samples if x.shortName == "Sherpa2211_Wjets_Rest"][0]
-        wjets_err_low, wjets_err_high, _ = get_yield_error(plot, chan, corr_parameters, corr_correlation_rows,
-                                                           files, mc_map[s_wjets], h_name="h_Sherpa2211_Wjets_Rest")
+        _, wjets_err_high, _ = get_yield_error(plot, chan, corr_parameters, corr_correlation_rows,
+                                               files, mc_map[s_wjets], h_name="h_Sherpa2211_Wjets_Rest")
 
         # sys Other
         s_other = [x for x in samples if x.shortName == "DibosonZjets"][0]
-        other_err_low, other_err_high, _ = get_yield_error(plot, chan, corr_parameters, corr_correlation_rows, files, mc_map[s_other], h_name="h_DibosonZjets")
+        _, other_err_high, _ = get_yield_error(plot, chan, corr_parameters, corr_correlation_rows, files, mc_map[s_other], h_name="h_DibosonZjets")
 
         # sys Top
         s_top = [x for x in samples if x.shortName == "Top"][0]
-        top_err_low, top_err_high, _ = get_yield_error(plot, chan, corr_parameters, corr_correlation_rows, files, mc_map[s_top], h_name="h_Top")
+        _, top_err_high, _ = get_yield_error(plot, chan, corr_parameters, corr_correlation_rows, files, mc_map[s_top], h_name="h_Top")
 
         # sys for MultiJet
         s_mj = [x for x in samples if x.shortName == "Multijet_MatrixMethod"][0]
-        multijet_err_low, multijet_err_high, _ = get_yield_error(
+        _, multijet_err_high, _ = get_yield_error(
             plot, chan, corr_parameters, corr_correlation_rows, files, mc_map[s_mj], h_name="h_Multijet_MatrixMethod")
 
         # print
