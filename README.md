@@ -65,6 +65,18 @@ pip install -e <path-to-charmplot>
 Options `-e` triggers the 'develop' mode where changing the files will have an
 immediate effect without re-installing the package.
 
+## Using pre-compiled software on CORI
+
+You can also use the pre-compiled software on CORI instead of using a Conda environment
+This is achieved by running:
+
+```
+module load python3/3.9-anaconda-2021.11
+module load root
+source <path-to-charmplot>/lhapdf_setup.sh
+pip install -e <path-to-charmplot>
+```
+
 ## Example D+ Plots
 
 Copy the charmpp output in a clean folder:
