@@ -122,6 +122,7 @@ def createCanvasPads(name):
 
     return c, pad1, pad2, pad3
 
+
 outfile = ROOT.TFile("fit_results/results.root", "RECREATE")
 
 for obs_name, obs in OBSERVABLES.items():
@@ -776,4 +777,3 @@ for obs_name, obs in OBSERVABLES.items():
     f.Close()
     f_theory.Close()
 outfile.Close()
-
