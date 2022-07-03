@@ -23,14 +23,14 @@ Y_MAX = 75
 # observables
 OBSERVABLES = {
     "pt": {
-        "fit_results": "/global/cfs/cdirs/atlas/wcharm/TRExFitter/Output/Dplus_2022_05_30_pt/",
+        "fit_results": "/global/cfs/cdirs/atlas/wcharm/TRExFitter/Output/Dplus_2022_07_01_pt/",
         "label": "#it{p}_{T}^{#it{D}}",
         "prior_var": "D_pt_fit",
         "bins": [8, 12, 20, 40, 80, 120],
         "logx": True,
     },
     "eta": {
-        "fit_results": "/global/cfs/cdirs/atlas/wcharm/TRExFitter/Output/Dplus_2022_05_30_eta/",
+        "fit_results": "/global/cfs/cdirs/atlas/wcharm/TRExFitter/Output/Dplus_2022_07_01_eta/",
         "label": "|#eta(#it{l})|",
         "prior_var": "D_differential_lep_eta",
         "bins": [0.0, 0.5, 1.0, 1.5, 2.0, 2.5],
@@ -122,6 +122,7 @@ def createCanvasPads(name):
 
     return c, pad1, pad2, pad3
 
+outfile = ROOT.TFile("fit_results/results.root", "RECREATE")
 
 for obs_name, obs in OBSERVABLES.items():
 
@@ -407,6 +408,11 @@ for obs_name, obs in OBSERVABLES.items():
             mg_obs.Add(gr_theory, "pe5")
             mg_obs_norm.Add(gr_theory_norm, "pe5")
             mg_obs_ratio.Add(gr_theory_ratio, "pe5")
+
+            # save to file
+            outfile.cd()
+            gr_theory_norm.Write(f"Dplus_W{lep}_{prediction}_{obs_name}_norm")
+            gr_theory_ratio.Write(f"Dplus_W{lep}_{prediction}_{obs_name}_norm_ratio")
 
         # --------------------------------------------
         # Step 3: make plots
@@ -769,3 +775,5 @@ for obs_name, obs in OBSERVABLES.items():
 
     f.Close()
     f_theory.Close()
+outfile.Close()
+
