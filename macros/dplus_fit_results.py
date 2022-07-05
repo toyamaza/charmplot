@@ -213,6 +213,7 @@ def createCanvasPads(name):
 
     return c, pad1, pad2, pad3
 
+
 for plot_type, theory_dict in THEORY_DICT.items():
 
     if not os.path.isdir(os.path.join("fit_results", plot_type)):
@@ -308,9 +309,9 @@ for plot_type, theory_dict in THEORY_DICT.items():
                     y_up = ((float(POIs_obs[f"expr_mu_W{lep}_rel_{i + 1}"][1]) * y_tot)**2 + (float(POIs_obs[f"{expr}mu_W{lep}_tot"][1]) * y_prior)**2)**(0.5)
                     y_dn = ((float(POIs_obs[f"expr_mu_W{lep}_rel_{i + 1}"][1]) * y_tot)**2 + (float(POIs_obs[f"{expr}mu_W{lep}_tot"][1]) * y_prior)**2)**(0.5)
                     y_up_stat = ((float(POIs_stat[f"expr_mu_W{lep}_rel_{i + 1}"][1]) * y_tot)**2 +
-                                (float(POIs_stat[f"{expr}mu_W{lep}_tot"][1]) * y_prior)**2)**(0.5)
+                                 (float(POIs_stat[f"{expr}mu_W{lep}_tot"][1]) * y_prior)**2)**(0.5)
                     y_dn_stat = ((float(POIs_stat[f"expr_mu_W{lep}_rel_{i + 1}"][1]) * y_tot)**2 +
-                                (float(POIs_stat[f"{expr}mu_W{lep}_tot"][1]) * y_prior)**2)**(0.5)
+                                 (float(POIs_stat[f"{expr}mu_W{lep}_tot"][1]) * y_prior)**2)**(0.5)
                     y_up_sys = (y_up**2 - y_up_stat**2)**(0.5)
                     y_dn_sys = (y_dn**2 - y_dn_stat**2)**(0.5)
                     y_norm = float(POIs_obs[f"expr_mu_W{lep}_rel_{i + 1}"][0]) * y_rel
@@ -534,10 +535,14 @@ for plot_type, theory_dict in THEORY_DICT.items():
                     xh = obs["bins"][i + 1]
                     w = xh - xl
                     if obs["logx"]:
-                        xc = ROOT.TMath.Power(10, ROOT.TMath.Log10(xl) + (ROOT.TMath.Log10(xl + w) - ROOT.TMath.Log10(xl)) / 2. + prediction_dict["offset"] * (ROOT.TMath.Log10(xl + w) - ROOT.TMath.Log10(xl)) / 2.)
-                        x_err_up = ROOT.TMath.Power(10, ROOT.TMath.Log10(xc) + (ROOT.TMath.Log10(obs["bins"][-1]) - ROOT.TMath.Log10(obs["bins"][0])) / 200.) - xc
-                        x_err_dn = xc - ROOT.TMath.Power(10, ROOT.TMath.Log10(xc) - (ROOT.TMath.Log10(obs["bins"][-1]) - ROOT.TMath.Log10(obs["bins"][0])) / 200.)
-                        gr_theory.GetX()[i] = ROOT.TMath.Power(10, ROOT.TMath.Log10(xc) + (ROOT.TMath.Log10(obs["bins"][-1]) - ROOT.TMath.Log10(obs["bins"][0])) / 200.) - xc
+                        xc = ROOT.TMath.Power(10, ROOT.TMath.Log10(xl) + (ROOT.TMath.Log10(xl + w) - ROOT.TMath.Log10(xl)) / 2. +
+                                              prediction_dict["offset"] * (ROOT.TMath.Log10(xl + w) - ROOT.TMath.Log10(xl)) / 2.)
+                        x_err_up = ROOT.TMath.Power(10, ROOT.TMath.Log10(
+                            xc) + (ROOT.TMath.Log10(obs["bins"][-1]) - ROOT.TMath.Log10(obs["bins"][0])) / 200.) - xc
+                        x_err_dn = xc - ROOT.TMath.Power(10, ROOT.TMath.Log10(xc) -
+                                                         (ROOT.TMath.Log10(obs["bins"][-1]) - ROOT.TMath.Log10(obs["bins"][0])) / 200.)
+                        gr_theory.GetX()[i] = ROOT.TMath.Power(10, ROOT.TMath.Log10(xc) +
+                                                               (ROOT.TMath.Log10(obs["bins"][-1]) - ROOT.TMath.Log10(obs["bins"][0])) / 200.) - xc
                     else:
                         offset = prediction_dict["offset"] * gr_obs.GetEXhigh()[i]
                         xc = gr_theory.GetX()[i] + offset
@@ -607,7 +612,8 @@ for plot_type, theory_dict in THEORY_DICT.items():
             l2.SetTextSize(32)
             l2.DrawLatex(0.305, 0.8 - 0 * 0.06, "Internal")
             l2.DrawLatex(0.19, 0.8 - 1 * 0.06, "#sqrt{s} = 13 TeV, 139 fb^{-1}")
-            l2.DrawLatex(0.19, 0.8 - 2 * 0.06, "#it{W}^{%s}+#it{D}^{%s}(#rightarrowK#pi#pi)" % (("-" if lep == "minus" else "+"), ("+" if lep == "minus" else "-")))
+            l2.DrawLatex(0.19, 0.8 - 2 * 0.06, "#it{W}^{%s}+#it{D}^{%s}(#rightarrowK#pi#pi)" %
+                         (("-" if lep == "minus" else "+"), ("+" if lep == "minus" else "-")))
             if plot_type == "PDF_comparison":
                 l2.DrawLatex(0.19, 0.8 - 3 * 0.06, "aMC@NLO, full CKM")
 
@@ -757,7 +763,7 @@ for plot_type, theory_dict in THEORY_DICT.items():
             leg.AddEntry(gr_tot, "Syst. #oplus Stat.", "f")
 
             # theory
-            for k, prediction in enumerate(THEORY):
+            for k, prediction in enumerate(THEORY_DICT):
                 h = f_theory.Get(f"{prediction}_OS-SS_lep_{lep}_Dplus_{obs['prior_var']}")
                 if prediction == "MGFxFx_WplusD":
                     gr_qcd = f_theory.Get(f"{prediction}_OS-SS_lep_{lep}_Dplus_{obs['prior_var']}_ratio_mg_fxfx_theory_qcd")
@@ -884,7 +890,7 @@ for plot_type, theory_dict in THEORY_DICT.items():
         mg.Add(gr, "l")
 
         # theory
-        for k, prediction in enumerate(THEORY):
+        for k, prediction in enumerate(THEORY_DICT):
             xsec = data["plus"][prediction][0] / data["minus"][prediction][0]
             xsec_up = (data["plus"][prediction][0] + data["plus"][prediction][1]) / (
                 data["minus"][prediction][0] + data["minus"][prediction][1])
