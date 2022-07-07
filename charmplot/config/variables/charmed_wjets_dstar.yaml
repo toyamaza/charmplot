@@ -39,8 +39,8 @@ Dmeson_mdiff_fit:
   unit: 'MeV'
   rebin: 10
   x_range: [140,180]
-  do_overflow: False
-  do_underflow: False
+  do_overflow: True
+  do_underflow: True
   xbins: [140., 142., 143., 144., 145., 146., 147., 148., 149., 150., 157.5, 165., 172.5, 180.]
   # xbins: [140., 141., 142., 143., 144., 145., 146., 147., 148., 149., 150., 153., 156., 159., 162., 165., 168., 171., 174., 177., 180.]
   ratio_range: [0.5, 1.49]
@@ -89,8 +89,8 @@ Dmeson_cTau:
 
 Dmeson_chi2:
   label: 'D* #chi^{2}'
-  rebin: 4
-  x_range: [0.0,10.5]
+  rebin: 1
+  x_range: [0.0,12.0]
   ratio_range: [0.5, 1.49]
 
 met_met:
@@ -222,9 +222,11 @@ Dmeson_SVr:
 
 Dmeson_ptcone40_pt:
   label: 'D* ptcone40/p_{T}'
-  rebin: 2
-  #xbins: [0.0, 0.02, 0.04, 0.06, 0.08, 1.0, 1.5, 2.0, 4.0, 10.0]
+  rebin: 1
+  #xbins: [0.0, 0.02, 0.04, 0.06, 0.08, 1.0, 2.0, 4.0, 10.0]
   x_range: [0,2.0]
+  do_overflow: False
+  do_underflow: True
   #per_unit: True
   ratio_range: [0.5, 1.49]
 

@@ -36,7 +36,8 @@ def main(options, args):
     if (options.decay_mode == "Dplus"):
         var = "Dmeson_m"
     else:
-        var = "Dmeson_mdiff"
+        var = "Dmeson_ptcone40_pt"
+        #var = "Dmeson_mdiff"
 
     # output
     f_out = ROOT.TFile("inclusive_bkg.root", "RECREATE")

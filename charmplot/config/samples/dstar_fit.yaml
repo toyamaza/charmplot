@@ -24,7 +24,8 @@ Sherpa2211_WplusD_Matched_Minus:
   fillColor: "10004"
   legendLabel: "W+#it{D}(#it{K}#pi#pi)"
   shortName: Sherpa2211_WplusD_Matched_Minus
-  scaleMC: 0.039285555 #0.0395 * 0.994571
+  scaleMC: 51262.920/1.23e6   # 0.039285555 #0.0395 * 0.994571
+  #yieldMC: 51262.920 #1.37e04 + 1.72e04 + 1.50e04 + 5.4e03 + 8.25e02
 
 Sherpa2211_WplusD_Matched_Plus:
   add:
@@ -33,7 +34,8 @@ Sherpa2211_WplusD_Matched_Plus:
   fillColor: "10004"
   legendLabel: "W+#it{D}(#it{K}#pi#pi)"
   shortName: Sherpa2211_WplusD_Matched_Plus
-  scaleMC: 0.038677492 #0.0395 * 0.979177
+  scaleMC: 50725.780/1.24e06 #0.038677492 #0.0395 * 0.979177
+  #yieldMC: 1.38e04+1.69e04+1.49e04+5.13e03+7.44e02
 
 Sherpa2211_WplusD_Matched_truth_pt_bin1:
   add:
@@ -245,7 +247,8 @@ Sherpa2211_Wjets_MisMatched_Minus:
   subtract:
   fillColor: "11004"
   legendLabel: "W+c^{mis-match}"
-  scaleMC:  1.58/1.51 #0.994571
+  scaleMC:  1.65e04/16409.545 #0.994571
+# yieldMC: 1.65e04
   shortName: Sherpa2211_Wjets_MisMatched_Minus
 
 Sherpa2211_Wjets_MisMatched_Plus:
@@ -257,8 +260,31 @@ Sherpa2211_Wjets_MisMatched_Plus:
   subtract:
   fillColor: "11004"
   legendLabel: "W+c^{mis-match}"
-  scaleMC: 1.38/1.34 #0.979177
+  scaleMC: 1.48e04/14418.231
+# yieldMC: 1.48e04
   shortName: Sherpa2211_Wjets_MisMatched_Plus
+
+Data_Driven_Minus:
+  add:
+    - tail_region_bkg
+#    - tail_Sherpa2211_Wjets
+  subtract:
+  fillColor: "11004"
+  legendLabel: "Bkg"
+  scaleMC: 11534.710/4.54e04 # 1.48e04/14418.231
+  #yieldMC: 11534.710 #2855.12+16543.62+34997.13+1591.88+1680.35-132.06
+  shortName: Data_Driven_Minus
+
+Data_Driven_Plus:
+  add:
+    - tail_region_bkg
+#    - tail_Sherpa2211_Wjets
+  subtract:
+  fillColor: "11004"
+  legendLabel: "Bkg"
+  scaleMC: 10473.860/3.95e04
+# yieldMC: 1.48e04
+  shortName: Data_Driven_Plus
 
 Sherpa2211_Wjets_Rest:
   add:
@@ -280,7 +306,8 @@ Sherpa2211_Wjets_Rest_Minus:
     - Sh_2211_Wjets_tau
   subtract:
   fillColor: "11002"
-  scaleMC: 3.26/3.07
+  scaleMC: 3.50e4/32433.980
+# yieldMC: 3.50e4
   legendLabel: "W+jets"
   shortName: Sherpa2211_Wjets_Rest
 
@@ -292,9 +319,10 @@ Sherpa2211_Wjets_Rest_Plus:
     - Sh_2211_Wjets_tau
   subtract:
   fillColor: "11002"
-  scaleMC: 2.95/2.66
+  scaleMC: 3.13e04/27329.027
+# yieldMC: 3.13e04
   legendLabel: "W+jets"
-  shortName: Sherpa2211_Wjets_Rest
+  shortName: Sherpa2211_Wjets_Rest_Plus
 
 Sherpa2211_Wjets_Charm:
   add:
@@ -316,9 +344,10 @@ Sherpa2211_Wjets_Charm_Minus:
     - Sh_2211_Wjets_tau
   subtract:
   fillColor: "10001"
-  scaleMC: 2.93/2.91 #0.994571
+  scaleMC: 2.86e03/3077.7084 #0.994571
+# yieldMC: 2.86e03
   legendLabel: "W+c^{match}"
-  shortName: Sherpa2211_Wjets_Charm
+  shortName: Sherpa2211_Wjets_Charm_Minus
 
 Sherpa2211_Wjets_Charm_Plus:
   add:
@@ -328,9 +357,10 @@ Sherpa2211_Wjets_Charm_Plus:
     - Sh_2211_Wjets_tau
   subtract:
   fillColor: "10001"
-  scaleMC: 2.94/2.83 
+  scaleMC: 2.74e03/2914.9260
+# yieldMC: 2.74e03 
   legendLabel: "W+c^{match}"
-  shortName: Sherpa2211_Wjets_Charm
+  shortName: Sherpa2211_Wjets_Charm_Plus
 
 # LIS Sherpa2.2.11 templates
 
@@ -504,8 +534,9 @@ MG_Wjets_Rest_Minus:
   subtract:
   fillColor: "11002"
   legendLabel: "W+jets"
-  scaleMC: 3.26/3.07
-  shortName: MG_Wjets_Rest
+  scaleMC: 3.50e4/32433.980
+# yieldMC: 3.5e04
+  shortName: MG_Wjets_Rest_Minus
 
 MG_Wjets_Rest_Plus:
   add:
@@ -514,6 +545,7 @@ MG_Wjets_Rest_Plus:
   subtract:
   fillColor: "11002"
   scaleMC: 2.95/2.66
+# yieldMC: 3.13e04
   legendLabel: "W+jets"
   shortName: MG_Wjets_Rest
 
@@ -552,7 +584,8 @@ MG_Wjets_Charm_Minus:
   fillColor: "10001"
   legendLabel: "W+c^{match}"
   scaleMC: 2.93/2.91 #0.994571
-  shortName: MG_Wjets_Charm
+# yieldMC: 2.86e03
+  shortName: MG_Wjets_Charm_Minus
 
 MG_Wjets_Charm_Plus:
   add:
@@ -562,7 +595,8 @@ MG_Wjets_Charm_Plus:
   fillColor: "10001"
   legendLabel: "W+c^{match}"
   scaleMC: 2.94/2.83 #0.979177
-  shortName: MG_Wjets_Charm
+# yieldMC: 2.74e03
+  shortName: MG_Wjets_Charm_Plus
 
 # ---------------------------------------------
 # NLO MadGraph
@@ -823,8 +857,9 @@ Top_Minus:
   subtract:
   fillColor: "12001"
   legendLabel: Top
-  scaleMC: 1.54/1.39  
-  shortName: Top
+  scaleMC: 1.59e03/1517.6726  
+# yieldMC: 1.59e03
+  shortName: Top_Minus
   makeGhostSample: True
 
 Top_Plus:
@@ -835,8 +870,9 @@ Top_Plus:
   subtract:
   fillColor: "12001"
   legendLabel: Top
-  scaleMC: 1.31/1.25
-  shortName: Top
+  scaleMC: 1.32e03/1411.7709
+# yieldMC: 1.32e03
+  shortName: Top_Plus
   makeGhostSample: True
 
 Top_HS:
