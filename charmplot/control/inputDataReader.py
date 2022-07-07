@@ -70,6 +70,7 @@ class InputDataReader(object):
         # scaling from MC config
         if sample.scaleMC and 'data' not in f.GetName():
             h_new.Scale(sample.scaleMC)
+
         return h_new
 
     def eff_divide(self, h_num, h_den):
@@ -196,6 +197,11 @@ class InputDataReader(object):
             h_total.SetName(f"{h_total.GetName()}_{suffix}")
             h_total.SetTitle(f"{h_total.GetName()}_{suffix}")
         logging.info(f":::END get_histogram::: {sample.name} {channel.name} {h_total}")
+
+        # scaling to a yiled from MC config
+        if sample.yieldMC and 'data' not in h_total.GetName():
+            if h_total.Integral() > 0.0:
+                h_total.Scale(sample.yieldMC/h_total.Integral())
         return h_total
 
     def get_integral(self, sample, channel, variable, sys=None):

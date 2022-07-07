@@ -322,15 +322,15 @@ class BKGComparison(ChannelTemplate):
         self.samples = {
             'Rest': [
                 ['Sherpa2211_Wjets_Rest_Plain', proxies.NoMatchBackground()],
-                ['Sherpa2211_Wjets_Rest', proxies.NoMatchBackground()],
+               # ['Sherpa2211_Wjets_Rest', proxies.NoMatchBackground()],
                 ['MG_Wjets_Rest_Plain', proxies.NoMatchBackground()],
-                ['MG_Wjets_Rest', proxies.NoMatchBackground()],
-                # ['MG_Wjets_Rest_PostProc', proxies.GenericChannel(name="MG_Wjets_Rest",
-                #                                                    regions_OS=["MG_Wjets_Rest_OS", "MG_Wjets_Rest_SS"],
-                #                                                    regions_SS=["MG_Wjets_Rest_OS", "MG_Wjets_Rest_SS"])],
-                # ['Sherpa2211_Wjets_Rest_PostProc', proxies.GenericChannel(name="Sh_Wjets_Rest",
-                #                                                    regions_OS=["Sh_Wjets_Rest_OS", "Sh_Wjets_Rest_SS"],
-                #                                                    regions_SS=["Sh_Wjets_Rest_OS", "Sh_Wjets_Rest_SS"])],
+               # ['MG_Wjets_Rest', proxies.NoMatchBackground()],
+                ['MG_Wjets_Rest_PostProc', proxies.GenericChannel(name="MG_Wjets_Rest",
+                                                                   regions_OS=["MG_Wjets_Rest_OS", "MG_Wjets_Rest_SS"],
+                                                                   regions_SS=["MG_Wjets_Rest_OS", "MG_Wjets_Rest_SS"])],
+                ['Sherpa2211_Wjets_Rest_PostProc', proxies.GenericChannel(name="Sh_Wjets_Rest",
+                                                                   regions_OS=["Sh_Wjets_Rest_OS", "Sh_Wjets_Rest_SS"],
+                                                                   regions_SS=["Sh_Wjets_Rest_OS", "Sh_Wjets_Rest_SS"])],
             ],
             'MisMatched': [
                 ['Sherpa2211_Wjets_MisMatched_Plain', proxies.GenericChannel(name="MisMatched", region=["MisMatched", "MatchedNoFid"])],
@@ -477,11 +477,17 @@ class ReplacementSamples(ChannelTemplate):
             self.samples.update(
                 {
                     'Rest': [
-                        ['MG_Wjets_Rest_Fit', proxies.GenericChannel(name="MG_Wjets_Rest", regions_OS=[
-                            "MG_Wjets_Rest_Fit"], regions_SS=["MG_Wjets_Rest_Fit"])],
-                        ['Sherpa2211_Wjets_Rest_Fit', proxies.GenericChannel(name="Sherpa2211_Wjets_Rest", regions_OS=[
-                            "Sherpa2211_Wjets_Rest_Fit"], regions_SS=["Sherpa2211_Wjets_Rest_Fit"])],
-                    ],
+                        ['MG_Wjets_Rest_PostProc', proxies.GenericChannel(name="MG_Wjets_Rest", regions_OS=[
+                            "MG_Wjets_Rest_OS", "MG_Wjets_Rest_SS"], regions_SS=["MG_Wjets_Rest_OS", "MG_Wjets_Rest_SS"])],
+                        ['Sherpa2211_Wjets_Rest_PostProc', proxies.GenericChannel(name="Sherpa2211_Wjets_Rest", regions_OS=[
+                            "Sh_Wjets_Rest_OS", "Sh_Wjets_Rest_SS"], regions_SS=["Sh_Wjets_Rest_OS", "Sh_Wjets_Rest_SS"])],
+                    ]
+                    #'Rest': [
+                    #    ['MG_Wjets_Rest_Fit', proxies.GenericChannel(name="MG_Wjets_Rest", regions_OS=[
+                    #        "MG_Wjets_Rest_Fit"], regions_SS=["MG_Wjets_Rest_Fit"])],
+                    #    ['Sherpa2211_Wjets_Rest_Fit', proxies.GenericChannel(name="Sherpa2211_Wjets_Rest", regions_OS=[
+                    #        "Sherpa2211_Wjets_Rest_Fit"], regions_SS=["Sherpa2211_Wjets_Rest_Fit"])],
+                    #],
                 }
             )
 

@@ -16,6 +16,7 @@ class Sample(object):
     color_scheme = None
     statError = True
     scaleMC = None
+    yieldMC = None
     ghost = False
     fit = ""
     ignoreTruthMatching = []
@@ -84,6 +85,12 @@ class Sample(object):
                 self.scaleMC = float(eval(kwargs.pop('scaleMC')))
             else:
                 self.scaleMC = float(kwargs.pop('scaleMC'))
+        
+        if 'yieldMC' in kwargs:
+            if type(kwargs['yieldMC']) == str:
+                self.yieldMC = float(eval(kwargs.pop('yieldMC')))
+            else:
+                self.yieldMC = float(kwargs.pop('yieldMC'))
 
         if 'fit' in kwargs:
             self.fit = str(kwargs.pop('fit'))
