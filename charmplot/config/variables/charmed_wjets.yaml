@@ -988,7 +988,7 @@ Dmeson_eta:
   x_range: [-2.5,2.5]
 
 Dmeson_jet_pt:
-  label: 'p_{jet}(D#pm) [GeV]'
+  label: 'p_{T}(jet) [GeV]'
   rebin: 1
-  x_range: [0, 150]
-  xbins: [0, 8, 10, 12, 14, 16, 18, 20, 30, 40, 60, 80, 150]
+  x_range: [20, 150]
+  xbins: [20, 30, 40, 60, 80, 150]

@@ -38,10 +38,10 @@ channels:
       - -mu_minus_SR_0tag_Dplus_SS_has_jet_bin4
       - -mu_plus_SR_0tag_Dplus_SS_has_jet_bin4
     samples:
-      - MG_Wjets_cjets_emu
-      - Sh_2211_Wjets_cjets_emu
+      - MG_Wjets_Matched_emu
+      - Sh_2211_Wjets_Matched_emu
     label:
-      - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, 0 tag"
+      - "W#rightarrowl#nu+D, D#rightarrowK#pi#pi, 0 tag"
       - "OS-SS, Isolation cut: OFF"
     lumi: "2015+2016A-B+2016C-L+2017+2018"
 
@@ -80,9 +80,9 @@ channels:
       - -mu_minus_SR_1tag_Dplus_SS_has_jet_bin4
       - -mu_plus_SR_1tag_Dplus_SS_has_jet_bin4
     samples:
-      - MG_Wjets_cjets_emu
-      - Sh_2211_Wjets_cjets_emu
+      - MG_Wjets_Matched_emu
+      - Sh_2211_Wjets_Matched_emu
     label:
-      - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, 1 tag"
+      - "W#rightarrowl#nu+D, D#rightarrowK#pi#pi, 1 tag"
       - "OS-SS, Isolation cut: OFF"
     lumi: "2015+2016A-B+2016C-L+2017+2018"

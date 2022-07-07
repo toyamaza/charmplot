@@ -225,7 +225,7 @@ class Canvas2(CanvasBase):
 
     def set_atlas_label(self):
         # ATLAS label
-        self.atlas_label("internal")
+        self.atlas_label("Work in Progress")
         if self.channel.lumi:
             self.text("#sqrt{s} = 13 TeV, %.1f fb^{-1}" % (utils.get_lumi(self.channel.lumi) / 1000.))
         else:
@@ -550,7 +550,7 @@ class CanvasMCRatio(Canvas2):
 
     def set_atlas_label(self):
         # ATLAS label
-        self.atlas_label("internal")
+        self.atlas_label("Work in Progress")
         self.text("#sqrt{s} = 13 TeV")
         for label in self.channel.label:
             self.text(f"{label}")

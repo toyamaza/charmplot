@@ -1,13 +1,21 @@
 colorScheme: cheer_up_emo_kid
 
-Sh_2211_Wjets_cjets_emu:
-  add: Sh_2211_Wjets_cjets_emu
+Sh_2211_Wjets_Matched_emu:
+  add:
+    - Sh_2211_Wjets_cjets_emu
+    - Sh_2211_Wjets_bjets_emu
+    - Sh_2211_Wjets_light_emu
+    - Sh_2211_Wjets_tau
   subtract:
   fillColor: "ROOT.kRed"
-  legendLabel: "Sh2211 W#rightarrowl#nu + c"
+  legendLabel: "Sh2211 W+#it{D}(#it{K}#pi#pi)"
 
-MG_Wjets_cjets_emu:
-  add: MG_Wjets_cjets_emu
+MG_Wjets_Matched_emu:
+  add:
+    - MG_Wjets_tau
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_bjets_emu
+    - MG_Wjets_light_emu
   subtract:
   fillColor: "ROOT.kBlue"
-  legendLabel: "LO MG W#rightarrowl#nu + c"
+  legendLabel: "MG+Py8 W+#it{D}(#it{K}#pi#pi)"

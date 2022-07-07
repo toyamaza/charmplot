@@ -15,17 +15,16 @@ channels:
       - mu_minus_SR_0tag_Dplus_OS_has_jet_bin1
       - mu_plus_SR_0tag_Dplus_OS_has_jet_bin1
     samples:
-      - Wjets_cjets_emu
-      - Wjets_bjets_emu
-      - Wjets_light_emu
+      - Wjets_emu_Matched | OS_0tag_inclusive_has_jet_bin1_Matched
+      - Wjets_emu_Background | OS_0tag_inclusive_has_jet_bin1_Background
       - Top_ttbar
       - Top_single_top
       - Other
       - Multijet_MatrixMethod | OS_0tag_inclusive_has_jet_bin1_MatrixMethod
       - MockMC_minus_MC | SS_0tag_inclusive_has_jet_bin1_MockMC
     label:
-      - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, 0 tag"
-      - "MadGraph, OS, Bin 1"
+      - "W#rightarrowl#nu+D, D#rightarrowK#pi#pi, 0 tag"
+      - "MG+Py8, OS, Bin 1"
       - "Isolation cut: OFF"
     lumi: "2015+2016A-B+2016C-L+2017+2018"
 
@@ -36,8 +35,8 @@ channels:
       - mu_minus_SR_0tag_Dplus_OS_has_jet_bin2
       - mu_plus_SR_0tag_Dplus_OS_has_jet_bin2
     samples:
-      - Wjets_cjets_emu
-      - Wjets_bjets_emu
+      - Wjets_emu_Matched | OS_0tag_inclusive_has_jet_bin2_Matched
+      - Wjets_emu_Background | OS_0tag_inclusive_has_jet_bin2_Background
       - Wjets_light_emu
       - Top_ttbar
       - Top_single_top
@@ -45,8 +44,8 @@ channels:
       - Multijet_MatrixMethod | OS_0tag_inclusive_has_jet_bin2_MatrixMethod
       - MockMC_minus_MC | SS_0tag_inclusive_has_jet_bin2_MockMC
     label:
-      - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, 0 tag"
-      - "MadGraph, OS, Bin 2"
+      - "W#rightarrowl#nu+D, D#rightarrowK#pi#pi, 0 tag"
+      - "MG+Py8, OS, Bin 2"
       - "Isolation cut: OFF"
     lumi: "2015+2016A-B+2016C-L+2017+2018"
 
@@ -56,19 +55,18 @@ channels:
       - el_plus_SR_0tag_Dplus_OS_has_jet_bin3
       - mu_minus_SR_0tag_Dplus_OS_has_jet_bin3
       - mu_plus_SR_0tag_Dplus_OS_has_jet_bin3
-    label:
-      - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, 0 tag"
-      - "MadGraph, OS, Bin 3"
-      - "Isolation cut: OFF"
     samples:
-      - Wjets_cjets_emu
-      - Wjets_bjets_emu
-      - Wjets_light_emu
+      - Wjets_emu_Matched | OS_0tag_inclusive_has_jet_bin3_Matched
+      - Wjets_emu_Background | OS_0tag_inclusive_has_jet_bin3_Background
       - Top_ttbar
       - Top_single_top
       - Other
       - Multijet_MatrixMethod | OS_0tag_inclusive_has_jet_bin3_MatrixMethod
       - MockMC_minus_MC | SS_0tag_inclusive_has_jet_bin3_MockMC
+    label:
+      - "W#rightarrowl#nu+D, D#rightarrowK#pi#pi, 0 tag"
+      - "MG+Py8, OS, Bin 3"
+      - "Isolation cut: OFF"
     lumi: "2015+2016A-B+2016C-L+2017+2018"
 
   OS_0tag_inclusive_has_jet_bin4:
@@ -78,17 +76,16 @@ channels:
       - mu_minus_SR_0tag_Dplus_OS_has_jet_bin4
       - mu_plus_SR_0tag_Dplus_OS_has_jet_bin4
     samples:
-      - Wjets_cjets_emu
-      - Wjets_bjets_emu
-      - Wjets_light_emu
+      - Wjets_emu_Matched | OS_0tag_inclusive_has_jet_bin4_Matched
+      - Wjets_emu_Background | OS_0tag_inclusive_has_jet_bin4_Background
       - Top_ttbar
       - Top_single_top
       - Other
       - Multijet_MatrixMethod | OS_0tag_inclusive_has_jet_bin4_MatrixMethod
       - MockMC_minus_MC | SS_0tag_inclusive_has_jet_bin4_MockMC
     label:
-      - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, 0 tag"
-      - "MadGraph, OS, Bin 4"
+      - "W#rightarrowl#nu+D, D#rightarrowK#pi#pi, 0 tag"
+      - "MG+Py8, OS, Bin 4"
       - "Isolation cut: OFF"
     lumi: "2015+2016A-B+2016C-L+2017+2018"
 
@@ -99,17 +96,16 @@ channels:
       - mu_minus_SR_0tag_Dplus_SS_has_jet_bin1
       - mu_plus_SR_0tag_Dplus_SS_has_jet_bin1
     samples:
-      - Wjets_cjets_emu
-      - Wjets_bjets_emu
-      - Wjets_light_emu
+      - Wjets_emu_Matched | SS_0tag_inclusive_has_jet_bin1_Matched
+      - Wjets_emu_Background | SS_0tag_inclusive_has_jet_bin1_Background
       - Top_ttbar
       - Top_single_top
       - Other
       - Multijet_MatrixMethod | SS_0tag_inclusive_has_jet_bin1_MatrixMethod
       - MockMC_minus_MC | SS_0tag_inclusive_has_jet_bin1_MockMC
     label:
-      - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, 0 tag"
-      - "MadGraph, SS, Bin 1"
+      - "W#rightarrowl#nu+D, D#rightarrowK#pi#pi, 0 tag"
+      - "MG+Py8, SS, Bin 1"
       - "Isolation cut: OFF"
     lumi: "2015+2016A-B+2016C-L+2017+2018"
 
@@ -120,17 +116,16 @@ channels:
       - mu_minus_SR_0tag_Dplus_SS_has_jet_bin2
       - mu_plus_SR_0tag_Dplus_SS_has_jet_bin2
     samples:
-      - Wjets_cjets_emu
-      - Wjets_bjets_emu
-      - Wjets_light_emu
+      - Wjets_emu_Matched | SS_0tag_inclusive_has_jet_bin2_Matched
+      - Wjets_emu_Background | SS_0tag_inclusive_has_jet_bin2_Background
       - Top_ttbar
       - Top_single_top
       - Other
       - Multijet_MatrixMethod | SS_0tag_inclusive_has_jet_bin2_MatrixMethod
       - MockMC_minus_MC | SS_0tag_inclusive_has_jet_bin2_MockMC
     label:
-      - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, 0 tag"
-      - "MadGraph, SS, Bin 2"
+      - "W#rightarrowl#nu+D, D#rightarrowK#pi#pi, 0 tag"
+      - "MG+Py8, SS, Bin 2"
       - "Isolation cut: OFF"
     lumi: "2015+2016A-B+2016C-L+2017+2018"
 
@@ -141,17 +136,16 @@ channels:
       - mu_minus_SR_0tag_Dplus_SS_has_jet_bin3
       - mu_plus_SR_0tag_Dplus_SS_has_jet_bin3
     samples:
-      - Wjets_cjets_emu
-      - Wjets_bjets_emu
-      - Wjets_light_emu
+      - Wjets_emu_Matched | SS_0tag_inclusive_has_jet_bin3_Matched
+      - Wjets_emu_Background | SS_0tag_inclusive_has_jet_bin3_Background
       - Top_ttbar
       - Top_single_top
       - Other
       - Multijet_MatrixMethod | SS_0tag_inclusive_has_jet_bin3_MatrixMethod
       - MockMC_minus_MC | SS_0tag_inclusive_has_jet_bin3_MockMC
     label:
-      - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, 0 tag"
-      - "MadGraph, SS, Bin 3"
+      - "W#rightarrowl#nu+D, D#rightarrowK#pi#pi, 0 tag"
+      - "MG+Py8, SS, Bin 3"
       - "Isolation cut: OFF"
     lumi: "2015+2016A-B+2016C-L+2017+2018"
 
@@ -162,17 +156,16 @@ channels:
       - mu_minus_SR_0tag_Dplus_SS_has_jet_bin4
       - mu_plus_SR_0tag_Dplus_SS_has_jet_bin4
     samples:
-      - Wjets_cjets_emu
-      - Wjets_bjets_emu
-      - Wjets_light_emu
+      - Wjets_emu_Matched | SS_0tag_inclusive_has_jet_bin4_Matched
+      - Wjets_emu_Background | SS_0tag_inclusive_has_jet_bin4_Background
       - Top_ttbar
       - Top_single_top
       - Other
       - Multijet_MatrixMethod | SS_0tag_inclusive_has_jet_bin4_MatrixMethod
       - MockMC_minus_MC | SS_0tag_inclusive_has_jet_bin4_MockMC
     label:
-      - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, 0 tag"
-      - "MadGraph, SS, Bin 4"
+      - "W#rightarrowl#nu+D, D#rightarrowK#pi#pi, 0 tag"
+      - "MG+Py8, SS, Bin 4"
       - "Isolation cut: OFF"
     lumi: "2015+2016A-B+2016C-L+2017+2018"
 
@@ -187,16 +180,15 @@ channels:
       - -mu_minus_SR_0tag_Dplus_SS_has_jet_bin1
       - -mu_plus_SR_0tag_Dplus_SS_has_jet_bin1
     samples:
-      - Wjets_cjets_emu
-      - Wjets_bjets_emu
-      - Wjets_light_emu
+      - Wjets_emu_Matched | OS-SS_0tag_inclusive_has_jet_bin1_Matched
+      - Wjets_emu_Background | OS-SS_0tag_inclusive_has_jet_bin1_Background
       - Top_ttbar
       - Top_single_top
       - Other
       - Multijet_MatrixMethod | OS-SS_0tag_inclusive_has_jet_bin1_MatrixMethod
     label:
-      - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, 0 tag"
-      - "MadGraph, OS-SS, Bin 1"
+      - "W#rightarrowl#nu+D, D#rightarrowK#pi#pi, 0 tag"
+      - "MG+Py8, OS-SS, Bin 1"
       - "Isolation cut: OFF"
     lumi: "2015+2016A-B+2016C-L+2017+2018"
 
@@ -211,16 +203,15 @@ channels:
       - -mu_minus_SR_0tag_Dplus_SS_has_jet_bin2
       - -mu_plus_SR_0tag_Dplus_SS_has_jet_bin2
     samples:
-      - Wjets_cjets_emu
-      - Wjets_bjets_emu
-      - Wjets_light_emu
+      - Wjets_emu_Matched | OS-SS_0tag_inclusive_has_jet_bin2_Matched
+      - Wjets_emu_Background | OS-SS_0tag_inclusive_has_jet_bin2_Background
       - Top_ttbar
       - Top_single_top
       - Other
       - Multijet_MatrixMethod | OS-SS_0tag_inclusive_has_jet_bin2_MatrixMethod
     label:
-      - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, 0 tag"
-      - "MadGraph, OS-SS, Bin 2"
+      - "W#rightarrowl#nu+D, D#rightarrowK#pi#pi, 0 tag"
+      - "MG+Py8, OS-SS, Bin 2"
       - "Isolation cut: OFF"
     lumi: "2015+2016A-B+2016C-L+2017+2018"
 
@@ -235,16 +226,15 @@ channels:
       - -mu_minus_SR_0tag_Dplus_SS_has_jet_bin3
       - -mu_plus_SR_0tag_Dplus_SS_has_jet_bin3
     samples:
-      - Wjets_cjets_emu
-      - Wjets_bjets_emu
-      - Wjets_light_emu
+      - Wjets_emu_Matched | OS-SS_0tag_inclusive_has_jet_bin3_Matched
+      - Wjets_emu_Background | OS-SS_0tag_inclusive_has_jet_bin3_Background
       - Top_ttbar
       - Top_single_top
       - Other
       - Multijet_MatrixMethod | OS-SS_0tag_inclusive_has_jet_bin3_MatrixMethod
     label:
-      - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, 0 tag"
-      - "MadGraph, OS-SS, Bin 3"
+      - "W#rightarrowl#nu+D, D#rightarrowK#pi#pi, 0 tag"
+      - "MG+Py8, OS-SS, Bin 3"
       - "Isolation cut: OFF"
     lumi: "2015+2016A-B+2016C-L+2017+2018"
 
@@ -259,16 +249,15 @@ channels:
       - -mu_minus_SR_0tag_Dplus_SS_has_jet_bin4
       - -mu_plus_SR_0tag_Dplus_SS_has_jet_bin4
     samples:
-      - Wjets_cjets_emu
-      - Wjets_bjets_emu
-      - Wjets_light_emu
+      - Wjets_emu_Matched | OS-SS_0tag_inclusive_has_jet_bin4_Matched
+      - Wjets_emu_Background | OS-SS_0tag_inclusive_has_jet_bin4_Background
       - Top_ttbar
       - Top_single_top
       - Other
       - Multijet_MatrixMethod | OS-SS_0tag_inclusive_has_jet_bin4_MatrixMethod
     label:
-      - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, 0 tag"
-      - "MadGraph, OS-SS, Bin 4"
+      - "W#rightarrowl#nu+D, D#rightarrowK#pi#pi, 0 tag"
+      - "MG+Py8, OS-SS, Bin 4"
       - "Isolation cut: OFF"
     lumi: "2015+2016A-B+2016C-L+2017+2018"
 
@@ -279,17 +268,16 @@ channels:
       - mu_minus_SR_1tag_Dplus_OS_has_jet_bin1
       - mu_plus_SR_1tag_Dplus_OS_has_jet_bin1
     samples:
-      - Wjets_cjets_emu
-      - Wjets_bjets_emu
-      - Wjets_light_emu
+      - Wjets_emu_Matched | OS_1tag_inclusive_has_jet_bin1_Matched
+      - Wjets_emu_Background | OS_1tag_inclusive_has_jet_bin1_Background
       - Top_ttbar
       - Top_single_top
       - Other
       - Multijet_MatrixMethod | OS_1tag_inclusive_has_jet_bin1_MatrixMethod
       - MockMC_minus_MC | SS_1tag_inclusive_has_jet_bin1_MockMC
     label:
-      - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, 1 tag"
-      - "MadGraph, OS, Bin 1"
+      - "W#rightarrowl#nu+D, D#rightarrowK#pi#pi, 1 tag"
+      - "Pw+Py, OS, Bin 1"
       - "Isolation cut: OFF"
     lumi: "2015+2016A-B+2016C-L+2017+2018"
 
@@ -300,17 +288,16 @@ channels:
       - mu_minus_SR_1tag_Dplus_OS_has_jet_bin2
       - mu_plus_SR_1tag_Dplus_OS_has_jet_bin2
     samples:
-      - Wjets_cjets_emu
-      - Wjets_bjets_emu
-      - Wjets_light_emu
+      - Wjets_emu_Matched | OS_1tag_inclusive_has_jet_bin2_Matched
+      - Wjets_emu_Background | OS_1tag_inclusive_has_jet_bin2_Background
       - Top_ttbar
       - Top_single_top
       - Other
       - Multijet_MatrixMethod | OS_1tag_inclusive_has_jet_bin2_MatrixMethod
       - MockMC_minus_MC | SS_1tag_inclusive_has_jet_bin2_MockMC
     label:
-      - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, 1 tag"
-      - "MadGraph, OS, Bin 2"
+      - "W#rightarrowl#nu+D, D#rightarrowK#pi#pi, 1 tag"
+      - "Pw+Py, OS, Bin 2"
       - "Isolation cut: OFF"
     lumi: "2015+2016A-B+2016C-L+2017+2018"
 
@@ -321,17 +308,16 @@ channels:
       - mu_minus_SR_1tag_Dplus_OS_has_jet_bin3
       - mu_plus_SR_1tag_Dplus_OS_has_jet_bin3
     samples:
-      - Wjets_cjets_emu
-      - Wjets_bjets_emu
-      - Wjets_light_emu
+      - Wjets_emu_Matched | OS_1tag_inclusive_has_jet_bin3_Matched
+      - Wjets_emu_Background | OS_1tag_inclusive_has_jet_bin3_Background
       - Top_ttbar
       - Top_single_top
       - Other
       - Multijet_MatrixMethod | OS_1tag_inclusive_has_jet_bin3_MatrixMethod
       - MockMC_minus_MC | SS_1tag_inclusive_has_jet_bin3_MockMC
     label:
-      - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, 1 tag"
-      - "MadGraph, OS, Bin 3"
+      - "W#rightarrowl#nu+D, D#rightarrowK#pi#pi, 1 tag"
+      - "Pw+Py, OS, Bin 3"
       - "Isolation cut: OFF"
     lumi: "2015+2016A-B+2016C-L+2017+2018"
 
@@ -342,17 +328,16 @@ channels:
       - mu_minus_SR_1tag_Dplus_OS_has_jet_bin4
       - mu_plus_SR_1tag_Dplus_OS_has_jet_bin4
     samples:
-      - Wjets_cjets_emu
-      - Wjets_bjets_emu
-      - Wjets_light_emu
+      - Wjets_emu_Matched | OS_1tag_inclusive_has_jet_bin4_Matched
+      - Wjets_emu_Background | OS_1tag_inclusive_has_jet_bin4_Background
       - Top_ttbar
       - Top_single_top
       - Other
       - Multijet_MatrixMethod | OS_1tag_inclusive_has_jet_bin4_MatrixMethod
       - MockMC_minus_MC | SS_1tag_inclusive_has_jet_bin4_MockMC
     label:
-      - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, 1 tag"
-      - "MadGraph, OS, Bin 4"
+      - "W#rightarrowl#nu+D, D#rightarrowK#pi#pi, 1 tag"
+      - "Pw+Py, OS, Bin 4"
       - "Isolation cut: OFF"
     lumi: "2015+2016A-B+2016C-L+2017+2018"
 
@@ -363,17 +348,16 @@ channels:
       - mu_minus_SR_1tag_Dplus_SS_has_jet_bin1
       - mu_plus_SR_1tag_Dplus_SS_has_jet_bin1
     samples:
-      - Wjets_cjets_emu
-      - Wjets_bjets_emu
-      - Wjets_light_emu
+      - Wjets_emu_Matched | SS_1tag_inclusive_has_jet_bin1_Matched
+      - Wjets_emu_Background | SS_1tag_inclusive_has_jet_bin1_Background
       - Top_ttbar
       - Top_single_top
       - Other
       - Multijet_MatrixMethod | SS_1tag_inclusive_has_jet_bin1_MatrixMethod
       - MockMC_minus_MC | SS_1tag_inclusive_has_jet_bin1_MockMC
     label:
-      - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, 1 tag"
-      - "MadGraph, SS, Bin 1"
+      - "W#rightarrowl#nu+D, D#rightarrowK#pi#pi, 1 tag"
+      - "Pw+Py, SS, Bin 1"
       - "Isolation cut: OFF"
     lumi: "2015+2016A-B+2016C-L+2017+2018"
 
@@ -384,17 +368,16 @@ channels:
       - mu_minus_SR_1tag_Dplus_SS_has_jet_bin2
       - mu_plus_SR_1tag_Dplus_SS_has_jet_bin2
     samples:
-      - Wjets_cjets_emu
-      - Wjets_bjets_emu
-      - Wjets_light_emu
+      - Wjets_emu_Matched | SS_1tag_inclusive_has_jet_bin2_Matched
+      - Wjets_emu_Background | SS_1tag_inclusive_has_jet_bin2_Background
       - Top_ttbar
       - Top_single_top
       - Other
       - Multijet_MatrixMethod | SS_1tag_inclusive_has_jet_bin2_MatrixMethod
       - MockMC_minus_MC | SS_1tag_inclusive_has_jet_bin2_MockMC
     label:
-      - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, 1 tag"
-      - "MadGraph, SS, Bin 2"
+      - "W#rightarrowl#nu+D, D#rightarrowK#pi#pi, 1 tag"
+      - "Pw+Py, SS, Bin 2"
       - "Isolation cut: OFF"
     lumi: "2015+2016A-B+2016C-L+2017+2018"
 
@@ -405,17 +388,16 @@ channels:
       - mu_minus_SR_1tag_Dplus_SS_has_jet_bin3
       - mu_plus_SR_1tag_Dplus_SS_has_jet_bin3
     samples:
-      - Wjets_cjets_emu
-      - Wjets_bjets_emu
-      - Wjets_light_emu
+      - Wjets_emu_Matched | SS_1tag_inclusive_has_jet_bin3_Matched
+      - Wjets_emu_Background | SS_1tag_inclusive_has_jet_bin3_Background
       - Top_ttbar
       - Top_single_top
       - Other
       - Multijet_MatrixMethod | SS_1tag_inclusive_has_jet_bin3_MatrixMethod
       - MockMC_minus_MC | SS_1tag_inclusive_has_jet_bin3_MockMC
     label:
-      - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, 1 tag"
-      - "MadGraph, SS, Bin 3"
+      - "W#rightarrowl#nu+D, D#rightarrowK#pi#pi, 1 tag"
+      - "Pw+Py, SS, Bin 3"
       - "Isolation cut: OFF"
     lumi: "2015+2016A-B+2016C-L+2017+2018"
 
@@ -426,17 +408,16 @@ channels:
       - mu_minus_SR_1tag_Dplus_SS_has_jet_bin4
       - mu_plus_SR_1tag_Dplus_SS_has_jet_bin4
     samples:
-      - Wjets_cjets_emu
-      - Wjets_bjets_emu
-      - Wjets_light_emu
+      - Wjets_emu_Matched | SS_1tag_inclusive_has_jet_bin4_Matched
+      - Wjets_emu_Background | SS_1tag_inclusive_has_jet_bin4_Background
       - Top_ttbar
       - Top_single_top
       - Other
       - Multijet_MatrixMethod | SS_1tag_inclusive_has_jet_bin4_MatrixMethod
       - MockMC_minus_MC | SS_1tag_inclusive_has_jet_bin4_MockMC
     label:
-      - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, 1 tag"
-      - "MadGraph, SS, Bin 4"
+      - "W#rightarrowl#nu+D, D#rightarrowK#pi#pi, 1 tag"
+      - "Pw+Py, SS, Bin 4"
       - "Isolation cut: OFF"
     lumi: "2015+2016A-B+2016C-L+2017+2018"
 
@@ -451,16 +432,15 @@ channels:
       - -mu_minus_SR_1tag_Dplus_SS_has_jet_bin1
       - -mu_plus_SR_1tag_Dplus_SS_has_jet_bin1
     samples:
-      - Wjets_cjets_emu
-      - Wjets_bjets_emu
-      - Wjets_light_emu
+      - Wjets_emu_Matched | OS-SS_1tag_inclusive_has_jet_bin1_Matched
+      - Wjets_emu_Background | OS-SS_1tag_inclusive_has_jet_bin1_Background
       - Top_ttbar
       - Top_single_top
       - Other
       - Multijet_MatrixMethod | OS-SS_1tag_inclusive_has_jet_bin1_MatrixMethod
     label:
-      - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, 1 tag"
-      - "MadGraph, OS-SS, Bin 1"
+      - "W#rightarrowl#nu+D, D#rightarrowK#pi#pi, 1 tag"
+      - "Pw+Py, OS-SS, Bin 1"
       - "Isolation cut: OFF"
     lumi: "2015+2016A-B+2016C-L+2017+2018"
 
@@ -475,16 +455,15 @@ channels:
       - -mu_minus_SR_1tag_Dplus_SS_has_jet_bin2
       - -mu_plus_SR_1tag_Dplus_SS_has_jet_bin2
     samples:
-      - Wjets_cjets_emu
-      - Wjets_bjets_emu
-      - Wjets_light_emu
+      - Wjets_emu_Matched | OS-SS_1tag_inclusive_has_jet_bin2_Matched
+      - Wjets_emu_Background | OS-SS_1tag_inclusive_has_jet_bin2_Background
       - Top_ttbar
       - Top_single_top
       - Other
       - Multijet_MatrixMethod | OS-SS_1tag_inclusive_has_jet_bin2_MatrixMethod
     label:
-      - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, 1 tag"
-      - "MadGraph, OS-SS, Bin 2"
+      - "W#rightarrowl#nu+D, D#rightarrowK#pi#pi, 1 tag"
+      - "Pw+Py, OS-SS, Bin 2"
       - "Isolation cut: OFF"
     lumi: "2015+2016A-B+2016C-L+2017+2018"
 
@@ -499,16 +478,15 @@ channels:
       - -mu_minus_SR_1tag_Dplus_SS_has_jet_bin3
       - -mu_plus_SR_1tag_Dplus_SS_has_jet_bin3
     samples:
-      - Wjets_cjets_emu
-      - Wjets_bjets_emu
-      - Wjets_light_emu
+      - Wjets_emu_Matched | OS-SS_1tag_inclusive_has_jet_bin3_Matched
+      - Wjets_emu_Background | OS-SS_1tag_inclusive_has_jet_bin3_Background
       - Top_ttbar
       - Top_single_top
       - Other
       - Multijet_MatrixMethod | OS-SS_1tag_inclusive_has_jet_bin3_MatrixMethod
     label:
-      - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, 1 tag"
-      - "MadGraph, OS-SS, Bin 3"
+      - "W#rightarrowl#nu+D, D#rightarrowK#pi#pi, 1 tag"
+      - "Pw+Py, OS-SS, Bin 3"
       - "Isolation cut: OFF"
     lumi: "2015+2016A-B+2016C-L+2017+2018"
 
@@ -523,16 +501,15 @@ channels:
       - -mu_minus_SR_1tag_Dplus_SS_has_jet_bin4
       - -mu_plus_SR_1tag_Dplus_SS_has_jet_bin4
     samples:
-      - Wjets_cjets_emu
-      - Wjets_bjets_emu
-      - Wjets_light_emu
+      - Wjets_emu_Matched | OS-SS_1tag_inclusive_has_jet_bin4_Matched
+      - Wjets_emu_Background | OS-SS_1tag_inclusive_has_jet_bin4_Background
       - Top_ttbar
       - Top_single_top
       - Other
       - Multijet_MatrixMethod | OS-SS_1tag_inclusive_has_jet_bin4_MatrixMethod
     label:
-      - "W#rightarrowe#nu+D, D#rightarrowK#pi#pi, 1 tag"
-      - "MadGraph, OS-SS, Bin 4"
+      - "W#rightarrowl#nu+D, D#rightarrowK#pi#pi, 1 tag"
+      - "Pw+Py, OS-SS, Bin 4"
       - "Isolation cut: OFF"
     lumi: "2015+2016A-B+2016C-L+2017+2018"
 
@@ -1042,4 +1019,500 @@ channels:
       - Tight_el_plus_SR_1tag_Dplus_SS_has_jet_bin4
       - Tight_mu_minus_SR_1tag_Dplus_SS_has_jet_bin4
       - Tight_mu_plus_SR_1tag_Dplus_SS_has_jet_bin4
+    save_to_file: false
+
+  OS_0tag_inclusive_has_jet_bin1_Matched:
+    make_plots: false
+    regions:
+      - el_minus_SR_0tag_Dplus_OS_has_jet_bin1_Matched
+      - el_plus_SR_0tag_Dplus_OS_has_jet_bin1_Matched
+      - mu_minus_SR_0tag_Dplus_OS_has_jet_bin1_Matched
+      - mu_plus_SR_0tag_Dplus_OS_has_jet_bin1_Matched
+    save_to_file: false
+
+  OS_0tag_inclusive_has_jet_bin2_Matched:
+    make_plots: false
+    regions:
+      - el_minus_SR_0tag_Dplus_OS_has_jet_bin2_Matched
+      - el_plus_SR_0tag_Dplus_OS_has_jet_bin2_Matched
+      - mu_minus_SR_0tag_Dplus_OS_has_jet_bin2_Matched
+      - mu_plus_SR_0tag_Dplus_OS_has_jet_bin2_Matched
+    save_to_file: false
+
+  OS_0tag_inclusive_has_jet_bin3_Matched:
+    make_plots: false
+    regions:
+      - el_minus_SR_0tag_Dplus_OS_has_jet_bin3_Matched
+      - el_plus_SR_0tag_Dplus_OS_has_jet_bin3_Matched
+      - mu_minus_SR_0tag_Dplus_OS_has_jet_bin3_Matched
+      - mu_plus_SR_0tag_Dplus_OS_has_jet_bin3_Matched
+    save_to_file: false
+
+  OS_0tag_inclusive_has_jet_bin4_Matched:
+    make_plots: false
+    regions:
+      - el_minus_SR_0tag_Dplus_OS_has_jet_bin4_Matched
+      - el_plus_SR_0tag_Dplus_OS_has_jet_bin4_Matched
+      - mu_minus_SR_0tag_Dplus_OS_has_jet_bin4_Matched
+      - mu_plus_SR_0tag_Dplus_OS_has_jet_bin4_Matched
+    save_to_file: false
+
+  OS_0tag_inclusive_has_jet_bin1_Background:
+    make_plots: false
+    regions:
+      - el_minus_SR_0tag_Dplus_OS_has_jet_bin1_Background
+      - el_plus_SR_0tag_Dplus_OS_has_jet_bin1_Background
+      - mu_minus_SR_0tag_Dplus_OS_has_jet_bin1_Background
+      - mu_plus_SR_0tag_Dplus_OS_has_jet_bin1_Background
+    save_to_file: false
+
+  OS_0tag_inclusive_has_jet_bin2_Background:
+    make_plots: false
+    regions:
+      - el_minus_SR_0tag_Dplus_OS_has_jet_bin2_Background
+      - el_plus_SR_0tag_Dplus_OS_has_jet_bin2_Background
+      - mu_minus_SR_0tag_Dplus_OS_has_jet_bin2_Background
+      - mu_plus_SR_0tag_Dplus_OS_has_jet_bin2_Background
+    save_to_file: false
+
+  OS_0tag_inclusive_has_jet_bin3_Background:
+    make_plots: false
+    regions:
+      - el_minus_SR_0tag_Dplus_OS_has_jet_bin3_Background
+      - el_plus_SR_0tag_Dplus_OS_has_jet_bin3_Background
+      - mu_minus_SR_0tag_Dplus_OS_has_jet_bin3_Background
+      - mu_plus_SR_0tag_Dplus_OS_has_jet_bin3_Background
+    save_to_file: false
+
+  OS_0tag_inclusive_has_jet_bin4_Background:
+    make_plots: false
+    regions:
+      - el_minus_SR_0tag_Dplus_OS_has_jet_bin4_Background
+      - el_plus_SR_0tag_Dplus_OS_has_jet_bin4_Background
+      - mu_minus_SR_0tag_Dplus_OS_has_jet_bin4_Background
+      - mu_plus_SR_0tag_Dplus_OS_has_jet_bin4_Background
+    save_to_file: false
+
+  SS_0tag_inclusive_has_jet_bin1_Matched:
+    make_plots: false
+    regions:
+      - el_minus_SR_0tag_Dplus_SS_has_jet_bin1_Matched
+      - el_plus_SR_0tag_Dplus_SS_has_jet_bin1_Matched
+      - mu_minus_SR_0tag_Dplus_SS_has_jet_bin1_Matched
+      - mu_plus_SR_0tag_Dplus_SS_has_jet_bin1_Matched
+    save_to_file: false
+
+  SS_0tag_inclusive_has_jet_bin2_Matched:
+    make_plots: false
+    regions:
+      - el_minus_SR_0tag_Dplus_SS_has_jet_bin2_Matched
+      - el_plus_SR_0tag_Dplus_SS_has_jet_bin2_Matched
+      - mu_minus_SR_0tag_Dplus_SS_has_jet_bin2_Matched
+      - mu_plus_SR_0tag_Dplus_SS_has_jet_bin2_Matched
+    save_to_file: false
+
+  SS_0tag_inclusive_has_jet_bin3_Matched:
+    make_plots: false
+    regions:
+      - el_minus_SR_0tag_Dplus_SS_has_jet_bin3_Matched
+      - el_plus_SR_0tag_Dplus_SS_has_jet_bin3_Matched
+      - mu_minus_SR_0tag_Dplus_SS_has_jet_bin3_Matched
+      - mu_plus_SR_0tag_Dplus_SS_has_jet_bin3_Matched
+    save_to_file: false
+
+  SS_0tag_inclusive_has_jet_bin4_Matched:
+    make_plots: false
+    regions:
+      - el_minus_SR_0tag_Dplus_SS_has_jet_bin4_Matched
+      - el_plus_SR_0tag_Dplus_SS_has_jet_bin4_Matched
+      - mu_minus_SR_0tag_Dplus_SS_has_jet_bin4_Matched
+      - mu_plus_SR_0tag_Dplus_SS_has_jet_bin4_Matched
+    save_to_file: false
+
+  SS_0tag_inclusive_has_jet_bin1_Background:
+    make_plots: false
+    regions:
+      - el_minus_SR_0tag_Dplus_SS_has_jet_bin1_Background
+      - el_plus_SR_0tag_Dplus_SS_has_jet_bin1_Background
+      - mu_minus_SR_0tag_Dplus_SS_has_jet_bin1_Background
+      - mu_plus_SR_0tag_Dplus_SS_has_jet_bin1_Background
+    save_to_file: false
+
+  SS_0tag_inclusive_has_jet_bin2_Background:
+    make_plots: false
+    regions:
+      - el_minus_SR_0tag_Dplus_SS_has_jet_bin2_Background
+      - el_plus_SR_0tag_Dplus_SS_has_jet_bin2_Background
+      - mu_minus_SR_0tag_Dplus_SS_has_jet_bin2_Background
+      - mu_plus_SR_0tag_Dplus_SS_has_jet_bin2_Background
+    save_to_file: false
+
+  SS_0tag_inclusive_has_jet_bin3_Background:
+    make_plots: false
+    regions:
+      - el_minus_SR_0tag_Dplus_SS_has_jet_bin3_Background
+      - el_plus_SR_0tag_Dplus_SS_has_jet_bin3_Background
+      - mu_minus_SR_0tag_Dplus_SS_has_jet_bin3_Background
+      - mu_plus_SR_0tag_Dplus_SS_has_jet_bin3_Background
+    save_to_file: false
+
+  SS_0tag_inclusive_has_jet_bin4_Background:
+    make_plots: false
+    regions:
+      - el_minus_SR_0tag_Dplus_SS_has_jet_bin4_Background
+      - el_plus_SR_0tag_Dplus_SS_has_jet_bin4_Background
+      - mu_minus_SR_0tag_Dplus_SS_has_jet_bin4_Background
+      - mu_plus_SR_0tag_Dplus_SS_has_jet_bin4_Background
+    save_to_file: false
+
+  OS-SS_0tag_inclusive_has_jet_bin1_Matched:
+    make_plots: false
+    regions:
+      - el_minus_SR_0tag_Dplus_OS_has_jet_bin1_Matched
+      - el_plus_SR_0tag_Dplus_OS_has_jet_bin1_Matched
+      - mu_minus_SR_0tag_Dplus_OS_has_jet_bin1_Matched
+      - mu_plus_SR_0tag_Dplus_OS_has_jet_bin1_Matched
+      - -el_minus_SR_0tag_Dplus_SS_has_jet_bin1_Matched
+      - -el_plus_SR_0tag_Dplus_SS_has_jet_bin1_Matched
+      - -mu_minus_SR_0tag_Dplus_SS_has_jet_bin1_Matched
+      - -mu_plus_SR_0tag_Dplus_SS_has_jet_bin1_Matched
+    save_to_file: false
+
+  OS-SS_0tag_inclusive_has_jet_bin2_Matched:
+    make_plots: false
+    regions:
+      - el_minus_SR_0tag_Dplus_OS_has_jet_bin2_Matched
+      - el_plus_SR_0tag_Dplus_OS_has_jet_bin2_Matched
+      - mu_minus_SR_0tag_Dplus_OS_has_jet_bin2_Matched
+      - mu_plus_SR_0tag_Dplus_OS_has_jet_bin2_Matched
+      - -el_minus_SR_0tag_Dplus_SS_has_jet_bin2_Matched
+      - -el_plus_SR_0tag_Dplus_SS_has_jet_bin2_Matched
+      - -mu_minus_SR_0tag_Dplus_SS_has_jet_bin2_Matched
+      - -mu_plus_SR_0tag_Dplus_SS_has_jet_bin2_Matched
+    save_to_file: false
+
+  OS-SS_0tag_inclusive_has_jet_bin3_Matched:
+    make_plots: false
+    regions:
+      - el_minus_SR_0tag_Dplus_OS_has_jet_bin3_Matched
+      - el_plus_SR_0tag_Dplus_OS_has_jet_bin3_Matched
+      - mu_minus_SR_0tag_Dplus_OS_has_jet_bin3_Matched
+      - mu_plus_SR_0tag_Dplus_OS_has_jet_bin3_Matched
+      - -el_minus_SR_0tag_Dplus_SS_has_jet_bin3_Matched
+      - -el_plus_SR_0tag_Dplus_SS_has_jet_bin3_Matched
+      - -mu_minus_SR_0tag_Dplus_SS_has_jet_bin3_Matched
+      - -mu_plus_SR_0tag_Dplus_SS_has_jet_bin3_Matched
+    save_to_file: false
+
+  OS-SS_0tag_inclusive_has_jet_bin4_Matched:
+    make_plots: false
+    regions:
+      - el_minus_SR_0tag_Dplus_OS_has_jet_bin4_Matched
+      - el_plus_SR_0tag_Dplus_OS_has_jet_bin4_Matched
+      - mu_minus_SR_0tag_Dplus_OS_has_jet_bin4_Matched
+      - mu_plus_SR_0tag_Dplus_OS_has_jet_bin4_Matched
+      - -el_minus_SR_0tag_Dplus_SS_has_jet_bin4_Matched
+      - -el_plus_SR_0tag_Dplus_SS_has_jet_bin4_Matched
+      - -mu_minus_SR_0tag_Dplus_SS_has_jet_bin4_Matched
+      - -mu_plus_SR_0tag_Dplus_SS_has_jet_bin4_Matched
+    save_to_file: false
+
+  OS-SS_0tag_inclusive_has_jet_bin1_Background:
+    make_plots: false
+    regions:
+      - el_minus_SR_0tag_Dplus_OS_has_jet_bin1_Background
+      - el_plus_SR_0tag_Dplus_OS_has_jet_bin1_Background
+      - mu_minus_SR_0tag_Dplus_OS_has_jet_bin1_Background
+      - mu_plus_SR_0tag_Dplus_OS_has_jet_bin1_Background
+      - -el_minus_SR_0tag_Dplus_SS_has_jet_bin1_Background
+      - -el_plus_SR_0tag_Dplus_SS_has_jet_bin1_Background
+      - -mu_minus_SR_0tag_Dplus_SS_has_jet_bin1_Background
+      - -mu_plus_SR_0tag_Dplus_SS_has_jet_bin1_Background
+    save_to_file: false
+
+  OS-SS_0tag_inclusive_has_jet_bin2_Background:
+    make_plots: false
+    regions:
+      - el_minus_SR_0tag_Dplus_OS_has_jet_bin2_Background
+      - el_plus_SR_0tag_Dplus_OS_has_jet_bin2_Background
+      - mu_minus_SR_0tag_Dplus_OS_has_jet_bin2_Background
+      - mu_plus_SR_0tag_Dplus_OS_has_jet_bin2_Background
+      - -el_minus_SR_0tag_Dplus_SS_has_jet_bin2_Background
+      - -el_plus_SR_0tag_Dplus_SS_has_jet_bin2_Background
+      - -mu_minus_SR_0tag_Dplus_SS_has_jet_bin2_Background
+      - -mu_plus_SR_0tag_Dplus_SS_has_jet_bin2_Background
+    save_to_file: false
+
+  OS-SS_0tag_inclusive_has_jet_bin3_Background:
+    make_plots: false
+    regions:
+      - el_minus_SR_0tag_Dplus_OS_has_jet_bin3_Background
+      - el_plus_SR_0tag_Dplus_OS_has_jet_bin3_Background
+      - mu_minus_SR_0tag_Dplus_OS_has_jet_bin3_Background
+      - mu_plus_SR_0tag_Dplus_OS_has_jet_bin3_Background
+      - -el_minus_SR_0tag_Dplus_SS_has_jet_bin3_Background
+      - -el_plus_SR_0tag_Dplus_SS_has_jet_bin3_Background
+      - -mu_minus_SR_0tag_Dplus_SS_has_jet_bin3_Background
+      - -mu_plus_SR_0tag_Dplus_SS_has_jet_bin3_Background
+    save_to_file: false
+
+  OS-SS_0tag_inclusive_has_jet_bin4_Background:
+    make_plots: false
+    regions:
+      - el_minus_SR_0tag_Dplus_OS_has_jet_bin4_Background
+      - el_plus_SR_0tag_Dplus_OS_has_jet_bin4_Background
+      - mu_minus_SR_0tag_Dplus_OS_has_jet_bin4_Background
+      - mu_plus_SR_0tag_Dplus_OS_has_jet_bin4_Background
+      - -el_minus_SR_0tag_Dplus_SS_has_jet_bin4_Background
+      - -el_plus_SR_0tag_Dplus_SS_has_jet_bin4_Background
+      - -mu_minus_SR_0tag_Dplus_SS_has_jet_bin4_Background
+      - -mu_plus_SR_0tag_Dplus_SS_has_jet_bin4_Background
+    save_to_file: false
+
+  OS_1tag_inclusive_has_jet_bin1_Matched:
+    make_plots: false
+    regions:
+      - el_minus_SR_1tag_Dplus_OS_has_jet_bin1_Matched
+      - el_plus_SR_1tag_Dplus_OS_has_jet_bin1_Matched
+      - mu_minus_SR_1tag_Dplus_OS_has_jet_bin1_Matched
+      - mu_plus_SR_1tag_Dplus_OS_has_jet_bin1_Matched
+    save_to_file: false
+
+  OS_1tag_inclusive_has_jet_bin2_Matched:
+    make_plots: false
+    regions:
+      - el_minus_SR_1tag_Dplus_OS_has_jet_bin2_Matched
+      - el_plus_SR_1tag_Dplus_OS_has_jet_bin2_Matched
+      - mu_minus_SR_1tag_Dplus_OS_has_jet_bin2_Matched
+      - mu_plus_SR_1tag_Dplus_OS_has_jet_bin2_Matched
+    save_to_file: false
+
+  OS_1tag_inclusive_has_jet_bin3_Matched:
+    make_plots: false
+    regions:
+      - el_minus_SR_1tag_Dplus_OS_has_jet_bin3_Matched
+      - el_plus_SR_1tag_Dplus_OS_has_jet_bin3_Matched
+      - mu_minus_SR_1tag_Dplus_OS_has_jet_bin3_Matched
+      - mu_plus_SR_1tag_Dplus_OS_has_jet_bin3_Matched
+    save_to_file: false
+
+  OS_1tag_inclusive_has_jet_bin4_Matched:
+    make_plots: false
+    regions:
+      - el_minus_SR_1tag_Dplus_OS_has_jet_bin4_Matched
+      - el_plus_SR_1tag_Dplus_OS_has_jet_bin4_Matched
+      - mu_minus_SR_1tag_Dplus_OS_has_jet_bin4_Matched
+      - mu_plus_SR_1tag_Dplus_OS_has_jet_bin4_Matched
+    save_to_file: false
+
+  OS_1tag_inclusive_has_jet_bin1_Background:
+    make_plots: false
+    regions:
+      - el_minus_SR_1tag_Dplus_OS_has_jet_bin1_Background
+      - el_plus_SR_1tag_Dplus_OS_has_jet_bin1_Background
+      - mu_minus_SR_1tag_Dplus_OS_has_jet_bin1_Background
+      - mu_plus_SR_1tag_Dplus_OS_has_jet_bin1_Background
+    save_to_file: false
+
+  OS_1tag_inclusive_has_jet_bin2_Background:
+    make_plots: false
+    regions:
+      - el_minus_SR_1tag_Dplus_OS_has_jet_bin2_Background
+      - el_plus_SR_1tag_Dplus_OS_has_jet_bin2_Background
+      - mu_minus_SR_1tag_Dplus_OS_has_jet_bin2_Background
+      - mu_plus_SR_1tag_Dplus_OS_has_jet_bin2_Background
+    save_to_file: false
+
+  OS_1tag_inclusive_has_jet_bin3_Background:
+    make_plots: false
+    regions:
+      - el_minus_SR_1tag_Dplus_OS_has_jet_bin3_Background
+      - el_plus_SR_1tag_Dplus_OS_has_jet_bin3_Background
+      - mu_minus_SR_1tag_Dplus_OS_has_jet_bin3_Background
+      - mu_plus_SR_1tag_Dplus_OS_has_jet_bin3_Background
+    save_to_file: false
+
+  OS_1tag_inclusive_has_jet_bin4_Background:
+    make_plots: false
+    regions:
+      - el_minus_SR_1tag_Dplus_OS_has_jet_bin4_Background
+      - el_plus_SR_1tag_Dplus_OS_has_jet_bin4_Background
+      - mu_minus_SR_1tag_Dplus_OS_has_jet_bin4_Background
+      - mu_plus_SR_1tag_Dplus_OS_has_jet_bin4_Background
+    save_to_file: false
+
+  SS_1tag_inclusive_has_jet_bin1_Matched:
+    make_plots: false
+    regions:
+      - el_minus_SR_1tag_Dplus_SS_has_jet_bin1_Matched
+      - el_plus_SR_1tag_Dplus_SS_has_jet_bin1_Matched
+      - mu_minus_SR_1tag_Dplus_SS_has_jet_bin1_Matched
+      - mu_plus_SR_1tag_Dplus_SS_has_jet_bin1_Matched
+    save_to_file: false
+
+  SS_1tag_inclusive_has_jet_bin2_Matched:
+    make_plots: false
+    regions:
+      - el_minus_SR_1tag_Dplus_SS_has_jet_bin2_Matched
+      - el_plus_SR_1tag_Dplus_SS_has_jet_bin2_Matched
+      - mu_minus_SR_1tag_Dplus_SS_has_jet_bin2_Matched
+      - mu_plus_SR_1tag_Dplus_SS_has_jet_bin2_Matched
+    save_to_file: false
+
+  SS_1tag_inclusive_has_jet_bin3_Matched:
+    make_plots: false
+    regions:
+      - el_minus_SR_1tag_Dplus_SS_has_jet_bin3_Matched
+      - el_plus_SR_1tag_Dplus_SS_has_jet_bin3_Matched
+      - mu_minus_SR_1tag_Dplus_SS_has_jet_bin3_Matched
+      - mu_plus_SR_1tag_Dplus_SS_has_jet_bin3_Matched
+    save_to_file: false
+
+  SS_1tag_inclusive_has_jet_bin4_Matched:
+    make_plots: false
+    regions:
+      - el_minus_SR_1tag_Dplus_SS_has_jet_bin4_Matched
+      - el_plus_SR_1tag_Dplus_SS_has_jet_bin4_Matched
+      - mu_minus_SR_1tag_Dplus_SS_has_jet_bin4_Matched
+      - mu_plus_SR_1tag_Dplus_SS_has_jet_bin4_Matched
+    save_to_file: false
+
+  SS_1tag_inclusive_has_jet_bin1_Background:
+    make_plots: false
+    regions:
+      - el_minus_SR_1tag_Dplus_SS_has_jet_bin1_Background
+      - el_plus_SR_1tag_Dplus_SS_has_jet_bin1_Background
+      - mu_minus_SR_1tag_Dplus_SS_has_jet_bin1_Background
+      - mu_plus_SR_1tag_Dplus_SS_has_jet_bin1_Background
+    save_to_file: false
+
+  SS_1tag_inclusive_has_jet_bin2_Background:
+    make_plots: false
+    regions:
+      - el_minus_SR_1tag_Dplus_SS_has_jet_bin2_Background
+      - el_plus_SR_1tag_Dplus_SS_has_jet_bin2_Background
+      - mu_minus_SR_1tag_Dplus_SS_has_jet_bin2_Background
+      - mu_plus_SR_1tag_Dplus_SS_has_jet_bin2_Background
+    save_to_file: false
+
+  SS_1tag_inclusive_has_jet_bin3_Background:
+    make_plots: false
+    regions:
+      - el_minus_SR_1tag_Dplus_SS_has_jet_bin3_Background
+      - el_plus_SR_1tag_Dplus_SS_has_jet_bin3_Background
+      - mu_minus_SR_1tag_Dplus_SS_has_jet_bin3_Background
+      - mu_plus_SR_1tag_Dplus_SS_has_jet_bin3_Background
+    save_to_file: false
+
+  SS_1tag_inclusive_has_jet_bin4_Background:
+    make_plots: false
+    regions:
+      - el_minus_SR_1tag_Dplus_SS_has_jet_bin4_Background
+      - el_plus_SR_1tag_Dplus_SS_has_jet_bin4_Background
+      - mu_minus_SR_1tag_Dplus_SS_has_jet_bin4_Background
+      - mu_plus_SR_1tag_Dplus_SS_has_jet_bin4_Background
+    save_to_file: false
+
+  OS-SS_1tag_inclusive_has_jet_bin1_Matched:
+    make_plots: false
+    regions:
+      - el_minus_SR_1tag_Dplus_OS_has_jet_bin1_Matched
+      - el_plus_SR_1tag_Dplus_OS_has_jet_bin1_Matched
+      - mu_minus_SR_1tag_Dplus_OS_has_jet_bin1_Matched
+      - mu_plus_SR_1tag_Dplus_OS_has_jet_bin1_Matched
+      - -el_minus_SR_1tag_Dplus_SS_has_jet_bin1_Matched
+      - -el_plus_SR_1tag_Dplus_SS_has_jet_bin1_Matched
+      - -mu_minus_SR_1tag_Dplus_SS_has_jet_bin1_Matched
+      - -mu_plus_SR_1tag_Dplus_SS_has_jet_bin1_Matched
+    save_to_file: false
+
+  OS-SS_1tag_inclusive_has_jet_bin2_Matched:
+    make_plots: false
+    regions:
+      - el_minus_SR_1tag_Dplus_OS_has_jet_bin2_Matched
+      - el_plus_SR_1tag_Dplus_OS_has_jet_bin2_Matched
+      - mu_minus_SR_1tag_Dplus_OS_has_jet_bin2_Matched
+      - mu_plus_SR_1tag_Dplus_OS_has_jet_bin2_Matched
+      - -el_minus_SR_1tag_Dplus_SS_has_jet_bin2_Matched
+      - -el_plus_SR_1tag_Dplus_SS_has_jet_bin2_Matched
+      - -mu_minus_SR_1tag_Dplus_SS_has_jet_bin2_Matched
+      - -mu_plus_SR_1tag_Dplus_SS_has_jet_bin2_Matched
+    save_to_file: false
+
+  OS-SS_1tag_inclusive_has_jet_bin3_Matched:
+    make_plots: false
+    regions:
+      - el_minus_SR_1tag_Dplus_OS_has_jet_bin3_Matched
+      - el_plus_SR_1tag_Dplus_OS_has_jet_bin3_Matched
+      - mu_minus_SR_1tag_Dplus_OS_has_jet_bin3_Matched
+      - mu_plus_SR_1tag_Dplus_OS_has_jet_bin3_Matched
+      - -el_minus_SR_1tag_Dplus_SS_has_jet_bin3_Matched
+      - -el_plus_SR_1tag_Dplus_SS_has_jet_bin3_Matched
+      - -mu_minus_SR_1tag_Dplus_SS_has_jet_bin3_Matched
+      - -mu_plus_SR_1tag_Dplus_SS_has_jet_bin3_Matched
+    save_to_file: false
+
+  OS-SS_1tag_inclusive_has_jet_bin4_Matched:
+    make_plots: false
+    regions:
+      - el_minus_SR_1tag_Dplus_OS_has_jet_bin4_Matched
+      - el_plus_SR_1tag_Dplus_OS_has_jet_bin4_Matched
+      - mu_minus_SR_1tag_Dplus_OS_has_jet_bin4_Matched
+      - mu_plus_SR_1tag_Dplus_OS_has_jet_bin4_Matched
+      - -el_minus_SR_1tag_Dplus_SS_has_jet_bin4_Matched
+      - -el_plus_SR_1tag_Dplus_SS_has_jet_bin4_Matched
+      - -mu_minus_SR_1tag_Dplus_SS_has_jet_bin4_Matched
+      - -mu_plus_SR_1tag_Dplus_SS_has_jet_bin4_Matched
+    save_to_file: false
+
+  OS-SS_1tag_inclusive_has_jet_bin1_Background:
+    make_plots: false
+    regions:
+      - el_minus_SR_1tag_Dplus_OS_has_jet_bin1_Background
+      - el_plus_SR_1tag_Dplus_OS_has_jet_bin1_Background
+      - mu_minus_SR_1tag_Dplus_OS_has_jet_bin1_Background
+      - mu_plus_SR_1tag_Dplus_OS_has_jet_bin1_Background
+      - -el_minus_SR_1tag_Dplus_SS_has_jet_bin1_Background
+      - -el_plus_SR_1tag_Dplus_SS_has_jet_bin1_Background
+      - -mu_minus_SR_1tag_Dplus_SS_has_jet_bin1_Background
+      - -mu_plus_SR_1tag_Dplus_SS_has_jet_bin1_Background
+    save_to_file: false
+
+  OS-SS_1tag_inclusive_has_jet_bin2_Background:
+    make_plots: false
+    regions:
+      - el_minus_SR_1tag_Dplus_OS_has_jet_bin2_Background
+      - el_plus_SR_1tag_Dplus_OS_has_jet_bin2_Background
+      - mu_minus_SR_1tag_Dplus_OS_has_jet_bin2_Background
+      - mu_plus_SR_1tag_Dplus_OS_has_jet_bin2_Background
+      - -el_minus_SR_1tag_Dplus_SS_has_jet_bin2_Background
+      - -el_plus_SR_1tag_Dplus_SS_has_jet_bin2_Background
+      - -mu_minus_SR_1tag_Dplus_SS_has_jet_bin2_Background
+      - -mu_plus_SR_1tag_Dplus_SS_has_jet_bin2_Background
+    save_to_file: false
+
+  OS-SS_1tag_inclusive_has_jet_bin3_Background:
+    make_plots: false
+    regions:
+      - el_minus_SR_1tag_Dplus_OS_has_jet_bin3_Background
+      - el_plus_SR_1tag_Dplus_OS_has_jet_bin3_Background
+      - mu_minus_SR_1tag_Dplus_OS_has_jet_bin3_Background
+      - mu_plus_SR_1tag_Dplus_OS_has_jet_bin3_Background
+      - -el_minus_SR_1tag_Dplus_SS_has_jet_bin3_Background
+      - -el_plus_SR_1tag_Dplus_SS_has_jet_bin3_Background
+      - -mu_minus_SR_1tag_Dplus_SS_has_jet_bin3_Background
+      - -mu_plus_SR_1tag_Dplus_SS_has_jet_bin3_Background
+    save_to_file: false
+
+  OS-SS_1tag_inclusive_has_jet_bin4_Background:
+    make_plots: false
+    regions:
+      - el_minus_SR_1tag_Dplus_OS_has_jet_bin4_Background
+      - el_plus_SR_1tag_Dplus_OS_has_jet_bin4_Background
+      - mu_minus_SR_1tag_Dplus_OS_has_jet_bin4_Background
+      - mu_plus_SR_1tag_Dplus_OS_has_jet_bin4_Background
+      - -el_minus_SR_1tag_Dplus_SS_has_jet_bin4_Background
+      - -el_plus_SR_1tag_Dplus_SS_has_jet_bin4_Background
+      - -mu_minus_SR_1tag_Dplus_SS_has_jet_bin4_Background
+      - -mu_plus_SR_1tag_Dplus_SS_has_jet_bin4_Background
     save_to_file: false

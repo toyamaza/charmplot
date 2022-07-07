@@ -79,6 +79,8 @@ def main(options, conf):
     individual_plots = []
     OS_minus_SS_plots = []
     OS_minus_SS_total = {'+': [], '-': []}
+    OS_total = {'+': [], '-': []}
+    SS_total = {'+': [], '-': []}
     OS_minus_SS_total_minus = {'+': [], '-': []}
     OS_minus_SS_total_plus = {'+': [], '-': []}
     for channel in channels:
@@ -90,9 +92,11 @@ def main(options, conf):
         for channel_SS in channels:
             if channel_SS.name == channel_OS.name.replace("OS_", "SS_"):
                 OS_minus_SS_plots += [{'+': [channel_OS], '-': [channel_SS]}]
-                if "0tag" in channel_SS.name:
+                if "1tag" in channel_SS.name:
                     OS_minus_SS_total['+'] += [channel_OS]
                     OS_minus_SS_total['-'] += [channel_SS]
+                    OS_total['+'] += [channel_OS]
+                    SS_total['+'] += [channel_SS]
                     if "minus" in channel_SS.name:
                         OS_minus_SS_total_minus['+'] += [channel_OS]
                         OS_minus_SS_total_minus['-'] += [channel_SS]
@@ -113,10 +117,10 @@ def main(options, conf):
             corr_correlation_rows = x['correlation_rows']
     n_pars = len(corr_parameters)
 
-    plots = individual_plots + OS_minus_SS_plots + [OS_minus_SS_total]
-    # plots = individual_plots + OS_minus_SS_plots
-    #plots = OS_minus_SS_plots + [OS_minus_SS_total, OS_minus_SS_total_minus, OS_minus_SS_total_plus]
-    # plots = [OS_minus_SS_total]
+    # plots = OS_minus_SS_plots + [OS_minus_SS_total, OS_total, SS_total]
+    # plots = individual_plots + OS_minus_SS_plots + [OS_minus_SS_total, OS_total, SS_total]
+    # plots = individual_plots + OS_minus_SS_plots + [OS_minus_SS_total, OS_minus_SS_total_minus, OS_minus_SS_total_plus]
+    plots = [OS_minus_SS_total]
 
     for plot in plots:
 
@@ -135,12 +139,18 @@ def main(options, conf):
         inclusive = False
         inclusive_minus = False
         inclusive_plus = False
+        has_OS = False
+        has_SS = False
         if len(channels_all) > 2:
             for c in channels_all:
                 if "minus" in c.name:
                     minus = True
                 elif "plus" in c.name:
                     plus = True
+                if "OS" in c.name:
+                    has_OS = True
+                elif "SS" in c.name:
+                    has_SS = True
             if minus and plus:
                 inclusive = True
             elif minus and not plus:
@@ -162,12 +172,14 @@ def main(options, conf):
             labels += [label]
         labels[-1] += ', post-fit'
 
-        if inclusive:
-            channel_name = "0tag_inclusive"
-        elif inclusive_minus:
-            channel_name = "0tag_inclusive_minus"
-        elif inclusive_plus:
-            channel_name = "0tag_inclusive_plus"
+        channel_name = "1tag_inclusive"
+
+        if has_OS and not has_SS:
+            channel_name = "OS_" + channel_name
+        elif has_SS and not has_OS:
+            channel_name = "SS_" + channel_name
+        elif has_OS and has_SS:
+            channel_name = "OS_SS_" + channel_name
 
         chan = Channel(channel_name, labels, channel_temp.lumi, [], [])
 
@@ -353,7 +365,7 @@ def main(options, conf):
                     g_mc_tot_err.GetEYlow()[x - 1] += err_dn
 
             # final
-            if g_mc_tot_err.GetEYhigh()[x - 1] <= 0 or g_mc_tot_err.GetEYlow()[x - 1] <= 0: 
+            if g_mc_tot_err.GetEYhigh()[x - 1] <= 0 or g_mc_tot_err.GetEYlow()[x - 1] <= 0:
                 g_mc_tot_err.GetEYhigh()[x - 1] = 0
                 g_mc_tot_err.GetEYlow()[x - 1] = 0
             g_mc_tot_err.GetEYhigh()[x - 1] = math.sqrt(g_mc_tot_err.GetEYhigh()[x - 1])
@@ -391,7 +403,7 @@ def main(options, conf):
         canv.set_maximum((h_data, h_mc_tot), var, mc_min=utils.get_mc_min(mc_map, samples))
 
         # find minimum
-        if '0tag' in channel.name:
+        if '1tag' in channel.name:
             min_negative = {}
             for s in samples:
                 if s not in mc_map:
@@ -467,10 +479,6 @@ if __name__ == "__main__":
     parser.add_option('--trex-input',
                       action="store", dest="trex_input",
                       help="import post-fit trex plots")
-    parser.add_option('-t', '--threads',
-                      action="store", dest="threads",
-                      help="number of threads",
-                      default=8)
 
     # parse input arguments
     options, args = parser.parse_args()

@@ -4,6 +4,28 @@ Data:
   add: data
   subtract:
 
+Wjets_emu_Matched:
+  add:
+    - MG_Wjets_tau
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_bjets_emu
+    - MG_Wjets_light_emu
+  subtract:
+  fillColor: "10004"
+  legendLabel: "W+#it{D}(#it{K}#pi#pi)"
+  shortName: Wjets_emu_Matched
+
+Wjets_emu_Background:
+  add:
+    - MG_Wjets_tau
+    - MG_Wjets_cjets_emu
+    - MG_Wjets_bjets_emu
+    - MG_Wjets_light_emu
+  subtract:
+  fillColor: "11004"
+  legendLabel: "W+jets"
+  shortName: Wjets_emu_Background
+
 Zjets:
   add:
     - MG_Zjets_light_emu
