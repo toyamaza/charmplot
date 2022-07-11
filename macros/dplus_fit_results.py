@@ -68,7 +68,7 @@ def main(options, args):
     # observables
     OBSERVABLES = {
         "pt": {
-            "fit_results": "/global/cfs/cdirs/atlas/wcharm/TRExFitter/Output/Dplus_2022_07_01_pt/",
+            "fit_results": "/global/cfs/cdirs/atlas/wcharm/TRExFitter/Output/Dplus_2022_07_08/",
             "label": "#it{p}_{T}^{#it{D}}",
             "prior_var": "D_pt_fit",
             "bins": [8, 12, 20, 40, 80, 120],
@@ -76,7 +76,7 @@ def main(options, args):
             "unit": "GeV",
         },
         "eta": {
-            "fit_results": "/global/cfs/cdirs/atlas/wcharm/TRExFitter/Output/Dplus_2022_07_01_eta/",
+            "fit_results": "/global/cfs/cdirs/atlas/wcharm/TRExFitter/Output/Dplus_2022_07_08/",
             "label": "#eta(l)",
             "prior_var": "D_differential_lep_eta",
             "bins": [0.0, 0.5, 1.0, 1.5, 2.0, 2.5],
@@ -500,17 +500,19 @@ def main(options, args):
                     else:
                         if options.decay == "Dstar":
                             f_qcd = ROOT.TFile(os.path.join(DIR_THEORY, f"{prediction_dict['QCDScaleFile']}_{name}_W{lep}Dstar{meson_charge}.root"))
+                            print(f"{prediction_dict['QCDScaleFile']}_{name}_W{lep}Dstar{meson_charge}.root")
                         else:
                             f_qcd = ROOT.TFile(os.path.join(DIR_THEORY, f"{prediction_dict['QCDScaleFile']}_{name}_W{lep}D{meson_charge}.root"))
-                        # Sherpa has incorrect histogram name for Dplus mode
-                        if "Sherpa" in prediction and options.decay == "Dplus":
+                            print(f"{prediction_dict['QCDScaleFile']}_{name}_W{lep}D{meson_charge}.root")
+                        # Sherpa has incorrect histogram name for Dplus eta mode
+                        if "Sherpa" in prediction and options.decay == "Dplus" and obs_name == "eta":
                             gr_qcd = f_qcd.Get(f"mu_{meson_charge}_{options.decay}_{name}__fractionalErr_cross")
                             gr_qcd_norm = f_qcd.Get(f"mu_{meson_charge}_{options.decay}_{name}__fractionalErr_norm")
-                            assert gr_qcd, f"mu_{meson_charge}_{options.decay}_{name}__fractionalErr_cross"
+                            assert gr_qcd, (f"mu_{meson_charge}_{options.decay}_{name}__fractionalErr_cross", prediction)
                         else:
                             gr_qcd = f_qcd.Get(f"mu_{lep}_{options.decay}_{name}__fractionalErr_cross")
                             gr_qcd_norm = f_qcd.Get(f"mu_{lep}_{options.decay}_{name}__fractionalErr_norm")
-                            assert gr_qcd, f"mu_{lep}_{options.decay}_{name}__fractionalErr_cross"
+                            assert gr_qcd, (f"mu_{lep}_{options.decay}_{name}__fractionalErr_cross", prediction)
 
                     # open file
                     if "fileName" in prediction_dict:
