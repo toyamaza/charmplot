@@ -4,7 +4,6 @@ import os
 
 PREDICTIONS_DIR = "/global/cfs/cdirs/atlas/shapiro/13tev_wd_rivet/forMiha"
 PRIORS_DIR = "/global/cfs/cdirs/atlas/wcharm/charmplot_output/Dmeson_2022_06_15/"
-UNCERTAINTIES_DIR = "/global/cfs/cdirs/atlas/wcharm/wplusd_uncertainties"
 
 THEORY = [
     "ABMP16_5_nnlo",
