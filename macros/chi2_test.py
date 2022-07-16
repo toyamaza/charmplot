@@ -41,14 +41,18 @@ def main(options):
             suffix = "alt_ "
 
         # cross section priors
-        f_prior = ROOT.TFile(os.path.join(PRIORS_DIR, f"fid_eff_{var}_dplus", "unfolding.root"), "READ")
-        h_minus = f_prior.Get(f"Sherpa2211_WplusD_OS-SS_lep_minus_Dplus_Kpipi_truth_differential_{var}")
-        h_plus = f_prior.Get(f"Sherpa2211_WplusD_OS-SS_lep_plus_Dplus_Kpipi_truth_differential_{var}")
+        f_prior = ROOT.TFile(os.path.join(PRIORS_DIR, f"fid_eff_{var}_{options.decay.lower()}", "unfolding.root"), "READ")
+        h_minus = f_prior.Get(f"Sherpa2211_WplusD_OS-SS_lep_minus_{options.decay}_Kpipi_truth_differential_{var}")
+        h_plus = f_prior.Get(f"Sherpa2211_WplusD_OS-SS_lep_plus_{options.decay}_Kpipi_truth_differential_{var}")
 
-        # TODO: fix for branching ratio in W+D* forced decay sample
-        sf = 1.0
+        # Multiply scale factor by 0.677 for D*
+        br = 1.0
+        if options.decay == "Dstar":
+            br = 0.677
+
+        sf = 1.0 * br
         if var == "eta":
-            sf = 0.5
+            sf = 0.5 * br
         priors = {
             "Wminus": h_minus.Integral() / (2. * sf),
             "Wminus_1": h_minus.GetBinContent(1) / (2. * sf),
@@ -68,7 +72,10 @@ def main(options):
             print(f"{key}: {val}")
 
         # normalization factors
-        f_result = ROOT.TFile(os.path.join(options.input, f"WCharm_lep_obs_OSSS_complete_{suffix}{var}", "Fits", f"WCharm_lep_obs_OSSS_complete_{suffix}{var}.root"), "READ")
+        if options.decay == "Dplus":
+            f_result = ROOT.TFile(os.path.join(options.input, f"WCharm_lep_obs_OSSS_complete_{suffix}{var}", "Fits", f"WCharm_lep_obs_OSSS_complete_{suffix}{var}.root"), "READ")
+        else:
+            f_result = ROOT.TFile(os.path.join(options.input, f"WCharm_lep_obs_OSSS_complete_{suffix}{var}", "Fits", f"WCharm_lep_obs_OSSS_complete{suffix}.root"), "READ")
         fr = f_result.Get("nll_simPdf_newasimovData_with_constr")
         nfs = {nf: fr.floatParsFinal().find(nf).getVal() for nf in NFS}
         print("\n============ normalization factors ============")
@@ -88,7 +95,10 @@ def main(options):
         cov.Print()
 
         # quickFit template
-        quickFit = f"quickFit --minStrat 1 --minTolerance 1e-5 --savefitresult 0 --hesse 0 --saveNP 0 -f {options.input}/WCharm_lep_obs_OSSS_complete_{suffix}{var}/RooStats/WCharm_lep_obs_OSSS_complete_{suffix}{var}_combined_WCharm_lep_obs_OSSS_complete_{suffix}{var}_model.root -w combined -d obsData -p "
+        if options.decay == "Dplus":
+            quickFit = f"quickFit --minStrat 1 --minTolerance 1e-5 --savefitresult 0 --hesse 0 --saveNP 0 -f {options.input}/WCharm_lep_obs_OSSS_complete_{suffix}{var}/RooStats/WCharm_lep_obs_OSSS_complete_{suffix}{var}_combined_WCharm_lep_obs_OSSS_complete_{suffix}{var}_model.root -w combined -d obsData -p "
+        else:
+            quickFit = f"quickFit --minStrat 1 --minTolerance 1e-5 --savefitresult 0 --hesse 0 --saveNP 0 -f {options.input}/WCharm_lep_obs_OSSS_complete_{suffix}{var}/RooStats/WCharm_lep_obs_OSSS_complete{suffix}_combined_WCharm_lep_obs_OSSS_complete{suffix}_model.root -w combined -d obsData -p "
         jobName = f"WCharm_lep_obs_OSSS_complete_{suffix}{var}_unconditional"
         for x in NFS:
             quickFit += f"{x},"
@@ -112,21 +122,27 @@ def main(options):
             meson_charge = "plus"
             f_theory = {}
             for lep, meson_charge in zip(["minus", "plus"], ["plus", "minus"]):
-                f_name = f"TheoryPredictions_{name}_W{lep}D{meson_charge}.root"
+                if options.decay == "Dplus":
+                    f_name = f"TheoryPredictions_{name}_W{lep}D{meson_charge}.root"
+                else:
+                    f_name = f"TheoryPredictions_{name}_W{lep}Dstar{meson_charge}.root"
                 f = ROOT.TFile(os.path.join(PREDICTIONS_DIR, f_name))
                 f_theory[lep] = f
                 assert f
 
             # quickFit template
-            quickFit = f"quickFit --minStrat 1 --minTolerance 1e-5 --savefitresult 0 --hesse 0 --saveNP 0 -f {options.input}/WCharm_lep_obs_OSSS_complete_{suffix}{var}/RooStats/WCharm_lep_obs_OSSS_complete_{suffix}{var}_combined_WCharm_lep_obs_OSSS_complete_{suffix}{var}_model.root -w combined -d obsData "
+            if options.decay == "Dplus":
+                quickFit = f"quickFit --minStrat 1 --minTolerance 1e-5 --savefitresult 0 --hesse 0 --saveNP 0 -f {options.input}/WCharm_lep_obs_OSSS_complete_{suffix}{var}/RooStats/WCharm_lep_obs_OSSS_complete_{suffix}{var}_combined_WCharm_lep_obs_OSSS_complete_{suffix}{var}_model.root -w combined -d obsData "
+            else:
+                quickFit = f"quickFit --minStrat 1 --minTolerance 1e-5 --savefitresult 0 --hesse 0 --saveNP 0 -f {options.input}/WCharm_lep_obs_OSSS_complete_{suffix}{var}/RooStats/WCharm_lep_obs_OSSS_complete{suffix}_combined_WCharm_lep_obs_OSSS_complete{suffix}_model.root -w combined -d obsData "
 
             # read theory graphs
             gr_theory = {}
             gr_theory_rel = {}
             for lep, meson_charge in zip(["minus", "plus"], ["plus", "minus"]):
-                gr = f_theory[lep].Get(f"mu_{lep}_Dplus_{name}_{prediction}_cross")
-                gr_rel = f_theory[lep].Get(f"mu_{lep}_Dplus_{name}_{prediction}_norm")
-                assert gr, f"mu_{lep}_Dplus_{name}_{prediction}_cross"
+                gr = f_theory[lep].Get(f"mu_{lep}_{options.decay}_{name}_{prediction}_cross")
+                gr_rel = f_theory[lep].Get(f"mu_{lep}_{options.decay}_{name}_{prediction}_norm")
+                assert gr, f"mu_{lep}_{options.decay}_{name}_{prediction}_cross"
                 gr_theory[lep] = gr
                 gr_theory_rel[lep] = gr_rel
             sum_minus = sum([gr_theory['minus'].GetY()[i] for i in range(gr_theory['minus'].GetN())])
@@ -185,10 +201,13 @@ def main(options):
                 gr_qcd = {}
                 gr_qcd_rel = {}
                 for lep, meson_charge in zip(["minus", "plus"], ["plus", "minus"]):
-                    f_qcd = ROOT.TFile(os.path.join(PREDICTIONS_DIR, f"TheoryScaleUncert_{name}_W{lep}D{meson_charge}.root"))
-                    gr_qcd[lep] = f_qcd.Get(f"mu_{lep}_Dplus_{name}__fractionalErr_cross")
-                    gr_qcd_rel[lep] = f_qcd.Get(f"mu_{lep}_Dplus_{name}__fractionalErr_norm")
-                    assert gr_qcd[lep], (f"mu_{lep}_Dplus_{name}__fractionalErr_cross", prediction)
+                    if options.decay == "Dplus":
+                        f_qcd = ROOT.TFile(os.path.join(PREDICTIONS_DIR, f"TheoryScaleUncert_{name}_W{lep}D{meson_charge}.root"))
+                    else:
+                        f_qcd = ROOT.TFile(os.path.join(PREDICTIONS_DIR, f"TheoryScaleUncert_{name}_W{lep}Dstar{meson_charge}.root"))
+                    gr_qcd[lep] = f_qcd.Get(f"mu_{lep}_{options.decay}_{name}__fractionalErr_cross")
+                    gr_qcd_rel[lep] = f_qcd.Get(f"mu_{lep}_{options.decay}_{name}__fractionalErr_norm")
+                    assert gr_qcd[lep], (f"mu_{lep}_{options.decay}_{name}__fractionalErr_cross", prediction)
 
                 # QCD theory prediction error UP (assume all correlated)
                 sum_minus_up = sum([(gr_theory['minus'].GetY()[i] * (1 + gr_qcd['minus'].GetEYhigh()[i])) for i in range(gr_theory['minus'].GetN())])
@@ -296,6 +315,9 @@ if __name__ == "__main__":
     parser.add_option('-s', '--sys',
                       action="store_true", dest="sys",
                       help="add theory uncertainties")
+    parser.add_option('-d', '--decay',
+                      action="store", dest="decay", default = "Dplus",
+                      help="Decay mode (defaults to Dplus)")
     parser.add_option('-v', '--vars',
                       action="store", dest="vars",
                       help="comma sepparated list of variables",
