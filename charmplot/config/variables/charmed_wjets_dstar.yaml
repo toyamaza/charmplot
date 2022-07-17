@@ -57,7 +57,7 @@ Dmeson_mdiff_norebin:
 
 Dmeson_impact_sig:
   label: 'D^{#pm} 3D Impact Significance'
-  rebin: 4
+  rebin: 1
   x_range: [0.0, 6.0]
   ratio_range: [0.5, 1.49]
 
@@ -79,7 +79,7 @@ Dmeson_Lxy:
   label: 'D* L_{xy}'
   unit: 'mm'
   rebin: 5
-  x_range: [0.0,10]
+  x_range: [0.0,30]
   ratio_range: [0.5, 1.49]
 
 Dmeson_cTau:
@@ -89,7 +89,7 @@ Dmeson_cTau:
 
 Dmeson_chi2:
   label: 'D* #chi^{2}'
-  rebin: 1
+  rebin: 10
   x_range: [0.0,12.0]
   ratio_range: [0.5, 1.49]
 
@@ -222,9 +222,9 @@ Dmeson_SVr:
 
 Dmeson_ptcone40_pt:
   label: 'D* ptcone40/p_{T}'
-  rebin: 1
+  rebin: 2
   #xbins: [0.0, 0.02, 0.04, 0.06, 0.08, 1.0, 2.0, 4.0, 10.0]
-  x_range: [0,2.0]
+  x_range: [0,5.0]
   do_overflow: False
   do_underflow: True
   #per_unit: True
