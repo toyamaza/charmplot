@@ -1,6 +1,7 @@
 #!/usr/bin/env python
-import ROOT
 import os
+import ROOT
+import yaml
 
 PREDICTIONS_DIR = "/global/cfs/cdirs/atlas/shapiro/13tev_wd_rivet/forMiha"
 PRIORS_DIR = "/global/cfs/cdirs/atlas/wcharm/charmplot_output/Dmeson_2022_06_15/"
@@ -38,7 +39,7 @@ def main(options):
         elif options.basis == "absolute":
             NFS = ["mu_Wminus_1", "mu_Wminus_2", "mu_Wminus_3", "mu_Wminus_4", "mu_Wminus_5",
                    "mu_Wplus_1", "mu_Wplus_2", "mu_Wplus_3", "mu_Wplus_4", "mu_Wplus_5"]
-            suffix = "alt_ "
+            suffix = "alt_"
 
         # cross section priors
         f_prior = ROOT.TFile(os.path.join(PRIORS_DIR, f"fid_eff_{var}_{options.decay.lower()}", "unfolding.root"), "READ")
@@ -91,7 +92,23 @@ def main(options):
                 sigma_j = fr.floatParsFinal().find(NFS[j]).getError()
                 cov[i][j] = sigma_i * sigma_j * corr
 
+        # covariance matrix from the ranking plots
+        cov_ranking = ROOT.TMatrixD(len(NFS), len(NFS))
+        if os.path.isdir(os.path.join(options.input, f"WCharm_lep_obs_OSSS_complete_{suffix}{var}", "Covariances")):
+            with open(os.path.join(options.input, f"WCharm_lep_obs_OSSS_complete_{suffix}{var}", "Covariances", "Combined_Covariance_postfit.yaml"), 'r') as stream:
+                cov_dict = yaml.safe_load(stream)
+                print(cov_dict[0])
+                print(cov_dict[1])
+                for i in range(len(NFS)):
+                    for j in range(len(NFS)):
+                        index_i = cov_dict[0]["parameters"].index(NFS[i])
+                        index_j = cov_dict[0]["parameters"].index(NFS[j])
+                        cov_ranking[i][j] = cov_dict[1]["covariance_rows"][index_i][index_j]
+
         print(f"\n============ Experimental cov for {var} ============")
+        cov_ranking.Print()
+        if options.ranking_cov:
+            cov = cov_ranking
         cov.Print()
 
         # quickFit template
@@ -173,28 +190,31 @@ def main(options):
 
             # theory systematics
             if options.sys:
-                # PDF theory prediction error UP (assume all correlated)
-                sum_minus_up = sum([(gr_theory['minus'].GetY()[i] + gr_theory['minus'].GetEYhigh()[i]) for i in range(gr_theory['minus'].GetN())])
-                sum_plus_up = sum([(gr_theory['plus'].GetY()[i] + gr_theory['plus'].GetEYhigh()[i]) for i in range(gr_theory['plus'].GetN())])
+                # PDF theory prediction error
                 nfs_up = {}
-                nfs_up["mu_Wminus_tot"] = sum_minus_up / priors["Wminus"]
-                nfs_up["mu_Rc"] = sum_plus_up / sum_minus_up
-                for i in range(1, 5):
-                    nfs_up[f"mu_Wminus_rel_{i}"] = prediction_nfs[f"mu_Wminus_rel_{i}"] * (1 + gr_theory_rel["minus"].GetEYhigh()[i - 1] / gr_theory_rel["minus"].GetY()[i - 1])
-                    nfs_up[f"mu_Wplus_rel_{i}"] = prediction_nfs[f"mu_Wplus_rel_{i}"] * (1 + gr_theory_rel["plus"].GetEYhigh()[i - 1] / gr_theory_rel["plus"].GetY()[i - 1])
+                nfs_dn = {}
+                if options.basis == "default":
+                    sum_minus_up = sum([(gr_theory['minus'].GetY()[i] + gr_theory['minus'].GetEYhigh()[i]) for i in range(gr_theory['minus'].GetN())])
+                    sum_minus_dn = sum([(gr_theory['minus'].GetY()[i] - gr_theory['minus'].GetEYlow()[i]) for i in range(gr_theory['minus'].GetN())])
+                    sum_plus_up = sum([(gr_theory['plus'].GetY()[i] + gr_theory['plus'].GetEYhigh()[i]) for i in range(gr_theory['plus'].GetN())])
+                    sum_plus_dn = sum([(gr_theory['plus'].GetY()[i] - gr_theory['plus'].GetEYlow()[i]) for i in range(gr_theory['plus'].GetN())])
+                    nfs_up["mu_Wminus_tot"] = sum_minus_up / priors["Wminus"]
+                    nfs_dn["mu_Wminus_tot"] = sum_minus_dn / priors["Wminus"]
+                    nfs_up["mu_Rc"] = sum_plus_up / sum_minus_up
+                    nfs_dn["mu_Rc"] = sum_plus_dn / sum_minus_dn
+                    for i in range(1, 5):
+                        nfs_up[f"mu_Wminus_rel_{i}"] = prediction_nfs[f"mu_Wminus_rel_{i}"] * (1 + gr_theory_rel["minus"].GetEYhigh()[i - 1] / gr_theory_rel["minus"].GetY()[i - 1])
+                        nfs_dn[f"mu_Wminus_rel_{i}"] = prediction_nfs[f"mu_Wminus_rel_{i}"] * (1 + gr_theory_rel["minus"].GetEYlow()[i - 1] / gr_theory_rel["minus"].GetY()[i - 1])
+                        nfs_up[f"mu_Wplus_rel_{i}"] = prediction_nfs[f"mu_Wplus_rel_{i}"] * (1 + gr_theory_rel["plus"].GetEYhigh()[i - 1] / gr_theory_rel["plus"].GetY()[i - 1])
+                        nfs_dn[f"mu_Wplus_rel_{i}"] = prediction_nfs[f"mu_Wplus_rel_{i}"] * (1 + gr_theory_rel["plus"].GetEYlow()[i - 1] / gr_theory_rel["plus"].GetY()[i - 1])
+                elif options.basis == "absolute":
+                    for i in range(1, 6):
+                        nfs_up[f"mu_Wminus_{i}"] = prediction_nfs[f"mu_Wminus_{i}"] * (1 + gr_theory["minus"].GetEYhigh()[i - 1] / gr_theory["minus"].GetY()[i - 1])
+                        nfs_dn[f"mu_Wminus_{i}"] = prediction_nfs[f"mu_Wminus_{i}"] * (1 + gr_theory["minus"].GetEYlow()[i - 1] / gr_theory["minus"].GetY()[i - 1])
+                        nfs_up[f"mu_Wplus_{i}"] = prediction_nfs[f"mu_Wplus_{i}"] * (1 + gr_theory["plus"].GetEYhigh()[i - 1] / gr_theory["plus"].GetY()[i - 1])
+                        nfs_dn[f"mu_Wplus_{i}"] = prediction_nfs[f"mu_Wplus_{i}"] * (1 + gr_theory["plus"].GetEYlow()[i - 1] / gr_theory["plus"].GetY()[i - 1])
                 for x in nfs_up:
                     nfs_up[x] = nfs_up[x] - prediction_nfs[x]
-
-                # PDF theory prediction error DN (assume all correlated)
-                sum_minus_dn = sum([(gr_theory['minus'].GetY()[i] - gr_theory['minus'].GetEYlow()[i]) for i in range(gr_theory['minus'].GetN())])
-                sum_plus_dn = sum([(gr_theory['plus'].GetY()[i] - gr_theory['plus'].GetEYlow()[i]) for i in range(gr_theory['plus'].GetN())])
-                nfs_dn = {}
-                nfs_dn["mu_Wminus_tot"] = sum_minus_dn / priors["Wminus"]
-                nfs_dn["mu_Rc"] = sum_plus_dn / sum_minus_dn
-                for i in range(1, 5):
-                    nfs_dn[f"mu_Wminus_rel_{i}"] = prediction_nfs[f"mu_Wminus_rel_{i}"] * (1 + gr_theory_rel["minus"].GetEYlow()[i - 1] / gr_theory_rel["minus"].GetY()[i - 1])
-                    nfs_dn[f"mu_Wplus_rel_{i}"] = prediction_nfs[f"mu_Wplus_rel_{i}"] * (1 + gr_theory_rel["plus"].GetEYlow()[i - 1] / gr_theory_rel["plus"].GetY()[i - 1])
-                for x in nfs_dn:
                     nfs_dn[x] = prediction_nfs[x] - nfs_dn[x]
 
                 # QCD scale error file
@@ -209,28 +229,31 @@ def main(options):
                     gr_qcd_rel[lep] = f_qcd.Get(f"mu_{lep}_{options.decay}_{name}__fractionalErr_norm")
                     assert gr_qcd[lep], (f"mu_{lep}_{options.decay}_{name}__fractionalErr_cross", prediction)
 
-                # QCD theory prediction error UP (assume all correlated)
-                sum_minus_up = sum([(gr_theory['minus'].GetY()[i] * (1 + gr_qcd['minus'].GetEYhigh()[i])) for i in range(gr_theory['minus'].GetN())])
-                sum_plus_up = sum([(gr_theory['plus'].GetY()[i] * (1 + gr_qcd['plus'].GetEYhigh()[i])) for i in range(gr_theory['plus'].GetN())])
+                # QCD theory prediction error
                 nfs_qcd_up = {}
-                nfs_qcd_up["mu_Wminus_tot"] = sum_minus_up / priors["Wminus"]
-                nfs_qcd_up["mu_Rc"] = sum_plus_up / sum_minus_up
-                for i in range(1, 5):
-                    nfs_qcd_up[f"mu_Wminus_rel_{i}"] = prediction_nfs[f"mu_Wminus_rel_{i}"] * (1 + gr_qcd_rel["minus"].GetEYhigh()[i - 1])
-                    nfs_qcd_up[f"mu_Wplus_rel_{i}"] = prediction_nfs[f"mu_Wplus_rel_{i}"] * (1 + gr_qcd_rel["plus"].GetEYhigh()[i - 1])
+                nfs_qcd_dn = {}
+                if options.basis == "default":
+                    sum_minus_up = sum([(gr_theory['minus'].GetY()[i] * (1 + gr_qcd['minus'].GetEYhigh()[i])) for i in range(gr_theory['minus'].GetN())])
+                    sum_minus_dn = sum([(gr_theory['minus'].GetY()[i] * (1 - gr_qcd['minus'].GetEYlow()[i])) for i in range(gr_theory['minus'].GetN())])
+                    sum_plus_up = sum([(gr_theory['plus'].GetY()[i] * (1 + gr_qcd['plus'].GetEYhigh()[i])) for i in range(gr_theory['plus'].GetN())])
+                    sum_plus_dn = sum([(gr_theory['plus'].GetY()[i] * (1 - gr_qcd['plus'].GetEYlow()[i])) for i in range(gr_theory['plus'].GetN())])
+                    nfs_qcd_up["mu_Wminus_tot"] = sum_minus_up / priors["Wminus"]
+                    nfs_qcd_dn["mu_Wminus_tot"] = sum_minus_dn / priors["Wminus"]
+                    nfs_qcd_up["mu_Rc"] = sum_plus_up / sum_minus_up
+                    nfs_qcd_dn["mu_Rc"] = sum_plus_dn / sum_minus_dn
+                    for i in range(1, 5):
+                        nfs_qcd_up[f"mu_Wminus_rel_{i}"] = prediction_nfs[f"mu_Wminus_rel_{i}"] * (1 + gr_qcd_rel["minus"].GetEYhigh()[i - 1])
+                        nfs_qcd_dn[f"mu_Wminus_rel_{i}"] = prediction_nfs[f"mu_Wminus_rel_{i}"] * (1 - gr_qcd_rel["minus"].GetEYlow()[i - 1])
+                        nfs_qcd_up[f"mu_Wplus_rel_{i}"] = prediction_nfs[f"mu_Wplus_rel_{i}"] * (1 + gr_qcd_rel["plus"].GetEYhigh()[i - 1])
+                        nfs_qcd_dn[f"mu_Wplus_rel_{i}"] = prediction_nfs[f"mu_Wplus_rel_{i}"] * (1 - gr_qcd_rel["plus"].GetEYlow()[i - 1])
+                elif options.basis == "absolute":
+                    for i in range(1, 6):
+                        nfs_qcd_up[f"mu_Wminus_{i}"] = prediction_nfs[f"mu_Wminus_{i}"] * (1 + gr_qcd["minus"].GetEYhigh()[i - 1])
+                        nfs_qcd_dn[f"mu_Wminus_{i}"] = prediction_nfs[f"mu_Wminus_{i}"] * (1 - gr_qcd["minus"].GetEYlow()[i - 1])
+                        nfs_qcd_up[f"mu_Wplus_{i}"] = prediction_nfs[f"mu_Wplus_{i}"] * (1 + gr_qcd["plus"].GetEYhigh()[i - 1])
+                        nfs_qcd_dn[f"mu_Wplus_{i}"] = prediction_nfs[f"mu_Wplus_{i}"] * (1 - gr_qcd["plus"].GetEYlow()[i - 1])
                 for x in nfs_qcd_up:
                     nfs_qcd_up[x] = nfs_qcd_up[x] - prediction_nfs[x]
-
-                # QCD theory prediction error DN (assume all correlated)
-                sum_minus_dn = sum([(gr_theory['minus'].GetY()[i] * (1 - gr_qcd['minus'].GetEYlow()[i])) for i in range(gr_theory['minus'].GetN())])
-                sum_plus_dn = sum([(gr_theory['plus'].GetY()[i] * (1 - gr_qcd['plus'].GetEYlow()[i])) for i in range(gr_theory['plus'].GetN())])
-                nfs_qcd_dn = {}
-                nfs_qcd_dn["mu_Wminus_tot"] = sum_minus_dn / priors["Wminus"]
-                nfs_qcd_dn["mu_Rc"] = sum_plus_dn / sum_minus_dn
-                for i in range(1, 5):
-                    nfs_qcd_dn[f"mu_Wminus_rel_{i}"] = prediction_nfs[f"mu_Wminus_rel_{i}"] * (1 - gr_qcd_rel["minus"].GetEYlow()[i - 1])
-                    nfs_qcd_dn[f"mu_Wplus_rel_{i}"] = prediction_nfs[f"mu_Wplus_rel_{i}"] * (1 - gr_qcd_rel["plus"].GetEYlow()[i - 1])
-                for x in nfs_qcd_dn:
                     nfs_qcd_dn[x] = prediction_nfs[x] - nfs_qcd_dn[x]
 
                 # covariance matrix for prediction
@@ -240,7 +263,7 @@ def main(options):
                     for j in range(len(NFS)):
                         corr = 1.0
                         if i != j:
-                            corr = 0.0
+                            corr = 1.0
                         sigma_i = (nfs_up[NFS[i]] - nfs_dn[NFS[i]]) / 2.
                         sigma_j = (nfs_up[NFS[j]] - nfs_dn[NFS[j]]) / 2.
                         cov_pred_pdf[i][j] = sigma_i * sigma_j * corr
@@ -250,7 +273,7 @@ def main(options):
                     for j in range(len(NFS)):
                         corr = 1.0
                         if i != j:
-                            corr = 0.0
+                            corr = 1.0
                         sigma_i = (nfs_qcd_up[NFS[i]] - nfs_qcd_dn[NFS[i]]) / 2.
                         sigma_j = (nfs_qcd_up[NFS[j]] - nfs_qcd_dn[NFS[j]]) / 2.
                         cov_pred_qcd[i][j] = sigma_i * sigma_j * corr
@@ -271,13 +294,22 @@ def main(options):
             # calculate Chi2
             chi2 = 0
             chi2_matrix = ROOT.TMatrixD(len(NFS), len(NFS))
+            chi2_array = []
             for i in range(len(NFS)):
                 for j in range(len(NFS)):
+                    print(i, j, prediction_nfs[NFS[i]] - nfs[NFS[i]], icov[i][j], prediction_nfs[NFS[j]] - nfs[NFS[j]])
                     chi2_i_j = (prediction_nfs[NFS[i]] - nfs[NFS[i]]) * icov[i][j] * (prediction_nfs[NFS[j]] - nfs[NFS[j]])
                     chi2_matrix[i][j] = chi2_i_j
                     chi2 += chi2_i_j
-            print(f"\nChi2: {chi2}, Prob: {100 * ROOT.TMath.Prob(chi2, 10)}")
+                    chi2_array += [(chi2_i_j, NFS[i], NFS[j])]
             chi2_dict[var][prediction] = chi2
+            chi2_array.sort(key=lambda x: abs(x[0]), reverse=True)
+            chi2_matrix.Print()
+            print(f"\nChi2: {chi2}, Prob: {100 * ROOT.TMath.Prob(chi2, 10)}\n")
+            partial_chi2 = 0
+            for x in chi2_array:
+                partial_chi2 += x[0]
+                print(f"{partial_chi2:.2f} {x[0]:.2f} {x[1]} {x[2]}")
 
             # NLL probability
             if options.quickfit_input:
@@ -318,6 +350,9 @@ if __name__ == "__main__":
     parser.add_option('-d', '--decay',
                       action="store", dest="decay", default = "Dplus",
                       help="Decay mode (defaults to Dplus)")
+    parser.add_option('-r', '--ranking-cov',
+                      action="store_true", dest="ranking_cov",
+                      help="use the covariance matrix from the ranking plots")
     parser.add_option('-v', '--vars',
                       action="store", dest="vars",
                       help="comma sepparated list of variables",
