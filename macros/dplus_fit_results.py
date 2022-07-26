@@ -272,8 +272,8 @@ def main(options, args):
                 stat_only = f"WCharm_lep_obs_stat_only_OSSS_complete_{obs_name}"
                 obs_fit = f"WCharm_lep_obs_OSSS_complete_{obs_name}"
             else:
-                stat_only = f"WCharm_lep_obs_stat_only_OSSS_complete"
-                obs_fit = f"WCharm_lep_obs_OSSS_complete"
+                stat_only = "WCharm_lep_obs_stat_only_OSSS_complete"
+                obs_fit = "WCharm_lep_obs_OSSS_complete"
 
             # stat-only
             POIs_stat = extract_pois(os.path.join(obs["fit_results"], stat_only, "Fits", f"{stat_only}.txt"))
