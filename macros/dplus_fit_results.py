@@ -10,6 +10,11 @@ ROOT.gROOT.LoadMacro(os.path.join(dirname, "AtlasLabels.C"))
 ROOT.gROOT.LoadMacro(os.path.join(dirname, "AtlasUtils.C"))
 ROOT.SetAtlasStyle()
 
+# POI names
+POIs_default = ["mu_Rc", "mu_Wminus_tot"] + [f"mu_Wminus_rel_{i}" for i in range(1, 5)] + [f"mu_Wplus_rel_{i}" for i in range(1, 5)]
+POIs_default2 = ["mu_Wplus_tot", "mu_Wminus_rel_5", "mu_Wplus_rel_5"]
+POIs_abs = [f"mu_Wminus_{i}" for i in range(1, 6)] + [f"mu_Wplus_{i}" for i in range(1, 6)]
+
 # make output folder
 if not os.path.isdir("fit_results"):
     os.makedirs("fit_results")
@@ -68,7 +73,7 @@ def main(options, args):
     # observables
     OBSERVABLES = {
         "pt": {
-            "fit_results": "/global/cfs/cdirs/atlas/wcharm/TRExFitter/Output/Dplus_2022_07_08/",
+            "fit_results": "/global/cfs/cdirs/atlas/wcharm/TRExFitter/Output/Dplus_2022_07_26/",
             "label": "#it{p}_{T}^{#it{D}}",
             "prior_var": "D_pt_fit",
             "bins": [8, 12, 20, 40, 80, 120],
@@ -76,7 +81,7 @@ def main(options, args):
             "unit": "GeV",
         },
         "eta": {
-            "fit_results": "/global/cfs/cdirs/atlas/wcharm/TRExFitter/Output/Dplus_2022_07_08/",
+            "fit_results": "/global/cfs/cdirs/atlas/wcharm/TRExFitter/Output/Dplus_2022_07_26/",
             "label": "#eta(l)",
             "prior_var": "D_differential_lep_eta",
             "bins": [0.0, 0.5, 1.0, 1.5, 2.0, 2.5],
@@ -269,21 +274,64 @@ def main(options, args):
             # --------------------------------------------
             # folder names
             if options.decay == "Dplus":
-                stat_only = f"WCharm_lep_obs_stat_only_OSSS_complete_{obs_name}"
                 obs_fit = f"WCharm_lep_obs_OSSS_complete_{obs_name}"
+                obs_fit2 = f"WCharm_lep_obs_OSSS_complete2_{obs_name}"
+                obs_fit_abs = f"WCharm_lep_obs_OSSS_complete_alt_{obs_name}"
             else:
-                stat_only = f"WCharm_lep_obs_stat_only_OSSS_complete"
-                obs_fit = f"WCharm_lep_obs_OSSS_complete"
+                obs_fit = "WCharm_lep_obs_OSSS_complete"
 
             # stat-only
-            POIs_stat = extract_pois(os.path.join(obs["fit_results"], stat_only, "Fits", f"{stat_only}.txt"))
-            POIs_stat.update(extract_pois(os.path.join(obs["fit_results"], stat_only, "Fits", f"{stat_only}_expr.txt")))
+            # POIs_stat = extract_pois(os.path.join(obs["fit_results"], stat_only, "Fits", f"{stat_only}.txt"))
+            # POIs_stat.update(extract_pois(os.path.join(obs["fit_results"], stat_only, "Fits", f"{stat_only}_expr.txt")))
 
             # observed
             POIs_obs = extract_pois(os.path.join(obs["fit_results"], obs_fit, "Fits", f"{obs_fit}.txt"))
             POIs_obs.update(extract_pois(os.path.join(obs["fit_results"], obs_fit, "Fits", f"{obs_fit}_expr.txt")))
             print("============ post fit results ============")
             for key, val in POIs_obs.items():
+                print(f"{key}: {val}")
+
+            # normalization factors
+            f_result = ROOT.TFile(os.path.join(obs["fit_results"], obs_fit, "Fits", f"{obs_fit}.root"), "READ")
+            f_result2 = ROOT.TFile(os.path.join(obs["fit_results"], obs_fit2, "Fits", f"{obs_fit2}.root"), "READ")
+            f_result_abs = ROOT.TFile(os.path.join(obs["fit_results"], obs_fit_abs, "Fits", f"{obs_fit_abs}.root"), "READ")
+            fr = f_result.Get("nll_simPdf_newasimovData_with_constr")
+            fr2 = f_result2.Get("nll_simPdf_newasimovData_with_constr")
+            fr_abs = f_result_abs.Get("nll_simPdf_newasimovData_with_constr")
+
+            # stat-only normalization factors
+            f_result_stat = ROOT.TFile(os.path.join(obs["fit_results"], obs_fit, "Fits", f"{obs_fit}_statOnly.root"), "READ")
+            f_result2_stat = ROOT.TFile(os.path.join(obs["fit_results"], obs_fit2, "Fits", f"{obs_fit2}_statOnly.root"), "READ")
+            f_result_abs_stat = ROOT.TFile(os.path.join(obs["fit_results"], obs_fit_abs, "Fits", f"{obs_fit_abs}_statOnly.root"), "READ")
+            fr_stat = f_result_stat.Get("nll_simPdf_newasimovData_with_constr")
+            fr2_stat = f_result2_stat.Get("nll_simPdf_newasimovData_with_constr")
+            fr_abs_stat = f_result_abs_stat.Get("nll_simPdf_newasimovData_with_constr")
+
+            # read POIs
+            POIs_obs = {}
+            POIs_stat = {}
+            for POI in POIs_default:
+                par = fr.floatParsFinal().find(POI)
+                par_stat = fr_stat.floatParsFinal().find(POI)
+                POIs_obs[POI] = [par.getVal(), par.getErrorHi(), par.getErrorLo()]
+                POIs_stat[POI] = [par_stat.getVal(), par_stat.getErrorHi(), par_stat.getErrorLo()]
+            for POI in POIs_default2:
+                par = fr2.floatParsFinal().find(POI)
+                par_stat = fr2_stat.floatParsFinal().find(POI)
+                POIs_obs[POI] = [par.getVal(), par.getErrorHi(), par.getErrorLo()]
+                POIs_stat[POI] = [par_stat.getVal(), par_stat.getErrorHi(), par_stat.getErrorLo()]
+            for POI in POIs_abs:
+                par = fr_abs.floatParsFinal().find(POI)
+                par_stat = fr_abs_stat.floatParsFinal().find(POI)
+                POIs_obs[POI] = [par.getVal(), par.getErrorHi(), par.getErrorLo()]
+                POIs_stat[POI] = [par_stat.getVal(), par_stat.getErrorHi(), par_stat.getErrorLo()]
+
+            print("============ post fit results ============")
+            for key, val in POIs_obs.items():
+                print(f"{key}: {val}")
+
+            print("============ post fit results (stat err) ============")
+            for key, val in POIs_stat.items():
                 print(f"{key}: {val}")
 
             # --------------------------------------------
@@ -297,47 +345,27 @@ def main(options, args):
                 gr_obs_norm_ratio_stat = ROOT.TGraphAsymmErrors()
                 gr_obs_sys = ROOT.TGraphAsymmErrors()
                 gr_obs_norm_sys = ROOT.TGraphAsymmErrors()
-                # w_tot = obs["bins"][-1] - obs["bins"][0]
                 for i in range(len(obs["bins"]) - 1):
                     xl = obs["bins"][i]
                     xh = obs["bins"][i + 1]
                     w = xh - xl
 
+                    # prior relative cross section
                     y_prior = float(priors[f"W{lep}_{i + 1}"])
                     y_rel = y_prior / float(priors[f"W{lep}"])
-                    expr = ""
-                    if lep == "plus":
-                        expr = "expr_"
-                    y_tot = float(POIs_obs[f"{expr}mu_W{lep}_tot"][0]) * y_prior
 
-                    if i < 4:
-                        y = float(POIs_obs[f"expr_mu_W{lep}_{i + 1}"][0]) * y_prior
-                        y_up = float(POIs_obs[f"expr_mu_W{lep}_{i + 1}"][1]) * y_prior
-                        y_dn = float(POIs_obs[f"expr_mu_W{lep}_{i + 1}"][1]) * y_prior
-                        y_up_stat = float(POIs_stat[f"expr_mu_W{lep}_{i + 1}"][1]) * y_prior
-                        y_dn_stat = float(POIs_stat[f"expr_mu_W{lep}_{i + 1}"][1]) * y_prior
-                        y_up_sys = (y_up**2 - y_up_stat**2)**(0.5)
-                        y_dn_sys = (y_dn**2 - y_dn_stat**2)**(0.5)
-                        y_norm = float(POIs_obs[f"mu_W{lep}_rel_{i + 1}"][0]) * y_rel
-                        y_norm_up = float(POIs_obs[f"mu_W{lep}_rel_{i + 1}"][1]) * y_rel
-                        y_norm_dn = float(POIs_obs[f"mu_W{lep}_rel_{i + 1}"][2]) * y_rel
-                        y_norm_up_stat = float(POIs_stat[f"mu_W{lep}_rel_{i + 1}"][1]) * y_rel
-                        y_norm_dn_stat = float(POIs_stat[f"mu_W{lep}_rel_{i + 1}"][2]) * y_rel
-                    else:
-                        y = float(POIs_obs[f"expr_mu_W{lep}_rel_{i + 1}"][0]) * y_tot
-                        y_up = ((float(POIs_obs[f"expr_mu_W{lep}_rel_{i + 1}"][1]) * y_tot)**2 + (float(POIs_obs[f"{expr}mu_W{lep}_tot"][1]) * y_prior)**2)**(0.5)
-                        y_dn = ((float(POIs_obs[f"expr_mu_W{lep}_rel_{i + 1}"][1]) * y_tot)**2 + (float(POIs_obs[f"{expr}mu_W{lep}_tot"][1]) * y_prior)**2)**(0.5)
-                        y_up_stat = ((float(POIs_stat[f"expr_mu_W{lep}_rel_{i + 1}"][1]) * y_tot)**2 +
-                                     (float(POIs_stat[f"{expr}mu_W{lep}_tot"][1]) * y_prior)**2)**(0.5)
-                        y_dn_stat = ((float(POIs_stat[f"expr_mu_W{lep}_rel_{i + 1}"][1]) * y_tot)**2 +
-                                     (float(POIs_stat[f"{expr}mu_W{lep}_tot"][1]) * y_prior)**2)**(0.5)
-                        y_up_sys = (y_up**2 - y_up_stat**2)**(0.5)
-                        y_dn_sys = (y_dn**2 - y_dn_stat**2)**(0.5)
-                        y_norm = float(POIs_obs[f"expr_mu_W{lep}_rel_{i + 1}"][0]) * y_rel
-                        y_norm_up = float(POIs_obs[f"expr_mu_W{lep}_rel_{i + 1}"][1]) * y_rel
-                        y_norm_dn = float(POIs_obs[f"expr_mu_W{lep}_rel_{i + 1}"][1]) * y_rel
-                        y_norm_up_stat = float(POIs_stat[f"expr_mu_W{lep}_rel_{i + 1}"][1]) * y_rel
-                        y_norm_dn_stat = float(POIs_stat[f"expr_mu_W{lep}_rel_{i + 1}"][1]) * y_rel
+                    y = float(POIs_obs[f"mu_W{lep}_{i + 1}"][0]) * y_prior
+                    y_up = float(POIs_obs[f"mu_W{lep}_{i + 1}"][1]) * y_prior
+                    y_dn = float(POIs_obs[f"mu_W{lep}_{i + 1}"][1]) * y_prior
+                    y_up_stat = float(POIs_stat[f"mu_W{lep}_{i + 1}"][1]) * y_prior
+                    y_dn_stat = float(POIs_stat[f"mu_W{lep}_{i + 1}"][1]) * y_prior
+                    y_up_sys = (y_up**2 - y_up_stat**2)**(0.5)
+                    y_dn_sys = (y_dn**2 - y_dn_stat**2)**(0.5)
+                    y_norm = float(POIs_obs[f"mu_W{lep}_rel_{i + 1}"][0]) * y_rel
+                    y_norm_up = float(POIs_obs[f"mu_W{lep}_rel_{i + 1}"][1]) * y_rel
+                    y_norm_dn = float(POIs_obs[f"mu_W{lep}_rel_{i + 1}"][2]) * y_rel
+                    y_norm_up_stat = float(POIs_stat[f"mu_W{lep}_rel_{i + 1}"][1]) * y_rel
+                    y_norm_dn_stat = float(POIs_stat[f"mu_W{lep}_rel_{i + 1}"][2]) * y_rel
                     y_norm_up_sys = (y_norm_up**2 - y_norm_up_stat**2)**(0.5)
                     y_norm_dn_sys = (y_norm_dn**2 - y_norm_dn_stat**2)**(0.5)
 
@@ -750,17 +778,16 @@ def main(options, args):
                     xsec_err_stat_up = float(POIs_stat[f"mu_W{lep}_tot"][1]) * priors[f"W{lep}"]
                     xsec_err_stat_dn = abs(float(POIs_stat[f"mu_W{lep}_tot"][2]) * priors[f"W{lep}"])
                 else:
-                    xsec = float(POIs_obs[f"expr_mu_W{lep}_tot"][0]) * priors[f"W{lep}"]
-                    xsec_err_up = float(POIs_obs[f"expr_mu_W{lep}_tot"][1]) * priors[f"W{lep}"]
-                    xsec_err_dn = abs(float(POIs_obs[f"expr_mu_W{lep}_tot"][1]) * priors[f"W{lep}"])
-                    xsec_err_stat_up = float(POIs_stat[f"expr_mu_W{lep}_tot"][1]) * priors[f"W{lep}"]
-                    xsec_err_stat_dn = abs(float(POIs_stat[f"expr_mu_W{lep}_tot"][1]) * priors[f"W{lep}"])
+                    xsec = float(POIs_obs[f"mu_W{lep}_tot"][0]) * priors[f"W{lep}"]
+                    xsec_err_up = float(POIs_obs[f"mu_W{lep}_tot"][1]) * priors[f"W{lep}"]
+                    xsec_err_dn = abs(float(POIs_obs[f"mu_W{lep}_tot"][1]) * priors[f"W{lep}"])
+                    xsec_err_stat_up = float(POIs_stat[f"mu_W{lep}_tot"][1]) * priors[f"W{lep}"]
+                    xsec_err_stat_dn = abs(float(POIs_stat[f"mu_W{lep}_tot"][1]) * priors[f"W{lep}"])
 
                 print(f"--- total cross section for {lep} ---")
                 print(f"{xsec} +{xsec_err_stat_up} -{xsec_err_stat_dn} (stat)")
                 print(f"{xsec} +{xsec_err_up} -{xsec_err_dn} (sys + stat)")
                 print(f"{xsec} +{(xsec_err_up**2 - xsec_err_stat_up**2)**0.5} -{(xsec_err_dn**2 - xsec_err_stat_dn**2)**0.5} (sys only)")
-                continue
 
                 gr = ROOT.TGraph()
                 gr.SetPoint(0, xsec, 1.0)
@@ -798,6 +825,8 @@ def main(options, args):
                 leg.AddEntry(gr, "Data", "l")
                 leg.AddEntry(gr_stat, "Stat. Unc.", "f")
                 leg.AddEntry(gr_tot, "Syst. #oplus Stat.", "f")
+
+                continue
 
                 # theory
                 for k, prediction in enumerate(THEORY_DICT):
