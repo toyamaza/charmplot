@@ -199,163 +199,171 @@ def main(options):
             quickFit += f"mu_Top -o {jobName}.root"
             outfile.write(f"{{\"job_name\": \"{jobName}\", \"cmd\": \"{quickFit}\"}}\n")
 
-            # theory systematics
-            if options.sys:
-                # PDF theory prediction error
-                nfs_up = {}
-                nfs_dn = {}
-                if options.basis == "absolute":
-                    for i in range(1, 6):
-                        nfs_up[f"mu_Wplus_{i}"] = h_theory_pdf_up.GetBinContent(i) / priors[f"Wplus_{i}"]
-                        nfs_up[f"mu_Wminus_{i}"] = h_theory_pdf_up.GetBinContent(i + 5) / priors[f"Wminus_{i}"]
-                        nfs_dn[f"mu_Wplus_{i}"] = h_theory_pdf_dn.GetBinContent(i) / priors[f"Wplus_{i}"]
-                        nfs_dn[f"mu_Wminus_{i}"] = h_theory_pdf_dn.GetBinContent(i + 5) / priors[f"Wminus_{i}"]
-                elif options.basis == "relative":
-                    for i in range(1, 5):
-                        nfs_up[f"mu_Wplus_rel_{i}"] = h_theory_rel_pdf_up.GetBinContent(i) / (priors[f"Wplus_{i}"] / priors[f"Wplus"])
-                        nfs_up[f"mu_Wminus_rel_{i}"] = h_theory_rel_pdf_up.GetBinContent(i + 5) / (priors[f"Wminus_{i}"] / priors[f"Wminus"])
-                        nfs_dn[f"mu_Wplus_rel_{i}"] = h_theory_rel_pdf_dn.GetBinContent(i) / (priors[f"Wplus_{i}"] / priors[f"Wplus"])
-                        nfs_dn[f"mu_Wminus_rel_{i}"] = h_theory_rel_pdf_dn.GetBinContent(i + 5) / (priors[f"Wminus_{i}"] / priors[f"Wminus"])
-                    sum_plus_up = sum([h_theory_pdf_up.GetBinContent(i) for i in range(1, 6)])
-                    sum_minus_up = sum([h_theory_pdf_up.GetBinContent(i + 5) for i in range(1, 6)])
-                    sum_plus_dn = sum([h_theory_pdf_dn.GetBinContent(i) for i in range(1, 6)])
-                    sum_minus_dn = sum([h_theory_pdf_dn.GetBinContent(i + 5) for i in range(1, 6)])
-                    nfs_up[f"mu_Wminus_tot"] = sum_minus_up / priors[f"Wminus"]
-                    nfs_up[f"mu_Rc"] = sum_plus_up / sum_minus_up
-                    nfs_dn[f"mu_Wminus_tot"] = sum_minus_dn / priors[f"Wminus"]
-                    nfs_dn[f"mu_Rc"] = sum_plus_dn / sum_minus_dn
+            # PDF uncertainty
+            nfs_up = {}
+            nfs_dn = {}
+            nfs_err = {}
+            if options.basis == "absolute":
+                for i in range(1, 6):
+                    nfs_up[f"mu_Wplus_{i}"] = h_theory_pdf_up.GetBinContent(i) / priors[f"Wplus_{i}"]
+                    nfs_up[f"mu_Wminus_{i}"] = h_theory_pdf_up.GetBinContent(i + 5) / priors[f"Wminus_{i}"]
+                    nfs_dn[f"mu_Wplus_{i}"] = h_theory_pdf_dn.GetBinContent(i) / priors[f"Wplus_{i}"]
+                    nfs_dn[f"mu_Wminus_{i}"] = h_theory_pdf_dn.GetBinContent(i + 5) / priors[f"Wminus_{i}"]
+                    nfs_err[f"mu_Wplus_{i}"] = h_theory.GetBinError(i) / priors[f"Wplus_{i}"]
+                    nfs_err[f"mu_Wminus_{i}"] = h_theory.GetBinError(i + 5) / priors[f"Wminus_{i}"]
+            elif options.basis == "relative":
+                for i in range(1, 5):
+                    nfs_up[f"mu_Wplus_rel_{i}"] = h_theory_rel_pdf_up.GetBinContent(i) / (priors[f"Wplus_{i}"] / priors[f"Wplus"])
+                    nfs_up[f"mu_Wminus_rel_{i}"] = h_theory_rel_pdf_up.GetBinContent(i + 5) / (priors[f"Wminus_{i}"] / priors[f"Wminus"])
+                    nfs_dn[f"mu_Wplus_rel_{i}"] = h_theory_rel_pdf_dn.GetBinContent(i) / (priors[f"Wplus_{i}"] / priors[f"Wplus"])
+                    nfs_dn[f"mu_Wminus_rel_{i}"] = h_theory_rel_pdf_dn.GetBinContent(i + 5) / (priors[f"Wminus_{i}"] / priors[f"Wminus"])
+                    nfs_err[f"mu_Wplus_rel_{i}"] = h_theory_rel.GetBinError(i) / (priors[f"Wplus_{i}"] / priors[f"Wplus"])
+                    nfs_err[f"mu_Wminus_rel_{i}"] = h_theory_rel.GetBinError(i + 5) / (priors[f"Wminus_{i}"] / priors[f"Wminus"])
+                nfs_up[f"mu_Wminus_tot"] = h_theory_pdf_up.GetBinContent(12) / priors[f"Wminus"]
+                nfs_up[f"mu_Rc"] = h_theory_pdf_up.GetBinContent(13)
+                nfs_dn[f"mu_Wminus_tot"] = h_theory_pdf_dn.GetBinContent(12) / priors[f"Wminus"]
+                nfs_dn[f"mu_Rc"] = h_theory_pdf_dn.GetBinContent(13)
+                nfs_err[f"mu_Wminus_tot"] = h_theory.GetBinError(12) / priors[f"Wminus"]
+                nfs_err[f"mu_Rc"] = h_theory.GetBinError(13)
 
-                # # QCD scale error file
-                # h_qcd_up = {}
-                # h_qcd_dn = {}
-                # h_qcd_rel_up = {}
-                # h_qcd_rel_dn = {}
-                # if options.decay == "Dplus":
-                #     f_qcd = ROOT.TFile(os.path.join(PREDICTIONS_DIR, f"ScalePredictions_{name}_WD.root"))
-                # else:
-                #     f_qcd = ROOT.TFile(os.path.join(PREDICTIONS_DIR, f"ScalePredictions_{name}_WDstar.root"))
-                # for lep, _ in zip(["minus", "plus"], ["plus", "minus"]):
-                #     h_qcd_up[lep] = f_qcd.Get(f"mu_{lep}_{options.decay}_{name}_ScaleupRatio_cross")
-                #     h_qcd_dn[lep] = f_qcd.Get(f"mu_{lep}_{options.decay}_{name}_ScaledownRatio_cross")
-                #     h_qcd_rel_up[lep] = f_qcd.Get(f"mu_{lep}_{options.decay}_{name}_norm_ScaleupRatio_cross")
-                #     h_qcd_rel_dn[lep] = f_qcd.Get(f"mu_{lep}_{options.decay}_{name}_norm_ScaledownRatio_cross")
-                #     assert h_qcd_up[lep], f"mu_{lep}_{options.decay}_{name}_ScaleupRatio_cross"
+            # covariance matrix for PDF
+            if options.basis == "absolute":
+                m_corr = f_theory.Get(f"{hName_base}_pdf_corr")
+                assert m_corr, f"{hName_base}_pdf_corr"
+            elif options.basis == "relative":
+                m_corr = f_theory.Get(f"{hName_rel_base}_pdf_corr")
+                assert m_corr, f"{hName_rel_base}_pdf_corr"
 
-                # # QCD theory prediction error
-                # nfs_qcd_up = {}
-                # nfs_qcd_dn = {}
-                # if options.basis == "default":
-                #     sum_minus_up = sum([(h_theory['minus'].GetBinContent(i) * h_qcd_up['minus'].GetBinContent(i)) for i in range(1, h_theory['minus'].GetBinsX() + 1)])
-                #     sum_minus_dn = sum([(h_theory['minus'].GetBinContent(i) * h_qcd_dn['minus'].GetBinContent(i)) for i in range(1, h_theory['minus'].GetBinsX() + 1)])
-                #     sum_plus_up = sum([(h_theory['plus'].GetBinContent(i) * h_qcd_up['plus'].GetBinContent(i)) for i in range(1, h_theory['plus'].GetBinsX() + 1)])
-                #     sum_plus_dn = sum([(h_theory['plus'].GetBinContent(i) * h_qcd_dn['plus'].GetBinContent(i)) for i in range(1, h_theory['plus'].GetBinsX() + 1)])
-                #     nfs_qcd_up["mu_Wminus_tot"] = sum_minus_up / priors["Wminus"]
-                #     nfs_qcd_dn["mu_Wminus_tot"] = sum_minus_dn / priors["Wminus"]
-                #     nfs_qcd_up["mu_Rc"] = sum_plus_up / sum_minus_up
-                #     nfs_qcd_dn["mu_Rc"] = sum_plus_dn / sum_minus_dn
-                #     for i in range(1, 5):
-                #         nfs_qcd_up[f"mu_Wminus_rel_{i}"] = prediction_nfs[f"mu_Wminus_rel_{i}"] * h_qcd_rel_up['minus'].GetBinContent(i)
-                #         nfs_qcd_dn[f"mu_Wminus_rel_{i}"] = prediction_nfs[f"mu_Wminus_rel_{i}"] * h_qcd_rel_dn['minus'].GetBinContent(i)
-                #         nfs_qcd_up[f"mu_Wplus_rel_{i}"] = prediction_nfs[f"mu_Wplus_rel_{i}"] * h_qcd_rel_up['plus'].GetBinContent(i)
-                #         nfs_qcd_dn[f"mu_Wplus_rel_{i}"] = prediction_nfs[f"mu_Wplus_rel_{i}"] * h_qcd_rel_dn['plus'].GetBinContent(i)
-                # elif options.basis == "absolute":
-                #     for i in range(1, 6):
-                #         nfs_qcd_up[f"mu_Wminus_{i}"] = prediction_nfs[f"mu_Wminus_{i}"] * h_qcd_up['minus'].GetBinContent(i)
-                #         nfs_qcd_dn[f"mu_Wminus_{i}"] = prediction_nfs[f"mu_Wminus_{i}"] * h_qcd_dn['minus'].GetBinContent(i)
-                #         nfs_qcd_up[f"mu_Wplus_{i}"] = prediction_nfs[f"mu_Wplus_{i}"] * h_qcd_up['plus'].GetBinContent(i)
-                #         nfs_qcd_dn[f"mu_Wplus_{i}"] = prediction_nfs[f"mu_Wplus_{i}"] * h_qcd_dn['plus'].GetBinContent(i)
+            cov_pred_pdf = ROOT.TMatrixD(len(NFS), len(NFS))
+            for i in range(len(NFS)):
+                for j in range(len(NFS)):
+                    corr = 1.0
+                    if i != j:
+                        corr = 1.0
+                    if options.basis == "absolute":
+                        corr = m_corr.GetBinContent(i + 1, j + 1)
+                    elif options.basis == "relative":
+                        corr = m_corr.GetBinContent(decode_rel_index(i) + 1, decode_rel_index(j) + 1)
+                    # sigma_i = (nfs_up[NFS[i]] - nfs_dn[NFS[i]]) / 2.
+                    # sigma_j = (nfs_up[NFS[j]] - nfs_dn[NFS[j]]) / 2.
+                    sigma_i = nfs_err[NFS[i]]
+                    sigma_j = nfs_err[NFS[j]]
+                    cov_pred_pdf[i][j] = sigma_i * sigma_j * corr
 
-                # covariance matrix for prediction
-                if options.basis == "absolute":
-                    m_corr = f_theory.Get(f"{hName_base}_pdf_corr")
-                    assert m_corr, f"{hName_base}_pdf_corr"
-                elif options.basis == "relative":
-                    m_corr = f_theory.Get(f"{hName_rel_base}_pdf_corr")
-                    assert m_corr, f"{hName_rel_base}_pdf_corr"
+            # QCD Scale error (only available for NNPDF40_nnlo_as_01180_hessian)
+            # absolute basis only
+            hName_qcd_base = f"{prediction}_abs_{options.decay}_{name}"
+            if not f_theory.Get(f"{hName_base}_qcd_up"):
+                hName_qcd_base = f"NNPDF40_nnlo_as_01180_hessian_abs_{options.decay}_{name}"
+            h_theory_qcd_central = f_theory.Get(f"{hName_qcd_base}_pdf_central")
+            h_theory_qcd_up = f_theory.Get(f"{hName_qcd_base}_qcd_up")
+            h_theory_qcd_dn = f_theory.Get(f"{hName_qcd_base}_qcd_dn")
+            assert (h_theory_qcd_central and h_theory_qcd_up and h_theory_qcd_dn), hName_qcd_base
 
-                cov_pred_pdf = ROOT.TMatrixD(len(NFS), len(NFS))
+            # transform to relative error
+            h_theory_qcd_up.Divide(h_theory_qcd_central)
+            h_theory_qcd_dn.Divide(h_theory_qcd_central)
+
+            # QCD scale error
+            nfs_qcd_up = {}
+            nfs_qcd_dn = {}
+            if options.basis == "absolute":
+                for i in range(1, 6):
+                    nfs_qcd_up[f"mu_Wplus_{i}"] = h_theory_qcd_up.GetBinContent(i) * prediction_nfs[f"mu_Wplus_{i}"]
+                    nfs_qcd_up[f"mu_Wminus_{i}"] = h_theory_qcd_up.GetBinContent(i + 5) * prediction_nfs[f"mu_Wminus_{i}"]
+                    nfs_qcd_dn[f"mu_Wplus_{i}"] = h_theory_qcd_dn.GetBinContent(i) * prediction_nfs[f"mu_Wplus_{i}"]
+                    nfs_qcd_dn[f"mu_Wminus_{i}"] = h_theory_qcd_dn.GetBinContent(i + 5) * prediction_nfs[f"mu_Wminus_{i}"]
+
+                # QCD scale correlation matrix
+                # assume 100% correlation in absolute basis
+                cov_pred_qcd = ROOT.TMatrixD(len(NFS), len(NFS))
+                for i in range(len(NFS)):
+                    for j in range(len(NFS)):
+                        corr = 1.0
+                        sigma_i = (nfs_qcd_up[NFS[i]] - nfs_qcd_dn[NFS[i]]) / 2.
+                        sigma_j = (nfs_qcd_up[NFS[j]] - nfs_qcd_dn[NFS[j]]) / 2.
+                        cov_pred_qcd[i][j] = sigma_i * sigma_j * corr
+
+            # production fraction and hadronization
+            hName_ABMP16_3 = f"ABMP16_3_nlo_abs_{options.decay}_{name}"
+            hName_ABMP16_3_herwig = f"ABMP16_3_nlo_herwig_abs_{options.decay}_{name}"
+            hName_ABMP16_3_monash = f"ABMP16_3_nlo_monash_abs_{options.decay}_{name}"
+            h_ABMP16_3 = f_theory.Get(f"{hName_ABMP16_3}_pdf_central")
+            h_ABMP16_3_herwig = f_theory.Get(f"{hName_ABMP16_3_herwig}_pdf_central")
+            h_ABMP16_3_monash = f_theory.Get(f"{hName_ABMP16_3_monash}_pdf_central")
+            assert (h_ABMP16_3 and h_ABMP16_3_herwig and h_ABMP16_3_monash), (hName_ABMP16_3, hName_ABMP16_3_herwig, hName_ABMP16_3_monash)
+            h_list = [h_ABMP16_3, h_ABMP16_3_herwig, h_ABMP16_3_monash]
+
+            if options.basis == "absolute":
+                err_pred_hadronization = {}
+                cov_pred_hadronization = ROOT.TMatrixD(len(NFS), len(NFS))
                 for i in range(len(NFS)):
                     for j in range(len(NFS)):
                         corr = 1.0
                         if i != j:
                             corr = 1.0
-                        if options.basis == "absolute":
-                            corr = m_corr.GetBinContent(i + 1, j + 1)
-                        elif options.basis == "relative":
-                            corr = m_corr.GetBinContent(decode_rel_index(i) + 1, decode_rel_index(j) + 1)
-                            print("XXX ", decode_rel_index(i) + 1, decode_rel_index(j) + 1, NFS[i], NFS[j], corr)
-                        sigma_i = (nfs_up[NFS[i]] - nfs_dn[NFS[i]]) / 2.
-                        sigma_j = (nfs_up[NFS[j]] - nfs_dn[NFS[j]]) / 2.
-                        cov_pred_pdf[i][j] = sigma_i * sigma_j * corr
+                        vals_i = [h.GetBinContent(i + 1) / priors[NFS[i].replace("mu_", "")] for h in h_list]
+                        vals_j = [h.GetBinContent(j + 1) / priors[NFS[j].replace("mu_", "")] for h in h_list]
+                        sigma_i = (max(vals_i) - min(vals_i)) / 2.
+                        sigma_j = (max(vals_j) - min(vals_j)) / 2.
+                        if options.decay == "Dplus":
+                            sigma_i = sigma_i**2 + 0.028**2
+                            sigma_j = sigma_j**2 + 0.028**2
+                        elif options.decay == "Dstar":
+                            sigma_i = sigma_i**2 + 0.020**2
+                            sigma_j = sigma_j**2 + 0.020**2
+                        sigma_i = sigma_i**0.5
+                        sigma_j = sigma_j**0.5
+                        cov_pred_hadronization[i][j] = sigma_i * sigma_j * corr
+                        if i == j:
+                            err_pred_hadronization[NFS[i]] = sigma_i
 
-                # cov_pred_qcd = ROOT.TMatrixD(len(NFS), len(NFS))
-                # for i in range(len(NFS)):
-                #     for j in range(len(NFS)):
-                #         corr = 1.0
-                #         if i != j:
-                #             corr = 1.0
-                #         sigma_i = (nfs_qcd_up[NFS[i]] - nfs_qcd_dn[NFS[i]]) / 2.
-                #         sigma_j = (nfs_qcd_up[NFS[j]] - nfs_qcd_dn[NFS[j]]) / 2.
-                #         cov_pred_qcd[i][j] = sigma_i * sigma_j * corr
-
-                # production fraction and hadronization
-                if options.basis == "absolute":
-                    cov_pred_hadronization = ROOT.TMatrixD(len(NFS), len(NFS))
-                    for i in range(len(NFS)):
-                        for j in range(len(NFS)):
-                            corr = 1.0
-                            if i != j:
-                                corr = 1.0
-                            if options.decay == "Dplus":
-                                sigma_i = (0.01**2 + 0.028**2)**(0.5)
-                                sigma_j = (0.01**2 + 0.028**2)**(0.5)
-                            elif options.decay == "Dstar":
-                                sigma_i = (0.01**2 + 0.028**2)**(0.5)
-                                sigma_j = (0.01**2 + 0.028**2)**(0.5)
-                            cov_pred_hadronization[i][j] = sigma_i * sigma_j * corr
-
-                print(f"\n============ PDF Unc. cov for {prediction} ============")
+            cov_matrices = []
+            if options.basis == "absolute":
+                print(f"\n============ QCD Scale Unc. cov for {prediction} ============")
                 for x in NFS:
-                    print(f"{x:15s} {nfs_up[x]:.4f} {prediction_nfs[x]:.4f} {nfs_dn[x]:.4f}")
-                cov_pred_pdf.Print()
+                    print(f"{x:15s} {nfs_qcd_up[x]:.4f} {prediction_nfs[x]:.4f} {nfs_qcd_dn[x]:.4f}")
+                cov_pred_qcd.Print()
+                cov_matrices += [cov_pred_qcd]
 
-                # print(f"\n============ QCD Scale Unc. cov for {prediction} ============")
-                # for x in NFS:
-                #     print(f"{x:15s} {nfs_qcd_up[x]:.4f} {prediction_nfs[x]:.4f} {nfs_qcd_dn[x]:.4f}")
-                # cov_pred_qcd.Print()
+                print(f"\n============ Prod Frac. cov for {prediction} ============")
+                for x in NFS:
+                    print(f"{x:15s} {prediction_nfs[x]:.4f} {err_pred_hadronization[x]:.4f}")
+                cov_pred_hadronization.Print()
+                cov_matrices += [cov_pred_hadronization]
 
-                if options.basis == "absolute":
-                    print(f"\n============ Prod Frac. cov for {prediction} ============")
-                    cov_pred_hadronization.Print()
-
-            # invert
-            cov_total = cov.Clone(f"{cov.GetName()}_{prediction}")
-            if options.sys:
-                cov_total += cov_pred_pdf
-                # cov_total += cov_pred_qcd
-                if options.basis == "absolute" and options.production_fraction_sys:
-                    cov_total += cov_pred_hadronization
-            icov = cov_total.Invert()
+            print(f"\n============ PDF Unc. cov for {prediction} ============")
+            for x in NFS:
+                print(f"{x:15s} {nfs_up[x]:.4f} {prediction_nfs[x]:.4f} {nfs_dn[x]:.4f}")
+            cov_pred_pdf.Print()
+            cov_matrices += [cov_pred_pdf]
 
             # calculate Chi2
-            chi2 = 0
-            chi2_matrix = ROOT.TMatrixD(len(NFS), len(NFS))
-            chi2_array = []
-            for i in range(len(NFS)):
-                for j in range(len(NFS)):
-                    print(i, j, prediction_nfs[NFS[i]] - nfs[NFS[i]], icov[i][j], prediction_nfs[NFS[j]] - nfs[NFS[j]])
-                    chi2_i_j = (prediction_nfs[NFS[i]] - nfs[NFS[i]]) * icov[i][j] * (prediction_nfs[NFS[j]] - nfs[NFS[j]])
-                    chi2_matrix[i][j] = chi2_i_j
-                    chi2 += chi2_i_j
-                    chi2_array += [(chi2_i_j, NFS[i], NFS[j])]
-            chi2_dict[var][prediction.replace("_hessian", "")] = chi2
-            chi2_array.sort(key=lambda x: abs(x[0]), reverse=True)
-            chi2_matrix.Print()
-            print(f"\nChi2: {chi2}, Prob: {100 * ROOT.TMath.Prob(chi2, 10)}\n")
-            partial_chi2 = 0
-            for x in chi2_array:
-                partial_chi2 += x[0]
-                print(f"{partial_chi2:.2f} {x[0]:.2f} {x[1]} {x[2]}")
+            chi2_dict[var][prediction.replace("_hessian", "")] = []
+            for i in range(4):
+                cov_total = cov.Clone(f"{cov.GetName()}_{prediction}_{i}")
+                for j in range(i):
+                    cov_total += cov_matrices[j]
+                icov = cov_total.Invert()
+
+                chi2 = 0
+                chi2_matrix = ROOT.TMatrixD(len(NFS), len(NFS))
+                chi2_array = []
+                for i in range(len(NFS)):
+                    for j in range(len(NFS)):
+                        # print(i, j, prediction_nfs[NFS[i]] - nfs[NFS[i]], icov[i][j], prediction_nfs[NFS[j]] - nfs[NFS[j]])
+                        chi2_i_j = (prediction_nfs[NFS[i]] - nfs[NFS[i]]) * icov[i][j] * (prediction_nfs[NFS[j]] - nfs[NFS[j]])
+                        chi2_matrix[i][j] = chi2_i_j
+                        chi2 += chi2_i_j
+                        chi2_array += [(chi2_i_j, NFS[i], NFS[j])]
+                chi2_dict[var][prediction.replace("_hessian", "")] += [chi2]
+                print(f"Chi2: {chi2}, Prob: {100 * ROOT.TMath.Prob(chi2, 10)}")
+                # chi2_array.sort(key=lambda x: abs(x[0]), reverse=True)
+                # chi2_matrix.Print()
+                # partial_chi2 = 0
+                # for x in chi2_array:
+                    # partial_chi2 += x[0]
+                    # print(f"{partial_chi2:.2f} {x[0]:.2f} {x[1]} {x[2]}")
 
             # NLL probability
             if options.quickfit_input:
@@ -369,12 +377,15 @@ def main(options):
 
     # print final chi2
     for var in options.vars.split(","):
-        print(f"\n===== {var} =====")
+        print(f"\n\n==================== {var} ====================\n")
+        print(f"{'Prediction':22s}\tStat. Only\t+QCD Scale\t+Hadronization\t+PDF", end="")
         for prediction in THEORY:
+            print(f"\n{prediction:22s}", end="")
             if options.quickfit_input:
                 print(f"{prediction:22s}\t{100 * ROOT.TMath.Prob(chi2_dict[var][prediction], 10):.6f}\t{100 * ROOT.TMath.Prob(nll_dict[var][prediction], 10):.6f}")
             else:
-                print(f"{prediction:22s}\t{100 * ROOT.TMath.Prob(chi2_dict[var][prediction], 10):.6f}")
+                for chi2 in chi2_dict[var][prediction]:
+                    print(f"\t{100 * ROOT.TMath.Prob(chi2, 10):.6f}", end="")
 
     # close out file
     outfile.close()
@@ -390,9 +401,6 @@ if __name__ == "__main__":
     parser.add_option('-i', '--input',
                       action="store", dest="input",
                       help="input folder with the fit results")
-    parser.add_option('-s', '--sys',
-                      action="store_true", dest="sys",
-                      help="add theory uncertainties")
     parser.add_option('-d', '--decay',
                       action="store", dest="decay", default = "Dplus",
                       help="Decay mode (defaults to Dplus)")
@@ -407,13 +415,10 @@ if __name__ == "__main__":
                       action="store", dest="basis",
                       help="fit POI basis (e.g. absolute, relative)",
                       default="absolute")
-    parser.add_option('-q', '--quickfit-input',
+    parser.add_option('-f', '--quickfit-input',
                       action="store", dest="quickfit_input",
                       help="quickfit input folder name",
                       default="")
-    parser.add_option('-p', '--production-fraction-sys',
-                      action="store_true", dest="production_fraction_sys",
-                      help="add production fraction systematics")
 
     # parse input arguments
     options, _ = parser.parse_args()
