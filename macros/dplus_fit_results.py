@@ -68,7 +68,7 @@ def main(options, args):
     DIR_PRIORS = "/global/cfs/cdirs/atlas/wcharm/charmplot_output/Dmeson_2022_06_15/"
 
     # theory predictions
-    DIR_THEORY = "/global/cfs/cdirs/atlas/shapiro/13tev_wd_rivet/forMiha"
+    DIR_THEORY = "/global/cfs/cdirs/atlas/wcharm/Rivet/v1/processed"
 
     # observables
     OBSERVABLES = {
@@ -91,52 +91,52 @@ def main(options, args):
 
     # theory prediction style
     THEORY_DICT = {
-        "Generator_comparison": {
-            "Sherpa2211_bulk": {
-                "lineColor": ROOT.kRed + 4,
-                "fillColor": ROOT.kRed,
-                "markerStyle": 24,
-                "markerStyleFull": 23,
-                "legendLabel": "Sh2.2.11^{0to5}, diag. CKM, NNPDF30_nnlo",
-                "legendLabelFull": "Sh2.2.11^{0to5}, diag. CKM, NNPDF30_nnlo",
-                "offset": -0.50,
-                "fileName": "Sherpa2211_bulk",
-                "histoName": "NNPDF30_nnlo_as_0118_hessian",
-                "QCDScaleFile": "Sherpa_bulk_QCD",
-            },
-            "Sherpa2211_forced": {
-                "lineColor": ROOT.kRed + 3,
-                "fillColor": ROOT.kRed - 9,
-                "markerStyle": 42,
-                "markerStyleFull": 22,
-                "legendLabel": "Sh2.2.11^{0to2}, diag. CKM, NNPDF30_nnlo",
-                "legendLabelFull": "Sh2.2.11^{0to2}, diag. CKM, NNPDF30_nnlo",
-                "offset": -0.25,
-                "fileName": "Sherpa2211_forced",
-                "histoName": "NNPDF30_nnlo_as_0118_hessian",
-                "QCDScaleFile": "Sherpa_bulk_QCD",
-            },
-            "NNPDF30_nnlo_as_0118": {
-                "lineColor": ROOT.kGreen - 2,
-                "fillColor": ROOT.kGreen - 4,
-                "markerStyle": 28,
-                "markerStyleFull": 20,
-                "legendLabel": "aMC@NLO, full CKM, NNPDF30_nnlo",
-                "legendLabelFull": "aMC@NLO, full CKM, NNPDF30_nnlo",
-                "offset": 0.25,
-            },
-            "FxFx": {
-                "lineColor": ROOT.kBlue + 2,
-                "fillColor": ROOT.kBlue - 9,
-                "markerStyle": 32,
-                "markerStyleFull": 20,
-                "legendLabel": "MG FxFx, diag. CKM, NNPDF31_nnlo",
-                "legendLabelFull": "MG FxFx, diag. CKM, NNPDF31_nnlo",
-                "offset": 0.50,
-                "fileName": "FxFx",
-                "histoName": "NNPDF31_nnlo_as_0118_luxqed",
-            },
-        },
+        # "Generator_comparison": {
+        #     "Sherpa2211_bulk": {
+        #         "lineColor": ROOT.kRed + 4,
+        #         "fillColor": ROOT.kRed,
+        #         "markerStyle": 24,
+        #         "markerStyleFull": 23,
+        #         "legendLabel": "Sh2.2.11^{0to5}, diag. CKM, NNPDF30_nnlo",
+        #         "legendLabelFull": "Sh2.2.11^{0to5}, diag. CKM, NNPDF30_nnlo",
+        #         "offset": -0.50,
+        #         "fileName": "Sherpa2211_bulk",
+        #         "histoName": "NNPDF30_nnlo_as_0118_hessian",
+        #         "QCDScaleFile": "Sherpa_bulk_QCD",
+        #     },
+        #     "Sherpa2211_forced": {
+        #         "lineColor": ROOT.kRed + 3,
+        #         "fillColor": ROOT.kRed - 9,
+        #         "markerStyle": 42,
+        #         "markerStyleFull": 22,
+        #         "legendLabel": "Sh2.2.11^{0to2}, diag. CKM, NNPDF30_nnlo",
+        #         "legendLabelFull": "Sh2.2.11^{0to2}, diag. CKM, NNPDF30_nnlo",
+        #         "offset": -0.25,
+        #         "fileName": "Sherpa2211_forced",
+        #         "histoName": "NNPDF30_nnlo_as_0118_hessian",
+        #         "QCDScaleFile": "Sherpa_bulk_QCD",
+        #     },
+        #     "NNPDF30_nnlo_as_0118": {
+        #         "lineColor": ROOT.kGreen - 2,
+        #         "fillColor": ROOT.kGreen - 4,
+        #         "markerStyle": 28,
+        #         "markerStyleFull": 20,
+        #         "legendLabel": "aMC@NLO, full CKM, NNPDF30_nnlo",
+        #         "legendLabelFull": "aMC@NLO, full CKM, NNPDF30_nnlo",
+        #         "offset": 0.25,
+        #     },
+        #     "FxFx": {
+        #         "lineColor": ROOT.kBlue + 2,
+        #         "fillColor": ROOT.kBlue - 9,
+        #         "markerStyle": 32,
+        #         "markerStyleFull": 20,
+        #         "legendLabel": "MG FxFx, diag. CKM, NNPDF31_nnlo",
+        #         "legendLabelFull": "MG FxFx, diag. CKM, NNPDF31_nnlo",
+        #         "offset": 0.50,
+        #         "fileName": "FxFx",
+        #         "histoName": "NNPDF31_nnlo_as_0118_luxqed",
+        #     },
+        # },
         "PDF_comparison": {
             "ABMP16_5_nnlo": {
                 "lineColor": ROOT.kBlue,
@@ -192,7 +192,7 @@ def main(options, args):
                 "legendLabelFull": "PDF4LHC21_40",
                 "offset": 0.36,
             },
-            "NNPDF30_nnlo_as_0118": {
+            "NNPDF30_nnlo_as_0118_hessian": {
                 "lineColor": ROOT.kGreen - 2,
                 "fillColor": ROOT.kGreen - 4,
                 "markerStyle": 28,
@@ -201,7 +201,7 @@ def main(options, args):
                 "legendLabelFull": "NNPDF30_nnlo",
                 "offset": 0.54,
             },
-            "NNPDF31_nnlo_as_0118": {
+            "NNPDF31_nnlo_as_0118_hessian": {
                 "lineColor": ROOT.kGreen + 3,
                 "fillColor": ROOT.kGreen + 1,
                 "markerStyle": 37,
@@ -210,7 +210,7 @@ def main(options, args):
                 "legendLabelFull": "NNPDF31_nnlo",
                 "offset": 0.71,
             },
-            "NNPDF40_nnlo_as_01180": {
+            "NNPDF40_nnlo_as_01180_hessian": {
                 "lineColor": ROOT.kGreen + 4,
                 "fillColor": ROOT.kGreen + 2,
                 "markerStyle": 32,
@@ -241,6 +241,9 @@ def main(options, args):
         outfile = ROOT.TFile(f"fit_results/{plot_type}/results.root", "RECREATE")
 
         for obs_name, obs in OBSERVABLES.items():
+
+            # variable name
+            name = "lep_abs_eta" if obs_name == "eta" else "D_pt"
 
             # no ticks in error bars
             ROOT.gStyle.SetEndErrorSize(0)
@@ -279,10 +282,6 @@ def main(options, args):
                 obs_fit_abs = f"WCharm_lep_obs_OSSS_complete_alt_{obs_name}"
             else:
                 obs_fit = "WCharm_lep_obs_OSSS_complete"
-
-            # stat-only
-            # POIs_stat = extract_pois(os.path.join(obs["fit_results"], stat_only, "Fits", f"{stat_only}.txt"))
-            # POIs_stat.update(extract_pois(os.path.join(obs["fit_results"], stat_only, "Fits", f"{stat_only}_expr.txt")))
 
             # observed
             POIs_obs = extract_pois(os.path.join(obs["fit_results"], obs_fit, "Fits", f"{obs_fit}.txt"))
@@ -389,8 +388,10 @@ def main(options, args):
                     gr_obs_sys.SetPoint(i, xc, y)
                     gr_obs_norm_sys.SetPoint(i, xc, y_norm)
                     if obs["logx"]:
-                        x_err_up = ROOT.TMath.Power(10, ROOT.TMath.Log10(xc) + (ROOT.TMath.Log10(obs["bins"][-1]) - ROOT.TMath.Log10(obs["bins"][0])) / 200.) - xc
-                        x_err_dn = xc - ROOT.TMath.Power(10, ROOT.TMath.Log10(xc) - (ROOT.TMath.Log10(obs["bins"][-1]) - ROOT.TMath.Log10(obs["bins"][0])) / 200.)
+                        x_err_up = ROOT.TMath.Power(10, ROOT.TMath.Log10(
+                            xc) + (ROOT.TMath.Log10(obs["bins"][-1]) - ROOT.TMath.Log10(obs["bins"][0])) / 200.) - xc
+                        x_err_dn = xc - ROOT.TMath.Power(10, ROOT.TMath.Log10(xc) -
+                                                         (ROOT.TMath.Log10(obs["bins"][-1]) - ROOT.TMath.Log10(obs["bins"][0])) / 200.)
                         gr_obs_sys.SetPointError(i, x_err_up, x_err_up, abs(y_dn_sys), abs(y_up_sys))
                         gr_obs_norm_sys.SetPointError(i, x_err_up, x_err_up, abs(y_norm_dn_sys), abs(y_norm_up_sys))
                     else:
@@ -512,86 +513,121 @@ def main(options, args):
                 mg_obs_norm.Add(gr_obs_norm_sys, "0e5")
                 mg_obs_norm.Add(gr_obs_norm, "pe0")
 
+                # file with theory predictions and uncertainties
+                f_theory = ROOT.TFile(os.path.join(DIR_THEORY, "predictions.root"))
+                assert f_theory
+
+                # production fraction and hadronization uncertainties
+                hName_ABMP16_3 = f"ABMP16_3_nlo_abs_{options.decay}_{name}"
+                hName_ABMP16_3_herwig = f"ABMP16_3_nlo_herwig_abs_{options.decay}_{name}"
+                hName_ABMP16_3_monash = f"ABMP16_3_nlo_monash_abs_{options.decay}_{name}"
+                h_ABMP16_3 = f_theory.Get(f"{hName_ABMP16_3}_pdf_central")
+                h_ABMP16_3_herwig = f_theory.Get(f"{hName_ABMP16_3_herwig}_pdf_central")
+                h_ABMP16_3_monash = f_theory.Get(f"{hName_ABMP16_3_monash}_pdf_central")
+                assert (h_ABMP16_3 and h_ABMP16_3_herwig and h_ABMP16_3_monash), (hName_ABMP16_3, hName_ABMP16_3_herwig, hName_ABMP16_3_monash)
+                h_list = [h_ABMP16_3, h_ABMP16_3_herwig, h_ABMP16_3_monash]
+
+                hName_ABMP16_3 = f"ABMP16_3_nlo_rel_{options.decay}_{name}"
+                hName_ABMP16_3_herwig = f"ABMP16_3_nlo_herwig_rel_{options.decay}_{name}"
+                hName_ABMP16_3_monash = f"ABMP16_3_nlo_monash_rel_{options.decay}_{name}"
+                h_ABMP16_3 = f_theory.Get(f"{hName_ABMP16_3}_pdf_central")
+                h_ABMP16_3_herwig = f_theory.Get(f"{hName_ABMP16_3_herwig}_pdf_central")
+                h_ABMP16_3_monash = f_theory.Get(f"{hName_ABMP16_3_monash}_pdf_central")
+                assert (h_ABMP16_3 and h_ABMP16_3_herwig and h_ABMP16_3_monash), (hName_ABMP16_3, hName_ABMP16_3_herwig, hName_ABMP16_3_monash)
+                h_rel_list = [h_ABMP16_3, h_ABMP16_3_herwig, h_ABMP16_3_monash]
+
                 for prediction, prediction_dict in theory_dict.items():
 
-                    # qcd scale error
-                    meson_charge = "plus" if lep == "minus" else "minus"
-                    name = "lep_eta" if obs_name == "eta" else "D_pt"
-                    if 'QCDScaleFile' not in prediction_dict:
-                        if options.decay == "Dstar":
-                            f_qcd = ROOT.TFile(os.path.join(DIR_THEORY, f"TheoryScaleUncert_{name}_W{lep}Dstar{meson_charge}.root"))
-                        else:
-                            f_qcd = ROOT.TFile(os.path.join(DIR_THEORY, f"TheoryScaleUncert_{name}_W{lep}D{meson_charge}.root"))
-                        gr_qcd = f_qcd.Get(f"mu_{lep}_{options.decay}_{name}__fractionalErr_cross")
-                        gr_qcd_norm = f_qcd.Get(f"mu_{lep}_{options.decay}_{name}__fractionalErr_norm")
-                        assert gr_qcd, (f"mu_{lep}_{options.decay}_{name}__fractionalErr_cross", prediction)
-                    else:
-                        if options.decay == "Dstar":
-                            f_qcd = ROOT.TFile(os.path.join(DIR_THEORY, f"{prediction_dict['QCDScaleFile']}_{name}_W{lep}Dstar{meson_charge}.root"))
-                            print(f"{prediction_dict['QCDScaleFile']}_{name}_W{lep}Dstar{meson_charge}.root")
-                        else:
-                            f_qcd = ROOT.TFile(os.path.join(DIR_THEORY, f"{prediction_dict['QCDScaleFile']}_{name}_W{lep}D{meson_charge}.root"))
-                            print(f"{prediction_dict['QCDScaleFile']}_{name}_W{lep}D{meson_charge}.root")
-                        # Sherpa has incorrect histogram name for Dplus eta mode
-                        if "Sherpa" in prediction and options.decay == "Dplus" and obs_name == "eta":
-                            gr_qcd = f_qcd.Get(f"mu_{meson_charge}_{options.decay}_{name}__fractionalErr_cross")
-                            gr_qcd_norm = f_qcd.Get(f"mu_{meson_charge}_{options.decay}_{name}__fractionalErr_norm")
-                            assert gr_qcd, (f"mu_{meson_charge}_{options.decay}_{name}__fractionalErr_cross", prediction)
-                        else:
-                            gr_qcd = f_qcd.Get(f"mu_{lep}_{options.decay}_{name}__fractionalErr_cross")
-                            gr_qcd_norm = f_qcd.Get(f"mu_{lep}_{options.decay}_{name}__fractionalErr_norm")
-                            assert gr_qcd, (f"mu_{lep}_{options.decay}_{name}__fractionalErr_cross", prediction)
+                    # read theory histograms
+                    # absolute basis
+                    hName_base = f"{prediction}_abs_{options.decay}_{name}"
+                    h_theory = f_theory.Get(f"{hName_base}_pdf_central")
+                    h_theory_pdf_up = f_theory.Get(f"{hName_base}_pdf_up")
+                    h_theory_pdf_dn = f_theory.Get(f"{hName_base}_pdf_dn")
+                    assert (h_theory and h_theory_pdf_up and h_theory_pdf_dn), hName_base
 
-                    # open file
-                    if "fileName" in prediction_dict:
-                        if options.decay == "Dstar":
-                            f_name = f"{prediction_dict['fileName']}_{name}_W{lep}Dstar{meson_charge}.root"
-                        else:
-                            f_name = f"{prediction_dict['fileName']}_{name}_W{lep}D{meson_charge}.root"
-                    else:
-                        if options.decay == "Dstar":
-                            f_name = f"TheoryPredictions_{name}_W{lep}Dstar{meson_charge}.root"
-                        else:
-                            f_name = f"TheoryPredictions_{name}_W{lep}D{meson_charge}.root"
-                    f_theory = ROOT.TFile(os.path.join(DIR_THEORY, f_name))
-                    assert f_theory
+                    # relative basis
+                    hName_rel_base = f"{prediction}_rel_{options.decay}_{name}"
+                    h_theory_rel = f_theory.Get(f"{hName_rel_base}_pdf_central")
+                    h_theory_rel_pdf_up = f_theory.Get(f"{hName_rel_base}_pdf_up")
+                    h_theory_rel_pdf_dn = f_theory.Get(f"{hName_rel_base}_pdf_dn")
+                    assert (h_theory_rel and h_theory_rel_pdf_up and h_theory_rel_pdf_dn), hName_rel_base
 
-                    # read graphs
-                    if "histoName" in prediction_dict:
-                        gr_theory = f_theory.Get(f"mu_{lep}_{options.decay}_{name}_{prediction_dict['histoName']}_cross")
-                        gr_theory_norm = f_theory.Get(f"mu_{lep}_{options.decay}_{name}_{prediction_dict['histoName']}_norm")
-                        assert gr_theory, f"mu_{lep}_{options.decay}_{name}_{prediction_dict['histoName']}_cross"
-                    else:
-                        gr_theory = f_theory.Get(f"mu_{lep}_{options.decay}_{name}_{prediction}_cross")
-                        gr_theory_norm = f_theory.Get(f"mu_{lep}_{options.decay}_{name}_{prediction}_norm")
-                        assert gr_theory, f"mu_{lep}_{options.decay}_{name}_{prediction}_cross"
+                    # QCD Scale error (only available for NNPDF40_nnlo_as_01180_hessian)
+                    hName_qcd_base = f"{prediction}_abs_{options.decay}_{name}"
+                    if not f_theory.Get(f"{hName_base}_qcd_up"):
+                        hName_qcd_base = f"NNPDF40_nnlo_as_01180_hessian_abs_{options.decay}_{name}"
+                    h_theory_qcd_central = f_theory.Get(f"{hName_qcd_base}_pdf_central")
+                    h_theory_qcd_up = f_theory.Get(f"{hName_qcd_base}_qcd_up")
+                    h_theory_qcd_dn = f_theory.Get(f"{hName_qcd_base}_qcd_dn")
+                    assert (h_theory_qcd_central and h_theory_qcd_up and h_theory_qcd_dn), hName_qcd_base
+                    h_theory_qcd_central = h_theory_qcd_central.Clone(f"{h_theory_qcd_central.GetName()}_{prediction}")
+                    h_theory_qcd_up = h_theory_qcd_up.Clone(f"{h_theory_qcd_up.GetName()}_{prediction}")
+                    h_theory_qcd_dn = h_theory_qcd_dn.Clone(f"{h_theory_qcd_dn.GetName()}_{prediction}")
+
+                    hName_rel_qcd_base = f"{prediction}_rel_{options.decay}_{name}"
+                    if not f_theory.Get(f"{hName_rel_qcd_base}_qcd_up"):
+                        hName_rel_qcd_base = f"NNPDF40_nnlo_as_01180_hessian_rel_{options.decay}_{name}"
+                    h_theory_rel_qcd_central = f_theory.Get(f"{hName_rel_qcd_base}_pdf_central")
+                    h_theory_rel_qcd_up = f_theory.Get(f"{hName_rel_qcd_base}_qcd_up")
+                    h_theory_rel_qcd_dn = f_theory.Get(f"{hName_rel_qcd_base}_qcd_dn")
+                    assert (h_theory_rel_qcd_central and h_theory_rel_qcd_up and h_theory_rel_qcd_dn), hName_rel_qcd_base
+                    h_theory_rel_qcd_central = h_theory_rel_qcd_central.Clone(f"{h_theory_rel_qcd_central.GetName()}_{prediction}")
+                    h_theory_rel_qcd_up = h_theory_rel_qcd_up.Clone(f"{h_theory_rel_qcd_up.GetName()}_{prediction}")
+                    h_theory_rel_qcd_dn = h_theory_rel_qcd_dn.Clone(f"{h_theory_rel_qcd_dn.GetName()}_{prediction}")
+
+                    # transform to relative error
+                    h_theory_qcd_up.Divide(h_theory_qcd_central)
+                    h_theory_qcd_dn.Divide(h_theory_qcd_central)
+                    h_theory_rel_qcd_up.Divide(h_theory_rel_qcd_central)
+                    h_theory_rel_qcd_dn.Divide(h_theory_rel_qcd_central)
 
                     # style
+                    gr_theory = ROOT.TGraphAsymmErrors()
                     gr_theory.SetLineWidth(1)
                     gr_theory.SetLineColor(prediction_dict["lineColor"])
                     gr_theory.SetMarkerColor(prediction_dict["lineColor"])
                     gr_theory.SetFillColor(prediction_dict["fillColor"])
                     gr_theory.SetMarkerStyle(prediction_dict["markerStyle"])
+                    gr_theory_norm = ROOT.TGraphAsymmErrors()
                     gr_theory_norm.SetLineWidth(1)
                     gr_theory_norm.SetLineColor(prediction_dict["lineColor"])
                     gr_theory_norm.SetMarkerColor(prediction_dict["lineColor"])
                     gr_theory_norm.SetFillColor(prediction_dict["fillColor"])
                     gr_theory_norm.SetMarkerStyle(prediction_dict["markerStyle"])
 
+                    # fill the theory graphs
+                    offset = 0 if lep == "plus" else 5
+                    for i in range(5):
+                        # absolute cross section
+                        gr_theory.SetPoint(i, gr_obs.GetX()[i], h_theory.GetBinContent(i + 1 + offset))
+                        err_pdf_up = h_theory_pdf_up.GetBinContent(i + 1 + offset) - h_theory.GetBinContent(i + 1 + offset)
+                        err_pdf_dn = h_theory.GetBinContent(i + 1 + offset) - h_theory_pdf_dn.GetBinContent(i + 1 + offset)
+                        err_qcd_up = h_theory.GetBinContent(i + 1 + offset) * h_theory_qcd_up.GetBinContent(i + 1 + offset) - h_theory.GetBinContent(i + 1 + offset)
+                        err_qcd_dn = h_theory.GetBinContent(i + 1 + offset) - h_theory.GetBinContent(i + 1 + offset) * h_theory_qcd_dn.GetBinContent(i + 1 + offset)
+                        vals = [h.GetBinContent(i + 1 + offset) for h in h_list]
+                        err_hadronization = (max(vals) - min(vals)) / 2.
+                        err_prod_frac = 0.028 if options.decay == "Dplus" else 0.020
+                        err_prod_frac *= h_theory.GetBinContent(i + 1 + offset)
+                        err_up = err_pdf_up * err_pdf_up + err_qcd_up * err_qcd_up + err_hadronization * err_hadronization + err_prod_frac * err_prod_frac
+                        err_dn = err_pdf_dn * err_pdf_dn + err_qcd_dn * err_qcd_dn + err_hadronization * err_hadronization + err_prod_frac * err_prod_frac
+                        gr_theory.SetPointError(i, 0, 0, err_up**0.5, err_dn**0.5)
+
+                        # normalized cross section
+                        gr_theory_norm.SetPoint(i, gr_obs.GetX()[i], h_theory_rel.GetBinContent(i + 1 + offset))
+                        err_pdf_up = h_theory_rel_pdf_up.GetBinContent(i + 1 + offset) - h_theory_rel.GetBinContent(i + 1 + offset)
+                        err_pdf_dn = h_theory_rel.GetBinContent(i + 1 + offset) - h_theory_rel_pdf_dn.GetBinContent(i + 1 + offset)
+                        err_qcd_up = h_theory_rel.GetBinContent(i + 1 + offset) * h_theory_rel_qcd_up.GetBinContent(i + 1 + offset) - h_theory_rel.GetBinContent(i + 1 + offset)
+                        err_qcd_dn = h_theory_rel.GetBinContent(i + 1 + offset) - h_theory_rel.GetBinContent(i + 1 + offset) * h_theory_rel_qcd_dn.GetBinContent(i + 1 + offset)
+                        vals = [h.GetBinContent(i + 1 + offset) for h in h_rel_list]
+                        err_hadronization = (max(vals) - min(vals)) / 2.
+                        err_up = err_pdf_up * err_pdf_up + err_qcd_up * err_qcd_up + err_hadronization * err_hadronization
+                        err_dn = err_pdf_dn * err_pdf_dn + err_qcd_dn * err_qcd_dn + err_hadronization * err_hadronization
+                        gr_theory_norm.SetPointError(i, 0, 0, err_up**0.5, err_dn**0.5)
+
                     # offset
                     for i in range(gr_theory.GetN()):
 
-                        # add qcd scale uncertainty
-                        gr_theory.GetEYhigh()[i] = (gr_theory.GetEYhigh()[i]**2 + (gr_theory.GetY()[i] * gr_qcd.GetEYhigh()[i])**2)**0.5
-                        gr_theory.GetEYlow()[i] = (gr_theory.GetEYlow()[i]**2 + (gr_theory.GetY()[i] * gr_qcd.GetEYlow()[i])**2)**0.5
-                        gr_theory_norm.GetEYhigh()[i] = (gr_theory_norm.GetEYhigh()[i]**2 + (gr_theory_norm.GetY()[i] * gr_qcd_norm.GetEYhigh()[i])**2)**0.5
-                        gr_theory_norm.GetEYlow()[i] = (gr_theory_norm.GetEYlow()[i]**2 + (gr_theory_norm.GetY()[i] * gr_qcd_norm.GetEYlow()[i])**2)**0.5
-
-                        # eta cross sections are scaled to bin width; removing it
-                        if obs_name == "eta":
-                            gr_theory.GetY()[i] /= 2.
-                            gr_theory.GetEYhigh()[i] /= 2.
-                            gr_theory.GetEYlow()[i] /= 2.
                         xl = obs["bins"][i]
                         xh = obs["bins"][i + 1]
                         w = xh - xl
@@ -1032,7 +1068,7 @@ if __name__ == "__main__":
     # arguments
     # ----------------------------------------------------
     parser.add_option('-d', '--decay',
-                      action="store", dest="decay", default = "Dplus",
+                      action="store", dest="decay", default="Dplus",
                       help="Decay mode (defaults to Dplus)")
     # parse input arguments
     options, args = parser.parse_args()
