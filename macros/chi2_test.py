@@ -30,6 +30,7 @@ def decode_rel_index(i):
         index_i = 12
     return index_i
 
+
 def main(options):
 
     # save chi2
@@ -44,9 +45,7 @@ def main(options):
 
         # normalization factors basis
         if options.basis == "relative":
-            #       0 -> 0            1 -> 1            2 -> 2            3 -> 3            4 -> 11
             NFS = ["mu_Wplus_rel_1", "mu_Wplus_rel_2", "mu_Wplus_rel_3", "mu_Wplus_rel_4", "mu_Wminus_tot",
-            #       5 -> 5 (0 + 5)     6 -> 6 (1 + 5)     7 -> 7             8 -> 8             9 -> 12
                    "mu_Wminus_rel_1", "mu_Wminus_rel_2", "mu_Wminus_rel_3", "mu_Wminus_rel_4", "mu_Rc"]
             suffix = ""
         elif options.basis == "absolute":
@@ -182,12 +181,12 @@ def main(options):
                 for i in range(1, 5):
                     # relative cross section
                     # POI order: 5 x W+D-, 5 x W-D+, W+ tot, W- tot, Rc
-                    prediction_nfs[f"mu_Wplus_rel_{i}"] = h_theory_rel.GetBinContent(i) / (priors[f"Wplus_{i}"] / priors[f"Wplus"])
-                    prediction_nfs[f"mu_Wminus_rel_{i}"] = h_theory_rel.GetBinContent(i + 5) / (priors[f"Wminus_{i}"] / priors[f"Wminus"])
+                    prediction_nfs[f"mu_Wplus_rel_{i}"] = h_theory_rel.GetBinContent(i) / (priors[f"Wplus_{i}"] / priors["Wplus"])
+                    prediction_nfs[f"mu_Wminus_rel_{i}"] = h_theory_rel.GetBinContent(i + 5) / (priors[f"Wminus_{i}"] / priors["Wminus"])
                 sum_minus = sum([h_theory.GetBinContent(i + 5) for i in range(1, 6)])
                 sum_plus = sum([h_theory.GetBinContent(i) for i in range(1, 6)])
-                prediction_nfs[f"mu_Wminus_tot"] = sum_minus / priors[f"Wminus"]
-                prediction_nfs[f"mu_Rc"] = sum_plus / sum_minus
+                prediction_nfs["mu_Wminus_tot"] = sum_minus / priors["Wminus"]
+                prediction_nfs["mu_Rc"] = sum_plus / sum_minus
 
             # print theory errors
             jobName = f"WCharm_lep_obs_OSSS_complete_{suffix}{var}_{prediction}"
@@ -213,18 +212,18 @@ def main(options):
                     nfs_err[f"mu_Wminus_{i}"] = h_theory.GetBinError(i + 5) / priors[f"Wminus_{i}"]
             elif options.basis == "relative":
                 for i in range(1, 5):
-                    nfs_up[f"mu_Wplus_rel_{i}"] = h_theory_rel_pdf_up.GetBinContent(i) / (priors[f"Wplus_{i}"] / priors[f"Wplus"])
-                    nfs_up[f"mu_Wminus_rel_{i}"] = h_theory_rel_pdf_up.GetBinContent(i + 5) / (priors[f"Wminus_{i}"] / priors[f"Wminus"])
-                    nfs_dn[f"mu_Wplus_rel_{i}"] = h_theory_rel_pdf_dn.GetBinContent(i) / (priors[f"Wplus_{i}"] / priors[f"Wplus"])
-                    nfs_dn[f"mu_Wminus_rel_{i}"] = h_theory_rel_pdf_dn.GetBinContent(i + 5) / (priors[f"Wminus_{i}"] / priors[f"Wminus"])
-                    nfs_err[f"mu_Wplus_rel_{i}"] = h_theory_rel.GetBinError(i) / (priors[f"Wplus_{i}"] / priors[f"Wplus"])
-                    nfs_err[f"mu_Wminus_rel_{i}"] = h_theory_rel.GetBinError(i + 5) / (priors[f"Wminus_{i}"] / priors[f"Wminus"])
-                nfs_up[f"mu_Wminus_tot"] = h_theory_pdf_up.GetBinContent(12) / priors[f"Wminus"]
-                nfs_up[f"mu_Rc"] = h_theory_pdf_up.GetBinContent(13)
-                nfs_dn[f"mu_Wminus_tot"] = h_theory_pdf_dn.GetBinContent(12) / priors[f"Wminus"]
-                nfs_dn[f"mu_Rc"] = h_theory_pdf_dn.GetBinContent(13)
-                nfs_err[f"mu_Wminus_tot"] = h_theory.GetBinError(12) / priors[f"Wminus"]
-                nfs_err[f"mu_Rc"] = h_theory.GetBinError(13)
+                    nfs_up[f"mu_Wplus_rel_{i}"] = h_theory_rel_pdf_up.GetBinContent(i) / (priors[f"Wplus_{i}"] / priors["Wplus"])
+                    nfs_up[f"mu_Wminus_rel_{i}"] = h_theory_rel_pdf_up.GetBinContent(i + 5) / (priors[f"Wminus_{i}"] / priors["Wminus"])
+                    nfs_dn[f"mu_Wplus_rel_{i}"] = h_theory_rel_pdf_dn.GetBinContent(i) / (priors[f"Wplus_{i}"] / priors["Wplus"])
+                    nfs_dn[f"mu_Wminus_rel_{i}"] = h_theory_rel_pdf_dn.GetBinContent(i + 5) / (priors[f"Wminus_{i}"] / priors["Wminus"])
+                    nfs_err[f"mu_Wplus_rel_{i}"] = h_theory_rel.GetBinError(i) / (priors[f"Wplus_{i}"] / priors["Wplus"])
+                    nfs_err[f"mu_Wminus_rel_{i}"] = h_theory_rel.GetBinError(i + 5) / (priors[f"Wminus_{i}"] / priors["Wminus"])
+                nfs_up["mu_Wminus_tot"] = h_theory_pdf_up.GetBinContent(12) / priors["Wminus"]
+                nfs_up["mu_Rc"] = h_theory_pdf_up.GetBinContent(13)
+                nfs_dn["mu_Wminus_tot"] = h_theory_pdf_dn.GetBinContent(12) / priors["Wminus"]
+                nfs_dn["mu_Rc"] = h_theory_pdf_dn.GetBinContent(13)
+                nfs_err["mu_Wminus_tot"] = h_theory.GetBinError(12) / priors["Wminus"]
+                nfs_err["mu_Rc"] = h_theory.GetBinError(13)
 
             # covariance matrix for PDF
             if options.basis == "absolute":
@@ -362,8 +361,8 @@ def main(options):
                 # chi2_matrix.Print()
                 # partial_chi2 = 0
                 # for x in chi2_array:
-                    # partial_chi2 += x[0]
-                    # print(f"{partial_chi2:.2f} {x[0]:.2f} {x[1]} {x[2]}")
+                #     partial_chi2 += x[0]
+                #     print(f"{partial_chi2:.2f} {x[0]:.2f} {x[1]} {x[2]}")
 
             # NLL probability
             if options.quickfit_input:
