@@ -96,7 +96,8 @@ def main(options, args):
                 "lineColor": ROOT.kRed + 4,
                 "fillColor": ROOT.kRed,
                 "markerStyle": 24,
-                "markerStyleFull": 23,
+                "markerStyle2": 20,
+                "markerScale": 1.0,
                 "legendLabel": "Sh2.2.11^{0to5}, diag. CKM, NNPDF30_nnlo",
                 "legendLabelFull": "Sh2.2.11^{0to5}, diag. CKM, NNPDF30_nnlo",
                 "offset": -0.50,
@@ -105,7 +106,8 @@ def main(options, args):
                 "lineColor": ROOT.kRed + 3,
                 "fillColor": ROOT.kRed - 9,
                 "markerStyle": 42,
-                "markerStyleFull": 22,
+                "markerStyle2": 43,
+                "markerScale": 1.0,
                 "legendLabel": "Sh2.2.11^{0to2}, diag. CKM, NNPDF30_nnlo",
                 "legendLabelFull": "Sh2.2.11^{0to2}, diag. CKM, NNPDF30_nnlo",
                 "offset": -0.25,
@@ -114,7 +116,8 @@ def main(options, args):
                 "lineColor": ROOT.kGreen - 2,
                 "fillColor": ROOT.kGreen - 4,
                 "markerStyle": 28,
-                "markerStyleFull": 20,
+                "markerStyle2": 34,
+                "markerScale": 1.0,
                 "legendLabel": "aMC@NLO, full CKM, NNPDF30_nnlo",
                 "legendLabelFull": "aMC@NLO, full CKM, NNPDF30_nnlo",
                 "offset": 0.25,
@@ -123,7 +126,8 @@ def main(options, args):
                 "lineColor": ROOT.kBlue + 2,
                 "fillColor": ROOT.kBlue - 9,
                 "markerStyle": 32,
-                "markerStyleFull": 20,
+                "markerStyle2": 23,
+                "markerScale": 1.0,
                 "legendLabel": "MG FxFx, diag. CKM, NNPDF31_nnlo",
                 "legendLabelFull": "MG FxFx, diag. CKM, NNPDF31_nnlo",
                 "offset": 0.50,
@@ -134,7 +138,8 @@ def main(options, args):
                 "lineColor": ROOT.kBlue,
                 "fillColor": ROOT.kBlue - 9,
                 "markerStyle": 24,
-                "markerStyleFull": 23,
+                "markerStyle2": 20,
+                "markerScale": 0.8,
                 "legendLabel": "ABMP16_5_nnlo",
                 "legendLabelFull": "ABMP16_5_nnlo",
                 "offset": -0.71,
@@ -143,7 +148,8 @@ def main(options, args):
                 "lineColor": ROOT.kRed + 1,
                 "fillColor": ROOT.kRed - 9,
                 "markerStyle": 42,
-                "markerStyleFull": 22,
+                "markerStyle2": 43,
+                "markerScale": 1.2,
                 "legendLabel": "ATLASpdf21_T3",
                 "legendLabelFull": "ATLASpdf21_T3",
                 "offset": -0.54,
@@ -152,7 +158,8 @@ def main(options, args):
                 "lineColor": ROOT.kOrange + 2,
                 "fillColor": ROOT.kOrange,
                 "markerStyle": 25,
-                "markerStyleFull": 33,
+                "markerStyle2": 21,
+                "markerScale": 0.8,
                 "legendLabel": "CT18ANNLO",
                 "legendLabelFull": "CT18ANNLO",
                 "offset": -0.36,
@@ -161,7 +168,8 @@ def main(options, args):
                 "lineColor": ROOT.kOrange - 6,
                 "fillColor": ROOT.kOrange - 9,
                 "markerStyle": 44,
-                "markerStyleFull": 20,
+                "markerStyle2": 45,
+                "markerScale": 1.2,
                 "legendLabel": "CT18NNLO",
                 "legendLabelFull": "CT18NNLO",
                 "offset": -0.18,
@@ -170,7 +178,8 @@ def main(options, args):
                 "lineColor": ROOT.kMagenta + 2,
                 "fillColor": ROOT.kMagenta - 9,
                 "markerStyle": 27,
-                "markerStyleFull": 20,
+                "markerStyle2": 33,
+                "markerScale": 1.2,
                 "legendLabel": "MSHT20nnlo",
                 "legendLabelFull": "MSHT20nnlo",
                 "offset": 0.18,
@@ -179,7 +188,8 @@ def main(options, args):
                 "lineColor": ROOT.kPink - 1,
                 "fillColor": ROOT.kPink + 6,
                 "markerStyle": 46,
-                "markerStyleFull": 20,
+                "markerStyle2": 47,
+                "markerScale": 1.0,
                 "legendLabel": "PDF4LHC21_40",
                 "legendLabelFull": "PDF4LHC21_40",
                 "offset": 0.36,
@@ -188,7 +198,8 @@ def main(options, args):
                 "lineColor": ROOT.kGreen - 2,
                 "fillColor": ROOT.kGreen - 4,
                 "markerStyle": 28,
-                "markerStyleFull": 20,
+                "markerStyle2": 34,
+                "markerScale": 1.1,
                 "legendLabel": "NNPDF30_nnlo",
                 "legendLabelFull": "NNPDF30_nnlo",
                 "offset": 0.54,
@@ -196,8 +207,9 @@ def main(options, args):
             "NNPDF31_nnlo_as_0118_hessian": {
                 "lineColor": ROOT.kGreen + 3,
                 "fillColor": ROOT.kGreen + 1,
-                "markerStyle": 37,
-                "markerStyleFull": 20,
+                "markerStyle": 26,
+                "markerStyle2": 22,
+                "markerScale": 1.1,
                 "legendLabel": "NNPDF31_nnlo",
                 "legendLabelFull": "NNPDF31_nnlo",
                 "offset": 0.71,
@@ -206,7 +218,8 @@ def main(options, args):
                 "lineColor": ROOT.kGreen + 4,
                 "fillColor": ROOT.kGreen + 2,
                 "markerStyle": 32,
-                "markerStyleFull": 20,
+                "markerStyle2": 23,
+                "markerScale": 1.1,
                 "legendLabel": "NNPDF40_nnlo",
                 "legendLabelFull": "NNPDF40_nnlo",
                 "offset": 0.89,
@@ -231,6 +244,9 @@ def main(options, args):
         if not os.path.isdir(os.path.join("fit_results", plot_type)):
             os.makedirs(os.path.join("fit_results", plot_type))
         outfile = ROOT.TFile(f"fit_results/{plot_type}/results.root", "RECREATE")
+
+        # theory predictions for ladder plots
+        ladder_dict = {}
 
         for obs_name, obs in OBSERVABLES.items():
 
@@ -545,6 +561,14 @@ def main(options, args):
                     h_theory_rel_pdf_dn = f_theory.Get(f"{hName_rel_base}_pdf_dn")
                     assert (h_theory_rel and h_theory_rel_pdf_up and h_theory_rel_pdf_dn), hName_rel_base
 
+                    # save info for later
+                    ladder_dict[f"{prediction}_{options.decay}_{name}"] = {
+                        "nominal": h_theory_rel,
+                        "pdf_up": h_theory_rel_pdf_up,
+                        "pdf_dn": h_theory_rel_pdf_dn,
+                        "had": h_rel_list,
+                    }
+
                     # QCD Scale error (only available for NNPDF40_nnlo_as_01180_hessian)
                     hName_qcd_base = f"{prediction}_abs_{options.decay}_{name}"
                     if not f_theory.Get(f"{hName_base}_qcd_up"):
@@ -574,6 +598,12 @@ def main(options, args):
                     h_theory_rel_qcd_up.Divide(h_theory_rel_qcd_central)
                     h_theory_rel_qcd_dn.Divide(h_theory_rel_qcd_central)
 
+                    # save info for later
+                    ladder_dict[f"{prediction}_{options.decay}_{name}"].update({
+                        "qcd_rel_up": h_theory_rel_qcd_up,
+                        "qcd_rel_dn": h_theory_rel_qcd_dn,
+                    })
+
                     # style
                     gr_theory = ROOT.TGraphAsymmErrors()
                     gr_theory.SetLineWidth(1)
@@ -595,8 +625,10 @@ def main(options, args):
                         gr_theory.SetPoint(i, gr_obs.GetX()[i], h_theory.GetBinContent(i + 1 + offset))
                         err_pdf_up = h_theory_pdf_up.GetBinContent(i + 1 + offset) - h_theory.GetBinContent(i + 1 + offset)
                         err_pdf_dn = h_theory.GetBinContent(i + 1 + offset) - h_theory_pdf_dn.GetBinContent(i + 1 + offset)
-                        err_qcd_up = h_theory.GetBinContent(i + 1 + offset) * h_theory_qcd_up.GetBinContent(i + 1 + offset) - h_theory.GetBinContent(i + 1 + offset)
-                        err_qcd_dn = h_theory.GetBinContent(i + 1 + offset) - h_theory.GetBinContent(i + 1 + offset) * h_theory_qcd_dn.GetBinContent(i + 1 + offset)
+                        err_qcd_up = h_theory.GetBinContent(i + 1 + offset) * h_theory_qcd_up.GetBinContent(i +
+                                                                                                            1 + offset) - h_theory.GetBinContent(i + 1 + offset)
+                        err_qcd_dn = h_theory.GetBinContent(i + 1 + offset) - h_theory.GetBinContent(i + 1 + offset) * \
+                            h_theory_qcd_dn.GetBinContent(i + 1 + offset)
                         vals = [h.GetBinContent(i + 1 + offset) for h in h_list]
                         err_hadronization = (max(vals) - min(vals)) / 2.
                         err_prod_frac = 0.028 if options.decay == "Dplus" else 0.020
@@ -609,8 +641,10 @@ def main(options, args):
                         gr_theory_norm.SetPoint(i, gr_obs.GetX()[i], h_theory_rel.GetBinContent(i + 1 + offset))
                         err_pdf_up = h_theory_rel_pdf_up.GetBinContent(i + 1 + offset) - h_theory_rel.GetBinContent(i + 1 + offset)
                         err_pdf_dn = h_theory_rel.GetBinContent(i + 1 + offset) - h_theory_rel_pdf_dn.GetBinContent(i + 1 + offset)
-                        err_qcd_up = h_theory_rel.GetBinContent(i + 1 + offset) * h_theory_rel_qcd_up.GetBinContent(i + 1 + offset) - h_theory_rel.GetBinContent(i + 1 + offset)
-                        err_qcd_dn = h_theory_rel.GetBinContent(i + 1 + offset) - h_theory_rel.GetBinContent(i + 1 + offset) * h_theory_rel_qcd_dn.GetBinContent(i + 1 + offset)
+                        err_qcd_up = h_theory_rel.GetBinContent(i + 1 + offset) * h_theory_rel_qcd_up.GetBinContent(i +
+                                                                                                                    1 + offset) - h_theory_rel.GetBinContent(i + 1 + offset)
+                        err_qcd_dn = h_theory_rel.GetBinContent(i + 1 + offset) - h_theory_rel.GetBinContent(i + 1 +
+                                                                                                             offset) * h_theory_rel_qcd_dn.GetBinContent(i + 1 + offset)
                         vals = [h.GetBinContent(i + 1 + offset) for h in h_rel_list]
                         err_hadronization = (max(vals) - min(vals)) / 2.
                         err_up = err_pdf_up * err_pdf_up + err_qcd_up * err_qcd_up + err_hadronization * err_hadronization
@@ -672,7 +706,7 @@ def main(options, args):
                 # --------------------------------------------
 
                 # Plot histograms: first canvas, draw OS and SS on the same plot
-                c1, pad1, pad2, pad3 = createCanvasPads(f"W{lep}_{obs_name}")
+                c1, pad1, pad2, pad3 = createCanvasPads(f"W{lep}_{obs_name}_{plot_type}")
 
                 # upper canvas
                 if obs_name == "eta":
@@ -787,15 +821,23 @@ def main(options, args):
             ROOT.gStyle.SetEndErrorSize(8)
             proxy_pdf = ROOT.TGraph()
             proxy_pdf.SetLineColor(ROOT.kBlack)
-            proxy_pdf.SetLineWidth(2)
+            proxy_pdf.SetLineWidth(3)
             proxy_total = ROOT.TGraph()
             proxy_total.SetLineColor(ROOT.kRed)
-            proxy_total.SetLineWidth(2)
+            proxy_total.SetLineWidth(3)
 
             # save for Rc plot
             data = {}
 
-            for lep in ["minus", "plus"]:
+            for lep in ["minus", "plus", "ratio"]:
+                # index for theory prediction hist
+                if lep == "plus":
+                    index = 11
+                elif lep == "minus":
+                    index = 12
+                elif lep == "ratio":
+                    index = 13
+
                 data[lep] = {}
 
                 # data
@@ -805,12 +847,30 @@ def main(options, args):
                     xsec_err_dn = abs(float(POIs_obs[f"mu_W{lep}_tot"][2]) * priors[f"W{lep}"])
                     xsec_err_stat_up = float(POIs_stat[f"mu_W{lep}_tot"][1]) * priors[f"W{lep}"]
                     xsec_err_stat_dn = abs(float(POIs_stat[f"mu_W{lep}_tot"][2]) * priors[f"W{lep}"])
-                else:
+                    limits = [30, 100]
+                    lep_charge = "-"
+                    meson_charge = "+"
+                    obs_str = "#sigma_{fid}^{(OS-SS)}"
+                elif lep == "plus":
                     xsec = float(POIs_obs[f"mu_W{lep}_tot"][0]) * priors[f"W{lep}"]
                     xsec_err_up = float(POIs_obs[f"mu_W{lep}_tot"][1]) * priors[f"W{lep}"]
-                    xsec_err_dn = abs(float(POIs_obs[f"mu_W{lep}_tot"][1]) * priors[f"W{lep}"])
+                    xsec_err_dn = abs(float(POIs_obs[f"mu_W{lep}_tot"][2]) * priors[f"W{lep}"])
                     xsec_err_stat_up = float(POIs_stat[f"mu_W{lep}_tot"][1]) * priors[f"W{lep}"]
-                    xsec_err_stat_dn = abs(float(POIs_stat[f"mu_W{lep}_tot"][1]) * priors[f"W{lep}"])
+                    xsec_err_stat_dn = abs(float(POIs_stat[f"mu_W{lep}_tot"][2]) * priors[f"W{lep}"])
+                    limits = [30, 100]
+                    lep_charge = "+"
+                    meson_charge = "-"
+                    obs_str = "#sigma_{fid}^{(OS-SS)}"
+                elif lep == "ratio":
+                    xsec = float(POIs_obs["mu_Rc"][0])
+                    xsec_err_up = float(POIs_obs["mu_Rc"][1])
+                    xsec_err_dn = abs(float(POIs_obs["mu_Rc"][2]))
+                    xsec_err_stat_up = float(POIs_stat["mu_Rc"][1])
+                    xsec_err_stat_dn = abs(float(POIs_stat["mu_Rc"][2]))
+                    limits = [0.9, 1.2]
+                    lep_charge = "#pm"
+                    meson_charge = "#mp"
+                    obs_str = "R_{c}"
 
                 print(f"--- total cross section for {lep} ---")
                 print(f"{xsec} +{xsec_err_stat_up} -{xsec_err_stat_dn} (stat)")
@@ -827,13 +887,15 @@ def main(options, args):
                 gr_tot = ROOT.TGraphAsymmErrors()
                 gr_tot.SetPoint(0, xsec, 0.0)
                 gr_tot.SetPointError(0, xsec_err_up, xsec_err_dn, 1.0, 1.0)
-                gr_tot.SetFillColor(ROOT.kGray + 1)
+                # gr_tot.SetFillColor(ROOT.kGreen + 1)
+                gr_tot.SetFillColor(ROOT.kYellow)
                 gr_tot.SetLineWidth(0)
 
                 gr_stat = ROOT.TGraphAsymmErrors()
                 gr_stat.SetPoint(0, xsec, 0.0)
                 gr_stat.SetPointError(0, xsec_err_stat_up, xsec_err_stat_dn, 1.0, 1.0)
-                gr_stat.SetFillColor(ROOT.kGray + 2)
+                # gr_stat.SetFillColor(ROOT.kYellow)
+                gr_stat.SetFillColor(ROOT.kGreen + 1)
                 gr_stat.SetLineWidth(0)
 
                 # multi graph
@@ -842,213 +904,142 @@ def main(options, args):
                 mg.Add(gr_stat, "e2")
                 mg.Add(gr, "l")
 
-                # legend
-                N = 5 + len(theory_dict)
-                leg = ROOT.TLegend(0.42, 0.80 - N * (0.045), 0.98, 0.80)
+                # data legend
+                leg1 = ROOT.TLegend(0.48, 0.76 - 1 * (0.060), 0.90, 0.76)
+                leg1.SetBorderSize(0)
+                leg1.SetFillColor(0)
+                leg1.SetFillStyle(0)
+                leg1.SetTextSize(36)
+                leg1.SetTextFont(43)
+                leg1.SetNColumns(2)
+                # leg1.AddEntry(gr, "Data", "l")
+                leg1.AddEntry(gr_stat, "Stat. Unc.", "f")
+                leg1.AddEntry(gr_tot, "Syst. #oplus Stat.", "f")
+
+                # theory legend
+                N = 2 + len(theory_dict)
+                leg = ROOT.TLegend(0.52, 0.63 - N * (0.040), 0.98, 0.63)
                 leg.SetBorderSize(0)
                 leg.SetFillColor(0)
                 leg.SetFillStyle(0)
-                leg.SetTextSize(42)
+                leg.SetTextSize(34)
                 leg.SetTextFont(43)
-                leg.AddEntry(gr, "Data", "l")
-                leg.AddEntry(gr_stat, "Stat. Unc.", "f")
-                leg.AddEntry(gr_tot, "Syst. #oplus Stat.", "f")
-
-                continue
+                leg_temp = leg.Clone(f"{leg.GetName()}_1")
 
                 # theory
-                for k, prediction in enumerate(THEORY_DICT):
-                    h = f_theory.Get(f"{prediction}_OS-SS_lep_{lep}_{options.decay}_{obs['prior_var']}")
-                    if prediction == "MGFxFx_WplusD":
-                        gr_qcd = f_theory.Get(f"{prediction}_OS-SS_lep_{lep}_{options.decay}_{obs['prior_var']}_ratio_mg_fxfx_theory_qcd")
-                        gr_pdf = f_theory.Get(f"{prediction}_OS-SS_lep_{lep}_{options.decay}_{obs['prior_var']}_ratio_mg_fxfx_theory_pdf")
-                    elif prediction == "MGPy8EG_NLO_WplusD":
-                        gr_qcd = f_theory.Get(f"{prediction}_OS-SS_lep_{lep}_{options.decay}_{obs['prior_var']}_ratio_mg_nlo_theory_qcd")
-                        gr_pdf = f_theory.Get(f"{prediction}_OS-SS_lep_{lep}_{options.decay}_{obs['prior_var']}_ratio_mg_nlo_theory_pdf")
-                    else:
-                        gr_qcd = f_theory.Get(f"{prediction}_OS-SS_lep_{lep}_{options.decay}_{obs['prior_var']}_ratio_sherpa2211_theory_qcd")
-                        gr_pdf = f_theory.Get(f"{prediction}_OS-SS_lep_{lep}_{options.decay}_{obs['prior_var']}_ratio_sherpa2211_theory_pdf")
-                    gr_as = f_theory.Get(f"{prediction}_OS-SS_lep_{lep}_{options.decay}_{obs['prior_var']}_ratio_sherpa2211_theory_as")
-                    xsec = 0.
-                    xsec_up = 0.
-                    xsec_dn = 0.
-                    xsec_pdf_up = 0.
-                    xsec_pdf_dn = 0.
-                    for i in range(h.GetNbinsX()):
-                        xsec += h.GetBinContent(i + 1) * SF
-                        qcd_err_up = gr_qcd.GetEYhigh()[i] * h.GetBinContent(i + 1) * SF
-                        pdf_err_up = gr_pdf.GetEYhigh()[i] * h.GetBinContent(i + 1) * SF
-                        as_err_up = gr_as.GetEYhigh()[i] * h.GetBinContent(i + 1) * SF
-                        qcd_err_dn = gr_qcd.GetEYlow()[i] * h.GetBinContent(i + 1) * SF
-                        pdf_err_dn = gr_pdf.GetEYlow()[i] * h.GetBinContent(i + 1) * SF
-                        as_err_dn = gr_as.GetEYlow()[i] * h.GetBinContent(i + 1) * SF
-                        total_err_up = (qcd_err_up**2 + pdf_err_up**2 + as_err_up**2)**(0.5)
-                        total_err_dn = (qcd_err_dn**2 + pdf_err_dn**2 + as_err_dn**2)**(0.5)
-                        xsec_up += total_err_up
-                        xsec_dn += total_err_dn
-                        xsec_pdf_up += pdf_err_up
-                        xsec_pdf_dn += pdf_err_dn
+                for k, (prediction, prediction_dict) in enumerate(theory_dict.items()):
+                    pred = ladder_dict[f"{prediction}_{options.decay}_{name}"]
+                    xsec = pred["nominal"].GetBinContent(index)
+
+                    # PDF err
+                    xsec_pdf_up = pred["pdf_up"].GetBinContent(index) - xsec
+                    xsec_pdf_dn = xsec - pred["pdf_dn"].GetBinContent(index)
+
+                    # QCD err
+                    xsec_up = xsec * pred["qcd_rel_up"].GetBinContent(index) - xsec
+                    xsec_dn = xsec - xsec * pred["qcd_rel_dn"].GetBinContent(index)
+
+                    # hadronization err
+                    vals = [h.GetBinContent(index) for h in pred["had"]]
+                    err_hadronization = (max(vals) - min(vals)) / 2.
+                    err_prod_frac = 0.028 if options.decay == "Dplus" else 0.020
+                    err_prod_frac *= xsec
+
+                    # total error
+                    xsec_up = (xsec_up**2 + xsec_pdf_up**2 + err_hadronization**2)**0.5
+                    xsec_dn = (xsec_dn**2 + xsec_pdf_dn**2 + err_hadronization**2)**0.5
+                    if lep != "ratio":
+                        xsec_up = (xsec_up**2 + err_prod_frac**2)**0.5
+                        xsec_dn = (xsec_dn**2 + err_prod_frac**2)**0.5
 
                     # save
                     data[lep][prediction] = [xsec, xsec_up, xsec_dn, xsec_pdf_up, xsec_pdf_dn]
 
                     # style
                     gr_theory_marker = ROOT.TGraph()
-                    gr_theory_marker.SetPoint(0, xsec, 1 - 0.2 * (k + 1))
-                    gr_theory_marker.SetMarkerSize(3)
-                    gr_theory_marker.SetMarkerColor(prediction_dict["lineColor"])
-                    gr_theory_marker.SetMarkerStyle(prediction_dict["markerStyleFull"])
+                    gr_theory_marker.SetPoint(0, xsec, 0.9 - 0.2 * (k + 1))
+                    gr_theory_marker.SetMarkerSize(2.0 * prediction_dict["markerScale"])
+                    gr_theory_marker.SetMarkerColor(prediction_dict["fillColor"])
+                    gr_theory_marker.SetMarkerStyle(prediction_dict["markerStyle2"])
+
+                    gr_theory_marker2 = ROOT.TGraph()
+                    gr_theory_marker2.SetPoint(0, xsec, 0.9 - 0.2 * (k + 1))
+                    gr_theory_marker2.SetMarkerSize(3.0 * prediction_dict["markerScale"])
+                    gr_theory_marker2.SetMarkerColor(prediction_dict["lineColor"])
+                    gr_theory_marker2.SetMarkerStyle(prediction_dict["markerStyle2"])
 
                     gr_theory = ROOT.TGraphAsymmErrors()
-                    gr_theory.SetPoint(0, xsec, 1 - 0.2 * (k + 1))
+                    gr_theory.SetPoint(0, xsec, 0.9 - 0.2 * (k + 1))
                     gr_theory.SetPointError(0, xsec_up, xsec_dn, 0.0, 0.0)
-                    gr_theory.SetLineWidth(4)
+                    gr_theory.SetLineWidth(3)
                     gr_theory.SetLineColor(ROOT.kRed)
 
                     gr_theory_pdf = ROOT.TGraphAsymmErrors()
-                    gr_theory_pdf.SetPoint(0, xsec, 1 - 0.2 * (k + 1))
+                    gr_theory_pdf.SetPoint(0, xsec, 0.9 - 0.2 * (k + 1))
                     gr_theory_pdf.SetPointError(0, xsec_pdf_up, xsec_pdf_dn, 0.0, 0.0)
-                    gr_theory_pdf.SetLineWidth(4)
+                    gr_theory_pdf.SetLineWidth(3)
                     gr_theory_pdf.SetLineColor(ROOT.kBlack)
 
                     mg.Add(gr_theory, "e")
                     mg.Add(gr_theory_pdf, "e")
+                    mg.Add(gr_theory_marker2, "p")
                     mg.Add(gr_theory_marker, "p")
                     leg.AddEntry(gr_theory_marker, prediction_dict["legendLabel"], "p")
+                    leg_temp.AddEntry(gr_theory_marker2, "", "p")
 
                 leg.AddEntry(proxy_pdf, "PDF Unc.", "l")
-                leg.AddEntry(proxy_total, "Total Unc.", "l")
+                leg.AddEntry(proxy_total, "PDF #oplus QCD #oplus Had. Unc.", "l")
+                leg_temp.AddEntry(proxy_pdf, "", "l")
+                leg_temp.AddEntry(proxy_total, "", "l")
 
                 # canvas
-                c = ROOT.TCanvas(f"W{lep}Total", f"W{lep}Total", 1200, 1200)
+                c = ROOT.TCanvas(f"W{lep}Total_{plot_type}", f"W{lep}Total_{plot_type}", 1200, 900)
                 c.SetLeftMargin(0.05)
                 mg.Draw("a")
                 mg.GetYaxis().SetLabelSize(0)
-                mg.GetXaxis().SetTitle("#sigma^{tot.}_{fid.} [pb]")
-                mg.GetXaxis().SetLimits(30, 100)
+                if options.decay == "Dstar":
+                    mg.GetXaxis().SetTitle("%s(#it{W}^{%s}+#it{D*}^{%s})" % (obs_str, lep_charge, meson_charge))
+                else:
+                    mg.GetXaxis().SetTitle("%s(#it{W}^{%s}+#it{D}^{%s})" % (obs_str, lep_charge, meson_charge))
+                mg.GetXaxis().SetLimits(limits[0], limits[1])
                 mg.SetMinimum(-1)
                 mg.SetMaximum(1)
 
                 # ATLAS label
                 l1 = ROOT.TLatex()
                 l1.SetTextFont(73)
-                l1.SetTextSize(42)
-                l1.DrawLatex(60, 0.85, "ATLAS")
+                l1.SetTextSize(38)
+                l1.DrawLatex(limits[0] + (limits[1] - limits[0]) * (55 - 30) / 70., 0.85, "ATLAS")
                 l2 = ROOT.TLatex()
                 l2.SetTextFont(43)
-                l2.SetTextSize(42)
-                l2.DrawLatex(73, 0.85 - 0 * 0.10, "Internal")
-                l2.DrawLatex(60, 0.85 - 1 * 0.10, "#sqrt{s} = 13 TeV, 139 fb^{-1}")
-                l2.DrawLatex(60, 0.85 - 2 * 0.10, "#it{W}+#it{D}(#rightarrowK#pi#pi), #it{W%s} channel" % ("-" if lep == "minus" else "+"))
+                l2.SetTextSize(38)
+                l2.DrawLatex(limits[0] + (limits[1] - limits[0]) * (65 - 30) / 70., 0.85 - 0 * 0.12, "Internal")
+                l2.DrawLatex(limits[0] + (limits[1] - limits[0]) * (55 - 30) / 70., 0.85 - 1 * 0.12, "#sqrt{s} = 13 TeV, 139 fb^{-1}")
+                if lep != "ratio":
+                    l2.DrawLatex(limits[0] + (limits[1] - limits[0]) * (55 - 30) / 70., 0.85 - 2 * 0.12,
+                                 f"{obs_str} = {gr.GetX()[0]:.2f} #pm{xsec_err_stat_up:.2f} (stat.) ^{{+{xsec_err_up:.2f}}}_{{-{xsec_err_dn:.2f}}} (syst.) pb")
+                else:
+                    l2.DrawLatex(limits[0] + (limits[1] - limits[0]) * (55 - 30) / 70., 0.85 - 2 * 0.12,
+                                 f"{obs_str} = {gr.GetX()[0]:.3f} #pm{xsec_err_stat_up:.3f} (stat.) ^{{+{xsec_err_up:.3f}}}_{{-{xsec_err_dn:.3f}}} (syst.)")
+                if plot_type == "PDF_comparison":
+                    l2.DrawLatex(limits[0] + (limits[1] - limits[0]) * (62 - 30) / 70., 0.85 - 5.1 * 0.12, "#bf{Predictions}: #it{aMC@NLO, full CKM}")
 
+                if options.decay == "Dstar":
+                    l2.DrawLatex(limits[0] + (limits[1] - limits[0]) * (83 - 30) / 70., 0.85 - 0 * 0.12,
+                                 "#it{W}^{%s}+#it{D*}^{%s}(#rightarrowK#pi#pi)" % (lep_charge, meson_charge))
+                else:
+                    l2.DrawLatex(limits[0] + (limits[1] - limits[0]) * (83 - 30) / 70., 0.85 - 0 * 0.12,
+                                 "#it{W}^{%s}+#it{D}^{%s}(#rightarrowK#pi#pi)" % (lep_charge, meson_charge))
                 # legend
+                leg1.Draw()
+                leg_temp.Draw()
                 leg.Draw()
 
                 # print
                 ROOT.gPad.RedrawAxis()
-                c.Print(f"fit_results/W{lep}_tot_{obs_name}.pdf")
+                c.Print(f"fit_results/{plot_type}/W{lep}_tot_{obs_name}.pdf")
                 trash += [mg]
 
-            continue
-
-            # ratio plot
-            Rc = float(POIs_obs["mu_Rc"][0])
-            Rc_up = float(POIs_obs["mu_Rc"][1])
-            Rc_dn = abs(float(POIs_obs["mu_Rc"][2]))
-            Rc_stat_up = float(POIs_stat["mu_Rc"][1])
-            Rc_stat_dn = abs(float(POIs_stat["mu_Rc"][2]))
-
-            gr = ROOT.TGraph()
-            gr.SetPoint(0, Rc, 1.0)
-            gr.SetPoint(1, Rc, -1.0)
-            gr.SetLineColor(ROOT.kBlack)
-            gr.SetLineStyle(2)
-            gr.SetLineWidth(2)
-
-            gr_tot = ROOT.TGraphAsymmErrors()
-            gr_tot.SetPoint(0, Rc, 0.0)
-            gr_tot.SetPointError(0, Rc_up, Rc_dn, 1.0, 1.0)
-            gr_tot.SetFillColor(ROOT.kGray + 1)
-            gr_tot.SetLineWidth(0)
-
-            gr_stat = ROOT.TGraphAsymmErrors()
-            gr_stat.SetPoint(0, Rc, 0.0)
-            gr_stat.SetPointError(0, Rc_stat_up, Rc_stat_dn, 1.0, 1.0)
-            gr_stat.SetFillColor(ROOT.kGray + 2)
-            gr_stat.SetLineWidth(0)
-
-            # multi graph
-            mg = ROOT.TMultiGraph()
-            mg.Add(gr_tot, "e2")
-            mg.Add(gr_stat, "e2")
-            mg.Add(gr, "l")
-
-            # theory
-            for k, prediction in enumerate(THEORY_DICT):
-                xsec = data["plus"][prediction][0] / data["minus"][prediction][0]
-                xsec_up = (data["plus"][prediction][0] + data["plus"][prediction][1]) / (
-                    data["minus"][prediction][0] + data["minus"][prediction][1])
-                xsec_dn = (data["plus"][prediction][0] - data["plus"][prediction][2]) / (
-                    data["minus"][prediction][0] - data["minus"][prediction][2])
-                xsec_pdf_up = (data["plus"][prediction][0] + data["plus"][prediction][3]) / (
-                    data["minus"][prediction][0] + data["minus"][prediction][3])
-                xsec_pdf_dn = (data["plus"][prediction][0] - data["plus"][prediction][4]) / (
-                    data["minus"][prediction][0] - data["minus"][prediction][4])
-
-                # style
-                gr_theory_marker = ROOT.TGraph()
-                gr_theory_marker.SetPoint(0, xsec, 1 - 0.2 * (k + 1))
-                gr_theory_marker.SetMarkerSize(3)
-                gr_theory_marker.SetMarkerColor(prediction_dict["lineColor"])
-                gr_theory_marker.SetMarkerStyle(prediction_dict["markerStyleFull"])
-
-                gr_theory = ROOT.TGraphAsymmErrors()
-                gr_theory.SetPoint(0, xsec, 1 - 0.2 * (k + 1))
-                gr_theory.SetPointError(0, xsec_up - xsec, xsec - xsec_dn, 0.0, 0.0)
-                gr_theory.SetLineWidth(4)
-                gr_theory.SetLineColor(ROOT.kRed)
-
-                gr_theory_pdf = ROOT.TGraphAsymmErrors()
-                gr_theory_pdf.SetPoint(0, xsec, 1 - 0.2 * (k + 1))
-                gr_theory_pdf.SetPointError(0, xsec_pdf_up - xsec, xsec - xsec_pdf_dn, 0.0, 0.0)
-                gr_theory_pdf.SetLineWidth(4)
-                gr_theory_pdf.SetLineColor(ROOT.kBlack)
-
-                mg.Add(gr_theory, "e")
-                mg.Add(gr_theory_pdf, "e")
-                mg.Add(gr_theory_marker, "p")
-
-            # canvas
-            c = ROOT.TCanvas(f"W{lep}Rc", f"W{lep}Rc", 1200, 1200)
-            c.SetLeftMargin(0.05)
-            mg.Draw("a")
-            mg.GetYaxis().SetLabelSize(0)
-            mg.GetXaxis().SetTitle("Rc")
-            mg.GetXaxis().SetLimits(0.94, 1.2)
-            mg.SetMinimum(-1)
-            mg.SetMaximum(1)
-
-            # ATLAS label
-            l1 = ROOT.TLatex()
-            l1.SetTextFont(73)
-            l1.SetTextSize(42)
-            l1.DrawLatex(0.94 + 30 / 70 * (1.2 - 0.94), 0.85, "ATLAS")
-            l2 = ROOT.TLatex()
-            l2.SetTextFont(43)
-            l2.SetTextSize(42)
-            l2.DrawLatex(0.94 + 42 / 70 * (1.2 - 0.94), 0.85 - 0 * 0.10, "Internal")
-            l2.DrawLatex(0.94 + 30 / 70 * (1.2 - 0.94), 0.85 - 1 * 0.10, "#sqrt{s} = 13 TeV, 139 fb^{-1}")
-            l2.DrawLatex(0.94 + 30 / 70 * (1.2 - 0.94), 0.85 - 2 * 0.10, "#it{W}+#it{D}(#rightarrowK#pi#pi)")
-
-            # legend
-            leg.Draw()
-
-            # print
-            ROOT.gPad.RedrawAxis()
-            c.Print(f"fit_results/Rc_{obs_name}.pdf")
-
-            f.Close()
-            f_theory.Close()
         outfile.Close()
 
 
