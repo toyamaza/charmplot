@@ -45,6 +45,7 @@ def bin_edges(POI, var):
         i = int(POI[-1])
         return (0.5 * (i - 1), 0.5 * i)
 
+
 def dependable_dict(name):
     return {'header': {'name': name},
             'qualifiers': QUALIFIERS,
