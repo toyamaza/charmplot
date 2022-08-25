@@ -40,21 +40,10 @@ def atlas_rounding(central, up, dn=None, precision=None):
         return central, up, -int(floor(log10(abs(up / 100.))))
 
 
-def translate(POI, var, channel):
+def bin_edges(POI, var):
     if var == "eta":
         i = int(POI[-1])
-        lep_charge = "-"
-        meson_charge = "+"
-        if "plus" in POI:
-            lep_charge = "+"
-            meson_charge = "-"
-        if channel == "dplus":
-            return f"W{lep_charge}D{meson_charge} |eta(lep)| bin {i} [pb]"
-        elif channel == "dstar":
-            return f"W{lep_charge}D*{meson_charge} |eta(lep)| bin {i} [pb]"
-        else:
-            return ""
-
+        return (0.5 * (i - 1), 0.5 * i)
 
 def dependable_dict(name):
     return {'header': {'name': name},
@@ -67,8 +56,8 @@ def main():
     # main yaml file
     submission = [
         {
-            "data_file": "dplus.yaml",
-            "description": "XXX",
+            "data_file": "dplus_minus.yaml",
+            "description": "The 'OS-SS' W+D fiducial phase-space absolute differential cross-sections in the W-D+ channel.",
             "keywords": [
                 {"name": "reactions", "values": ["P P --> W D"]},
                 {"name": "observables", "values": ["SIG"]},
@@ -76,11 +65,11 @@ def main():
                 {"name": "phrases", "values": ["Differential Cross Section", "Cross Section", "Proton-Proton Scattering", "W Production", "D production"]},
             ],
             "location": "XXX",
-            "name": "NP Impact on OS-SS W+D Cross Section (D+ channel)"
+            "name": "NP Impact on OS-SS W+D Cross Section (W-D+ channel)"
         },
         {
-            "data_file": "dstar.yaml",
-            "description": "XXX",
+            "data_file": "dplus_plus.yaml",
+            "description": "The 'OS-SS' W+D fiducial phase-space absolute differential cross-sections in the W+D- channel.",
             "keywords": [
                 {"name": "reactions", "values": ["P P --> W D"]},
                 {"name": "observables", "values": ["SIG"]},
@@ -88,7 +77,31 @@ def main():
                 {"name": "phrases", "values": ["Differential Cross Section", "Cross Section", "Proton-Proton Scattering", "W Production", "D production"]},
             ],
             "location": "XXX",
-            "name": "NP Impact on OS-SS W+D Cross Section (D* channel)"
+            "name": "NP Impact on OS-SS W+D Cross Section (W+D- channel)"
+        },
+        {
+            "data_file": "dstar_minus.yaml",
+            "description": "The 'OS-SS' W+D* fiducial phase-space absolute differential cross-sections in the W-D*+ channel.",
+            "keywords": [
+                {"name": "reactions", "values": ["P P --> W D"]},
+                {"name": "observables", "values": ["SIG"]},
+                {"name": "cmenergies", "values": [13000.0]},
+                {"name": "phrases", "values": ["Differential Cross Section", "Cross Section", "Proton-Proton Scattering", "W Production", "D production"]},
+            ],
+            "location": "XXX",
+            "name": "NP Impact on OS-SS W+D Cross Section (W-D*+ channel)"
+        },
+        {
+            "data_file": "dstar_plus.yaml",
+            "description": "The 'OS-SS' W+D* fiducial phase-space absolute differential cross-sections in the W+D*- channel.",
+            "keywords": [
+                {"name": "reactions", "values": ["P P --> W D"]},
+                {"name": "observables", "values": ["SIG"]},
+                {"name": "cmenergies", "values": [13000.0]},
+                {"name": "phrases", "values": ["Differential Cross Section", "Cross Section", "Proton-Proton Scattering", "W Production", "D production"]},
+            ],
+            "location": "XXX",
+            "name": "NP Impact on OS-SS W+D Cross Section (W+D*- channel)"
         },
     ]
     with open('hepdata/submission.yaml', 'w') as yaml_file:
@@ -212,95 +225,98 @@ def main():
             print("partial error for: ", POI, err_up_remaining**0.5, f"-{err_dn_remaining**0.5}", count)
             if abs(err_up_remaining) > 0 or abs(err_dn_remaining) > 0:
                 RANKINGS[channel][POI] += [{
-                    'Name': f"Correlated_{channel}_{POI}",
+                    'Name': f"Uncorr_{channel}_{POI}",
                     'POIup': err_up_remaining**0.5,
                     'POIdown': -err_dn_remaining**0.5,
                 }]
 
         # NP impact table
-        impact_table = {
-            'independent_variables': [
-                {'header': {'name': 'Point of Interest'},
-                 'values': [{'value': translate(POI, "eta", channel)} for POI in POIs_abs]}
-            ],
-            'dependent_variables': [
-                dependable_dict("Value"),
-                dependable_dict("Syst. Err. Up"),
-                dependable_dict("Syst. Err. Dn"),
-                dependable_dict("Stat. Err. Up"),
-                dependable_dict("Stat. Err. Dn"),
-            ]
-        }
+        for charge in ["minus", "plus"]:
 
-        # fill in POIs
-        for POI in POIs_abs:
-            par = fr_abs.floatParsFinal().find(POI)
-            par_stat = fr_abs_stat.floatParsFinal().find(POI)
-            vals_stat = atlas_rounding(par_stat.getVal() / br, par_stat.getErrorHi() / br, par_stat.getErrorLo() / br)
-            vals = atlas_rounding(par.getVal() / br, (par.getErrorHi()**2 - par_stat.getErrorHi()**2)**0.5 / br,
-                                  (par.getErrorLo()**2 - par_stat.getErrorLo()**2)**0.5 / br, vals_stat[-1])
-            POI_val = {'value': vals[0]}
-            POI_syst_err_up = {'value': vals[1]}
-            POI_syst_err_dn = {'value': -vals[2]}
-            POI_stat_err_up = {'value': vals_stat[1]}
-            POI_stat_err_dn = {'value': vals_stat[2]}
-            impact_table['dependent_variables'][0]['values'] += [POI_val]
-            impact_table['dependent_variables'][1]['values'] += [POI_syst_err_up]
-            impact_table['dependent_variables'][2]['values'] += [POI_syst_err_dn]
-            impact_table['dependent_variables'][3]['values'] += [POI_stat_err_up]
-            impact_table['dependent_variables'][4]['values'] += [POI_stat_err_dn]
+            # POIs
+            if charge == "plus":
+                POIs_channel = POIs_abs[0:5]
+            elif charge == "minus":
+                POIs_channel = POIs_abs[5:10]
 
-        # sort NPs for each channel
-        NPs_sorted = []
-        for NP in NPs:
-            sum_error = 0
-            for POI in POIs_abs:
-                ranking = RANKINGS[channel][POI]
-                NP_impact = [x for x in ranking if x['Name'] == NP]
-                if len(NP_impact):
-                    sum_error += max(abs(float(NP_impact[0]['POIup'])), abs(float(NP_impact[0]['POIdown'])))
-            NPs_sorted += [(sum_error, NP)]
-        NPs_sorted.sort(key=lambda x: x[0], reverse=True)
+            impact_table = {
+                'independent_variables': [
+                    {'header': {'name': 'LEP_ABS_ETA'},
+                    'values': [{'high': bin_edges(POI, "eta")[0], 'low': bin_edges(POI, "eta")[1]} for POI in POIs_channel]}
+                ],
+                'dependent_variables': [
+                    dependable_dict("DSIG/DLEP_ABS_ETA"),
+                    dependable_dict("DSIG/DLEP_ABS_ETA (breakdown of systematics)"),
+                ]
+            }
 
-        # add the total correlated errors
-        for POI in POIs_abs:
-            NPs_sorted += [(0.0, f"Correlated_{channel}_{POI}")]
+            # fill in POIs
+            for i, POI in enumerate(POIs_channel):
+                par = fr_abs.floatParsFinal().find(POI)
+                par_stat = fr_abs_stat.floatParsFinal().find(POI)
+                vals_stat = atlas_rounding(par_stat.getVal() / br, par_stat.getErrorHi() / br, par_stat.getErrorLo() / br)
+                vals = atlas_rounding(par.getVal() / br, (par.getErrorHi()**2 - par_stat.getErrorHi()**2)**0.5 / br,
+                                    (par.getErrorLo()**2 - par_stat.getErrorLo()**2)**0.5 / br, vals_stat[-1])
 
-        # fill rankings
-        # total error validation
-        err_up = {POI: 0 for POI in POIs_abs}
-        err_dn = {POI: 0 for POI in POIs_abs}
-        for _, NP in NPs_sorted:
-            impact_table['dependent_variables'] += [dependable_dict(f"{NP} Err. Up")]
-            impact_table['dependent_variables'] += [dependable_dict(f"{NP} Err. Dn")]
+                # create the two columns (2nd one gets filled out later)
+                impact_table['dependent_variables'][0]['values'] += [{
+                    'errors': [{'label': 'stat', 'symerror': vals_stat[1]},
+                               {'label': 'sys', 'asymerror': {'minus': -vals[2], 'plus': vals[1]}}],
+                    'value': vals[0]
+                }]
+                impact_table['dependent_variables'][1]['values'] += [{
+                    'errors': [{'label': 'stat', 'symerror': vals_stat[1]}],
+                    'value': vals[0]
+                }]
 
-            # loop over POIs
-            for POI in POIs_abs:
+            # sort NPs for each channel
+            NPs_sorted = []
+            for NP in NPs:
+                sum_error = 0
+                for POI in POIs_channel:
+                    ranking = RANKINGS[channel][POI]
+                    NP_impact = [x for x in ranking if x['Name'] == NP]
+                    if len(NP_impact):
+                        sum_error += max(abs(float(NP_impact[0]['POIup'])), abs(float(NP_impact[0]['POIdown'])))
+                NPs_sorted += [(sum_error, NP)]
+            NPs_sorted.sort(key=lambda x: x[0], reverse=True)
 
-                # load the ranking yaml
-                ranking = RANKINGS[channel][POI]
+            # add the total correlated errors
+            for POI in POIs_channel:
+                NPs_sorted += [(0.0, f"Uncorr_{channel}_{POI}")]
 
-                NP_impact = [x for x in ranking if x['Name'] == NP]
-                if len(NP_impact):
-                    vals = atlas_rounding(par.getVal() / br, float(NP_impact[0]['POIup']) / br, float(NP_impact[0]['POIdown']) / br)
-                else:
-                    # print(f"WARNING: NP {NP} not found for POI {POI}")
-                    vals = 0, 0, 0
-                impact_table['dependent_variables'][-2]['values'] += [{'value': vals[1]}]
-                impact_table['dependent_variables'][-1]['values'] += [{'value': vals[2]}]
+            # fill rankings
+            # total error validation
+            err_up = {POI: 0 for POI in POIs_channel}
+            err_dn = {POI: 0 for POI in POIs_channel}
+            for _, NP in NPs_sorted:
 
-                # validation
-                for i in [1, 2]:
-                    if vals[i] > 0:
-                        err_up[POI] += vals[i]**2
+                # loop over POIs
+                for i, POI in enumerate(POIs_channel):
+
+                    # load the ranking yaml
+                    ranking = RANKINGS[channel][POI]
+
+                    NP_impact = [x for x in ranking if x['Name'] == NP]
+                    if len(NP_impact):
+                        vals = atlas_rounding(par.getVal() / br, float(NP_impact[0]['POIup']) / br, float(NP_impact[0]['POIdown']) / br)
                     else:
-                        err_dn[POI] += vals[i]**2
+                        # print(f"WARNING: NP {NP} not found for POI {POI}")
+                        vals = 0, 0, 0
+                    impact_table['dependent_variables'][1]['values'][i]['errors'] += [{'label': NP, 'asymerror': {'minus': vals[2], 'plus': vals[1]}}]
 
-        for POI in POIs_abs:
-            print(f"Total error for {POI}: {err_up[POI]**0.5} -{err_dn[POI]**0.5}")
+                    # validation
+                    for i in [1, 2]:
+                        if vals[i] > 0:
+                            err_up[POI] += vals[i]**2
+                        else:
+                            err_dn[POI] += vals[i]**2
 
-        with open(f'hepdata/{channel}.yaml', 'w') as yaml_file:
-            yaml.dump(impact_table, yaml_file, default_flow_style=False)
+            for POI in POIs_channel:
+                print(f"Total error for {POI}: {err_up[POI]**0.5} -{err_dn[POI]**0.5}")
+
+            with open(f'hepdata/{channel}_{charge}.yaml', 'w') as yaml_file:
+                yaml.dump(impact_table, yaml_file, default_flow_style=False)
 
 
 if __name__ == "__main__":
