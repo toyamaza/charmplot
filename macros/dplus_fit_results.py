@@ -236,8 +236,8 @@ def main(options, args):
         br = 0.677
 
         # Set fit results path for observables
-        OBSERVABLES["pt"]["fit_results"] = "/global/cfs/cdirs/atlas/wcharm/TRExFitter/Output/Dstar_2022_07_02_pt/"
-        OBSERVABLES["eta"]["fit_results"] = "/global/cfs/cdirs/atlas/wcharm/TRExFitter/Output/Dstar_2022_07_02_eta/"
+        OBSERVABLES["pt"]["fit_results"] = "/global/cfs/cdirs/atlas/wcharm/TRExFitter/Output/Dstar_2022_08_08_pt/"
+        OBSERVABLES["eta"]["fit_results"] = "/global/cfs/cdirs/atlas/wcharm/TRExFitter/Output/Dstar_2022_08_08_eta/"
 
     for plot_type, theory_dict in THEORY_DICT.items():
 
@@ -284,12 +284,9 @@ def main(options, args):
             # Step 1: parse fit results from txt files
             # --------------------------------------------
             # folder names
-            if options.decay == "Dplus":
-                obs_fit = f"WCharm_lep_obs_OSSS_complete_{obs_name}"
-                obs_fit2 = f"WCharm_lep_obs_OSSS_complete2_{obs_name}"
-                obs_fit_abs = f"WCharm_lep_obs_OSSS_complete_alt_{obs_name}"
-            else:
-                obs_fit = "WCharm_lep_obs_OSSS_complete"
+            obs_fit = f"WCharm_lep_obs_OSSS_complete_{obs_name}"
+            obs_fit2 = f"WCharm_lep_obs_OSSS_complete2_{obs_name}"
+            obs_fit_abs = f"WCharm_lep_obs_OSSS_complete_alt_{obs_name}"
 
             # observed
             POIs_obs = extract_pois(os.path.join(obs["fit_results"], obs_fit, "Fits", f"{obs_fit}.txt"))
