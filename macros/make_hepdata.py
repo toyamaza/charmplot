@@ -242,7 +242,7 @@ def main():
             impact_table = {
                 'independent_variables': [
                     {'header': {'name': 'LEP_ABS_ETA'},
-                    'values': [{'high': bin_edges(POI, "eta")[0], 'low': bin_edges(POI, "eta")[1]} for POI in POIs_channel]}
+                     'values': [{'high': bin_edges(POI, "eta")[0], 'low': bin_edges(POI, "eta")[1]} for POI in POIs_channel]}
                 ],
                 'dependent_variables': [
                     dependable_dict("DSIG/DLEP_ABS_ETA"),
@@ -256,7 +256,7 @@ def main():
                 par_stat = fr_abs_stat.floatParsFinal().find(POI)
                 vals_stat = atlas_rounding(par_stat.getVal() / br, par_stat.getErrorHi() / br, par_stat.getErrorLo() / br)
                 vals = atlas_rounding(par.getVal() / br, (par.getErrorHi()**2 - par_stat.getErrorHi()**2)**0.5 / br,
-                                    (par.getErrorLo()**2 - par_stat.getErrorLo()**2)**0.5 / br, vals_stat[-1])
+                                      (par.getErrorLo()**2 - par_stat.getErrorLo()**2)**0.5 / br, vals_stat[-1])
 
                 # create the two columns (2nd one gets filled out later)
                 impact_table['dependent_variables'][0]['values'] += [{
