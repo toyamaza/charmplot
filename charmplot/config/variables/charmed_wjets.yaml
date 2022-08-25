@@ -927,6 +927,10 @@ Dmeson_truth_differential_lep_eta:
   make_plots: True
   allow_rebin: False
 
+truth_met_met_resolution:
+  make_plots: False
+  allow_rebin: False
+
 truth_Dmeson_pt:
   label: 'D^{truth} p_{T}'
   unit: 'GeV'
