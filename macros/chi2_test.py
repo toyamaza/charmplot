@@ -83,10 +83,7 @@ def main(options):
             print(f"{key}: {val}")
 
         # normalization factors
-        if options.decay == "Dplus":
-            f_result = ROOT.TFile(os.path.join(options.input, f"WCharm_lep_obs_OSSS_complete_{suffix}{var}", "Fits", f"WCharm_lep_obs_OSSS_complete_{suffix}{var}.root"), "READ")
-        else:
-            f_result = ROOT.TFile(os.path.join(options.input, f"WCharm_lep_obs_OSSS_complete_{suffix}{var}", "Fits", f"WCharm_lep_obs_OSSS_complete{suffix}.root"), "READ")
+        f_result = ROOT.TFile(os.path.join(options.input, f"WCharm_lep_obs_OSSS_complete_{suffix}{var}", "Fits", f"WCharm_lep_obs_OSSS_complete_{suffix}{var}.root"), "READ")
         fr = f_result.Get("nll_simPdf_newasimovData_with_constr")
         nfs = {nf: fr.floatParsFinal().find(nf).getVal() for nf in NFS}
         print("\n============ normalization factors ============")
@@ -120,10 +117,7 @@ def main(options):
         cov.Print()
 
         # quickFit template
-        if options.decay == "Dplus":
-            quickFit = f"quickFit --minStrat 1 --minTolerance 1e-5 --savefitresult 0 --hesse 0 --saveNP 0 -f {options.input}/WCharm_lep_obs_OSSS_complete_{suffix}{var}/RooStats/WCharm_lep_obs_OSSS_complete_{suffix}{var}_combined_WCharm_lep_obs_OSSS_complete_{suffix}{var}_model.root -w combined -d obsData -p "
-        else:
-            quickFit = f"quickFit --minStrat 1 --minTolerance 1e-5 --savefitresult 0 --hesse 0 --saveNP 0 -f {options.input}/WCharm_lep_obs_OSSS_complete_{suffix}{var}/RooStats/WCharm_lep_obs_OSSS_complete{suffix}_combined_WCharm_lep_obs_OSSS_complete{suffix}_model.root -w combined -d obsData -p "
+        quickFit = f"quickFit --minStrat 1 --minTolerance 1e-5 --savefitresult 0 --hesse 0 --saveNP 0 -f {options.input}/WCharm_lep_obs_OSSS_complete_{suffix}{var}/RooStats/WCharm_lep_obs_OSSS_complete_{suffix}{var}_combined_WCharm_lep_obs_OSSS_complete_{suffix}{var}_model.root -w combined -d obsData -p "
         jobName = f"WCharm_lep_obs_OSSS_complete_{suffix}{var}_unconditional"
         for x in NFS:
             quickFit += f"{x},"
@@ -149,10 +143,7 @@ def main(options):
             assert f_theory
 
             # quickFit template
-            if options.decay == "Dplus":
-                quickFit = f"quickFit --minStrat 1 --minTolerance 1e-5 --savefitresult 0 --hesse 0 --saveNP 0 -f {options.input}/WCharm_lep_obs_OSSS_complete_{suffix}{var}/RooStats/WCharm_lep_obs_OSSS_complete_{suffix}{var}_combined_WCharm_lep_obs_OSSS_complete_{suffix}{var}_model.root -w combined -d obsData "
-            else:
-                quickFit = f"quickFit --minStrat 1 --minTolerance 1e-5 --savefitresult 0 --hesse 0 --saveNP 0 -f {options.input}/WCharm_lep_obs_OSSS_complete_{suffix}{var}/RooStats/WCharm_lep_obs_OSSS_complete{suffix}_combined_WCharm_lep_obs_OSSS_complete{suffix}_model.root -w combined -d obsData "
+            quickFit = f"quickFit --minStrat 1 --minTolerance 1e-5 --savefitresult 0 --hesse 0 --saveNP 0 -f {options.input}/WCharm_lep_obs_OSSS_complete_{suffix}{var}/RooStats/WCharm_lep_obs_OSSS_complete_{suffix}{var}_combined_WCharm_lep_obs_OSSS_complete_{suffix}{var}_model.root -w combined -d obsData "
 
             # read theory histograms
             # absolute basis
