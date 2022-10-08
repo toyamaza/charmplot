@@ -68,7 +68,7 @@ def main(options, args):
     DIR_PRIORS = "/global/cfs/cdirs/atlas/wcharm/charmplot_output/Dmeson_2022_06_15/"
 
     # theory predictions
-    DIR_THEORY = "/global/cfs/cdirs/atlas/wcharm/Rivet/v1/processed"
+    DIR_THEORY = "/global/cfs/cdirs/atlas/wcharm/Rivet/v1/processed2"
 
     # observables
     OBSERVABLES = {
@@ -223,6 +223,78 @@ def main(options, args):
                 "legendLabel": "NNPDF40_nnlo",
                 "legendLabelFull": "NNPDF40_nnlo",
                 "offset": 0.89,
+            },
+        },
+        "NLO_PDF_comparison": {
+            "ABMP16_3_nlo": {
+                "lineColor": ROOT.kBlue,
+                "fillColor": ROOT.kBlue - 9,
+                "markerStyle": 24,
+                "markerStyle2": 20,
+                "markerScale": 0.8,
+                "legendLabel": "ABMP16_3_nlo",
+                "legendLabelFull": "ABMP16_3_nlo",
+                "offset": -0.54,
+            },
+            "CT18ANLO": {
+                "lineColor": ROOT.kOrange + 2,
+                "fillColor": ROOT.kOrange,
+                "markerStyle": 25,
+                "markerStyle2": 21,
+                "markerScale": 0.8,
+                "legendLabel": "CT18ANLO",
+                "legendLabelFull": "CT18ANLO",
+                "offset": -0.36,
+            },
+            "CT18NLO": {
+                "lineColor": ROOT.kOrange - 6,
+                "fillColor": ROOT.kOrange - 9,
+                "markerStyle": 44,
+                "markerStyle2": 45,
+                "markerScale": 1.2,
+                "legendLabel": "CT18NLO",
+                "legendLabelFull": "CT18NLO",
+                "offset": -0.18,
+            },
+            "MSHT20nlo_as118": {
+                "lineColor": ROOT.kMagenta + 2,
+                "fillColor": ROOT.kMagenta - 9,
+                "markerStyle": 27,
+                "markerStyle2": 33,
+                "markerScale": 1.2,
+                "legendLabel": "MSHT20nlo",
+                "legendLabelFull": "MSHT20nlo",
+                "offset": 0.18,
+            },
+            "NNPDF30_nlo_as_0118_hessian": {
+                "lineColor": ROOT.kGreen - 2,
+                "fillColor": ROOT.kGreen - 4,
+                "markerStyle": 28,
+                "markerStyle2": 34,
+                "markerScale": 1.1,
+                "legendLabel": "NNPDF30_nlo",
+                "legendLabelFull": "NNPDF30_nlo",
+                "offset": 0.36,
+            },
+            "NNPDF31_nlo_as_0118_hessian": {
+                "lineColor": ROOT.kGreen + 3,
+                "fillColor": ROOT.kGreen + 1,
+                "markerStyle": 26,
+                "markerStyle2": 22,
+                "markerScale": 1.1,
+                "legendLabel": "NNPDF31_nlo",
+                "legendLabelFull": "NNPDF31_nlo",
+                "offset": 0.51,
+            },
+            "NNPDF40_nlo_as_01180": {
+                "lineColor": ROOT.kGreen + 4,
+                "fillColor": ROOT.kGreen + 2,
+                "markerStyle": 32,
+                "markerStyle2": 23,
+                "markerScale": 1.1,
+                "legendLabel": "NNPDF40_nlo",
+                "legendLabelFull": "NNPDF40_nlo",
+                "offset": 0.71,
             },
         }
     }
@@ -471,7 +543,7 @@ def main(options, args):
 
                 # legend
                 N = 3 + len(theory_dict)
-                if plot_type == "PDF_comparison":
+                if plot_type in ["PDF_comparison", "NLO_PDF_comparison"]:
                     leg = ROOT.TLegend(0.45, 0.87 - (N // 2) * 0.050, 0.92, 0.87)
                     leg.SetNColumns(2)
                     leg.SetBorderSize(0)
@@ -683,7 +755,7 @@ def main(options, args):
                         gr_theory_ratio.GetEYlow()[i] = gr_theory_norm.GetEYlow()[i] / gr_obs_norm.GetY()[i]
 
                     # add to legend
-                    if plot_type == "PDF_comparison":
+                    if plot_type in ["PDF_comparison", "NLO_PDF_comparison"]:
                         leg.AddEntry(gr_theory_ratio, prediction_dict["legendLabel"], "pf")
                     else:
                         leg2.AddEntry(gr_theory_ratio, prediction_dict["legendLabel"], "pf")
@@ -738,7 +810,7 @@ def main(options, args):
                 else:
                     l2.DrawLatex(0.19, 0.8 - 2 * 0.06, "#it{W}^{%s}+#it{D}^{%s}(#rightarrowK#pi#pi)" %
                                  (("-" if lep == "minus" else "+"), ("+" if lep == "minus" else "-")))
-                if plot_type == "PDF_comparison":
+                if plot_type in ["PDF_comparison", "NLO_PDF_comparison"]:
                     l2.DrawLatex(0.19, 0.8 - 3 * 0.06, "aMC@NLO, full CKM")
 
                 # vertical lines
@@ -1018,7 +1090,7 @@ def main(options, args):
                 else:
                     l2.DrawLatex(limits[0] + (limits[1] - limits[0]) * (55 - 30) / 70., 0.85 - 2 * 0.12,
                                  f"{obs_str} = {gr.GetX()[0]:.3f} #pm{xsec_err_stat_up:.3f} (stat.) ^{{+{xsec_err_up:.3f}}}_{{-{xsec_err_dn:.3f}}} (syst.)")
-                if plot_type == "PDF_comparison":
+                if plot_type in ["PDF_comparison", "NLO_PDF_comparison"]:
                     l2.DrawLatex(limits[0] + (limits[1] - limits[0]) * (62 - 30) / 70., 0.85 - 5.1 * 0.12, "#bf{Predictions}: #it{aMC@NLO, full CKM}")
 
                 if options.decay == "Dstar":
