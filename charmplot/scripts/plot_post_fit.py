@@ -491,7 +491,6 @@ if __name__ == "__main__":
     parser.add_option('-y', '--y-axis-range',
                       action="store", dest="y_axis_range")
 
-
     # parse input arguments
     options, args = parser.parse_args()
 
