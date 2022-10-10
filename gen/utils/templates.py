@@ -774,5 +774,5 @@ class ChannelGenerator:
         if self.template:
             labels += [x for x in self.template.labels]
         if extra:
-            labels += [extra.replace('pt_bin', 'reco p_{T}(D) bin ')]
+            labels += [extra.replace('pt_bin', 'p_{T}(D) bin ').replace('eta_bin', '|#eta(l)| bin ')]
         return labels

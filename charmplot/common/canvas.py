@@ -381,8 +381,11 @@ class Canvas2(CanvasBase):
         # legend
         self.n_entries = 0
         for s in mc_map:
-            if not s.ghost:
-                self.n_entries += 1
+            if not print_yields and s.shortName == "Offset":
+                continue
+            if s.ghost:
+                continue
+            self.n_entries += 1
         if data:
             self.n_entries += 1
         if mc_tot:
@@ -390,8 +393,12 @@ class Canvas2(CanvasBase):
         if sys_band:
             self.n_entries += 1
         self.legx_x1 = 0.60 + leg_offset
+
+        # more space for paper plots
         if not print_yields:
-            self.legx_x1 += 0.10
+            self.legx_x1 += 0.05
+            self.n_entries += 1
+
         self.leg_y2 = 1 - 1.8 * self.text_height_small / (1 - self.y_split)
         self.leg_y1 = self.leg_y2 - self.n_entries * self.text_height_small / (1 - self.y_split)
         leg = ROOT.TLegend(self.legx_x1, self.leg_y1, 0.9, self.leg_y2)
@@ -423,6 +430,8 @@ class Canvas2(CanvasBase):
             if s not in mc_map.keys():
                 continue
             if s.ghost:
+                continue
+            if s.shortName == "Offset" and not print_yields:
                 continue
             name = s.name
             if hasattr(s, "legendLabel"):
@@ -506,7 +515,7 @@ class CanvasMCRatio(Canvas2):
         self.leg_y2 = 1 - 1.8 * self.text_height_small / (1 - self.y_split)
         self.leg_y1 = self.leg_y2 - self.n_entries * self.text_height_small / (1 - self.y_split)
         if not print_yields:
-            self.legx_x1 += 0.10
+            self.legx_x1 += 0.05
         leg = ROOT.TLegend(self.legx_x1, self.leg_y1, 0.9, self.leg_y2)
         leg.SetBorderSize(0)
         leg.SetFillColor(0)

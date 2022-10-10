@@ -320,9 +320,9 @@ def process_channel(options, conf, c):
 
         # make legend
         if not options.separate_sys_band:
-            canv.make_legend(h_data, h_mc_tot, mc_map, samples, print_yields=True, show_error=False)
+            canv.make_legend(h_data, h_mc_tot, mc_map, samples, print_yields=(not options.paper), show_error=False)
         else:
-            canv.make_legend(h_data, h_mc_tot, mc_map, samples, print_yields=True, show_error=False, sys_band=gr_mc_tot_sys_err_only)
+            canv.make_legend(h_data, h_mc_tot, mc_map, samples, print_yields=(not options.paper), show_error=False, sys_band=gr_mc_tot_sys_err_only)
 
         # normalize bins to unity
         if var.per_unit:
@@ -340,6 +340,8 @@ def process_channel(options, conf, c):
 
         # set maximum after creating legend
         canv.set_maximum((h_data, h_mc_tot), var, mc_min=utils.get_mc_min(mc_map, samples))
+        if options.y_axis_range:
+            canv.proxy_up.SetMaximum(float(options.y_axis_range))
 
         # find minimum
         if options.nology:
@@ -462,7 +464,12 @@ if __name__ == "__main__":
                       action="store", dest="threads",
                       help="number of threads",
                       default=8)
-    parser.add_option('--no-sys', action="store_true", dest="no_sys")
+    parser.add_option('--no-sys',
+                      action="store_true", dest="no_sys")
+    parser.add_option('--paper',
+                      action="store_true", dest="paper")
+    parser.add_option('-y', '--y-axis-range',
+                      action="store", dest="y_axis_range")
 
     # parse input arguments
     options, args = parser.parse_args()

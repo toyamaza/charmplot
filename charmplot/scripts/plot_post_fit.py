@@ -393,7 +393,7 @@ def main(options, conf):
         canv.pad1.cd()
 
         # make legend
-        canv.make_legend(h_data, h_mc_tot, mc_map, samples, print_yields=True, show_error=False)
+        canv.make_legend(h_data, h_mc_tot, mc_map, samples, print_yields=(not options.paper), show_error=False)
 
         # normalize bins to unity
         if var.per_unit:
@@ -406,9 +406,11 @@ def main(options, conf):
 
         # set maximum after creating legend
         canv.set_maximum((h_data, h_mc_tot), var, mc_min=utils.get_mc_min(mc_map, samples))
+        if options.y_axis_range:
+            canv.proxy_up.SetMaximum(float(options.y_axis_range))
 
         # find minimum
-        if '0tag' in channel.name:
+        if '0tag' in channel.name and not options.paper:
             min_negative = {}
             for s in samples:
                 if s not in mc_map:
@@ -484,6 +486,11 @@ if __name__ == "__main__":
     parser.add_option('--trex-input',
                       action="store", dest="trex_input",
                       help="import post-fit trex plots")
+    parser.add_option('--paper',
+                      action="store_true", dest="paper")
+    parser.add_option('-y', '--y-axis-range',
+                      action="store", dest="y_axis_range")
+
 
     # parse input arguments
     options, args = parser.parse_args()
