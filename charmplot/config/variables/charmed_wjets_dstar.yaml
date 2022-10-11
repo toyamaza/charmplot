@@ -15,16 +15,52 @@ Dmeson_pt_var:
   label: 'D^{*#pm} p_{T}'
   unit: "GeV"
   rebin: 1
-  xbins: [0, 8, 12, 20, 40, 80, 150]
+  xbins: [0, 7.5, 12, 20, 40, 80, 150]
   ratio_range: [0.5, 1.49]
   per_unit: false
 
 Dmeson_eta:
   label: 'D* #eta'
-  rebin: 2
+  rebin: 4
   ratio_range: [0.5, 1.49]
 
 Dmeson_mdiff:
+  label: 'm(D*-D^{0})'
+  unit: 'MeV'
+  rebin: 10
+  x_range: [140,180]
+  ratio_range: [0.5,1.49]
+  do_overflow: False
+  do_underflow: False
+
+Dmeson_mdiff_Lxy:
+  label: 'm(D*-D^{0})'
+  unit: 'MeV'
+  rebin: 10
+  x_range: [140,180]
+  ratio_range: [0.5,1.49]
+  do_overflow: False
+  do_underflow: False
+
+Dmeson_m_impact_sig:
+  label: 'm(D*-D^{0})'
+  unit: 'MeV'
+  rebin: 10
+  x_range: [140,180]
+  ratio_range: [0.5,1.49]
+  do_overflow: False
+  do_underflow: False
+
+Dmeson_mdiff_chi2:
+  label: 'm(D*-D^{0})'
+  unit: 'MeV'
+  rebin: 10
+  x_range: [140,180]
+  ratio_range: [0.5,1.49]
+  do_overflow: False
+  do_underflow: False
+
+Dmeson_mdiff_ptcone40_pt:
   label: 'm(D*-D^{0})'
   unit: 'MeV'
   rebin: 10
@@ -57,8 +93,8 @@ Dmeson_mdiff_norebin:
 
 Dmeson_impact_sig:
   label: 'D^{#pm} 3D Impact Significance'
-  rebin: 1
-  x_range: [0.0, 6.0]
+  rebin: 5
+  x_range: [0.0, 8.0]
   ratio_range: [0.5, 1.49]
 
 Dmeson_mdiff_impact_sig:
@@ -79,7 +115,7 @@ Dmeson_Lxy:
   label: 'D* L_{xy}'
   unit: 'mm'
   rebin: 5
-  x_range: [0.0,30]
+  x_range: [0.0,15]
   ratio_range: [0.5, 1.49]
 
 Dmeson_cTau:
@@ -224,8 +260,8 @@ Dmeson_ptcone40_pt:
   label: 'D* ptcone40/p_{T}'
   rebin: 2
   #xbins: [0.0, 0.02, 0.04, 0.06, 0.08, 1.0, 2.0, 4.0, 10.0]
-  x_range: [0,5.0]
-  do_overflow: False
+  x_range: [0,2.0]
+  do_overflow: True
   do_underflow: True
   #per_unit: True
   ratio_range: [0.5, 1.49]
@@ -242,15 +278,20 @@ Dmeson_max_trackZ0:
   rebin: 2
   ratio_range: [0.5, 1.49]
 
-Dmeson_min_trackPt:
+Dmeson_max_D0trackEta:
+  label: 'D* max #eta (tracks)'
+  rebin: 4
+  ratio_range: [0.5, 1.49]
+
+Dmeson_min_D0trackPt:
   label: 'D* min p_{T}(tracks)'
   unit: 'MeV'
-  rebin: 2
+  rebin: 4
   ratio_range: [0.5, 1.49]
 
 Dmeson_max_trackdR:
   label: 'D* max #DeltaR(tracks)'
-  rebin: 2
+  rebin: 4
   ratio_range: [0.5, 1.49]
 
 run_number:

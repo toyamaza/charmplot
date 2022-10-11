@@ -15,7 +15,7 @@ variations:
   - MM_EL_FR_MadGraph_Var
   - MM_EL_FR__QCD_Var_Up
   - MM_EL_FR__QCD_Var_Dn
-  #- MM_EL_FR_MET_Var
+  - MM_EL_FR_MET_Var
   - MM_MU_RR_STAT__1up
   - MM_MU_RR_STAT__1down
 #  - MM_MU_RR_MadGraph_Var
@@ -25,4 +25,4 @@ variations:
   - MM_MU_FR_MadGraph_Var
   - MM_MU_FR__QCD_Var_Up
   - MM_MU_FR__QCD_Var_Dn
-  #- MM_MU_FR_MET_Var
+  - MM_MU_FR_MET_Var
