@@ -287,8 +287,8 @@ Dmeson_Lxy4:
 
 Dmeson_impact_sig:
   label: 'D^{#pm} 3D Impact Significance'
-  rebin: 4
-  x_range: [0.0, 6.0]
+  rebin: 5
+  x_range: [0.0, 8.0]
   ratio_range: [0.5, 1.49]
 
 Dmeson_impact_sig_inSB:
@@ -675,13 +675,20 @@ Dmeson_max_trackZ0:
 
 Dmeson_min_trackPt:
   label: 'D^{#pm} min p_{T}(tracks)'
-  unit: 'MeV'
+  unit: 'GeV'
   rebin: 2
   ratio_range: [0.5, 1.49]
+
+Dmeson_max_trackEta:
+  label: 'D^{#pm} max #eta (tracks)'
+  rebin: 2
+  ratio_range: [0.5, 1.49]
+
 
 Dmeson_max_trackdR:
   label: 'D^{#pm} max #DeltaR(tracks)'
   rebin: 2
+  x_range: [0,0.7]
   ratio_range: [0.5, 1.49]
 
 N_Dplus:
@@ -713,13 +720,13 @@ Dmeson_m_impact_sig:
   label: 'D^{#pm} m (w/o imp sig)'
   unit: 'GeV'
   x_range:  [1.7, 2.2]
-  rebin: 5
+  rebin: 10
   ratio_range: [0.5, 1.49]
 
 Dmeson_m_Lxy:
   label: 'D^{#pm} m (w/o Lxy)'
   unit: 'GeV'
-  rebin: 5
+  rebin: 10
   x_range:  [1.7, 2.2]
   ratio_range: [0.5, 1.49]
 
@@ -756,7 +763,7 @@ Dmeson_m_Lxy4:
 Dmeson_m_ptcone40_pt:
   label: 'D^{#pm} m (Isolation)'
   unit: 'GeV'
-  rebin: 5
+  rebin: 10
   x_range: [1.7, 2.2]
   ratio_range: [0.5, 1.49]
 
@@ -775,7 +782,7 @@ Dmeson_m_DstarMin:
 Dmeson_m_chi2:
   label: 'D^{#pm} m (chi2)'
   unit: 'GeV'
-  rebin: 5
+  rebin: 10
   x_range:  [1.7, 2.2]
   ratio_range: [0.5, 1.49]
 

@@ -212,3 +212,10 @@ Wjets_cjets_other_ftag:
   subtract:
   fillColor: "15005"
   legendLabel: "W#rightarrowl#nu + c"
+
+Multijet_MatrixMethod:
+  add: data
+  subtract:
+  fillColor: "15002"
+  legendLabel: Multijet
+  shortName: Multijet_MatrixMethod
