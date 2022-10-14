@@ -6,9 +6,8 @@ import yaml
 
 ROOT.gROOT.SetBatch(True)
 
-DPLUS_FOLDER = "/global/cfs/cdirs/atlas/wcharm/TRExFitter/Output/Dplus_2022_08_05"
+DPLUS_FOLDER = "/global/cfs/cdirs/atlas/wcharm/TRExFitter/Output/Dplus_2022_08_05_v2"
 DSTAR_FOLDER = "/global/cfs/cdirs/atlas/wcharm/TRExFitter/Output/Dstar_2022_08_11"
-DSTAR_BR = 0.677
 
 POIs_abs = [f"mu_Wplus_{i}" for i in range(1, 6)] + [f"mu_Wminus_{i}" for i in range(1, 6)]
 
@@ -162,7 +161,7 @@ def main():
                             err_dn_total += NP[key]**2
                 err_up_total = err_up_total**0.5
                 err_dn_total = err_dn_total**0.5
-                print("total error for: ", POI, err_up_total, f"-{err_dn_total}")
+                print("initial total error for: ", channel, POI, err_up_total, f"-{err_dn_total}")
 
                 # keep NPs adding up to some threshold
                 err_up = 0
@@ -223,7 +222,7 @@ def main():
                             err_up_remaining += NP[key]**2
                         else:
                             err_dn_remaining += NP[key]**2
-            print("partial error for: ", POI, err_up_remaining**0.5, f"-{err_dn_remaining**0.5}", count)
+            print("partial error for: ", channel, POI, err_up_remaining**0.5, f"-{err_dn_remaining**0.5}", count)
             if abs(err_up_remaining) > 0 or abs(err_dn_remaining) > 0:
                 RANKINGS[channel][POI] += [{
                     'Name': f"Uncorr_{channel}_{POI}",
@@ -314,7 +313,7 @@ def main():
                             err_dn[POI] += vals[i]**2
 
             for POI in POIs_channel:
-                print(f"Total error for {POI}: {err_up[POI]**0.5} -{err_dn[POI]**0.5}")
+                print(f"final total error for {channel} {POI}: {err_up[POI]**0.5} -{err_dn[POI]**0.5}")
 
             with open(f'hepdata/{channel}_{charge}.yaml', 'w') as yaml_file:
                 yaml.dump(impact_table, yaml_file, default_flow_style=False)
