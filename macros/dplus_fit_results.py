@@ -314,7 +314,7 @@ def main(options, args):
     for plot_type, theory_dict in THEORY_DICT.items():
 
         if not os.path.isdir(os.path.join("fit_results", plot_type, options.decay)):
-            os.makedirs(os.path.join("fit_results", plot_type,  options.decay))
+            os.makedirs(os.path.join("fit_results", plot_type, options.decay))
         outfile = ROOT.TFile(f"fit_results/{plot_type}/{options.decay}/results.root", "RECREATE")
 
         # theory predictions for ladder plots
@@ -470,7 +470,7 @@ def main(options, args):
                             x_err_up = ROOT.TMath.Power(10, ROOT.TMath.Log10(
                                 xc) + (ROOT.TMath.Log10(obs["bins"][-1]) - ROOT.TMath.Log10(obs["bins"][0])) / 200.) - xc
                             x_err_dn = xc - ROOT.TMath.Power(10, ROOT.TMath.Log10(xc) -
-                                                            (ROOT.TMath.Log10(obs["bins"][-1]) - ROOT.TMath.Log10(obs["bins"][0])) / 200.)
+                                                             (ROOT.TMath.Log10(obs["bins"][-1]) - ROOT.TMath.Log10(obs["bins"][0])) / 200.)
                             gr_obs_sys.SetPointError(i, x_err_up, x_err_up, abs(y_dn_sys), abs(y_up_sys))
                             gr_obs_norm_sys.SetPointError(i, x_err_up, x_err_up, abs(y_norm_dn_sys), abs(y_norm_up_sys))
                         else:
@@ -716,7 +716,7 @@ def main(options, args):
                             err_qcd_up = h_theory_rel.GetBinContent(i + 1 + offset) * h_theory_rel_qcd_up.GetBinContent(i +
                                                                                                                         1 + offset) - h_theory_rel.GetBinContent(i + 1 + offset)
                             err_qcd_dn = h_theory_rel.GetBinContent(i + 1 + offset) - h_theory_rel.GetBinContent(i + 1 +
-                                                                                                                offset) * h_theory_rel_qcd_dn.GetBinContent(i + 1 + offset)
+                                                                                                                 offset) * h_theory_rel_qcd_dn.GetBinContent(i + 1 + offset)
                             vals = [h.GetBinContent(i + 1 + offset) for h in h_rel_list]
                             err_hadronization = (max(vals) - min(vals)) / 2.
                             err_up = err_pdf_up * err_pdf_up + err_qcd_up * err_qcd_up + err_hadronization * err_hadronization
@@ -731,13 +731,13 @@ def main(options, args):
                             w = xh - xl
                             if obs["logx"]:
                                 xc = ROOT.TMath.Power(10, ROOT.TMath.Log10(xl) + (ROOT.TMath.Log10(xl + w) - ROOT.TMath.Log10(xl)) / 2. +
-                                                    prediction_dict["offset"] * (ROOT.TMath.Log10(xl + w) - ROOT.TMath.Log10(xl)) / 2.)
+                                                      prediction_dict["offset"] * (ROOT.TMath.Log10(xl + w) - ROOT.TMath.Log10(xl)) / 2.)
                                 x_err_up = ROOT.TMath.Power(10, ROOT.TMath.Log10(
                                     xc) + (ROOT.TMath.Log10(obs["bins"][-1]) - ROOT.TMath.Log10(obs["bins"][0])) / 200.) - xc
                                 x_err_dn = xc - ROOT.TMath.Power(10, ROOT.TMath.Log10(xc) -
-                                                                (ROOT.TMath.Log10(obs["bins"][-1]) - ROOT.TMath.Log10(obs["bins"][0])) / 200.)
+                                                                 (ROOT.TMath.Log10(obs["bins"][-1]) - ROOT.TMath.Log10(obs["bins"][0])) / 200.)
                                 gr_theory.GetX()[i] = ROOT.TMath.Power(10, ROOT.TMath.Log10(xc) +
-                                                                    (ROOT.TMath.Log10(obs["bins"][-1]) - ROOT.TMath.Log10(obs["bins"][0])) / 200.) - xc
+                                                                       (ROOT.TMath.Log10(obs["bins"][-1]) - ROOT.TMath.Log10(obs["bins"][0])) / 200.) - xc
                             else:
                                 offset = prediction_dict["offset"] * gr_obs.GetEXhigh()[i]
                                 xc = gr_theory.GetX()[i] + offset
@@ -810,10 +810,10 @@ def main(options, args):
                     l2.DrawLatex(0.19, 0.8 - 1 * 0.06, "#sqrt{s} = 13 TeV, 139 fb^{-1}")
                     if options.decay == "Dstar":
                         l2.DrawLatex(0.19, 0.8 - 2 * 0.06, "#it{W}^{%s}+#it{D*}^{%s}(#rightarrow(K#pi)#pi)" %
-                                    (("-" if lep == "minus" else "+"), ("+" if lep == "minus" else "-")))
+                                     (("-" if lep == "minus" else "+"), ("+" if lep == "minus" else "-")))
                     else:
                         l2.DrawLatex(0.19, 0.8 - 2 * 0.06, "#it{W}^{%s}+#it{D}^{%s}(#rightarrowK#pi#pi)" %
-                                    (("-" if lep == "minus" else "+"), ("+" if lep == "minus" else "-")))
+                                     (("-" if lep == "minus" else "+"), ("+" if lep == "minus" else "-")))
                     if plot_type in ["PDF_comparison", "NLO_PDF_comparison"]:
                         l2.DrawLatex(0.19, 0.8 - 3 * 0.06, "aMC@NLO, full CKM")
 
