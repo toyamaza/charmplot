@@ -141,6 +141,7 @@ def main(options, args):
     print(f"Samples sys: {samples_sys}")
 
     # loop
+    firstInvert = True
     for c in channels:
 
         print(f"Doing channel {c}")
@@ -204,8 +205,23 @@ def main(options, args):
             #             h_pt_truth_tmp[s].Scale(0.094)
 
             # calculate fiducial efficiency per bin
-            h_fid_eff[s] = ROOT.TH2D(f"{s}_{c}_fid_eff_pt", f"{s}_{c}_fid_eff_pt", nbins + 1, xbins, nbins + 1, xbins)
+            h_fid_eff[s] = ROOT.TH2D(f"{s}_{c}_fid_eff_pt", f"{s}_{c}_fid_eff_pt", nbins + 1, 0, nbins + 1, nbins + 1, 0, nbins + 1)
             h_fid_eff_inv[s] = ROOT.TH2D(f"{s}_{c}_fid_eff_pt_inv", f"{s}_{c}_fid_eff_pt_inv", nbins + 1, xbins, nbins + 1, xbins)
+            h_fid_eff[s].GetXaxis().SetBinLabel(1, "8 - 12")
+            h_fid_eff[s].GetXaxis().SetBinLabel(2, "12 - 20")
+            h_fid_eff[s].GetXaxis().SetBinLabel(3, "20 - 40")
+            h_fid_eff[s].GetXaxis().SetBinLabel(4, "40 - 80")
+            h_fid_eff[s].GetXaxis().SetBinLabel(5, "#geq 80")
+            h_fid_eff[s].GetXaxis().ChangeLabel(1, 25)
+            h_fid_eff[s].GetXaxis().ChangeLabel(2, 25)
+            h_fid_eff[s].GetXaxis().ChangeLabel(3, 25)
+            h_fid_eff[s].GetXaxis().ChangeLabel(4, 25)
+            h_fid_eff[s].GetXaxis().ChangeLabel(5, 25)
+            h_fid_eff[s].GetYaxis().SetBinLabel(1, "8 - 12")
+            h_fid_eff[s].GetYaxis().SetBinLabel(2, "12 - 20")
+            h_fid_eff[s].GetYaxis().SetBinLabel(3, "20 - 40")
+            h_fid_eff[s].GetYaxis().SetBinLabel(4, "40 - 80")
+            h_fid_eff[s].GetYaxis().SetBinLabel(5, "#geq 80")
 
         # numpy matrix
         np_matrix = np.identity(nbins + 1)
@@ -241,8 +257,13 @@ def main(options, args):
             h_pt_truth[s].GetYaxis().SetTitle("d#sigma / dp_{T}(D) [pb]")
             h_pt_truth[s].SetMarkerSize(1.4)
 
-            h_fid_eff[s].GetXaxis().SetTitle("p_{T}^{reco}(D) [GeV]")
-            h_fid_eff[s].GetYaxis().SetTitle("p_{T}^{truth}(D) [GeV]")
+            h_fid_eff[s].GetXaxis().SetTitle("p_{T}^{D} [GeV] (reco)")
+            h_fid_eff[s].GetYaxis().SetTitle("p_{T}^{D} [GeV] (truth)")
+            h_fid_eff[s].GetXaxis().SetTitleOffset(h_fid_eff[s].GetXaxis().GetTitleOffset() * 1.3)
+            h_fid_eff[s].GetYaxis().SetTitleOffset(h_fid_eff[s].GetYaxis().GetTitleOffset() * 1.3)
+            h_fid_eff[s].GetXaxis().SetLabelSize(1.5 * h_fid_eff[s].GetXaxis().GetLabelSize())
+            h_fid_eff[s].GetYaxis().SetLabelSize(1.5 * h_fid_eff[s].GetYaxis().GetLabelSize())
+            h_fid_eff[s].GetXaxis().SetLabelOffset(3.5 * h_fid_eff[s].GetXaxis().GetLabelOffset())
             h_fid_eff[s].SetMarkerSize(1.4)
             h_fid_eff[s].SetMarkerColor(ROOT.kWhite)
 
@@ -582,25 +603,31 @@ def main(options, args):
         # draw fiducial efficiency per bin
         # -------------------
         ROOT.gStyle.SetPaintTextFormat(".2f%")
-        ROOT.gStyle.SetPalette(ROOT.kCMYK)
+        ROOT.gStyle.SetPalette(ROOT.kCherry)
+        if firstInvert:
+            ROOT.TColor.InvertPalette()
+            firstInvert = False
         canv5 = ROOT.TCanvas(f"{c}_matrix", f"{c}_matrix", 1000, 800)
-        canv5.SetRightMargin(0.20)
-        canv5.SetLogy()
-        canv5.SetLogx()
-        h_fid_eff[samples[0]].GetXaxis().SetMoreLogLabels()
-        h_fid_eff[samples[0]].GetXaxis().SetNoExponent()
-        h_fid_eff[samples[0]].GetYaxis().SetMoreLogLabels()
+        canv5.SetRightMargin(0.18)
+        canv5.SetLeftMargin(0.18)
+        canv5.SetBottomMargin(0.20)
+        # canv5.SetLogy()
+        # canv5.SetLogx()
+        # h_fid_eff[samples[0]].GetXaxis().SetMoreLogLabels()
+        # h_fid_eff[samples[0]].GetXaxis().SetNoExponent()
+        # h_fid_eff[samples[0]].GetYaxis().SetMoreLogLabels()
         h_fid_eff[samples[0]].GetZaxis().SetTitle("Response Matrix [%] #pm rel. err. [%]")
-        h_fid_eff[samples[0]].Draw("text colz error")
+        h_fid_eff[samples[0]].GetZaxis().SetLabelSize(h_fid_eff[samples[0]].GetZaxis().GetLabelSize() * 0.97)
+        h_fid_eff[samples[0]].Draw("text colz")
 
         # ATLAS label
-        ROOT.ATLASLabel(0.18, 0.90, "Internal", 1)
-        ROOT.myText(0.18, 0.84, 1, "#sqrt{s} = 13 TeV")
-        ROOT.myText(0.18, 0.78, 1, "139 fb^{-1}")
+        ROOT.ATLASLabel(0.20, 0.90, "Simulation Internal", 1, 0.04)
+        ROOT.myText(0.20, 0.85, 1, "#sqrt{s} = 13 TeV", 0.04)
+        # ROOT.myText(0.20, 0.78, 1, "139 fb^{-1}")
         if "Dplus" in c:
-            ROOT.myText(0.40, 0.18, 1, "W#rightarrowl#nu+D, D#rightarrowK#pi#pi")
+            ROOT.myText(0.20, 0.80, 1, "W(#rightarrowl#nu)+D(#rightarrowK#pi#pi)", 0.04)
         elif "Dstar" in c:
-            ROOT.myText(0.40, 0.18, 1, "W#rightarrowl#nu+D*, D*#rightarrow(K#pi)#pi")
+            ROOT.myText(0.20, 0.80, 1, "W(#rightarrowl#nu)+D*(#rightarrow(K#pi)#pi)", 0.04)
         # ROOT.myText(0.50, 0.18, 1, c.replace("OS-SS_", ""))
 
         # save
@@ -615,8 +642,23 @@ def main(options, args):
                 z = h_fid_eff[samples[0]].GetBinContent(i, j)
                 h_fid_eff[samples[0]].SetBinContent(i, j, 100 * z / integral)
         h_fid_eff[samples[0]].SetMaximum(25.)
-        h_fid_eff[samples[0]].GetZaxis().SetTitle("Normalized R. Matrix [%] #pm rel. err. [%]")
+        h_fid_eff[samples[0]].GetZaxis().SetTitle("Normalized Detector Response Matrix")
+        h_fid_eff[samples[0]].GetZaxis().SetTitleSize(h_fid_eff[samples[0]].GetZaxis().GetTitleSize() * 0.9)
         canv5.Update()
+
+        # hack for different color diag / off-diag
+        h_fid_eff_clone = h_fid_eff[samples[0]].Clone(f"{h_fid_eff[samples[0]].GetName()}_offdiag")
+        for i in range(1, h_fid_eff_clone.GetNbinsX() + 1):
+            for j in range(1, h_fid_eff_clone.GetNbinsX() + 1):
+                if i != j:
+                    h_fid_eff[samples[0]].SetBinContent(i, j, 0)
+                else:
+                    h_fid_eff_clone.SetBinContent(i, j, 0)
+        h_fid_eff_clone.SetMarkerColor(ROOT.kBlack)
+        h_fid_eff_clone.GetZaxis().SetTitle("")
+        h_fid_eff_clone.Draw("text colz same")
+
+        ROOT.gPad.RedrawAxis()
         canv5.Print(f"{options.output}/{c}_fid_eff_per_bin_norm.pdf")
 
         # -------------------

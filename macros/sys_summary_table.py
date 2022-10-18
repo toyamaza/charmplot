@@ -12,12 +12,12 @@ ROOT.gROOT.LoadMacro(os.path.join(dirname, "AtlasUtils.C"))
 ROOT.SetAtlasStyle()
 
 CHANNELS = ["dplus", "dstar"]
-DPLUS_FOLDER = "/global/cfs/cdirs/atlas/wcharm/TRExFitter/Output/Dplus_2022_07_26_fullRanking"
+DPLUS_FOLDER = "/global/cfs/cdirs/atlas/wcharm/TRExFitter/Output/Dplus_2022_07_26_fullRanking_v2"
 DSTAR_FOLDER = "/global/cfs/cdirs/atlas/wcharm/TRExFitter/Output/Dstar_2022_08_08_fullRanking"
 
 
 def get_sys_group(name):
-    if name.startswith("gamma_"):
+    if name.startswith("gamma_") or name.startswith("Stat") or name.startswith("MC_Stat"):
         return "Finite size of MC samples"
     elif name.startswith("MM_"):
         return "Multijet background"

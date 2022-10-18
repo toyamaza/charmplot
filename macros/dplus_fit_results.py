@@ -68,7 +68,7 @@ def main(options, args):
     DIR_PRIORS = "/global/cfs/cdirs/atlas/wcharm/charmplot_output/Dmeson_2022_06_15/"
 
     # theory predictions
-    DIR_THEORY = "/global/cfs/cdirs/atlas/wcharm/Rivet/v1/processed2"
+    DIR_THEORY = "/global/cfs/cdirs/atlas/wcharm/Rivet/v1/processed3"
 
     # observables
     OBSERVABLES = {
@@ -313,9 +313,9 @@ def main(options, args):
 
     for plot_type, theory_dict in THEORY_DICT.items():
 
-        if not os.path.isdir(os.path.join("fit_results", plot_type)):
-            os.makedirs(os.path.join("fit_results", plot_type))
-        outfile = ROOT.TFile(f"fit_results/{plot_type}/results.root", "RECREATE")
+        if not os.path.isdir(os.path.join("fit_results", plot_type, options.decay)):
+            os.makedirs(os.path.join("fit_results", plot_type,  options.decay))
+        outfile = ROOT.TFile(f"fit_results/{plot_type}/{options.decay}/results.root", "RECREATE")
 
         # theory predictions for ladder plots
         ladder_dict = {}
@@ -331,264 +331,266 @@ def main(options, args):
             # --------------------------------------------
             # Step 0: get cross section priors
             # --------------------------------------------
-            f = ROOT.TFile(os.path.join(DIR_PRIORS, f"fid_eff_{obs_name}_{options.decay.lower()}_stat", "unfolding.root"))
-            h_minus = f.Get(f"Sherpa2211_WplusD_OS-SS_lep_minus_{options.decay}_Kpipi_truth_differential_{obs_name}")
-            h_plus = f.Get(f"Sherpa2211_WplusD_OS-SS_lep_plus_{options.decay}_Kpipi_truth_differential_{obs_name}")
-            priors = {
-                "Wminus": h_minus.Integral() / (2. * br),
-                "Wminus_1": h_minus.GetBinContent(1) / (2. * br),
-                "Wminus_2": h_minus.GetBinContent(2) / (2. * br),
-                "Wminus_3": h_minus.GetBinContent(3) / (2. * br),
-                "Wminus_4": h_minus.GetBinContent(4) / (2. * br),
-                "Wminus_5": h_minus.GetBinContent(5) / (2. * br),
-                "Wplus": h_plus.Integral() / (2. * br),
-                "Wplus_1": h_plus.GetBinContent(1) / (2. * br),
-                "Wplus_2": h_plus.GetBinContent(2) / (2. * br),
-                "Wplus_3": h_plus.GetBinContent(3) / (2. * br),
-                "Wplus_4": h_plus.GetBinContent(4) / (2. * br),
-                "Wplus_5": h_plus.GetBinContent(5) / (2. * br),
-            }
-            print("============ cross section priors ============")
-            for key, val in priors.items():
-                print(f"{key}: {val}")
+            if options.decay in ["Dplus", "Dstar"]:
+                f = ROOT.TFile(os.path.join(DIR_PRIORS, f"fid_eff_{obs_name}_{options.decay.lower()}_stat", "unfolding.root"))
+                h_minus = f.Get(f"Sherpa2211_WplusD_OS-SS_lep_minus_{options.decay}_Kpipi_truth_differential_{obs_name}")
+                h_plus = f.Get(f"Sherpa2211_WplusD_OS-SS_lep_plus_{options.decay}_Kpipi_truth_differential_{obs_name}")
+                priors = {
+                    "Wminus": h_minus.Integral() / (2. * br),
+                    "Wminus_1": h_minus.GetBinContent(1) / (2. * br),
+                    "Wminus_2": h_minus.GetBinContent(2) / (2. * br),
+                    "Wminus_3": h_minus.GetBinContent(3) / (2. * br),
+                    "Wminus_4": h_minus.GetBinContent(4) / (2. * br),
+                    "Wminus_5": h_minus.GetBinContent(5) / (2. * br),
+                    "Wplus": h_plus.Integral() / (2. * br),
+                    "Wplus_1": h_plus.GetBinContent(1) / (2. * br),
+                    "Wplus_2": h_plus.GetBinContent(2) / (2. * br),
+                    "Wplus_3": h_plus.GetBinContent(3) / (2. * br),
+                    "Wplus_4": h_plus.GetBinContent(4) / (2. * br),
+                    "Wplus_5": h_plus.GetBinContent(5) / (2. * br),
+                }
+                print("============ cross section priors ============")
+                for key, val in priors.items():
+                    print(f"{key}: {val}")
 
-            # --------------------------------------------
-            # Step 1: parse fit results from txt files
-            # --------------------------------------------
-            # folder names
-            obs_fit = f"WCharm_lep_obs_OSSS_complete_{obs_name}"
-            obs_fit2 = f"WCharm_lep_obs_OSSS_complete2_{obs_name}"
-            obs_fit_abs = f"WCharm_lep_obs_OSSS_complete_alt_{obs_name}"
+                # --------------------------------------------
+                # Step 1: parse fit results from txt files
+                # --------------------------------------------
+                # folder names
+                obs_fit = f"WCharm_lep_obs_OSSS_complete_{obs_name}"
+                obs_fit2 = f"WCharm_lep_obs_OSSS_complete2_{obs_name}"
+                obs_fit_abs = f"WCharm_lep_obs_OSSS_complete_alt_{obs_name}"
 
-            # observed
-            POIs_obs = extract_pois(os.path.join(obs["fit_results"], obs_fit, "Fits", f"{obs_fit}.txt"))
-            POIs_obs.update(extract_pois(os.path.join(obs["fit_results"], obs_fit, "Fits", f"{obs_fit}_expr.txt")))
-            print("============ post fit results ============")
-            for key, val in POIs_obs.items():
-                print(f"{key}: {val}")
+                # observed
+                POIs_obs = extract_pois(os.path.join(obs["fit_results"], obs_fit, "Fits", f"{obs_fit}.txt"))
+                POIs_obs.update(extract_pois(os.path.join(obs["fit_results"], obs_fit, "Fits", f"{obs_fit}_expr.txt")))
+                print("============ post fit results ============")
+                for key, val in POIs_obs.items():
+                    print(f"{key}: {val}")
 
-            # normalization factors
-            f_result = ROOT.TFile(os.path.join(obs["fit_results"], obs_fit, "Fits", f"{obs_fit}.root"), "READ")
-            f_result2 = ROOT.TFile(os.path.join(obs["fit_results"], obs_fit2, "Fits", f"{obs_fit2}.root"), "READ")
-            f_result_abs = ROOT.TFile(os.path.join(obs["fit_results"], obs_fit_abs, "Fits", f"{obs_fit_abs}.root"), "READ")
-            fr = f_result.Get("nll_simPdf_newasimovData_with_constr")
-            fr2 = f_result2.Get("nll_simPdf_newasimovData_with_constr")
-            fr_abs = f_result_abs.Get("nll_simPdf_newasimovData_with_constr")
+                # normalization factors
+                f_result = ROOT.TFile(os.path.join(obs["fit_results"], obs_fit, "Fits", f"{obs_fit}.root"), "READ")
+                f_result2 = ROOT.TFile(os.path.join(obs["fit_results"], obs_fit2, "Fits", f"{obs_fit2}.root"), "READ")
+                f_result_abs = ROOT.TFile(os.path.join(obs["fit_results"], obs_fit_abs, "Fits", f"{obs_fit_abs}.root"), "READ")
+                fr = f_result.Get("nll_simPdf_newasimovData_with_constr")
+                fr2 = f_result2.Get("nll_simPdf_newasimovData_with_constr")
+                fr_abs = f_result_abs.Get("nll_simPdf_newasimovData_with_constr")
 
-            # stat-only normalization factors
-            f_result_stat = ROOT.TFile(os.path.join(obs["fit_results"], obs_fit, "Fits", f"{obs_fit}_statOnly.root"), "READ")
-            f_result2_stat = ROOT.TFile(os.path.join(obs["fit_results"], obs_fit2, "Fits", f"{obs_fit2}_statOnly.root"), "READ")
-            f_result_abs_stat = ROOT.TFile(os.path.join(obs["fit_results"], obs_fit_abs, "Fits", f"{obs_fit_abs}_statOnly.root"), "READ")
-            fr_stat = f_result_stat.Get("nll_simPdf_newasimovData_with_constr")
-            fr2_stat = f_result2_stat.Get("nll_simPdf_newasimovData_with_constr")
-            fr_abs_stat = f_result_abs_stat.Get("nll_simPdf_newasimovData_with_constr")
+                # stat-only normalization factors
+                f_result_stat = ROOT.TFile(os.path.join(obs["fit_results"], obs_fit, "Fits", f"{obs_fit}_statOnly.root"), "READ")
+                f_result2_stat = ROOT.TFile(os.path.join(obs["fit_results"], obs_fit2, "Fits", f"{obs_fit2}_statOnly.root"), "READ")
+                f_result_abs_stat = ROOT.TFile(os.path.join(obs["fit_results"], obs_fit_abs, "Fits", f"{obs_fit_abs}_statOnly.root"), "READ")
+                fr_stat = f_result_stat.Get("nll_simPdf_newasimovData_with_constr")
+                fr2_stat = f_result2_stat.Get("nll_simPdf_newasimovData_with_constr")
+                fr_abs_stat = f_result_abs_stat.Get("nll_simPdf_newasimovData_with_constr")
 
-            # read POIs
-            POIs_obs = {}
-            POIs_stat = {}
-            for POI in POIs_default:
-                par = fr.floatParsFinal().find(POI)
-                par_stat = fr_stat.floatParsFinal().find(POI)
-                POIs_obs[POI] = [par.getVal(), par.getErrorHi(), par.getErrorLo()]
-                POIs_stat[POI] = [par_stat.getVal(), par_stat.getErrorHi(), par_stat.getErrorLo()]
-            for POI in POIs_default2:
-                par = fr2.floatParsFinal().find(POI)
-                par_stat = fr2_stat.floatParsFinal().find(POI)
-                POIs_obs[POI] = [par.getVal(), par.getErrorHi(), par.getErrorLo()]
-                POIs_stat[POI] = [par_stat.getVal(), par_stat.getErrorHi(), par_stat.getErrorLo()]
-            for POI in POIs_abs:
-                par = fr_abs.floatParsFinal().find(POI)
-                par_stat = fr_abs_stat.floatParsFinal().find(POI)
-                POIs_obs[POI] = [par.getVal(), par.getErrorHi(), par.getErrorLo()]
-                POIs_stat[POI] = [par_stat.getVal(), par_stat.getErrorHi(), par_stat.getErrorLo()]
+                # read POIs
+                POIs_obs = {}
+                POIs_stat = {}
+                for POI in POIs_default:
+                    par = fr.floatParsFinal().find(POI)
+                    par_stat = fr_stat.floatParsFinal().find(POI)
+                    POIs_obs[POI] = [par.getVal(), par.getErrorHi(), par.getErrorLo()]
+                    POIs_stat[POI] = [par_stat.getVal(), par_stat.getErrorHi(), par_stat.getErrorLo()]
+                for POI in POIs_default2:
+                    par = fr2.floatParsFinal().find(POI)
+                    par_stat = fr2_stat.floatParsFinal().find(POI)
+                    POIs_obs[POI] = [par.getVal(), par.getErrorHi(), par.getErrorLo()]
+                    POIs_stat[POI] = [par_stat.getVal(), par_stat.getErrorHi(), par_stat.getErrorLo()]
+                for POI in POIs_abs:
+                    par = fr_abs.floatParsFinal().find(POI)
+                    par_stat = fr_abs_stat.floatParsFinal().find(POI)
+                    POIs_obs[POI] = [par.getVal(), par.getErrorHi(), par.getErrorLo()]
+                    POIs_stat[POI] = [par_stat.getVal(), par_stat.getErrorHi(), par_stat.getErrorLo()]
 
-            print("============ post fit results ============")
-            for key, val in POIs_obs.items():
-                print(f"{key}: {val}")
+                print("============ post fit results ============")
+                for key, val in POIs_obs.items():
+                    print(f"{key}: {val}")
 
-            print("============ post fit results (stat err) ============")
-            for key, val in POIs_stat.items():
-                print(f"{key}: {val}")
+                print("============ post fit results (stat err) ============")
+                for key, val in POIs_stat.items():
+                    print(f"{key}: {val}")
 
             # --------------------------------------------
             # Step 2: make TGraph objects
             # --------------------------------------------
             for lep in ["minus", "plus"]:
-                gr_obs = ROOT.TGraphAsymmErrors()
-                gr_obs_norm = ROOT.TGraphAsymmErrors()
-                gr_obs_ratio = ROOT.TGraphAsymmErrors()
-                gr_obs_norm_ratio = ROOT.TGraphAsymmErrors()
-                gr_obs_norm_ratio_stat = ROOT.TGraphAsymmErrors()
-                gr_obs_sys = ROOT.TGraphAsymmErrors()
-                gr_obs_norm_sys = ROOT.TGraphAsymmErrors()
-                for i in range(len(obs["bins"]) - 1):
-                    xl = obs["bins"][i]
-                    xh = obs["bins"][i + 1]
-                    w = xh - xl
+                if options.decay in ["Dplus", "Dstar"]:
+                    gr_obs = ROOT.TGraphAsymmErrors()
+                    gr_obs_norm = ROOT.TGraphAsymmErrors()
+                    gr_obs_ratio = ROOT.TGraphAsymmErrors()
+                    gr_obs_norm_ratio = ROOT.TGraphAsymmErrors()
+                    gr_obs_norm_ratio_stat = ROOT.TGraphAsymmErrors()
+                    gr_obs_sys = ROOT.TGraphAsymmErrors()
+                    gr_obs_norm_sys = ROOT.TGraphAsymmErrors()
+                    for i in range(len(obs["bins"]) - 1):
+                        xl = obs["bins"][i]
+                        xh = obs["bins"][i + 1]
+                        w = xh - xl
 
-                    # prior relative cross section
-                    y_prior = float(priors[f"W{lep}_{i + 1}"])
-                    y_rel = y_prior / float(priors[f"W{lep}"])
+                        # prior relative cross section
+                        y_prior = float(priors[f"W{lep}_{i + 1}"])
+                        y_rel = y_prior / float(priors[f"W{lep}"])
 
-                    y = float(POIs_obs[f"mu_W{lep}_{i + 1}"][0]) * y_prior
-                    y_up = float(POIs_obs[f"mu_W{lep}_{i + 1}"][1]) * y_prior
-                    y_dn = float(POIs_obs[f"mu_W{lep}_{i + 1}"][1]) * y_prior
-                    y_up_stat = float(POIs_stat[f"mu_W{lep}_{i + 1}"][1]) * y_prior
-                    y_dn_stat = float(POIs_stat[f"mu_W{lep}_{i + 1}"][1]) * y_prior
-                    y_up_sys = (y_up**2 - y_up_stat**2)**(0.5)
-                    y_dn_sys = (y_dn**2 - y_dn_stat**2)**(0.5)
-                    y_norm = float(POIs_obs[f"mu_W{lep}_rel_{i + 1}"][0]) * y_rel
-                    y_norm_up = float(POIs_obs[f"mu_W{lep}_rel_{i + 1}"][1]) * y_rel
-                    y_norm_dn = float(POIs_obs[f"mu_W{lep}_rel_{i + 1}"][2]) * y_rel
-                    y_norm_up_stat = float(POIs_stat[f"mu_W{lep}_rel_{i + 1}"][1]) * y_rel
-                    y_norm_dn_stat = float(POIs_stat[f"mu_W{lep}_rel_{i + 1}"][2]) * y_rel
-                    y_norm_up_sys = (y_norm_up**2 - y_norm_up_stat**2)**(0.5)
-                    y_norm_dn_sys = (y_norm_dn**2 - y_norm_dn_stat**2)**(0.5)
+                        y = float(POIs_obs[f"mu_W{lep}_{i + 1}"][0]) * y_prior
+                        y_up = float(POIs_obs[f"mu_W{lep}_{i + 1}"][1]) * y_prior
+                        y_dn = float(POIs_obs[f"mu_W{lep}_{i + 1}"][1]) * y_prior
+                        y_up_stat = float(POIs_stat[f"mu_W{lep}_{i + 1}"][1]) * y_prior
+                        y_dn_stat = float(POIs_stat[f"mu_W{lep}_{i + 1}"][1]) * y_prior
+                        y_up_sys = (y_up**2 - y_up_stat**2)**(0.5)
+                        y_dn_sys = (y_dn**2 - y_dn_stat**2)**(0.5)
+                        y_norm = float(POIs_obs[f"mu_W{lep}_rel_{i + 1}"][0]) * y_rel
+                        y_norm_up = float(POIs_obs[f"mu_W{lep}_rel_{i + 1}"][1]) * y_rel
+                        y_norm_dn = float(POIs_obs[f"mu_W{lep}_rel_{i + 1}"][2]) * y_rel
+                        y_norm_up_stat = float(POIs_stat[f"mu_W{lep}_rel_{i + 1}"][1]) * y_rel
+                        y_norm_dn_stat = float(POIs_stat[f"mu_W{lep}_rel_{i + 1}"][2]) * y_rel
+                        y_norm_up_sys = (y_norm_up**2 - y_norm_up_stat**2)**(0.5)
+                        y_norm_dn_sys = (y_norm_dn**2 - y_norm_dn_stat**2)**(0.5)
 
-                    # fill graphs
-                    if obs["logx"]:
-                        xc = ROOT.TMath.Power(10, ROOT.TMath.Log10(xl) + (ROOT.TMath.Log10(xl + w) - ROOT.TMath.Log10(xl)) / 2.)
+                        # fill graphs
+                        if obs["logx"]:
+                            xc = ROOT.TMath.Power(10, ROOT.TMath.Log10(xl) + (ROOT.TMath.Log10(xl + w) - ROOT.TMath.Log10(xl)) / 2.)
+                        else:
+                            xc = xl + w / 2.
+                        xc_up = xl + w - xc
+                        xc_dn = xc - xl
+                        gr_obs.SetPoint(i, xc, y)
+                        gr_obs.SetPointError(i, xc_dn, xc_up, abs(y_dn), abs(y_up))
+                        gr_obs_norm.SetPoint(i, xc, y_norm)
+                        gr_obs_norm.SetPointError(i, xc_dn, xc_up, abs(y_norm_dn), abs(y_norm_up))
+                        gr_obs_ratio.SetPoint(i, xc, 1.0)
+                        gr_obs_ratio.SetPointError(i, xc_dn, xc_up, abs(y_dn / y), abs(y_up / y))
+                        gr_obs_norm_ratio.SetPoint(i, xc, 1.0)
+                        gr_obs_norm_ratio.SetPointError(i, xc_dn, xc_up, abs(y_norm_dn / y_norm), abs(y_norm_up / y_norm))
+                        gr_obs_norm_ratio_stat.SetPoint(i, xc, 1.0)
+                        gr_obs_norm_ratio_stat.SetPointError(i, xc_dn, xc_up, abs(y_norm_dn_stat / y_norm), abs(y_norm_up_stat / y_norm))
+                        gr_obs_sys.SetPoint(i, xc, y)
+                        gr_obs_norm_sys.SetPoint(i, xc, y_norm)
+                        if obs["logx"]:
+                            x_err_up = ROOT.TMath.Power(10, ROOT.TMath.Log10(
+                                xc) + (ROOT.TMath.Log10(obs["bins"][-1]) - ROOT.TMath.Log10(obs["bins"][0])) / 200.) - xc
+                            x_err_dn = xc - ROOT.TMath.Power(10, ROOT.TMath.Log10(xc) -
+                                                            (ROOT.TMath.Log10(obs["bins"][-1]) - ROOT.TMath.Log10(obs["bins"][0])) / 200.)
+                            gr_obs_sys.SetPointError(i, x_err_up, x_err_up, abs(y_dn_sys), abs(y_up_sys))
+                            gr_obs_norm_sys.SetPointError(i, x_err_up, x_err_up, abs(y_norm_dn_sys), abs(y_norm_up_sys))
+                        else:
+                            gr_obs_sys.SetPointError(i, xc_dn / 15., xc_up / 15., abs(y_dn_sys), abs(y_up_sys))
+                            gr_obs_norm_sys.SetPointError(i, xc_dn / 15., xc_up / 15., abs(y_norm_dn_sys), abs(y_norm_up_sys))
+
+                    # line width
+                    gr_obs.SetLineWidth(2)
+                    gr_obs_norm.SetLineWidth(2)
+                    gr_obs_ratio.SetLineWidth(0)
+                    gr_obs_norm_ratio.SetLineWidth(0)
+                    gr_obs.SetMarkerSize(1.5)
+                    gr_obs_norm.SetMarkerSize(1.5)
+                    gr_obs_norm.SetMarkerStyle(4)
+                    gr_obs.SetMarkerStyle(4)
+
+                    # fill
+                    gr_obs_sys.SetLineColor(ROOT.kBlack)
+                    gr_obs_norm_sys.SetLineColor(ROOT.kBlack)
+                    gr_obs_ratio.SetFillColor(ROOT.kGray)
+                    # gr_obs_norm_ratio.SetFillColor(ROOT.kGray + 1)
+                    gr_obs_norm_ratio.SetFillColor(ROOT.kGray)
+                    gr_obs_norm_ratio_stat.SetFillColor(ROOT.kGray + 2)
+                    gr_obs_norm_ratio_stat.SetLineColor(ROOT.kGray + 2)
+
+                    # multigraph
+                    mg_obs = ROOT.TMultiGraph()
+                    mg_obs_norm = ROOT.TMultiGraph()
+                    mg_obs_ratio = ROOT.TMultiGraph()
+                    mg_obs_ratio_theory = ROOT.TMultiGraph()
+
+                    # axis title
+                    mg_obs.GetYaxis().SetTitle(f"d#sigma/d({obs['label']}) [pb / bin]")
+                    mg_obs_norm.GetYaxis().SetTitle(f"1/#sigma d#sigma/d({obs['label']})")
+                    mg_obs_ratio.GetYaxis().SetTitle(f"#frac{{Theory}}{{1/#sigma d#sigma/d({obs['label']})}}")
+                    if obs_name == "pt":
+                        mg_obs_ratio.GetXaxis().SetTitle(obs['label'] + " [GeV]")
                     else:
-                        xc = xl + w / 2.
-                    xc_up = xl + w - xc
-                    xc_dn = xc - xl
-                    gr_obs.SetPoint(i, xc, y)
-                    gr_obs.SetPointError(i, xc_dn, xc_up, abs(y_dn), abs(y_up))
-                    gr_obs_norm.SetPoint(i, xc, y_norm)
-                    gr_obs_norm.SetPointError(i, xc_dn, xc_up, abs(y_norm_dn), abs(y_norm_up))
-                    gr_obs_ratio.SetPoint(i, xc, 1.0)
-                    gr_obs_ratio.SetPointError(i, xc_dn, xc_up, abs(y_dn / y), abs(y_up / y))
-                    gr_obs_norm_ratio.SetPoint(i, xc, 1.0)
-                    gr_obs_norm_ratio.SetPointError(i, xc_dn, xc_up, abs(y_norm_dn / y_norm), abs(y_norm_up / y_norm))
-                    gr_obs_norm_ratio_stat.SetPoint(i, xc, 1.0)
-                    gr_obs_norm_ratio_stat.SetPointError(i, xc_dn, xc_up, abs(y_norm_dn_stat / y_norm), abs(y_norm_up_stat / y_norm))
-                    gr_obs_sys.SetPoint(i, xc, y)
-                    gr_obs_norm_sys.SetPoint(i, xc, y_norm)
-                    if obs["logx"]:
-                        x_err_up = ROOT.TMath.Power(10, ROOT.TMath.Log10(
-                            xc) + (ROOT.TMath.Log10(obs["bins"][-1]) - ROOT.TMath.Log10(obs["bins"][0])) / 200.) - xc
-                        x_err_dn = xc - ROOT.TMath.Power(10, ROOT.TMath.Log10(xc) -
-                                                         (ROOT.TMath.Log10(obs["bins"][-1]) - ROOT.TMath.Log10(obs["bins"][0])) / 200.)
-                        gr_obs_sys.SetPointError(i, x_err_up, x_err_up, abs(y_dn_sys), abs(y_up_sys))
-                        gr_obs_norm_sys.SetPointError(i, x_err_up, x_err_up, abs(y_norm_dn_sys), abs(y_norm_up_sys))
+                        mg_obs_ratio.GetXaxis().SetTitle("|" + obs['label'] + "|")
+
+                    # label and title size
+                    GLOBAL_SF = 1.3
+                    mg_obs.GetXaxis().SetLabelSize(0)
+                    mg_obs.GetYaxis().SetTitleSize(mg_obs.GetYaxis().GetTitleSize() * GLOBAL_SF)
+                    mg_obs.GetYaxis().SetTitleOffset(mg_obs.GetYaxis().GetTitleOffset() * (1 / (GLOBAL_SF * 1.1)))
+                    mg_obs.GetYaxis().SetLabelSize(mg_obs.GetYaxis().GetLabelSize() * GLOBAL_SF)
+
+                    SF = 0.55 / 0.30
+                    mg_obs_norm.GetXaxis().SetLabelSize(0)
+                    mg_obs_norm.GetYaxis().SetTitleSize(mg_obs_norm.GetYaxis().GetTitleSize() * SF * GLOBAL_SF)
+                    mg_obs_norm.GetYaxis().SetTitleOffset(mg_obs_norm.GetYaxis().GetTitleOffset() * (1 / (GLOBAL_SF * 1.1 * SF)))
+                    mg_obs_norm.GetYaxis().SetLabelSize(mg_obs_norm.GetYaxis().GetLabelSize() * SF * GLOBAL_SF)
+                    # mg_obs_norm.GetYaxis().CenterTitle()
+
+                    SF = 0.55 / 0.35
+                    mg_obs_ratio.GetYaxis().SetTitleSize(mg_obs_ratio.GetYaxis().GetTitleSize() * SF * GLOBAL_SF)
+                    mg_obs_ratio.GetYaxis().SetTitleOffset(mg_obs_ratio.GetYaxis().GetTitleOffset() * (1 / (GLOBAL_SF * 0.98 * SF)))
+                    mg_obs_ratio.GetXaxis().SetTitleSize(mg_obs_ratio.GetXaxis().GetTitleSize() * SF * GLOBAL_SF)
+                    mg_obs_ratio.GetXaxis().SetTitleOffset(mg_obs_ratio.GetXaxis().GetTitleOffset() * (1 / (GLOBAL_SF * 0.6 * SF)))
+                    mg_obs_ratio.GetYaxis().SetLabelSize(mg_obs_ratio.GetYaxis().GetLabelSize() * SF * GLOBAL_SF)
+                    mg_obs_ratio.GetXaxis().SetLabelSize(mg_obs_ratio.GetXaxis().GetLabelSize() * SF * GLOBAL_SF)
+                    mg_obs_ratio.GetYaxis().CenterTitle()
+
+                    # tick marks
+                    mg_obs.GetYaxis().SetNdivisions(506)
+                    mg_obs_norm.GetYaxis().SetNdivisions(504)
+                    mg_obs_ratio.GetYaxis().SetNdivisions(306)
+
+                    # log x-axis
+                    mg_obs_ratio.GetXaxis().SetMoreLogLabels()
+                    mg_obs_ratio.GetXaxis().SetNoExponent()
+
+                    # legend
+                    N = 3 + len(theory_dict)
+                    if plot_type in ["PDF_comparison", "NLO_PDF_comparison"]:
+                        leg = ROOT.TLegend(0.45, 0.87 - (N // 2) * 0.050, 0.92, 0.87)
+                        leg.SetNColumns(2)
+                        leg.SetBorderSize(0)
+                        leg.SetFillColor(0)
+                        leg.SetFillStyle(0)
+                        leg.SetTextSize(30)
+                        leg.SetTextFont(43)
+                        leg.AddEntry(gr_obs, "Data", "pe")
+                        leg.AddEntry(gr_obs_sys, "Syst. Unc.", "f")
+                        leg.AddEntry(gr_obs_norm_ratio_stat, "Stat. Unc.", "f")
+                        leg.AddEntry(gr_obs_norm_ratio, "Syst. #oplus Stat.", "f")
                     else:
-                        gr_obs_sys.SetPointError(i, xc_dn / 15., xc_up / 15., abs(y_dn_sys), abs(y_up_sys))
-                        gr_obs_norm_sys.SetPointError(i, xc_dn / 15., xc_up / 15., abs(y_norm_dn_sys), abs(y_norm_up_sys))
+                        leg = ROOT.TLegend(0.45, 0.87 - 2 * 0.050, 0.92, 0.87)
+                        leg.SetNColumns(2)
+                        leg.SetBorderSize(0)
+                        leg.SetFillColor(0)
+                        leg.SetFillStyle(0)
+                        leg.SetTextSize(30)
+                        leg.SetTextFont(43)
+                        leg.AddEntry(gr_obs, "Data", "pe")
+                        leg.AddEntry(gr_obs_sys, "Syst. Unc.", "f")
+                        leg.AddEntry(gr_obs_norm_ratio_stat, "Stat. Unc.", "f")
+                        leg.AddEntry(gr_obs_norm_ratio, "Syst. #oplus Stat.", "f")
 
-                # line width
-                gr_obs.SetLineWidth(2)
-                gr_obs_norm.SetLineWidth(2)
-                gr_obs_ratio.SetLineWidth(0)
-                gr_obs_norm_ratio.SetLineWidth(0)
-                gr_obs.SetMarkerSize(1.5)
-                gr_obs_norm.SetMarkerSize(1.5)
-                gr_obs_norm.SetMarkerStyle(4)
-                gr_obs.SetMarkerStyle(4)
+                        # separate legend for predictions
+                        leg2 = ROOT.TLegend(0.45, 0.87 - (2 + len(theory_dict)) * 0.050, 0.45 + (0.92 - 0.45) / 2., 0.87 - 2 * 0.050)
+                        leg2.SetBorderSize(0)
+                        leg2.SetFillColor(0)
+                        leg2.SetFillStyle(0)
+                        leg2.SetTextSize(30)
+                        leg2.SetTextFont(43)
 
-                # fill
-                gr_obs_sys.SetLineColor(ROOT.kBlack)
-                gr_obs_norm_sys.SetLineColor(ROOT.kBlack)
-                gr_obs_ratio.SetFillColor(ROOT.kGray)
-                # gr_obs_norm_ratio.SetFillColor(ROOT.kGray + 1)
-                gr_obs_norm_ratio.SetFillColor(ROOT.kGray)
-                gr_obs_norm_ratio_stat.SetFillColor(ROOT.kGray + 2)
-                gr_obs_norm_ratio_stat.SetLineColor(ROOT.kGray + 2)
+                    # add to ratio multigraph
+                    mg_obs_ratio.Add(gr_obs_norm_ratio, "0e2")
+                    mg_obs_ratio.Add(gr_obs_norm_ratio_stat, "0e2")
 
-                # multigraph
-                mg_obs = ROOT.TMultiGraph()
-                mg_obs_norm = ROOT.TMultiGraph()
-                mg_obs_ratio = ROOT.TMultiGraph()
-                mg_obs_ratio_theory = ROOT.TMultiGraph()
-
-                # axis title
-                mg_obs.GetYaxis().SetTitle(f"d#sigma/d({obs['label']}) [pb / bin]")
-                mg_obs_norm.GetYaxis().SetTitle(f"1/#sigma d#sigma/d({obs['label']})")
-                mg_obs_ratio.GetYaxis().SetTitle(f"#frac{{Theory}}{{1/#sigma d#sigma/d({obs['label']})}}")
-                if obs_name == "pt":
-                    mg_obs_ratio.GetXaxis().SetTitle(obs['label'] + " [GeV]")
-                else:
-                    mg_obs_ratio.GetXaxis().SetTitle("|" + obs['label'] + "|")
-
-                # label and title size
-                GLOBAL_SF = 1.3
-                mg_obs.GetXaxis().SetLabelSize(0)
-                mg_obs.GetYaxis().SetTitleSize(mg_obs.GetYaxis().GetTitleSize() * GLOBAL_SF)
-                mg_obs.GetYaxis().SetTitleOffset(mg_obs.GetYaxis().GetTitleOffset() * (1 / (GLOBAL_SF * 1.1)))
-                mg_obs.GetYaxis().SetLabelSize(mg_obs.GetYaxis().GetLabelSize() * GLOBAL_SF)
-
-                SF = 0.55 / 0.30
-                mg_obs_norm.GetXaxis().SetLabelSize(0)
-                mg_obs_norm.GetYaxis().SetTitleSize(mg_obs_norm.GetYaxis().GetTitleSize() * SF * GLOBAL_SF)
-                mg_obs_norm.GetYaxis().SetTitleOffset(mg_obs_norm.GetYaxis().GetTitleOffset() * (1 / (GLOBAL_SF * 1.1 * SF)))
-                mg_obs_norm.GetYaxis().SetLabelSize(mg_obs_norm.GetYaxis().GetLabelSize() * SF * GLOBAL_SF)
-                # mg_obs_norm.GetYaxis().CenterTitle()
-
-                SF = 0.55 / 0.35
-                mg_obs_ratio.GetYaxis().SetTitleSize(mg_obs_ratio.GetYaxis().GetTitleSize() * SF * GLOBAL_SF)
-                mg_obs_ratio.GetYaxis().SetTitleOffset(mg_obs_ratio.GetYaxis().GetTitleOffset() * (1 / (GLOBAL_SF * 0.98 * SF)))
-                mg_obs_ratio.GetXaxis().SetTitleSize(mg_obs_ratio.GetXaxis().GetTitleSize() * SF * GLOBAL_SF)
-                mg_obs_ratio.GetXaxis().SetTitleOffset(mg_obs_ratio.GetXaxis().GetTitleOffset() * (1 / (GLOBAL_SF * 0.6 * SF)))
-                mg_obs_ratio.GetYaxis().SetLabelSize(mg_obs_ratio.GetYaxis().GetLabelSize() * SF * GLOBAL_SF)
-                mg_obs_ratio.GetXaxis().SetLabelSize(mg_obs_ratio.GetXaxis().GetLabelSize() * SF * GLOBAL_SF)
-                mg_obs_ratio.GetYaxis().CenterTitle()
-
-                # tick marks
-                mg_obs.GetYaxis().SetNdivisions(506)
-                mg_obs_norm.GetYaxis().SetNdivisions(504)
-                mg_obs_ratio.GetYaxis().SetNdivisions(306)
-
-                # log x-axis
-                mg_obs_ratio.GetXaxis().SetMoreLogLabels()
-                mg_obs_ratio.GetXaxis().SetNoExponent()
-
-                # legend
-                N = 3 + len(theory_dict)
-                if plot_type in ["PDF_comparison", "NLO_PDF_comparison"]:
-                    leg = ROOT.TLegend(0.45, 0.87 - (N // 2) * 0.050, 0.92, 0.87)
-                    leg.SetNColumns(2)
-                    leg.SetBorderSize(0)
-                    leg.SetFillColor(0)
-                    leg.SetFillStyle(0)
-                    leg.SetTextSize(30)
-                    leg.SetTextFont(43)
-                    leg.AddEntry(gr_obs, "Data", "pe")
-                    leg.AddEntry(gr_obs_sys, "Syst. Unc.", "f")
-                    leg.AddEntry(gr_obs_norm_ratio_stat, "Stat. Unc.", "f")
-                    leg.AddEntry(gr_obs_norm_ratio, "Syst. #oplus Stat.", "f")
-                else:
-                    leg = ROOT.TLegend(0.45, 0.87 - 2 * 0.050, 0.92, 0.87)
-                    leg.SetNColumns(2)
-                    leg.SetBorderSize(0)
-                    leg.SetFillColor(0)
-                    leg.SetFillStyle(0)
-                    leg.SetTextSize(30)
-                    leg.SetTextFont(43)
-                    leg.AddEntry(gr_obs, "Data", "pe")
-                    leg.AddEntry(gr_obs_sys, "Syst. Unc.", "f")
-                    leg.AddEntry(gr_obs_norm_ratio_stat, "Stat. Unc.", "f")
-                    leg.AddEntry(gr_obs_norm_ratio, "Syst. #oplus Stat.", "f")
-
-                    # separate legend for predictions
-                    leg2 = ROOT.TLegend(0.45, 0.87 - (2 + len(theory_dict)) * 0.050, 0.45 + (0.92 - 0.45) / 2., 0.87 - 2 * 0.050)
-                    leg2.SetBorderSize(0)
-                    leg2.SetFillColor(0)
-                    leg2.SetFillStyle(0)
-                    leg2.SetTextSize(30)
-                    leg2.SetTextFont(43)
-
-                # add to ratio multigraph
-                mg_obs_ratio.Add(gr_obs_norm_ratio, "0e2")
-                mg_obs_ratio.Add(gr_obs_norm_ratio_stat, "0e2")
+                    # add graphs
+                    mg_obs.Add(gr_obs_sys, "0e5")
+                    mg_obs.Add(gr_obs, "pe0")
+                    mg_obs_norm.Add(gr_obs_norm_sys, "0e5")
+                    mg_obs_norm.Add(gr_obs_norm, "pe0")
 
                 # --------------------------------------------
                 # Step 2.5: theory comparisons
                 # --------------------------------------------
-
-                # add graphs
-                mg_obs.Add(gr_obs_sys, "0e5")
-                mg_obs.Add(gr_obs, "pe0")
-                mg_obs_norm.Add(gr_obs_norm_sys, "0e5")
-                mg_obs_norm.Add(gr_obs_norm, "pe0")
 
                 # file with theory predictions and uncertainties
                 f_theory = ROOT.TFile(os.path.join(DIR_THEORY, "predictions.root"))
@@ -688,201 +690,203 @@ def main(options, args):
                     gr_theory_norm.SetMarkerStyle(prediction_dict["markerStyle"])
 
                     # fill the theory graphs
-                    offset = 0 if lep == "plus" else 5
-                    for i in range(5):
-                        # absolute cross section
-                        gr_theory.SetPoint(i, gr_obs.GetX()[i], h_theory.GetBinContent(i + 1 + offset))
-                        err_pdf_up = h_theory_pdf_up.GetBinContent(i + 1 + offset) - h_theory.GetBinContent(i + 1 + offset)
-                        err_pdf_dn = h_theory.GetBinContent(i + 1 + offset) - h_theory_pdf_dn.GetBinContent(i + 1 + offset)
-                        err_qcd_up = h_theory.GetBinContent(i + 1 + offset) * h_theory_qcd_up.GetBinContent(i +
-                                                                                                            1 + offset) - h_theory.GetBinContent(i + 1 + offset)
-                        err_qcd_dn = h_theory.GetBinContent(i + 1 + offset) - h_theory.GetBinContent(i + 1 + offset) * \
-                            h_theory_qcd_dn.GetBinContent(i + 1 + offset)
-                        vals = [h.GetBinContent(i + 1 + offset) for h in h_list]
-                        err_hadronization = (max(vals) - min(vals)) / 2.
-                        err_prod_frac = 0.028 if options.decay == "Dplus" else 0.020
-                        err_prod_frac *= h_theory.GetBinContent(i + 1 + offset)
-                        err_up = err_pdf_up * err_pdf_up + err_qcd_up * err_qcd_up + err_hadronization * err_hadronization + err_prod_frac * err_prod_frac
-                        err_dn = err_pdf_dn * err_pdf_dn + err_qcd_dn * err_qcd_dn + err_hadronization * err_hadronization + err_prod_frac * err_prod_frac
-                        gr_theory.SetPointError(i, 0, 0, err_up**0.5, err_dn**0.5)
+                    if options.decay in ["Dplus", "Dstar"]:
+                        offset = 0 if lep == "plus" else 5
+                        for i in range(5):
+                            # absolute cross section
+                            gr_theory.SetPoint(i, gr_obs.GetX()[i], h_theory.GetBinContent(i + 1 + offset))
+                            err_pdf_up = h_theory_pdf_up.GetBinContent(i + 1 + offset) - h_theory.GetBinContent(i + 1 + offset)
+                            err_pdf_dn = h_theory.GetBinContent(i + 1 + offset) - h_theory_pdf_dn.GetBinContent(i + 1 + offset)
+                            err_qcd_up = h_theory.GetBinContent(i + 1 + offset) * h_theory_qcd_up.GetBinContent(i +
+                                                                                                                1 + offset) - h_theory.GetBinContent(i + 1 + offset)
+                            err_qcd_dn = h_theory.GetBinContent(i + 1 + offset) - h_theory.GetBinContent(i + 1 + offset) * \
+                                h_theory_qcd_dn.GetBinContent(i + 1 + offset)
+                            vals = [h.GetBinContent(i + 1 + offset) for h in h_list]
+                            err_hadronization = (max(vals) - min(vals)) / 2.
+                            err_prod_frac = 0.028 if options.decay == "Dplus" else 0.020
+                            err_prod_frac *= h_theory.GetBinContent(i + 1 + offset)
+                            err_up = err_pdf_up * err_pdf_up + err_qcd_up * err_qcd_up + err_hadronization * err_hadronization + err_prod_frac * err_prod_frac
+                            err_dn = err_pdf_dn * err_pdf_dn + err_qcd_dn * err_qcd_dn + err_hadronization * err_hadronization + err_prod_frac * err_prod_frac
+                            gr_theory.SetPointError(i, 0, 0, err_up**0.5, err_dn**0.5)
 
-                        # normalized cross section
-                        gr_theory_norm.SetPoint(i, gr_obs.GetX()[i], h_theory_rel.GetBinContent(i + 1 + offset))
-                        err_pdf_up = h_theory_rel_pdf_up.GetBinContent(i + 1 + offset) - h_theory_rel.GetBinContent(i + 1 + offset)
-                        err_pdf_dn = h_theory_rel.GetBinContent(i + 1 + offset) - h_theory_rel_pdf_dn.GetBinContent(i + 1 + offset)
-                        err_qcd_up = h_theory_rel.GetBinContent(i + 1 + offset) * h_theory_rel_qcd_up.GetBinContent(i +
-                                                                                                                    1 + offset) - h_theory_rel.GetBinContent(i + 1 + offset)
-                        err_qcd_dn = h_theory_rel.GetBinContent(i + 1 + offset) - h_theory_rel.GetBinContent(i + 1 +
-                                                                                                             offset) * h_theory_rel_qcd_dn.GetBinContent(i + 1 + offset)
-                        vals = [h.GetBinContent(i + 1 + offset) for h in h_rel_list]
-                        err_hadronization = (max(vals) - min(vals)) / 2.
-                        err_up = err_pdf_up * err_pdf_up + err_qcd_up * err_qcd_up + err_hadronization * err_hadronization
-                        err_dn = err_pdf_dn * err_pdf_dn + err_qcd_dn * err_qcd_dn + err_hadronization * err_hadronization
-                        gr_theory_norm.SetPointError(i, 0, 0, err_up**0.5, err_dn**0.5)
+                            # normalized cross section
+                            gr_theory_norm.SetPoint(i, gr_obs.GetX()[i], h_theory_rel.GetBinContent(i + 1 + offset))
+                            err_pdf_up = h_theory_rel_pdf_up.GetBinContent(i + 1 + offset) - h_theory_rel.GetBinContent(i + 1 + offset)
+                            err_pdf_dn = h_theory_rel.GetBinContent(i + 1 + offset) - h_theory_rel_pdf_dn.GetBinContent(i + 1 + offset)
+                            err_qcd_up = h_theory_rel.GetBinContent(i + 1 + offset) * h_theory_rel_qcd_up.GetBinContent(i +
+                                                                                                                        1 + offset) - h_theory_rel.GetBinContent(i + 1 + offset)
+                            err_qcd_dn = h_theory_rel.GetBinContent(i + 1 + offset) - h_theory_rel.GetBinContent(i + 1 +
+                                                                                                                offset) * h_theory_rel_qcd_dn.GetBinContent(i + 1 + offset)
+                            vals = [h.GetBinContent(i + 1 + offset) for h in h_rel_list]
+                            err_hadronization = (max(vals) - min(vals)) / 2.
+                            err_up = err_pdf_up * err_pdf_up + err_qcd_up * err_qcd_up + err_hadronization * err_hadronization
+                            err_dn = err_pdf_dn * err_pdf_dn + err_qcd_dn * err_qcd_dn + err_hadronization * err_hadronization
+                            gr_theory_norm.SetPointError(i, 0, 0, err_up**0.5, err_dn**0.5)
 
-                    # offset
-                    for i in range(gr_theory.GetN()):
+                        # offset
+                        for i in range(gr_theory.GetN()):
 
-                        xl = obs["bins"][i]
-                        xh = obs["bins"][i + 1]
-                        w = xh - xl
-                        if obs["logx"]:
-                            xc = ROOT.TMath.Power(10, ROOT.TMath.Log10(xl) + (ROOT.TMath.Log10(xl + w) - ROOT.TMath.Log10(xl)) / 2. +
-                                                  prediction_dict["offset"] * (ROOT.TMath.Log10(xl + w) - ROOT.TMath.Log10(xl)) / 2.)
-                            x_err_up = ROOT.TMath.Power(10, ROOT.TMath.Log10(
-                                xc) + (ROOT.TMath.Log10(obs["bins"][-1]) - ROOT.TMath.Log10(obs["bins"][0])) / 200.) - xc
-                            x_err_dn = xc - ROOT.TMath.Power(10, ROOT.TMath.Log10(xc) -
-                                                             (ROOT.TMath.Log10(obs["bins"][-1]) - ROOT.TMath.Log10(obs["bins"][0])) / 200.)
-                            gr_theory.GetX()[i] = ROOT.TMath.Power(10, ROOT.TMath.Log10(xc) +
-                                                                   (ROOT.TMath.Log10(obs["bins"][-1]) - ROOT.TMath.Log10(obs["bins"][0])) / 200.) - xc
+                            xl = obs["bins"][i]
+                            xh = obs["bins"][i + 1]
+                            w = xh - xl
+                            if obs["logx"]:
+                                xc = ROOT.TMath.Power(10, ROOT.TMath.Log10(xl) + (ROOT.TMath.Log10(xl + w) - ROOT.TMath.Log10(xl)) / 2. +
+                                                    prediction_dict["offset"] * (ROOT.TMath.Log10(xl + w) - ROOT.TMath.Log10(xl)) / 2.)
+                                x_err_up = ROOT.TMath.Power(10, ROOT.TMath.Log10(
+                                    xc) + (ROOT.TMath.Log10(obs["bins"][-1]) - ROOT.TMath.Log10(obs["bins"][0])) / 200.) - xc
+                                x_err_dn = xc - ROOT.TMath.Power(10, ROOT.TMath.Log10(xc) -
+                                                                (ROOT.TMath.Log10(obs["bins"][-1]) - ROOT.TMath.Log10(obs["bins"][0])) / 200.)
+                                gr_theory.GetX()[i] = ROOT.TMath.Power(10, ROOT.TMath.Log10(xc) +
+                                                                    (ROOT.TMath.Log10(obs["bins"][-1]) - ROOT.TMath.Log10(obs["bins"][0])) / 200.) - xc
+                            else:
+                                offset = prediction_dict["offset"] * gr_obs.GetEXhigh()[i]
+                                xc = gr_theory.GetX()[i] + offset
+                                x_err_up = w / 40.
+                                x_err_dn = w / 40.
+                            gr_theory.GetX()[i] = xc
+                            gr_theory_norm.GetX()[i] = xc
+                            gr_theory.GetEXhigh()[i] = x_err_up
+                            gr_theory.GetEXlow()[i] = x_err_dn
+                            gr_theory_norm.GetEXhigh()[i] = x_err_up
+                            gr_theory_norm.GetEXlow()[i] = x_err_dn
+
+                        # ratio plot
+                        gr_theory_ratio = gr_theory_norm.Clone()
+                        for i in range(gr_theory_ratio.GetN()):
+                            gr_theory_ratio.GetY()[i] = gr_theory_norm.GetY()[i] / gr_obs_norm.GetY()[i]
+                            gr_theory_ratio.GetEYhigh()[i] = gr_theory_norm.GetEYhigh()[i] / gr_obs_norm.GetY()[i]
+                            gr_theory_ratio.GetEYlow()[i] = gr_theory_norm.GetEYlow()[i] / gr_obs_norm.GetY()[i]
+
+                        # add to legend
+                        if plot_type in ["PDF_comparison", "NLO_PDF_comparison"]:
+                            leg.AddEntry(gr_theory_ratio, prediction_dict["legendLabel"], "pf")
                         else:
-                            offset = prediction_dict["offset"] * gr_obs.GetEXhigh()[i]
-                            xc = gr_theory.GetX()[i] + offset
-                            x_err_up = w / 40.
-                            x_err_dn = w / 40.
-                        gr_theory.GetX()[i] = xc
-                        gr_theory_norm.GetX()[i] = xc
-                        gr_theory.GetEXhigh()[i] = x_err_up
-                        gr_theory.GetEXlow()[i] = x_err_dn
-                        gr_theory_norm.GetEXhigh()[i] = x_err_up
-                        gr_theory_norm.GetEXlow()[i] = x_err_dn
+                            leg2.AddEntry(gr_theory_ratio, prediction_dict["legendLabel"], "pf")
 
-                    # ratio plot
-                    gr_theory_ratio = gr_theory_norm.Clone()
-                    for i in range(gr_theory_ratio.GetN()):
-                        gr_theory_ratio.GetY()[i] = gr_theory_norm.GetY()[i] / gr_obs_norm.GetY()[i]
-                        gr_theory_ratio.GetEYhigh()[i] = gr_theory_norm.GetEYhigh()[i] / gr_obs_norm.GetY()[i]
-                        gr_theory_ratio.GetEYlow()[i] = gr_theory_norm.GetEYlow()[i] / gr_obs_norm.GetY()[i]
+                        # add to multigraph
+                        mg_obs.Add(gr_theory, "p0e5")
+                        mg_obs_norm.Add(gr_theory_norm, "p0e5")
+                        mg_obs_ratio_theory.Add(gr_theory_ratio, "p0e5")
 
-                    # add to legend
-                    if plot_type in ["PDF_comparison", "NLO_PDF_comparison"]:
-                        leg.AddEntry(gr_theory_ratio, prediction_dict["legendLabel"], "pf")
-                    else:
-                        leg2.AddEntry(gr_theory_ratio, prediction_dict["legendLabel"], "pf")
-
-                    # add to multigraph
-                    mg_obs.Add(gr_theory, "p0e5")
-                    mg_obs_norm.Add(gr_theory_norm, "p0e5")
-                    mg_obs_ratio_theory.Add(gr_theory_ratio, "p0e5")
-
-                    # save to file
-                    outfile.cd()
-                    gr_theory_norm.Write(f"{options.decay}_W{lep}_{prediction}_{obs_name}_norm")
-                    gr_theory_ratio.Write(f"{options.decay}_W{lep}_{prediction}_{obs_name}_norm_ratio")
+                        # save to file
+                        outfile.cd()
+                        gr_theory_norm.Write(f"{options.decay}_W{lep}_{prediction}_{obs_name}_norm")
+                        gr_theory_ratio.Write(f"{options.decay}_W{lep}_{prediction}_{obs_name}_norm_ratio")
 
                 # --------------------------------------------
                 # Step 3: make plots
                 # --------------------------------------------
+                if options.decay in ["Dplus", "Dstar"]:
 
-                # Plot histograms: first canvas, draw OS and SS on the same plot
-                c1, pad1, pad2, pad3 = createCanvasPads(f"W{lep}_{obs_name}_{plot_type}")
+                    # Plot histograms: first canvas, draw OS and SS on the same plot
+                    c1, pad1, pad2, pad3 = createCanvasPads(f"W{lep}_{obs_name}_{plot_type}")
 
-                # upper canvas
-                if obs_name == "eta":
-                    Y_MIN = 4
-                    Y_MAX = 25
-                else:
-                    Y_MIN = 1e-3
-                    Y_MAX = 30
-                pad1.cd()
-                if obs["logx"]:
-                    pad1.SetLogx()
-                mg_obs.Draw("a")
-                mg_obs.GetXaxis().SetLimits(obs["bins"][0], obs["bins"][-1])
-                mg_obs.SetMinimum(Y_MIN)
-                mg_obs.SetMaximum(Y_MAX)
+                    # upper canvas
+                    if obs_name == "eta":
+                        Y_MIN = 4
+                        Y_MAX = 25
+                    else:
+                        Y_MIN = 1e-3
+                        Y_MAX = 30
+                    pad1.cd()
+                    if obs["logx"]:
+                        pad1.SetLogx()
+                    mg_obs.Draw("a")
+                    mg_obs.GetXaxis().SetLimits(obs["bins"][0], obs["bins"][-1])
+                    mg_obs.SetMinimum(Y_MIN)
+                    mg_obs.SetMaximum(Y_MAX)
 
-                # ATLAS label
-                l1 = ROOT.TLatex()
-                l1.SetNDC()
-                l1.SetTextFont(73)
-                l1.SetTextSize(32)
-                l1.DrawLatex(0.19, 0.8 - 0 * 0.06, "ATLAS")
-                l2 = ROOT.TLatex()
-                l2.SetNDC()
-                l2.SetTextFont(43)
-                l2.SetTextSize(32)
-                l2.DrawLatex(0.305, 0.8 - 0 * 0.06, "Internal")
-                l2.DrawLatex(0.19, 0.8 - 1 * 0.06, "#sqrt{s} = 13 TeV, 139 fb^{-1}")
-                if options.decay == "Dstar":
-                    l2.DrawLatex(0.19, 0.8 - 2 * 0.06, "#it{W}^{%s}+#it{D*}^{%s}(#rightarrowK#pi#pi)" %
-                                 (("-" if lep == "minus" else "+"), ("+" if lep == "minus" else "-")))
-                else:
-                    l2.DrawLatex(0.19, 0.8 - 2 * 0.06, "#it{W}^{%s}+#it{D}^{%s}(#rightarrowK#pi#pi)" %
-                                 (("-" if lep == "minus" else "+"), ("+" if lep == "minus" else "-")))
-                if plot_type in ["PDF_comparison", "NLO_PDF_comparison"]:
-                    l2.DrawLatex(0.19, 0.8 - 3 * 0.06, "aMC@NLO, full CKM")
+                    # ATLAS label
+                    l1 = ROOT.TLatex()
+                    l1.SetNDC()
+                    l1.SetTextFont(73)
+                    l1.SetTextSize(32)
+                    l1.DrawLatex(0.19, 0.8 - 0 * 0.06, "ATLAS")
+                    l2 = ROOT.TLatex()
+                    l2.SetNDC()
+                    l2.SetTextFont(43)
+                    l2.SetTextSize(32)
+                    l2.DrawLatex(0.305, 0.8 - 0 * 0.06, "Internal")
+                    l2.DrawLatex(0.19, 0.8 - 1 * 0.06, "#sqrt{s} = 13 TeV, 139 fb^{-1}")
+                    if options.decay == "Dstar":
+                        l2.DrawLatex(0.19, 0.8 - 2 * 0.06, "#it{W}^{%s}+#it{D*}^{%s}(#rightarrow(K#pi)#pi)" %
+                                    (("-" if lep == "minus" else "+"), ("+" if lep == "minus" else "-")))
+                    else:
+                        l2.DrawLatex(0.19, 0.8 - 2 * 0.06, "#it{W}^{%s}+#it{D}^{%s}(#rightarrowK#pi#pi)" %
+                                    (("-" if lep == "minus" else "+"), ("+" if lep == "minus" else "-")))
+                    if plot_type in ["PDF_comparison", "NLO_PDF_comparison"]:
+                        l2.DrawLatex(0.19, 0.8 - 3 * 0.06, "aMC@NLO, full CKM")
 
-                # vertical lines
-                lines = []
-                for i, x in enumerate(obs["bins"][1:-1]):
-                    y = Y_MIN + (Y_MAX - Y_MIN) * 0.6
-                    line = ROOT.TLine(x, Y_MIN, x, y)
-                    line.SetLineStyle(2)
-                    line.Draw()
-                    lines += [line]
+                    # vertical lines
+                    lines = []
+                    for i, x in enumerate(obs["bins"][1:-1]):
+                        y = Y_MIN + (Y_MAX - Y_MIN) * 0.6
+                        line = ROOT.TLine(x, Y_MIN, x, y)
+                        line.SetLineStyle(2)
+                        line.Draw()
+                        lines += [line]
 
-                # legend
-                leg.Draw()
-                if plot_type == "Generator_comparison":
-                    leg2.Draw()
+                    # legend
+                    leg.Draw()
+                    if plot_type == "Generator_comparison":
+                        leg2.Draw()
 
-                ROOT.gPad.RedrawAxis()
-                pad2.cd()
-                if obs["logx"]:
-                    pad2.SetLogx()
-                # pad2.SetLogy()
-                mg_obs_norm.Draw("a")
-                mg_obs_norm.GetXaxis().SetLimits(obs["bins"][0], obs["bins"][-1])
-                if obs_name == "eta":
-                    Y_MIN = 0.11
-                    Y_MAX = 0.29
-                else:
-                    Y_MIN = 1e-3
-                    Y_MAX = 0.39
-                mg_obs_norm.SetMinimum(Y_MIN)
-                mg_obs_norm.SetMaximum(Y_MAX)
+                    ROOT.gPad.RedrawAxis()
+                    pad2.cd()
+                    if obs["logx"]:
+                        pad2.SetLogx()
+                    # pad2.SetLogy()
+                    mg_obs_norm.Draw("a")
+                    mg_obs_norm.GetXaxis().SetLimits(obs["bins"][0], obs["bins"][-1])
+                    if obs_name == "eta":
+                        Y_MIN = 0.11
+                        Y_MAX = 0.29
+                    else:
+                        Y_MIN = 1e-3
+                        Y_MAX = 0.39
+                    mg_obs_norm.SetMinimum(Y_MIN)
+                    mg_obs_norm.SetMaximum(Y_MAX)
 
-                # vertical lines
-                for x in obs["bins"][1:-1]:
-                    line = ROOT.TLine(x, Y_MIN, x, Y_MAX)
-                    line.SetLineStyle(2)
-                    line.Draw()
-                    lines += [line]
+                    # vertical lines
+                    for x in obs["bins"][1:-1]:
+                        line = ROOT.TLine(x, Y_MIN, x, Y_MAX)
+                        line.SetLineStyle(2)
+                        line.Draw()
+                        lines += [line]
 
-                ROOT.gPad.RedrawAxis()
-                pad3.cd()
-                if obs["logx"]:
-                    pad3.SetLogx()
-                pad3.SetGridy()
-                mg_obs_ratio.Draw("a")
-                mg_obs_ratio.GetXaxis().SetLimits(obs["bins"][0], obs["bins"][-1])
-                if obs_name == "eta":
-                    Y_MIN = 0.86
-                    Y_MAX = 1.14
-                else:
-                    Y_MIN = 0.83
-                    Y_MAX = 1.17
-                mg_obs_ratio.SetMinimum(Y_MIN)
-                mg_obs_ratio.SetMaximum(Y_MAX)
-                line3 = ROOT.TLine(obs["bins"][0], 1, obs["bins"][-1], 1)
-                line3.Draw()
-                mg_obs_ratio_theory.Draw()
+                    ROOT.gPad.RedrawAxis()
+                    pad3.cd()
+                    if obs["logx"]:
+                        pad3.SetLogx()
+                    pad3.SetGridy()
+                    mg_obs_ratio.Draw("a")
+                    mg_obs_ratio.GetXaxis().SetLimits(obs["bins"][0], obs["bins"][-1])
+                    if obs_name == "eta":
+                        Y_MIN = 0.86
+                        Y_MAX = 1.14
+                    else:
+                        Y_MIN = 0.83
+                        Y_MAX = 1.17
+                    mg_obs_ratio.SetMinimum(Y_MIN)
+                    mg_obs_ratio.SetMaximum(Y_MAX)
+                    line3 = ROOT.TLine(obs["bins"][0], 1, obs["bins"][-1], 1)
+                    line3.Draw()
+                    mg_obs_ratio_theory.Draw()
 
-                # vertical lines
-                for x in obs["bins"][1:-1]:
-                    line = ROOT.TLine(x, Y_MIN, x, Y_MAX)
-                    line.SetLineStyle(2)
-                    line.Draw()
-                    lines += [line]
+                    # vertical lines
+                    for x in obs["bins"][1:-1]:
+                        line = ROOT.TLine(x, Y_MIN, x, Y_MAX)
+                        line.SetLineStyle(2)
+                        line.Draw()
+                        lines += [line]
 
-                ROOT.gPad.RedrawAxis()
-                c1.Print(f"fit_results/{plot_type}/W{lep}_{obs_name}.pdf")
+                    ROOT.gPad.RedrawAxis()
+                    c1.Print(f"fit_results/{plot_type}/{options.decay}/W{lep}_{obs_name}.pdf")
 
-                trash += [mg_obs]
-                trash += [mg_obs_norm]
-                trash += [mg_obs_ratio]
-                trash += [mg_obs_ratio_theory]
+                    trash += [mg_obs]
+                    trash += [mg_obs_norm]
+                    trash += [mg_obs_ratio]
+                    trash += [mg_obs_ratio_theory]
 
             # --------------------------------------------
             # Ladder plots
@@ -899,6 +903,11 @@ def main(options, args):
             data = {}
 
             for lep in ["minus", "plus", "ratio"]:
+
+                # only Rc combined
+                if options.decay == "Dmeson" and lep in ["minus", "plus"]:
+                    continue
+
                 # index for theory prediction hist
                 if lep == "plus":
                     index = 11
@@ -930,12 +939,22 @@ def main(options, args):
                     lep_charge = "+"
                     meson_charge = "-"
                     obs_str = "#sigma_{fid}^{(OS-SS)}"
-                elif lep == "ratio":
+                elif lep == "ratio" and options.decay != "Dmeson":
                     xsec = float(POIs_obs["mu_Rc"][0])
                     xsec_err_up = float(POIs_obs["mu_Rc"][1])
                     xsec_err_dn = abs(float(POIs_obs["mu_Rc"][2]))
                     xsec_err_stat_up = float(POIs_stat["mu_Rc"][1])
                     xsec_err_stat_dn = abs(float(POIs_stat["mu_Rc"][2]))
+                    limits = [0.9, 1.2]
+                    lep_charge = "#pm"
+                    meson_charge = "#mp"
+                    obs_str = "R_{c}"
+                elif lep == "ratio" and options.decay == "Dmeson":
+                    xsec = 0.970
+                    xsec_err_up = 0.011954
+                    xsec_err_dn = 0.011954
+                    xsec_err_stat_up = 0.00557
+                    xsec_err_stat_dn = 0.00557
                     limits = [0.9, 1.2]
                     lep_charge = "#pm"
                     meson_charge = "#mp"
@@ -1068,7 +1087,9 @@ def main(options, args):
                 mg.GetYaxis().SetLabelSize(0)
                 if options.decay == "Dstar":
                     mg.GetXaxis().SetTitle("%s(#it{W}^{%s}+#it{D*}^{%s})" % (obs_str, lep_charge, meson_charge))
-                else:
+                elif options.decay == "Dplus":
+                    mg.GetXaxis().SetTitle("%s(#it{W}^{%s}+#it{D}^{%s})" % (obs_str, lep_charge, meson_charge))
+                elif options.decay == "Dmeson":
                     mg.GetXaxis().SetTitle("%s(#it{W}^{%s}+#it{D}^{%s})" % (obs_str, lep_charge, meson_charge))
                 mg.GetXaxis().SetLimits(limits[0], limits[1])
                 mg.SetMinimum(-1)
@@ -1094,11 +1115,16 @@ def main(options, args):
                     l2.DrawLatex(limits[0] + (limits[1] - limits[0]) * (62 - 30) / 70., 0.85 - 5.1 * 0.12, "#bf{Predictions}: #it{aMC@NLO, full CKM}")
 
                 if options.decay == "Dstar":
-                    l2.DrawLatex(limits[0] + (limits[1] - limits[0]) * (83 - 30) / 70., 0.85 - 0 * 0.12,
-                                 "#it{W}^{%s}+#it{D*}^{%s}(#rightarrowK#pi#pi)" % (lep_charge, meson_charge))
-                else:
-                    l2.DrawLatex(limits[0] + (limits[1] - limits[0]) * (83 - 30) / 70., 0.85 - 0 * 0.12,
+                    l2.DrawLatex(limits[0] + (limits[1] - limits[0]) * (80 - 30) / 70., 0.85 - 0 * 0.12,
+                                 "#it{W}^{%s}+#it{D*}^{%s}(#rightarrow(K#pi)#pi)" % (lep_charge, meson_charge))
+                elif options.decay == "Dplus":
+                    l2.DrawLatex(limits[0] + (limits[1] - limits[0]) * (80 - 30) / 70., 0.85 - 0 * 0.12,
                                  "#it{W}^{%s}+#it{D}^{%s}(#rightarrowK#pi#pi)" % (lep_charge, meson_charge))
+                elif options.decay == "Dmeson":
+                    l2.DrawLatex(limits[0] + (limits[1] - limits[0]) * (80 - 30) / 70., 0.85 - 0 * 0.12,
+                                 "#it{W}^{%s}+#it{D}^{%s}(#rightarrowK#pi#pi)" % (lep_charge, meson_charge))
+                    l2.DrawLatex(limits[0] + (limits[1] - limits[0]) * (80 - 30) / 70., 0.85 - 1 * 0.12,
+                                 "#it{W}^{%s}+#it{D*}^{%s}(#rightarrow(K#pi)#pi)" % (lep_charge, meson_charge))
                 # legend
                 leg1.Draw()
                 leg_temp.Draw()
@@ -1106,7 +1132,7 @@ def main(options, args):
 
                 # print
                 ROOT.gPad.RedrawAxis()
-                c.Print(f"fit_results/{plot_type}/W{lep}_tot_{obs_name}.pdf")
+                c.Print(f"fit_results/{plot_type}/{options.decay}/W{lep}_tot_{obs_name}.pdf")
                 trash += [mg]
 
         outfile.Close()
