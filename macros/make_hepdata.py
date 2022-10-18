@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+from copy import deepcopy
 from math import log10, floor
 import os
 import ROOT
@@ -7,7 +8,7 @@ import yaml
 ROOT.gROOT.SetBatch(True)
 
 DPLUS_FOLDER = "/global/cfs/cdirs/atlas/wcharm/TRExFitter/Output/Dplus_2022_08_05_v2"
-DSTAR_FOLDER = "/global/cfs/cdirs/atlas/wcharm/TRExFitter/Output/Dstar_2022_08_11"
+DSTAR_FOLDER = "/global/cfs/cdirs/atlas/wcharm/TRExFitter/Output/Dstar_2022_08_11_v2"
 
 POIs_abs = [f"mu_Wplus_{i}" for i in range(1, 6)] + [f"mu_Wminus_{i}" for i in range(1, 6)]
 
@@ -20,43 +21,69 @@ CHANNELS = ["dplus", "dstar"]
 COMMON_NP_NAMES = {
     "EG_RESOLUTION_ALL": "Electron Resolution",
     "EG_SCALE_ALL": "Electron Energy Resolution",
+    "EL_CHARGEID_STAT": "Electron Charge ID (Stat.)",
+    "EL_CHARGEID_SYStotal": "Electron Charge ID (Syst.)",
     "EL_EFF_ID_TOTAL_1NPCOR_PLUS_UNCOR": "Electron ID Efficiency",
+    "EL_EFF_Iso_TOTAL_1NPCOR_PLUS_UNCOR": "Electron Isolation Efficiency",
     "EL_EFF_Reco_TOTAL_1NPCOR_PLUS_UNCOR": "Electron Reco Efficiency",
     "EL_EFF_Trigger_TOTAL_1NPCOR_PLUS_UNCOR": "Electron Trigger Efficiency",
     "FID_EFF_AS": "Fiducial Efficiency AlphaS Variation",
     "FID_EFF_PDF": "Fiducial Efficiency PDF Variation",
     "FID_EFF_QCD": "Fiducial Efficiency Scale Variation",
     "FID_EFF_WPLUSD_MG": "Fiducial Efficiency MC Variation",
+    "JET_EffectiveNP_8restTerm": "Jet Energy Scale NP 8 (rest term)",
     "JET_EtaIntercalibration_Modelling": "Jet Intercalibration Modelling",
+    "JET_EtaIntercalibration_NonClosure_highE": "Jet Intercalibration Closure (high E)",
+    "JET_EtaIntercalibration_NonClosure_negEta": "Jet Intercalibration Closure (neg eta)",
+    "JET_EtaIntercalibration_NonClosure_posEta": "Jet Intercalibration Closure (pos eta)",
+    "JET_EtaIntercalibration_TotalStat": "Jet Intercalibration Stat.",
     "JET_Flavor_Composition": "Jet Flavor Composition",
     "JET_Flavor_Response": "Jet Flavor Response",
-    "JET_JER_DataVsMC_MC16": "Jet Energy Scale Data vs MC",
-    "JET_JER_EffectiveNP_7restTerm": f"Jet Energy Scale NP 7 (rest term)",
+    "JET_JER_DataVsMC_MC16": "Jet Energy Resolution Data vs MC",
+    "JET_JER_EffectiveNP_7restTerm": "Jet Energy Resolution NP 7 (rest term)",
     "JET_JvtEfficiency": "Jet JVT Efficiency",
     "JET_Pileup_OffsetMu": "Jet Energy Scale PU Offset (Mu)",
     "JET_Pileup_OffsetNPV": "Jet Energy Scale PU Offset (NPV)",
+    "JET_Pileup_PtTerm": "Jet Energy Scale PU pT Term",
     "JET_Pileup_RhoTopology": "Jet Pileup Rho Topology",
+    "JET_PunchThrough_MC16": "Jet Flavor Response",
     "Lumi": "Luminosity",
     "MET_SoftTrk_ResoPara": "MET Soft Term Parallel Resolution",
     "MET_SoftTrk_ResoPerp": "MET Soft Term Perpendicular Resolution",
     "MET_SoftTrk": "MET Soft Term Scale",
     "mu_Top": "Normalization Factor for Top",
-    "MUON_CB": "Muon Energy Scale",
-    "MUON_EFF_ISO_SYS": "Muon Isolation Efficiency",
-    "MUON_EFF_RECO_SYS": "Muon Reco Efficiency",
-    "MUON_EFF_TrigSystUncertainty": "Muon Trigger Efficiency",
-    "MUON_SAGITTA_RESBIAS": "Muon Sagitta Bias",
+    "MUON_CB": "Muon Energy Resolution",
+    "MUON_EFF_ISO_STAT": "Muon Isolation Efficiency (Stat.)",
+    "MUON_EFF_ISO_SYS": "Muon Isolation Efficiency (Syst.)",
+    "MUON_EFF_RECO_STAT_LOWPT": "Muon Reco Eff. Low pT (Stat.)",
+    "MUON_EFF_RECO_STAT": "Muon Reco Efficiency (Stat.)",
+    "MUON_EFF_RECO_SYS_LOWPT": "Muon Reco Eff. Low pT (Syst.)",
+    "MUON_EFF_RECO_SYS": "Muon Reco Efficiency (Syst.)",
+    "MUON_EFF_TrigStatUncertainty": "Muon Trigger Efficiency (Stat].)",
+    "MUON_EFF_TrigSystUncertainty": "Muon Trigger Efficiency (Syst.)",
+    "MUON_EFF_TTVA_STAT": "Muon TTVA Efficiency (Stat.)",
+    "MUON_EFF_TTVA_SYS": "Muon TTVA Efficiency (Syst.)",
+    "MUON_SAGITTA_DATASTAT": "Muon Sagitta Bias (Stat.)",
+    "MUON_SAGITTA_RESBIAS": "Muon Sagitta Bias (Syst.)",
+    "MUON_SCALE": "Muon Energy Scale",
     "PROD_FRAC_EIG_1": "Charm Production Fraction NP 1",
     "PROD_FRAC_EIG_2": "Charm Production Fraction NP 2",
     "PROD_FRAC_EIG_3": "Charm Production Fraction NP 3",
     "PRW_DATASF": "Pileup Reweighting",
     "Top_GEN_isr": "Top Bkg ISR Uncertainty",
+    "Top_GEN_muF": "Top Bkg muF Uncertainty",
+    "Top_GEN_muR": "Top Bkg muR Uncertainty",
+    "Top_GEN_PDF": "Top Bkg PDF Uncertainty",
+    "Top_GEN_Var3c": "Top Bkg Var3c Variation",
     "Top_HS": "Top Bkg Hard Scatter Variation",
     "Top_Shower": "Top Bkg Hard Shower Variation",
+    "TRK_EFF_D0_DEAD": "Track d0 Resolution (Dead Pixels)",
     "TRK_EFF_D0_MEAS": "Track d0 Resolution",
     "TRK_EFF_IBL": "IBL Track Efficiency",
     "TRK_EFF_Overal": "Overall Tracking Efficiency",
     "TRK_EFF_PP0": "PP0 Track Efficiency",
+    "TRK_EFF_QGSP": "Physics List Track Efficiency",
+    "TRK_EFF_Z0_DEAD": "Track z0 Resolution (Dead Pixels)",
     "TRK_EFF_Z0_MEAS": "Track z0 Resolution",
 }
 COMMON_NP_NAMES.update({f"FT_EFF_Eigen_B_{i}": f"FTAG Efficinecy (b-jet NP {i+1})" for i in range(0, 9)})
@@ -66,13 +93,15 @@ COMMON_NP_NAMES.update({f"JET_EffectiveNP_{i}": f"Jet Energy Scale NP {i}" for i
 COMMON_NP_NAMES.update({f"JET_JER_EffectiveNP_{i}": f"Jet Energy Resolution NP {i}" for i in range(1, 7)})
 
 NP_NAMES = {
-    "dplus": COMMON_NP_NAMES,
-    "dstar": COMMON_NP_NAMES,
+    "dplus": deepcopy(COMMON_NP_NAMES),
+    "dstar": deepcopy(COMMON_NP_NAMES),
 }
 
 # D+ only uncertainites
 NP_NAMES["dplus"].update({
     "BranchingRatio": "Br(D+ to K pi pi)",
+    "DMESON_MASS_TOT_minus": "Signal Peak Position (D+)",
+    "DMESON_MASS_TOT_plus": "Signal Peak Position (D-)",
     "DMESON_RESO_TOT_minus": "Signal Mass Resolution (D+)",
     "DMESON_RESO_TOT_plus": "Signal Mass Resolution (D-)",
     "DPLUS_BKG_BR": "D+ Branching Ratio in Bkg",
@@ -80,11 +109,20 @@ NP_NAMES["dplus"].update({
     "MET_SoftTrk_ResoPara": "MET Soft Term Parallel Resolution",
     "MET_SoftTrk_ResoPerp": "MET Soft Term Perpendicular Resolution",
     "MET_SoftTrk": "MET Soft Term Scale",
+    "MM_EL_FR__Wjets_MadGraph": "MM El. Fake Rate Modelling (D+)",
     "MM_EL_FR_MET_Var": "MM El. Fake Rate MET Variation (D+)",
+    "MM_EL_FR_STAT": "MM El. Fake Rate Stat. (D+)",
     "MM_EL_RR_MadGraph_Var": "MM El. Real Rate Modelling (D+)",
     "MM_EL_RR_STAT": "MM El. Real Rate Stat. (D+)",
+    "MM_MU_FR__Wjets_MadGraph": "MM Mu. Fake Rate Modelling (D+)",
+    "MM_MU_FR_MET_Var": "MM Mu. Fake Rate MET Variation (D+)",
+    "MM_MU_FR_STAT": "MM Mu. Fake Rate Stat. (D+)",
+    "MM_MU_RR_MadGraph_Var": "MM Mu. Real Rate Modelling (D+)",
+    "MM_MU_RR_STAT": "MM Mu. Real Rate Stat. (D+)",
     "OtherNorm_0tag": "Other Norm. Unc. (D+ 1-tag)",
+    "SHERPA2211_AS_Wcharm": "W+c Bkg AlphaS Uncertainty (D+)",
     "SHERPA2211_AS_Wjets": "W+jets Bkg AlphaS Uncertainty (D+)",
+    "SHERPA2211_PDF_Wcharm": "W+c Bkg PDF Uncertainty (D+)",
     "SHERPA2211_PDF_Wjets": "W+jets Bkg PDF Uncertainty (D+)",
     "SHERPA2211_QCD_Wcharm": "W+c Bkg Scale Uncertainty (D+)",
     "SHERPA2211_QCD_Wjets": "W+jets Bkg Scale Uncertainty (D+)",
@@ -92,30 +130,57 @@ NP_NAMES["dplus"].update({
 
 # D* only uncertainites
 NP_NAMES["dstar"].update({
+    "BranchingRatio": "Br(D* to (K pi) pi)",
     "DMESON_MASS_ADHOC_minus": "Signal 1 MeV Peak Position (D*+)",
+    "DMESON_MASS_ADHOC_plus": "Signal 1 MeV Peak Position (D*-)",
     "DMESON_MASS_TOT_minus": "Signal Peak Position (D*+)",
     "DMESON_MASS_TOT_plus": "Signal Peak Position (D*-)",
     "DMESON_RESO_TOT_minus": "Signal Mass Resolution (D*+)",
     "DMESON_RESO_TOT_plus": "Signal Mass Resolution (D*-)",
+    "MM_EL_FR__Wjets_MadGraph": "MM El. Fake Rate Modelling (D*)",
+    "MM_EL_FR_MET_Var": "MM El. Fake Rate MET Variation (D*)",
+    "MM_EL_FR_STAT": "MM El. Fake Rate Stat. (D*)",
+    "MM_EL_RR_MadGraph_Var": "MM El. Real Rate Modelling (D*)",
+    "MM_EL_RR_STAT": "MM El. Real Rate Stat. (D*)",
+    "MM_MU_FR__Wjets_MadGraph": "MM Mu. Fake Rate Modelling (D*)",
+    "MM_MU_FR_MET_Var": "MM Mu. Fake Rate MET Variation (D*)",
+    "MM_MU_FR_STAT": "MM Mu. Fake Rate Stat. (D*)",
+    "MM_MU_RR_MadGraph_Var": "MM Mu. Real Rate Modelling (D*)",
+    "MM_MU_RR_STAT": "MM Mu. Real Rate Stat. (D*)",
+    "PRW_DATASF_WJETS": "Pileup Reweighting (W+jets)",
     "SHERPA2211_AS_WJETS": "W+jets Bkg AlphaS Uncertainty (D*)",
     "SHERPA2211_AS_WPLUSC": "W+c Bkg AlphaS Uncertainty (D*)",
     "SHERPA2211_PDF_WJETS": "W+jets Bkg PDF Uncertainty (D*)",
     "SHERPA2211_PDF_WPLUSC": "W+c Bkg PDF Uncertainty (D*)",
     "SHERPA2211_QCD_WJETS": "W+jets Bkg Scale Uncertainty (D*)",
     "SHERPA2211_QCD_WPLUSC": "W+c Bkg Scale Uncertainty (D*)",
+    "WJETS_FIT": "W+jets Parametric Fit Stat. (D*)",
 })
 
 # bkg shape and normalization
 # D+
+NP_NAMES["dplus"].update({"CharmNorm_1tag": f"W+c(match) Norm. Unc. (D+ 1-tag)"})
+NP_NAMES["dplus"].update({"MisMatchNorm_1tag": f"W+c(mis-match) Norm. Unc. (D+ 1-tag)"})
+NP_NAMES["dplus"].update({"OtherNorm_1tag": f"Other Norm. Unc. (D+ 1-tag)"})
+NP_NAMES["dplus"].update({"WjetsNorm_1tag": f"W+jets Norm. Unc. (D+ 1-tag)"})
 NP_NAMES["dplus"].update({f"CharmNorm_0tag_bin{i}": f"W+c(match) Norm. Unc. (D+ bin {i})" for i in range(1, 6)})
 NP_NAMES["dplus"].update({f"MisMatch_Sh_MG_2P_bin{i}": f"W+c(mis-match) Shape Unc. (D+ bin {i})" for i in range(1, 6)})
 NP_NAMES["dplus"].update({f"MisMatchNorm_0tag_bin{i}": f"W+c(mis-match) Norm Unc. (D+ bin {i})" for i in range(1, 6)})
 NP_NAMES["dplus"].update({f"OtherNorm_0tag{i}": f"Other Norm. Unc. (D+ bin {i})" for i in range(1, 6)})
+NP_NAMES["dplus"].update({f"Wjets_Sh_MG_2P_bin{i}": f"W+jets Shape Unc. (D+ bin {i})" for i in range(1, 6)})
 NP_NAMES["dplus"].update({f"WjetsNorm_0tag_bin{i}": f"W+jets Norm. Unc. (D+ bin {i})" for i in range(1, 6)})
 
 # D*
+NP_NAMES["dstar"].update({"CharmNorm_1tag": f"W+c(match) Norm. Unc. (D* 1-tag)"})
+NP_NAMES["dstar"].update({"MisMatchNorm_1tag": f"W+c(mis-match) Norm. Unc. (D* 1-tag)"})
+NP_NAMES["dstar"].update({"OtherNorm_0tag": f"Other Norm. Unc. (D* 0-tag)"})
+NP_NAMES["dstar"].update({"OtherNorm_1tag": f"Other Norm. Unc. (D* 1-tag)"})
+NP_NAMES["dstar"].update({"WjetsNorm_1tag": f"W+jets Norm. Unc. (D* 1-tag)"})
+NP_NAMES["dstar"].update({f"CharmNorm_0tag_bin{i}": f"W+c(match) Norm. Unc. (D* bin {i})" for i in range(1, 6)})
 NP_NAMES["dstar"].update({f"MisMatched_Sherpa_MG_2P_bin{i}": f"W+c(mis-match) Shape. Unc. (D* bin {i})" for i in range(1, 6)})
-NP_NAMES["dstar"].update({f"OtherNorm_0tag{i}": f"Other Norm. Unc. (D* bin {i})" for i in range(1, 6)})
+NP_NAMES["dstar"].update({f"MisMatchNorm_0tag_bin{i}": f"W+c(mis-match) Norm Unc. (D* bin {i})" for i in range(1, 6)})
+NP_NAMES["dstar"].update({f"Wjets_MG_Sherpa_2P_bin{i}": f"W+jets Shape. Unc. (D* bin {i})" for i in range(1, 6)})
+NP_NAMES["dstar"].update({f"WjetsNorm_0tag_bin{i}": f"W+jets Norm Unc. (D* bin {i})" for i in range(1, 6)})
 
 # bkg normalization stat. unc.
 # D+
@@ -127,16 +192,39 @@ NP_NAMES["dplus"].update({f"Stat_{charge}_Wjets_0tag_{OSSS}_{var}_bin{diff_bin}"
                          "minus", "plus"] for OSSS in ["OS", "SS"] for var in ["pt", "eta"] for diff_bin in range(1, 6)})
 NP_NAMES["dplus"].update({f"Stat_{charge}_WMisMatched_0tag_{OSSS}_{var}_bin{diff_bin}": f"W+c(mis-match) Norm. Stat. D+ (W{('-' if charge == 'minus' else '+')} {var}{diff_bin})" for charge in [
                          "minus", "plus"] for OSSS in ["OS", "SS"] for var in ["pt", "eta"] for diff_bin in range(1, 6)})
+NP_NAMES["dplus"].update({f"Stat_{charge}_Top_0tag_{OSSS}_{var}_bin{diff_bin}": f"Top Norm. Stat. D+ (W{('-' if charge == 'minus' else '+')} {var}{diff_bin})" for charge in [
+                         "minus", "plus"] for OSSS in ["OS", "SS"] for var in ["pt", "eta"] for diff_bin in range(1, 6)})
+
+# D*
+NP_NAMES["dstar"].update({f"Stat_{charge}_DibosonZjets_0tag_{OSSS}_{var}_bin{diff_bin}": f"Other Norm. Stat. D+ (W{('-' if charge == 'minus' else '+')} {var}{diff_bin})" for charge in [
+                         "minus", "plus"] for OSSS in ["OS", "SS"] for var in ["pt", "eta"] for diff_bin in range(1, 6)})
+NP_NAMES["dstar"].update({f"Stat_{charge}_WCharm_0tag_{OSSS}_{var}_bin{diff_bin}": f"W+c(match) Norm. Stat. D+ (W{('-' if charge == 'minus' else '+')} {var}{diff_bin})" for charge in [
+                         "minus", "plus"] for OSSS in ["OS", "SS"] for var in ["pt", "eta"] for diff_bin in range(1, 6)})
+NP_NAMES["dstar"].update({f"Stat_{charge}_Wjets_0tag_{OSSS}_{var}_bin{diff_bin}": f"W+jets Norm. Stat. D+ (W{('-' if charge == 'minus' else '+')} {var}{diff_bin})" for charge in [
+                         "minus", "plus"] for OSSS in ["OS", "SS"] for var in ["pt", "eta"] for diff_bin in range(1, 6)})
+NP_NAMES["dstar"].update({f"Stat_{charge}_WMisMatched_0tag_{OSSS}_{var}_bin{diff_bin}": f"W+c(mis-match) Norm. Stat. D+ (W{('-' if charge == 'minus' else '+')} {var}{diff_bin})" for charge in [
+                         "minus", "plus"] for OSSS in ["OS", "SS"] for var in ["pt", "eta"] for diff_bin in range(1, 6)})
+NP_NAMES["dstar"].update({f"Stat_{charge}_Top_0tag_{OSSS}_{var}_bin{diff_bin}": f"Top Norm. Stat. D+ (W{('-' if charge == 'minus' else '+')} {var}{diff_bin})" for charge in [
+                         "minus", "plus"] for OSSS in ["OS", "SS"] for var in ["pt", "eta"] for diff_bin in range(1, 6)})
 
 # fiducial efficiency stat. unc.
 NP_NAMES["dplus"].update({f"MC_Stat_Fid_Eff_{charge}_{i}_{j}": f"Response Matrix Stat. D+ (W{('-' if charge == 'minus' else '+')} {i}, {j})" for i in range(1, 6)
                          for j in range(1, 6) for charge in ["minus", "plus"]})
+NP_NAMES["dstar"].update({f"MC_Stat_Fid_Eff_{charge}_{i}_{j}": f"Response Matrix Stat. D* (W{('-' if charge == 'minus' else '+')} {i}, {j})" for i in range(1, 6)
+                         for j in range(1, 6) for charge in ["minus", "plus"]})
 
 # gammas
+# D+
 NP_NAMES["dplus"].update({f"gamma_stat_{OSSS}_lep_{charge}_0tag_Dplus_{var}_bin{diff_bin}_bin_{mass_bin}": f"MC Stat. D+ ({OSSS} W{('-' if charge == 'minus' else '+')} {var}{diff_bin} mass{mass_bin})" for OSSS in [
                          "OS", "SS"] for charge in ["minus", "plus"] for var in ["pt", "eta"] for diff_bin in range(1, 6) for mass_bin in range(0, 10)})
+NP_NAMES["dplus"].update({f"gamma_stat_{OSSS}_lep_{charge}_1tag_Dplus_bin_0": f"MC Stat. D+ ({OSSS} W{('-' if charge == 'minus' else '+')} 1-tag)" for OSSS in [
+                         "OS", "SS"] for charge in ["minus", "plus"]})
+
+# D*
 NP_NAMES["dstar"].update({f"gamma_stat_{OSSS}_lep_{charge}_0tag_Dstar_{var}_bin{diff_bin}_bin_{mass_bin}": f"MC Stat. D* ({OSSS} W{('-' if charge == 'minus' else '+')} {var}{diff_bin} mass{mass_bin})" for OSSS in [
                          "OS", "SS"] for charge in ["minus", "plus"] for var in ["pt", "eta"] for diff_bin in range(1, 6) for mass_bin in range(0, 13)})
+NP_NAMES["dstar"].update({f"gamma_stat_{OSSS}_lep_{charge}_1tag_Dstar_bin_0": f"MC Stat. D* ({OSSS} W{('-' if charge == 'minus' else '+')} 1-tag)" for OSSS in [
+                         "OS", "SS"] for charge in ["minus", "plus"]})
 
 # make output folder
 if not os.path.isdir("hepdata"):
@@ -270,6 +358,8 @@ def main():
             with open(os.path.join(FOLDER, obs_fit_abs, f"Ranking_{POI}.yaml"), 'r') as stream:
                 ranking = yaml.safe_load(stream)
                 RANKINGS[channel][POI] = ranking
+                print(f"Read ranking for {POI} {channel}, size: {len(ranking)}")
+                assert len(ranking) > 100, "Too small!"
 
                 # calculate total error from ranking
                 err_up_total = 0
@@ -418,18 +508,22 @@ def main():
                     # load the ranking yaml
                     ranking = RANKINGS[channel][POI]
 
+                    # extract NP impact
                     NP_impact = [x for x in ranking if x['Name'] == NP]
                     if len(NP_impact):
                         vals = atlas_rounding(par.getVal() / br, float(NP_impact[0]['POIup']) / br, float(NP_impact[0]['POIdown']) / br)
                     else:
-                        # print(f"WARNING: NP {NP} not found for POI {POI}")
-                        vals = 0, 0, 0
+                        print(f"WARNING: NP {NP} not found for POI {POI} in channel {channel}")
+                        continue
+
+                    # add NP in table
                     if NP in NP_NAMES[channel]:
                         impact_table['dependent_variables'][1]['values'][i]['errors'] += [
                             {'label': NP_NAMES[channel][NP], 'asymerror': {'minus': vals[2], 'plus': vals[1]}}]
                     else:
                         print("Missing map for NP: ", NP)
                         impact_table['dependent_variables'][1]['values'][i]['errors'] += [{'label': NP, 'asymerror': {'minus': vals[2], 'plus': vals[1]}}]
+                    # impact_table['dependent_variables'][1]['values'][i]['errors'] += [{'label': NP, 'asymerror': {'minus': vals[2], 'plus': vals[1]}}]
 
                     # validation
                     for i in [1, 2]:

@@ -434,9 +434,9 @@ def main(options, args):
 
                         y = float(POIs_obs[f"mu_W{lep}_{i + 1}"][0]) * y_prior
                         y_up = float(POIs_obs[f"mu_W{lep}_{i + 1}"][1]) * y_prior
-                        y_dn = float(POIs_obs[f"mu_W{lep}_{i + 1}"][1]) * y_prior
+                        y_dn = float(POIs_obs[f"mu_W{lep}_{i + 1}"][2]) * y_prior
                         y_up_stat = float(POIs_stat[f"mu_W{lep}_{i + 1}"][1]) * y_prior
-                        y_dn_stat = float(POIs_stat[f"mu_W{lep}_{i + 1}"][1]) * y_prior
+                        y_dn_stat = float(POIs_stat[f"mu_W{lep}_{i + 1}"][2]) * y_prior
                         y_up_sys = (y_up**2 - y_up_stat**2)**(0.5)
                         y_dn_sys = (y_dn**2 - y_dn_stat**2)**(0.5)
                         y_norm = float(POIs_obs[f"mu_W{lep}_rel_{i + 1}"][0]) * y_rel
@@ -587,6 +587,21 @@ def main(options, args):
                     mg_obs.Add(gr_obs, "pe0")
                     mg_obs_norm.Add(gr_obs_norm_sys, "0e5")
                     mg_obs_norm.Add(gr_obs_norm, "pe0")
+
+                    # print out
+                    print(f"================ {options.decay} {lep} {obs_name} =================")
+                    # $[0.0,\,0.5]$ & 12.42 & 0.13 & $^{+0.72}_{-0.68}$ \\
+                    for i in range(0, 5):
+                        y = gr_obs.GetY()[i]
+                        y_sys_up = gr_obs.GetErrorYhigh(i)
+                        y_sys_dn = gr_obs.GetErrorYlow(i)
+                        y_stat = 0.5 * (gr_obs.GetErrorYhigh(i)**2 - gr_obs_sys.GetErrorYhigh(i)**2)**0.5 + 0.5 * (gr_obs.GetErrorYlow(i)**2 - gr_obs_sys.GetErrorYlow(i)**2)**0.5
+
+                        y_norm = gr_obs_norm.GetY()[i]
+                        y_norm_sys_up = gr_obs_norm.GetErrorYhigh(i)
+                        y_norm_sys_dn = gr_obs_norm.GetErrorYlow(i)
+                        y_norm_stat = 0.5 * (gr_obs_norm.GetErrorYhigh(i)**2 - gr_obs_norm_sys.GetErrorYhigh(i)**2)**0.5 + 0.5 * (gr_obs_norm.GetErrorYlow(i)**2 - gr_obs_norm_sys.GetErrorYlow(i)**2)**0.5
+                        print(f" & {y:.4f} & {y_stat:.4f} & $^{{+{y_sys_up:.2f}}}_{{-{y_sys_dn:.2f}}}$ & {y_norm:.6f} & {y_norm_stat:.6f} & $^{{+{y_norm_sys_up:.4f}}}_{{-{y_norm_sys_dn:.4f}}}$ \\\\")
 
                 # --------------------------------------------
                 # Step 2.5: theory comparisons
