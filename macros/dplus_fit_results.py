@@ -593,14 +593,14 @@ def main(options, args):
                     # $[0.0,\,0.5]$ & 12.42 & 0.13 & $^{+0.72}_{-0.68}$ \\
                     for i in range(0, 5):
                         y = gr_obs.GetY()[i]
-                        y_sys_up = gr_obs.GetErrorYhigh(i)
-                        y_sys_dn = gr_obs.GetErrorYlow(i)
-                        y_stat = 0.5 * (gr_obs.GetErrorYhigh(i)**2 - gr_obs_sys.GetErrorYhigh(i)**2)**0.5 + 0.5 * (gr_obs.GetErrorYlow(i)**2 - gr_obs_sys.GetErrorYlow(i)**2)**0.5
+                        y_sys_up = gr_obs_sys.GetErrorYhigh(i)
+                        y_sys_dn = gr_obs_sys.GetErrorYlow(i)
+                        y_stat = 0.5 * (gr_obs.GetErrorYhigh(i)**2 - y_sys_up**2)**0.5 + 0.5 * (gr_obs.GetErrorYlow(i)**2 - y_sys_dn**2)**0.5
 
                         y_norm = gr_obs_norm.GetY()[i]
-                        y_norm_sys_up = gr_obs_norm.GetErrorYhigh(i)
-                        y_norm_sys_dn = gr_obs_norm.GetErrorYlow(i)
-                        y_norm_stat = 0.5 * (gr_obs_norm.GetErrorYhigh(i)**2 - gr_obs_norm_sys.GetErrorYhigh(i)**2)**0.5 + 0.5 * (gr_obs_norm.GetErrorYlow(i)**2 - gr_obs_norm_sys.GetErrorYlow(i)**2)**0.5
+                        y_norm_sys_up = gr_obs_norm_sys.GetErrorYhigh(i)
+                        y_norm_sys_dn = gr_obs_norm_sys.GetErrorYlow(i)
+                        y_norm_stat = 0.5 * (gr_obs_norm.GetErrorYhigh(i)**2 - y_norm_sys_up**2)**0.5 + 0.5 * (gr_obs_norm.GetErrorYlow(i)**2 - y_norm_sys_dn**2)**0.5
                         print(f" & {y:.4f} & {y_stat:.4f} & $^{{+{y_sys_up:.2f}}}_{{-{y_sys_dn:.2f}}}$ & {y_norm:.6f} & {y_norm_stat:.6f} & $^{{+{y_norm_sys_up:.4f}}}_{{-{y_norm_sys_dn:.4f}}}$ \\\\")
 
                 # --------------------------------------------
