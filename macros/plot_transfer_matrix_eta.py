@@ -614,9 +614,9 @@ def main(options, args):
         ROOT.ATLASLabel(0.20, 0.90, "Simulation Internal", 1, 0.04)
         ROOT.myText(0.20, 0.85, 1, "#sqrt{s} = 13 TeV", 0.04)
         if "Dplus" in c:
-            ROOT.myText(0.20, 0.80, 1, "W(#rightarrowl#nu)+D(#rightarrowK#pi#pi)", 0.04)
+            ROOT.myText(0.20, 0.80, 1, "W+D(#rightarrowK#pi#pi)", 0.04)
         elif "Dstar" in c:
-            ROOT.myText(0.20, 0.80, 1, "W(#rightarrowl#nu)+D*(#rightarrow(K#pi)#pi)", 0.04)
+            ROOT.myText(0.20, 0.80, 1, "W+D*(#rightarrow(K#pi)#pi)", 0.04)
 
         # save
         ROOT.gPad.RedrawAxis()
