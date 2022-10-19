@@ -302,6 +302,9 @@ def main(options):
                         elif options.decay == "Dstar":
                             sigma_i = sigma_i**2 + 0.020**2
                             sigma_j = sigma_j**2 + 0.020**2
+                        # proxy PowHel 3%
+                        sigma_i = sigma_i + 0.030**2
+                        sigma_j = sigma_j + 0.030**2
                         sigma_i = sigma_i**0.5
                         sigma_j = sigma_j**0.5
                         cov_pred_hadronization[i][j] = sigma_i * sigma_j * corr
