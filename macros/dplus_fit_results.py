@@ -447,15 +447,15 @@ def main(options, args):
                         y_dn = float(POIs_obs[f"mu_W{lep}_{i + 1}"][2]) * y_prior
                         y_up_stat = float(POIs_stat[f"mu_W{lep}_{i + 1}"][1]) * y_prior
                         y_dn_stat = float(POIs_stat[f"mu_W{lep}_{i + 1}"][2]) * y_prior
-                        y_up_sys = (y_up**2 - y_up_stat**2)**(0.5)
-                        y_dn_sys = (y_dn**2 - y_dn_stat**2)**(0.5)
+                        # y_up_sys = (y_up**2 - y_up_stat**2)**(0.5)
+                        # y_dn_sys = (y_dn**2 - y_dn_stat**2)**(0.5)
                         y_norm = float(POIs_obs[f"mu_W{lep}_rel_{i + 1}"][0]) * y_rel
                         y_norm_up = float(POIs_obs[f"mu_W{lep}_rel_{i + 1}"][1]) * y_rel
                         y_norm_dn = float(POIs_obs[f"mu_W{lep}_rel_{i + 1}"][2]) * y_rel
                         y_norm_up_stat = float(POIs_stat[f"mu_W{lep}_rel_{i + 1}"][1]) * y_rel
                         y_norm_dn_stat = float(POIs_stat[f"mu_W{lep}_rel_{i + 1}"][2]) * y_rel
-                        y_norm_up_sys = (y_norm_up**2 - y_norm_up_stat**2)**(0.5)
-                        y_norm_dn_sys = (y_norm_dn**2 - y_norm_dn_stat**2)**(0.5)
+                        # y_norm_up_sys = (y_norm_up**2 - y_norm_up_stat**2)**(0.5)
+                        # y_norm_dn_sys = (y_norm_dn**2 - y_norm_dn_stat**2)**(0.5)
 
                         # fill graphs
                         if obs["logx"]:
