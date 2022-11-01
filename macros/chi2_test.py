@@ -3,7 +3,7 @@ import os
 import ROOT
 import yaml
 
-PREDICTIONS_DIR = "/global/cfs/cdirs/atlas/wcharm/Rivet/v1/processed"
+PREDICTIONS_DIR = "/global/cfs/cdirs/atlas/wcharm/Rivet/v1/processed4"
 PRIORS_DIR = "/global/cfs/cdirs/atlas/wcharm/charmplot_output/Dmeson_2022_06_15/"
 
 THEORY = [
@@ -13,9 +13,16 @@ THEORY = [
     "CT18NNLO",
     "MSHT20nnlo_as118",
     "PDF4LHC21_40",
-    "NNPDF30_nnlo_as_0118",
-    "NNPDF31_nnlo_as_0118",
-    "NNPDF40_nnlo_as_01180",
+    # "NNPDF30_nnlo_as_0118_hessian",
+    "NNPDF31_nnlo_as_0118_hessian",
+    "NNPDF31_nnlo_as_0118_strange",
+    "NNPDF40_nnlo_as_01180_hessian",
+    "ABMP16_3_nlo",
+    "CT18ANLO",
+    "CT18NLO",
+    "MSHT20nlo_as118",
+    "NNPDF31_nlo_as_0118_hessian",
+    "NNPDF40_nlo_as_01180",
 ]
 
 
@@ -83,7 +90,8 @@ def main(options):
             print(f"{key}: {val}")
 
         # normalization factors
-        f_result = ROOT.TFile(os.path.join(options.input, f"WCharm_lep_obs_OSSS_complete_{suffix}{var}", "Fits", f"WCharm_lep_obs_OSSS_complete_{suffix}{var}.root"), "READ")
+        f_result = ROOT.TFile(os.path.join(
+            options.input, f"WCharm_lep_obs_OSSS_complete_{suffix}{var}", "Fits", f"WCharm_lep_obs_OSSS_complete_{suffix}{var}.root"), "READ")
         fr = f_result.Get("nll_simPdf_newasimovData_with_constr")
         nfs = {nf: fr.floatParsFinal().find(nf).getVal() for nf in NFS}
         print("\n============ normalization factors ============")
@@ -136,8 +144,8 @@ def main(options):
         chi2_dict[var] = {}
         nll_dict[var] = {}
         for prediction in THEORY:
-            if "NNPDF" in prediction:
-                prediction += "_hessian"
+            # if "NNPDF" in prediction:
+            #     prediction += "_hessian"
             name = "lep_abs_eta" if var == "eta" else "D_pt"
             f_theory = ROOT.TFile(os.path.join(PREDICTIONS_DIR, "predictions.root"))
             assert f_theory
@@ -332,7 +340,8 @@ def main(options):
             cov_matrices += [cov_pred_pdf]
 
             # calculate Chi2
-            chi2_dict[var][prediction.replace("_hessian", "")] = []
+            # chi2_dict[var][prediction.replace("_hessian", "")] = []
+            chi2_dict[var][prediction] = []
             for i in range(4):
                 cov_total = cov.Clone(f"{cov.GetName()}_{prediction}_{i}")
                 for j in range(i):
@@ -349,7 +358,8 @@ def main(options):
                         chi2_matrix[i][j] = chi2_i_j
                         chi2 += chi2_i_j
                         chi2_array += [(chi2_i_j, NFS[i], NFS[j])]
-                chi2_dict[var][prediction.replace("_hessian", "")] += [chi2]
+                # chi2_dict[var][prediction.replace("_hessian", "")] += [chi2]
+                chi2_dict[var][prediction] += [chi2]
                 print(f"Chi2: {chi2}, Prob: {100 * ROOT.TMath.Prob(chi2, 10)}")
                 # chi2_array.sort(key=lambda x: abs(x[0]), reverse=True)
                 # chi2_matrix.Print()
@@ -371,11 +381,12 @@ def main(options):
     # print final chi2
     for var in options.vars.split(","):
         print(f"\n\n==================== {var} ====================\n")
-        print(f"{'Prediction':22s}\tStat. Only\t+QCD Scale\t+Hadronization\t+PDF", end="")
+        print(f"{'Prediction':30s}\tExp. Only\t+QCD Scale\t+Hadronization\t+PDF", end="")
         for prediction in THEORY:
-            print(f"\n{prediction:22s}", end="")
+            print(f"\n{prediction:30s}", end="")
             if options.quickfit_input:
-                print(f"{prediction:22s}\t{100 * ROOT.TMath.Prob(chi2_dict[var][prediction], 10):.6f}\t{100 * ROOT.TMath.Prob(nll_dict[var][prediction], 10):.6f}")
+                print(
+                    f"{prediction:30s}\t{100 * ROOT.TMath.Prob(chi2_dict[var][prediction], 10):.6f}\t{100 * ROOT.TMath.Prob(nll_dict[var][prediction], 10):.6f}")
             else:
                 for chi2 in chi2_dict[var][prediction]:
                     print(f"\t{100 * ROOT.TMath.Prob(chi2, 10):.6f}", end="")
@@ -395,7 +406,7 @@ if __name__ == "__main__":
                       action="store", dest="input",
                       help="input folder with the fit results")
     parser.add_option('-d', '--decay',
-                      action="store", dest="decay", default = "Dplus",
+                      action="store", dest="decay", default="Dplus",
                       help="Decay mode (defaults to Dplus)")
     parser.add_option('-r', '--ranking-cov',
                       action="store_true", dest="ranking_cov",

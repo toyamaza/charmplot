@@ -68,7 +68,7 @@ def main(options, args):
     DIR_PRIORS = "/global/cfs/cdirs/atlas/wcharm/charmplot_output/Dmeson_2022_06_15/"
 
     # theory predictions
-    DIR_THEORY = "/global/cfs/cdirs/atlas/wcharm/Rivet/v1/processed3"
+    DIR_THEORY = "/global/cfs/cdirs/atlas/wcharm/Rivet/v1/processed4"
 
     # observables
     OBSERVABLES = {
@@ -82,7 +82,7 @@ def main(options, args):
         },
         "eta": {
             "fit_results": "/global/cfs/cdirs/atlas/wcharm/TRExFitter/Output/Dplus_2022_07_26/",
-            "label": "#eta(l)",
+            "label": "#eta(#it{l})",
             "prior_var": "D_differential_lep_eta",
             "bins": [0.0, 0.5, 1.0, 1.5, 2.0, 2.5],
             "logx": False,
@@ -98,9 +98,9 @@ def main(options, args):
                 "markerStyle": 24,
                 "markerStyle2": 20,
                 "markerScale": 1.0,
-                "legendLabel": "Sh2.2.11^{0to5}, diag. CKM, NNPDF30_nnlo",
-                "legendLabelFull": "Sh2.2.11^{0to5}, diag. CKM, NNPDF30_nnlo",
-                "offset": -0.50,
+                "legendLabel": "Sh2.2.11^{0to5}, diag. CKM, NNPDF30",
+                "legendLabelFull": "Sh2.2.11^{0to5}, diag. CKM, NNPDF30",
+                "offset": -1 + 1 * (2 / 5.),
             },
             "Sherpa2211_0to2": {
                 "lineColor": ROOT.kRed + 3,
@@ -108,9 +108,9 @@ def main(options, args):
                 "markerStyle": 42,
                 "markerStyle2": 43,
                 "markerScale": 1.0,
-                "legendLabel": "Sh2.2.11^{0to2}, diag. CKM, NNPDF30_nnlo",
-                "legendLabelFull": "Sh2.2.11^{0to2}, diag. CKM, NNPDF30_nnlo",
-                "offset": -0.25,
+                "legendLabel": "Sh2.2.11^{0to2}, diag. CKM, NNPDF30",
+                "legendLabelFull": "Sh2.2.11^{0to2}, diag. CKM, NNPDF30",
+                "offset": -1 + 2 * (2 / 5.),
             },
             "MGPy8EG_A14NNPDF23LO": {
                 "lineColor": ROOT.kGreen - 2,
@@ -118,9 +118,9 @@ def main(options, args):
                 "markerStyle": 28,
                 "markerStyle2": 34,
                 "markerScale": 1.0,
-                "legendLabel": "aMC@NLO, full CKM, NNPDF30_nnlo",
-                "legendLabelFull": "aMC@NLO, full CKM, NNPDF30_nnlo",
-                "offset": 0.25,
+                "legendLabel": "aMC@NLO, full CKM, NNPDF30",
+                "legendLabelFull": "aMC@NLO, full CKM, NNPDF30",
+                "offset": -1 + 3 * (2 / 5.),
             },
             "MGPy8EG_FxFx_3jets": {
                 "lineColor": ROOT.kBlue + 2,
@@ -128,9 +128,9 @@ def main(options, args):
                 "markerStyle": 32,
                 "markerStyle2": 23,
                 "markerScale": 1.0,
-                "legendLabel": "MG FxFx, diag. CKM, NNPDF31_nnlo",
-                "legendLabelFull": "MG FxFx, diag. CKM, NNPDF31_nnlo",
-                "offset": 0.50,
+                "legendLabel": "MG FxFx, diag. CKM, NNPDF31",
+                "legendLabelFull": "MG FxFx, diag. CKM, NNPDF31",
+                "offset": -1 + 4 * (2 / 5.),
             },
         },
         "PDF_comparison": {
@@ -139,30 +139,30 @@ def main(options, args):
                 "fillColor": ROOT.kBlue - 9,
                 "markerStyle": 24,
                 "markerStyle2": 20,
-                "markerScale": 0.8,
-                "legendLabel": "ABMP16_5_nnlo",
-                "legendLabelFull": "ABMP16_5_nnlo",
-                "offset": -0.71,
+                "markerScale": 1.0,
+                "legendLabel": "ABMP16_5",
+                "legendLabelFull": "ABMP16_5",
+                "offset": -1 + 1 * (2 / 10.),
             },
             "ATLASpdf21_T3": {
                 "lineColor": ROOT.kRed + 1,
                 "fillColor": ROOT.kRed - 9,
                 "markerStyle": 42,
                 "markerStyle2": 43,
-                "markerScale": 1.2,
+                "markerScale": 1.8,
                 "legendLabel": "ATLASpdf21_T3",
                 "legendLabelFull": "ATLASpdf21_T3",
-                "offset": -0.54,
+                "offset": -1 + 2 * (2 / 10.),
             },
             "CT18ANNLO": {
                 "lineColor": ROOT.kOrange + 2,
                 "fillColor": ROOT.kOrange,
                 "markerStyle": 25,
                 "markerStyle2": 21,
-                "markerScale": 0.8,
-                "legendLabel": "CT18ANNLO",
-                "legendLabelFull": "CT18ANNLO",
-                "offset": -0.36,
+                "markerScale": 1.0,
+                "legendLabel": "CT18A",
+                "legendLabelFull": "CT18A",
+                "offset": -1 + 3 * (2 / 10.),
             },
             "CT18NNLO": {
                 "lineColor": ROOT.kOrange - 6,
@@ -170,59 +170,69 @@ def main(options, args):
                 "markerStyle": 44,
                 "markerStyle2": 45,
                 "markerScale": 1.2,
-                "legendLabel": "CT18NNLO",
-                "legendLabelFull": "CT18NNLO",
-                "offset": -0.18,
+                "legendLabel": "CT18",
+                "legendLabelFull": "CT18",
+                "offset": -1 + 4 * (2 / 10.),
             },
             "MSHT20nnlo_as118": {
                 "lineColor": ROOT.kMagenta + 2,
                 "fillColor": ROOT.kMagenta - 9,
                 "markerStyle": 27,
                 "markerStyle2": 33,
-                "markerScale": 1.2,
-                "legendLabel": "MSHT20nnlo",
-                "legendLabelFull": "MSHT20nnlo",
-                "offset": 0.18,
+                "markerScale": 1.6,
+                "legendLabel": "MSHT20",
+                "legendLabelFull": "MSHT20",
+                "offset": -1 + 5 * (2 / 10.),
             },
             "PDF4LHC21_40": {
                 "lineColor": ROOT.kPink - 1,
                 "fillColor": ROOT.kPink + 6,
                 "markerStyle": 46,
                 "markerStyle2": 47,
-                "markerScale": 1.0,
+                "markerScale": 1.2,
                 "legendLabel": "PDF4LHC21_40",
                 "legendLabelFull": "PDF4LHC21_40",
-                "offset": 0.36,
+                "offset": -1 + 6 * (2 / 10.),
             },
-            "NNPDF30_nnlo_as_0118_hessian": {
+            # "NNPDF30_nnlo_as_0118_hessian": {
+            #     "lineColor": ROOT.kGreen - 2,
+            #     "fillColor": ROOT.kGreen - 4,
+            #     "markerStyle": 28,
+            #     "markerStyle2": 34,
+            #     "markerScale": 1.1,
+            #     "legendLabel": "NNPDF30_nnlo",
+            #     "legendLabelFull": "NNPDF30_nnlo",
+            #     "offset": -1 + 7 * (2/10.),
+            # },
+            "NNPDF31_nnlo_as_0118_hessian": {
                 "lineColor": ROOT.kGreen - 2,
                 "fillColor": ROOT.kGreen - 4,
-                "markerStyle": 28,
-                "markerStyle2": 34,
-                "markerScale": 1.1,
-                "legendLabel": "NNPDF30_nnlo",
-                "legendLabelFull": "NNPDF30_nnlo",
-                "offset": 0.54,
+                "markerStyle": 26,
+                "markerStyle2": 22,
+                "markerScale": 1.3,
+                "legendLabel": "NNPDF31",
+                "legendLabelFull": "NNPDF31",
+                "offset": -1 + 7 * (2 / 10.),
             },
-            "NNPDF31_nnlo_as_0118_hessian": {
+            "NNPDF31_nnlo_as_0118_strange": {
                 "lineColor": ROOT.kGreen + 3,
                 "fillColor": ROOT.kGreen + 1,
                 "markerStyle": 26,
                 "markerStyle2": 22,
-                "markerScale": 1.1,
-                "legendLabel": "NNPDF31_nnlo",
-                "legendLabelFull": "NNPDF31_nnlo",
-                "offset": 0.71,
+                "markerScale": 1.3,
+                "legendLabel": "NNPDF31_str",
+                "legendLabelFull": "NNPDF31_str",
+                "offset": -1 + 8 * (2 / 10.),
             },
             "NNPDF40_nnlo_as_01180_hessian": {
                 "lineColor": ROOT.kGreen + 4,
                 "fillColor": ROOT.kGreen + 2,
                 "markerStyle": 32,
                 "markerStyle2": 23,
-                "markerScale": 1.1,
-                "legendLabel": "NNPDF40_nnlo",
-                "legendLabelFull": "NNPDF40_nnlo",
-                "offset": 0.89,
+                "markerScale": 1.3,
+                "legendLabel": "NNPDF40",
+                "legendLabelFull": "NNPDF40",
+                "offset": -1 + 9 * (2 / 10.),
             },
         },
         "NLO_PDF_comparison": {
@@ -231,20 +241,20 @@ def main(options, args):
                 "fillColor": ROOT.kBlue - 9,
                 "markerStyle": 24,
                 "markerStyle2": 20,
-                "markerScale": 0.8,
-                "legendLabel": "ABMP16_3_nlo",
-                "legendLabelFull": "ABMP16_3_nlo",
-                "offset": -0.54,
+                "markerScale": 1.0,
+                "legendLabel": "ABMP16_3",
+                "legendLabelFull": "ABMP16_3",
+                "offset": -1 + 1 * (2 / 7.),
             },
             "CT18ANLO": {
                 "lineColor": ROOT.kOrange + 2,
                 "fillColor": ROOT.kOrange,
                 "markerStyle": 25,
                 "markerStyle2": 21,
-                "markerScale": 0.8,
-                "legendLabel": "CT18ANLO",
-                "legendLabelFull": "CT18ANLO",
-                "offset": -0.36,
+                "markerScale": 1.0,
+                "legendLabel": "CT18A",
+                "legendLabelFull": "CT18A",
+                "offset": -1 + 2 * (2 / 7.),
             },
             "CT18NLO": {
                 "lineColor": ROOT.kOrange - 6,
@@ -252,49 +262,49 @@ def main(options, args):
                 "markerStyle": 44,
                 "markerStyle2": 45,
                 "markerScale": 1.2,
-                "legendLabel": "CT18NLO",
-                "legendLabelFull": "CT18NLO",
-                "offset": -0.18,
+                "legendLabel": "CT18",
+                "legendLabelFull": "CT18",
+                "offset": -1 + 3 * (2 / 7.),
             },
             "MSHT20nlo_as118": {
                 "lineColor": ROOT.kMagenta + 2,
                 "fillColor": ROOT.kMagenta - 9,
                 "markerStyle": 27,
                 "markerStyle2": 33,
-                "markerScale": 1.2,
-                "legendLabel": "MSHT20nlo",
-                "legendLabelFull": "MSHT20nlo",
-                "offset": 0.18,
+                "markerScale": 1.6,
+                "legendLabel": "MSHT20",
+                "legendLabelFull": "MSHT20",
+                "offset": -1 + 4 * (2 / 7.),
             },
-            "NNPDF30_nlo_as_0118_hessian": {
+            # "NNPDF30_nlo_as_0118_hessian": {
+            #     "lineColor": ROOT.kGreen - 2,
+            #     "fillColor": ROOT.kGreen - 4,
+            #     "markerStyle": 28,
+            #     "markerStyle2": 34,
+            #     "markerScale": 1.1,
+            #     "legendLabel": "NNPDF30",
+            #     "legendLabelFull": "NNPDF30",
+            #     "offset": -1 + 5 * (2/10.),
+            # },
+            "NNPDF31_nlo_as_0118_hessian": {
                 "lineColor": ROOT.kGreen - 2,
                 "fillColor": ROOT.kGreen - 4,
-                "markerStyle": 28,
-                "markerStyle2": 34,
-                "markerScale": 1.1,
-                "legendLabel": "NNPDF30_nlo",
-                "legendLabelFull": "NNPDF30_nlo",
-                "offset": 0.36,
-            },
-            "NNPDF31_nlo_as_0118_hessian": {
-                "lineColor": ROOT.kGreen + 3,
-                "fillColor": ROOT.kGreen + 1,
                 "markerStyle": 26,
                 "markerStyle2": 22,
-                "markerScale": 1.1,
-                "legendLabel": "NNPDF31_nlo",
-                "legendLabelFull": "NNPDF31_nlo",
-                "offset": 0.51,
+                "markerScale": 1.3,
+                "legendLabel": "NNPDF31",
+                "legendLabelFull": "NNPDF31",
+                "offset": -1 + 5 * (2 / 7.),
             },
             "NNPDF40_nlo_as_01180": {
                 "lineColor": ROOT.kGreen + 4,
                 "fillColor": ROOT.kGreen + 2,
                 "markerStyle": 32,
                 "markerStyle2": 23,
-                "markerScale": 1.1,
-                "legendLabel": "NNPDF40_nlo",
-                "legendLabelFull": "NNPDF40_nlo",
-                "offset": 0.71,
+                "markerScale": 1.3,
+                "legendLabel": "NNPDF40",
+                "legendLabelFull": "NNPDF40",
+                "offset": -1 + 6 * (2 / 7.),
             },
         }
     }
@@ -471,25 +481,37 @@ def main(options, args):
                                 xc) + (ROOT.TMath.Log10(obs["bins"][-1]) - ROOT.TMath.Log10(obs["bins"][0])) / 200.) - xc
                             x_err_dn = xc - ROOT.TMath.Power(10, ROOT.TMath.Log10(xc) -
                                                              (ROOT.TMath.Log10(obs["bins"][-1]) - ROOT.TMath.Log10(obs["bins"][0])) / 200.)
-                            gr_obs_sys.SetPointError(i, x_err_up, x_err_up, abs(y_dn_sys), abs(y_up_sys))
-                            gr_obs_norm_sys.SetPointError(i, x_err_up, x_err_up, abs(y_norm_dn_sys), abs(y_norm_up_sys))
+                            gr_obs_sys.SetPointError(i, xc_dn, xc_up, abs(y_dn_stat), abs(y_up_stat))
+                            gr_obs_norm_sys.SetPointError(i, xc_dn, xc_up, abs(y_norm_dn_stat), abs(y_norm_up_stat))
                         else:
-                            gr_obs_sys.SetPointError(i, xc_dn / 15., xc_up / 15., abs(y_dn_sys), abs(y_up_sys))
-                            gr_obs_norm_sys.SetPointError(i, xc_dn / 15., xc_up / 15., abs(y_norm_dn_sys), abs(y_norm_up_sys))
+                            gr_obs_sys.SetPointError(i, xc_dn, xc_up, abs(y_dn_stat), abs(y_up_stat))
+                            gr_obs_norm_sys.SetPointError(i, xc_dn, xc_up, abs(y_norm_dn_stat), abs(y_norm_up_stat))
 
                     # line width
-                    gr_obs.SetLineWidth(2)
-                    gr_obs_norm.SetLineWidth(2)
+                    gr_obs.SetLineWidth(1)
+                    gr_obs_norm.SetLineWidth(1)
+                    gr_obs_sys.SetLineWidth(0)
                     gr_obs_ratio.SetLineWidth(0)
                     gr_obs_norm_ratio.SetLineWidth(0)
                     gr_obs.SetMarkerSize(1.5)
                     gr_obs_norm.SetMarkerSize(1.5)
                     gr_obs_norm.SetMarkerStyle(4)
                     gr_obs.SetMarkerStyle(4)
+                    gr_obs_line_leg = gr_obs.Clone(f"{gr_obs.GetName()}_line_leg")
+                    gr_obs_line_leg.SetLineWidth(2)
+                    gr_obs_line = gr_obs.Clone(f"{gr_obs.GetName()}_line")
+                    gr_obs_norm_line = gr_obs_norm.Clone(f"{gr_obs_norm.GetName()}_line")
+                    for i in range(gr_obs_line.GetN()):
+                        gr_obs_line.GetEYhigh()[i] = 0
+                        gr_obs_line.GetEYlow()[i] = 0
+                        gr_obs_norm_line.GetEYhigh()[i] = 0
+                        gr_obs_norm_line.GetEYlow()[i] = 0
 
                     # fill
-                    gr_obs_sys.SetLineColor(ROOT.kBlack)
-                    gr_obs_norm_sys.SetLineColor(ROOT.kBlack)
+                    gr_obs.SetFillColor(ROOT.kGray)
+                    gr_obs_norm.SetFillColor(ROOT.kGray)
+                    gr_obs_sys.SetFillColor(ROOT.kGray + 2)
+                    gr_obs_norm_sys.SetFillColor(ROOT.kGray + 2)
                     gr_obs_ratio.SetFillColor(ROOT.kGray)
                     # gr_obs_norm_ratio.SetFillColor(ROOT.kGray + 1)
                     gr_obs_norm_ratio.SetFillColor(ROOT.kGray)
@@ -504,7 +526,7 @@ def main(options, args):
 
                     # axis title
                     mg_obs.GetYaxis().SetTitle(f"d#sigma/d({obs['label']}) [pb / bin]")
-                    mg_obs_norm.GetYaxis().SetTitle(f"1/#sigma d#sigma/d({obs['label']})")
+                    mg_obs_norm.GetYaxis().SetTitle(f"#frac{{#scale[0.8]{{1}}}}{{#sigma}} d#sigma/d({obs['label']})")
                     mg_obs_ratio.GetYaxis().SetTitle(f"#frac{{Theory}}{{1/#sigma d#sigma/d({obs['label']})}}")
                     if obs_name == "pt":
                         mg_obs_ratio.GetXaxis().SetTitle(obs['label'] + " [GeV]")
@@ -512,7 +534,7 @@ def main(options, args):
                         mg_obs_ratio.GetXaxis().SetTitle("|" + obs['label'] + "|")
 
                     # label and title size
-                    GLOBAL_SF = 1.3
+                    GLOBAL_SF = 1.4
                     mg_obs.GetXaxis().SetLabelSize(0)
                     mg_obs.GetYaxis().SetTitleSize(mg_obs.GetYaxis().GetTitleSize() * GLOBAL_SF)
                     mg_obs.GetYaxis().SetTitleOffset(mg_obs.GetYaxis().GetTitleOffset() * (1 / (GLOBAL_SF * 1.1)))
@@ -527,7 +549,7 @@ def main(options, args):
 
                     SF = 0.55 / 0.35
                     mg_obs_ratio.GetYaxis().SetTitleSize(mg_obs_ratio.GetYaxis().GetTitleSize() * SF * GLOBAL_SF)
-                    mg_obs_ratio.GetYaxis().SetTitleOffset(mg_obs_ratio.GetYaxis().GetTitleOffset() * (1 / (GLOBAL_SF * 0.98 * SF)))
+                    mg_obs_ratio.GetYaxis().SetTitleOffset(mg_obs_ratio.GetYaxis().GetTitleOffset() * (1 / (GLOBAL_SF * SF)))
                     mg_obs_ratio.GetXaxis().SetTitleSize(mg_obs_ratio.GetXaxis().GetTitleSize() * SF * GLOBAL_SF)
                     mg_obs_ratio.GetXaxis().SetTitleOffset(mg_obs_ratio.GetXaxis().GetTitleOffset() * (1 / (GLOBAL_SF * 0.6 * SF)))
                     mg_obs_ratio.GetYaxis().SetLabelSize(mg_obs_ratio.GetYaxis().GetLabelSize() * SF * GLOBAL_SF)
@@ -544,38 +566,38 @@ def main(options, args):
                     mg_obs_ratio.GetXaxis().SetNoExponent()
 
                     # legend
-                    N = 3 + len(theory_dict)
+                    N = 4 + len(theory_dict)
                     if plot_type in ["PDF_comparison", "NLO_PDF_comparison"]:
-                        leg = ROOT.TLegend(0.45, 0.87 - (N // 2) * 0.050, 0.92, 0.87)
+                        leg = ROOT.TLegend(0.47, 0.88 - (N // 2) * 0.050, 0.95, 0.88)
                         leg.SetNColumns(2)
                         leg.SetBorderSize(0)
                         leg.SetFillColor(0)
                         leg.SetFillStyle(0)
-                        leg.SetTextSize(30)
+                        leg.SetTextSize(34)
                         leg.SetTextFont(43)
-                        leg.AddEntry(gr_obs, "Data", "pe")
+                        leg.AddEntry(gr_obs_line_leg, "Data", "l")
                         leg.AddEntry(gr_obs_sys, "Syst. Unc.", "f")
-                        leg.AddEntry(gr_obs_norm_ratio_stat, "Stat. Unc.", "f")
+                        # leg.AddEntry(gr_obs_norm_ratio_stat, "Stat. Unc.", "f")
                         leg.AddEntry(gr_obs_norm_ratio, "Syst. #oplus Stat.", "f")
                     else:
-                        leg = ROOT.TLegend(0.45, 0.87 - 2 * 0.050, 0.92, 0.87)
+                        leg = ROOT.TLegend(0.46, 0.88 - 2 * 0.050, 0.92, 0.88)
                         leg.SetNColumns(2)
                         leg.SetBorderSize(0)
                         leg.SetFillColor(0)
                         leg.SetFillStyle(0)
-                        leg.SetTextSize(30)
+                        leg.SetTextSize(34)
                         leg.SetTextFont(43)
-                        leg.AddEntry(gr_obs, "Data", "pe")
+                        leg.AddEntry(gr_obs_line_leg, "Data", "l")
                         leg.AddEntry(gr_obs_sys, "Syst. Unc.", "f")
-                        leg.AddEntry(gr_obs_norm_ratio_stat, "Stat. Unc.", "f")
+                        # leg.AddEntry(gr_obs_norm_ratio_stat, "Stat. Unc.", "f")
                         leg.AddEntry(gr_obs_norm_ratio, "Syst. #oplus Stat.", "f")
 
                         # separate legend for predictions
-                        leg2 = ROOT.TLegend(0.45, 0.87 - (2 + len(theory_dict)) * 0.050, 0.45 + (0.92 - 0.45) / 2., 0.87 - 2 * 0.050)
+                        leg2 = ROOT.TLegend(0.46, 0.88 - (2 + len(theory_dict)) * 0.050, 0.45 + (0.92 - 0.45) / 2., 0.88 - 2 * 0.050)
                         leg2.SetBorderSize(0)
                         leg2.SetFillColor(0)
                         leg2.SetFillStyle(0)
-                        leg2.SetTextSize(30)
+                        leg2.SetTextSize(34)
                         leg2.SetTextFont(43)
 
                     # add to ratio multigraph
@@ -583,10 +605,12 @@ def main(options, args):
                     mg_obs_ratio.Add(gr_obs_norm_ratio_stat, "0e2")
 
                     # add graphs
-                    mg_obs.Add(gr_obs_sys, "0e5")
-                    mg_obs.Add(gr_obs, "pe0")
-                    mg_obs_norm.Add(gr_obs_norm_sys, "0e5")
-                    mg_obs_norm.Add(gr_obs_norm, "pe0")
+                    mg_obs.Add(gr_obs, "0e2")
+                    mg_obs.Add(gr_obs_sys, "0e2")
+                    mg_obs.Add(gr_obs_line, "e0")
+                    mg_obs_norm.Add(gr_obs_norm, "0e2")
+                    mg_obs_norm.Add(gr_obs_norm_sys, "0e2")
+                    mg_obs_norm.Add(gr_obs_norm_line, "e0")
 
                     # print out
                     print(f"================ {options.decay} {lep} {obs_name} =================")
@@ -600,8 +624,10 @@ def main(options, args):
                         y_norm = gr_obs_norm.GetY()[i]
                         y_norm_sys_up = gr_obs_norm_sys.GetErrorYhigh(i)
                         y_norm_sys_dn = gr_obs_norm_sys.GetErrorYlow(i)
-                        y_norm_stat = 0.5 * (gr_obs_norm.GetErrorYhigh(i)**2 - y_norm_sys_up**2)**0.5 + 0.5 * (gr_obs_norm.GetErrorYlow(i)**2 - y_norm_sys_dn**2)**0.5
-                        print(f" & {y:.4f} & {y_stat:.4f} & $^{{+{y_sys_up:.2f}}}_{{-{y_sys_dn:.2f}}}$ & {y_norm:.6f} & {y_norm_stat:.6f} & $^{{+{y_norm_sys_up:.4f}}}_{{-{y_norm_sys_dn:.4f}}}$ \\\\")
+                        y_norm_stat = 0.5 * (gr_obs_norm.GetErrorYhigh(i)**2 - y_norm_sys_up**2)**0.5 + \
+                            0.5 * (gr_obs_norm.GetErrorYlow(i)**2 - y_norm_sys_dn**2)**0.5
+                        print(
+                            f" & {y:.4f} & {y_stat:.4f} & $^{{+{y_sys_up:.2f}}}_{{-{y_sys_dn:.2f}}}$ & {y_norm:.6f} & {y_norm_stat:.6f} & $^{{+{y_norm_sys_up:.4f}}}_{{-{y_norm_sys_dn:.4f}}}$ \\\\")
 
                 # --------------------------------------------
                 # Step 2.5: theory comparisons
@@ -720,8 +746,10 @@ def main(options, args):
                             err_hadronization = (max(vals) - min(vals)) / 2.
                             err_prod_frac = 0.028 if options.decay == "Dplus" else 0.020
                             err_prod_frac *= h_theory.GetBinContent(i + 1 + offset)
-                            err_up = err_pdf_up * err_pdf_up + err_qcd_up * err_qcd_up + err_hadronization * err_hadronization + err_prod_frac * err_prod_frac
-                            err_dn = err_pdf_dn * err_pdf_dn + err_qcd_dn * err_qcd_dn + err_hadronization * err_hadronization + err_prod_frac * err_prod_frac
+                            err_powhel = 0.03
+                            err_powhel *= h_theory.GetBinContent(i + 1 + offset)
+                            err_up = err_pdf_up * err_pdf_up + err_qcd_up * err_qcd_up + err_hadronization * err_hadronization + err_prod_frac * err_prod_frac + err_powhel * err_powhel
+                            err_dn = err_pdf_dn * err_pdf_dn + err_qcd_dn * err_qcd_dn + err_hadronization * err_hadronization + err_prod_frac * err_prod_frac + err_powhel * err_powhel
                             gr_theory.SetPointError(i, 0, 0, err_up**0.5, err_dn**0.5)
 
                             # normalized cross section
@@ -744,20 +772,23 @@ def main(options, args):
                             xl = obs["bins"][i]
                             xh = obs["bins"][i + 1]
                             w = xh - xl
+                            rel_scale_num_points = len(theory_dict) / 9.
+                            rel_scale = (ROOT.TMath.Log10(xh) - ROOT.TMath.Log10(xl)) / \
+                                ((ROOT.TMath.Log10(obs["bins"][-1]) - ROOT.TMath.Log10(obs["bins"][0])) / 5.) / rel_scale_num_points
                             if obs["logx"]:
                                 xc = ROOT.TMath.Power(10, ROOT.TMath.Log10(xl) + (ROOT.TMath.Log10(xl + w) - ROOT.TMath.Log10(xl)) / 2. +
                                                       prediction_dict["offset"] * (ROOT.TMath.Log10(xl + w) - ROOT.TMath.Log10(xl)) / 2.)
                                 x_err_up = ROOT.TMath.Power(10, ROOT.TMath.Log10(
-                                    xc) + (ROOT.TMath.Log10(obs["bins"][-1]) - ROOT.TMath.Log10(obs["bins"][0])) / 200.) - xc
+                                    xc) + (ROOT.TMath.Log10(obs["bins"][-1]) - ROOT.TMath.Log10(obs["bins"][0])) / (150. / rel_scale)) - xc
                                 x_err_dn = xc - ROOT.TMath.Power(10, ROOT.TMath.Log10(xc) -
-                                                                 (ROOT.TMath.Log10(obs["bins"][-1]) - ROOT.TMath.Log10(obs["bins"][0])) / 200.)
+                                                                 (ROOT.TMath.Log10(obs["bins"][-1]) - ROOT.TMath.Log10(obs["bins"][0])) / (150. / rel_scale))
                                 gr_theory.GetX()[i] = ROOT.TMath.Power(10, ROOT.TMath.Log10(xc) +
-                                                                       (ROOT.TMath.Log10(obs["bins"][-1]) - ROOT.TMath.Log10(obs["bins"][0])) / 200.) - xc
+                                                                       (ROOT.TMath.Log10(obs["bins"][-1]) - ROOT.TMath.Log10(obs["bins"][0])) / (150. / rel_scale)) - xc
                             else:
                                 offset = prediction_dict["offset"] * gr_obs.GetEXhigh()[i]
                                 xc = gr_theory.GetX()[i] + offset
-                                x_err_up = w / 40.
-                                x_err_dn = w / 40.
+                                x_err_up = w / 40. / rel_scale_num_points
+                                x_err_dn = w / 40. / rel_scale_num_points
                             gr_theory.GetX()[i] = xc
                             gr_theory_norm.GetX()[i] = xc
                             gr_theory.GetEXhigh()[i] = x_err_up
@@ -815,22 +846,28 @@ def main(options, args):
                     l1 = ROOT.TLatex()
                     l1.SetNDC()
                     l1.SetTextFont(73)
-                    l1.SetTextSize(32)
-                    l1.DrawLatex(0.19, 0.8 - 0 * 0.06, "ATLAS")
+                    l1.SetTextSize(36)
+                    l1.DrawLatex(0.19, 0.84 - 0 * 0.06, "ATLAS")
                     l2 = ROOT.TLatex()
                     l2.SetNDC()
                     l2.SetTextFont(43)
-                    l2.SetTextSize(32)
-                    l2.DrawLatex(0.305, 0.8 - 0 * 0.06, "Internal")
-                    l2.DrawLatex(0.19, 0.8 - 1 * 0.06, "#sqrt{s} = 13 TeV, 139 fb^{-1}")
+                    l2.SetTextSize(36)
+                    l2.DrawLatex(0.305, 0.84 - 0 * 0.06, "Internal")
+                    l2.DrawLatex(0.19, 0.84 - 1 * 0.06, "#sqrt{s} = 13 TeV, 139 fb^{-1}")
                     if options.decay == "Dstar":
-                        l2.DrawLatex(0.19, 0.8 - 2 * 0.06, "#it{W}^{%s}+#it{D*}^{%s}(#rightarrow(K#pi)#pi)" %
+                        l2.DrawLatex(0.19, 0.84 - 2 * 0.06, "#it{W}^{%s}+#it{D*}^{%s}(#rightarrow(K#pi)#pi)" %
                                      (("-" if lep == "minus" else "+"), ("+" if lep == "minus" else "-")))
                     else:
-                        l2.DrawLatex(0.19, 0.8 - 2 * 0.06, "#it{W}^{%s}+#it{D}^{%s}(#rightarrowK#pi#pi)" %
+                        l2.DrawLatex(0.19, 0.84 - 2 * 0.06, "#it{W}^{%s}+#it{D}^{%s}(#rightarrowK#pi#pi)" %
                                      (("-" if lep == "minus" else "+"), ("+" if lep == "minus" else "-")))
                     if plot_type in ["PDF_comparison", "NLO_PDF_comparison"]:
-                        l2.DrawLatex(0.19, 0.8 - 3 * 0.06, "aMC@NLO, full CKM")
+                        l2.DrawLatex(0.19, 0.84 - 3 * 0.06, "#bf{Pred.}: #it{aMC@NLO}")
+                        if plot_type == "NLO_PDF_comparison":
+                            l2.DrawLatex(0.19, 0.84 - 4 * 0.06, "#it{Full CKM}, #it{NLO PDF}")
+                        else:
+                            l2.DrawLatex(0.19, 0.84 - 4 * 0.06, "#it{Full CKM}, #it{NNLO PDF}")
+                    else:
+                        l2.DrawLatex(0.19, 0.84 - 3 * 0.06, "#bf{Pred.}: #it{NNLO PDF}")
 
                     # vertical lines
                     lines = []
@@ -906,13 +943,14 @@ def main(options, args):
             # --------------------------------------------
             # Ladder plots
             # --------------------------------------------
-            ROOT.gStyle.SetEndErrorSize(8)
+            # ROOT.gStyle.SetEndErrorSize(8)
             proxy_pdf = ROOT.TGraph()
             proxy_pdf.SetLineColor(ROOT.kBlack)
-            proxy_pdf.SetLineWidth(3)
+            proxy_pdf.SetLineWidth(5)
             proxy_total = ROOT.TGraph()
-            proxy_total.SetLineColor(ROOT.kRed)
+            proxy_total.SetLineColor(ROOT.kGray + 1)
             proxy_total.SetLineWidth(3)
+            # proxy_total.SetLineStyle(2)
 
             # save for Rc plot
             data = {}
@@ -940,20 +978,20 @@ def main(options, args):
                     xsec_err_dn = abs(float(POIs_obs[f"mu_W{lep}_tot"][2]) * priors[f"W{lep}"])
                     xsec_err_stat_up = float(POIs_stat[f"mu_W{lep}_tot"][1]) * priors[f"W{lep}"]
                     xsec_err_stat_dn = abs(float(POIs_stat[f"mu_W{lep}_tot"][2]) * priors[f"W{lep}"])
-                    limits = [30, 100]
+                    limits = [40, 100]
                     lep_charge = "-"
                     meson_charge = "+"
-                    obs_str = "#sigma_{fid}^{(OS-SS)}"
+                    obs_str = "#sigma_{fid}"
                 elif lep == "plus":
                     xsec = float(POIs_obs[f"mu_W{lep}_tot"][0]) * priors[f"W{lep}"]
                     xsec_err_up = float(POIs_obs[f"mu_W{lep}_tot"][1]) * priors[f"W{lep}"]
                     xsec_err_dn = abs(float(POIs_obs[f"mu_W{lep}_tot"][2]) * priors[f"W{lep}"])
                     xsec_err_stat_up = float(POIs_stat[f"mu_W{lep}_tot"][1]) * priors[f"W{lep}"]
                     xsec_err_stat_dn = abs(float(POIs_stat[f"mu_W{lep}_tot"][2]) * priors[f"W{lep}"])
-                    limits = [30, 100]
+                    limits = [40, 100]
                     lep_charge = "+"
                     meson_charge = "-"
-                    obs_str = "#sigma_{fid}^{(OS-SS)}"
+                    obs_str = "#sigma_{fid}"
                 elif lep == "ratio" and options.decay != "Dmeson":
                     xsec = float(POIs_obs["mu_Rc"][0])
                     xsec_err_up = float(POIs_obs["mu_Rc"][1])
@@ -963,7 +1001,7 @@ def main(options, args):
                     limits = [0.9, 1.2]
                     lep_charge = "#pm"
                     meson_charge = "#mp"
-                    obs_str = "R_{c}"
+                    obs_str = "#it{R}_{#it{c}}"
                 elif lep == "ratio" and options.decay == "Dmeson":
                     xsec = 0.970
                     xsec_err_up = 0.011954
@@ -973,7 +1011,7 @@ def main(options, args):
                     limits = [0.9, 1.2]
                     lep_charge = "#pm"
                     meson_charge = "#mp"
-                    obs_str = "R_{c}"
+                    obs_str = "#it{R}_{#it{c}}"
 
                 print(f"--- total cross section for {lep} ---")
                 print(f"{xsec} +{xsec_err_stat_up} -{xsec_err_stat_dn} (stat)")
@@ -1008,24 +1046,24 @@ def main(options, args):
                 mg.Add(gr, "l")
 
                 # data legend
-                leg1 = ROOT.TLegend(0.48, 0.76 - 1 * (0.060), 0.90, 0.76)
+                leg1 = ROOT.TLegend(0.37, 0.75 - 1 * (0.060), 0.90, 0.75)
                 leg1.SetBorderSize(0)
                 leg1.SetFillColor(0)
                 leg1.SetFillStyle(0)
                 leg1.SetTextSize(36)
                 leg1.SetTextFont(43)
-                leg1.SetNColumns(2)
-                # leg1.AddEntry(gr, "Data", "l")
+                leg1.SetNColumns(3)
+                leg1.AddEntry(gr, "Data", "l")
                 leg1.AddEntry(gr_stat, "Stat. Unc.", "f")
                 leg1.AddEntry(gr_tot, "Syst. #oplus Stat.", "f")
 
                 # theory legend
                 N = 2 + len(theory_dict)
-                leg = ROOT.TLegend(0.52, 0.63 - N * (0.040), 0.98, 0.63)
+                leg = ROOT.TLegend(0.45, 0.62 - N * (0.041), 0.98, 0.62)
                 leg.SetBorderSize(0)
                 leg.SetFillColor(0)
                 leg.SetFillStyle(0)
-                leg.SetTextSize(34)
+                leg.SetTextSize(36)
                 leg.SetTextFont(43)
                 leg_temp = leg.Clone(f"{leg.GetName()}_1")
 
@@ -1047,13 +1085,15 @@ def main(options, args):
                     err_hadronization = (max(vals) - min(vals)) / 2.
                     err_prod_frac = 0.028 if options.decay == "Dplus" else 0.020
                     err_prod_frac *= xsec
+                    err_powhel = 0.030
+                    err_powhel *= xsec
 
                     # total error
                     xsec_up = (xsec_up**2 + xsec_pdf_up**2 + err_hadronization**2)**0.5
                     xsec_dn = (xsec_dn**2 + xsec_pdf_dn**2 + err_hadronization**2)**0.5
                     if lep != "ratio":
-                        xsec_up = (xsec_up**2 + err_prod_frac**2)**0.5
-                        xsec_dn = (xsec_dn**2 + err_prod_frac**2)**0.5
+                        xsec_up = (xsec_up**2 + err_prod_frac**2 + err_powhel**2)**0.5
+                        xsec_dn = (xsec_dn**2 + err_prod_frac**2 + err_powhel**2)**0.5
 
                     # save
                     data[lep][prediction] = [xsec, xsec_up, xsec_dn, xsec_pdf_up, xsec_pdf_dn]
@@ -1075,14 +1115,21 @@ def main(options, args):
                     gr_theory.SetPoint(0, xsec, 0.9 - 0.2 * (k + 1))
                     gr_theory.SetPointError(0, xsec_up, xsec_dn, 0.0, 0.0)
                     gr_theory.SetLineWidth(3)
-                    gr_theory.SetLineColor(ROOT.kRed)
+                    gr_theory.SetLineColor(ROOT.kGray)
+                    # gr_theory.SetLineStyle(2)
+
+                    gr_theory_white = gr_theory.Clone(f"{gr_theory.GetName()}_white")
+                    gr_theory_white.SetLineColor(ROOT.kBlack)
+                    gr_theory_white.SetLineWidth(5)
 
                     gr_theory_pdf = ROOT.TGraphAsymmErrors()
                     gr_theory_pdf.SetPoint(0, xsec, 0.9 - 0.2 * (k + 1))
                     gr_theory_pdf.SetPointError(0, xsec_pdf_up, xsec_pdf_dn, 0.0, 0.0)
-                    gr_theory_pdf.SetLineWidth(3)
+                    gr_theory_pdf.SetLineWidth(5)
                     gr_theory_pdf.SetLineColor(ROOT.kBlack)
+                    # gr_theory_pdf.SetLineColor(prediction_dict["lineColor"])
 
+                    mg.Add(gr_theory_white, "e")
                     mg.Add(gr_theory, "e")
                     mg.Add(gr_theory_pdf, "e")
                     mg.Add(gr_theory_marker2, "p")
@@ -1091,7 +1138,7 @@ def main(options, args):
                     leg_temp.AddEntry(gr_theory_marker2, "", "p")
 
                 leg.AddEntry(proxy_pdf, "PDF Unc.", "l")
-                leg.AddEntry(proxy_total, "PDF #oplus QCD #oplus Had. Unc.", "l")
+                leg.AddEntry(proxy_total, "PDF #oplus QCD #oplus Other Unc.", "l")
                 leg_temp.AddEntry(proxy_pdf, "", "l")
                 leg_temp.AddEntry(proxy_total, "", "l")
 
@@ -1100,12 +1147,18 @@ def main(options, args):
                 c.SetLeftMargin(0.05)
                 mg.Draw("a")
                 mg.GetYaxis().SetLabelSize(0)
+                mg.GetXaxis().SetLabelSize(mg.GetXaxis().GetLabelSize() * 1.1)
+                mg.GetXaxis().SetTitleSize(mg.GetXaxis().GetTitleSize() * 1.2)
+                mg.GetXaxis().SetTitleOffset(mg.GetXaxis().GetTitleOffset() / 1.2)
+                unit_str = ""
+                if lep != "ratio":
+                    unit_str = " [pb]"
                 if options.decay == "Dstar":
-                    mg.GetXaxis().SetTitle("%s(#it{W}^{%s}+#it{D*}^{%s})" % (obs_str, lep_charge, meson_charge))
+                    mg.GetXaxis().SetTitle("%s(#it{W}^{%s}+#it{D*}^{%s})%s" % (obs_str, lep_charge, meson_charge, unit_str))
                 elif options.decay == "Dplus":
-                    mg.GetXaxis().SetTitle("%s(#it{W}^{%s}+#it{D}^{%s})" % (obs_str, lep_charge, meson_charge))
+                    mg.GetXaxis().SetTitle("%s(#it{W}^{%s}+#it{D}^{%s})%s" % (obs_str, lep_charge, meson_charge, unit_str))
                 elif options.decay == "Dmeson":
-                    mg.GetXaxis().SetTitle("%s(#it{W}^{%s}+#it{D}^{%s})" % (obs_str, lep_charge, meson_charge))
+                    mg.GetXaxis().SetTitle("%s(#it{W}^{%s}+#it{D}^{%s})%s" % (obs_str, lep_charge, meson_charge, unit_str))
                 mg.GetXaxis().SetLimits(limits[0], limits[1])
                 mg.SetMinimum(-1)
                 mg.SetMaximum(1)
@@ -1113,32 +1166,34 @@ def main(options, args):
                 # ATLAS label
                 l1 = ROOT.TLatex()
                 l1.SetTextFont(73)
-                l1.SetTextSize(38)
+                l1.SetTextSize(40)
                 l1.DrawLatex(limits[0] + (limits[1] - limits[0]) * (55 - 30) / 70., 0.85, "ATLAS")
                 l2 = ROOT.TLatex()
                 l2.SetTextFont(43)
-                l2.SetTextSize(38)
-                l2.DrawLatex(limits[0] + (limits[1] - limits[0]) * (65 - 30) / 70., 0.85 - 0 * 0.12, "Internal")
-                l2.DrawLatex(limits[0] + (limits[1] - limits[0]) * (55 - 30) / 70., 0.85 - 1 * 0.12, "#sqrt{s} = 13 TeV, 139 fb^{-1}")
+                l2.SetTextSize(40)
+                l2.DrawLatex(limits[0] + (limits[1] - limits[0]) * (65 - 30) / 70., 0.85 - 0 * 0.14, "Internal")
+                l2.DrawLatex(limits[0] + (limits[1] - limits[0]) * (55 - 30) / 70., 0.85 - 1 * 0.14, "#sqrt{s} = 13 TeV, 139 fb^{-1}")
                 if lep != "ratio":
-                    l2.DrawLatex(limits[0] + (limits[1] - limits[0]) * (55 - 30) / 70., 0.85 - 2 * 0.12,
-                                 f"{obs_str} = {gr.GetX()[0]:.2f} #pm{xsec_err_stat_up:.2f} (stat.) ^{{+{xsec_err_up:.2f}}}_{{-{xsec_err_dn:.2f}}} (syst.) pb")
+                    l2.DrawLatex(limits[0] + (limits[1] - limits[0]) * (55 - 30) / 70., 0.85 - 2 * 0.14,
+                                 f"{obs_str} = {gr.GetX()[0]:.2f} #pm{xsec_err_stat_up:.2f} (stat.)^{{+#scale[1.2]{{{xsec_err_up:.2f}}}}}_{{-#scale[1.2]{{{xsec_err_dn:.2f}}}}} (syst.) pb")
                 else:
-                    l2.DrawLatex(limits[0] + (limits[1] - limits[0]) * (55 - 30) / 70., 0.85 - 2 * 0.12,
-                                 f"{obs_str} = {gr.GetX()[0]:.3f} #pm{xsec_err_stat_up:.3f} (stat.) ^{{+{xsec_err_up:.3f}}}_{{-{xsec_err_dn:.3f}}} (syst.)")
-                if plot_type in ["PDF_comparison", "NLO_PDF_comparison"]:
-                    l2.DrawLatex(limits[0] + (limits[1] - limits[0]) * (62 - 30) / 70., 0.85 - 5.1 * 0.12, "#bf{Predictions}: #it{aMC@NLO, full CKM}")
+                    l2.DrawLatex(limits[0] + (limits[1] - limits[0]) * (55 - 30) / 70., 0.85 - 2 * 0.14,
+                                 f"{obs_str} = {gr.GetX()[0]:.3f} #pm{xsec_err_stat_up:.3f} (stat.)^{{+#scale[1.2]{{{xsec_err_up:.3f}}}}}_{{-#scale[1.2]{{{xsec_err_dn:.3f}}}}} (syst.)")
+                if plot_type == "PDF_comparison":
+                    l2.DrawLatex(limits[0] + (limits[1] - limits[0]) * (55 - 30) / 70., 0.85 - 4.5 * 0.14, "#bf{Pred.}: #it{aMC@NLO, full CKM, NNLO PDF}")
+                elif plot_type == "NLO_PDF_comparison":
+                    l2.DrawLatex(limits[0] + (limits[1] - limits[0]) * (55 - 30) / 70., 0.85 - 4.5 * 0.14, "#bf{Pred.}: #it{aMC@NLO, full CKM, NLO PDF}")
 
                 if options.decay == "Dstar":
-                    l2.DrawLatex(limits[0] + (limits[1] - limits[0]) * (80 - 30) / 70., 0.85 - 0 * 0.12,
+                    l2.DrawLatex(limits[0] + (limits[1] - limits[0]) * (80 - 30) / 70., 0.85 - 0 * 0.14,
                                  "#it{W}^{%s}+#it{D*}^{%s}(#rightarrow(K#pi)#pi)" % (lep_charge, meson_charge))
                 elif options.decay == "Dplus":
-                    l2.DrawLatex(limits[0] + (limits[1] - limits[0]) * (80 - 30) / 70., 0.85 - 0 * 0.12,
+                    l2.DrawLatex(limits[0] + (limits[1] - limits[0]) * (80 - 30) / 70., 0.85 - 0 * 0.14,
                                  "#it{W}^{%s}+#it{D}^{%s}(#rightarrowK#pi#pi)" % (lep_charge, meson_charge))
                 elif options.decay == "Dmeson":
-                    l2.DrawLatex(limits[0] + (limits[1] - limits[0]) * (80 - 30) / 70., 0.85 - 0 * 0.12,
+                    l2.DrawLatex(limits[0] + (limits[1] - limits[0]) * (80 - 30) / 70., 0.85 - 0 * 0.14,
                                  "#it{W}^{%s}+#it{D}^{%s}(#rightarrowK#pi#pi)" % (lep_charge, meson_charge))
-                    l2.DrawLatex(limits[0] + (limits[1] - limits[0]) * (80 - 30) / 70., 0.85 - 1 * 0.12,
+                    l2.DrawLatex(limits[0] + (limits[1] - limits[0]) * (80 - 30) / 70., 0.85 - 1 * 0.14,
                                  "#it{W}^{%s}+#it{D*}^{%s}(#rightarrow(K#pi)#pi)" % (lep_charge, meson_charge))
                 # legend
                 leg1.Draw()
