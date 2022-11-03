@@ -324,7 +324,7 @@ def main():
 
                 # histogram styles
                 if var == "pt":
-                    h_tot.GetXaxis().SetTitle("p_{T}^{D} [GeV]")
+                    h_tot.GetXaxis().SetTitle("#it{p}_{T}^{D} [GeV]")
                 elif var == "eta":
                     h_tot.GetXaxis().SetTitle("|#eta(#it{l})|")
                 h_tot.GetYaxis().SetTitle("Relative Uncertaitny [%]")
@@ -335,10 +335,11 @@ def main():
                 h_tot.SetLineColor(ROOT.kGray + 1)
                 h_tot.GetXaxis().SetTitleOffset(h_tot.GetXaxis().GetTitleOffset() * 1.1)
                 h_tot.GetXaxis().SetLabelSize(1.5 * h_tot.GetXaxis().GetLabelSize())
+                h_tot.GetYaxis().SetLabelOffset(h_tot.GetLabelOffset() * 1.2)
                 if var == "pt":
-                    h_tot.GetXaxis().SetLabelOffset(2.0 * h_tot.GetXaxis().GetLabelOffset())
-                elif var == "eta":
                     h_tot.GetXaxis().SetLabelOffset(2.5 * h_tot.GetXaxis().GetLabelOffset())
+                elif var == "eta":
+                    h_tot.GetXaxis().SetLabelOffset(3.0 * h_tot.GetXaxis().GetLabelOffset())
                 if var == "pt":
                     h_tot.GetXaxis().SetBinLabel(1, "8-12")
                     h_tot.GetXaxis().SetBinLabel(2, "12-20")
