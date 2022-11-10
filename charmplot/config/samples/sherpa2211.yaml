@@ -30,6 +30,14 @@ Zjets:
   fillColor: "11000"
   legendLabel: "Z+jets"
 
+Other:
+  add:
+    - Diboson
+    - Sherpa2211_Zjets
+  subtract:
+  fillColor: "11000"
+  legendLabel: "Other"
+
 Wjets_light_emu:
   add:
     - Sh_2211_Wjets_light_emu
