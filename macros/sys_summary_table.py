@@ -11,13 +11,57 @@ ROOT.gROOT.LoadMacro(os.path.join(dirname, "AtlasLabels.C"))
 ROOT.gROOT.LoadMacro(os.path.join(dirname, "AtlasUtils.C"))
 ROOT.SetAtlasStyle()
 
+if not os.path.isdir("plots_sys"):
+    os.makedirs("plots_sys")
+
+
+def RGB(string):
+    return tuple(int(string[i + 1:i + 3], 16) / 255. for i in (0, 2, 4))
+
+
+colors = []
+colors += [ROOT.TColor(10000, *RGB("#d3d3d3"), "10000")]
+colors += [ROOT.TColor(10001, *RGB("#4FFFA1"), "10001")]
+colors += [ROOT.TColor(10002, *RGB("#6A5CFF"), "10002")]
+colors += [ROOT.TColor(10003, *RGB("#DFFF4F"), "10003")]
+colors += [ROOT.TColor(10004, *RGB("#B32584"), "10004")]
+colors += [ROOT.TColor(10005, *RGB("#FF42C1"), "10005")]
+colors += [ROOT.TColor(10006, *RGB("#FF3131"), "10006")]
+
 CHANNELS = ["dplus", "dstar"]
-DPLUS_FOLDER = "/global/cfs/cdirs/atlas/wcharm/TRExFitter/Output/Dplus_2022_07_26_fullRanking"
-DSTAR_FOLDER = "/global/cfs/cdirs/atlas/wcharm/TRExFitter/Output/Dstar_2022_08_08_fullRanking"
+DPLUS_FOLDER = "/global/cfs/cdirs/atlas/wcharm/TRExFitter/Output/Dplus_2022_07_26_fullRanking_v2"
+DSTAR_FOLDER = "/global/cfs/cdirs/atlas/wcharm/TRExFitter/Output/Dstar_2022_08_08_fullRanking_v2"
+
+
+STYLE = {
+    "Luminosity": [ROOT.kGray + 3, 1, 12],
+    "Signal modeling": [10005, 1, 7],
+    "Muon reconstruction": [ROOT.kBlue - 9, 6, 5],
+    "Electron reconstruction": [ROOT.kRed - 9, 6, 5],
+    "Multijet background": [ROOT.kGreen - 8, 2, 5],
+    "Background modeling": [10002, 1, 6],
+    "Finite size of MC samples": [10006, 2, 4],
+    "Jet and missing energy": [10001, 7, 4],
+    "SV reconstruction": [10004, 1, 3],
+    "Signal branching ratio": [10003, 1, 3],
+}
+
+LEGEND = [
+    "SV reconstruction",
+    "Signal modeling",
+    "Background modeling",
+    "Jet and missing energy",
+    "Luminosity",
+    "Signal branching ratio",
+    "Muon reconstruction",
+    "Electron reconstruction",
+    "Multijet background",
+    "Finite size of MC samples",
+]
 
 
 def get_sys_group(name):
-    if name.startswith("gamma_"):
+    if name.startswith("gamma_") or name.startswith("Stat") or name.startswith("MC_Stat"):
         return "Finite size of MC samples"
     elif name.startswith("MM_"):
         return "Multijet background"
@@ -34,9 +78,9 @@ def get_sys_group(name):
     elif name.startswith("TRK_EFF_") or name.startswith("DMESON_MASS_") or name.startswith("DMESON_RESO_"):
         return "SV reconstruction"
     elif name.startswith("FID_EFF_") or name.startswith("Matched_Sherpa_MG_2P"):
-        return "Signal modelling"
+        return "Signal modeling"
     else:
-        return "Background modelling"
+        return "Background modeling"
 
 
 def main():
@@ -227,7 +271,8 @@ def main():
         # print LaTeX format (differential)
         for c in CHANNELS:
             print(f"\n============= {c} {var} ===============")
-            for g, _ in sorted(size.items(), key=lambda item: item[1], reverse=True):
+            sorted_groups = sorted(size.items(), key=lambda item: item[1], reverse=True)
+            for g, _ in sorted_groups:
                 errs = []
                 errs_norm = []
                 for POI in [f"mu_Wminus_{i}" for i in range(1, 6)] + [f"mu_Wplus_{i}" for i in range(1, 6)]:
@@ -242,6 +287,120 @@ def main():
             errs = [0.5 * (par.getErrorHi() - par.getErrorLo()) / par.getVal() for par in PARS_DIFF[c]]
             errs_norm = [0.5 * (par.getErrorHi() - par.getErrorLo()) / par.getVal() for par in PARS_DIFF_NORM[c]]
             print(f"    {'Total':30s}{' '.join([f'& {100 * err:.1f} ({100 * err2:.1f})' for (err, err2) in zip(errs, errs_norm)])} \\\\")
+
+            # make plots for Fede
+            for charge in ["minus", "plus"]:
+
+                # fill histograms
+                h_tot = ROOT.TH1D(f"h_tot_{c}_{charge}_{var}", f"h_tot_{c}_{charge}_{var}", 5, 0, 5)
+                h_stat = ROOT.TH1D(f"h_stat_{c}_{charge}_{var}", f"h_stat_{c}_{charge}_{var}", 5, 0, 5)
+                h_map = {}
+                for g, _ in sorted_groups:
+                    name = g.replace(" ", "_")
+                    h_map[g] = ROOT.TH1D(f"h_{name}_{c}_{charge}_{var}", f"h_{name}_{c}_{charge}_{var}", 5, 0, 5)
+                    h_map[g].SetLineColor(STYLE[g][0])
+                    h_map[g].SetLineStyle(STYLE[g][1])
+                    h_map[g].SetLineWidth(STYLE[g][2])
+
+                for i in range(1, 6):
+                    if charge == "minus":
+                        par = PARS_DIFF[c][i - 1]
+                        par_stat = PARS_STAT_DIFF[c][i - 1]
+                    else:
+                        par = PARS_DIFF[c][i - 1 + 5]
+                        par_stat = PARS_STAT_DIFF[c][i - 1 + 5]
+                    h_tot.SetBinContent(i, 100 * 0.5 * (par.getErrorHi() - par.getErrorLo()) / par.getVal())
+                    h_stat.SetBinContent(i, 100 * 0.5 * (par_stat.getErrorHi() - par_stat.getErrorLo()) / par_stat.getVal())
+                    POI = f"mu_W{charge}_{i}"
+                    for g, _ in sorted_groups:
+                        if g == "Luminosity":
+                            h_map[g].SetBinContent(i, 1.7)
+                        else:
+                            err = 100 * (ERRORS[c][g][POI][0] + ERRORS[c][g][POI][1]) / 2.
+                            if err > 0.1:
+                                h_map[g].SetBinContent(i, err)
+                            else:
+                                h_map[g].SetBinContent(i, 1e-6)
+
+                # histogram styles
+                if var == "pt":
+                    h_tot.GetXaxis().SetTitle("#it{p}_{T}^{D} [GeV]")
+                elif var == "eta":
+                    h_tot.GetXaxis().SetTitle("|#eta(#it{l})|")
+                h_tot.GetYaxis().SetTitle("Relative Uncertaitny [%]")
+                h_tot.SetMinimum(0.1)
+                h_tot.SetMaximum(99)
+                h_tot.GetYaxis().SetNoExponent()
+                h_tot.SetFillColor(10000)
+                h_tot.SetLineColor(ROOT.kGray + 1)
+                h_tot.GetXaxis().SetTitleOffset(h_tot.GetXaxis().GetTitleOffset() * 1.1)
+                h_tot.GetXaxis().SetLabelSize(1.5 * h_tot.GetXaxis().GetLabelSize())
+                h_tot.GetYaxis().SetLabelOffset(h_tot.GetLabelOffset() * 1.2)
+                if var == "pt":
+                    h_tot.GetXaxis().SetLabelOffset(2.5 * h_tot.GetXaxis().GetLabelOffset())
+                elif var == "eta":
+                    h_tot.GetXaxis().SetLabelOffset(3.0 * h_tot.GetXaxis().GetLabelOffset())
+                if var == "pt":
+                    h_tot.GetXaxis().SetBinLabel(1, "8-12")
+                    h_tot.GetXaxis().SetBinLabel(2, "12-20")
+                    h_tot.GetXaxis().SetBinLabel(3, "20-40")
+                    h_tot.GetXaxis().SetBinLabel(4, "40-80")
+                    h_tot.GetXaxis().SetBinLabel(5, "#geq 80")
+                elif var == "eta":
+                    h_tot.GetXaxis().SetBinLabel(1, "0.0-0.5")
+                    h_tot.GetXaxis().SetBinLabel(2, "0.5-1.0")
+                    h_tot.GetXaxis().SetBinLabel(3, "1.0-1.5")
+                    h_tot.GetXaxis().SetBinLabel(4, "1.5-2.0")
+                    h_tot.GetXaxis().SetBinLabel(5, "2.0-2.5")
+                # h_tot.GetXaxis().LabelsOption("v")
+                h_tot.GetXaxis().ChangeLabel(1, 25)
+                h_tot.GetXaxis().ChangeLabel(2, 25)
+                h_tot.GetXaxis().ChangeLabel(3, 25)
+                h_tot.GetXaxis().ChangeLabel(4, 25)
+                h_tot.GetXaxis().ChangeLabel(5, 25)
+                h_stat.SetLineColor(ROOT.kBlack)
+                h_stat.SetLineWidth(4)
+                h_stat.SetLineStyle(9)
+
+                # legend
+                N = 1 + len(sorted_groups)
+                leg = ROOT.TLegend(0.17, 0.860 - N * (0.014), 0.94, 0.860)
+                leg.SetNColumns(2)
+                leg.SetBorderSize(0)
+                leg.SetFillColor(0)
+                leg.SetFillStyle(0)
+                leg.SetTextSize(24)
+                leg.SetTextFont(43)
+
+                # plot
+                canv = ROOT.TCanvas(f"sys_plot_{c}_{charge}_{var}", f"sys_plot_{c}_{charge}_{var}", 800, 1000)
+                canv.SetLogy()
+                h_tot.Draw("hist")
+                leg.AddEntry(h_tot, "Total", "f")
+                leg.AddEntry(h_stat, "Statistical", "l")
+                for g in LEGEND:
+                    leg.AddEntry(h_map[g], g, "l")
+                for g in STYLE:
+                    h_map[g].Draw("same")
+                h_stat.Draw("same")
+
+                # ATLAS label
+                ROOT.ATLASLabel(0.18, 0.91, "Internal", 1, 0.04)
+                ROOT.myText(0.18, 0.875, 1, "#sqrt{s} = 13 TeV, 139.0 fb^{-1}", 0.04)
+                if c == "dplus":
+                    if charge == "minus":
+                        ROOT.myText(0.60, 0.875, 1, "W^{-}+D^{+}(#rightarrowK#pi#pi)", 0.04)
+                    else:
+                        ROOT.myText(0.60, 0.875, 1, "W^{+}+D^{-}(#rightarrowK#pi#pi)", 0.04)
+                elif c == "dstar":
+                    if charge == "minus":
+                        ROOT.myText(0.60, 0.875, 1, "W^{-}+D^{*+}(#rightarrow(K#pi)#pi)", 0.04)
+                    else:
+                        ROOT.myText(0.60, 0.875, 1, "W^{+}+D^{*-}(#rightarrow(K#pi)#pi)", 0.04)
+                leg.Draw()
+
+                ROOT.gPad.RedrawAxis()
+                canv.Print(f"plots_sys/{c}_{charge}_{var}.pdf")
 
 
 if __name__ == "__main__":

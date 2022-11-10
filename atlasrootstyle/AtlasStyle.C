@@ -17,7 +17,7 @@ void SetAtlasStyle ()
   gROOT->ForceStyle();
 }
 
-TStyle* AtlasStyle() 
+TStyle* AtlasStyle()
 {
   TStyle *atlasStyle = new TStyle("ATLAS","Atlas style");
 
@@ -58,7 +58,7 @@ TStyle* AtlasStyle()
   atlasStyle->SetTitleFont(font,"y");
   atlasStyle->SetLabelFont(font,"z");
   atlasStyle->SetTitleFont(font,"z");
-  
+
   atlasStyle->SetLabelSize(tsize,"x");
   atlasStyle->SetTitleSize(tsize,"x");
   atlasStyle->SetLabelSize(tsize,"y");
