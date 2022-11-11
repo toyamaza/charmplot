@@ -159,10 +159,10 @@ NP_NAMES["dstar"].update({
 
 # bkg shape and normalization
 # D+
-NP_NAMES["dplus"].update({"CharmNorm_1tag": f"W+c(match) Norm. Unc. (D+ 1-tag)"})
-NP_NAMES["dplus"].update({"MisMatchNorm_1tag": f"W+c(mis-match) Norm. Unc. (D+ 1-tag)"})
-NP_NAMES["dplus"].update({"OtherNorm_1tag": f"Other Norm. Unc. (D+ 1-tag)"})
-NP_NAMES["dplus"].update({"WjetsNorm_1tag": f"W+jets Norm. Unc. (D+ 1-tag)"})
+NP_NAMES["dplus"].update({"CharmNorm_1tag": "W+c(match) Norm. Unc. (D+ 1-tag)"})
+NP_NAMES["dplus"].update({"MisMatchNorm_1tag": "W+c(mis-match) Norm. Unc. (D+ 1-tag)"})
+NP_NAMES["dplus"].update({"OtherNorm_1tag": "Other Norm. Unc. (D+ 1-tag)"})
+NP_NAMES["dplus"].update({"WjetsNorm_1tag": "W+jets Norm. Unc. (D+ 1-tag)"})
 NP_NAMES["dplus"].update({f"CharmNorm_0tag_bin{i}": f"W+c(match) Norm. Unc. (D+ bin {i})" for i in range(1, 6)})
 NP_NAMES["dplus"].update({f"MisMatch_Sh_MG_2P_bin{i}": f"W+c(mis-match) Shape Unc. (D+ bin {i})" for i in range(1, 6)})
 NP_NAMES["dplus"].update({f"MisMatchNorm_0tag_bin{i}": f"W+c(mis-match) Norm Unc. (D+ bin {i})" for i in range(1, 6)})
@@ -171,11 +171,11 @@ NP_NAMES["dplus"].update({f"Wjets_Sh_MG_2P_bin{i}": f"W+jets Shape Unc. (D+ bin 
 NP_NAMES["dplus"].update({f"WjetsNorm_0tag_bin{i}": f"W+jets Norm. Unc. (D+ bin {i})" for i in range(1, 6)})
 
 # D*
-NP_NAMES["dstar"].update({"CharmNorm_1tag": f"W+c(match) Norm. Unc. (D* 1-tag)"})
-NP_NAMES["dstar"].update({"MisMatchNorm_1tag": f"W+c(mis-match) Norm. Unc. (D* 1-tag)"})
-NP_NAMES["dstar"].update({"OtherNorm_0tag": f"Other Norm. Unc. (D* 0-tag)"})
-NP_NAMES["dstar"].update({"OtherNorm_1tag": f"Other Norm. Unc. (D* 1-tag)"})
-NP_NAMES["dstar"].update({"WjetsNorm_1tag": f"W+jets Norm. Unc. (D* 1-tag)"})
+NP_NAMES["dstar"].update({"CharmNorm_1tag": "W+c(match) Norm. Unc. (D* 1-tag)"})
+NP_NAMES["dstar"].update({"MisMatchNorm_1tag": "W+c(mis-match) Norm. Unc. (D* 1-tag)"})
+NP_NAMES["dstar"].update({"OtherNorm_0tag": "Other Norm. Unc. (D* 0-tag)"})
+NP_NAMES["dstar"].update({"OtherNorm_1tag": "Other Norm. Unc. (D* 1-tag)"})
+NP_NAMES["dstar"].update({"WjetsNorm_1tag": "W+jets Norm. Unc. (D* 1-tag)"})
 NP_NAMES["dstar"].update({f"CharmNorm_0tag_bin{i}": f"W+c(match) Norm. Unc. (D* bin {i})" for i in range(1, 6)})
 NP_NAMES["dstar"].update({f"MisMatched_Sherpa_MG_2P_bin{i}": f"W+c(mis-match) Shape. Unc. (D* bin {i})" for i in range(1, 6)})
 NP_NAMES["dstar"].update({f"MisMatchNorm_0tag_bin{i}": f"W+c(mis-match) Norm Unc. (D* bin {i})" for i in range(1, 6)})
