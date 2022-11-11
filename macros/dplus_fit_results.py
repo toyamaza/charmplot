@@ -978,7 +978,7 @@ def main(options, args):
                     xsec_err_dn = abs(float(POIs_obs[f"mu_W{lep}_tot"][2]) * priors[f"W{lep}"])
                     xsec_err_stat_up = float(POIs_stat[f"mu_W{lep}_tot"][1]) * priors[f"W{lep}"]
                     xsec_err_stat_dn = abs(float(POIs_stat[f"mu_W{lep}_tot"][2]) * priors[f"W{lep}"])
-                    limits = [40, 100]
+                    limits = [37, 100]
                     lep_charge = "-"
                     meson_charge = "+"
                     obs_str = "#sigma_{fid}"
@@ -988,7 +988,7 @@ def main(options, args):
                     xsec_err_dn = abs(float(POIs_obs[f"mu_W{lep}_tot"][2]) * priors[f"W{lep}"])
                     xsec_err_stat_up = float(POIs_stat[f"mu_W{lep}_tot"][1]) * priors[f"W{lep}"]
                     xsec_err_stat_dn = abs(float(POIs_stat[f"mu_W{lep}_tot"][2]) * priors[f"W{lep}"])
-                    limits = [40, 100]
+                    limits = [37, 100]
                     lep_charge = "+"
                     meson_charge = "-"
                     obs_str = "#sigma_{fid}"
