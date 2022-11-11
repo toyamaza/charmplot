@@ -331,8 +331,10 @@ def main():
 
         # folder
         if channel == "dplus":
+            br = 1.0 * 2.0
             FOLDER = DPLUS_FOLDER
         elif channel == "dstar":
+            br = 0.677 * 2.0
             FOLDER = DSTAR_FOLDER
 
         # fit results
@@ -347,8 +349,9 @@ def main():
             par = fr_abs.floatParsFinal().find(POI)
             par_stat = fr_abs_stat.floatParsFinal().find(POI)
             print(POI)
-            print(par.getVal(), par.getErrorHi(), par.getErrorLo())
-            print(par_stat.getVal(), par_stat.getErrorHi(), par_stat.getErrorLo())
+            print(par.getVal() / br, par.getErrorHi() / br, par.getErrorLo() / br)
+            print(par_stat.getVal() / br, par_stat.getErrorHi() / br, par_stat.getErrorLo() / br)
+            print(par.getVal() / br, (par.getErrorHi()**2 - par_stat.getErrorHi()**2)**0.5 / br, (par.getErrorLo()**2 - par_stat.getErrorLo()**2)**0.5 / br)
 
         # read rankings
         # dict_keys(['Name', 'NPhat', 'NPerrHi', 'NPerrLo', 'POIup', 'POIdown', 'POIupPreFit', 'POIdownPreFit'])
@@ -372,7 +375,7 @@ def main():
                             err_dn_total += NP[key]**2
                 err_up_total = err_up_total**0.5
                 err_dn_total = err_dn_total**0.5
-                print("initial total error for: ", channel, POI, err_up_total, f"-{err_dn_total}")
+                print("initial total error for: ", channel, POI, err_up_total / br, f"-{err_dn_total / br}")
 
                 # keep NPs adding up to some threshold
                 err_up = 0
@@ -508,12 +511,17 @@ def main():
                     # load the ranking yaml
                     ranking = RANKINGS[channel][POI]
 
+                    # # skip mu_Top
+                    # if NP == "mu_Top":
+                    #     print("skipping")
+                    #     continue
+
                     # extract NP impact
                     NP_impact = [x for x in ranking if x['Name'] == NP]
                     if len(NP_impact):
                         vals = atlas_rounding(par.getVal() / br, float(NP_impact[0]['POIup']) / br, float(NP_impact[0]['POIdown']) / br)
                     else:
-                        print(f"WARNING: NP {NP} not found for POI {POI} in channel {channel}")
+                        # print(f"WARNING: NP {NP} not found for POI {POI} in channel {channel}")
                         continue
 
                     # add NP in table
