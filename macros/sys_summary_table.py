@@ -26,7 +26,7 @@ colors += [ROOT.TColor(10002, *RGB("#6A5CFF"), "10002")]
 colors += [ROOT.TColor(10003, *RGB("#DFFF4F"), "10003")]
 colors += [ROOT.TColor(10004, *RGB("#B32584"), "10004")]
 colors += [ROOT.TColor(10005, *RGB("#FF42C1"), "10005")]
-colors += [ROOT.TColor(10006, *RGB("#FF3131"), "10006")]
+colors += [ROOT.TColor(10006, *RGB("#99B325"), "10006")]
 
 CHANNELS = ["dplus", "dstar"]
 DPLUS_FOLDER = "/global/cfs/cdirs/atlas/wcharm/TRExFitter/Output/Dplus_2022_07_26_fullRanking_v2"
@@ -38,26 +38,26 @@ STYLE = {
     "Signal modeling": [10005, 1, 7],
     "Muon reconstruction": [ROOT.kBlue - 9, 6, 5],
     "Electron reconstruction": [ROOT.kRed - 9, 6, 5],
-    "Multijet background": [ROOT.kGreen - 8, 2, 5],
-    "Background modeling": [10002, 1, 6],
-    "Finite size of MC samples": [10006, 2, 4],
+    "Multijet background": [ROOT.kGreen - 8, 6, 5],
+    "Finite size of MC samples": [10006, 1, 6],
+    "Background modeling": [10002, 2, 4],
     "Jet and missing energy": [10001, 7, 4],
     "SV reconstruction": [10004, 1, 3],
     "Signal branching ratio": [10003, 1, 3],
 }
 
-LEGEND = [
-    "SV reconstruction",
-    "Signal modeling",
-    "Background modeling",
-    "Jet and missing energy",
-    "Luminosity",
-    "Signal branching ratio",
-    "Muon reconstruction",
-    "Electron reconstruction",
-    "Multijet background",
-    "Finite size of MC samples",
-]
+LEGEND = {
+    "SV reconstruction": "",
+    "Signal modeling": "",
+    "Signal branching ratio": "",
+    "Finite size of MC samples": "Finite size of MC",
+    "Background modeling": "",
+    "Jet and missing energy": "Jet and E_{T}^{miss}",
+    "Luminosity": "",
+    "Muon reconstruction": "",
+    "Electron reconstruction": "",
+    "Multijet background": "",
+}
 
 
 def get_sys_group(name):
@@ -379,7 +379,10 @@ def main():
                 leg.AddEntry(h_tot, "Total", "f")
                 leg.AddEntry(h_stat, "Statistical", "l")
                 for g in LEGEND:
-                    leg.AddEntry(h_map[g], g, "l")
+                    if not LEGEND[g]:
+                        leg.AddEntry(h_map[g], g, "l")
+                    else:
+                        leg.AddEntry(h_map[g], LEGEND[g], "l")
                 for g in STYLE:
                     h_map[g].Draw("same")
                 h_stat.Draw("same")
