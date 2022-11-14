@@ -332,6 +332,7 @@ def process_channel(options, conf, c):
                 utils.normalize_to_unit(hs, hists=[h_data, h_mc_tot], grs=[gr_mc_tot_err])
 
         hs.Draw("same hist")
+        h_mc_tot.SetLineColor(1)
         h_mc_tot.Draw("same hist")
         gr_mc_tot_err.Draw("e2")
         if options.separate_sys_band:
