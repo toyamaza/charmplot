@@ -405,15 +405,15 @@ class Canvas2(CanvasBase):
         leg.SetBorderSize(0)
         leg.SetFillColor(0)
         leg.SetFillStyle(0)
-        leg.SetTextSize(28)
+        leg.SetTextSize(34)
         leg.SetTextFont(43)
         if data:
             data_string = data_name if data_name else "Data"
             if print_yields and mc_tot.GetSumOfWeights() > 0.1:
                 leg.AddEntry(data, "%s #scale[0.50]{#splitline{%.2e}{/ MC = %1.3f}}" %
-                             (data_string, data.GetSumOfWeights(), data.GetSumOfWeights() / mc_tot.GetSumOfWeights()), "pe")
+                             (data_string, data.GetSumOfWeights(), data.GetSumOfWeights() / mc_tot.GetSumOfWeights()), "p")
             else:
-                leg.AddEntry(data, data_string, "pe")
+                leg.AddEntry(data, data_string, "p")
         if mc_tot:
             if print_yields:
                 err = c_double(0)
