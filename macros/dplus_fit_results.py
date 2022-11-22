@@ -1186,7 +1186,7 @@ def main(options, args):
                                  f"{obs_str} = {gr.GetX()[0]:.1f} #pm{xsec_err_stat_up:.1f} (stat.)^{{+#scale[1.2]{{{xsec_err_sys_up:.1f}}}}}_{{-#scale[1.2]{{{xsec_err_sys_dn:.1f}}}}} (syst.) pb")
                 else:
                     l2.DrawLatex(limits[0] + (limits[1] - limits[0]) * (55 - 30) / 70., 0.85 - 2 * 0.14,
-                                 f"{obs_str} = {gr.GetX()[0]:.3f} #pm{xsec_err_stat_up:.3f} (stat.)^{{+#scale[1.2]{{{xsec_err_sys_up:.3f}}}}}_{{-#scale[1.2]{{{xsec_err_sys_dn:.3f}}}}} (syst.)")
+                                 f"{obs_str} = {gr.GetX()[0]:.3f} #pm{xsec_err_stat_up:.3f} (stat.) #pm{xsec_err_sys_up:.3f} (syst.)")
                 if plot_type == "PDF_comparison":
                     l2.DrawLatex(limits[0] + (limits[1] - limits[0]) * (55 - 30) / 70., 0.85 - 4.5 * 0.14, "#bf{Pred.}: #it{aMC@NLO, full CKM, NNLO PDF}")
                 elif plot_type == "NLO_PDF_comparison":
