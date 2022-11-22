@@ -978,6 +978,8 @@ def main(options, args):
                     xsec_err_dn = abs(float(POIs_obs[f"mu_W{lep}_tot"][2]) * priors[f"W{lep}"])
                     xsec_err_stat_up = float(POIs_stat[f"mu_W{lep}_tot"][1]) * priors[f"W{lep}"]
                     xsec_err_stat_dn = abs(float(POIs_stat[f"mu_W{lep}_tot"][2]) * priors[f"W{lep}"])
+                    xsec_err_sys_up = (xsec_err_up**2 - xsec_err_stat_up**2)**0.5
+                    xsec_err_sys_dn = (xsec_err_dn**2 - xsec_err_stat_dn**2)**0.5
                     limits = [37, 100]
                     lep_charge = "-"
                     meson_charge = "+"
@@ -988,6 +990,8 @@ def main(options, args):
                     xsec_err_dn = abs(float(POIs_obs[f"mu_W{lep}_tot"][2]) * priors[f"W{lep}"])
                     xsec_err_stat_up = float(POIs_stat[f"mu_W{lep}_tot"][1]) * priors[f"W{lep}"]
                     xsec_err_stat_dn = abs(float(POIs_stat[f"mu_W{lep}_tot"][2]) * priors[f"W{lep}"])
+                    xsec_err_sys_up = (xsec_err_up**2 - xsec_err_stat_up**2)**0.5
+                    xsec_err_sys_dn = (xsec_err_dn**2 - xsec_err_stat_dn**2)**0.5
                     limits = [37, 100]
                     lep_charge = "+"
                     meson_charge = "-"
@@ -998,16 +1002,20 @@ def main(options, args):
                     xsec_err_dn = abs(float(POIs_obs["mu_Rc"][2]))
                     xsec_err_stat_up = float(POIs_stat["mu_Rc"][1])
                     xsec_err_stat_dn = abs(float(POIs_stat["mu_Rc"][2]))
+                    xsec_err_sys_up = (xsec_err_up**2 - xsec_err_stat_up**2)**0.5
+                    xsec_err_sys_dn = (xsec_err_dn**2 - xsec_err_stat_dn**2)**0.5
                     limits = [0.9, 1.2]
                     lep_charge = "#pm"
                     meson_charge = "#mp"
                     obs_str = "#it{R}_{#it{c}}"
                 elif lep == "ratio" and options.decay == "Dmeson":
-                    xsec = 0.970
-                    xsec_err_up = 0.011954
-                    xsec_err_dn = 0.011954
+                    xsec = 0.972
+                    xsec_err_up = 0.010621278
+                    xsec_err_dn = 0.010621278
                     xsec_err_stat_up = 0.00557
                     xsec_err_stat_dn = 0.00557
+                    xsec_err_sys_up = (xsec_err_up**2 - xsec_err_stat_up**2)**0.5
+                    xsec_err_sys_dn = (xsec_err_dn**2 - xsec_err_stat_dn**2)**0.5
                     limits = [0.9, 1.2]
                     lep_charge = "#pm"
                     meson_charge = "#mp"
@@ -1016,7 +1024,7 @@ def main(options, args):
                 print(f"--- total cross section for {lep} ---")
                 print(f"{xsec} +{xsec_err_stat_up} -{xsec_err_stat_dn} (stat)")
                 print(f"{xsec} +{xsec_err_up} -{xsec_err_dn} (sys + stat)")
-                print(f"{xsec} +{(xsec_err_up**2 - xsec_err_stat_up**2)**0.5} -{(xsec_err_dn**2 - xsec_err_stat_dn**2)**0.5} (sys only)")
+                print(f"{xsec} +{xsec_err_sys_up} -{xsec_err_sys_dn} (sys only)")
 
                 gr = ROOT.TGraph()
                 gr.SetPoint(0, xsec, 1.0)
@@ -1175,10 +1183,10 @@ def main(options, args):
                 l2.DrawLatex(limits[0] + (limits[1] - limits[0]) * (55 - 30) / 70., 0.85 - 1 * 0.14, "#sqrt{s} = 13 TeV, 139 fb^{-1}")
                 if lep != "ratio":
                     l2.DrawLatex(limits[0] + (limits[1] - limits[0]) * (55 - 30) / 70., 0.85 - 2 * 0.14,
-                                 f"{obs_str} = {gr.GetX()[0]:.2f} #pm{xsec_err_stat_up:.2f} (stat.)^{{+#scale[1.2]{{{xsec_err_up:.2f}}}}}_{{-#scale[1.2]{{{xsec_err_dn:.2f}}}}} (syst.) pb")
+                                 f"{obs_str} = {gr.GetX()[0]:.1f} #pm{xsec_err_stat_up:.1f} (stat.)^{{+#scale[1.2]{{{xsec_err_sys_up:.1f}}}}}_{{-#scale[1.2]{{{xsec_err_sys_dn:.1f}}}}} (syst.) pb")
                 else:
                     l2.DrawLatex(limits[0] + (limits[1] - limits[0]) * (55 - 30) / 70., 0.85 - 2 * 0.14,
-                                 f"{obs_str} = {gr.GetX()[0]:.3f} #pm{xsec_err_stat_up:.3f} (stat.)^{{+#scale[1.2]{{{xsec_err_up:.3f}}}}}_{{-#scale[1.2]{{{xsec_err_dn:.3f}}}}} (syst.)")
+                                 f"{obs_str} = {gr.GetX()[0]:.3f} #pm{xsec_err_stat_up:.3f} (stat.)^{{+#scale[1.2]{{{xsec_err_sys_up:.3f}}}}}_{{-#scale[1.2]{{{xsec_err_sys_dn:.3f}}}}} (syst.)")
                 if plot_type == "PDF_comparison":
                     l2.DrawLatex(limits[0] + (limits[1] - limits[0]) * (55 - 30) / 70., 0.85 - 4.5 * 0.14, "#bf{Pred.}: #it{aMC@NLO, full CKM, NNLO PDF}")
                 elif plot_type == "NLO_PDF_comparison":
