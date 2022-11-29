@@ -18,7 +18,7 @@ QUALIFIERS = [{'name': 'SQRT(s)', 'units': 'GeV', 'value': 13000}, {'name': 'LUM
 
 CHANNELS = ["dplus", "dstar"]
 
-COMMON_NP_NAMES = {
+NP_DESCRIPTION = {
     "EG_RESOLUTION_ALL": "Electron Resolution",
     "EG_SCALE_ALL": "Electron Energy Resolution",
     "EL_CHARGEID_STAT": "Electron Charge ID (Stat.)",
@@ -86,11 +86,187 @@ COMMON_NP_NAMES = {
     "TRK_EFF_Z0_DEAD": "Track z0 Resolution (Dead Pixels)",
     "TRK_EFF_Z0_MEAS": "Track z0 Resolution",
 }
-COMMON_NP_NAMES.update({f"FT_EFF_Eigen_B_{i}": f"FTAG Efficinecy (b-jet NP {i+1})" for i in range(0, 9)})
-COMMON_NP_NAMES.update({f"FT_EFF_Eigen_C_{i}": f"FTAG Efficinecy (c-jet NP {i+1})" for i in range(0, 9)})
-COMMON_NP_NAMES.update({f"FT_EFF_Eigen_Light_{i}": f"FTAG Efficinecy (u-jet NP {i+1})" for i in range(0, 9)})
-COMMON_NP_NAMES.update({f"JET_EffectiveNP_{i}": f"Jet Energy Scale NP {i}" for i in range(1, 10)})
-COMMON_NP_NAMES.update({f"JET_JER_EffectiveNP_{i}": f"Jet Energy Resolution NP {i}" for i in range(1, 7)})
+NP_DESCRIPTION.update({f"FT_EFF_Eigen_B_{i}": f"FTAG Efficinecy (b-jet NP {i+1})" for i in range(0, 9)})
+NP_DESCRIPTION.update({f"FT_EFF_Eigen_C_{i}": f"FTAG Efficinecy (c-jet NP {i+1})" for i in range(0, 9)})
+NP_DESCRIPTION.update({f"FT_EFF_Eigen_Light_{i}": f"FTAG Efficinecy (u-jet NP {i+1})" for i in range(0, 9)})
+NP_DESCRIPTION.update({f"JET_EffectiveNP_{i}": f"Jet Energy Scale NP {i}" for i in range(1, 10)})
+NP_DESCRIPTION.update({f"JET_JER_EffectiveNP_{i}": f"Jet Energy Resolution NP {i}" for i in range(1, 7)})
+NP_DESCRIPTION.update({
+    "DPLUS_BR_BKG": "D+ to non-Kpipi Branching Ratio Unc.",
+    "DPLUS_BR_SIG": "D+ to Kpipi Branching Ratio Unc.",
+    "DPLUS_Matched_Sherpa_MG_2P": "W+D Shape Unc. (D+)",
+    "DPLUS_MM_EL_FR__Wjets_MadGraph": "MM El. Fake Rate Modelling (D+)",
+    "DPLUS_MM_EL_FR_MET_Var": "MM El. Fake Rate MET Variation (D+)",
+    "DPLUS_MM_EL_FR_STAT": "MM El. Fake Rate Stat. (D+)",
+    "DPLUS_MM_EL_RR_MadGraph_Var": "MM El. Real Rate Modelling (D+)",
+    "DPLUS_MM_EL_RR_STAT": "MM El. Real Rate Stat. (D+)",
+    "DPLUS_MM_MU_FR__Wjets_MadGraph": "MM Mu. Fake Rate Modelling (D+)",
+    "DPLUS_MM_MU_FR_MET_Var": "MM Mu. Fake Rate MET Variation (D+)",
+    "DPLUS_MM_MU_FR_STAT": "MM Mu. Fake Rate Stat. (D+)",
+    "DPLUS_MM_MU_RR_MadGraph_Var": "MM Mu. Real Rate Modelling (D+)",
+    "DPLUS_MM_MU_RR_STAT": "MM Mu. Real Rate Stat. (D+)",
+    "DPLUS_PEAK_POSITION_MINUS": "D- Peak Position",
+    "DPLUS_PEAK_POSITION_PLUS": "D+ Peak Position",
+    "DPLUS_PEAK_RESOLUTION_MINUS": "D- Peak Resolution",
+    "DPLUS_PEAK_RESOLUTION_PLUS": "D+ Peak Resolution",
+    "DPLUS_SHERPA2211_AS_WCHARM": "W+c Bkg AlphaS Uncertainty (D+)",
+    "DPLUS_SHERPA2211_AS_WJETS": "W+jets Bkg AlphaS Uncertainty (D+)",
+    "DPLUS_SHERPA2211_PDF_WCHARM": "W+c Bkg PDF Uncertainty (D+)",
+    "DPLUS_SHERPA2211_PDF_WJETS": "W+jets Bkg PDF Uncertainty (D+)",
+    "DPLUS_SHERPA2211_QCD_WCHARM": "W+c Bkg Scale Uncertainty (D+)",
+    "DPLUS_SHERPA2211_QCD_WJETS": "W+jets Bkg Scale Uncertainty (D+)",
+    "DSTAR_BR_SIG": "D* to (Kpi)pi Branching Ratio Unc.",
+    "DSTAR_MM_EL_FR__Wjets_MadGraph": "MM El. Fake Rate Modelling (D*)",
+    "DSTAR_MM_EL_FR_MET_Var": "MM El. Fake Rate MET Variation (D*)",
+    "DSTAR_MM_EL_FR_STAT": "MM El. Fake Rate Stat. (D*)",
+    "DSTAR_MM_EL_RR_MadGraph_Var": "MM El. Real Rate Modelling (D*)",
+    "DSTAR_MM_EL_RR_STAT": "MM El. Real Rate Stat. (D*)",
+    "DSTAR_MM_MU_FR__Wjets_MadGraph": "MM Mu. Fake Rate Modelling (D*)",
+    "DSTAR_MM_MU_FR_MET_Var": "MM Mu. Fake Rate MET Variation (D*)",
+    "DSTAR_MM_MU_FR_STAT": "MM Mu. Fake Rate Stat. (D*)",
+    "DSTAR_MM_MU_RR_MadGraph_Var": "MM Mu. Real Rate Modelling (D*)",
+    "DSTAR_MM_MU_RR_STAT": "MM Mu. Real Rate Stat. (D*)",
+    "DSTAR_PEAK_POSITION_ADHOC_MINUS": "D*- Peak Position (0.1 MeV)",
+    "DSTAR_PEAK_POSITION_ADHOC_PLUS": "D*+ Peak Position (0.1 MeV)",
+    "DSTAR_PEAK_POSITION_MINUS": "D*- Peak Position",
+    "DSTAR_PEAK_POSITION_PLUS": "D*+ Peak Position",
+    "DSTAR_PEAK_RESOLUTION_MINUS": "D*- Peak Resolution",
+    "DSTAR_PEAK_RESOLUTION_PLUS": "D*+ Peak Resolution",
+    "DSTAR_SHERPA2211_AS_WJETS": "W+jets Bkg AlphaS Uncertainty (D*)",
+    "DSTAR_SHERPA2211_AS_WPLUSC": "W+c Bkg AlphaS Uncertainty (D*)",
+    "DSTAR_SHERPA2211_PDF_WJETS": "W+jets Bkg PDF Uncertainty (D*)",
+    "DSTAR_SHERPA2211_PDF_WPLUSC": "W+c Bkg PDF Uncertainty (D*)",
+    "DSTAR_SHERPA2211_QCD_WJETS": "W+jets Bkg Scale Uncertainty (D*)",
+    "DSTAR_SHERPA2211_QCD_WPLUSC": "W+c Bkg Scale Uncertainty (D*)",
+    "PRW_DATASF_WJETS": "Pileup Reweighting (W+jets)",
+    "WJETS_FIT": "W+jets Parametric Fit Stat. (D*)",
+})
+NP_DESCRIPTION.update({"DPLUS_CharmNorm_1tag": "W+c(match) Norm. Unc. (D+ 1-tag)"})
+NP_DESCRIPTION.update({"DPLUS_MisMatchNorm_1tag": "W+c(mis-match) Norm. Unc. (D+ 1-tag)"})
+NP_DESCRIPTION.update({"DPLUS_OtherNorm_0tag": "Other Norm. Unc. (D+ 0-tag)"})
+NP_DESCRIPTION.update({"DPLUS_OtherNorm_1tag": "Other Norm. Unc. (D+ 1-tag)"})
+NP_DESCRIPTION.update({"DPLUS_WjetsNorm_1tag": "W+jets Norm. Unc. (D+ 1-tag)"})
+NP_DESCRIPTION.update({f"DPLUS_CharmNorm_0tag_bin{i}": f"W+c(match) Norm. Unc. (D+ bin {i})" for i in range(1, 6)})
+NP_DESCRIPTION.update({f"DPLUS_MisMatch_Sh_MG_2P_bin{i}": f"W+c(mis-match) Shape Unc. (D+ bin {i})" for i in range(1, 6)})
+NP_DESCRIPTION.update({f"DPLUS_MisMatchNorm_0tag_bin{i}": f"W+c(mis-match) Norm Unc. (D+ bin {i})" for i in range(1, 6)})
+NP_DESCRIPTION.update({f"DPLUS_Wjets_Sh_MG_2P_bin{i}": f"W+jets Shape Unc. (D+ bin {i})" for i in range(1, 6)})
+NP_DESCRIPTION.update({f"DPLUS_WjetsNorm_0tag_bin{i}": f"W+jets Norm. Unc. (D+ bin {i})" for i in range(1, 6)})
+NP_DESCRIPTION.update({"DSTAR_CharmNorm_1tag": "W+c(match) Norm. Unc. (D* 1-tag)"})
+NP_DESCRIPTION.update({"DSTAR_MisMatchNorm_1tag": "W+c(mis-match) Norm. Unc. (D* 1-tag)"})
+NP_DESCRIPTION.update({"DSTAR_OtherNorm_0tag": "Other Norm. Unc. (D* 0-tag)"})
+NP_DESCRIPTION.update({"DSTAR_OtherNorm_1tag": "Other Norm. Unc. (D* 1-tag)"})
+NP_DESCRIPTION.update({"DSTAR_WjetsNorm_1tag": "W+jets Norm. Unc. (D* 1-tag)"})
+NP_DESCRIPTION.update({f"DSTAR_CharmNorm_0tag_bin{i}": f"W+c(match) Norm. Unc. (D* bin {i})" for i in range(1, 6)})
+NP_DESCRIPTION.update({f"DSTAR_MisMatched_Sherpa_MG_2P_bin{i}": f"W+c(mis-match) Shape. Unc. (D* bin {i})" for i in range(1, 6)})
+NP_DESCRIPTION.update({f"DSTAR_MisMatchNorm_0tag_bin{i}": f"W+c(mis-match) Norm Unc. (D* bin {i})" for i in range(1, 6)})
+NP_DESCRIPTION.update({f"DSTAR_Wjets_MG_Sherpa_2P_bin{i}": f"W+jets Shape. Unc. (D* bin {i})" for i in range(1, 6)})
+NP_DESCRIPTION.update({f"DSTAR_WjetsNorm_0tag_bin{i}": f"W+jets Norm Unc. (D* bin {i})" for i in range(1, 6)})
+NP_DESCRIPTION.update({f"DPLUS_Stat_{charge}_DibosonZjets_0tag_{OSSS}_{var}_bin{diff_bin}": f"Other Norm. Stat. D+ (W{('-' if charge == 'minus' else '+')} {var}{diff_bin})" for charge in [
+    "minus", "plus"] for OSSS in ["OS", "SS"] for var in ["pt", "eta"] for diff_bin in range(1, 6)})
+NP_DESCRIPTION.update({f"DPLUS_Stat_{charge}_WCharm_0tag_{OSSS}_{var}_bin{diff_bin}": f"W+c(match) Norm. Stat. D+ (W{('-' if charge == 'minus' else '+')} {var}{diff_bin})" for charge in [
+    "minus", "plus"] for OSSS in ["OS", "SS"] for var in ["pt", "eta"] for diff_bin in range(1, 6)})
+NP_DESCRIPTION.update({f"DPLUS_Stat_{charge}_Wjets_0tag_{OSSS}_{var}_bin{diff_bin}": f"W+jets Norm. Stat. D+ (W{('-' if charge == 'minus' else '+')} {var}{diff_bin})" for charge in [
+    "minus", "plus"] for OSSS in ["OS", "SS"] for var in ["pt", "eta"] for diff_bin in range(1, 6)})
+NP_DESCRIPTION.update({f"DPLUS_Stat_{charge}_WMisMatched_0tag_{OSSS}_{var}_bin{diff_bin}": f"W+c(mis-match) Norm. Stat. D+ (W{('-' if charge == 'minus' else '+')} {var}{diff_bin})" for charge in [
+    "minus", "plus"] for OSSS in ["OS", "SS"] for var in ["pt", "eta"] for diff_bin in range(1, 6)})
+NP_DESCRIPTION.update({f"DPLUS_Stat_{charge}_Top_0tag_{OSSS}_{var}_bin{diff_bin}": f"Top Norm. Stat. D+ (W{('-' if charge == 'minus' else '+')} {var}{diff_bin})" for charge in [
+    "minus", "plus"] for OSSS in ["OS", "SS"] for var in ["pt", "eta"] for diff_bin in range(1, 6)})
+NP_DESCRIPTION.update({f"DSTAR_Stat_{charge}_DibosonZjets_0tag_{OSSS}_{var}_bin{diff_bin}": f"Other Norm. Stat. D+ (W{('-' if charge == 'minus' else '+')} {var}{diff_bin})" for charge in [
+    "minus", "plus"] for OSSS in ["OS", "SS"] for var in ["pt", "eta"] for diff_bin in range(1, 6)})
+NP_DESCRIPTION.update({f"DSTAR_Stat_{charge}_WCharm_0tag_{OSSS}_{var}_bin{diff_bin}": f"W+c(match) Norm. Stat. D+ (W{('-' if charge == 'minus' else '+')} {var}{diff_bin})" for charge in [
+    "minus", "plus"] for OSSS in ["OS", "SS"] for var in ["pt", "eta"] for diff_bin in range(1, 6)})
+NP_DESCRIPTION.update({f"DSTAR_Stat_{charge}_Wjets_0tag_{OSSS}_{var}_bin{diff_bin}": f"W+jets Norm. Stat. D+ (W{('-' if charge == 'minus' else '+')} {var}{diff_bin})" for charge in [
+    "minus", "plus"] for OSSS in ["OS", "SS"] for var in ["pt", "eta"] for diff_bin in range(1, 6)})
+NP_DESCRIPTION.update({f"DSTAR_Stat_{charge}_WMisMatched_0tag_{OSSS}_{var}_bin{diff_bin}": f"W+c(mis-match) Norm. Stat. D+ (W{('-' if charge == 'minus' else '+')} {var}{diff_bin})" for charge in [
+    "minus", "plus"] for OSSS in ["OS", "SS"] for var in ["pt", "eta"] for diff_bin in range(1, 6)})
+NP_DESCRIPTION.update({f"DSTAR_Stat_{charge}_Top_0tag_{OSSS}_{var}_bin{diff_bin}": f"Top Norm. Stat. D+ (W{('-' if charge == 'minus' else '+')} {var}{diff_bin})" for charge in [
+    "minus", "plus"] for OSSS in ["OS", "SS"] for var in ["pt", "eta"] for diff_bin in range(1, 6)})
+NP_DESCRIPTION.update({f"DPLUS_MC_Stat_Fid_Eff_{charge}_{i}_{j}": f"Response Matrix Stat. D+ (W{('-' if charge == 'minus' else '+')} {i}, {j})" for i in range(1, 6)
+                       for j in range(1, 6) for charge in ["minus", "plus"]})
+NP_DESCRIPTION.update({f"DSTAR_MC_Stat_Fid_Eff_{charge}_{i}_{j}": f"Response Matrix Stat. D* (W{('-' if charge == 'minus' else '+')} {i}, {j})" for i in range(1, 6)
+                       for j in range(1, 6) for charge in ["minus", "plus"]})
+NP_DESCRIPTION.update({f"gamma_stat_{OSSS}_lep_{charge}_0tag_Dplus_{var}_bin{diff_bin}_bin_{mass_bin}": f"MC Stat. D+ ({OSSS} W{('-' if charge == 'minus' else '+')} {var}{diff_bin} mass{mass_bin})" for OSSS in [
+    "OS", "SS"] for charge in ["minus", "plus"] for var in ["pt", "eta"] for diff_bin in range(1, 6) for mass_bin in range(0, 10)})
+NP_DESCRIPTION.update({f"gamma_stat_{OSSS}_lep_{charge}_1tag_Dplus_bin_0": f"MC Stat. D+ ({OSSS} W{('-' if charge == 'minus' else '+')} 1-tag)" for OSSS in [
+    "OS", "SS"] for charge in ["minus", "plus"]})
+NP_DESCRIPTION.update({f"gamma_stat_{OSSS}_lep_{charge}_0tag_Dstar_{var}_bin{diff_bin}_bin_{mass_bin}": f"MC Stat. D* ({OSSS} W{('-' if charge == 'minus' else '+')} {var}{diff_bin} mass{mass_bin})" for OSSS in [
+    "OS", "SS"] for charge in ["minus", "plus"] for var in ["pt", "eta"] for diff_bin in range(1, 6) for mass_bin in range(0, 13)})
+NP_DESCRIPTION.update({f"gamma_stat_{OSSS}_lep_{charge}_1tag_Dstar_bin_0": f"MC Stat. D* ({OSSS} W{('-' if charge == 'minus' else '+')} 1-tag)" for OSSS in [
+    "OS", "SS"] for charge in ["minus", "plus"]})
+
+COMMON_NP_NAMES = {
+    "EG_RESOLUTION_ALL": "EG_RESOLUTION_ALL",
+    "EG_SCALE_ALL": "EG_SCALE_ALL",
+    "EL_CHARGEID_STAT": "EL_CHARGEID_STAT",
+    "EL_CHARGEID_SYStotal": "EL_CHARGEID_SYStotal",
+    "EL_EFF_ID_TOTAL_1NPCOR_PLUS_UNCOR": "EL_EFF_ID_TOTAL_1NPCOR_PLUS_UNCOR",
+    "EL_EFF_Iso_TOTAL_1NPCOR_PLUS_UNCOR": "EL_EFF_Iso_TOTAL_1NPCOR_PLUS_UNCOR",
+    "EL_EFF_Reco_TOTAL_1NPCOR_PLUS_UNCOR": "EL_EFF_Reco_TOTAL_1NPCOR_PLUS_UNCOR",
+    "EL_EFF_Trigger_TOTAL_1NPCOR_PLUS_UNCOR": "EL_EFF_Trigger_TOTAL_1NPCOR_PLUS_UNCOR",
+    "FID_EFF_AS": "FID_EFF_AS",
+    "FID_EFF_PDF": "FID_EFF_PDF",
+    "FID_EFF_QCD": "FID_EFF_QCD",
+    "FID_EFF_WPLUSD_MG": "FID_EFF_WPLUSD_MG",
+    "JET_EffectiveNP_8restTerm": "JET_EffectiveNP_8restTerm",
+    "JET_EtaIntercalibration_Modelling": "JET_EtaIntercalibration_Modelling",
+    "JET_EtaIntercalibration_NonClosure_highE": "JET_EtaIntercalibration_NonClosure_highE",
+    "JET_EtaIntercalibration_NonClosure_negEta": "JET_EtaIntercalibration_NonClosure_negEta",
+    "JET_EtaIntercalibration_NonClosure_posEta": "JET_EtaIntercalibration_NonClosure_posEta",
+    "JET_EtaIntercalibration_TotalStat": "JET_EtaIntercalibration_TotalStat",
+    "JET_Flavor_Composition": "JET_Flavor_Composition",
+    "JET_Flavor_Response": "JET_Flavor_Response",
+    "JET_JER_DataVsMC_MC16": "JET_JER_DataVsMC_MC16",
+    "JET_JER_EffectiveNP_7restTerm": "JET_JER_EffectiveNP_7restTerm",
+    "JET_JvtEfficiency": "JET_JvtEfficiency",
+    "JET_Pileup_OffsetMu": "JET_Pileup_OffsetMu",
+    "JET_Pileup_OffsetNPV": "JET_Pileup_OffsetNPV",
+    "JET_Pileup_PtTerm": "JET_Pileup_PtTerm",
+    "JET_Pileup_RhoTopology": "JET_Pileup_RhoTopology",
+    "JET_PunchThrough_MC16": "JET_PunchThrough_MC16",
+    "Lumi": "Lumi",
+    "MET_SoftTrk_ResoPara": "MET_SoftTrk_ResoPara",
+    "MET_SoftTrk_ResoPerp": "MET_SoftTrk_ResoPerp",
+    "MET_SoftTrk": "MET_SoftTrk",
+    "mu_Top": "mu_Top",
+    "MUON_CB": "MUON_CB",
+    "MUON_EFF_ISO_STAT": "MUON_EFF_ISO_STAT",
+    "MUON_EFF_ISO_SYS": "MUON_EFF_ISO_SYS",
+    "MUON_EFF_RECO_STAT_LOWPT": "MUON_EFF_RECO_STAT_LOWPT",
+    "MUON_EFF_RECO_STAT": "MUON_EFF_RECO_STAT",
+    "MUON_EFF_RECO_SYS_LOWPT": "MUON_EFF_RECO_SYS_LOWPT",
+    "MUON_EFF_RECO_SYS": "MUON_EFF_RECO_SYS",
+    "MUON_EFF_TrigStatUncertainty": "MUON_EFF_TrigStatUncertainty",
+    "MUON_EFF_TrigSystUncertainty": "MUON_EFF_TrigSystUncertainty",
+    "MUON_EFF_TTVA_STAT": "MUON_EFF_TTVA_STAT",
+    "MUON_EFF_TTVA_SYS": "MUON_EFF_TTVA_SYS",
+    "MUON_SAGITTA_DATASTAT": "MUON_SAGITTA_DATASTAT",
+    "MUON_SAGITTA_RESBIAS": "MUON_SAGITTA_RESBIAS",
+    "MUON_SCALE": "MUON_SCALE",
+    "PROD_FRAC_EIG_1": "PROD_FRAC_EIG_1",
+    "PROD_FRAC_EIG_2": "PROD_FRAC_EIG_2",
+    "PROD_FRAC_EIG_3": "PROD_FRAC_EIG_3",
+    "PRW_DATASF": "PRW_DATASF",
+    "Top_GEN_isr": "Top_GEN_isr",
+    "Top_GEN_muF": "Top_GEN_muF",
+    "Top_GEN_muR": "Top_GEN_muR",
+    "Top_GEN_PDF": "Top_GEN_PDF",
+    "Top_GEN_Var3c": "Top_GEN_Var3c",
+    "Top_HS": "Top_HS",
+    "Top_Shower": "Top_Shower",
+    "TRK_EFF_D0_DEAD": "TRK_EFF_D0_DEAD",
+    "TRK_EFF_D0_MEAS": "TRK_EFF_D0_MEAS",
+    "TRK_EFF_IBL": "TRK_EFF_IBL",
+    "TRK_EFF_Overal": "TRK_EFF_Overal",
+    "TRK_EFF_PP0": "TRK_EFF_PP0",
+    "TRK_EFF_QGSP": "TRK_EFF_QGSP",
+    "TRK_EFF_Z0_DEAD": "TRK_EFF_Z0_DEAD",
+    "TRK_EFF_Z0_MEAS": "TRK_EFF_Z0_MEAS",
+}
+COMMON_NP_NAMES.update({f"FT_EFF_Eigen_B_{i}": f"FT_EFF_Eigen_B_{i}" for i in range(0, 9)})
+COMMON_NP_NAMES.update({f"FT_EFF_Eigen_C_{i}": f"FT_EFF_Eigen_C_{i}" for i in range(0, 9)})
+COMMON_NP_NAMES.update({f"FT_EFF_Eigen_Light_{i}": f"FT_EFF_Eigen_Light_{i}" for i in range(0, 9)})
+COMMON_NP_NAMES.update({f"JET_EffectiveNP_{i}": f"JET_EffectiveNP_{i}" for i in range(1, 10)})
+COMMON_NP_NAMES.update({f"JET_JER_EffectiveNP_{i}": f"JET_JER_EffectiveNP_{i}" for i in range(1, 7)})
 
 NP_NAMES = {
     "dplus": deepcopy(COMMON_NP_NAMES),
@@ -99,132 +275,140 @@ NP_NAMES = {
 
 # D+ only uncertainites
 NP_NAMES["dplus"].update({
-    "BranchingRatio": "Br(D+ to K pi pi)",
-    "DMESON_MASS_TOT_minus": "Signal Peak Position (D+)",
-    "DMESON_MASS_TOT_plus": "Signal Peak Position (D-)",
-    "DMESON_RESO_TOT_minus": "Signal Mass Resolution (D+)",
-    "DMESON_RESO_TOT_plus": "Signal Mass Resolution (D-)",
-    "DPLUS_BKG_BR": "D+ Branching Ratio in Bkg",
-    "Matched_Sherpa_MG_2P": "D+ Signal Mass Shape Modelling",
-    "MET_SoftTrk_ResoPara": "MET Soft Term Parallel Resolution",
-    "MET_SoftTrk_ResoPerp": "MET Soft Term Perpendicular Resolution",
-    "MET_SoftTrk": "MET Soft Term Scale",
-    "MM_EL_FR__Wjets_MadGraph": "MM El. Fake Rate Modelling (D+)",
-    "MM_EL_FR_MET_Var": "MM El. Fake Rate MET Variation (D+)",
-    "MM_EL_FR_STAT": "MM El. Fake Rate Stat. (D+)",
-    "MM_EL_RR_MadGraph_Var": "MM El. Real Rate Modelling (D+)",
-    "MM_EL_RR_STAT": "MM El. Real Rate Stat. (D+)",
-    "MM_MU_FR__Wjets_MadGraph": "MM Mu. Fake Rate Modelling (D+)",
-    "MM_MU_FR_MET_Var": "MM Mu. Fake Rate MET Variation (D+)",
-    "MM_MU_FR_STAT": "MM Mu. Fake Rate Stat. (D+)",
-    "MM_MU_RR_MadGraph_Var": "MM Mu. Real Rate Modelling (D+)",
-    "MM_MU_RR_STAT": "MM Mu. Real Rate Stat. (D+)",
-    "OtherNorm_0tag": "Other Norm. Unc. (D+ 1-tag)",
-    "SHERPA2211_AS_Wcharm": "W+c Bkg AlphaS Uncertainty (D+)",
-    "SHERPA2211_AS_Wjets": "W+jets Bkg AlphaS Uncertainty (D+)",
-    "SHERPA2211_PDF_Wcharm": "W+c Bkg PDF Uncertainty (D+)",
-    "SHERPA2211_PDF_Wjets": "W+jets Bkg PDF Uncertainty (D+)",
-    "SHERPA2211_QCD_Wcharm": "W+c Bkg Scale Uncertainty (D+)",
-    "SHERPA2211_QCD_Wjets": "W+jets Bkg Scale Uncertainty (D+)",
+    "BranchingRatio": "DPLUS_BR_SIG",
+    "DMESON_MASS_TOT_minus": "DPLUS_PEAK_POSITION_PLUS",
+    "DMESON_MASS_TOT_plus": "DPLUS_PEAK_POSITION_MINUS",
+    "DMESON_RESO_TOT_minus": "DPLUS_PEAK_RESOLUTION_PLUS",
+    "DMESON_RESO_TOT_plus": "DPLUS_PEAK_RESOLUTION_MINUS",
+    "DPLUS_BKG_BR": "DPLUS_BR_BKG",
+    "MM_EL_FR__Wjets_MadGraph": "DPLUS_MM_EL_FR_Wjets_MadGraph",
+    "MM_EL_FR_MET_Var": "DPLUS_MM_EL_FR_MET_Var",
+    "MM_EL_FR_STAT": "DPLUS_MM_EL_FR_STAT",
+    "MM_EL_RR_MadGraph_Var": "DPLUS_MM_EL_RR_MadGraph_Var",
+    "MM_EL_RR_STAT": "DPLUS_MM_EL_RR_STAT",
+    "MM_MU_FR__Wjets_MadGraph": "DPLUS_MM_MU_FR_Wjets_MadGraph",
+    "MM_MU_FR_MET_Var": "DPLUS_MM_MU_FR_MET_Var",
+    "MM_MU_FR_STAT": "DPLUS_MM_MU_FR_STAT",
+    "MM_MU_RR_MadGraph_Var": "DPLUS_MM_MU_RR_MadGraph_Var",
+    "MM_MU_RR_STAT": "DPLUS_MM_MU_RR_STAT",
+    "SHERPA2211_AS_Wcharm": "DPLUS_SHERPA2211_AS_WCHARM",
+    "SHERPA2211_AS_Wjets": "DPLUS_SHERPA2211_AS_WJETS",
+    "SHERPA2211_PDF_Wcharm": "DPLUS_SHERPA2211_PDF_WCHARM",
+    "SHERPA2211_PDF_Wjets": "DPLUS_SHERPA2211_PDF_WJETS",
+    "SHERPA2211_QCD_Wcharm": "DPLUS_SHERPA2211_QCD_WCHARM",
+    "SHERPA2211_QCD_Wjets": "DPLUS_SHERPA2211_QCD_WJETS",
+    "Matched_Sherpa_MG_2P": "DPLUS_Matched_Sherpa_MG_2P",
 })
 
 # D* only uncertainites
 NP_NAMES["dstar"].update({
-    "BranchingRatio": "Br(D* to (K pi) pi)",
-    "DMESON_MASS_ADHOC_minus": "Signal 1 MeV Peak Position (D*+)",
-    "DMESON_MASS_ADHOC_plus": "Signal 1 MeV Peak Position (D*-)",
-    "DMESON_MASS_TOT_minus": "Signal Peak Position (D*+)",
-    "DMESON_MASS_TOT_plus": "Signal Peak Position (D*-)",
-    "DMESON_RESO_TOT_minus": "Signal Mass Resolution (D*+)",
-    "DMESON_RESO_TOT_plus": "Signal Mass Resolution (D*-)",
-    "MM_EL_FR__Wjets_MadGraph": "MM El. Fake Rate Modelling (D*)",
-    "MM_EL_FR_MET_Var": "MM El. Fake Rate MET Variation (D*)",
-    "MM_EL_FR_STAT": "MM El. Fake Rate Stat. (D*)",
-    "MM_EL_RR_MadGraph_Var": "MM El. Real Rate Modelling (D*)",
-    "MM_EL_RR_STAT": "MM El. Real Rate Stat. (D*)",
-    "MM_MU_FR__Wjets_MadGraph": "MM Mu. Fake Rate Modelling (D*)",
-    "MM_MU_FR_MET_Var": "MM Mu. Fake Rate MET Variation (D*)",
-    "MM_MU_FR_STAT": "MM Mu. Fake Rate Stat. (D*)",
-    "MM_MU_RR_MadGraph_Var": "MM Mu. Real Rate Modelling (D*)",
-    "MM_MU_RR_STAT": "MM Mu. Real Rate Stat. (D*)",
-    "PRW_DATASF_WJETS": "Pileup Reweighting (W+jets)",
-    "SHERPA2211_AS_WJETS": "W+jets Bkg AlphaS Uncertainty (D*)",
-    "SHERPA2211_AS_WPLUSC": "W+c Bkg AlphaS Uncertainty (D*)",
-    "SHERPA2211_PDF_WJETS": "W+jets Bkg PDF Uncertainty (D*)",
-    "SHERPA2211_PDF_WPLUSC": "W+c Bkg PDF Uncertainty (D*)",
-    "SHERPA2211_QCD_WJETS": "W+jets Bkg Scale Uncertainty (D*)",
-    "SHERPA2211_QCD_WPLUSC": "W+c Bkg Scale Uncertainty (D*)",
-    "WJETS_FIT": "W+jets Parametric Fit Stat. (D*)",
+    "BranchingRatio": "DSTAR_BR_SIG",
+    "DMESON_MASS_ADHOC_minus": "DSTAR_PEAK_POSITION_ADHOC_PLUS",
+    "DMESON_MASS_ADHOC_plus": "DSTAR_PEAK_POSITION_ADHOC_MINUS",
+    "DMESON_MASS_TOT_minus": "DSTAR_PEAK_POSITION_PLUS",
+    "DMESON_MASS_TOT_plus": "DSTAR_PEAK_POSITION_MINUS",
+    "DMESON_RESO_TOT_minus": "DSTAR_PEAK_RESOLUTION_PLUS",
+    "DMESON_RESO_TOT_plus": "DSTAR_PEAK_RESOLUTION_MINUS",
+    "MM_EL_FR__Wjets_MadGraph": "DSTAR_MM_EL_FR_Wjets_MadGraph",
+    "MM_EL_FR_MET_Var": "DSTAR_MM_EL_FR_MET_Var",
+    "MM_EL_FR_STAT": "DSTAR_MM_EL_FR_STAT",
+    "MM_EL_RR_MadGraph_Var": "DSTAR_MM_EL_RR_MadGraph_Var",
+    "MM_EL_RR_STAT": "DSTAR_MM_EL_RR_STAT",
+    "MM_MU_FR__Wjets_MadGraph": "DSTAR_MM_MU_FR_Wjets_MadGraph",
+    "MM_MU_FR_MET_Var": "DSTAR_MM_MU_FR_MET_Var",
+    "MM_MU_FR_STAT": "DSTAR_MM_MU_FR_STAT",
+    "MM_MU_RR_MadGraph_Var": "DSTAR_MM_MU_RR_MadGraph_Var",
+    "MM_MU_RR_STAT": "DSTAR_MM_MU_RR_STAT",
+    "PRW_DATASF_WJETS": "PRW_DATASF_WJETS",
+    "SHERPA2211_AS_WJETS": "DSTAR_SHERPA2211_AS_WJETS",
+    "SHERPA2211_AS_WPLUSC": "DSTAR_SHERPA2211_AS_WPLUSC",
+    "SHERPA2211_PDF_WJETS": "DSTAR_SHERPA2211_PDF_WJETS",
+    "SHERPA2211_PDF_WPLUSC": "DSTAR_SHERPA2211_PDF_WPLUSC",
+    "SHERPA2211_QCD_WJETS": "DSTAR_SHERPA2211_QCD_WJETS",
+    "SHERPA2211_QCD_WPLUSC": "DSTAR_SHERPA2211_QCD_WPLUSC",
+    "WJETS_FIT": "WJETS_FIT",
 })
 
 # bkg shape and normalization
 # D+
-NP_NAMES["dplus"].update({"CharmNorm_1tag": "W+c(match) Norm. Unc. (D+ 1-tag)"})
-NP_NAMES["dplus"].update({"MisMatchNorm_1tag": "W+c(mis-match) Norm. Unc. (D+ 1-tag)"})
-NP_NAMES["dplus"].update({"OtherNorm_1tag": "Other Norm. Unc. (D+ 1-tag)"})
-NP_NAMES["dplus"].update({"WjetsNorm_1tag": "W+jets Norm. Unc. (D+ 1-tag)"})
-NP_NAMES["dplus"].update({f"CharmNorm_0tag_bin{i}": f"W+c(match) Norm. Unc. (D+ bin {i})" for i in range(1, 6)})
-NP_NAMES["dplus"].update({f"MisMatch_Sh_MG_2P_bin{i}": f"W+c(mis-match) Shape Unc. (D+ bin {i})" for i in range(1, 6)})
-NP_NAMES["dplus"].update({f"MisMatchNorm_0tag_bin{i}": f"W+c(mis-match) Norm Unc. (D+ bin {i})" for i in range(1, 6)})
-NP_NAMES["dplus"].update({f"OtherNorm_0tag{i}": f"Other Norm. Unc. (D+ bin {i})" for i in range(1, 6)})
-NP_NAMES["dplus"].update({f"Wjets_Sh_MG_2P_bin{i}": f"W+jets Shape Unc. (D+ bin {i})" for i in range(1, 6)})
-NP_NAMES["dplus"].update({f"WjetsNorm_0tag_bin{i}": f"W+jets Norm. Unc. (D+ bin {i})" for i in range(1, 6)})
+NP_NAMES["dplus"].update({"CharmNorm_1tag": "DPLUS_CharmNorm_1tag"})
+NP_NAMES["dplus"].update({"MisMatchNorm_1tag": "DPLUS_MisMatchNorm_1tag"})
+NP_NAMES["dplus"].update({"OtherNorm_0tag": "DPLUS_OtherNorm_0tag"})
+NP_NAMES["dplus"].update({"OtherNorm_1tag": "DPLUS_OtherNorm_1tag"})
+NP_NAMES["dplus"].update({"WjetsNorm_1tag": "DPLUS_WjetsNorm_1tag"})
+NP_NAMES["dplus"].update({f"CharmNorm_0tag_bin{i}": f"DPLUS_CharmNorm_0tag_bin{i}" for i in range(1, 6)})
+NP_NAMES["dplus"].update({f"MisMatch_Sh_MG_2P_bin{i}": f"DPLUS_MisMatch_Sh_MG_2P_bin{i}" for i in range(1, 6)})
+NP_NAMES["dplus"].update({f"MisMatchNorm_0tag_bin{i}": f"DPLUS_MisMatchNorm_0tag_bin{i}" for i in range(1, 6)})
+NP_NAMES["dplus"].update({f"Wjets_Sh_MG_2P_bin{i}": f"DPLUS_Wjets_Sh_MG_2P_bin{i}" for i in range(1, 6)})
+NP_NAMES["dplus"].update({f"WjetsNorm_0tag_bin{i}": f"DPLUS_WjetsNorm_0tag_bin{i}" for i in range(1, 6)})
 
 # D*
-NP_NAMES["dstar"].update({"CharmNorm_1tag": "W+c(match) Norm. Unc. (D* 1-tag)"})
-NP_NAMES["dstar"].update({"MisMatchNorm_1tag": "W+c(mis-match) Norm. Unc. (D* 1-tag)"})
-NP_NAMES["dstar"].update({"OtherNorm_0tag": "Other Norm. Unc. (D* 0-tag)"})
-NP_NAMES["dstar"].update({"OtherNorm_1tag": "Other Norm. Unc. (D* 1-tag)"})
-NP_NAMES["dstar"].update({"WjetsNorm_1tag": "W+jets Norm. Unc. (D* 1-tag)"})
-NP_NAMES["dstar"].update({f"CharmNorm_0tag_bin{i}": f"W+c(match) Norm. Unc. (D* bin {i})" for i in range(1, 6)})
-NP_NAMES["dstar"].update({f"MisMatched_Sherpa_MG_2P_bin{i}": f"W+c(mis-match) Shape. Unc. (D* bin {i})" for i in range(1, 6)})
-NP_NAMES["dstar"].update({f"MisMatchNorm_0tag_bin{i}": f"W+c(mis-match) Norm Unc. (D* bin {i})" for i in range(1, 6)})
-NP_NAMES["dstar"].update({f"Wjets_MG_Sherpa_2P_bin{i}": f"W+jets Shape. Unc. (D* bin {i})" for i in range(1, 6)})
-NP_NAMES["dstar"].update({f"WjetsNorm_0tag_bin{i}": f"W+jets Norm Unc. (D* bin {i})" for i in range(1, 6)})
+NP_NAMES["dstar"].update({"CharmNorm_1tag": "DSTAR_CharmNorm_1tag"})
+NP_NAMES["dstar"].update({"MisMatchNorm_1tag": "DSTAR_MisMatchNorm_1tag"})
+NP_NAMES["dstar"].update({"OtherNorm_0tag": "DSTAR_OtherNorm_0tag"})
+NP_NAMES["dstar"].update({"OtherNorm_1tag": "DSTAR_OtherNorm_1tag"})
+NP_NAMES["dstar"].update({"WjetsNorm_1tag": "DSTAR_WjetsNorm_1tag"})
+NP_NAMES["dstar"].update({f"CharmNorm_0tag_bin{i}": f"DSTAR_CharmNorm_0tag_bin{i}" for i in range(1, 6)})
+NP_NAMES["dstar"].update({f"MisMatched_Sherpa_MG_2P_bin{i}": f"DSTAR_MisMatched_Sherpa_MG_2P_bin{i}" for i in range(1, 6)})
+NP_NAMES["dstar"].update({f"MisMatchNorm_0tag_bin{i}": f"DSTAR_MisMatchNorm_0tag_bin{i}" for i in range(1, 6)})
+NP_NAMES["dstar"].update({f"Wjets_MG_Sherpa_2P_bin{i}": f"DSTAR_Wjets_MG_Sherpa_2P_bin{i}" for i in range(1, 6)})
+NP_NAMES["dstar"].update({f"WjetsNorm_0tag_bin{i}": f"DSTAR_WjetsNorm_0tag_bin{i}" for i in range(1, 6)})
 
 # bkg normalization stat. unc.
 # D+
-NP_NAMES["dplus"].update({f"Stat_{charge}_DibosonZjets_0tag_{OSSS}_{var}_bin{diff_bin}": f"Other Norm. Stat. D+ (W{('-' if charge == 'minus' else '+')} {var}{diff_bin})" for charge in [
+NP_NAMES["dplus"].update({f"Stat_{charge}_DibosonZjets_0tag_{OSSS}_{var}_bin{diff_bin}": f"DPLUS_Stat_{charge}_DibosonZjets_0tag_{OSSS}_{var}_bin{diff_bin}" for charge in [
                          "minus", "plus"] for OSSS in ["OS", "SS"] for var in ["pt", "eta"] for diff_bin in range(1, 6)})
-NP_NAMES["dplus"].update({f"Stat_{charge}_WCharm_0tag_{OSSS}_{var}_bin{diff_bin}": f"W+c(match) Norm. Stat. D+ (W{('-' if charge == 'minus' else '+')} {var}{diff_bin})" for charge in [
+NP_NAMES["dplus"].update({f"Stat_{charge}_WCharm_0tag_{OSSS}_{var}_bin{diff_bin}": f"DPLUS_Stat_{charge}_WCharm_0tag_{OSSS}_{var}_bin{diff_bin}" for charge in [
                          "minus", "plus"] for OSSS in ["OS", "SS"] for var in ["pt", "eta"] for diff_bin in range(1, 6)})
-NP_NAMES["dplus"].update({f"Stat_{charge}_Wjets_0tag_{OSSS}_{var}_bin{diff_bin}": f"W+jets Norm. Stat. D+ (W{('-' if charge == 'minus' else '+')} {var}{diff_bin})" for charge in [
+NP_NAMES["dplus"].update({f"Stat_{charge}_Wjets_0tag_{OSSS}_{var}_bin{diff_bin}": f"DPLUS_Stat_{charge}_Wjets_0tag_{OSSS}_{var}_bin{diff_bin}" for charge in [
                          "minus", "plus"] for OSSS in ["OS", "SS"] for var in ["pt", "eta"] for diff_bin in range(1, 6)})
-NP_NAMES["dplus"].update({f"Stat_{charge}_WMisMatched_0tag_{OSSS}_{var}_bin{diff_bin}": f"W+c(mis-match) Norm. Stat. D+ (W{('-' if charge == 'minus' else '+')} {var}{diff_bin})" for charge in [
+NP_NAMES["dplus"].update({f"Stat_{charge}_WMisMatched_0tag_{OSSS}_{var}_bin{diff_bin}": f"DPLUS_Stat_{charge}_WMisMatched_0tag_{OSSS}_{var}_bin{diff_bin}" for charge in [
                          "minus", "plus"] for OSSS in ["OS", "SS"] for var in ["pt", "eta"] for diff_bin in range(1, 6)})
-NP_NAMES["dplus"].update({f"Stat_{charge}_Top_0tag_{OSSS}_{var}_bin{diff_bin}": f"Top Norm. Stat. D+ (W{('-' if charge == 'minus' else '+')} {var}{diff_bin})" for charge in [
+NP_NAMES["dplus"].update({f"Stat_{charge}_Top_0tag_{OSSS}_{var}_bin{diff_bin}": f"DPLUS_Stat_{charge}_Top_0tag_{OSSS}_{var}_bin{diff_bin}" for charge in [
                          "minus", "plus"] for OSSS in ["OS", "SS"] for var in ["pt", "eta"] for diff_bin in range(1, 6)})
 
 # D*
-NP_NAMES["dstar"].update({f"Stat_{charge}_DibosonZjets_0tag_{OSSS}_{var}_bin{diff_bin}": f"Other Norm. Stat. D+ (W{('-' if charge == 'minus' else '+')} {var}{diff_bin})" for charge in [
+NP_NAMES["dstar"].update({f"Stat_{charge}_DibosonZjets_0tag_{OSSS}_{var}_bin{diff_bin}": f"DSTAR_Stat_{charge}_DibosonZjets_0tag_{OSSS}_{var}_bin{diff_bin}" for charge in [
                          "minus", "plus"] for OSSS in ["OS", "SS"] for var in ["pt", "eta"] for diff_bin in range(1, 6)})
-NP_NAMES["dstar"].update({f"Stat_{charge}_WCharm_0tag_{OSSS}_{var}_bin{diff_bin}": f"W+c(match) Norm. Stat. D+ (W{('-' if charge == 'minus' else '+')} {var}{diff_bin})" for charge in [
+NP_NAMES["dstar"].update({f"Stat_{charge}_WCharm_0tag_{OSSS}_{var}_bin{diff_bin}": f"DSTAR_Stat_{charge}_WCharm_0tag_{OSSS}_{var}_bin{diff_bin}" for charge in [
                          "minus", "plus"] for OSSS in ["OS", "SS"] for var in ["pt", "eta"] for diff_bin in range(1, 6)})
-NP_NAMES["dstar"].update({f"Stat_{charge}_Wjets_0tag_{OSSS}_{var}_bin{diff_bin}": f"W+jets Norm. Stat. D+ (W{('-' if charge == 'minus' else '+')} {var}{diff_bin})" for charge in [
+NP_NAMES["dstar"].update({f"Stat_{charge}_Wjets_0tag_{OSSS}_{var}_bin{diff_bin}": f"DSTAR_Stat_{charge}_Wjets_0tag_{OSSS}_{var}_bin{diff_bin}" for charge in [
                          "minus", "plus"] for OSSS in ["OS", "SS"] for var in ["pt", "eta"] for diff_bin in range(1, 6)})
-NP_NAMES["dstar"].update({f"Stat_{charge}_WMisMatched_0tag_{OSSS}_{var}_bin{diff_bin}": f"W+c(mis-match) Norm. Stat. D+ (W{('-' if charge == 'minus' else '+')} {var}{diff_bin})" for charge in [
+NP_NAMES["dstar"].update({f"Stat_{charge}_WMisMatched_0tag_{OSSS}_{var}_bin{diff_bin}": f"DSTAR_Stat_{charge}_WMisMatched_0tag_{OSSS}_{var}_bin{diff_bin}" for charge in [
                          "minus", "plus"] for OSSS in ["OS", "SS"] for var in ["pt", "eta"] for diff_bin in range(1, 6)})
-NP_NAMES["dstar"].update({f"Stat_{charge}_Top_0tag_{OSSS}_{var}_bin{diff_bin}": f"Top Norm. Stat. D+ (W{('-' if charge == 'minus' else '+')} {var}{diff_bin})" for charge in [
+NP_NAMES["dstar"].update({f"Stat_{charge}_Top_0tag_{OSSS}_{var}_bin{diff_bin}": f"DSTAR_Stat_{charge}_Top_0tag_{OSSS}_{var}_bin{diff_bin}" for charge in [
                          "minus", "plus"] for OSSS in ["OS", "SS"] for var in ["pt", "eta"] for diff_bin in range(1, 6)})
 
 # fiducial efficiency stat. unc.
-NP_NAMES["dplus"].update({f"MC_Stat_Fid_Eff_{charge}_{i}_{j}": f"Response Matrix Stat. D+ (W{('-' if charge == 'minus' else '+')} {i}, {j})" for i in range(1, 6)
+NP_NAMES["dplus"].update({f"MC_Stat_Fid_Eff_{charge}_{i}_{j}": f"DPLUS_MC_Stat_Fid_Eff_{charge}_{i}_{j}" for i in range(1, 6)
                          for j in range(1, 6) for charge in ["minus", "plus"]})
-NP_NAMES["dstar"].update({f"MC_Stat_Fid_Eff_{charge}_{i}_{j}": f"Response Matrix Stat. D* (W{('-' if charge == 'minus' else '+')} {i}, {j})" for i in range(1, 6)
+NP_NAMES["dstar"].update({f"MC_Stat_Fid_Eff_{charge}_{i}_{j}": f"DSTAR_MC_Stat_Fid_Eff_{charge}_{i}_{j}" for i in range(1, 6)
                          for j in range(1, 6) for charge in ["minus", "plus"]})
+# NP_NAMES["dplus"].update({f"MC_Stat_Fid_Eff_{charge}_{i}_{j}": f"Response Matrix Stat. D+ (W{('-' if charge == 'minus' else '+')} {i}, {j})" for i in range(1, 6)
+#                          for j in range(1, 6) for charge in ["minus", "plus"]})
+# NP_NAMES["dstar"].update({f"MC_Stat_Fid_Eff_{charge}_{i}_{j}": f"Response Matrix Stat. D* (W{('-' if charge == 'minus' else '+')} {i}, {j})" for i in range(1, 6)
+#                          for j in range(1, 6) for charge in ["minus", "plus"]})
 
 # gammas
 # D+
-NP_NAMES["dplus"].update({f"gamma_stat_{OSSS}_lep_{charge}_0tag_Dplus_{var}_bin{diff_bin}_bin_{mass_bin}": f"MC Stat. D+ ({OSSS} W{('-' if charge == 'minus' else '+')} {var}{diff_bin} mass{mass_bin})" for OSSS in [
+NP_NAMES["dplus"].update({f"gamma_stat_{OSSS}_lep_{charge}_0tag_Dplus_{var}_bin{diff_bin}_bin_{mass_bin}": f"gamma_stat_{OSSS}_lep_{charge}_0tag_Dplus_{var}_bin{diff_bin}_bin_{mass_bin}" for OSSS in [
                          "OS", "SS"] for charge in ["minus", "plus"] for var in ["pt", "eta"] for diff_bin in range(1, 6) for mass_bin in range(0, 10)})
-NP_NAMES["dplus"].update({f"gamma_stat_{OSSS}_lep_{charge}_1tag_Dplus_bin_0": f"MC Stat. D+ ({OSSS} W{('-' if charge == 'minus' else '+')} 1-tag)" for OSSS in [
+NP_NAMES["dplus"].update({f"gamma_stat_{OSSS}_lep_{charge}_1tag_Dplus_bin_0": f"gamma_stat_{OSSS}_lep_{charge}_1tag_Dplus_bin_0" for OSSS in [
                          "OS", "SS"] for charge in ["minus", "plus"]})
+# NP_NAMES["dplus"].update({f"gamma_stat_{OSSS}_lep_{charge}_0tag_Dplus_{var}_bin{diff_bin}_bin_{mass_bin}": f"MC Stat. D+ ({OSSS} W{('-' if charge == 'minus' else '+')} {var}{diff_bin} mass{mass_bin})" for OSSS in [
+#                          "OS", "SS"] for charge in ["minus", "plus"] for var in ["pt", "eta"] for diff_bin in range(1, 6) for mass_bin in range(0, 10)})
+# NP_NAMES["dplus"].update({f"gamma_stat_{OSSS}_lep_{charge}_1tag_Dplus_bin_0": f"MC Stat. D+ ({OSSS} W{('-' if charge == 'minus' else '+')} 1-tag)" for OSSS in [
+#                          "OS", "SS"] for charge in ["minus", "plus"]})
 
 # D*
-NP_NAMES["dstar"].update({f"gamma_stat_{OSSS}_lep_{charge}_0tag_Dstar_{var}_bin{diff_bin}_bin_{mass_bin}": f"MC Stat. D* ({OSSS} W{('-' if charge == 'minus' else '+')} {var}{diff_bin} mass{mass_bin})" for OSSS in [
+NP_NAMES["dstar"].update({f"gamma_stat_{OSSS}_lep_{charge}_0tag_Dstar_{var}_bin{diff_bin}_bin_{mass_bin}": f"gamma_stat_{OSSS}_lep_{charge}_0tag_Dstar_{var}_bin{diff_bin}_bin_{mass_bin}" for OSSS in [
                          "OS", "SS"] for charge in ["minus", "plus"] for var in ["pt", "eta"] for diff_bin in range(1, 6) for mass_bin in range(0, 13)})
-NP_NAMES["dstar"].update({f"gamma_stat_{OSSS}_lep_{charge}_1tag_Dstar_bin_0": f"MC Stat. D* ({OSSS} W{('-' if charge == 'minus' else '+')} 1-tag)" for OSSS in [
+NP_NAMES["dstar"].update({f"gamma_stat_{OSSS}_lep_{charge}_1tag_Dstar_bin_0": f"gamma_stat_{OSSS}_lep_{charge}_1tag_Dstar_bin_0" for OSSS in [
                          "OS", "SS"] for charge in ["minus", "plus"]})
+# NP_NAMES["dstar"].update({f"gamma_stat_{OSSS}_lep_{charge}_0tag_Dstar_{var}_bin{diff_bin}_bin_{mass_bin}": f"MC Stat. D* ({OSSS} W{('-' if charge == 'minus' else '+')} {var}{diff_bin} mass{mass_bin})" for OSSS in [
+#                          "OS", "SS"] for charge in ["minus", "plus"] for var in ["pt", "eta"] for diff_bin in range(1, 6) for mass_bin in range(0, 13)})
+# NP_NAMES["dstar"].update({f"gamma_stat_{OSSS}_lep_{charge}_1tag_Dstar_bin_0": f"MC Stat. D* ({OSSS} W{('-' if charge == 'minus' else '+')} 1-tag)" for OSSS in [
+#                          "OS", "SS"] for charge in ["minus", "plus"]})
 
 # make output folder
 if not os.path.isdir("hepdata"):
@@ -271,10 +455,10 @@ def main():
                 {"name": "reactions", "values": ["P P --> W D"]},
                 {"name": "observables", "values": ["SIG"]},
                 {"name": "cmenergies", "values": [13000.0]},
-                {"name": "phrases", "values": ["Differential Cross Section", "Cross Section", "Proton-Proton Scattering", "W Production", "D production"]},
+                {"name": "phrases", "values": ["Proton-Proton Scattering", "W Production", "D production"]},
             ],
             "location": "XXX",
-            "name": "NP Impact on OS-SS W+D Cross Section (W-D+ channel)"
+            "name": "Table 7"
         },
         {
             "data_file": "dplus_plus.yaml",
@@ -283,10 +467,10 @@ def main():
                 {"name": "reactions", "values": ["P P --> W D"]},
                 {"name": "observables", "values": ["SIG"]},
                 {"name": "cmenergies", "values": [13000.0]},
-                {"name": "phrases", "values": ["Differential Cross Section", "Cross Section", "Proton-Proton Scattering", "W Production", "D production"]},
+                {"name": "phrases", "values": ["Proton-Proton Scattering", "W Production", "D production"]},
             ],
             "location": "XXX",
-            "name": "NP Impact on OS-SS W+D Cross Section (W+D- channel)"
+            "name": "Table 8"
         },
         {
             "data_file": "dstar_minus.yaml",
@@ -295,10 +479,10 @@ def main():
                 {"name": "reactions", "values": ["P P --> W D"]},
                 {"name": "observables", "values": ["SIG"]},
                 {"name": "cmenergies", "values": [13000.0]},
-                {"name": "phrases", "values": ["Differential Cross Section", "Cross Section", "Proton-Proton Scattering", "W Production", "D production"]},
+                {"name": "phrases", "values": ["Proton-Proton Scattering", "W Production", "D production"]},
             ],
             "location": "XXX",
-            "name": "NP Impact on OS-SS W+D Cross Section (W-D*+ channel)"
+            "name": "Table 9"
         },
         {
             "data_file": "dstar_plus.yaml",
@@ -307,13 +491,13 @@ def main():
                 {"name": "reactions", "values": ["P P --> W D"]},
                 {"name": "observables", "values": ["SIG"]},
                 {"name": "cmenergies", "values": [13000.0]},
-                {"name": "phrases", "values": ["Differential Cross Section", "Cross Section", "Proton-Proton Scattering", "W Production", "D production"]},
+                {"name": "phrases", "values": ["Proton-Proton Scattering", "W Production", "D production"]},
             ],
             "location": "XXX",
-            "name": "NP Impact on OS-SS W+D Cross Section (W+D*- channel)"
+            "name": "Table 10"
         },
     ]
-    with open('hepdata/submission.yaml', 'w') as yaml_file:
+    with open('hepdata/submission_temp.yaml', 'w') as yaml_file:
         for table in submission:
             yaml_file.write(f"# Nuisance parameter ranking for {table['data_file'].replace('.yaml', '')}\n")
             yaml_file.write("---\n")
@@ -322,6 +506,9 @@ def main():
 
     # keep for all channels
     GLOBAL_NPs = []
+
+    # list of all writen out NPs
+    ALL_NPs = set()
 
     # loop first to extract the NPs
     RANKINGS = {}
@@ -528,9 +715,11 @@ def main():
                     if NP in NP_NAMES[channel]:
                         impact_table['dependent_variables'][1]['values'][i]['errors'] += [
                             {'label': NP_NAMES[channel][NP], 'asymerror': {'minus': vals[2], 'plus': vals[1]}}]
+                        ALL_NPs.add(NP_NAMES[channel][NP])
                     else:
                         print("Missing map for NP: ", NP)
                         impact_table['dependent_variables'][1]['values'][i]['errors'] += [{'label': NP, 'asymerror': {'minus': vals[2], 'plus': vals[1]}}]
+                        ALL_NPs.add(NP)
                     # impact_table['dependent_variables'][1]['values'][i]['errors'] += [{'label': NP, 'asymerror': {'minus': vals[2], 'plus': vals[1]}}]
 
                     # validation
@@ -545,6 +734,15 @@ def main():
 
             with open(f'hepdata/{channel}_{charge}.yaml', 'w') as yaml_file:
                 yaml.dump(impact_table, yaml_file, default_flow_style=False)
+
+    for NP in sorted(ALL_NPs):
+        print(f"  - {{value: '{NP}'}}")
+    print("-----------------")
+    for NP in sorted(ALL_NPs):
+        if NP in NP_DESCRIPTION:
+            print(f"  - {{value: '{NP_DESCRIPTION[NP]}'}}")
+        else:
+            print(f"  - {{value: '{NP}'}}")
 
 
 if __name__ == "__main__":
