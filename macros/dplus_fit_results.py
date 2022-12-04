@@ -576,7 +576,7 @@ def main(options, args):
                         leg.SetTextSize(34)
                         leg.SetTextFont(43)
                         leg.AddEntry(gr_obs_line_leg, "Data", "l")
-                        leg.AddEntry(gr_obs_sys, "Syst. Unc.", "f")
+                        leg.AddEntry(gr_obs_sys, "Stat. Unc.", "f")
                         # leg.AddEntry(gr_obs_norm_ratio_stat, "Stat. Unc.", "f")
                         leg.AddEntry(gr_obs_norm_ratio, "Syst. #oplus Stat.", "f")
                     else:
@@ -588,7 +588,7 @@ def main(options, args):
                         leg.SetTextSize(34)
                         leg.SetTextFont(43)
                         leg.AddEntry(gr_obs_line_leg, "Data", "l")
-                        leg.AddEntry(gr_obs_sys, "Syst. Unc.", "f")
+                        leg.AddEntry(gr_obs_sys, "Stat. Unc.", "f")
                         # leg.AddEntry(gr_obs_norm_ratio_stat, "Stat. Unc.", "f")
                         leg.AddEntry(gr_obs_norm_ratio, "Syst. #oplus Stat.", "f")
 
@@ -612,22 +612,50 @@ def main(options, args):
                     mg_obs_norm.Add(gr_obs_norm_sys, "0e2")
                     mg_obs_norm.Add(gr_obs_norm_line, "e0")
 
-                    # print out
+                    # print out latex
                     print(f"================ {options.decay} {lep} {obs_name} =================")
                     # $[0.0,\,0.5]$ & 12.42 & 0.13 & $^{+0.72}_{-0.68}$ \\
                     for i in range(0, 5):
                         y = gr_obs.GetY()[i]
-                        y_sys_up = gr_obs_sys.GetErrorYhigh(i)
-                        y_sys_dn = gr_obs_sys.GetErrorYlow(i)
-                        y_stat = 0.5 * (gr_obs.GetErrorYhigh(i)**2 - y_sys_up**2)**0.5 + 0.5 * (gr_obs.GetErrorYlow(i)**2 - y_sys_dn**2)**0.5
+                        y_stat = 0.5 * (gr_obs_sys.GetErrorYhigh(i) + gr_obs_sys.GetErrorYlow(i))
+                        y_sys_up = (gr_obs.GetErrorYhigh(i)**2 - y_stat**2)**0.5
+                        y_sys_dn = (gr_obs.GetErrorYlow(i)**2 - y_stat**2)**0.5
 
                         y_norm = gr_obs_norm.GetY()[i]
-                        y_norm_sys_up = gr_obs_norm_sys.GetErrorYhigh(i)
-                        y_norm_sys_dn = gr_obs_norm_sys.GetErrorYlow(i)
-                        y_norm_stat = 0.5 * (gr_obs_norm.GetErrorYhigh(i)**2 - y_norm_sys_up**2)**0.5 + \
-                            0.5 * (gr_obs_norm.GetErrorYlow(i)**2 - y_norm_sys_dn**2)**0.5
+                        y_norm_stat = 0.5 * (gr_obs_norm_sys.GetErrorYhigh(i) + gr_obs_norm_sys.GetErrorYlow(i))
+                        y_norm_sys_up = (gr_obs_norm.GetErrorYhigh(i)**2 - y_norm_stat**2)**0.5
+                        y_norm_sys_dn = (gr_obs_norm.GetErrorYlow(i)**2 - y_norm_stat**2)**0.5
                         print(
                             f" & {y:.4f} & {y_stat:.4f} & $^{{+{y_sys_up:.2f}}}_{{-{y_sys_dn:.2f}}}$ & {y_norm:.6f} & {y_norm_stat:.6f} & $^{{+{y_norm_sys_up:.4f}}}_{{-{y_norm_sys_dn:.4f}}}$ \\\\")
+
+                    # print out yaml
+                    print(f"================ {options.decay} {lep} {obs_name} =================")
+                    #
+                    # - errors:
+                    #     - {label: stat, symerror: 0.19}
+                    #     - {label: syst, asymerror: {minus: -0.75, plus: 0.79}}
+                    #     value: 15.27
+                    #
+                    for i in range(0, 5):
+                        y = gr_obs.GetY()[i]
+                        y_stat = 0.5 * (gr_obs_sys.GetErrorYhigh(i) + gr_obs_sys.GetErrorYlow(i))
+                        y_sys_up = (gr_obs.GetErrorYhigh(i)**2 - y_stat**2)**0.5
+                        y_sys_dn = (gr_obs.GetErrorYlow(i)**2 - y_stat**2)**0.5
+                        print("  - errors:")
+                        print(f"    - {{label: stat, symerror: {y_stat:.2f}}}")
+                        print(f"    - {{label: syst, asymerror: {{minus: -{y_sys_dn:.2f}, plus: {y_sys_up:.2f}}}}}")
+                        print(f"    value: {y:.2f}")
+
+                    print("------------------------")
+                    for i in range(0, 5):
+                        y_norm = gr_obs_norm.GetY()[i]
+                        y_norm_stat = 0.5 * (gr_obs_norm_sys.GetErrorYhigh(i) + gr_obs_norm_sys.GetErrorYlow(i))
+                        y_norm_sys_up = (gr_obs_norm.GetErrorYhigh(i)**2 - y_norm_stat**2)**0.5
+                        y_norm_sys_dn = (gr_obs_norm.GetErrorYlow(i)**2 - y_norm_stat**2)**0.5
+                        print("  - errors:")
+                        print(f"    - {{label: stat, symerror: {y_norm_stat:.4f}}}")
+                        print(f"    - {{label: syst, asymerror: {{minus: -{y_norm_sys_dn:.4f}, plus: {y_norm_sys_up:.4f}}}}}")
+                        print(f"    value: {y_norm:.4f}")
 
                 # --------------------------------------------
                 # Step 2.5: theory comparisons
