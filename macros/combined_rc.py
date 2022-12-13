@@ -41,6 +41,6 @@ print(f"stat: {combined_stat}")
 print(f"sys: {combined_sys}")
 
 # Combined Rc
-# central: 0.9706063555826351
-# stat: 0.006217251487304815
-# sys: 0.010356382050784051
+# central: 0.9705465824849192
+# stat: 0.006203070328729444
+# sys: 0.01054974390761111
