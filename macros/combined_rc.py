@@ -15,13 +15,13 @@ muon_sagitta = 0.3 / 100.
 dplus_central = 0.964739849325106
 dplus_stat = (0.006729660597977746 + 0.006685480592483229) / 2.
 dplus_sys = (0.011525399237773157 + 0.011372202480872982) / 2.
-dplus_sys_no_muon = (dplus_sys**2 - (muon_sagitta * dplus_sys)**2)**0.5
+dplus_sys_no_muon = (dplus_sys**2 - (muon_sagitta * dplus_central)**2)**0.5
 dplus_total = (dplus_sys_no_muon**2 + dplus_stat**2)**0.5
 
 dstar_central = 0.9797502160453198
 dstar_stat = (0.009917807554477426 + 0.009782700185892685) / 2.
 dstar_sys = (0.013420021659485557 + 0.013218243368168152) / 2.
-dstar_sys_no_muon = (dstar_sys**2 - (muon_sagitta * dstar_sys)**2)**0.5
+dstar_sys_no_muon = (dstar_sys**2 - (muon_sagitta * dstar_central)**2)**0.5
 dstar_total = (dstar_sys_no_muon**2 + dstar_stat**2)**0.5
 
 # Eq. 40.8 in https://pdg.lbl.gov/2022/reviews/rpp2022-rev-statistics.pdf
@@ -32,7 +32,7 @@ w = w1 + w2
 combined_central = (w1 * dplus_central + w2 * dstar_central) / w
 combined_stat = 1 / ((1 / dplus_stat**2) + (1 / dstar_total**2))**0.5
 combined_sys = 1 / w**0.5
-combined_sys = (combined_sys**2 + (muon_sagitta * combined_sys)**2)**0.5
+combined_sys = (combined_sys**2 + (muon_sagitta * combined_central)**2)**0.5
 
 
 print("Combined Rc")
