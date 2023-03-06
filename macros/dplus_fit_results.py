@@ -64,8 +64,8 @@ def main(options, args):
 
     trash = []
 
-    # cross section priors
-    DIR_PRIORS = "/global/cfs/cdirs/atlas/wcharm/charmplot_output/Dmeson_2022_06_15/"
+    # # cross section priors
+    # DIR_PRIORS = "/global/cfs/cdirs/atlas/wcharm/charmplot_output/Dmeson_2022_06_15/"
 
     # theory predictions
     DIR_THEORY = "/global/cfs/cdirs/atlas/wcharm/Rivet/v1/processed4"
@@ -353,9 +353,9 @@ def main(options, args):
             # Step 0: get cross section priors
             # --------------------------------------------
             if options.decay in ["Dplus", "Dstar"]:
-                f = ROOT.TFile(os.path.join(DIR_PRIORS, f"fid_eff_{obs_name}_{options.decay.lower()}_stat", "unfolding.root"))
-                h_minus = f.Get(f"Sherpa2211_WplusD_OS-SS_lep_minus_{options.decay}_Kpipi_truth_differential_{obs_name}")
-                h_plus = f.Get(f"Sherpa2211_WplusD_OS-SS_lep_plus_{options.decay}_Kpipi_truth_differential_{obs_name}")
+                # f = ROOT.TFile(os.path.join(DIR_PRIORS, f"fid_eff_{obs_name}_{options.decay.lower()}_stat", "unfolding.root"))
+                # h_minus = f.Get(f"Sherpa2211_WplusD_OS-SS_lep_minus_{options.decay}_Kpipi_truth_differential_{obs_name}")
+                # h_plus = f.Get(f"Sherpa2211_WplusD_OS-SS_lep_plus_{options.decay}_Kpipi_truth_differential_{obs_name}")
                 priors = {
                     "Wminus": 1 / (2. * br),
                     "Wminus_1": 1 / (2. * br),
@@ -503,8 +503,10 @@ def main(options, args):
                         gr_obs_sys.SetPoint(i, xc, y * sf)
                         gr_obs_norm_sys.SetPoint(i, xc, y_norm * sf)
                         if obs["logx"]:
-                            x_err_up = ROOT.TMath.Power(10, ROOT.TMath.Log10(xc) + (ROOT.TMath.Log10(obs["bins"][-1]) - ROOT.TMath.Log10(obs["bins"][0])) / 200.) - xc
-                            x_err_dn = xc - ROOT.TMath.Power(10, ROOT.TMath.Log10(xc) - (ROOT.TMath.Log10(obs["bins"][-1]) - ROOT.TMath.Log10(obs["bins"][0])) / 200.)
+                            x_err_up = ROOT.TMath.Power(10, ROOT.TMath.Log10(
+                                xc) + (ROOT.TMath.Log10(obs["bins"][-1]) - ROOT.TMath.Log10(obs["bins"][0])) / 200.) - xc
+                            x_err_dn = xc - ROOT.TMath.Power(10, ROOT.TMath.Log10(xc) -
+                                                             (ROOT.TMath.Log10(obs["bins"][-1]) - ROOT.TMath.Log10(obs["bins"][0])) / 200.)
                             gr_obs_sys.SetPointError(i, xc_dn, xc_up, abs(y_dn_stat) * sf, abs(y_up_stat) * sf)
                             gr_obs_norm_sys.SetPointError(i, xc_dn, xc_up, abs(y_norm_dn_stat) * sf, abs(y_norm_up_stat) * sf)
                         else:
@@ -795,8 +797,10 @@ def main(options, args):
                             gr_theory.SetPoint(i, gr_obs.GetX()[i], h_theory.GetBinContent(i + 1 + offset) * sf)
                             err_pdf_up = (h_theory_pdf_up.GetBinContent(i + 1 + offset) - h_theory.GetBinContent(i + 1 + offset)) * sf
                             err_pdf_dn = (h_theory.GetBinContent(i + 1 + offset) - h_theory_pdf_dn.GetBinContent(i + 1 + offset)) * sf
-                            err_qcd_up = (h_theory.GetBinContent(i + 1 + offset) * h_theory_qcd_up.GetBinContent(i + 1 + offset) - h_theory.GetBinContent(i + 1 + offset)) * sf
-                            err_qcd_dn = (h_theory.GetBinContent(i + 1 + offset) - h_theory.GetBinContent(i + 1 + offset) * h_theory_qcd_dn.GetBinContent(i + 1 + offset)) * sf
+                            err_qcd_up = (h_theory.GetBinContent(i + 1 + offset) * h_theory_qcd_up.GetBinContent(i +
+                                          1 + offset) - h_theory.GetBinContent(i + 1 + offset)) * sf
+                            err_qcd_dn = (h_theory.GetBinContent(i + 1 + offset) - h_theory.GetBinContent(i +
+                                          1 + offset) * h_theory_qcd_dn.GetBinContent(i + 1 + offset)) * sf
                             vals = [h.GetBinContent(i + 1 + offset) * sf for h in h_list]
                             err_hadronization = (max(vals) - min(vals)) / 2.
                             err_prod_frac = 0.028 if options.decay == "Dplus" else 0.020
@@ -809,10 +813,12 @@ def main(options, args):
 
                             # normalized cross section
                             gr_theory_norm.SetPoint(i, gr_obs.GetX()[i], h_theory_rel.GetBinContent(i + 1 + offset) * sf)
-                            err_pdf_up = (h_theory_rel_pdf_up.GetBinContent(i + 1 + offset) - h_theory_rel.GetBinContent(i + 1 + offset))  * sf
-                            err_pdf_dn = (h_theory_rel.GetBinContent(i + 1 + offset) - h_theory_rel_pdf_dn.GetBinContent(i + 1 + offset))  * sf
-                            err_qcd_up = (h_theory_rel.GetBinContent(i + 1 + offset) * h_theory_rel_qcd_up.GetBinContent(i + 1 + offset) - h_theory_rel.GetBinContent(i + 1 + offset)) * sf
-                            err_qcd_dn = (h_theory_rel.GetBinContent(i + 1 + offset) - h_theory_rel.GetBinContent(i + 1 + offset) * h_theory_rel_qcd_dn.GetBinContent(i + 1 + offset)) * sf
+                            err_pdf_up = (h_theory_rel_pdf_up.GetBinContent(i + 1 + offset) - h_theory_rel.GetBinContent(i + 1 + offset)) * sf
+                            err_pdf_dn = (h_theory_rel.GetBinContent(i + 1 + offset) - h_theory_rel_pdf_dn.GetBinContent(i + 1 + offset)) * sf
+                            err_qcd_up = (h_theory_rel.GetBinContent(i + 1 + offset) * h_theory_rel_qcd_up.GetBinContent(i +
+                                          1 + offset) - h_theory_rel.GetBinContent(i + 1 + offset)) * sf
+                            err_qcd_dn = (h_theory_rel.GetBinContent(i + 1 + offset) - h_theory_rel.GetBinContent(i +
+                                          1 + offset) * h_theory_rel_qcd_dn.GetBinContent(i + 1 + offset)) * sf
                             vals = [h.GetBinContent(i + 1 + offset) * sf for h in h_rel_list]
                             err_hadronization = (max(vals) - min(vals)) / 2.
                             err_up = err_pdf_up * err_pdf_up + err_qcd_up * err_qcd_up + err_hadronization * err_hadronization

@@ -114,12 +114,9 @@ def main(options, conf):
     result = res_file.Get("nll_simPdf_newasimovData_with_constr")
     assert result
     corr_parameters = None
-    corr_correlation_rows = None
     for x in corr_dict:
         if 'parameters' in x:
             corr_parameters = x['parameters']
-        elif 'correlation_rows' in x:
-            corr_correlation_rows = x['correlation_rows']
     n_pars = len(corr_parameters)
 
     plots = [OS_minus_SS_total_minus, OS_minus_SS_total_plus]
@@ -383,7 +380,6 @@ def main(options, conf):
             h_mc_tot_err_histograms_Dn += [h_mc_tot_Dn]
 
         # calculate error bands
-        errors = []
         for x in range(1, h_mc_tot.GetNbinsX() + 1):
             # add stat uncertaitny from the histogram
             if file_suffix:
@@ -396,7 +392,6 @@ def main(options, conf):
             for i in range(n_pars):
                 for j in range(i):
                     if h_mc_tot_err_histograms_Up[i] and h_mc_tot_err_histograms_Up[j] and h_mc_tot_err_histograms_Dn[i] and h_mc_tot_err_histograms_Dn[j]:
-                        # corr = corr_correlation_rows[i][j]
                         par1 = corr_parameters[i]
                         par2 = corr_parameters[j]
                         if "SymmBkg" not in par1 and "mu_" not in par1 and not par1.startswith("stat_"):
@@ -416,8 +411,7 @@ def main(options, conf):
                         err_dn = err_dn_i * err_dn_j * corr * 2
                         g_mc_tot_err.GetEYhigh()[x - 1] += err_up
                         g_mc_tot_err.GetEYlow()[x - 1] += err_dn
-                        if x == 5:
-                            errors += [[err_up, err_up_i, err_up_j, corr, corr_parameters[i], corr_parameters[j]]]
+
             # diagonal
             for i in range(n_pars):
                 if h_mc_tot_err_histograms_Up[i] and h_mc_tot_err_histograms_Dn[i]:
@@ -427,8 +421,6 @@ def main(options, conf):
                     err_dn = err_dn_i * err_dn_i
                     g_mc_tot_err.GetEYhigh()[x - 1] += err_up
                     g_mc_tot_err.GetEYlow()[x - 1] += err_dn
-                    if x == 5:
-                        errors += [[err_up, err_up_i, err_up_i, 1.0, corr_parameters[i], corr_parameters[i]]]
 
             # final
             if g_mc_tot_err.GetEYhigh()[x - 1] <= 0 or g_mc_tot_err.GetEYlow()[x - 1] <= 0:
@@ -442,13 +434,6 @@ def main(options, conf):
             else:
                 g_mc_tot_err_only.GetEYhigh()[x - 1] = 0
                 g_mc_tot_err_only.GetEYlow()[x - 1] = 0
-
-        # # print errors
-        # partial_err = 0
-        # errors = sorted(errors, key=lambda x: abs(x[0]), reverse=True)
-        # for err in errors:
-        #     partial_err += err[0]
-        #     print(partial_err/abs(partial_err) * math.sqrt(abs(partial_err)), err)
 
         # ratio
         h_ratio = utils.make_ratio(h_data, h_mc_tot)

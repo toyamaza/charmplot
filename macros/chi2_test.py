@@ -60,10 +60,10 @@ def main(options):
                    "mu_Wminus_1", "mu_Wminus_2", "mu_Wminus_3", "mu_Wminus_4", "mu_Wminus_5"]
             suffix = "alt_"
 
-        # cross section priors
-        f_prior = ROOT.TFile(os.path.join(PRIORS_DIR, f"fid_eff_{var}_{options.decay.lower()}", "unfolding.root"), "READ")
-        h_minus = f_prior.Get(f"Sherpa2211_WplusD_OS-SS_lep_minus_{options.decay}_Kpipi_truth_differential_{var}")
-        h_plus = f_prior.Get(f"Sherpa2211_WplusD_OS-SS_lep_plus_{options.decay}_Kpipi_truth_differential_{var}")
+        # # cross section priors
+        # f_prior = ROOT.TFile(os.path.join(PRIORS_DIR, f"fid_eff_{var}_{options.decay.lower()}", "unfolding.root"), "READ")
+        # h_minus = f_prior.Get(f"Sherpa2211_WplusD_OS-SS_lep_minus_{options.decay}_Kpipi_truth_differential_{var}")
+        # h_plus = f_prior.Get(f"Sherpa2211_WplusD_OS-SS_lep_plus_{options.decay}_Kpipi_truth_differential_{var}")
 
         # Multiply scale factor by 0.677 for D*
         br = 1.0
@@ -72,7 +72,7 @@ def main(options):
 
         sf = 1.0 * br
         priors = {
-            "Wminus":1. / (2. * sf),
+            "Wminus": 1. / (2. * sf),
             "Wminus_1": 1. / (2. * sf),
             "Wminus_2": 1. / (2. * sf),
             "Wminus_3": 1. / (2. * sf),
@@ -402,7 +402,7 @@ def main(options):
             else:
                 for chi2 in chi2_dict[var][prediction]:
                     print(f" & {100 * ROOT.TMath.Prob(chi2, 10):2.6f}", end="")
-                print(" \\\\",  end="")
+                print(" \\\\", end="")
 
     # close out file
     outfile.close()

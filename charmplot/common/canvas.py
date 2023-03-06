@@ -496,6 +496,7 @@ class Canvas2(CanvasBase):
             self.set_ratio_range(0.75, 1.24)
             self.set_x_range(self.proxy_dn)
 
+
 class CanvasMCRatio(Canvas2):
 
     def __init__(self, c: channel.Channel, v: variable.Variable, ratio_title: str,
@@ -579,6 +580,7 @@ class CanvasMCRatio(Canvas2):
             self.set_axis_text_size(self.proxy_dn, self.y_split + self.offset)
             self.set_ratio_range(self.ratio_range[0], self.ratio_range[1], override=True)
             self.set_x_range(self.proxy_dn)
+
 
 class CanvasMassFit(Canvas2):
 
