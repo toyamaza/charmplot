@@ -227,7 +227,7 @@ class Canvas2(CanvasBase):
         # ATLAS label
         self.atlas_label("internal")
         if self.channel.lumi:
-            self.text("#sqrt{s} = 13 TeV, %.1f fb^{-1}" % (utils.get_lumi(self.channel.lumi) / 1000.))
+            self.text("#sqrt{s} = 13 TeV, %.0f fb^{-1}" % (utils.get_lumi(self.channel.lumi) / 1000.))
         else:
             self.text("#sqrt{s} = 13 TeV")
         for label in self.channel.label:
@@ -405,15 +405,15 @@ class Canvas2(CanvasBase):
         leg.SetBorderSize(0)
         leg.SetFillColor(0)
         leg.SetFillStyle(0)
-        leg.SetTextSize(34)
+        leg.SetTextSize(28)
         leg.SetTextFont(43)
         if data:
             data_string = data_name if data_name else "Data"
             if print_yields and mc_tot.GetSumOfWeights() > 0.1:
                 leg.AddEntry(data, "%s #scale[0.50]{#splitline{%.2e}{/ MC = %1.3f}}" %
-                             (data_string, data.GetSumOfWeights(), data.GetSumOfWeights() / mc_tot.GetSumOfWeights()), "p")
+                             (data_string, data.GetSumOfWeights(), data.GetSumOfWeights() / mc_tot.GetSumOfWeights()), "pe")
             else:
-                leg.AddEntry(data, data_string, "p")
+                leg.AddEntry(data, data_string, "pe")
         if mc_tot:
             if print_yields:
                 err = c_double(0)
@@ -495,7 +495,6 @@ class Canvas2(CanvasBase):
             self.set_axis_text_size(self.proxy_dn, self.y_split + self.offset)
             self.set_ratio_range(0.75, 1.24)
             self.set_x_range(self.proxy_dn)
-
 
 class CanvasMCRatio(Canvas2):
 
@@ -580,7 +579,6 @@ class CanvasMCRatio(Canvas2):
             self.set_axis_text_size(self.proxy_dn, self.y_split + self.offset)
             self.set_ratio_range(self.ratio_range[0], self.ratio_range[1], override=True)
             self.set_x_range(self.proxy_dn)
-
 
 class CanvasMassFit(Canvas2):
 

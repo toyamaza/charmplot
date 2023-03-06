@@ -72,7 +72,9 @@ def main(options, conf):
                 logging.warning(f"Channel not found for string {channel_name}")
             else:
                 logging.info(f"Found channel {channel_name}")
-                if options.skip_channel not in channel.name:
+                if options.skip_channel and (options.skip_channel in channel.name):
+                    continue
+                else:
                     channels += [channel]
 
     # sort channels
@@ -108,6 +110,9 @@ def main(options, conf):
     # get correlation matrix
     logging.info("Loading correlation matrix...")
     corr_dict = tools.parse_yaml_file(os.path.join(options.trex_input, "CorrelationMatrix.yaml"))
+    res_file = ROOT.TFile(os.path.join(options.trex_input, "Fits", os.path.basename(options.trex_input) + ".root"), "READ")
+    result = res_file.Get("nll_simPdf_newasimovData_with_constr")
+    assert result
     corr_parameters = None
     corr_correlation_rows = None
     for x in corr_dict:
@@ -117,10 +122,17 @@ def main(options, conf):
             corr_correlation_rows = x['correlation_rows']
     n_pars = len(corr_parameters)
 
-    plots = OS_minus_SS_plots + [OS_minus_SS_total, OS_total, SS_total]
-    # plots = individual_plots + OS_minus_SS_plots + [OS_minus_SS_total, OS_total, SS_total]
+    plots = [OS_minus_SS_total_minus, OS_minus_SS_total_plus]
+    # plots = [OS_total, SS_total]
+    # plots =  [OS_minus_SS_total_minus]
+    # plots = OS_minus_SS_plots
+    # plots =  OS_minus_SS_plots + [OS_minus_SS_total, OS_minus_SS_total_minus, OS_minus_SS_total_plus]
     # plots = individual_plots + OS_minus_SS_plots + [OS_minus_SS_total, OS_minus_SS_total_minus, OS_minus_SS_total_plus]
-    # plots = [OS_minus_SS_total]
+    # plots = individual_plots + OS_minus_SS_plots + [OS_minus_SS_total, OS_minus_SS_total_minus, OS_minus_SS_total_plus, OS_total, SS_total]
+    # plots = individual_plots
+    # plots = individual_plots + OS_minus_SS_plots
+    # plots = [OS_minus_SS_total, OS_minus_SS_total_minus, OS_minus_SS_total_plus, OS_total, SS_total]
+    # plots = [OS_total]
 
     for plot in plots:
 
@@ -164,7 +176,10 @@ def main(options, conf):
             if inclusive and "channel" in label:
                 label = "W^{#pm} channel"
             if len(channels_all) > 2 and "bin" in label:
-                label = "inclusive 0-tag"
+                if inclusive_minus:
+                    label = "W^{-} inclusive"
+                elif inclusive_plus:
+                    label = "W^{+} inclusive"
             if len(plot['-']) > 0:
                 label = label.replace("OS", "OS-SS")
             if len(plot['+']) > 1 and "tag" in label:
@@ -248,6 +263,36 @@ def main(options, conf):
             if h_sum and abs(h_sum.GetSum()) > 1e-2:
                 if (options.subtract_background and options.signal in modify_sample_name(sample_name, channel)) or not options.subtract_background:
                     mc_map[sample] = h_sum
+
+        # Add combined signal
+        if options.combine_signal_samples:
+            h_sig = None
+            for diff_bin in range(1, 6):
+                sample_name = sample.shortName
+
+                # positive channels
+                for channel in plot['+']:
+
+                    h_temp = files[channel].Get(f"h_{options.signal}_truth_pt_bin{diff_bin}_postFit")
+                    if h_temp:
+                        if h_sig is None:
+                            h_sig = h_temp.Clone(f"{options.signal}_{chan.name}")
+                        else:
+                            h_sig.Add(h_temp)
+
+                # negative channels
+                for channel in plot['-']:
+                    h_temp = files[channel].Get(f"h_{options.signal}_truth_pt_bin{diff_bin}_postFit")
+                    if h_temp:
+                        if h_sig is None:
+                            h_sig = h_temp.Clone(f"{options.signal}_{chan.name}")
+                            h_sig.Scale(-1.)
+                        else:
+                            h_sig.Add(h_temp, -1)
+
+            # add to map
+            sig_sample = [s for s in samples if s.shortName == options.signal][0]
+            mc_map[sig_sample] = h_sig
 
         # get data
         h_data = None
@@ -338,6 +383,7 @@ def main(options, conf):
             h_mc_tot_err_histograms_Dn += [h_mc_tot_Dn]
 
         # calculate error bands
+        errors = []
         for x in range(1, h_mc_tot.GetNbinsX() + 1):
             # add stat uncertaitny from the histogram
             if file_suffix:
@@ -350,7 +396,18 @@ def main(options, conf):
             for i in range(n_pars):
                 for j in range(i):
                     if h_mc_tot_err_histograms_Up[i] and h_mc_tot_err_histograms_Up[j] and h_mc_tot_err_histograms_Dn[i] and h_mc_tot_err_histograms_Dn[j]:
-                        corr = corr_correlation_rows[i][j]
+                        # corr = corr_correlation_rows[i][j]
+                        par1 = corr_parameters[i]
+                        par2 = corr_parameters[j]
+                        if "SymmBkg" not in par1 and "mu_" not in par1 and not par1.startswith("stat_"):
+                            par1 = "alpha_" + par1
+                        elif "SymmBkg" in par1 or par1.startswith("stat_"):
+                            par1 = "gamma_" + par1
+                        if "SymmBkg" not in par2 and "mu_" not in par2 and not par2.startswith("stat_"):
+                            par2 = "alpha_" + par2
+                        elif "SymmBkg" in par2 or par2.startswith("stat_"):
+                            par2 = "gamma_" + par2
+                        corr = result.correlation(par1, par2)
                         err_up_i = h_mc_tot_err_histograms_Up[i].GetBinContent(x)
                         err_dn_i = h_mc_tot_err_histograms_Dn[i].GetBinContent(x)
                         err_up_j = h_mc_tot_err_histograms_Up[j].GetBinContent(x)
@@ -359,6 +416,8 @@ def main(options, conf):
                         err_dn = err_dn_i * err_dn_j * corr * 2
                         g_mc_tot_err.GetEYhigh()[x - 1] += err_up
                         g_mc_tot_err.GetEYlow()[x - 1] += err_dn
+                        if x == 5:
+                            errors += [[err_up, err_up_i, err_up_j, corr, corr_parameters[i], corr_parameters[j]]]
             # diagonal
             for i in range(n_pars):
                 if h_mc_tot_err_histograms_Up[i] and h_mc_tot_err_histograms_Dn[i]:
@@ -368,6 +427,8 @@ def main(options, conf):
                     err_dn = err_dn_i * err_dn_i
                     g_mc_tot_err.GetEYhigh()[x - 1] += err_up
                     g_mc_tot_err.GetEYlow()[x - 1] += err_dn
+                    if x == 5:
+                        errors += [[err_up, err_up_i, err_up_i, 1.0, corr_parameters[i], corr_parameters[i]]]
 
             # final
             if g_mc_tot_err.GetEYhigh()[x - 1] <= 0 or g_mc_tot_err.GetEYlow()[x - 1] <= 0:
@@ -381,6 +442,13 @@ def main(options, conf):
             else:
                 g_mc_tot_err_only.GetEYhigh()[x - 1] = 0
                 g_mc_tot_err_only.GetEYlow()[x - 1] = 0
+
+        # # print errors
+        # partial_err = 0
+        # errors = sorted(errors, key=lambda x: abs(x[0]), reverse=True)
+        # for err in errors:
+        #     partial_err += err[0]
+        #     print(partial_err/abs(partial_err) * math.sqrt(abs(partial_err)), err)
 
         # ratio
         h_ratio = utils.make_ratio(h_data, h_mc_tot)
@@ -428,7 +496,12 @@ def main(options, conf):
         # bottom pad
         ROOT.gPad.RedrawAxis()
         canv.pad2.cd()
-        g_mc_tot_err_only.Draw("le2")
+        xmin = g_mc_tot_err_only.GetX()[0] - g_mc_tot_err_only.GetEXlow()[0]
+        xmax = g_mc_tot_err_only.GetX()[g_mc_tot_err_only.GetN() - 1] + g_mc_tot_err_only.GetEXhigh()[g_mc_tot_err_only.GetN() - 1]
+        unity_line = ROOT.TLine(xmin, 1.0, xmax, 1.0)
+        unity_line.SetLineStyle(1)
+        unity_line.Draw()
+        g_mc_tot_err_only.Draw("e2")
         gr_ratio.Draw("pe0")
 
         # ratio range
@@ -461,6 +534,9 @@ if __name__ == "__main__":
     parser.add_option('-b', '--subtract-background',
                       action="store_true", dest="subtract_background",
                       help="subtract background from data and total MC")
+    parser.add_option('-c', '--combine-signal-samples',
+                      action="store_true", dest="combine_signal_samples",
+                      help="combine all truth differential bins into one sample")
     parser.add_option('-s', '--signal',
                       action="store", dest="signal",
                       default="WplusD",

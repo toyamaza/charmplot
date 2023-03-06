@@ -11,8 +11,10 @@ ROOT.gROOT.LoadMacro(os.path.join(dirname, "AtlasLabels.C"))
 ROOT.gROOT.LoadMacro(os.path.join(dirname, "AtlasUtils.C"))
 ROOT.SetAtlasStyle()
 
-DPLUS_FOLDER = "/global/cfs/cdirs/atlas/wcharm/TRExFitter/Output/Dplus_2022_08_05_v2"
-DSTAR_FOLDER = "/global/cfs/cdirs/atlas/wcharm/TRExFitter/Output/Dstar_2022_08_11_v2"
+DPLUS_FOLDER = "/global/cscratch1/sd/mmuskinj/TRExFitter/fit_2022_12_14_Dplus_new"
+DSTAR_FOLDER = "/global/cscratch1/sd/mmuskinj/TRExFitter/fit_2022_12_14_Dstar_new"
+# DPLUS_FOLDER = "/global/cfs/cdirs/atlas/wcharm/TRExFitter/Output/Dplus_2022_08_05_v2"
+# DSTAR_FOLDER = "/global/cfs/cdirs/atlas/wcharm/TRExFitter/Output/Dstar_2022_08_11_v2"
 # DPLUS_FOLDER = "/global/cfs/cdirs/atlas/wcharm/TRExFitter/Output/Dplus_2022_07_26_fullRanking_v2"
 # DSTAR_FOLDER = "/global/cfs/cdirs/atlas/wcharm/TRExFitter/Output/Dstar_2022_08_08_fullRanking_v2"
 
@@ -36,12 +38,14 @@ def main():
             # folder
             if channel == "dplus":
                 FOLDER = DPLUS_FOLDER
+                meson = "Dplus"
             elif channel == "dstar":
                 FOLDER = DSTAR_FOLDER
-            obs_fit_abs = f"WCharm_lep_obs_OSSS_complete_xsec_alt_{var}"
+                meson = "Dstar"
+            obs_fit_abs = f"WCharm_{meson}_lep_obs_OSSS_complete_xsec_alt_{var}"
 
-            # for cov in ["Covariance_statOnly", "Combined_Covariance_prefit", "Combined_Covariance_postfit"]:
-            for cov in ["Covariance_statOnly", "Combined_Covariance_postfit"]:
+            # for cov in ["Covariance_statOnly", "Combined_Covariance_postfit"]:
+            for cov in ["Covariance_statOnly", "Combined_Covariance_prefit", "Combined_Covariance_postfit"]:
                 with open(os.path.join(FOLDER, obs_fit_abs, "Covariances", f"{cov}.yaml"), 'r') as stream:
                     cov_stat = yaml.safe_load(stream)
                     print(cov_stat)
@@ -90,14 +94,14 @@ def main():
                         pass
 
                     # ATLAS label
-                    ROOT.ATLASLabel(0.20, 0.95, "Internal", 1, 0.035)
+                    ROOT.ATLASLabel(0.20, 0.95, "", 1, 0.035)
                     if cov == "Covariance_statOnly":
                         ROOT.myText(0.50, 0.95, 1, "Stat. Only Covariance", 0.035)
                     elif cov == "Combined_Covariance_prefit":
                         ROOT.myText(0.50, 0.95, 1, "Combined Pre-fit Covariance", 0.035)
                     elif cov == "Combined_Covariance_postfit":
                         ROOT.myText(0.50, 0.95, 1, "Combined Post-fit Covariance", 0.035)
-                    ROOT.myText(0.20, 0.91, 1, "#sqrt{s} = 13 TeV, 139 fb^{-1}", 0.035)
+                    ROOT.myText(0.20, 0.91, 1, "#sqrt{s} = 13 TeV, 140 fb^{-1}", 0.035)
                     if channel == "dplus":
                         ROOT.myText(0.50, 0.91, 1, "W(#rightarrowl#nu)+D(#rightarrowK#pi#pi)", 0.035)
                     elif channel == "dstar":

@@ -1,40 +1,40 @@
-colorScheme: cheer_up_emo_kid
-
 variablesConf: inclusive_zjets
 
-samplesConf: sherpa
+samplesConf: sherpa2211
 
 data: Data
 
-systematics:
-  - experimental
-#   - sherpa_theory_pdf
-#   - sherpa_theory_qcd
-#   - sherpa_theory_pdf_choice
+# systematics:
+#   - experimental
 
 samples:
-  - Zjets_light_emu
-  - Zjets_bjets_emu
-  - Zjets_cjets_emu
-  - Zjets_tau
-  - Zjets_highpt_emu
-  - Zjets_lowmass_emu
+  # - Zjets
+  - Zjets_MG
+  - Wjets
   - Diboson
   - Top
 
 channels:
-  2018_el:
+  el:
     regions:
       - 2018_el
+      - 2017_el
+      - 2016A-B_el
+      - 2016C-L_el
+      - 2015_el
     label:
-      - "2018 el SR"
-      - "Sherpa"
-    lumi: "2018"
+      - "el SR"
+      - "MadGraph"
+    lumi: "2018+2017+2016A-B+2016C-L+2015"
 
-  2018_mu:
+  mu:
     regions:
       - 2018_mu
+      - 2017_mu
+      - 2016A-B_mu
+      - 2016C-L_mu
+      - 2015_mu
     label:
-      - "2018 mu SR"
-      - "Sherpa"
-    lumi: "2018"
+      - "mu SR"
+      - "MadGraph"
+    lumi: "2018+2017+2016A-B+2016C-L+2015"

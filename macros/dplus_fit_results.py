@@ -73,7 +73,8 @@ def main(options, args):
     # observables
     OBSERVABLES = {
         "pt": {
-            "fit_results": "/global/cfs/cdirs/atlas/wcharm/TRExFitter/Output/Dplus_2022_07_26/",
+            # "fit_results": "/global/cfs/cdirs/atlas/wcharm/TRExFitter/Output/Dplus_2022_07_26/",
+            "fit_results": "/global/cscratch1/sd/mmuskinj/TRExFitter/fit_2022_12_14_Dplus_new",
             "label": "#it{p}_{T}^{#it{D}}",
             "prior_var": "D_pt_fit",
             "bins": [8, 12, 20, 40, 80, 120],
@@ -81,8 +82,9 @@ def main(options, args):
             "unit": "GeV",
         },
         "eta": {
-            "fit_results": "/global/cfs/cdirs/atlas/wcharm/TRExFitter/Output/Dplus_2022_07_26/",
-            "label": "#eta(#it{l})",
+            # "fit_results": "/global/cfs/cdirs/atlas/wcharm/TRExFitter/Output/Dplus_2022_07_26/",
+            "fit_results": "/global/cscratch1/sd/mmuskinj/TRExFitter/fit_2022_12_14_Dplus_new",
+            "label": "#||{#eta(#it{l})}",
             "prior_var": "D_differential_lep_eta",
             "bins": [0.0, 0.5, 1.0, 1.5, 2.0, 2.5],
             "logx": False,
@@ -309,17 +311,14 @@ def main(options, args):
         }
     }
 
-    br = 1.0
-
     # Check if Dstar is the decay mode
     if options.decay == "Dstar":
 
-        # Set branching ratio
-        br = 0.677
-
         # Set fit results path for observables
-        OBSERVABLES["pt"]["fit_results"] = "/global/cfs/cdirs/atlas/wcharm/TRExFitter/Output/Dstar_2022_08_08_pt/"
-        OBSERVABLES["eta"]["fit_results"] = "/global/cfs/cdirs/atlas/wcharm/TRExFitter/Output/Dstar_2022_08_08_eta/"
+        # OBSERVABLES["pt"]["fit_results"] = "/global/cfs/cdirs/atlas/wcharm/TRExFitter/Output/Dstar_2022_08_08_pt/"
+        # OBSERVABLES["eta"]["fit_results"] = "/global/cfs/cdirs/atlas/wcharm/TRExFitter/Output/Dstar_2022_08_08_eta/"
+        OBSERVABLES["pt"]["fit_results"] = "/global/cscratch1/sd/mmuskinj/TRExFitter/fit_2022_12_14_Dstar_new/"
+        OBSERVABLES["eta"]["fit_results"] = "/global/cscratch1/sd/mmuskinj/TRExFitter/fit_2022_12_14_Dstar_new/"
 
     for plot_type, theory_dict in THEORY_DICT.items():
 
@@ -331,6 +330,18 @@ def main(options, args):
         ladder_dict = {}
 
         for obs_name, obs in OBSERVABLES.items():
+
+            # Arithmetics
+            br = 1.0
+            sf = 1.0
+
+            # Normalize to bin width
+            if obs_name == "eta":
+                sf = 2.0
+
+            # Set branching ratio
+            if options.decay == "Dstar":
+                br *= 0.677
 
             # variable name
             name = "lep_abs_eta" if obs_name == "eta" else "D_pt"
@@ -346,18 +357,30 @@ def main(options, args):
                 h_minus = f.Get(f"Sherpa2211_WplusD_OS-SS_lep_minus_{options.decay}_Kpipi_truth_differential_{obs_name}")
                 h_plus = f.Get(f"Sherpa2211_WplusD_OS-SS_lep_plus_{options.decay}_Kpipi_truth_differential_{obs_name}")
                 priors = {
-                    "Wminus": h_minus.Integral() / (2. * br),
-                    "Wminus_1": h_minus.GetBinContent(1) / (2. * br),
-                    "Wminus_2": h_minus.GetBinContent(2) / (2. * br),
-                    "Wminus_3": h_minus.GetBinContent(3) / (2. * br),
-                    "Wminus_4": h_minus.GetBinContent(4) / (2. * br),
-                    "Wminus_5": h_minus.GetBinContent(5) / (2. * br),
-                    "Wplus": h_plus.Integral() / (2. * br),
-                    "Wplus_1": h_plus.GetBinContent(1) / (2. * br),
-                    "Wplus_2": h_plus.GetBinContent(2) / (2. * br),
-                    "Wplus_3": h_plus.GetBinContent(3) / (2. * br),
-                    "Wplus_4": h_plus.GetBinContent(4) / (2. * br),
-                    "Wplus_5": h_plus.GetBinContent(5) / (2. * br),
+                    "Wminus": 1 / (2. * br),
+                    "Wminus_1": 1 / (2. * br),
+                    "Wminus_2": 1 / (2. * br),
+                    "Wminus_3": 1 / (2. * br),
+                    "Wminus_4": 1 / (2. * br),
+                    "Wminus_5": 1 / (2. * br),
+                    "Wplus": 1 / (2. * br),
+                    "Wplus_1": 1 / (2. * br),
+                    "Wplus_2": 1 / (2. * br),
+                    "Wplus_3": 1 / (2. * br),
+                    "Wplus_4": 1 / (2. * br),
+                    "Wplus_5": 1 / (2. * br),
+                    # "Wminus": h_minus.Integral() / (2. * br),
+                    # "Wminus_1": h_minus.GetBinContent(1) / (2. * br),
+                    # "Wminus_2": h_minus.GetBinContent(2) / (2. * br),
+                    # "Wminus_3": h_minus.GetBinContent(3) / (2. * br),
+                    # "Wminus_4": h_minus.GetBinContent(4) / (2. * br),
+                    # "Wminus_5": h_minus.GetBinContent(5) / (2. * br),
+                    # "Wplus": h_plus.Integral() / (2. * br),
+                    # "Wplus_1": h_plus.GetBinContent(1) / (2. * br),
+                    # "Wplus_2": h_plus.GetBinContent(2) / (2. * br),
+                    # "Wplus_3": h_plus.GetBinContent(3) / (2. * br),
+                    # "Wplus_4": h_plus.GetBinContent(4) / (2. * br),
+                    # "Wplus_5": h_plus.GetBinContent(5) / (2. * br),
                 }
                 print("============ cross section priors ============")
                 for key, val in priors.items():
@@ -367,9 +390,12 @@ def main(options, args):
                 # Step 1: parse fit results from txt files
                 # --------------------------------------------
                 # folder names
-                obs_fit = f"WCharm_lep_obs_OSSS_complete_{obs_name}"
-                obs_fit2 = f"WCharm_lep_obs_OSSS_complete2_{obs_name}"
-                obs_fit_abs = f"WCharm_lep_obs_OSSS_complete_alt_{obs_name}"
+                obs_fit = f"WCharm_{options.decay}_lep_obs_OSSS_complete_xsec_{obs_name}"
+                obs_fit2 = f"WCharm_{options.decay}_lep_obs_OSSS_complete2_xsec_{obs_name}"
+                obs_fit_abs = f"WCharm_{options.decay}_lep_obs_OSSS_complete_xsec_alt_{obs_name}"
+                # obs_fit = f"WCharm_lep_obs_OSSS_complete_{obs_name}"
+                # obs_fit2 = f"WCharm_lep_obs_OSSS_complete2_{obs_name}"
+                # obs_fit_abs = f"WCharm_lep_obs_OSSS_complete_alt_{obs_name}"
 
                 # observed
                 POIs_obs = extract_pois(os.path.join(obs["fit_results"], obs_fit, "Fits", f"{obs_fit}.txt"))
@@ -464,28 +490,26 @@ def main(options, args):
                             xc = xl + w / 2.
                         xc_up = xl + w - xc
                         xc_dn = xc - xl
-                        gr_obs.SetPoint(i, xc, y)
-                        gr_obs.SetPointError(i, xc_dn, xc_up, abs(y_dn), abs(y_up))
-                        gr_obs_norm.SetPoint(i, xc, y_norm)
-                        gr_obs_norm.SetPointError(i, xc_dn, xc_up, abs(y_norm_dn), abs(y_norm_up))
+                        gr_obs.SetPoint(i, xc, y * sf)
+                        gr_obs.SetPointError(i, xc_dn, xc_up, abs(y_dn) * sf, abs(y_up) * sf)
+                        gr_obs_norm.SetPoint(i, xc, y_norm * sf)
+                        gr_obs_norm.SetPointError(i, xc_dn, xc_up, abs(y_norm_dn) * sf, abs(y_norm_up) * sf)
                         gr_obs_ratio.SetPoint(i, xc, 1.0)
                         gr_obs_ratio.SetPointError(i, xc_dn, xc_up, abs(y_dn / y), abs(y_up / y))
                         gr_obs_norm_ratio.SetPoint(i, xc, 1.0)
                         gr_obs_norm_ratio.SetPointError(i, xc_dn, xc_up, abs(y_norm_dn / y_norm), abs(y_norm_up / y_norm))
                         gr_obs_norm_ratio_stat.SetPoint(i, xc, 1.0)
                         gr_obs_norm_ratio_stat.SetPointError(i, xc_dn, xc_up, abs(y_norm_dn_stat / y_norm), abs(y_norm_up_stat / y_norm))
-                        gr_obs_sys.SetPoint(i, xc, y)
-                        gr_obs_norm_sys.SetPoint(i, xc, y_norm)
+                        gr_obs_sys.SetPoint(i, xc, y * sf)
+                        gr_obs_norm_sys.SetPoint(i, xc, y_norm * sf)
                         if obs["logx"]:
-                            x_err_up = ROOT.TMath.Power(10, ROOT.TMath.Log10(
-                                xc) + (ROOT.TMath.Log10(obs["bins"][-1]) - ROOT.TMath.Log10(obs["bins"][0])) / 200.) - xc
-                            x_err_dn = xc - ROOT.TMath.Power(10, ROOT.TMath.Log10(xc) -
-                                                             (ROOT.TMath.Log10(obs["bins"][-1]) - ROOT.TMath.Log10(obs["bins"][0])) / 200.)
-                            gr_obs_sys.SetPointError(i, xc_dn, xc_up, abs(y_dn_stat), abs(y_up_stat))
-                            gr_obs_norm_sys.SetPointError(i, xc_dn, xc_up, abs(y_norm_dn_stat), abs(y_norm_up_stat))
+                            x_err_up = ROOT.TMath.Power(10, ROOT.TMath.Log10(xc) + (ROOT.TMath.Log10(obs["bins"][-1]) - ROOT.TMath.Log10(obs["bins"][0])) / 200.) - xc
+                            x_err_dn = xc - ROOT.TMath.Power(10, ROOT.TMath.Log10(xc) - (ROOT.TMath.Log10(obs["bins"][-1]) - ROOT.TMath.Log10(obs["bins"][0])) / 200.)
+                            gr_obs_sys.SetPointError(i, xc_dn, xc_up, abs(y_dn_stat) * sf, abs(y_up_stat) * sf)
+                            gr_obs_norm_sys.SetPointError(i, xc_dn, xc_up, abs(y_norm_dn_stat) * sf, abs(y_norm_up_stat) * sf)
                         else:
-                            gr_obs_sys.SetPointError(i, xc_dn, xc_up, abs(y_dn_stat), abs(y_up_stat))
-                            gr_obs_norm_sys.SetPointError(i, xc_dn, xc_up, abs(y_norm_dn_stat), abs(y_norm_up_stat))
+                            gr_obs_sys.SetPointError(i, xc_dn, xc_up, abs(y_dn_stat) * sf, abs(y_up_stat) * sf)
+                            gr_obs_norm_sys.SetPointError(i, xc_dn, xc_up, abs(y_norm_dn_stat) * sf, abs(y_norm_up_stat) * sf)
 
                     # line width
                     gr_obs.SetLineWidth(1)
@@ -525,13 +549,18 @@ def main(options, args):
                     mg_obs_ratio_theory = ROOT.TMultiGraph()
 
                     # axis title
-                    mg_obs.GetYaxis().SetTitle(f"d#sigma/d({obs['label']}) [pb / bin]")
-                    mg_obs_norm.GetYaxis().SetTitle(f"#frac{{#scale[0.8]{{1}}}}{{#sigma}} d#sigma/d({obs['label']})")
-                    mg_obs_ratio.GetYaxis().SetTitle(f"#frac{{Theory}}{{1/#sigma d#sigma/d({obs['label']})}}")
+                    if obs_name == "pt":
+                        mg_obs.GetYaxis().SetTitle(f"#lower[-0.25]{{#scale[0.5]{{#int}}}}d#sigma/d{obs['label']} [pb]")
+                        mg_obs_norm.GetYaxis().SetTitle(f"#frac{{#scale[0.8]{{1}}}}{{#sigma}} #lower[-0.25]{{#scale[0.5]{{#int}}}}d#sigma/d{obs['label']}")
+                        mg_obs_ratio.GetYaxis().SetTitle(f"#frac{{Theory}}{{1/#sigma #lower[-0.25]{{#scale[0.5]{{#int}}}}d#sigma/d{obs['label']}}}")
+                    elif obs_name == "eta":
+                        mg_obs.GetYaxis().SetTitle(f"d#sigma/d{obs['label']} [pb]")
+                        mg_obs_norm.GetYaxis().SetTitle(f"#frac{{#scale[0.8]{{1}}}}{{#sigma}} d#sigma/d{obs['label']}")
+                        mg_obs_ratio.GetYaxis().SetTitle(f"#frac{{Theory}}{{1/#sigma d#sigma/d{obs['label']}}}")
                     if obs_name == "pt":
                         mg_obs_ratio.GetXaxis().SetTitle(obs['label'] + " [GeV]")
                     else:
-                        mg_obs_ratio.GetXaxis().SetTitle("|" + obs['label'] + "|")
+                        mg_obs_ratio.GetXaxis().SetTitle(obs['label'])
 
                     # label and title size
                     GLOBAL_SF = 1.4
@@ -568,7 +597,7 @@ def main(options, args):
                     # legend
                     N = 4 + len(theory_dict)
                     if plot_type in ["PDF_comparison", "NLO_PDF_comparison"]:
-                        leg = ROOT.TLegend(0.47, 0.88 - (N // 2) * 0.050, 0.95, 0.88)
+                        leg = ROOT.TLegend(0.48, 0.88 - (N // 2) * 0.050, 0.94, 0.88)
                         leg.SetNColumns(2)
                         leg.SetBorderSize(0)
                         leg.SetFillColor(0)
@@ -580,7 +609,7 @@ def main(options, args):
                         # leg.AddEntry(gr_obs_norm_ratio_stat, "Stat. Unc.", "f")
                         leg.AddEntry(gr_obs_norm_ratio, "Syst. #oplus Stat.", "f")
                     else:
-                        leg = ROOT.TLegend(0.46, 0.88 - 2 * 0.050, 0.92, 0.88)
+                        leg = ROOT.TLegend(0.47, 0.88 - 2 * 0.050, 0.91, 0.88)
                         leg.SetNColumns(2)
                         leg.SetBorderSize(0)
                         leg.SetFillColor(0)
@@ -593,7 +622,7 @@ def main(options, args):
                         leg.AddEntry(gr_obs_norm_ratio, "Syst. #oplus Stat.", "f")
 
                         # separate legend for predictions
-                        leg2 = ROOT.TLegend(0.46, 0.88 - (2 + len(theory_dict)) * 0.050, 0.45 + (0.92 - 0.45) / 2., 0.88 - 2 * 0.050)
+                        leg2 = ROOT.TLegend(0.47, 0.88 - (2 + len(theory_dict)) * 0.050, 0.45 + (0.91 - 0.45) / 2., 0.88 - 2 * 0.050)
                         leg2.SetBorderSize(0)
                         leg2.SetFillColor(0)
                         leg2.SetFillStyle(0)
@@ -763,32 +792,28 @@ def main(options, args):
                         offset = 0 if lep == "plus" else 5
                         for i in range(5):
                             # absolute cross section
-                            gr_theory.SetPoint(i, gr_obs.GetX()[i], h_theory.GetBinContent(i + 1 + offset))
-                            err_pdf_up = h_theory_pdf_up.GetBinContent(i + 1 + offset) - h_theory.GetBinContent(i + 1 + offset)
-                            err_pdf_dn = h_theory.GetBinContent(i + 1 + offset) - h_theory_pdf_dn.GetBinContent(i + 1 + offset)
-                            err_qcd_up = h_theory.GetBinContent(i + 1 + offset) * h_theory_qcd_up.GetBinContent(i +
-                                                                                                                1 + offset) - h_theory.GetBinContent(i + 1 + offset)
-                            err_qcd_dn = h_theory.GetBinContent(i + 1 + offset) - h_theory.GetBinContent(i + 1 + offset) * \
-                                h_theory_qcd_dn.GetBinContent(i + 1 + offset)
-                            vals = [h.GetBinContent(i + 1 + offset) for h in h_list]
+                            gr_theory.SetPoint(i, gr_obs.GetX()[i], h_theory.GetBinContent(i + 1 + offset) * sf)
+                            err_pdf_up = (h_theory_pdf_up.GetBinContent(i + 1 + offset) - h_theory.GetBinContent(i + 1 + offset)) * sf
+                            err_pdf_dn = (h_theory.GetBinContent(i + 1 + offset) - h_theory_pdf_dn.GetBinContent(i + 1 + offset)) * sf
+                            err_qcd_up = (h_theory.GetBinContent(i + 1 + offset) * h_theory_qcd_up.GetBinContent(i + 1 + offset) - h_theory.GetBinContent(i + 1 + offset)) * sf
+                            err_qcd_dn = (h_theory.GetBinContent(i + 1 + offset) - h_theory.GetBinContent(i + 1 + offset) * h_theory_qcd_dn.GetBinContent(i + 1 + offset)) * sf
+                            vals = [h.GetBinContent(i + 1 + offset) * sf for h in h_list]
                             err_hadronization = (max(vals) - min(vals)) / 2.
                             err_prod_frac = 0.028 if options.decay == "Dplus" else 0.020
-                            err_prod_frac *= h_theory.GetBinContent(i + 1 + offset)
+                            err_prod_frac *= h_theory.GetBinContent(i + 1 + offset) * sf
                             err_powhel = 0.03
-                            err_powhel *= h_theory.GetBinContent(i + 1 + offset)
+                            err_powhel *= h_theory.GetBinContent(i + 1 + offset) * sf
                             err_up = err_pdf_up * err_pdf_up + err_qcd_up * err_qcd_up + err_hadronization * err_hadronization + err_prod_frac * err_prod_frac + err_powhel * err_powhel
                             err_dn = err_pdf_dn * err_pdf_dn + err_qcd_dn * err_qcd_dn + err_hadronization * err_hadronization + err_prod_frac * err_prod_frac + err_powhel * err_powhel
                             gr_theory.SetPointError(i, 0, 0, err_up**0.5, err_dn**0.5)
 
                             # normalized cross section
-                            gr_theory_norm.SetPoint(i, gr_obs.GetX()[i], h_theory_rel.GetBinContent(i + 1 + offset))
-                            err_pdf_up = h_theory_rel_pdf_up.GetBinContent(i + 1 + offset) - h_theory_rel.GetBinContent(i + 1 + offset)
-                            err_pdf_dn = h_theory_rel.GetBinContent(i + 1 + offset) - h_theory_rel_pdf_dn.GetBinContent(i + 1 + offset)
-                            err_qcd_up = h_theory_rel.GetBinContent(i + 1 + offset) * h_theory_rel_qcd_up.GetBinContent(i +
-                                                                                                                        1 + offset) - h_theory_rel.GetBinContent(i + 1 + offset)
-                            err_qcd_dn = h_theory_rel.GetBinContent(i + 1 + offset) - h_theory_rel.GetBinContent(i + 1 +
-                                                                                                                 offset) * h_theory_rel_qcd_dn.GetBinContent(i + 1 + offset)
-                            vals = [h.GetBinContent(i + 1 + offset) for h in h_rel_list]
+                            gr_theory_norm.SetPoint(i, gr_obs.GetX()[i], h_theory_rel.GetBinContent(i + 1 + offset) * sf)
+                            err_pdf_up = (h_theory_rel_pdf_up.GetBinContent(i + 1 + offset) - h_theory_rel.GetBinContent(i + 1 + offset))  * sf
+                            err_pdf_dn = (h_theory_rel.GetBinContent(i + 1 + offset) - h_theory_rel_pdf_dn.GetBinContent(i + 1 + offset))  * sf
+                            err_qcd_up = (h_theory_rel.GetBinContent(i + 1 + offset) * h_theory_rel_qcd_up.GetBinContent(i + 1 + offset) - h_theory_rel.GetBinContent(i + 1 + offset)) * sf
+                            err_qcd_dn = (h_theory_rel.GetBinContent(i + 1 + offset) - h_theory_rel.GetBinContent(i + 1 + offset) * h_theory_rel_qcd_dn.GetBinContent(i + 1 + offset)) * sf
+                            vals = [h.GetBinContent(i + 1 + offset) * sf for h in h_rel_list]
                             err_hadronization = (max(vals) - min(vals)) / 2.
                             err_up = err_pdf_up * err_pdf_up + err_qcd_up * err_qcd_up + err_hadronization * err_hadronization
                             err_dn = err_pdf_dn * err_pdf_dn + err_qcd_dn * err_qcd_dn + err_hadronization * err_hadronization
@@ -868,7 +893,7 @@ def main(options, args):
                     mg_obs.Draw("a")
                     mg_obs.GetXaxis().SetLimits(obs["bins"][0], obs["bins"][-1])
                     mg_obs.SetMinimum(Y_MIN)
-                    mg_obs.SetMaximum(Y_MAX)
+                    mg_obs.SetMaximum(Y_MAX * sf)
 
                     # ATLAS label
                     l1 = ROOT.TLatex()
@@ -880,8 +905,9 @@ def main(options, args):
                     l2.SetNDC()
                     l2.SetTextFont(43)
                     l2.SetTextSize(36)
-                    l2.DrawLatex(0.305, 0.84 - 0 * 0.06, "Internal")
-                    l2.DrawLatex(0.19, 0.84 - 1 * 0.06, "#sqrt{s} = 13 TeV, 139 fb^{-1}")
+                    # l2.DrawLatex(0.305, 0.84 - 0 * 0.06, "Internal")
+                    l2.DrawLatex(0.305, 0.84 - 0 * 0.06, "")
+                    l2.DrawLatex(0.19, 0.84 - 1 * 0.06, "#sqrt{s} = 13 TeV, 140 fb^{-1}")
                     if options.decay == "Dstar":
                         l2.DrawLatex(0.19, 0.84 - 2 * 0.06, "#it{W}^{%s}+#it{D*}^{%s}(#rightarrow(K#pi)#pi)" %
                                      (("-" if lep == "minus" else "+"), ("+" if lep == "minus" else "-")))
@@ -895,12 +921,13 @@ def main(options, args):
                         else:
                             l2.DrawLatex(0.19, 0.84 - 4 * 0.06, "#it{Full CKM}, #it{NNLO PDF}")
                     else:
-                        l2.DrawLatex(0.19, 0.84 - 3 * 0.06, "#bf{Pred.}: #it{NNLO PDF}")
+                        pass
+                        # l2.DrawLatex(0.19, 0.84 - 3 * 0.06, "#bf{Pred.}: #it{NNLO PDF}")
 
                     # vertical lines
                     lines = []
                     for i, x in enumerate(obs["bins"][1:-1]):
-                        y = Y_MIN + (Y_MAX - Y_MIN) * 0.6
+                        y = Y_MIN + (Y_MAX * sf - Y_MIN) * 0.6
                         line = ROOT.TLine(x, Y_MIN, x, y)
                         line.SetLineStyle(2)
                         line.Draw()
@@ -924,12 +951,12 @@ def main(options, args):
                     else:
                         Y_MIN = 1e-3
                         Y_MAX = 0.39
-                    mg_obs_norm.SetMinimum(Y_MIN)
-                    mg_obs_norm.SetMaximum(Y_MAX)
+                    mg_obs_norm.SetMinimum(Y_MIN * sf)
+                    mg_obs_norm.SetMaximum(Y_MAX * sf)
 
                     # vertical lines
                     for x in obs["bins"][1:-1]:
-                        line = ROOT.TLine(x, Y_MIN, x, Y_MAX)
+                        line = ROOT.TLine(x, Y_MIN * sf, x, Y_MAX * sf)
                         line.SetLineStyle(2)
                         line.Draw()
                         lines += [line]
@@ -1037,13 +1064,13 @@ def main(options, args):
                     meson_charge = "#mp"
                     obs_str = "#it{R}_{#it{c}}"
                 elif lep == "ratio" and options.decay == "Dmeson":
-                    xsec = 0.972
-                    xsec_err_up = 0.010621278
-                    xsec_err_dn = 0.010621278
-                    xsec_err_stat_up = 0.00557
-                    xsec_err_stat_dn = 0.00557
-                    xsec_err_sys_up = (xsec_err_up**2 - xsec_err_stat_up**2)**0.5
-                    xsec_err_sys_dn = (xsec_err_dn**2 - xsec_err_stat_dn**2)**0.5
+                    xsec = 0.9709292420861776
+                    xsec_err_stat_up = 0.006212765099712398
+                    xsec_err_stat_dn = 0.006212765099712398
+                    xsec_err_sys_up = 0.010608271899824651
+                    xsec_err_sys_dn = 0.010608271899824651
+                    xsec_err_up = (xsec_err_sys_up**2 + xsec_err_stat_up**2)**0.5
+                    xsec_err_dn = (xsec_err_sys_dn**2 + xsec_err_stat_dn**2)**0.5
                     limits = [0.9, 1.2]
                     lep_charge = "#pm"
                     meson_charge = "#mp"
@@ -1207,8 +1234,9 @@ def main(options, args):
                 l2 = ROOT.TLatex()
                 l2.SetTextFont(43)
                 l2.SetTextSize(40)
-                l2.DrawLatex(limits[0] + (limits[1] - limits[0]) * (65 - 30) / 70., 0.85 - 0 * 0.14, "Internal")
-                l2.DrawLatex(limits[0] + (limits[1] - limits[0]) * (55 - 30) / 70., 0.85 - 1 * 0.14, "#sqrt{s} = 13 TeV, 139 fb^{-1}")
+                # l2.DrawLatex(limits[0] + (limits[1] - limits[0]) * (65 - 30) / 70., 0.85 - 0 * 0.14, "Internal")
+                l2.DrawLatex(limits[0] + (limits[1] - limits[0]) * (65 - 30) / 70., 0.85 - 0 * 0.14, "")
+                l2.DrawLatex(limits[0] + (limits[1] - limits[0]) * (55 - 30) / 70., 0.85 - 1 * 0.14, "#sqrt{s} = 13 TeV, 140 fb^{-1}")
                 if lep != "ratio":
                     l2.DrawLatex(limits[0] + (limits[1] - limits[0]) * (55 - 30) / 70., 0.85 - 2 * 0.14,
                                  f"{obs_str} = {gr.GetX()[0]:.1f} #pm{xsec_err_stat_up:.1f} (stat.)^{{+#scale[1.2]{{{xsec_err_sys_up:.1f}}}}}_{{-#scale[1.2]{{{xsec_err_sys_dn:.1f}}}}} (syst.) pb")

@@ -212,3 +212,13 @@ Wjets_cjets_other_ftag:
   subtract:
   fillColor: "15005"
   legendLabel: "W#rightarrowl#nu + c"
+
+Zjets_MG:
+  add:
+    - MG_Zjets_light_emu
+    - MG_Zjets_cjets_emu
+    - MG_Zjets_bjets_emu
+    - MG_Zjets_tau
+  subtract:
+  fillColor: "11000"
+  legendLabel: "Z+jets"

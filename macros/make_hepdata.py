@@ -7,14 +7,16 @@ import yaml
 
 ROOT.gROOT.SetBatch(True)
 
-DPLUS_FOLDER = "/global/cfs/cdirs/atlas/wcharm/TRExFitter/Output/Dplus_2022_08_05_v2"
-DSTAR_FOLDER = "/global/cfs/cdirs/atlas/wcharm/TRExFitter/Output/Dstar_2022_08_11_v2"
+DPLUS_FOLDER = "/global/cscratch1/sd/mmuskinj/TRExFitter/fit_2022_12_14_Dplus_new/"
+DSTAR_FOLDER = "/global/cscratch1/sd/mmuskinj/TRExFitter/fit_2022_12_14_Dstar_new/"
+# DPLUS_FOLDER = "/global/cfs/cdirs/atlas/wcharm/TRExFitter/Output/Dplus_2022_08_05_v2"
+# DSTAR_FOLDER = "/global/cfs/cdirs/atlas/wcharm/TRExFitter/Output/Dstar_2022_08_11_v2"
 
 POIs_abs = [f"mu_Wplus_{i}" for i in range(1, 6)] + [f"mu_Wminus_{i}" for i in range(1, 6)]
 
 PRUNING_THRESHOLD = 0.98
 
-QUALIFIERS = [{'name': 'SQRT(s)', 'units': 'GeV', 'value': 13000}, {'name': 'LUMINOSITY', 'units': 'fb$^{-1}$', 'value': 139}]
+QUALIFIERS = [{'name': 'SQRT(s)', 'units': 'GeV', 'value': 13000}, {'name': 'LUMINOSITY', 'units': 'fb$^{-1}$', 'value': 140.1}]
 
 CHANNELS = ["dplus", "dstar"]
 
@@ -85,6 +87,14 @@ NP_DESCRIPTION = {
     "TRK_EFF_QGSP": "Physics List Track Efficiency",
     "TRK_EFF_Z0_DEAD": "Track z0 Resolution (Dead Pixels)",
     "TRK_EFF_Z0_MEAS": "Track z0 Resolution",
+    "TRK_EFF_D0_DEAD_Top": "Track d0 Resolution (Dead Pixels; Top)",
+    "TRK_EFF_D0_MEAS_Top": "Track d0 Resolution (Top)",
+    "TRK_EFF_IBL_Top": "IBL Track Efficiency (Top)",
+    "TRK_EFF_Overal_Top": "Overall Tracking Efficiency (Top)",
+    "TRK_EFF_PP0_Top": "PP0 Track Efficiency (Top)",
+    "TRK_EFF_QGSP_Top": "Physics List Track Efficiency (Top)",
+    "TRK_EFF_Z0_DEAD_Top": "Track z0 Resolution (Dead Pixels; Top)",
+    "TRK_EFF_Z0_MEAS_Top": "Track z0 Resolution (Top)",
 }
 NP_DESCRIPTION.update({f"FT_EFF_Eigen_B_{i}": f"FTAG Efficinecy (b-jet NP {i+1})" for i in range(0, 9)})
 NP_DESCRIPTION.update({f"FT_EFF_Eigen_C_{i}": f"FTAG Efficinecy (c-jet NP {i+1})" for i in range(0, 9)})
@@ -261,6 +271,14 @@ COMMON_NP_NAMES = {
     "TRK_EFF_QGSP": "TRK_EFF_QGSP",
     "TRK_EFF_Z0_DEAD": "TRK_EFF_Z0_DEAD",
     "TRK_EFF_Z0_MEAS": "TRK_EFF_Z0_MEAS",
+    "TRK_EFF_D0_DEAD_Top": "TRK_EFF_D0_DEAD_Top",
+    "TRK_EFF_D0_MEAS_Top": "TRK_EFF_D0_MEAS_Top",
+    "TRK_EFF_IBL_Top": "TRK_EFF_IBL_Top",
+    "TRK_EFF_Overal_Top": "TRK_EFF_Overal_Top",
+    "TRK_EFF_PP0_Top": "TRK_EFF_PP0_Top",
+    "TRK_EFF_QGSP_Top": "TRK_EFF_QGSP_Top",
+    "TRK_EFF_Z0_DEAD_Top": "TRK_EFF_Z0_DEAD_Top",
+    "TRK_EFF_Z0_MEAS_Top": "TRK_EFF_Z0_MEAS_Top",
 }
 COMMON_NP_NAMES.update({f"FT_EFF_Eigen_B_{i}": f"FT_EFF_Eigen_B_{i}" for i in range(0, 9)})
 COMMON_NP_NAMES.update({f"FT_EFF_Eigen_C_{i}": f"FT_EFF_Eigen_C_{i}" for i in range(0, 9)})
@@ -422,14 +440,14 @@ def atlas_rounding(central, up, dn=None, precision=None):
         if dn:
             dn = round(dn, precision)
         return central, up, dn
-    up = round(up, -int(floor(log10(abs(up / 100.)))))
+    up = round(up, -int(floor(log10(abs(up / 10.)))))
     if dn:
-        dn = round(dn, -int(floor(log10(abs(dn / 100.)))))
-        central = round(central, min(-int(floor(log10(abs(up / 100.)))), -int(floor(log10(abs(dn / 100.))))))
-        return central, up, dn, min(-int(floor(log10(abs(up / 100.)))), -int(floor(log10(abs(dn / 100.)))))
+        dn = round(dn, -int(floor(log10(abs(dn / 10.)))))
+        central = round(central, min(-int(floor(log10(abs(up / 10.)))), -int(floor(log10(abs(dn / 10.))))))
+        return central, up, dn, min(-int(floor(log10(abs(up / 10.)))), -int(floor(log10(abs(dn / 10.)))))
     else:
-        central = round(central, -int(floor(log10(abs(up / 100.)))))
-        return central, up, -int(floor(log10(abs(up / 100.))))
+        central = round(central, -int(floor(log10(abs(up / 10.)))))
+        return central, up, -int(floor(log10(abs(up / 10.))))
 
 
 def bin_edges(POI, var):
@@ -520,12 +538,14 @@ def main():
         if channel == "dplus":
             br = 1.0 * 2.0
             FOLDER = DPLUS_FOLDER
+            meson_str = "Dplus"
         elif channel == "dstar":
             br = 0.677 * 2.0
             FOLDER = DSTAR_FOLDER
+            meson_str = "Dstar"
 
         # fit results
-        obs_fit_abs = "WCharm_lep_obs_OSSS_complete_xsec_alt_eta"
+        obs_fit_abs = f"WCharm_{meson_str}_lep_obs_OSSS_complete_xsec_alt_eta"
         f_result_abs = ROOT.TFile(os.path.join(FOLDER, obs_fit_abs, "Fits", f"{obs_fit_abs}.root"), "READ")
         f_result_abs_stat = ROOT.TFile(os.path.join(FOLDER, obs_fit_abs, "Fits", f"{obs_fit_abs}_statOnly.root"), "READ")
         fr_abs = f_result_abs.Get("nll_simPdf_newasimovData_with_constr")
@@ -589,12 +609,14 @@ def main():
         if channel == "dplus":
             FOLDER = DPLUS_FOLDER
             br = 1.0 * 2.0
+            meson_str = "Dplus"
         elif channel == "dstar":
             FOLDER = DSTAR_FOLDER
             br = 0.677 * 2.0
+            meson_str = "Dstar"
 
         # fit results
-        obs_fit_abs = "WCharm_lep_obs_OSSS_complete_xsec_alt_eta"
+        obs_fit_abs = f"WCharm_{meson_str}_lep_obs_OSSS_complete_xsec_alt_eta"
         f_result_abs = ROOT.TFile(os.path.join(FOLDER, obs_fit_abs, "Fits", f"{obs_fit_abs}.root"), "READ")
         f_result_abs_stat = ROOT.TFile(os.path.join(FOLDER, obs_fit_abs, "Fits", f"{obs_fit_abs}_statOnly.root"), "READ")
         fr_abs = f_result_abs.Get("nll_simPdf_newasimovData_with_constr")
@@ -744,6 +766,21 @@ def main():
         else:
             print(f"  - {{value: '{NP}'}}")
 
+    fout = open("np_names.txt", "w")
+    for NP in sorted(ALL_NPs):
+        NP_name = NP
+        if NP_name.startswith("gamma_stat_"):
+            NP_name = NP_name.replace("gamma_stat_", "$\\gamma$(")
+            NP_name += ")"
+        NP_name = NP_name.replace("_", "\\_")
+        if "Uncorr_" in NP:
+            meson = "D+" if "dplus" in NP else "D*"
+            wboson = "W-" if "Wminus" in NP else "W+"
+            string = f"{NP_name} & The rest of the error for {meson} ({wboson} bin {NP[-1]} and not correlated with other bins) \\\\ \\hline\n"
+        else:
+            string = f"{NP_name} & {NP_DESCRIPTION[NP]} \\\\ \\hline\n"
+        fout.write(string)
+    fout.close()
 
 if __name__ == "__main__":
 

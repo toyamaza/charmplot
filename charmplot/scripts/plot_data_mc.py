@@ -333,6 +333,7 @@ def process_channel(options, conf, c):
 
         hs.Draw("same hist")
         h_mc_tot.SetLineColor(1)
+        h_mc_tot.SetLineWidth(2)
         h_mc_tot.Draw("same hist")
         gr_mc_tot_err.Draw("e2")
         if options.separate_sys_band:
@@ -362,10 +363,15 @@ def process_channel(options, conf, c):
 
         # bottom pad
         canv.pad2.cd()
+        xmin = gr_mc_tot_err_only.GetX()[0] - gr_mc_tot_err_only.GetEXlow()[0]
+        xmax = gr_mc_tot_err_only.GetX()[gr_mc_tot_err_only.GetN() - 1] + gr_mc_tot_err_only.GetEXhigh()[gr_mc_tot_err_only.GetN() - 1]
+        unity_line = ROOT.TLine(xmin, 1.0, xmax, 1.0)
+        unity_line.SetLineStyle(1)
+        unity_line.Draw()
         if not c.qcd_template:
-            gr_mc_tot_err_only.Draw("le2")
+            gr_mc_tot_err_only.Draw("e2")
             if options.separate_sys_band:
-                gr_mc_tot_sys_err_only.Draw("le2")
+                gr_mc_tot_sys_err_only.Draw("e2")
             h_ratio.Draw("same EX0")
         else:
             h_qcd_frac, h_qcd_frac_err = utils.get_fraction_histogram(mc_map[conf.get_sample(c.qcd_template)], h_data)

@@ -43,7 +43,7 @@ def get_err_hist(f, par, variation, default):
     return h_err
 
 
-def get_yield_error(plot, chan, corr_parameters, corr_correlation_rows, files, h_ref, h_name="h_tot"):
+def get_yield_error(plot, chan, corr_parameters, corr_correlation_rows, result, files, h_ref, h_name="h_tot"):
     n_pars = len(corr_parameters)
     h_err_histograms_Up = []
     h_err_histograms_Dn = []
@@ -91,7 +91,18 @@ def get_yield_error(plot, chan, corr_parameters, corr_correlation_rows, files, h
     # off diagonal
     for i in range(n_pars):
         for j in range(i):
-            corr = corr_correlation_rows[i][j]
+            # corr = corr_correlation_rows[i][j]
+            par1 = corr_parameters[i]
+            par2 = corr_parameters[j]
+            if "SymmBkg" not in par1 and "mu_" not in par1 and not par1.startswith("stat_"):
+                par1 = "alpha_" + par1
+            elif "SymmBkg" in par1 or par1.startswith("stat_"):
+                par1 = "gamma_" + par1
+            if "SymmBkg" not in par2 and "mu_" not in par2 and not par2.startswith("stat_"):
+                par2 = "alpha_" + par2
+            elif "SymmBkg" in par2 or par2.startswith("stat_"):
+                par2 = "gamma_" + par2
+            corr = result.correlation(par1, par2)
             err_up_i = 0.
             err_dn_i = 0.
             err_up_j = 0.
@@ -158,7 +169,9 @@ def main(options, conf):
                 logging.warning(f"Channel not found for string {channel_name}")
             else:
                 logging.info(f"Found channel {channel_name}")
-                if options.skip_channel not in channel.name:
+                if options.skip_channel and (options.skip_channel in channel.name):
+                    continue
+                else:
                     channels += [channel]
 
     # sort channels
@@ -194,6 +207,9 @@ def main(options, conf):
     # get correlation matrix
     logging.info("Loading correlation matrix...")
     corr_dict = tools.parse_yaml_file(os.path.join(options.trex_input, "CorrelationMatrix.yaml"))
+    res_file = ROOT.TFile(os.path.join(options.trex_input, "Fits", os.path.basename(options.trex_input) + ".root"), "READ")
+    result = res_file.Get("nll_simPdf_newasimovData_with_constr")
+    assert result
     corr_parameters = None
     corr_correlation_rows = None
     for x in corr_dict:
@@ -203,7 +219,8 @@ def main(options, conf):
             corr_correlation_rows = x['correlation_rows']
 
     # plots = individual_plots + OS_minus_SS_plots
-    plots = OS_minus_SS_plots
+    # plots = OS_minus_SS_plots + [OS_minus_SS_total]
+    plots = OS_minus_SS_plots + [OS_minus_SS_total_minus, OS_minus_SS_total_plus]
     # plots = [OS_minus_SS_total, OS_total, SS_total]
     # plots = OS_minus_SS_plots + [OS_minus_SS_total, OS_total, SS_total]
     # plots = individual_plots + OS_minus_SS_plots + [OS_minus_SS_total, OS_total, SS_total]
@@ -340,75 +357,96 @@ def main(options, conf):
                         h_mc_tot.Add(h_temp_SS, -1)
 
         # systematic uncertainties for MC tot
-        mc_tot_err_low, mc_tot_err_high, _ = get_yield_error(plot, chan, corr_parameters, corr_correlation_rows, files, h_mc_tot, h_name="h_tot")
+        mc_tot_err_low, mc_tot_err_high, _ = get_yield_error(plot, chan, corr_parameters, corr_correlation_rows, result, files, h_mc_tot, h_name="h_tot")
 
         # sys for signal
+        print("Sys for signal 1")
         s_signal1 = [x for x in samples if x.shortName == f"Sherpa2211_WplusD_Matched_truth_{options.diff}_bin1"][0]
         if s_signal1 in mc_map:
             _, signal1_err_high, _ = get_yield_error(
-                plot, chan, corr_parameters, corr_correlation_rows, files, mc_map[s_signal1], h_name=f"h_Sherpa2211_WplusD_Matched_truth_{options.diff}_bin1")
+                plot, chan, corr_parameters, corr_correlation_rows, result, files, mc_map[s_signal1], h_name=f"h_Sherpa2211_WplusD_Matched_truth_{options.diff}_bin1")
         else:
             signal1_err_high = 0
 
         # sys for signal
+        print("Sys for signal 2")
         s_signal2 = [x for x in samples if x.shortName == f"Sherpa2211_WplusD_Matched_truth_{options.diff}_bin2"][0]
         if s_signal2 in mc_map:
             _, signal2_err_high, _ = get_yield_error(
-                plot, chan, corr_parameters, corr_correlation_rows, files, mc_map[s_signal2], h_name=f"h_Sherpa2211_WplusD_Matched_truth_{options.diff}_bin2")
+                plot, chan, corr_parameters, corr_correlation_rows, result, files, mc_map[s_signal2], h_name=f"h_Sherpa2211_WplusD_Matched_truth_{options.diff}_bin2")
         else:
             signal2_err_high = 0
 
         # sys for signal
+        print("Sys for signal 3")
         s_signal3 = [x for x in samples if x.shortName == f"Sherpa2211_WplusD_Matched_truth_{options.diff}_bin3"][0]
         if s_signal3 in mc_map:
             _, signal3_err_high, _ = get_yield_error(
-                plot, chan, corr_parameters, corr_correlation_rows, files, mc_map[s_signal3], h_name=f"h_Sherpa2211_WplusD_Matched_truth_{options.diff}_bin3")
+                plot, chan, corr_parameters, corr_correlation_rows, result, files, mc_map[s_signal3], h_name=f"h_Sherpa2211_WplusD_Matched_truth_{options.diff}_bin3")
         else:
             signal3_err_high = 0
 
         # sys for signal
+        print("Sys for signal 4")
         s_signal4 = [x for x in samples if x.shortName == f"Sherpa2211_WplusD_Matched_truth_{options.diff}_bin4"][0]
         if s_signal4 in mc_map:
             _, signal4_err_high, _ = get_yield_error(
-                plot, chan, corr_parameters, corr_correlation_rows, files, mc_map[s_signal4], h_name=f"h_Sherpa2211_WplusD_Matched_truth_{options.diff}_bin4")
+                plot, chan, corr_parameters, corr_correlation_rows, result, files, mc_map[s_signal4], h_name=f"h_Sherpa2211_WplusD_Matched_truth_{options.diff}_bin4")
         else:
             signal4_err_high = 0
 
         # sys for signal
+        print("Sys for signal 5")
         s_signal5 = [x for x in samples if x.shortName == f"Sherpa2211_WplusD_Matched_truth_{options.diff}_bin5"][0]
         if s_signal5 in mc_map:
             _, signal5_err_high, _ = get_yield_error(
-                plot, chan, corr_parameters, corr_correlation_rows, files, mc_map[s_signal5], h_name=f"h_Sherpa2211_WplusD_Matched_truth_{options.diff}_bin5")
+                plot, chan, corr_parameters, corr_correlation_rows, result, files, mc_map[s_signal5], h_name=f"h_Sherpa2211_WplusD_Matched_truth_{options.diff}_bin5")
         else:
             signal5_err_high = 0
 
         # sys W+c(match)
-        s_wcmatch = [x for x in samples if x.shortName == "MG_Wjets_Charm"][0]
-        _, wcmatch_err_high, _ = get_yield_error(
-            plot, chan, corr_parameters, corr_correlation_rows, files, mc_map[s_wcmatch], h_name="h_MG_Wjets_Charm")
+        print("Sys for W+c(match)")
+        if options.decay_mode == "Dplus":
+            s_wcmatch = [x for x in samples if x.shortName == "MG_Wjets_Charm"][0]
+            _, wcmatch_err_high, _ = get_yield_error(
+                plot, chan, corr_parameters, corr_correlation_rows, result, files, mc_map[s_wcmatch], h_name="h_MG_Wjets_Charm")
+        else:
+            s_wcmatch = [x for x in samples if x.shortName == "Sherpa2211_Wjets_Charm"][0]
+            _, wcmatch_err_high, _ = get_yield_error(
+                plot, chan, corr_parameters, corr_correlation_rows, result, files, mc_map[s_wcmatch], h_name="h_Sherpa2211_Wjets_Charm")
 
         # sys W+c(mis-match)
+        print("Sys for W+c(mis-match)")
         s_wcmismatch = [x for x in samples if x.shortName == "Sherpa2211_Wjets_MisMatched"][0]
         _, wcmismatch_err_high, _ = get_yield_error(
-            plot, chan, corr_parameters, corr_correlation_rows, files, mc_map[s_wcmismatch], h_name="h_Sherpa2211_Wjets_MisMatched")
+            plot, chan, corr_parameters, corr_correlation_rows, result, files, mc_map[s_wcmismatch], h_name="h_Sherpa2211_Wjets_MisMatched")
 
         # sys W+jets
-        s_wjets = [x for x in samples if x.shortName == "Sherpa2211_Wjets_Rest"][0]
-        _, wjets_err_high, _ = get_yield_error(plot, chan, corr_parameters, corr_correlation_rows,
-                                               files, mc_map[s_wjets], h_name="h_Sherpa2211_Wjets_Rest")
+        print("Sys for W+jets")
+        if options.decay_mode == "Dplus":
+            s_wjets = [x for x in samples if x.shortName == "Sherpa2211_Wjets_Rest"][0]
+            _, wjets_err_high, _ = get_yield_error(plot, chan, corr_parameters, corr_correlation_rows, result,
+                                                   files, mc_map[s_wjets], h_name="h_Sherpa2211_Wjets_Rest")
+        else:
+            s_wjets = [x for x in samples if x.shortName == "MG_Wjets_Rest"][0]
+            _, wjets_err_high, _ = get_yield_error(plot, chan, corr_parameters, corr_correlation_rows, result,
+                                                   files, mc_map[s_wjets], h_name="h_MG_Wjets_Rest")
 
         # sys Other
+        print("Sys for Other")
         s_other = [x for x in samples if x.shortName == "DibosonZjets"][0]
-        _, other_err_high, _ = get_yield_error(plot, chan, corr_parameters, corr_correlation_rows, files, mc_map[s_other], h_name="h_DibosonZjets")
+        _, other_err_high, _ = get_yield_error(plot, chan, corr_parameters, corr_correlation_rows, result, files, mc_map[s_other], h_name="h_DibosonZjets")
 
         # sys Top
+        print("Sys for Top")
         s_top = [x for x in samples if x.shortName == "Top"][0]
-        _, top_err_high, _ = get_yield_error(plot, chan, corr_parameters, corr_correlation_rows, files, mc_map[s_top], h_name="h_Top")
+        _, top_err_high, _ = get_yield_error(plot, chan, corr_parameters, corr_correlation_rows, result, files, mc_map[s_top], h_name="h_Top")
 
         # sys for MultiJet
+        print("Sys for MJ")
         s_mj = [x for x in samples if x.shortName == "Multijet_MatrixMethod"][0]
         _, multijet_err_high, _ = get_yield_error(
-            plot, chan, corr_parameters, corr_correlation_rows, files, mc_map[s_mj], h_name="h_Multijet_MatrixMethod")
+            plot, chan, corr_parameters, corr_correlation_rows, result, files, mc_map[s_mj], h_name="h_Multijet_MatrixMethod")
 
         # print
         print(f"--- {channel_name} ---")
@@ -430,9 +468,11 @@ def main(options, conf):
         print(f"{'Top':20s}: {mc_map[s_top].GetSumOfWeights():8.2f} & {top_err_high:8.2f}")
         print(f"{'Other':20s}: {mc_map[s_other].GetSumOfWeights():8.2f} & {other_err_high:8.2f}")
         print(f"{'Multijet':20s}: {mc_map[s_mj].GetSumOfWeights():8.2f} & {multijet_err_high:8.2f}")
-        print(f"{'mc tot':20s}: {h_mc_tot.GetSumOfWeights():8.2f} & {mc_tot_err_high:8.2f}")
-        print(f"{'data':20s}: {data_integral:8.2f} & {err.value:8.2f}")
+        print(f"{'SM tot.':20s}: {h_mc_tot.GetSumOfWeights():8.2f} & {mc_tot_err_high:8.2f}")
+        print(f"{'Data':20s}: {data_integral:8.2f} & {err.value:8.2f}")
 
+        for _, file in files.items():
+            file.Close()
         logging.info(f"finished processing channel {channel_name}")
 
 
@@ -456,11 +496,14 @@ if __name__ == "__main__":
                       default="pt")
     parser.add_option('-k', '--skip-channel',
                       action="store", dest="skip_channel",
-                      default="1tag",
+                      default="",
                       help="skip channels that include this in the name")
     parser.add_option('--trex-input',
                       action="store", dest="trex_input",
                       help="import post-fit trex plots")
+    parser.add_option('--decay-mode',
+                      action="store", dest="decay_mode",
+                      default="Dplus")
 
     # parse input arguments
     options, args = parser.parse_args()

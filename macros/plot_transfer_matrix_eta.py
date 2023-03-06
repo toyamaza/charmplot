@@ -611,7 +611,8 @@ def main(options, args):
         h_fid_eff[samples[0]].Draw("text colz")
 
         # ATLAS label
-        ROOT.ATLASLabel(0.20, 0.90, "Simulation Internal", 1, 0.04)
+        # ROOT.ATLASLabel(0.20, 0.90, "Simulation Internal", 1, 0.04)
+        ROOT.ATLASLabel(0.20, 0.90, "Simulation", 1, 0.04)
         ROOT.myText(0.20, 0.85, 1, "#sqrt{s} = 13 TeV", 0.04)
         if "Dplus" in c:
             ROOT.myText(0.20, 0.80, 1, "W+D(#rightarrowK#pi#pi)", 0.04)

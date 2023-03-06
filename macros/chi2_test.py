@@ -72,18 +72,30 @@ def main(options):
 
         sf = 1.0 * br
         priors = {
-            "Wminus": h_minus.Integral() / (2. * sf),
-            "Wminus_1": h_minus.GetBinContent(1) / (2. * sf),
-            "Wminus_2": h_minus.GetBinContent(2) / (2. * sf),
-            "Wminus_3": h_minus.GetBinContent(3) / (2. * sf),
-            "Wminus_4": h_minus.GetBinContent(4) / (2. * sf),
-            "Wminus_5": h_minus.GetBinContent(5) / (2. * sf),
-            "Wplus": h_plus.Integral() / (2. * sf),
-            "Wplus_1": h_plus.GetBinContent(1) / (2. * sf),
-            "Wplus_2": h_plus.GetBinContent(2) / (2. * sf),
-            "Wplus_3": h_plus.GetBinContent(3) / (2. * sf),
-            "Wplus_4": h_plus.GetBinContent(4) / (2. * sf),
-            "Wplus_5": h_plus.GetBinContent(5) / (2. * sf),
+            "Wminus":1. / (2. * sf),
+            "Wminus_1": 1. / (2. * sf),
+            "Wminus_2": 1. / (2. * sf),
+            "Wminus_3": 1. / (2. * sf),
+            "Wminus_4": 1. / (2. * sf),
+            "Wminus_5": 1. / (2. * sf),
+            "Wplus": 1. / (2. * sf),
+            "Wplus_1": 1. / (2. * sf),
+            "Wplus_2": 1. / (2. * sf),
+            "Wplus_3": 1. / (2. * sf),
+            "Wplus_4": 1. / (2. * sf),
+            "Wplus_5": 1. / (2. * sf),
+            # "Wminus": h_minus.Integral() / (2. * sf),
+            # "Wminus_1": h_minus.GetBinContent(1) / (2. * sf),
+            # "Wminus_2": h_minus.GetBinContent(2) / (2. * sf),
+            # "Wminus_3": h_minus.GetBinContent(3) / (2. * sf),
+            # "Wminus_4": h_minus.GetBinContent(4) / (2. * sf),
+            # "Wminus_5": h_minus.GetBinContent(5) / (2. * sf),
+            # "Wplus": h_plus.Integral() / (2. * sf),
+            # "Wplus_1": h_plus.GetBinContent(1) / (2. * sf),
+            # "Wplus_2": h_plus.GetBinContent(2) / (2. * sf),
+            # "Wplus_3": h_plus.GetBinContent(3) / (2. * sf),
+            # "Wplus_4": h_plus.GetBinContent(4) / (2. * sf),
+            # "Wplus_5": h_plus.GetBinContent(5) / (2. * sf),
         }
         print(f"============ cross section priors for {var} ============")
         for key, val in priors.items():
@@ -91,7 +103,7 @@ def main(options):
 
         # normalization factors
         f_result = ROOT.TFile(os.path.join(
-            options.input, f"WCharm_lep_obs_OSSS_complete_{suffix}{var}", "Fits", f"WCharm_lep_obs_OSSS_complete_{suffix}{var}.root"), "READ")
+            options.input, f"WCharm_{options.decay}_lep_obs_OSSS_complete_xsec_{suffix}{var}", "Fits", f"WCharm_{options.decay}_lep_obs_OSSS_complete_xsec_{suffix}{var}.root"), "READ")
         fr = f_result.Get("nll_simPdf_newasimovData_with_constr")
         nfs = {nf: fr.floatParsFinal().find(nf).getVal() for nf in NFS}
         print("\n============ normalization factors ============")
@@ -109,8 +121,8 @@ def main(options):
 
         # covariance matrix from the ranking plots
         cov_ranking = ROOT.TMatrixD(len(NFS), len(NFS))
-        if os.path.isdir(os.path.join(options.input, f"WCharm_lep_obs_OSSS_complete_{suffix}{var}", "Covariances")):
-            with open(os.path.join(options.input, f"WCharm_lep_obs_OSSS_complete_{suffix}{var}", "Covariances", "Combined_Covariance_postfit.yaml"), 'r') as stream:
+        if os.path.isdir(os.path.join(options.input, f"WCharm_{options.decay}_lep_obs_OSSS_complete_xsec_{suffix}{var}", "Covariances")):
+            with open(os.path.join(options.input, f"WCharm_{options.decay}_lep_obs_OSSS_complete_xsec_{suffix}{var}", "Covariances", "Combined_Covariance_postfit.yaml"), 'r') as stream:
                 cov_dict = yaml.safe_load(stream)
                 for i in range(len(NFS)):
                     for j in range(len(NFS)):
@@ -125,8 +137,8 @@ def main(options):
         cov.Print()
 
         # quickFit template
-        quickFit = f"quickFit --minStrat 1 --minTolerance 1e-5 --savefitresult 0 --hesse 0 --saveNP 0 -f {options.input}/WCharm_lep_obs_OSSS_complete_{suffix}{var}/RooStats/WCharm_lep_obs_OSSS_complete_{suffix}{var}_combined_WCharm_lep_obs_OSSS_complete_{suffix}{var}_model.root -w combined -d obsData -p "
-        jobName = f"WCharm_lep_obs_OSSS_complete_{suffix}{var}_unconditional"
+        quickFit = f"quickFit --minStrat 1 --minTolerance 1e-5 --savefitresult 0 --hesse 0 --saveNP 0 -f {options.input}/WCharm_lep_obs_OSSS_complete_{suffix}{var}/RooStats/WCharm_lep_obs_OSSS_complete_{suffix}{var}_combined_WCharm_{options.decay}_lep_obs_OSSS_complete_xsec_{suffix}{var}_model.root -w combined -d obsData -p "
+        jobName = f"WCharm_{options.decay}_lep_obs_OSSS_complete_xsec_{suffix}{var}_unconditional"
         for x in NFS:
             quickFit += f"{x},"
         quickFit += f"mu_Top -o {jobName}.root"
@@ -151,7 +163,7 @@ def main(options):
             assert f_theory
 
             # quickFit template
-            quickFit = f"quickFit --minStrat 1 --minTolerance 1e-5 --savefitresult 0 --hesse 0 --saveNP 0 -f {options.input}/WCharm_lep_obs_OSSS_complete_{suffix}{var}/RooStats/WCharm_lep_obs_OSSS_complete_{suffix}{var}_combined_WCharm_lep_obs_OSSS_complete_{suffix}{var}_model.root -w combined -d obsData "
+            quickFit = f"quickFit --minStrat 1 --minTolerance 1e-5 --savefitresult 0 --hesse 0 --saveNP 0 -f {options.input}/WCharm_{options.decay}_lep_obs_OSSS_complete_xsec_{suffix}{var}/RooStats/WCharm_{options.decay}_lep_obs_OSSS_complete_xsec_{suffix}{var}_combined_WCharm_{options.decay}_lep_obs_OSSS_complete_xsec_{suffix}{var}_model.root -w combined -d obsData "
 
             # read theory histograms
             # absolute basis
@@ -188,7 +200,7 @@ def main(options):
                 prediction_nfs["mu_Rc"] = sum_plus / sum_minus
 
             # print theory errors
-            jobName = f"WCharm_lep_obs_OSSS_complete_{suffix}{var}_{prediction}"
+            jobName = f"WCharm_{options.decay}_lep_obs_OSSS_complete_xsec_{suffix}{var}_{prediction}"
             quickFit += " -p "
             print(f"\n============ normalization factors ({prediction}) ============")
             for x in NFS:
@@ -386,10 +398,11 @@ def main(options):
             print(f"\n{prediction:30s}", end="")
             if options.quickfit_input:
                 print(
-                    f"{prediction:30s}\t{100 * ROOT.TMath.Prob(chi2_dict[var][prediction], 10):.6f}\t{100 * ROOT.TMath.Prob(nll_dict[var][prediction], 10):.6f}")
+                    f"{prediction:30s} & {100 * ROOT.TMath.Prob(chi2_dict[var][prediction], 10):2.6f} & {100 * ROOT.TMath.Prob(nll_dict[var][prediction], 10):2.6f}")
             else:
                 for chi2 in chi2_dict[var][prediction]:
-                    print(f"\t{100 * ROOT.TMath.Prob(chi2, 10):.6f}", end="")
+                    print(f" & {100 * ROOT.TMath.Prob(chi2, 10):2.6f}", end="")
+                print(" \\\\",  end="")
 
     # close out file
     outfile.close()

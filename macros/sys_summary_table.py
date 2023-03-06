@@ -29,8 +29,8 @@ colors += [ROOT.TColor(10005, *RGB("#FF42C1"), "10005")]
 colors += [ROOT.TColor(10006, *RGB("#99B325"), "10006")]
 
 CHANNELS = ["dplus", "dstar"]
-DPLUS_FOLDER = "/global/cfs/cdirs/atlas/wcharm/TRExFitter/Output/Dplus_2022_07_26_fullRanking_v2"
-DSTAR_FOLDER = "/global/cfs/cdirs/atlas/wcharm/TRExFitter/Output/Dstar_2022_08_08_fullRanking_v2"
+DPLUS_FOLDER = "/global/cscratch1/sd/mmuskinj/TRExFitter/fit_2022_12_14_Dplus_new/"
+DSTAR_FOLDER = "/global/cscratch1/sd/mmuskinj/TRExFitter/fit_2022_12_14_Dstar_new/"
 
 
 STYLE = {
@@ -110,13 +110,15 @@ def main():
             # folder
             if channel == "dplus":
                 FOLDER = DPLUS_FOLDER
+                meson = "Dplus"
             elif channel == "dstar":
                 FOLDER = DSTAR_FOLDER
+                meson = "Dstar"
 
             # fit results
-            obs_fit = f"WCharm_lep_obs_OSSS_complete_{var}"
-            obs_fit2 = f"WCharm_lep_obs_OSSS_complete2_{var}"
-            obs_fit3 = f"WCharm_lep_obs_OSSS_complete_alt_{var}"
+            obs_fit = f"WCharm_{meson}_lep_obs_OSSS_complete_xsec_{var}"
+            obs_fit2 = f"WCharm_{meson}_lep_obs_OSSS_complete2_xsec_{var}"
+            obs_fit3 = f"WCharm_{meson}_lep_obs_OSSS_complete_xsec_alt_{var}"
             f_result = ROOT.TFile(os.path.join(FOLDER, obs_fit, "Fits", f"{obs_fit}.root"), "READ")
             f_resul2 = ROOT.TFile(os.path.join(FOLDER, obs_fit2, "Fits", f"{obs_fit2}.root"), "READ")
             f_resul3 = ROOT.TFile(os.path.join(FOLDER, obs_fit3, "Fits", f"{obs_fit3}.root"), "READ")
@@ -182,6 +184,7 @@ def main():
                 with open(os.path.join(FOLDER, fit, f"Ranking_{POI}.yaml"), 'r') as stream:
                     ranking = yaml.safe_load(stream)
                     RANKING[POI] = ranking
+                    assert len(ranking) > 100, "Missing NPs?"
                     for NP in ranking:
                         name = NP["Name"]
                         group = get_sys_group(name)
@@ -259,14 +262,14 @@ def main():
                 errs += [(ERRORS["dplus"][g][POI][0] + ERRORS["dplus"][g][POI][1]) / 2.]
             for POI in ["mu_Wminus_tot", "mu_Wplus_tot", "mu_Rc"]:
                 errs += [(ERRORS["dstar"][g][POI][0] + ERRORS["dstar"][g][POI][1]) / 2.]
-            print(f"    {g:30s}{' '.join([f'& {100 * err:.1f}' for err in errs])} \\\\")
+            print(f"    {g:30s}{' '.join([f'& {100 * err:.4f}' for err in errs])} \\\\")
         errs = [par.getErrorHi() / par.getVal() for par in PARS_STAT["dplus"]]
         errs += [par.getErrorHi() / par.getVal() for par in PARS_STAT["dstar"]]
-        print(f"    {'Data statistical uncertainty':30s}{' '.join([f'& {100 * err:.1f}' for err in errs])} \\\\")
+        print(f"    {'Data statistical uncertainty':30s}{' '.join([f'& {100 * err:.4f}' for err in errs])} \\\\")
         print(r"    \midrule")
         errs = [0.5 * (par.getErrorHi() - par.getErrorLo()) / par.getVal() for par in PARS["dplus"]]
         errs += [0.5 * (par.getErrorHi() - par.getErrorLo()) / par.getVal() for par in PARS["dstar"]]
-        print(f"    {'Total':30s}{' '.join([f'& {100 * err:.1f}' for err in errs])} \\\\")
+        print(f"    {'Total':30s}{' '.join([f'& {100 * err:.4f}' for err in errs])} \\\\")
 
         # print LaTeX format (differential)
         for c in CHANNELS:
@@ -313,14 +316,11 @@ def main():
                     h_stat.SetBinContent(i, 100 * 0.5 * (par_stat.getErrorHi() - par_stat.getErrorLo()) / par_stat.getVal())
                     POI = f"mu_W{charge}_{i}"
                     for g, _ in sorted_groups:
-                        if g == "Luminosity":
-                            h_map[g].SetBinContent(i, 1.7)
+                        err = 100 * (ERRORS[c][g][POI][0] + ERRORS[c][g][POI][1]) / 2.
+                        if err > 0.1:
+                            h_map[g].SetBinContent(i, err)
                         else:
-                            err = 100 * (ERRORS[c][g][POI][0] + ERRORS[c][g][POI][1]) / 2.
-                            if err > 0.1:
-                                h_map[g].SetBinContent(i, err)
-                            else:
-                                h_map[g].SetBinContent(i, 1e-6)
+                            h_map[g].SetBinContent(i, 1e-6)
 
                 # histogram styles
                 if var == "pt":
@@ -388,8 +388,8 @@ def main():
                 h_stat.Draw("same")
 
                 # ATLAS label
-                ROOT.ATLASLabel(0.18, 0.91, "Internal", 1, 0.04)
-                ROOT.myText(0.18, 0.875, 1, "#sqrt{s} = 13 TeV, 139.0 fb^{-1}", 0.04)
+                ROOT.ATLASLabel(0.18, 0.91, "", 1, 0.04)
+                ROOT.myText(0.18, 0.875, 1, "#sqrt{s} = 13 TeV, 140 fb^{-1}", 0.04)
                 if c == "dplus":
                     if charge == "minus":
                         ROOT.myText(0.60, 0.875, 1, "W^{-}+D^{+}(#rightarrowK#pi#pi)", 0.04)

@@ -441,7 +441,7 @@ Top:
     - Top_ttx
   subtract:
   fillColor: "12001"
-  legendLabel: Top
+  legendLabel: "t#bar{t} + single top"
   shortName: Top
 
 Top_HS:

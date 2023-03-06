@@ -469,17 +469,17 @@ def read_samples(conf: globalConfig.GlobalConfig, reader: inputDataReader.InputD
 def get_lumi(lumi_string):
     lumi = 0
     if "2015" in lumi_string:
-        lumi += 3219.56
+        lumi += 3244.54
     if "2016A-B" in lumi_string:
         lumi += 2289.2
     if "2016C-L" in lumi_string:
         lumi += 30698.9
     if "2016" in lumi_string and "A-B" not in lumi_string and "C-L" not in lumi_string:
-        lumi += 32988.1
+        lumi += 33402.2
     if "2017" in lumi_string:
-        lumi += 44307.4
+        lumi += 44630.6
     if "2018" in lumi_string:
-        lumi += 58450.1
+        lumi += 58791.6
     return lumi
 
 

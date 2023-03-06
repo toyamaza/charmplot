@@ -766,13 +766,13 @@ class ChannelGenerator:
             row2 += "^{-}"
         else:
             row2 += "^{#pm}"
-        row2 += " channel"
-        if btag:
-            btag_massaged = [btag] if type(btag) != list else btag
-            row2 += f', {"+".join(btag_massaged)}'
+        # row2 += " channel"
+        if extra:
+            row2 += " " + extra.replace('pt_bin', 'p_{T}(D) bin ').replace('eta_bin', '|#eta(l)| bin ')
+        # if btag:
+        #     btag_massaged = [btag] if type(btag) != list else btag
+        #     row2 += f', {"+".join(btag_massaged)}'
         labels += [row2]
         if self.template:
             labels += [x for x in self.template.labels]
-        if extra:
-            labels += [extra.replace('pt_bin', 'p_{T}(D) bin ').replace('eta_bin', '|#eta(l)| bin ')]
         return labels
