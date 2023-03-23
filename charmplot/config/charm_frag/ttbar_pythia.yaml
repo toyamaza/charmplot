@@ -1,0 +1,270 @@
+channels:
+  OS-SS_1tag_Dplus:
+    extra_rebin: 1.0
+    force_positive: false
+    label:
+    - W(#rightarrowl#nu) + D(#rightarrowK#pi#pi), OS-SS
+    - W^{#pm} channel, 1tag
+    - Powheg+Py8 t#bar{t}
+    lumi: '2018'
+    regions:
+    - mu_minus_SR_1tag_Dplus_OS
+    - mu_plus_SR_1tag_Dplus_OS
+    - el_minus_SR_1tag_Dplus_OS
+    - el_plus_SR_1tag_Dplus_OS
+    - -mu_minus_SR_1tag_Dplus_SS
+    - -mu_plus_SR_1tag_Dplus_SS
+    - -el_minus_SR_1tag_Dplus_SS
+    - -el_plus_SR_1tag_Dplus_SS
+    samples:
+    - Top_ttbar_Matched | OS-SS_1tag_Dplus_Matched
+    - Top_ttbar_Other | OS-SS_1tag_Dplus_Other
+    - Top_single_top_ttx
+    - Sherpa2211_Wjets
+    - DibosonZjets
+    - Multijet_MatrixMethod | OS-SS_1tag_Dplus_MatrixMethod
+    save_to_file: true
+  OS-SS_1tag_Dplus_Matched:
+    make_plots: false
+    regions:
+    - mu_minus_SR_1tag_Dplus_OS_Matched
+    - mu_plus_SR_1tag_Dplus_OS_Matched
+    - el_minus_SR_1tag_Dplus_OS_Matched
+    - el_plus_SR_1tag_Dplus_OS_Matched
+    - -mu_minus_SR_1tag_Dplus_SS_Matched
+    - -mu_plus_SR_1tag_Dplus_SS_Matched
+    - -el_minus_SR_1tag_Dplus_SS_Matched
+    - -el_plus_SR_1tag_Dplus_SS_Matched
+    save_to_file: false
+  OS-SS_1tag_Dplus_MatrixMethod:
+    make_plots: false
+    regions:
+    - AntiTight_mu_minus_SR_1tag_Dplus_OS
+    - -Tight_mu_minus_SR_1tag_Dplus_OS
+    - AntiTight_mu_plus_SR_1tag_Dplus_OS
+    - -Tight_mu_plus_SR_1tag_Dplus_OS
+    - AntiTight_el_minus_SR_1tag_Dplus_OS
+    - -Tight_el_minus_SR_1tag_Dplus_OS
+    - AntiTight_el_plus_SR_1tag_Dplus_OS
+    - -Tight_el_plus_SR_1tag_Dplus_OS
+    - -AntiTight_mu_minus_SR_1tag_Dplus_SS
+    - Tight_mu_minus_SR_1tag_Dplus_SS
+    - -AntiTight_mu_plus_SR_1tag_Dplus_SS
+    - Tight_mu_plus_SR_1tag_Dplus_SS
+    - -AntiTight_el_minus_SR_1tag_Dplus_SS
+    - Tight_el_minus_SR_1tag_Dplus_SS
+    - -AntiTight_el_plus_SR_1tag_Dplus_SS
+    - Tight_el_plus_SR_1tag_Dplus_SS
+    save_to_file: false
+  OS-SS_1tag_Dplus_Other:
+    make_plots: false
+    regions:
+    - mu_minus_SR_1tag_Dplus_OS_Other
+    - mu_minus_SR_1tag_Dplus_OS_HardMisMatched
+    - mu_minus_SR_1tag_Dplus_OS_MisMatched
+    - mu_minus_SR_1tag_Dplus_OS_411MisMatched
+    - mu_minus_SR_1tag_Dplus_OS_413MisMatched
+    - mu_minus_SR_1tag_Dplus_OS_421MisMatched
+    - mu_minus_SR_1tag_Dplus_OS_431MisMatched
+    - mu_minus_SR_1tag_Dplus_OS_BaryonMisMatched
+    - mu_minus_SR_1tag_Dplus_OS_MatchedNoFid
+    - mu_plus_SR_1tag_Dplus_OS_Other
+    - mu_plus_SR_1tag_Dplus_OS_HardMisMatched
+    - mu_plus_SR_1tag_Dplus_OS_MisMatched
+    - mu_plus_SR_1tag_Dplus_OS_411MisMatched
+    - mu_plus_SR_1tag_Dplus_OS_413MisMatched
+    - mu_plus_SR_1tag_Dplus_OS_421MisMatched
+    - mu_plus_SR_1tag_Dplus_OS_431MisMatched
+    - mu_plus_SR_1tag_Dplus_OS_BaryonMisMatched
+    - mu_plus_SR_1tag_Dplus_OS_MatchedNoFid
+    - el_minus_SR_1tag_Dplus_OS_Other
+    - el_minus_SR_1tag_Dplus_OS_HardMisMatched
+    - el_minus_SR_1tag_Dplus_OS_MisMatched
+    - el_minus_SR_1tag_Dplus_OS_411MisMatched
+    - el_minus_SR_1tag_Dplus_OS_413MisMatched
+    - el_minus_SR_1tag_Dplus_OS_421MisMatched
+    - el_minus_SR_1tag_Dplus_OS_431MisMatched
+    - el_minus_SR_1tag_Dplus_OS_BaryonMisMatched
+    - el_minus_SR_1tag_Dplus_OS_MatchedNoFid
+    - el_plus_SR_1tag_Dplus_OS_Other
+    - el_plus_SR_1tag_Dplus_OS_HardMisMatched
+    - el_plus_SR_1tag_Dplus_OS_MisMatched
+    - el_plus_SR_1tag_Dplus_OS_411MisMatched
+    - el_plus_SR_1tag_Dplus_OS_413MisMatched
+    - el_plus_SR_1tag_Dplus_OS_421MisMatched
+    - el_plus_SR_1tag_Dplus_OS_431MisMatched
+    - el_plus_SR_1tag_Dplus_OS_BaryonMisMatched
+    - el_plus_SR_1tag_Dplus_OS_MatchedNoFid
+    - -mu_minus_SR_1tag_Dplus_SS_Other
+    - -mu_minus_SR_1tag_Dplus_SS_HardMisMatched
+    - -mu_minus_SR_1tag_Dplus_SS_MisMatched
+    - -mu_minus_SR_1tag_Dplus_SS_411MisMatched
+    - -mu_minus_SR_1tag_Dplus_SS_413MisMatched
+    - -mu_minus_SR_1tag_Dplus_SS_421MisMatched
+    - -mu_minus_SR_1tag_Dplus_SS_431MisMatched
+    - -mu_minus_SR_1tag_Dplus_SS_BaryonMisMatched
+    - -mu_minus_SR_1tag_Dplus_SS_MatchedNoFid
+    - -mu_plus_SR_1tag_Dplus_SS_Other
+    - -mu_plus_SR_1tag_Dplus_SS_HardMisMatched
+    - -mu_plus_SR_1tag_Dplus_SS_MisMatched
+    - -mu_plus_SR_1tag_Dplus_SS_411MisMatched
+    - -mu_plus_SR_1tag_Dplus_SS_413MisMatched
+    - -mu_plus_SR_1tag_Dplus_SS_421MisMatched
+    - -mu_plus_SR_1tag_Dplus_SS_431MisMatched
+    - -mu_plus_SR_1tag_Dplus_SS_BaryonMisMatched
+    - -mu_plus_SR_1tag_Dplus_SS_MatchedNoFid
+    - -el_minus_SR_1tag_Dplus_SS_Other
+    - -el_minus_SR_1tag_Dplus_SS_HardMisMatched
+    - -el_minus_SR_1tag_Dplus_SS_MisMatched
+    - -el_minus_SR_1tag_Dplus_SS_411MisMatched
+    - -el_minus_SR_1tag_Dplus_SS_413MisMatched
+    - -el_minus_SR_1tag_Dplus_SS_421MisMatched
+    - -el_minus_SR_1tag_Dplus_SS_431MisMatched
+    - -el_minus_SR_1tag_Dplus_SS_BaryonMisMatched
+    - -el_minus_SR_1tag_Dplus_SS_MatchedNoFid
+    - -el_plus_SR_1tag_Dplus_SS_Other
+    - -el_plus_SR_1tag_Dplus_SS_HardMisMatched
+    - -el_plus_SR_1tag_Dplus_SS_MisMatched
+    - -el_plus_SR_1tag_Dplus_SS_411MisMatched
+    - -el_plus_SR_1tag_Dplus_SS_413MisMatched
+    - -el_plus_SR_1tag_Dplus_SS_421MisMatched
+    - -el_plus_SR_1tag_Dplus_SS_431MisMatched
+    - -el_plus_SR_1tag_Dplus_SS_BaryonMisMatched
+    - -el_plus_SR_1tag_Dplus_SS_MatchedNoFid
+    save_to_file: false
+  OS-SS_2tag_Dplus:
+    extra_rebin: 1.0
+    force_positive: false
+    label:
+    - W(#rightarrowl#nu) + D(#rightarrowK#pi#pi), OS-SS
+    - W^{#pm} channel, 2tag
+    - Powheg+Py8 t#bar{t}
+    lumi: '2018'
+    regions:
+    - mu_minus_SR_2tag_Dplus_OS
+    - mu_plus_SR_2tag_Dplus_OS
+    - el_minus_SR_2tag_Dplus_OS
+    - el_plus_SR_2tag_Dplus_OS
+    - -mu_minus_SR_2tag_Dplus_SS
+    - -mu_plus_SR_2tag_Dplus_SS
+    - -el_minus_SR_2tag_Dplus_SS
+    - -el_plus_SR_2tag_Dplus_SS
+    samples:
+    - Top_ttbar_Matched | OS-SS_2tag_Dplus_Matched
+    - Top_ttbar_Other | OS-SS_2tag_Dplus_Other
+    - Top_single_top_ttx
+    - Sherpa2211_Wjets
+    - DibosonZjets
+    - Multijet_MatrixMethod | OS-SS_2tag_Dplus_MatrixMethod
+    save_to_file: true
+  OS-SS_2tag_Dplus_Matched:
+    make_plots: false
+    regions:
+    - mu_minus_SR_2tag_Dplus_OS_Matched
+    - mu_plus_SR_2tag_Dplus_OS_Matched
+    - el_minus_SR_2tag_Dplus_OS_Matched
+    - el_plus_SR_2tag_Dplus_OS_Matched
+    - -mu_minus_SR_2tag_Dplus_SS_Matched
+    - -mu_plus_SR_2tag_Dplus_SS_Matched
+    - -el_minus_SR_2tag_Dplus_SS_Matched
+    - -el_plus_SR_2tag_Dplus_SS_Matched
+    save_to_file: false
+  OS-SS_2tag_Dplus_MatrixMethod:
+    make_plots: false
+    regions:
+    - AntiTight_mu_minus_SR_2tag_Dplus_OS
+    - -Tight_mu_minus_SR_2tag_Dplus_OS
+    - AntiTight_mu_plus_SR_2tag_Dplus_OS
+    - -Tight_mu_plus_SR_2tag_Dplus_OS
+    - AntiTight_el_minus_SR_2tag_Dplus_OS
+    - -Tight_el_minus_SR_2tag_Dplus_OS
+    - AntiTight_el_plus_SR_2tag_Dplus_OS
+    - -Tight_el_plus_SR_2tag_Dplus_OS
+    - -AntiTight_mu_minus_SR_2tag_Dplus_SS
+    - Tight_mu_minus_SR_2tag_Dplus_SS
+    - -AntiTight_mu_plus_SR_2tag_Dplus_SS
+    - Tight_mu_plus_SR_2tag_Dplus_SS
+    - -AntiTight_el_minus_SR_2tag_Dplus_SS
+    - Tight_el_minus_SR_2tag_Dplus_SS
+    - -AntiTight_el_plus_SR_2tag_Dplus_SS
+    - Tight_el_plus_SR_2tag_Dplus_SS
+    save_to_file: false
+  OS-SS_2tag_Dplus_Other:
+    make_plots: false
+    regions:
+    - mu_minus_SR_2tag_Dplus_OS_Other
+    - mu_minus_SR_2tag_Dplus_OS_HardMisMatched
+    - mu_minus_SR_2tag_Dplus_OS_MisMatched
+    - mu_minus_SR_2tag_Dplus_OS_411MisMatched
+    - mu_minus_SR_2tag_Dplus_OS_413MisMatched
+    - mu_minus_SR_2tag_Dplus_OS_421MisMatched
+    - mu_minus_SR_2tag_Dplus_OS_431MisMatched
+    - mu_minus_SR_2tag_Dplus_OS_BaryonMisMatched
+    - mu_minus_SR_2tag_Dplus_OS_MatchedNoFid
+    - mu_plus_SR_2tag_Dplus_OS_Other
+    - mu_plus_SR_2tag_Dplus_OS_HardMisMatched
+    - mu_plus_SR_2tag_Dplus_OS_MisMatched
+    - mu_plus_SR_2tag_Dplus_OS_411MisMatched
+    - mu_plus_SR_2tag_Dplus_OS_413MisMatched
+    - mu_plus_SR_2tag_Dplus_OS_421MisMatched
+    - mu_plus_SR_2tag_Dplus_OS_431MisMatched
+    - mu_plus_SR_2tag_Dplus_OS_BaryonMisMatched
+    - mu_plus_SR_2tag_Dplus_OS_MatchedNoFid
+    - el_minus_SR_2tag_Dplus_OS_Other
+    - el_minus_SR_2tag_Dplus_OS_HardMisMatched
+    - el_minus_SR_2tag_Dplus_OS_MisMatched
+    - el_minus_SR_2tag_Dplus_OS_411MisMatched
+    - el_minus_SR_2tag_Dplus_OS_413MisMatched
+    - el_minus_SR_2tag_Dplus_OS_421MisMatched
+    - el_minus_SR_2tag_Dplus_OS_431MisMatched
+    - el_minus_SR_2tag_Dplus_OS_BaryonMisMatched
+    - el_minus_SR_2tag_Dplus_OS_MatchedNoFid
+    - el_plus_SR_2tag_Dplus_OS_Other
+    - el_plus_SR_2tag_Dplus_OS_HardMisMatched
+    - el_plus_SR_2tag_Dplus_OS_MisMatched
+    - el_plus_SR_2tag_Dplus_OS_411MisMatched
+    - el_plus_SR_2tag_Dplus_OS_413MisMatched
+    - el_plus_SR_2tag_Dplus_OS_421MisMatched
+    - el_plus_SR_2tag_Dplus_OS_431MisMatched
+    - el_plus_SR_2tag_Dplus_OS_BaryonMisMatched
+    - el_plus_SR_2tag_Dplus_OS_MatchedNoFid
+    - -mu_minus_SR_2tag_Dplus_SS_Other
+    - -mu_minus_SR_2tag_Dplus_SS_HardMisMatched
+    - -mu_minus_SR_2tag_Dplus_SS_MisMatched
+    - -mu_minus_SR_2tag_Dplus_SS_411MisMatched
+    - -mu_minus_SR_2tag_Dplus_SS_413MisMatched
+    - -mu_minus_SR_2tag_Dplus_SS_421MisMatched
+    - -mu_minus_SR_2tag_Dplus_SS_431MisMatched
+    - -mu_minus_SR_2tag_Dplus_SS_BaryonMisMatched
+    - -mu_minus_SR_2tag_Dplus_SS_MatchedNoFid
+    - -mu_plus_SR_2tag_Dplus_SS_Other
+    - -mu_plus_SR_2tag_Dplus_SS_HardMisMatched
+    - -mu_plus_SR_2tag_Dplus_SS_MisMatched
+    - -mu_plus_SR_2tag_Dplus_SS_411MisMatched
+    - -mu_plus_SR_2tag_Dplus_SS_413MisMatched
+    - -mu_plus_SR_2tag_Dplus_SS_421MisMatched
+    - -mu_plus_SR_2tag_Dplus_SS_431MisMatched
+    - -mu_plus_SR_2tag_Dplus_SS_BaryonMisMatched
+    - -mu_plus_SR_2tag_Dplus_SS_MatchedNoFid
+    - -el_minus_SR_2tag_Dplus_SS_Other
+    - -el_minus_SR_2tag_Dplus_SS_HardMisMatched
+    - -el_minus_SR_2tag_Dplus_SS_MisMatched
+    - -el_minus_SR_2tag_Dplus_SS_411MisMatched
+    - -el_minus_SR_2tag_Dplus_SS_413MisMatched
+    - -el_minus_SR_2tag_Dplus_SS_421MisMatched
+    - -el_minus_SR_2tag_Dplus_SS_431MisMatched
+    - -el_minus_SR_2tag_Dplus_SS_BaryonMisMatched
+    - -el_minus_SR_2tag_Dplus_SS_MatchedNoFid
+    - -el_plus_SR_2tag_Dplus_SS_Other
+    - -el_plus_SR_2tag_Dplus_SS_HardMisMatched
+    - -el_plus_SR_2tag_Dplus_SS_MisMatched
+    - -el_plus_SR_2tag_Dplus_SS_411MisMatched
+    - -el_plus_SR_2tag_Dplus_SS_413MisMatched
+    - -el_plus_SR_2tag_Dplus_SS_421MisMatched
+    - -el_plus_SR_2tag_Dplus_SS_431MisMatched
+    - -el_plus_SR_2tag_Dplus_SS_BaryonMisMatched
+    - -el_plus_SR_2tag_Dplus_SS_MatchedNoFid
+    save_to_file: false
+data: Data
+samplesConf: dplus_fit
+variablesConf: charmed_wjets

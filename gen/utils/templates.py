@@ -94,7 +94,8 @@ class WDTruthSamples(ChannelTemplate):
         if self.truthDiffBins:
             self.samples += [[f'Sherpa2211_WplusD_{slice}', proxies.GenericChannel(region=slice, name=slice)] for slice in self.truthSlices]
         else:
-            self.samples += [['Sherpa2211_WplusD_Matched', proxies.GenericChannel(region=self.truthSlices, name="Matched", os_ss_sub=self.os_ss_sub)]]
+            # self.samples += [['Sherpa2211_WplusD_Matched', proxies.GenericChannel(region=self.truthSlices, name="Matched", os_ss_sub=self.os_ss_sub)]]
+            self.samples += [['Sherpa2211_WplusD_Matched', proxies.GenericChannel(region="Matched", name="Matched", os_ss_sub=self.os_ss_sub)]]
 
         # W+c(matched)
         if self.decayMode == "Dstar":
@@ -128,6 +129,28 @@ class WDTruthSamples(ChannelTemplate):
         if not self.os_ss_sub and self.MockMC:
             self.samples += ['MockMC_minus_MC', proxies.GenericChannel(name="MockMC_minus_MC", region=["Mock_MC"])],
             self.samples += ['Offset', proxies.GenericChannel(name="Offset", region=["Offset"])],
+
+    def get(self):
+        return self.samples
+
+
+class TopTruthSamples(ChannelTemplate):
+
+    # base class
+    samplesConf = "dplus_fit"
+    data = "Data"
+
+    def __init__(self):
+
+        self.samples = [
+            ['Top_ttbar_Matched', proxies.GenericChannel(region=["Matched"], name="Matched")],
+            ['Top_ttbar_Other', proxies.GenericChannel(region=["Other", "HardMisMatched", "MisMatched", "411MisMatched",
+                                                               "413MisMatched", "421MisMatched", "431MisMatched", "BaryonMisMatched", "MatchedNoFid"], name="Other")],
+            ['Top_single_top_ttx'],
+            ['Sherpa2211_Wjets'],
+            ['DibosonZjets'],
+            ['Multijet_MatrixMethod', proxies.MatrixMethod()]
+        ]
 
     def get(self):
         return self.samples
@@ -766,12 +789,13 @@ class ChannelGenerator:
             row2 += "^{-}"
         else:
             row2 += "^{#pm}"
-        # row2 += " channel"
         if extra:
             row2 += " " + extra.replace('pt_bin', 'p_{T}(D) bin ').replace('eta_bin', '|#eta(l)| bin ')
-        # if btag:
-        #     btag_massaged = [btag] if type(btag) != list else btag
-        #     row2 += f', {"+".join(btag_massaged)}'
+        else:
+            row2 += " channel"
+        if btag:
+            btag_massaged = [btag] if type(btag) != list else btag
+            row2 += f', {"+".join(btag_massaged)}'
         labels += [row2]
         if self.template:
             labels += [x for x in self.template.labels]

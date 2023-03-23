@@ -145,6 +145,17 @@ Sherpa2211_Wjets_MisMatched_PostProc:
   legendLabel: "Sh W+c (LIS)"
   shortName: Sherpa2211_Wjets_MisMatched_PostProc
 
+Sherpa2211_Wjets:
+  add:
+    - Sh_2211_Wjets_cjets_emu
+    - Sh_2211_Wjets_bjets_emu
+    - Sh_2211_Wjets_light_emu
+    - Sh_2211_Wjets_tau
+  subtract:
+  fillColor: "10004"
+  legendLabel: "W+jets"
+  shortName: Sherpa2211_Wjets
+
 # ---------------------------------------------
 # MadGraph
 # ---------------------------------------------
@@ -391,7 +402,7 @@ Top_Matched:
     - Top_single_top
     - Top_ttx
   subtract:
-  fillColor: "12002"
+  fillColor: "12000"
   legendLabel: "Top w/ #it{D}"
   shortName: Top_Matched
 
@@ -424,15 +435,15 @@ Top_NoMatch:
   fillColor: "12002"
   legendLabel: "Top+#it{D}(PU)"
 
-Top_Rest:
+Top_Other:
   add:
     - Top_ttbar
     - Top_single_top
     - Top_ttx
   subtract:
-  fillColor: "12000"
-  legendLabel: "Top"
-  shortName: Top_Rest
+  fillColor: "12002"
+  legendLabel: "t#bar{t} + single top"
+  shortName: Top_Other
 
 Top:
   add:
@@ -492,6 +503,46 @@ Top_ttx:
   fillColor: "12003"
   legendLabel: t#bar{t}X
 
+Top_single_top_ttx:
+  add:
+    - Top_single_top
+    - Top_ttx
+  subtract:
+  fillColor: "12003"
+  legendLabel: "single-#it{t} + t#bar{t}X"
+
+Top_ttbar_Matched:
+  add:
+    - Top_ttbar
+  subtract:
+  fillColor: "12000"
+  legendLabel: "t#bar{t} w/ #it{D}"
+  shortName: Top_Matched
+
+Top_ttbar_Other:
+  add:
+    - Top_ttbar
+  subtract:
+  fillColor: "12002"
+  legendLabel: "t#bar{t} Other"
+  shortName: Top_Other
+
+Top_ttbar_Herwig_Matched:
+  add:
+    - Top_ttbar_Shower
+  subtract:
+  fillColor: "12000"
+  legendLabel: "t#bar{t} w/ #it{D}"
+  shortName: Top_Matched
+
+Top_ttbar_Herwig_Other:
+  add:
+    - Top_ttbar_Shower
+  subtract:
+  fillColor: "12002"
+  legendLabel: "t#bar{t} Other"
+  shortName: Top_Other
+
 Diboson:
   add: Diboson
   subtract:
@@ -528,7 +579,7 @@ MockMC:
   fillColor: "13001"
   legendLabel: "Ch. Symm."
   shortName: MockMC
-  statError: True
+  statError: False
 
 MockMC_minus_MC:
   add: 
@@ -538,6 +589,7 @@ MockMC_minus_MC:
   legendLabel: "Ch. Symm."
   shortName: MockMC_minus_MC
   allowRebin: False
+  statError: False
 
 Offset:
   add:

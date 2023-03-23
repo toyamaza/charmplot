@@ -23,6 +23,16 @@ Dmeson_m_fit:
   ratio_range: [0.5, 1.49]
   per_unit: True
 
+Dmeson_peak_m_fit:
+  name_override: Dmeson_peak_m
+  label: 'm(D^{#pm}) (peak region)'
+  unit: 'GeV'
+  x_range: [1.7, 2.2]
+  # xbins: [1.7, 1.75, 1.775, 1.8, 1.825, 1.85, 1.875, 1.9, 1.925, 1.95, 1.975, 2.0, 2.1, 2.2]
+  xbins: [1.7, 1.775, 1.8, 1.825, 1.85, 1.875, 1.9, 1.925, 1.95, 1.975, 2.2]
+  ratio_range: [0.5, 1.49]
+  per_unit: True
+
 Dmeson_m0:
   label: 'D^{#pm} m0'
   unit: 'GeV'
@@ -85,6 +95,12 @@ Dmeson_m9:
 
 Dmeson_pt:
   label: 'D^{#pm} p_{T}'
+  unit: 'GeV'
+  rebin: 5
+  ratio_range: [0.5, 1.49]
+
+Dmeson_peak_pt:
+  label: 'D^{#pm} p_{T} (peak region)'
   unit: 'GeV'
   rebin: 5
   ratio_range: [0.5, 1.49]
@@ -985,3 +1001,99 @@ Dmeson_zl:
   label: 'z_{L, D^{#pm}}^{ch}'
   rebin: 1
   x_range: [0, 1]
+
+Dmeson_track_jet_10_pt:
+  label: 'AntiKt10TrackJet p_{T}'
+  unit: 'GeV'
+  rebin: 5
+  ratio_range: [0.5, 1.49]
+
+Dmeson_track_jet_10_dR:
+  label: 'AntiKt10TrackJet #DeltaR(D^{#pm}, jet)'
+  rebin: 1
+  ratio_range: [0.5, 1.49]
+  x_range: [0, 1.5]
+
+Dmeson_track_jet_10_zt:
+  label: 'AntiKt10TrackJet D^{#pm} p_{T} / jet p_{T}'
+  rebin: 4
+
+Dmeson_track_jet_8_pt:
+  label: 'AntiKt8TrackJet p_{T}'
+  unit: 'GeV'
+  rebin: 5
+  ratio_range: [0.5, 1.49]
+
+Dmeson_track_jet_8_dR:
+  label: 'AntiKt8TrackJet #DeltaR(D^{#pm}, jet)'
+  rebin: 1
+  ratio_range: [0.5, 1.49]
+  x_range: [0, 1.5]
+
+Dmeson_track_jet_8_zt:
+  label: 'AntiKt8TrackJet D^{#pm} p_{T} / jet p_{T}'
+  rebin: 4
+
+Dmeson_track_jet_6_pt:
+  label: 'AntiKt6TrackJet p_{T}'
+  unit: 'GeV'
+  rebin: 5
+  ratio_range: [0.5, 1.49]
+
+Dmeson_track_jet_6_dR:
+  label: 'AntiKt6TrackJet #DeltaR(D^{#pm}, jet)'
+  rebin: 1
+  ratio_range: [0.5, 1.49]
+  x_range: [0, 1.5]
+
+Dmeson_track_jet_6_zt:
+  label: 'AntiKt6TrackJet D^{#pm} p_{T} / jet p_{T}'
+  rebin: 4
+
+Dmeson_peak_track_jet_10_pt:
+  label: 'AntiKt10TrackJet p_{T} (peak region)'
+  unit: 'GeV'
+  rebin: 5
+  ratio_range: [0.5, 1.49]
+
+Dmeson_peak_track_jet_10_dR:
+  label: 'AntiKt10TrackJet #DeltaR(D^{#pm}, jet) (peak region)'
+  rebin: 1
+  ratio_range: [0.5, 1.49]
+  x_range: [0, 1.5]
+
+Dmeson_peak_track_jet_10_zt:
+  label: 'AntiKt10TrackJet D^{#pm} p_{T} / jet p_{T} (peak region)'
+  rebin: 4
+
+Dmeson_peak_track_jet_8_pt:
+  label: 'AntiKt8TrackJet p_{T}'
+  unit: 'GeV'
+  rebin: 5
+  ratio_range: [0.5, 1.49]
+
+Dmeson_peak_track_jet_8_dR:
+  label: 'AntiKt8TrackJet #DeltaR(D^{#pm}, jet) (peak region)'
+  rebin: 1
+  ratio_range: [0.5, 1.49]
+  x_range: [0, 1.5]
+
+Dmeson_peak_track_jet_8_zt:
+  label: 'AntiKt8TrackJet D^{#pm} p_{T} / jet p_{T} (peak region)'
+  rebin: 4
+
+Dmeson_peak_track_jet_6_pt:
+  label: 'AntiKt6TrackJet p_{T} (peak region)'
+  unit: 'GeV'
+  rebin: 5
+  ratio_range: [0.5, 1.49]
+
+Dmeson_peak_track_jet_6_dR:
+  label: 'AntiKt6TrackJet #DeltaR(D^{#pm}, jet) (peak region)'
+  rebin: 1
+  ratio_range: [0.5, 1.49]
+  x_range: [0, 1.5]
+
+Dmeson_peak_track_jet_6_zt:
+  label: 'AntiKt6TrackJet D^{#pm} p_{T} / jet p_{T} (peak region)'
+  rebin: 4
