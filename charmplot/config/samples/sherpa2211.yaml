@@ -25,7 +25,8 @@ Wjets_emu:
 
 Zjets:
   add:
-    - Sherpa2211_Zjets
+    - Sh_2211_Zjets_emu
+    - Sh_2211_Zjets_tau
   subtract:
   fillColor: "11000"
   legendLabel: "Z+jets"

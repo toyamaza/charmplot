@@ -8,8 +8,7 @@ data: Data
 #   - experimental
 
 samples:
-  # - Zjets
-  - Zjets_MG
+  - Zjets
   - Wjets
   - Diboson
   - Top
@@ -17,24 +16,28 @@ samples:
 channels:
   el:
     regions:
-      - 2018_el
-      - 2017_el
-      - 2016A-B_el
-      - 2016C-L_el
-      - 2015_el
+      - el
+      # - 2018_el
+      # - 2017_el
+      # - 2016A-B_el
+      # - 2016C-L_el
+      # - 2015_el
     label:
       - "el SR"
-      - "MadGraph"
-    lumi: "2018+2017+2016A-B+2016C-L+2015"
+      - "Sherpa2.2.11"
+    lumi: "2018"
+    # lumi: "2018+2017+2016A-B+2016C-L+2015"
 
   mu:
     regions:
-      - 2018_mu
-      - 2017_mu
-      - 2016A-B_mu
-      - 2016C-L_mu
-      - 2015_mu
+      - mu
+      # - 2018_mu
+      # - 2017_mu
+      # - 2016A-B_mu
+      # - 2016C-L_mu
+      # - 2015_mu
     label:
       - "mu SR"
-      - "MadGraph"
-    lumi: "2018+2017+2016A-B+2016C-L+2015"
+      - "Sherpa2.2.11"
+    lumi: "2018"
+    # lumi: "2018+2017+2016A-B+2016C-L+2015"
