@@ -131,7 +131,7 @@ class CanvasBase(object):
         # x-axis
         proxy.GetXaxis().SetTitleFont(43)
         proxy.GetXaxis().SetTitleSize(32)
-        proxy.GetXaxis().SetTitleOffset(1.0 / y)
+        proxy.GetXaxis().SetTitleOffset(1.0 - self.offset)
         proxy.GetXaxis().SetLabelFont(43)
         proxy.GetXaxis().SetLabelSize(32)
         proxy.GetXaxis().SetLabelOffset(0.005)
@@ -492,7 +492,7 @@ class Canvas2(CanvasBase):
             self.pad2.cd()
             self.proxy_dn = self.make_proxy_histogram(h, self.variable, "dn")
             self.set_axis_title(self.proxy_dn, "Data / MC" if self.y_split else "")
-            self.set_axis_text_size(self.proxy_dn, self.y_split + self.offset)
+            self.set_axis_text_size(self.proxy_dn)
             self.set_ratio_range(0.75, 1.24)
             self.set_x_range(self.proxy_dn)
 
@@ -577,7 +577,7 @@ class CanvasMCRatio(Canvas2):
             self.pad2.cd()
             self.proxy_dn = self.make_proxy_histogram(h, self.variable, "dn")
             self.set_axis_title(self.proxy_dn, self.ratio_title if self.y_split else "")
-            self.set_axis_text_size(self.proxy_dn, self.y_split + self.offset)
+            self.set_axis_text_size(self.proxy_dn)
             self.set_ratio_range(self.ratio_range[0], self.ratio_range[1], override=True)
             self.set_x_range(self.proxy_dn)
 
