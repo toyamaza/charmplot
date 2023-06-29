@@ -158,7 +158,7 @@ class TopTruthSamples(ChannelTemplate):
 
 class WDFlavourSamples(ChannelTemplate):
 
-    samplesConf = "madgraph"
+    samplesConf = "sherpa2211"
     data = "Data"
 
     samples = [

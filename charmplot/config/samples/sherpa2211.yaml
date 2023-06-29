@@ -223,3 +223,20 @@ Zjets_MG:
   subtract:
   fillColor: "11000"
   legendLabel: "Z+jets"
+
+DibosonZjets:
+  add:
+    - Diboson
+    - Sh_2211_Zjets_tau
+    - Sh_2211_Zjets_light_emu
+  subtract:
+  fillColor: "15000"
+  legendLabel: Other
+  shortName: DibosonZjets
+
+Multijet_MatrixMethod:
+  add: data
+  subtract:
+  fillColor: "15002"
+  legendLabel: Multijet
+  shortName: Multijet_MatrixMethod
