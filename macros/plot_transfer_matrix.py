@@ -643,7 +643,7 @@ def main(options, args):
                 z = h_fid_eff[samples[0]].GetBinContent(i, j)
                 h_fid_eff[samples[0]].SetBinContent(i, j, 100 * z / integral)
         h_fid_eff[samples[0]].SetMaximum(25.)
-        h_fid_eff[samples[0]].GetZaxis().SetTitle("Normalized Detector Response Matrix")
+        h_fid_eff[samples[0]].GetZaxis().SetTitle("Matrix element content [%]")
         h_fid_eff[samples[0]].GetZaxis().SetTitleSize(h_fid_eff[samples[0]].GetZaxis().GetTitleSize() * 0.9)
         canv5.Update()
 
