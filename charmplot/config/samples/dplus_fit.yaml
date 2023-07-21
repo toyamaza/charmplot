@@ -9,7 +9,7 @@ Data:
 # ---------------------------------------------
 Sherpa2211_WplusD_Matched:
   add:
-    - Sh_2211_WplusD
+    - Sh_WplusD
   subtract:
   fillColor: "10004"
   legendLabel: "W+#it{D}(#it{K}#pi#pi)"
@@ -18,7 +18,7 @@ Sherpa2211_WplusD_Matched:
 
 Sherpa2211_WplusD_Matched_truth_pt_bin1:
   add:
-    - Sh_2211_WplusD
+    - Sh_WplusD
   subtract:
   fillColor: "14000"
   legendLabel: "W+#it{D} (bin 1)"
@@ -27,7 +27,7 @@ Sherpa2211_WplusD_Matched_truth_pt_bin1:
 
 Sherpa2211_WplusD_Matched_truth_pt_bin2:
   add:
-    - Sh_2211_WplusD
+    - Sh_WplusD
   subtract:
   fillColor: "14001"
   legendLabel: "W+#it{D} (bin 2)"
@@ -36,7 +36,7 @@ Sherpa2211_WplusD_Matched_truth_pt_bin2:
 
 Sherpa2211_WplusD_Matched_truth_pt_bin3:
   add:
-    - Sh_2211_WplusD
+    - Sh_WplusD
   subtract:
   fillColor: "14002"
   legendLabel: "W+#it{D} (bin 3)"
@@ -45,7 +45,7 @@ Sherpa2211_WplusD_Matched_truth_pt_bin3:
 
 Sherpa2211_WplusD_Matched_truth_pt_bin4:
   add:
-    - Sh_2211_WplusD
+    - Sh_WplusD
   subtract:
   fillColor: "14003"
   legendLabel: "W+#it{D} (bin 4)"
@@ -54,7 +54,7 @@ Sherpa2211_WplusD_Matched_truth_pt_bin4:
 
 Sherpa2211_WplusD_Matched_truth_pt_bin5:
   add:
-    - Sh_2211_WplusD
+    - Sh_WplusD
   subtract:
   fillColor: "14004"
   legendLabel: "W+#it{D} (bin 5)"
@@ -63,7 +63,7 @@ Sherpa2211_WplusD_Matched_truth_pt_bin5:
 
 Sherpa2211_WplusD_Matched_truth_eta_bin1:
   add:
-    - Sh_2211_WplusD
+    - Sh_WplusD
   subtract:
   fillColor: "14000"
   legendLabel: "W+#it{D} (bin 1)"
@@ -72,7 +72,7 @@ Sherpa2211_WplusD_Matched_truth_eta_bin1:
 
 Sherpa2211_WplusD_Matched_truth_eta_bin2:
   add:
-    - Sh_2211_WplusD
+    - Sh_WplusD
   subtract:
   fillColor: "14001"
   legendLabel: "W+#it{D} (bin 2)"
@@ -81,7 +81,7 @@ Sherpa2211_WplusD_Matched_truth_eta_bin2:
 
 Sherpa2211_WplusD_Matched_truth_eta_bin3:
   add:
-    - Sh_2211_WplusD
+    - Sh_WplusD
   subtract:
   fillColor: "14002"
   legendLabel: "W+#it{D} (bin 3)"
@@ -90,7 +90,7 @@ Sherpa2211_WplusD_Matched_truth_eta_bin3:
 
 Sherpa2211_WplusD_Matched_truth_eta_bin4:
   add:
-    - Sh_2211_WplusD
+    - Sh_WplusD
   subtract:
   fillColor: "14003"
   legendLabel: "W+#it{D} (bin 4)"
@@ -99,7 +99,7 @@ Sherpa2211_WplusD_Matched_truth_eta_bin4:
 
 Sherpa2211_WplusD_Matched_truth_eta_bin5:
   add:
-    - Sh_2211_WplusD
+    - Sh_WplusD
   subtract:
   fillColor: "14004"
   legendLabel: "W+#it{D} (bin 5)"
@@ -108,10 +108,10 @@ Sherpa2211_WplusD_Matched_truth_eta_bin5:
 
 Sherpa2211_Wjets_MisMatched:
   add:
-    - Sh_2211_Wjets_cjets_emu
-    - Sh_2211_Wjets_bjets_emu
-    - Sh_2211_Wjets_light_emu
-    - Sh_2211_Wjets_tau
+    - Sh_Wjets_cjets_emu
+    - Sh_Wjets_bjets_emu
+    - Sh_Wjets_light_emu
+    - Sh_Wjets_tau
   subtract:
   fillColor: "11004"
   legendLabel: "W+c^{mis-match}"
@@ -119,10 +119,10 @@ Sherpa2211_Wjets_MisMatched:
 
 Sherpa2211_Wjets_Rest:
   add:
-    - Sh_2211_Wjets_cjets_emu
-    - Sh_2211_Wjets_bjets_emu
-    - Sh_2211_Wjets_light_emu
-    - Sh_2211_Wjets_tau
+    - Sh_Wjets_cjets_emu
+    - Sh_Wjets_bjets_emu
+    - Sh_Wjets_light_emu
+    - Sh_Wjets_tau
   subtract:
   fillColor: "11002"
   legendLabel: "W+jets"
@@ -147,10 +147,10 @@ Sherpa2211_Wjets_MisMatched_PostProc:
 
 Sherpa2211_Wjets:
   add:
-    - Sh_2211_Wjets_cjets_emu
-    - Sh_2211_Wjets_bjets_emu
-    - Sh_2211_Wjets_light_emu
-    - Sh_2211_Wjets_tau
+    - Sh_Wjets_cjets_emu
+    - Sh_Wjets_bjets_emu
+    - Sh_Wjets_light_emu
+    - Sh_Wjets_tau
   subtract:
   fillColor: "10004"
   legendLabel: "W+jets"
@@ -638,7 +638,7 @@ Diboson:
 DibosonZjets:
   add:
     - Diboson
-    - Sherpa2211_Zjets
+    - Sh_Zjets
   subtract:
   fillColor: "15000"
   legendLabel: Other
@@ -875,7 +875,7 @@ Sherpa_MG_Wjets_Bkg_PostProc:
 # ---------------------------------------------
 Sherpa2211_WplusD_Matched_Fit:
   add:
-    - Sh_2211_WplusD
+    - Sh_WplusD
   subtract:
   lineColor: "ROOT.kGray+2"
   legendLabel: "Sh (Fit)"
@@ -884,7 +884,7 @@ Sherpa2211_WplusD_Matched_Fit:
 
 Sherpa2211_WplusD_Matched_Fit_up:
   add:
-    - Sh_2211_WplusD
+    - Sh_WplusD
   subtract:
   lineColor: "ROOT.kRed"
   legendLabel: "Sh (Fit +1 #sigma)"
@@ -893,7 +893,7 @@ Sherpa2211_WplusD_Matched_Fit_up:
 
 Sherpa2211_WplusD_Matched_Fit_dn:
   add:
-    - Sh_2211_WplusD
+    - Sh_WplusD
   subtract:
   lineColor: "ROOT.kBlue"
   legendLabel: "Sh (Fit -1 #sigma)"

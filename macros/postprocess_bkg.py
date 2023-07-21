@@ -14,11 +14,11 @@ def main(options, args):
             "regions": ["MisMatched", "MatchedNoFid"],
         },
         "Sh_Wjets_Rest": {
-            "inputs": ["Sh_2211_Wjets_light_emu", "Sh_2211_Wjets_cjets_emu", "Sh_2211_Wjets_bjets_emu", "Sh_2211_Wjets_tau"],
+            "inputs": ["Sh_Wjets_light_emu", "Sh_Wjets_cjets_emu", "Sh_Wjets_bjets_emu", "Sh_Wjets_tau"],
             "regions": ["HardMisMatched", "Other"],
         },
         "Sh_Wjets_MisMatched": {
-            "inputs": ["Sh_2211_Wjets_light_emu", "Sh_2211_Wjets_cjets_emu", "Sh_2211_Wjets_bjets_emu", "Sh_2211_Wjets_tau"],
+            "inputs": ["Sh_Wjets_light_emu", "Sh_Wjets_cjets_emu", "Sh_Wjets_bjets_emu", "Sh_Wjets_tau"],
             "regions": ["MisMatched", "MatchedNoFid"],
         },
     }

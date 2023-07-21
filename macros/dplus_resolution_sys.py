@@ -82,10 +82,10 @@ def make_legend(N):
 def main(options):
 
     if "Dplus" in options.decay:
-        shutil.copy("Sh_2211_WplusD.root", "Sh_2211_WplusD.root.BAK")
-        shutil.copy("Sh_2211_WplusD.root", "Sh_2211_WplusD_2.root")
+        shutil.copy("Sh_WplusD.root", "Sh_WplusD.root.BAK")
+        shutil.copy("Sh_WplusD.root", "Sh_WplusD_2.root")
 
-        f = ROOT.TFile("Sh_2211_WplusD_2.root", "UPDATE")
+        f = ROOT.TFile("Sh_WplusD_2.root", "UPDATE")
 
         var = "m"
     else:

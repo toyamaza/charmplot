@@ -55,9 +55,9 @@ Sherpa2210_Wjets_emu_Matched:
 
 Sherpa2211_Wjets:
   add:
-    - Sh_2211_Wjets_cjets_emu
-    - Sh_2211_Wjets_bjets_emu
-    - Sh_2211_Wjets_light_emu
+    - Sh_Wjets_cjets_emu
+    - Sh_Wjets_bjets_emu
+    - Sh_Wjets_light_emu
   subtract:
   lineColor: "ROOT.kGreen"
   legendLabel: "Sh2.2.11 W+jets"
@@ -65,9 +65,9 @@ Sherpa2211_Wjets:
 
 Sherpa2211_Wjets_emu_Matched:
   add:
-    - Sh_2211_Wjets_cjets_emu
-    - Sh_2211_Wjets_bjets_emu
-    - Sh_2211_Wjets_light_emu
+    - Sh_Wjets_cjets_emu
+    - Sh_Wjets_bjets_emu
+    - Sh_Wjets_light_emu
   subtract:
   lineColor: "ROOT.kGreen"
   legendLabel: "Sh2.2.11 W+jets"
@@ -75,9 +75,9 @@ Sherpa2211_Wjets_emu_Matched:
 
 Sherpa2211_Wjets_emu_411MisMatched:
   add:
-    - Sh_2211_Wjets_cjets_emu
-    - Sh_2211_Wjets_bjets_emu
-    - Sh_2211_Wjets_light_emu
+    - Sh_Wjets_cjets_emu
+    - Sh_Wjets_bjets_emu
+    - Sh_Wjets_light_emu
   subtract:
   lineColor: "ROOT.kGreen"
   legendLabel: "Sh2.2.11 W+jets"
@@ -85,7 +85,7 @@ Sherpa2211_Wjets_emu_411MisMatched:
 
 Sherpa2211_WplusD:
   add:
-    - Sh_2211_WplusD
+    - Sh_WplusD
   subtract:
   lineColor: "ROOT.kBlue"
   legendLabel: "Sh2.2.11 W+D"
@@ -125,7 +125,7 @@ MG_NLO_WplusD_prompt:
 
 Sherpa2211_WplusD_Loose:
   add:
-    - Sh_2211_WplusD
+    - Sh_WplusD
   subtract:
   lineColor: "ROOT.kBlue"
   legendLabel: "Sh2.2.11 W+D Loose"
@@ -160,9 +160,9 @@ Sherpa_Wjets_emu_Matched_Loose:
 
 Sh2211_Wjets_emu_Matched:
   add:
-    - Sh_2211_Wjets_bjets_emu
-    - Sh_2211_Wjets_cjets_emu
-    - Sh_2211_Wjets_light_emu
+    - Sh_Wjets_bjets_emu
+    - Sh_Wjets_cjets_emu
+    - Sh_Wjets_light_emu
   subtract:
   lineColor: "ROOT.kGreen"
   legendLabel: "Sh2.2.11"
@@ -170,9 +170,9 @@ Sh2211_Wjets_emu_Matched:
 
 Sh2211_Wjets_emu_Matched_Loose:
   add:
-    - Sh_2211_Wjets_bjets_emu
-    - Sh_2211_Wjets_cjets_emu
-    - Sh_2211_Wjets_light_emu
+    - Sh_Wjets_bjets_emu
+    - Sh_Wjets_cjets_emu
+    - Sh_Wjets_light_emu
   subtract:
   lineColor: "ROOT.kGreen+2"
   legendLabel: "Sh2.2.11"

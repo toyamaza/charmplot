@@ -6,33 +6,33 @@ Data:
 
 Zjets:
   add:
-    - Sherpa2211_Zjets
+    - Sh_Zjets
   subtract:
   fillColor: "11000"
   legendLabel: "Z+jets"
 
 Wjets_light_emu:
   add:
-    - Sh_2211_Wjets_light_emu
-    - Sh_2211_Wjets_tau
+    - Sh_Wjets_light_emu
+    - Sh_Wjets_tau
   subtract:
   fillColor: "10000"
   legendLabel: "W#rightarrowl#nu + u"
 
 Wjets_bjets_emu:
-  add: Sh_2211_Wjets_bjets_emu
+  add: Sh_Wjets_bjets_emu
   subtract:
   fillColor: "10001"
   legendLabel: "W#rightarrowl#nu + b"
 
 Wjets_cjets_emu:
-  add: Sh_2211_Wjets_cjets_emu
+  add: Sh_Wjets_cjets_emu
   subtract:
   fillColor: "10002"
   legendLabel: "W#rightarrowl#nu + c"
 
 Wjets_tau:
-  add: Sh_2211_Wjets_tau
+  add: Sh_Wjets_tau
   subtract:
   fillColor: "10003"
   legendLabel: "W#rightarrow#tau#nu"
@@ -66,7 +66,7 @@ Diboson:
 Other:
   add: 
     - Diboson
-    - Sherpa2211_Zjets
+    - Sh_Zjets
   subtract:
   fillColor: "13000"
   legendLabel: Z+jets + VV
@@ -83,14 +83,14 @@ MockMC_minus_MC:
     - data
   subtract:
     - Diboson
-    - Sherpa2211_Zjets
+    - Sh_Zjets
     - Top_single_top
     - Top_ttx
     - Top_ttbar_Shower
-    - Sh_2211_Wjets_tau
-    - Sh_2211_Wjets_cjets_emu
-    - Sh_2211_Wjets_bjets_emu
-    - Sh_2211_Wjets_light_emu
+    - Sh_Wjets_tau
+    - Sh_Wjets_cjets_emu
+    - Sh_Wjets_bjets_emu
+    - Sh_Wjets_light_emu
   fillColor: "13001"
   legendLabel: "Ch. Symm."
   shortName: MockMC_minus_MC

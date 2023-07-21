@@ -6,9 +6,9 @@ Data:
 
 Wjets_emu_Matched:
   add:
-    - Sh_2211_Wjets_bjets_emu
-    - Sh_2211_Wjets_cjets_emu
-    - Sh_2211_Wjets_light_emu
+    - Sh_Wjets_bjets_emu
+    - Sh_Wjets_cjets_emu
+    - Sh_Wjets_light_emu
   subtract:
   fillColor: "10004"
   legendLabel: "W+#it{D}(#it{K}#pi#pi)"
@@ -16,9 +16,9 @@ Wjets_emu_Matched:
 
 Wjets_emu_Charm:
   add:
-    - Sh_2211_Wjets_bjets_emu
-    - Sh_2211_Wjets_cjets_emu
-    - Sh_2211_Wjets_light_emu
+    - Sh_Wjets_bjets_emu
+    - Sh_Wjets_cjets_emu
+    - Sh_Wjets_light_emu
   subtract:
   # fillColor: "16000"
   fillColor: "10001"
@@ -27,9 +27,9 @@ Wjets_emu_Charm:
 
 Wjets_emu_MisMatched:
   add:
-    - Sh_2211_Wjets_bjets_emu
-    - Sh_2211_Wjets_cjets_emu
-    - Sh_2211_Wjets_light_emu
+    - Sh_Wjets_bjets_emu
+    - Sh_Wjets_cjets_emu
+    - Sh_Wjets_light_emu
   subtract:
   fillColor: "11004"
   legendLabel: "W+c^{mis-match}"
@@ -37,9 +37,9 @@ Wjets_emu_MisMatched:
 
 Wjets_emu_Rest:
   add:
-    - Sh_2211_Wjets_bjets_emu
-    - Sh_2211_Wjets_cjets_emu
-    - Sh_2211_Wjets_light_emu
+    - Sh_Wjets_bjets_emu
+    - Sh_Wjets_cjets_emu
+    - Sh_Wjets_light_emu
   subtract:
   fillColor: "11002"
   legendLabel: "W+jets"

@@ -5,8 +5,8 @@ channels:
     label:
     - W(#rightarrowl#nu) + D(#rightarrowK#pi#pi), OS-SS
     - W^{#pm} channel, 0tag
-    - MG+Py8 W+jets
-    lumi: '2018'
+    - MG+Py8 (FxFx) W+jets
+    lumi: '2015+2016'
     regions: &id001
     - mu_minus_SR_0tag_Dplus_OS
     - mu_plus_SR_0tag_Dplus_OS
@@ -17,12 +17,12 @@ channels:
     - -el_minus_SR_0tag_Dplus_SS
     - -el_plus_SR_0tag_Dplus_SS
     samples:
-    - MGPy8EG_NLO_WplusD_Matched | OS-SS_0tag_Dplus_Matched
-    - MG_Wjets_Charm | OS-SS_0tag_Dplus_MatchedCharm
-    - MG_Wjets_MisMatched | OS-SS_0tag_Dplus_MisMatched
-    - MG_Wjets_Rest | OS-SS_0tag_Dplus_Rest
+    - MGPy8EG_FxFx_WplusD_Matched | OS-SS_0tag_Dplus_Matched
+    - MGPy8EG_FxFx_Wjets_Charm | OS-SS_0tag_Dplus_MatchedCharm
+    - MGPy8EG_FxFx_Wjets_MisMatched | OS-SS_0tag_Dplus_MisMatched
+    - MGPy8EG_FxFx_Wjets_Rest | OS-SS_0tag_Dplus_Rest
     - Top | OS-SS_0tag_Dplus_Plain
-    - DibosonZjets | OS-SS_0tag_Dplus_Plain
+    - DibosonZjets_FxFx | OS-SS_0tag_Dplus_Plain
     - Multijet_MatrixMethod | OS-SS_0tag_Dplus_MatrixMethod
     save_to_file: true
   OS-SS_0tag_Dplus_Matched:

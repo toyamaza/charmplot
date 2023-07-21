@@ -6,71 +6,71 @@ Data:
 
 Wjets:
   add:
-    - Sh_2211_Wjets_light_emu
-    - Sh_2211_Wjets_cjets_emu
-    - Sh_2211_Wjets_bjets_emu
-    - Sh_2211_Wjets_tau
+    - Sh_Wjets_light_emu
+    - Sh_Wjets_cjets_emu
+    - Sh_Wjets_bjets_emu
+    - Sh_Wjets_tau
   subtract:
   fillColor: "10000"
   legendLabel: "W+jets"
 
 Wjets_emu:
   add:
-    - Sh_2211_Wjets_light_emu
-    - Sh_2211_Wjets_cjets_emu
-    - Sh_2211_Wjets_bjets_emu
+    - Sh_Wjets_light_emu
+    - Sh_Wjets_cjets_emu
+    - Sh_Wjets_bjets_emu
   subtract:
   fillColor: "10000"
   legendLabel: W#rightarrowl#nu
 
 Zjets:
   add:
-    - Sh_2211_Zjets_emu
-    - Sh_2211_Zjets_tau
+    - Sh_Zjets_emu
+    - Sh_Zjets_tau
   subtract:
   fillColor: "11000"
   legendLabel: "Z+jets"
 
 Wjets_light_emu:
   add:
-    - Sh_2211_Wjets_light_emu
+    - Sh_Wjets_light_emu
   subtract:
   fillColor: "10000"
   legendLabel: "W#rightarrowl#nu + u"
 
 Wjets_bjets_emu:
-  add: Sh_2211_Wjets_bjets_emu
+  add: Sh_Wjets_bjets_emu
   subtract:
   fillColor: "10001"
   legendLabel: "W#rightarrowl#nu + b"
 
 Wjets_cjets_emu:
-  add: Sh_2211_Wjets_cjets_emu
+  add: Sh_Wjets_cjets_emu
   subtract:
   fillColor: "10002"
   legendLabel: "W#rightarrowl#nu + c"
 
 Wjets_emu_light:
   add:
-    - Sh_2211_Wjets_light_emu
+    - Sh_Wjets_light_emu
   subtract:
   lineColor: "11002"
   legendLabel: "W#rightarrowl#nu + u"
 
 Wjets_emu_bjets:
-  add: Sh_2211_Wjets_bjets_emu
+  add: Sh_Wjets_bjets_emu
   subtract:
   lineColor: "10002"
   legendLabel: "W#rightarrowl#nu + b"
 
 Wjets_emu_cjets:
-  add: Sh_2211_Wjets_cjets_emu
+  add: Sh_Wjets_cjets_emu
   subtract:
   lineColor: "10004"
   legendLabel: "W#rightarrowl#nu + c"
 
 Wjets_tau:
-  add: Sh_2211_Wjets_tau
+  add: Sh_Wjets_tau
   subtract:
   fillColor: "10003"
   legendLabel: "W#rightarrow#tau#nu"
@@ -111,11 +111,11 @@ Diboson:
 Multijet:
   add: data
   subtract:
-    - Sh_2211_Wjets_light_emu
-    - Sh_2211_Wjets_cjets_emu
-    - Sh_2211_Wjets_bjets_emu
-    - Sh_2211_Wjets_tau
-    - Sherpa2211_Zjets
+    - Sh_Wjets_light_emu
+    - Sh_Wjets_cjets_emu
+    - Sh_Wjets_bjets_emu
+    - Sh_Wjets_tau
+    - Sh_Zjets
     - Top_ttbar
     - Top_single_top
     - Top_ttx
@@ -126,90 +126,90 @@ Multijet:
 
 Wjets_light_ftag:
   add:
-    - Sh_2211_Wjets_light_emu
-    - Sh_2211_Wjets_cjets_emu
-    - Sh_2211_Wjets_bjets_emu
-    - Sh_2211_Wjets_tau
+    - Sh_Wjets_light_emu
+    - Sh_Wjets_cjets_emu
+    - Sh_Wjets_bjets_emu
+    - Sh_Wjets_tau
   subtract:
   fillColor: "10000"
   legendLabel: "W#rightarrowl#nu + u"
 
 Wjets_bjets_ftag:
   add:
-    - Sh_2211_Wjets_light_emu
-    - Sh_2211_Wjets_cjets_emu
-    - Sh_2211_Wjets_bjets_emu
-    - Sh_2211_Wjets_tau
+    - Sh_Wjets_light_emu
+    - Sh_Wjets_cjets_emu
+    - Sh_Wjets_bjets_emu
+    - Sh_Wjets_tau
   subtract:
   fillColor: "10001"
   legendLabel: "W#rightarrowl#nu + b"
 
 Wjets_cjets_ftag:
   add:
-    - Sh_2211_Wjets_light_emu
-    - Sh_2211_Wjets_cjets_emu
-    - Sh_2211_Wjets_bjets_emu
-    - Sh_2211_Wjets_tau
+    - Sh_Wjets_light_emu
+    - Sh_Wjets_cjets_emu
+    - Sh_Wjets_bjets_emu
+    - Sh_Wjets_tau
   subtract:
   fillColor: "10002"
   legendLabel: "W#rightarrowl#nu + c"
 
 Wjets_tau_ftag:
   add:
-    - Sh_2211_Wjets_light_emu
-    - Sh_2211_Wjets_cjets_emu
-    - Sh_2211_Wjets_bjets_emu
-    - Sh_2211_Wjets_tau
+    - Sh_Wjets_light_emu
+    - Sh_Wjets_cjets_emu
+    - Sh_Wjets_bjets_emu
+    - Sh_Wjets_tau
   subtract:
   fillColor: "10003"
   legendLabel: "W#rightarrowl#nu + #tau"
 
 Wjets_cjets_dplus_ftag:
   add:
-    - Sh_2211_Wjets_light_emu
-    - Sh_2211_Wjets_cjets_emu
-    - Sh_2211_Wjets_bjets_emu
-    - Sh_2211_Wjets_tau
+    - Sh_Wjets_light_emu
+    - Sh_Wjets_cjets_emu
+    - Sh_Wjets_bjets_emu
+    - Sh_Wjets_tau
   subtract:
   fillColor: "15001"
   legendLabel: "W#rightarrowl#nu + D+"
 
 Wjets_cjets_dzero_ftag:
   add:
-    - Sh_2211_Wjets_light_emu
-    - Sh_2211_Wjets_cjets_emu
-    - Sh_2211_Wjets_bjets_emu
-    - Sh_2211_Wjets_tau
+    - Sh_Wjets_light_emu
+    - Sh_Wjets_cjets_emu
+    - Sh_Wjets_bjets_emu
+    - Sh_Wjets_tau
   subtract:
   fillColor: "15002"
   legendLabel: "W#rightarrowl#nu + D0"
 
 Wjets_cjets_dsubs_ftag:
   add:
-    - Sh_2211_Wjets_light_emu
-    - Sh_2211_Wjets_cjets_emu
-    - Sh_2211_Wjets_bjets_emu
-    - Sh_2211_Wjets_tau
+    - Sh_Wjets_light_emu
+    - Sh_Wjets_cjets_emu
+    - Sh_Wjets_bjets_emu
+    - Sh_Wjets_tau
   subtract:
   fillColor: "15003"
   legendLabel: "W#rightarrowl#nu + Ds"
 
 Wjets_cjets_baryon_ftag:
   add:
-    - Sh_2211_Wjets_light_emu
-    - Sh_2211_Wjets_cjets_emu
-    - Sh_2211_Wjets_bjets_emu
-    - Sh_2211_Wjets_tau
+    - Sh_Wjets_light_emu
+    - Sh_Wjets_cjets_emu
+    - Sh_Wjets_bjets_emu
+    - Sh_Wjets_tau
   subtract:
   fillColor: "15004"
   legendLabel: "W#rightarrowl#nu + #Lambda"
 
 Wjets_cjets_other_ftag:
   add:
-    - Sh_2211_Wjets_light_emu
-    - Sh_2211_Wjets_cjets_emu
-    - Sh_2211_Wjets_bjets_emu
-    - Sh_2211_Wjets_tau
+    - Sh_Wjets_light_emu
+    - Sh_Wjets_cjets_emu
+    - Sh_Wjets_bjets_emu
+    - Sh_Wjets_tau
   subtract:
   fillColor: "15005"
   legendLabel: "W#rightarrowl#nu + c"
@@ -227,8 +227,8 @@ Zjets_MG:
 DibosonZjets:
   add:
     - Diboson
-    - Sh_2211_Zjets_tau
-    - Sh_2211_Zjets_light_emu
+    - Sh_Zjets_tau
+    - Sh_Zjets_light_emu
   subtract:
   fillColor: "15000"
   legendLabel: Other

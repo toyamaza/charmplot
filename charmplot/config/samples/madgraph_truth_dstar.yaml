@@ -10,7 +10,7 @@ Data:
 
 Sherpa2211_WplusD_Matched:
   add:
-    - Sh_2211_WplusD
+    - Sh_WplusD
   subtract:
   fillColor: "10004"
   legendLabel: "W+#it{D*}(#it{K}#pi#pi)"
@@ -19,7 +19,7 @@ Sherpa2211_WplusD_Matched:
 
 Sherpa2211_WplusD_Matched_truth_pt_bin1:
   add:
-    - Sh_2211_WplusD
+    - Sh_WplusD
   subtract:
   fillColor: "14000"
   legendLabel: "W+#it{D*} (bin 1)"
@@ -28,7 +28,7 @@ Sherpa2211_WplusD_Matched_truth_pt_bin1:
 
 Sherpa2211_WplusD_Matched_truth_pt_bin2:
   add:
-    - Sh_2211_WplusD
+    - Sh_WplusD
   subtract:
   fillColor: "14001"
   legendLabel: "W+#it{D*} (bin 2)"
@@ -37,7 +37,7 @@ Sherpa2211_WplusD_Matched_truth_pt_bin2:
 
 Sherpa2211_WplusD_Matched_truth_pt_bin3:
   add:
-    - Sh_2211_WplusD
+    - Sh_WplusD
   subtract:
   fillColor: "14002"
   legendLabel: "W+#it{D*} (bin 3)"
@@ -46,7 +46,7 @@ Sherpa2211_WplusD_Matched_truth_pt_bin3:
 
 Sherpa2211_WplusD_Matched_truth_pt_bin4:
   add:
-    - Sh_2211_WplusD
+    - Sh_WplusD
   subtract:
   fillColor: "14003"
   legendLabel: "W+#it{D*} (bin 4)"
@@ -55,7 +55,7 @@ Sherpa2211_WplusD_Matched_truth_pt_bin4:
 
 Sherpa2211_WplusD_Matched_truth_pt_bin5:
   add:
-    - Sh_2211_WplusD
+    - Sh_WplusD
   subtract:
   fillColor: "14004"
   legendLabel: "W+#it{D*} (bin 5)"
@@ -64,10 +64,10 @@ Sherpa2211_WplusD_Matched_truth_pt_bin5:
 
 Sherpa2211_Wjets_MisMatched:
   add:
-    - Sh_2211_Wjets_cjets_emu
-    - Sh_2211_Wjets_bjets_emu
-    - Sh_2211_Wjets_light_emu
-    - Sh_2211_Wjets_tau
+    - Sh_Wjets_cjets_emu
+    - Sh_Wjets_bjets_emu
+    - Sh_Wjets_light_emu
+    - Sh_Wjets_tau
   subtract:
   fillColor: "11004"
   legendLabel: "W+c^{mis-match}"
@@ -75,10 +75,10 @@ Sherpa2211_Wjets_MisMatched:
 
 Sherpa2211_Wjets_Rest:
   add:
-    - Sh_2211_Wjets_cjets_emu
-    - Sh_2211_Wjets_bjets_emu
-    - Sh_2211_Wjets_light_emu
-    - Sh_2211_Wjets_tau
+    - Sh_Wjets_cjets_emu
+    - Sh_Wjets_bjets_emu
+    - Sh_Wjets_light_emu
+    - Sh_Wjets_tau
   subtract:
   fillColor: "11002"
   legendLabel: "W+jets"
@@ -86,10 +86,10 @@ Sherpa2211_Wjets_Rest:
 
 Sherpa2211_Wjets_Charm:
   add:
-    - Sh_2211_Wjets_cjets_emu
-    - Sh_2211_Wjets_bjets_emu
-    - Sh_2211_Wjets_light_emu
-    - Sh_2211_Wjets_tau
+    - Sh_Wjets_cjets_emu
+    - Sh_Wjets_bjets_emu
+    - Sh_Wjets_light_emu
+    - Sh_Wjets_tau
   subtract:
   fillColor: "10001"
   legendLabel: "W+c^{match}"

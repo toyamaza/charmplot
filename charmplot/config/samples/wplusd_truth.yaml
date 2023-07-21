@@ -57,7 +57,7 @@ MGFxFx_WplusD:
 
 Sherpa2211_WplusD:
   add:
-    - Sh_2211_WplusD
+    - Sh_WplusD
   subtract:
   lineColor: "ROOT.kBlue"
   legendLabel: "Sh2.2.11 W+D"
@@ -65,9 +65,9 @@ Sherpa2211_WplusD:
 
 Sherpa2211_Wjets:
   add:
-    - Sh_2211_Wjets_cjets_emu
-    - Sh_2211_Wjets_bjets_emu
-    - Sh_2211_Wjets_light_emu
+    - Sh_Wjets_cjets_emu
+    - Sh_Wjets_bjets_emu
+    - Sh_Wjets_light_emu
   subtract:
   lineColor: "ROOT.kGreen"
   legendLabel: "Sh2.2.11 W+jets"
