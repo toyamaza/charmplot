@@ -103,6 +103,8 @@ class InputDataReader(object):
         extra_scale = channel.extra_scale
         if sample.channel:
             channel = self.config.get_channel(sample.channel)
+            assert channel, "Channel %s not found" % sample.channel
+            assert sample, "Sample %s not found" % sample.name
             logging.info(f"Using channel {channel.name} for sample {sample.name}")
 
         # looper over input files
