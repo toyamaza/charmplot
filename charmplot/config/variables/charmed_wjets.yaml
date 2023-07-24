@@ -803,91 +803,6 @@ Dmeson_m_cosThetaStar:
   rebin: 10
   ratio_range: [0.5, 1.49]
 
-Dmeson_chi2_x_m0:
-  make_plots: False
-  allow_rebin: False
-#  label: 'D^{#pm} #chi^{2} 0'
-#  rebin: 2
-#  ratio_range: [0.5, 1.49]
-
-Dmeson_chi2_x_m1:
-  make_plots: False
-  allow_rebin: False
-#  label: 'D^{#pm} #chi^{2} 1'
-#  rebin: 2
-#  ratio_range: [0.5, 1.49]
-
-Dmeson_chi2_x_m2:
-  make_plots: False
-  allow_rebin: False
-#  label: 'D^{#pm} #chi^{2} 2'
-#  rebin: 2
-#  ratio_range: [0.5, 1.49]
-
-Dmeson_chi2_x_m3:
-  make_plots: False
-  allow_rebin: False
-#  label: 'D^{#pm} #chi^{2} 3'
-#  rebin: 2
-#  ratio_range: [0.5, 1.49]
-
-Dmeson_chi2_x_m4:
-  make_plots: False
-  allow_rebin: False
-#  label: 'D^{#pm} #chi^{2} 4'
-#  rebin: 2
-#  ratio_range: [0.5, 1.49]
-
-Dmeson_chi2_x_m5:
-  make_plots: False
-  allow_rebin: False
-#  label: 'D^{#pm} #chi^{2} 5'
-#  rebin: 2
-#  ratio_range: [0.5, 1.49]
-
-Dmeson_chi2_x_m6:
-  make_plots: False
-  allow_rebin: False
-#  label: 'D^{#pm} #chi^{2} 6'
-#  rebin: 2
-#  ratio_range: [0.5, 1.49]
-
-Dmeson_chi2_x_m7:
-  make_plots: False
-  allow_rebin: False
-#  label: 'D^{#pm} #chi^{2} 7'
-#  rebin: 2
-#  ratio_range: [0.5, 1.49]
-
-Dmeson_chi2_x_m8:
-  make_plots: False
-  allow_rebin: False
-#  label: 'D^{#pm} #chi^{2} 8'
-#  rebin: 2
-#  ratio_range: [0.5, 1.49]
-
-Dmeson_chi2_x_m9:
-  make_plots: False
-  allow_rebin: False
-#  label: 'D^{#pm} #chi^{2} 9'
-#  rebin: 2
-#  ratio_range: [0.5, 1.49]
-
-# CharmEventInfo_PV_Z:
-#   label: 'PV_{z}'
-#   unit: mm
-#   ratio_range: [0.0, 1.99]
-
-# beamPosX_minus_PVX:
-#   label: 'BS_{x} - PV_{x}'
-#   unit: '#mum'
-#   ratio_range: [0.0, 1.99]
-
-# beamPosY_minus_PVY:
-#   label: 'BS_{y} - PV_{y}'
-#   unit: '#mum'
-#   ratio_range: [0.0, 1.99]
-
 lep_dR_bjet:
   label: '#Delta({b}-jet}, lep)'
   ratio_range: [0.5, 1.49]
@@ -911,22 +826,6 @@ nbjets:
   ratio_range: [0.5, 1.49]
   allow_rebin: False
 
-lep_pt_eta:
-  make_plots: False
-  allow_rebin: False
-
-lep_pt_calo_eta:
-  make_plots: False
-  allow_rebin: False
-
-Dmeson_transfer_matrix:
-  make_plots: False
-  allow_rebin: False
-
-Dmeson_transfer_matrix_eta:
-  make_plots: False
-  allow_rebin: False
-
 Dmeson_differential_pt:
   make_plots: True
   allow_rebin: False
@@ -941,10 +840,6 @@ Dmeson_truth_differential_pt:
 
 Dmeson_truth_differential_lep_eta:
   make_plots: True
-  allow_rebin: False
-
-truth_met_met_resolution:
-  make_plots: False
   allow_rebin: False
 
 truth_Dmeson_pt:
@@ -1097,3 +992,87 @@ Dmeson_peak_track_jet_6_dR:
 Dmeson_peak_track_jet_6_zt:
   label: 'AntiKt6TrackJet D^{#pm} p_{T} / jet p_{T} (peak region)'
   rebin: 4
+
+lep_pt_eta:
+  make_plots: False
+  allow_rebin: False
+
+lep_pt_calo_eta:
+  make_plots: False
+  allow_rebin: False
+
+Dmeson_transfer_matrix:
+  make_plots: False
+  allow_rebin: False
+
+Dmeson_transfer_matrix_eta:
+  make_plots: False
+  allow_rebin: False
+
+Dmeson_transfer_matrix_track_jet_10_pt:
+  make_plots: False
+  allow_rebin: False
+
+Dmeson_transfer_matrix_track_jet_10_zt:
+  make_plots: False
+  allow_rebin: False
+
+Dmeson_transfer_matrix_track_jet_8_pt:
+  make_plots: False
+  allow_rebin: False
+
+Dmeson_transfer_matrix_track_jet_8_zt:
+  make_plots: False
+  allow_rebin: False
+
+Dmeson_transfer_matrix_track_jet_6_pt:
+  make_plots: False
+  allow_rebin: False
+
+Dmeson_transfer_matrix_track_jet_6_zt:
+  make_plots: False
+  allow_rebin: False
+
+truth_met_met_resolution:
+  make_plots: False
+  allow_rebin: False
+
+Dmeson_chi2_x_m0:
+  make_plots: False
+  allow_rebin: False
+
+Dmeson_chi2_x_m1:
+  make_plots: False
+  allow_rebin: False
+
+Dmeson_chi2_x_m2:
+  make_plots: False
+  allow_rebin: False
+
+Dmeson_chi2_x_m3:
+  make_plots: False
+  allow_rebin: False
+
+Dmeson_chi2_x_m4:
+  make_plots: False
+  allow_rebin: False
+
+Dmeson_chi2_x_m5:
+  make_plots: False
+  allow_rebin: False
+
+Dmeson_chi2_x_m6:
+  make_plots: False
+  allow_rebin: False
+
+Dmeson_chi2_x_m7:
+  make_plots: False
+  allow_rebin: False
+
+Dmeson_chi2_x_m8:
+  make_plots: False
+  allow_rebin: False
+
+Dmeson_chi2_x_m9:
+  make_plots: False
+  allow_rebin: False
