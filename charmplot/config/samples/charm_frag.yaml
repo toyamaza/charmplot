@@ -1,0 +1,212 @@
+colorScheme: gemstone_hues
+
+Sherpa2211_Wjets_Matched_OS-SS:
+  add:
+    - Sh_Wjets_cjets_emu
+    - Sh_Wjets_bjets_emu
+    - Sh_Wjets_light_emu
+    - Sh_Wjets_tau
+  subtract:
+  lineColor: "ROOT.kBlack"
+  legendLabel: "W+#it{D}(#it{K}#pi#pi) OS-SS"
+  shortName: Sherpa2211_Wjets_Matched_OS-SS
+
+Sherpa2211_Wjets_Matched_OS:
+  add:
+    - Sh_Wjets_cjets_emu
+    - Sh_Wjets_bjets_emu
+    - Sh_Wjets_light_emu
+    - Sh_Wjets_tau
+  subtract:
+  lineColor: "ROOT.kRed"
+  legendLabel: "W+#it{D}(#it{K}#pi#pi) OS"
+  shortName: Sherpa2211_Wjets_Matched_OS
+
+Sherpa2211_Wjets_Matched_SS:
+  add:
+    - Sh_Wjets_cjets_emu
+    - Sh_Wjets_bjets_emu
+    - Sh_Wjets_light_emu
+    - Sh_Wjets_tau
+  subtract:
+  lineColor: "ROOT.kBlue"
+  legendLabel: "W+#it{D}(#it{K}#pi#pi) SS"
+  shortName: Sherpa2211_Wjets_Matched_SS
+
+Sherpa2211_Wjets_MatchedCharm_OS-SS:
+  add:
+    - Sh_Wjets_cjets_emu
+    - Sh_Wjets_bjets_emu
+    - Sh_Wjets_light_emu
+    - Sh_Wjets_tau
+  subtract:
+  lineColor: "ROOT.kBlack"
+  legendLabel: "W+c^{match} OS-SS"
+  shortName: Sherpa2211_Wjets_MatchedCharm_OS-SS
+
+Sherpa2211_Wjets_MatchedCharm_OS:
+  add:
+    - Sh_Wjets_cjets_emu
+    - Sh_Wjets_bjets_emu
+    - Sh_Wjets_light_emu
+    - Sh_Wjets_tau
+  subtract:
+  lineColor: "ROOT.kRed"
+  legendLabel: "W+c^{match} OS"
+  shortName: Sherpa2211_Wjets_MatchedCharm_OS
+
+Sherpa2211_Wjets_MatchedCharm_SS:
+  add:
+    - Sh_Wjets_cjets_emu
+    - Sh_Wjets_bjets_emu
+    - Sh_Wjets_light_emu
+    - Sh_Wjets_tau
+  subtract:
+  lineColor: "ROOT.kBlue"
+  legendLabel: "W+c^{match} SS"
+  shortName: Sherpa2211_Wjets_MatchedCharm_SS
+
+Sherpa2211_Wjets_MisMatched_OS-SS:
+  add:
+    - Sh_Wjets_cjets_emu
+    - Sh_Wjets_bjets_emu
+    - Sh_Wjets_light_emu
+    - Sh_Wjets_tau
+  subtract:
+  lineColor: "ROOT.kBlack"
+  legendLabel: "W+c^{mis-match} OS-SS"
+  shortName: Sherpa2211_Wjets_MisMatched_OS-SS
+
+Sherpa2211_Wjets_MisMatched_OS:
+  add:
+    - Sh_Wjets_cjets_emu
+    - Sh_Wjets_bjets_emu
+    - Sh_Wjets_light_emu
+    - Sh_Wjets_tau
+  subtract:
+  lineColor: "ROOT.kRed"
+  legendLabel: "W+c^{mis-match} OS"
+  shortName: Sherpa2211_Wjets_MisMatched_OS
+
+Sherpa2211_Wjets_MisMatched_SS:
+  add:
+    - Sh_Wjets_cjets_emu
+    - Sh_Wjets_bjets_emu
+    - Sh_Wjets_light_emu
+    - Sh_Wjets_tau
+  subtract:
+  lineColor: "ROOT.kBlue"
+  legendLabel: "W+c^{mis-match} SS"
+  shortName: Sherpa2211_Wjets_MisMatched_SS
+
+Sherpa2211_Wjets_Rest_OS-SS:
+  add:
+    - Sh_Wjets_cjets_emu
+    - Sh_Wjets_bjets_emu
+    - Sh_Wjets_light_emu
+    - Sh_Wjets_tau
+  subtract:
+  lineColor: "ROOT.kBlack"
+  legendLabel: "W+jets OS-SS"
+  shortName: Sherpa2211_Wjets_Rest_OS-SS
+
+Sherpa2211_Wjets_Rest_OS:
+  add:
+    - Sh_Wjets_cjets_emu
+    - Sh_Wjets_bjets_emu
+    - Sh_Wjets_light_emu
+    - Sh_Wjets_tau
+  subtract:
+  lineColor: "ROOT.kRed"
+  legendLabel: "W+jets OS"
+  shortName: Sherpa2211_Wjets_Rest_OS
+
+Sherpa2211_Wjets_Rest_SS:
+  add:
+    - Sh_Wjets_cjets_emu
+    - Sh_Wjets_bjets_emu
+    - Sh_Wjets_light_emu
+    - Sh_Wjets_tau
+  subtract:
+  lineColor: "ROOT.kBlue"
+  legendLabel: "W+jets SS"
+  shortName: Sherpa2211_Wjets_Rest_SS
+
+Top_OS-SS:
+  add:
+    - Top_ttbar_nonallhad
+    - Top_single_top
+    - Top_ttx
+  subtract:
+  lineColor: "ROOT.kBlack"
+  legendLabel: "t#bar{t} + single top OS-SS"
+  shortName: Top_OS-SS
+
+Top_OS:
+  add:
+    - Top_ttbar_nonallhad
+    - Top_single_top
+    - Top_ttx
+  subtract:
+  lineColor: "ROOT.kRed"
+  legendLabel: "t#bar{t} + single top OS"
+  shortName: Top_OS
+
+Top_SS:
+  add:
+    - Top_ttbar_nonallhad
+    - Top_single_top
+    - Top_ttx
+  subtract:
+  lineColor: "ROOT.kBlue"
+  legendLabel: "t#bar{t} + single top SS"
+  shortName: Top_SS
+
+Zjets_OS-SS:
+  add:
+    - Sh_Zjets
+  subtract:
+  lineColor: "ROOT.kBlack"
+  legendLabel: "Z+jets OS-SS"
+  shortName: Zjets_OS-SS
+
+Zjets_OS:
+  add:
+    - Sh_Zjets
+  subtract:
+  lineColor: "ROOT.kRed"
+  legendLabel: "Z+jets OS"
+  shortName: Zjets_OS
+
+Zjets_SS:
+  add:
+    - Sh_Zjets
+  subtract:
+  lineColor: "ROOT.kBlue"
+  legendLabel: "Z+jets SS"
+  shortName: Zjets_SS
+
+Diboson_OS-SS:
+  add:
+    - Diboson
+  subtract:
+  lineColor: "ROOT.kBlack"
+  legendLabel: "Diboson OS-SS"
+  shortName: Diboson_OS-SS
+
+Diboson_OS:
+  add:
+    - Diboson
+  subtract:
+  lineColor: "ROOT.kRed"
+  legendLabel: "Diboson OS"
+  shortName: Diboson_OS
+
+Diboson_SS:
+  add:
+    - Diboson
+  subtract:
+  lineColor: "ROOT.kBlue"
+  legendLabel: "Diboson SS"
+  shortName: Diboson_SS
+

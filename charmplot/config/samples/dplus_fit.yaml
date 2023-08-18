@@ -106,6 +106,17 @@ Sherpa2211_WplusD_Matched_truth_eta_bin5:
   shortName: Sherpa2211_WplusD_Matched_truth_eta_bin5
   scaleMC: 0.094
 
+Sherpa2211_Wjets_Matched:
+  add:
+    - Sh_Wjets_cjets_emu
+    - Sh_Wjets_bjets_emu
+    - Sh_Wjets_light_emu
+    - Sh_Wjets_tau
+  subtract:
+  fillColor: "10004"
+  legendLabel: "W+#it{D}(#it{K}#pi#pi)"
+  shortName: Sherpa2211_Wjets_Matched
+
 Sherpa2211_Wjets_MisMatched:
   add:
     - Sh_Wjets_cjets_emu
@@ -116,6 +127,17 @@ Sherpa2211_Wjets_MisMatched:
   fillColor: "11004"
   legendLabel: "W+c^{mis-match}"
   shortName: Sherpa2211_Wjets_MisMatched
+
+Sherpa2211_Wjets_Charm:
+  add:
+    - Sh_Wjets_cjets_emu
+    - Sh_Wjets_bjets_emu
+    - Sh_Wjets_light_emu
+    - Sh_Wjets_tau
+  subtract:
+  fillColor: "10001"
+  legendLabel: "W+c^{match}"
+  shortName: Sherpa2211_Wjets_Charm
 
 Sherpa2211_Wjets_Rest:
   add:

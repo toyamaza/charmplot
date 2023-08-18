@@ -4,46 +4,49 @@ Data:
   add: data
   subtract: null
 
-Wjets_emu_Matched:
+Sherpa2211_Wjets_Matched:
   add:
-    - Sh_Wjets_bjets_emu
-    - Sh_Wjets_cjets_emu
-    - Sh_Wjets_light_emu
+    - Sh_2211_Wjets_cjets_emu
+    - Sh_2211_Wjets_bjets_emu
+    - Sh_2211_Wjets_light_emu
+    - Sh_2211_Wjets_tau
   subtract:
   fillColor: "10004"
   legendLabel: "W+#it{D}(#it{K}#pi#pi)"
-  shortName: Wjets_emu_Matched
+  shortName: Sherpa2211_Wjets_Matched
 
-Wjets_emu_Charm:
+Sherpa2211_Wjets_MisMatched:
   add:
-    - Sh_Wjets_bjets_emu
-    - Sh_Wjets_cjets_emu
-    - Sh_Wjets_light_emu
-  subtract:
-  # fillColor: "16000"
-  fillColor: "10001"
-  legendLabel: "W+c^{match}"
-  shortName: Wjets_emu_Charm
-
-Wjets_emu_MisMatched:
-  add:
-    - Sh_Wjets_bjets_emu
-    - Sh_Wjets_cjets_emu
-    - Sh_Wjets_light_emu
+    - Sh_2211_Wjets_cjets_emu
+    - Sh_2211_Wjets_bjets_emu
+    - Sh_2211_Wjets_light_emu
+    - Sh_2211_Wjets_tau
   subtract:
   fillColor: "11004"
   legendLabel: "W+c^{mis-match}"
-  shortName: Wjets_emu_MisMatched
+  shortName: Sherpa2211_Wjets_MisMatched
 
-Wjets_emu_Rest:
+Sherpa2211_Wjets_Rest:
   add:
-    - Sh_Wjets_bjets_emu
-    - Sh_Wjets_cjets_emu
-    - Sh_Wjets_light_emu
+    - Sh_2211_Wjets_cjets_emu
+    - Sh_2211_Wjets_bjets_emu
+    - Sh_2211_Wjets_light_emu
+    - Sh_2211_Wjets_tau
   subtract:
   fillColor: "11002"
   legendLabel: "W+jets"
-  shortName: Wjets_emu_Rest
+  shortName: Sherpa2211_Wjets_Rest
+
+Sherpa2211_Wjets_Charm:
+  add:
+    - Sh_2211_Wjets_cjets_emu
+    - Sh_2211_Wjets_bjets_emu
+    - Sh_2211_Wjets_light_emu
+    - Sh_2211_Wjets_tau
+  subtract:
+  fillColor: "10001"
+  legendLabel: "W+c^{match}"
+  shortName: Sherpa2211_Wjets_Charm
 
 Top:
   add:
@@ -55,18 +58,14 @@ Top:
   legendLabel: Top
   shortName: Top
 
-DibosonVjetsTau:
+DibosonZjets:
   add:
     - Diboson
-    - MG_Zjets_light_emu
-    - MG_Zjets_cjets_emu
-    - MG_Zjets_bjets_emu
-    - MG_Zjets_tau
-    - MG_Wjets_tau
+    - Sherpa2211_Zjets
   subtract:
   fillColor: "15000"
   legendLabel: Other
-  shortName: DibosonVjetsTau
+  shortName: DibosonZjets
 
 Multijet_MatrixMethod:
   add: data
