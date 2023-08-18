@@ -198,7 +198,7 @@ def main(options, conf, reader):
                 if not mc_map[s]:
                     continue
                 mc_map[s].SetLineStyle(s.lineStyle)
-                if mc_map[s].GetLineColor() > 1:
+                if mc_map[s].GetLineColor() >= 1:
                     fcolor = mc_map[s].GetLineColor()
                 else:
                     fcolor = s.fillColor
@@ -210,9 +210,9 @@ def main(options, conf, reader):
                 gr_mc_tot_err.SetFillStyle(3345)
                 gr_mc_stat_err.SetLineColor(fcolor)
                 errors += [gr_mc_tot_err, gr_mc_stat_err]
-                if not options.no_sys_band and not options.normalize:
+                if not options.no_sys_band:
                     gr_mc_tot_err.Draw("e2")
-                    gr_mc_stat_err.Draw("e0")
+                    # gr_mc_stat_err.Draw("e0")
                 if s == samples[0]:
                     gr_mc_stat_err.Draw("e0")
                 mc_map[s].Draw("hist same")
@@ -268,7 +268,7 @@ def main(options, conf, reader):
 
                 h.Divide(denominator)
                 ratios += [h]
-                if mc_map[samples[i]].GetLineColor() > 1:
+                if mc_map[samples[i]].GetLineColor() >= 1:
                     fcolor = mc_map[samples[i]].GetLineColor()
                 else:
                     fcolor = s.fillColor
@@ -285,7 +285,7 @@ def main(options, conf, reader):
                 errors += [gr_mc_tot_err, gr_mc_stat_err]
                 if not options.no_sys_band:
                     gr_mc_tot_err.Draw("e2")
-                    gr_mc_stat_err.Draw("e0")
+                    # gr_mc_stat_err.Draw("e0")
                 if i == 0:
                     gr_mc_stat_err.Draw("e0")
                 h.Draw("hist same")
