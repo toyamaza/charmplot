@@ -38,7 +38,7 @@ def place_images(index_html, channel_folder, vars, x, y):
 
 
 def make_www_folder():
-    www_folder = os.path.join(f"/global/project/projectdirs/atlas/www/{os.environ['USER']}")
+    www_folder = os.path.join(f"/global/cfs/cdirs/atlas/www/{os.environ['USER']}")
     if not os.path.isdir(www_folder):
         os.makedirs(www_folder)
         subprocess.call(['chmod', '777', www_folder])
